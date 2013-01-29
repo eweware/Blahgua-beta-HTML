@@ -281,15 +281,15 @@ function CreateFullBlah() {
     html += '<tr height="48px">';
     html += '<td width="20%"></td>';
     html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png"><br/>';
+    html += '<img width="16px" alt="vote up" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png">';
     html += '<span class="statsText" id="fullBlahUpVote">21</span>';
     html += '</td>';
     html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png"><br/>';
+    html += '<img width="16px" alt="vote down" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png">';
     html += '<span class="statsText" id="fullBlahDownVote">1,563</span>';
     html += '</td>';
     html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_comment.png"><br/>';
+    html += '<img width="16px" alt="comment" src="http://files.blahgua.com/webapp/img/black_comment.png">';
     html += '<span class="statsText" id="fullBlahComments">65</span>';
     html += '</td>';
     html += '<td width="20%"></td></tr>';
@@ -364,7 +364,7 @@ function OpenBlah(whichBlah) {
 function PopulateFullBlah(whichBlah) {
 
     var headlineText = document.getElementById("BlahFullHeadline");
-    headlineText.innerHTML = decodeURIComponent(whichBlah.text);
+    headlineText.innerHTML = unescape(whichBlah.text);
 
 
     var image = getBlahImage(whichBlah);
@@ -400,7 +400,7 @@ function UpdateFullBlahBody(newBlah) {
     }
 
     if (CurrentBlah.hasOwnProperty("b")) {
-        bodyText.innerHTML = decodeURIComponent(CurrentBlah.b);
+        bodyText.innerHTML = unescape(CurrentBlah.b);
     } else {
         bodyText.innerHTML = "";
     }
@@ -430,9 +430,20 @@ function UpdateBlahComments(theComments) {
 }
 
 function createCommentElement(theComment) {
-    var newEl = document.createEventObject("div");
+    var newEl = document.createElement("table");
     newEl.className = "CommentDiv";
-    newEl.innerHTML = theComment.text;
+
+    var newHTML = "";
+    newHTML += '<tr><td colspan="3">';
+    newHTML += '<span class="CommentText">' + unescape(theComment.text) + '</span>';
+    newHTML += '</td></tr>'
+    newHTML += '<tr>';
+    newHTML += '<td></td><span class="CommentAuthor">' + 'A blahger from CA' + '</span></td>';
+    newHTML += '<td></td><span class="CommentDate">' + theComment.created + '</span></td>';
+    newHTML += '<td></td><span class="CommentVotes">' + theComment.cuv + '</span></td>';
+    newHTML += '</tr>'
+
+    newEl.innerHTML = newHTML;
 
     return newEl;
 }

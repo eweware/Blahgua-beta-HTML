@@ -127,7 +127,7 @@
     text-align:center;
     font-weight:bold;
     margin:16px 16px 16px 16px;
-   
+    word-wrap: break-word;
 }
 
 .BlahPreviewTable {
@@ -201,7 +201,7 @@
     text-align:center;
     font-weight:bold;
     margin:16px 16px 16px 16px;
-
+    word-wrap: break-word;
 }
 
 .BlahFullTable {
@@ -244,7 +244,7 @@
     padding-left:16px;
     padding-right:16px;
     padding-bottom:16px;
-
+    word-wrap: break-word;
 }
 
 .BlahCommentBody {
@@ -257,7 +257,18 @@
 }
 
 .CommentDiv {
-    font-size: 12px;
+    font-size: 16px;
+    width:100%;
+    min-width:100%;
+    word-wrap: break-word;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: gray;
+    border-spacing:0px;
 }
 
 .CommentDiv:nth-child(even) {
@@ -268,7 +279,22 @@
     background-color:#d3d3d3;
 }
 
+.CommentAuthor {
+    font-size: 12px;
+    font-style: italic;
 
+}
+
+.CommentDate {
+    font-size: 12px;
+    font-style: italic;
+
+}
+
+.CommentVote {
+    font-size: 12px;
+
+}
 
 .ChannelBanner {
     position: absolute;

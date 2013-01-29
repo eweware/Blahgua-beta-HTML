@@ -509,7 +509,7 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>a list of the comments, if any</returns>
-        var paramStr = '{"blahId":' + blahId + '}';
+        var paramStr = 'blahId=' + blahId;
         var methodName = "comments";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
