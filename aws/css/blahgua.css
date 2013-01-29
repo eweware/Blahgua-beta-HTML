@@ -247,6 +247,28 @@
 
 }
 
+.BlahCommentBody {
+    background-color:#d3d3d3;
+    font-size: 12px;
+}
+
+.NoCommentSpan {
+    font-style: italic;
+}
+
+.CommentDiv {
+    font-size: 12px;
+}
+
+.CommentDiv:nth-child(even) {
+    background-color:white;
+}
+
+.CommentDiv:nth-child(odd) {
+    background-color:#d3d3d3;
+}
+
+
 
 .ChannelBanner {
     position: absolute;

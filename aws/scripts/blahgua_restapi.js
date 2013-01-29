@@ -195,14 +195,7 @@ function BlahguaObject() {
 
 
 
-    this.GetBlahComments = function (OnSuccess, OnFailure) {
-        /// <summary>Returns the comments of the current blah</summary>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>a list of the comments, if any</returns>
-        var paramStr = '{}';
-        this.CallPageMethod("GetBlahComments", paramStr, OnSuccess, OnFailure);
-    };
+
 
     this.AddCommentViewsOpens = function (commentID, numViews, numOpens, OnSuccess, OnFailure) {
         /// <summary>Adds the specified number of views and opens to the blah's stats</summary>
@@ -508,6 +501,16 @@ function BlahguaObject() {
         ///
         var paramStr = '{}';
         var methodName = "users/" + UserID + "/inbox";
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+    this.GetBlahComments = function (blahId, OnSuccess, OnFailure) {
+        /// <summary>Returns the comments of the current blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>a list of the comments, if any</returns>
+        var paramStr = '{"blahId":' + blahId + '}';
+        var methodName = "comments";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 

@@ -190,6 +190,8 @@ function ComputeSizes() {
     $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-100+'px' });
     $("#BlahPreviewContent").css({ 'max-height': windowHeight-260 + 'px'});
     $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
+    $("#FullBlahContent").css({ 'max-height': windowHeight-260 + 'px'});
+
 }
 
 
@@ -234,7 +236,8 @@ function CreatePreviewBlah() {
     html += '<td align="right"><img width="24px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_eye.png">';
     html += '<span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>';
     html += '<tr><td colspan="5" class="BlahPreviewHeadline" id="BlahPreviewHeadline"></td></tr>';
-    html += '<tr height="*"><td colspan="5" align="center"><div class="blah-preview-content" id="BlahPreviewContent">';
+    html += '<tr height="*"><td colspan="5" align="center">';
+    html += '<div class="blah-preview-content" id="FullBlahContent">';
     html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>';
     html += '<tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>';
     html += '</table></div> </td></tr>';
@@ -256,7 +259,12 @@ function CreatePreviewBlah() {
     html += '</table>';
     BlahPreviewItem.innerHTML = html;
     BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
-    BlahPreviewItem.onclick = function() {OpenBlah(FocusedBlah);};
+    BlahPreviewItem.onclick = function() {
+        if (BlahPreviewTimeout != null) {
+            clearTimeout(BlahPreviewTimeout);
+            BlahPreviewTimeout = null;
+        }
+        OpenBlah(FocusedBlah);};
 
 }
 
@@ -269,28 +277,34 @@ function CreateFullBlah() {
     html += '<td align="right"><img width="24px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_eye.png">';
     html += '<span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td></tr>';
     html += '<tr><td colspan="5" class="BlahFullHeadline" id="BlahFullHeadline"></td></tr>';
-    html += '<tr height="*"><td colspan="5" align="center"><div class="FullBlahContent" id="FullBlahContent">';
-    html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
-    html += '<tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>';
-    html += '</table></div> </td></tr>';
+    // add the row of voting buttons
     html += '<tr height="48px">';
     html += '<td width="20%"></td>';
     html += '<td width="20%" align="center">';
     html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png"><br/>';
-    html += '<span class="statsText" id="previewUpVote">21</span>';
+    html += '<span class="statsText" id="fullBlahUpVote">21</span>';
     html += '</td>';
     html += '<td width="20%" align="center">';
     html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png"><br/>';
-    html += '<span class="statsText" id="previewDownVote">1,563</span>';
+    html += '<span class="statsText" id="fullBlahDownVote">1,563</span>';
     html += '</td>';
     html += '<td width="20%" align="center">';
     html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_comment.png"><br/>';
-    html += '<span class="statsText" id="previewComments">65</span>';
+    html += '<span class="statsText" id="fullBlahComments">65</span>';
     html += '</td>';
     html += '<td width="20%"></td></tr>';
+    // add the image and the body
+    html += '<tr height="*"><td colspan="5" align="center">';
+    html += '<div class="FullBlahContent" id="FullBlahContent">';
+    html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
+    html += '<tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>';
+    // add the comment area
+    html += '<tr><td><div class="BlahCommentBody" id="BlahCommentBody"></div></td></tr>';
+    html += '</table></div> </td></tr>';
     html += '</table>';
     BlahFullItem.innerHTML = html;
     BlahFullItem.headline = document.getElementById("BlahFullHeadline");
+    BlahFullItem.headline.onclick = DoCloseBlah;
 }
 
 // ********************************************************
@@ -316,6 +330,18 @@ function DoBlahClick(theEvent) {
     FocusBlah(who);
 }
 
+function DoCloseBlah(theEvent) {
+    CloseBlah();
+}
+
+function CloseBlah() {
+
+    // hide the preview blah and reset the variables
+    UnfocusBlah();
+    $("#BlahFullItem").fadeOut("fast");
+
+}
+
 function StopAnimation() {
     if (BlahsMovingTimer != null) {
         clearTimeout(BlahsMovingTimer);
@@ -329,6 +355,8 @@ function StartAnimation() {
 
 function OpenBlah(whichBlah) {
     StopAnimation();
+    var commentDiv = document.getElementById("BlahCommentBody");
+    commentDiv.innerHTML = "";  // erase existing content
     PopulateFullBlah(whichBlah);
     $(BlahFullItem).fadeIn("fast");
 }
@@ -351,10 +379,10 @@ function PopulateFullBlah(whichBlah) {
     }
 
     // stats
-    document.getElementById("previewUpVote").innerHTML = whichBlah.u;
-    document.getElementById("previewDownVote").innerHTML = whichBlah.d;
-    document.getElementById("previewComments").innerHTML = "";
-    document.getElementById("PreviewViewerCount").innerHTML = whichBlah.o; // change to actual viewers
+    document.getElementById("fullBlahUpVote").innerHTML = whichBlah.u;
+    document.getElementById("fullBlahDownVote").innerHTML = whichBlah.d;
+    document.getElementById("fullBlahComments").innerHTML = "";
+    document.getElementById("FullBlahViewerCount").innerHTML = whichBlah.o; // change to actual viewers
 
     // get the entire blah to update the rest...
     if (CurrentBlah == null) {
@@ -368,15 +396,47 @@ function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
     var bodyText = document.getElementById("BlahFullBody");
     if (CurrentBlah.hasOwnProperty("c")) {
-        document.getElementById("previewComments").innerHTML = theFullBlah.c;  // to do, change to 'c'
+        document.getElementById("fullBlahComments").innerHTML = CurrentBlah.c;  // to do, change to 'c'
     }
 
-    if (theFullBlah.hasOwnProperty("b")) {
+    if (CurrentBlah.hasOwnProperty("b")) {
         bodyText.innerHTML = decodeURIComponent(CurrentBlah.b);
     } else {
         bodyText.innerHTML = "";
     }
+
+    // update the comments
+    if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
+        // blah has comments
+        Blahgua.GetBlahComments(CurrentBlah._id, UpdateBlahComments, OnFailure);
+    } else {
+        // no comments
+        var commentDiv = document.getElementById("BlahCommentBody");
+        var newHTML = "";
+        newHTML += '<span class="NoCommentSpan">No Comments</span>';
+        commentDiv.innerHTML = newHTML;
+    }
 }
+
+
+function UpdateBlahComments(theComments) {
+    var curComment;
+    var commentDiv = document.getElementById("BlahCommentBody");
+    for (i in theComments) {
+        curComment = theComments[i];
+        var commentEl = createCommentElement(curComment);
+        commentDiv.appendChild(commentEl);
+    }
+}
+
+function createCommentElement(theComment) {
+    var newEl = document.createEventObject("div");
+    newEl.className = "CommentDiv";
+    newEl.innerHTML = theComment.text;
+
+    return newEl;
+}
+
 
 function FocusBlah(who) {
     StopAnimation();
