@@ -25,6 +25,7 @@ var BlahPreviewItem;
 var BlahFullItem;
 var FocusedBlah = null;
 var CurrentBlah = null;
+var CurrentComments = null;
 
 
 (function ($) {
@@ -299,7 +300,7 @@ function CreateFullBlah() {
     html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
     html += '<tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>';
     // add the comment area
-    html += '<tr><td><div class="BlahCommentBody" id="BlahCommentBody"></div></td></tr>';
+    html += '<tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>';
     html += '</table></div> </td></tr>';
     html += '</table>';
     BlahFullItem.innerHTML = html;
@@ -408,7 +409,7 @@ function UpdateFullBlahBody(newBlah) {
     // update the comments
     if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
         // blah has comments
-        Blahgua.GetBlahComments(CurrentBlah._id, UpdateBlahComments, OnFailure);
+        Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
     } else {
         // no comments
         var commentDiv = document.getElementById("BlahCommentBody");
@@ -418,35 +419,139 @@ function UpdateFullBlahBody(newBlah) {
     }
 }
 
+function SortAndRedrawComments(theComments) {
+    CurrentComments = theComments;
+    SortComments();
 
-function UpdateBlahComments(theComments) {
+    UpdateBlahComments();
+}
+
+function SortComments() {
+    var SortBy = "newest";
+
+    if (SortBy == "") {
+        SortBy = "newest";
+        $("#SortByList")[0].value = "newest";
+    }
+
+    if (SortBy == "newest") {
+        CurrentComments.sort(dynamicSort("created"));
+        CurrentComments.reverse();
+
+    }
+    else if (SortBy == "oldest") {
+        CurrentComments.sort(dynamicSort("created"));
+    }
+    else if (SortBy == "most_relevant") {
+        // do nothing for now
+    }
+    else if (SortBy == "most_positive") {
+        CurrentComments.sort(dynamicSort("cuv"));
+        CurrentComments.reverse();
+    }
+    else if (SortBy == "most_negative") {
+        // to do:  need to fix for negative comments
+        CurrentComments.sort(dynamicSort("cdv"));
+        CurrentComments.reverse();
+    }
+
+}
+
+function dynamicSort(property, subProp) {
+    return function (a, b) {
+        var aProp = 0;
+        var bProp = 0;
+
+        if (a.hasOwnProperty(property))
+            aProp = a[property];
+
+        if (b.hasOwnProperty(property))
+            bProp = b[property];
+
+        if ((aProp == bProp) && (subProp != null)) {
+            var asProp = 0;
+            var bsProp = 0;
+
+            if (a.hasOwnProperty(subProp))
+                asProp = a[subProp];
+
+            if (b.hasOwnProperty(subProp))
+                bsProp = b[subProp];
+
+            return (asProp < bsProp) ? -1 : (asProp > bsProp) ? 1 : 0;
+        }
+        else {
+            return (aProp < bProp) ? -1 : (aProp > bProp) ? 1 : 0;
+        }
+    }
+}
+
+
+function ElapsedTimeString(theDate) {
+    var now = new Date();
+    var timeSpan = Math.floor((now - theDate) / 1000);
+
+
+    var curYears = Math.floor(timeSpan / 31536000);
+    if (curYears > 0) {
+        if (curYear > 2) {
+            return curYear + " years ago";
+        } else {
+            return Math.floor(timeSpan / 2592000) + " months ago";
+        }
+    }
+
+    var curMonths = Math.floor(timeSpan / 2592000); // average 30 days
+    if (curMonths > 0) {
+        if (curMonths >= 2) {
+            return curMonths + " months ago";
+        } else {
+            return  Math.floor(timeSpan / 604800) + " weeks ago";
+        }
+    }
+
+    var curDays = Math.floor(timeSpan / 86400);
+    if (curDays > 0) {
+        if (curDays >= 2) {
+            return curDays + " days ago";
+        } else {
+            return Math.floor(timeSpan / 3600) + " hours ago";
+        }
+    }
+
+    var curHours = Math.floor(timeSpan / 3600);
+    if (curHours > 0) {
+        if (curHours >= 2) {
+            return curHours + " hours ago";
+        } else {
+            return Math.floor(timeSpan / 60) + " minutes ago";
+        }
+    }
+
+    var curMinutes = Math.floor(timeSpan / 60);
+    if (curMinutes >= 2) {
+        return curMinutes + " minutes ago";
+    }
+
+    if (timeSpan <= 1) {
+        return "just now";
+    } else {
+        return timeSpan + " seconds ago";
+    }
+
+}
+
+
+function UpdateBlahComments() {
     var curComment;
     var commentDiv = document.getElementById("BlahCommentBody");
-    for (i in theComments) {
-        curComment = theComments[i];
+    for (i in CurrentComments) {
+        curComment = CurrentComments[i];
         var commentEl = createCommentElement(curComment);
         commentDiv.appendChild(commentEl);
     }
 }
 
-function createCommentElement(theComment) {
-    var newEl = document.createElement("table");
-    newEl.className = "CommentDiv";
-
-    var newHTML = "";
-    newHTML += '<tr><td colspan="3">';
-    newHTML += '<span class="CommentText">' + unescape(theComment.text) + '</span>';
-    newHTML += '</td></tr>'
-    newHTML += '<tr>';
-    newHTML += '<td></td><span class="CommentAuthor">' + 'A blahger from CA' + '</span></td>';
-    newHTML += '<td></td><span class="CommentDate">' + theComment.created + '</span></td>';
-    newHTML += '<td></td><span class="CommentVotes">' + theComment.cuv + '</span></td>';
-    newHTML += '</tr>'
-
-    newEl.innerHTML = newHTML;
-
-    return newEl;
-}
 
 
 function FocusBlah(who) {
@@ -1114,4 +1219,94 @@ function PostMe(what) {
         processData: false
     });
 }
+
+
+// Create comment HTML
+
+function createCommentElement(theComment) {
+    var newEl = document.createElement("li");
+    newEl.className = "comment";
+
+    var newHTML = "";
+    // button for making complaints about the comment, banning user, etc.
+    newHTML += '<button class="flipdown-btn" role="button" onclick=";return false;" type="button">';
+    newHTML += '<span class="flipdown-btn-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-comment-close" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
+    newHTML += '</span><img class="yt-uix-button-arrow" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif"><div class=" yt-uix-button-menu yt-uix-button-menu-link" style="display: none;"><ul><li class="comment-action-remove comment-action" data-action="remove"><span class="yt-uix-button-menu-item">Remove</span></li><li class="comment-action" data-action="flag-profile-pic"><span class="yt-uix-button-menu-item">Report profile image</span></li><li class="comment-action" data-action="flag"><span class="yt-uix-button-menu-item">Flag for spam</span></li><li class="comment-action-block comment-action" data-action="block"><span class="yt-uix-button-menu-item">Block User</span></li><li class="comment-action-unblock comment-action" data-action="unblock"><span class="yt-uix-button-menu-item">Unblock User</span></li></ul></div></button>';
+    // user image
+    newHTML += '<a class="user-image" href="/user/username">';
+    newHTML += '<span class="user-image-thumbnail">';
+    newHTML += '<img width="48" alt="Username" src="http://files.blahgua.com/images/unknown-user.png">';
+    newHTML += '</span></a>';
+
+    // content
+    newHTML += '<div class="comment-content">';
+    // meta-data
+    newHTML += '<p class="comment-metadata">';
+    newHTML += '<span class="CommentAuthor">';
+    newHTML += '<a class="hyperlink-user-name " dir="ltr" href="/user/BolasDaGrk"">A blahger</a>';
+    newHTML += '</span>';
+    newHTML += '<span class="CommentDate" dir="ltr">';
+    newHTML += '<a dir="ltr" href="http://www.youtube.com/comment?lc=H0xVMasH7mGuJ2OEd_AWMfR39I-oktns87uHdahKtSw">';
+    newHTML += ElapsedTimeString(new Date(theComment.created));
+    newHTML += '</a></span></p>';
+
+    // comment text
+    newHTML += '<div class="CommentText" dir="ltr">';
+    newHTML += '<p>' + URLifyText(unescape(theComment.text)).replace(/\n/g, "<br/>"); + '</p>';
+    newHTML += '</div>';
+
+    // comment actions
+    newHTML += '<div class="comment-actions">';
+    // inspect (drill down)
+    newHTML += '    <a class="inspect-btn"  onclick=";return false;">Inspect </a>';
+    newHTML += '    <span class="separator">·</span>';
+
+    // vote up
+    newHTML += '<span class="yt-uix-clickcard">';
+    newHTML += '  <button title="" class="start comment-action-vote-up comment-action yt-uix-clickcard-target yt-uix-button yt-uix-button-link yt-uix-tooltip yt-uix-button-empty" role="button" onclick=";return false;" type="button" data-tooltip-show-delay="300" data-action="">';
+    newHTML += '    <span class="yt-uix-button-icon-wrapper">';
+    newHTML += '      <img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" alt="" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
+    newHTML += '      <span class="yt-uix-button-valign"></span>';
+    newHTML += '    </span>';
+    newHTML +=   '</button>';
+    newHTML += '</span> ';
+
+    // vote down
+    newHTML += '<span class="yt-uix-clickcard">';
+    newHTML += '<button title="" class="end comment-action-vote-down comment-action yt-uix-clickcard-target yt-uix-button yt-uix-button-link yt-uix-tooltip yt-uix-button-empty" role="button" onclick=";return false;" type="button" data-tooltip-show-delay="300" data-action="">';
+    newHTML += '<span class="yt-uix-button-icon-wrapper">';
+    newHTML += '<img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" alt="" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
+    newHTML += '<span class="yt-uix-button-valign"></span>';
+    newHTML += '</span>';
+    newHTML += '</button>';
+    newHTML += '</span>';
+    newHTML += '</div>';
+
+    newHTML += '</div>';
+
+
+    newEl.innerHTML = newHTML;
+
+    return newEl;
+}
+
+
+var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
+
+function GetURLsFromString(theText) {
+    return result = theText.match(URLRegEx);
+}
+
+function URLifyText(theText) {
+    theText = theText.replace(/&quot;/gi, "\"");
+    return theText.replace(URLRegEx, '<a href="$1" target="_blank">$1</a>');
+}
+
+function FakeURLifyText(theText) {
+    theText = theText.replace(/&quot;/gi, "\"");
+    return theText.replace(URLRegEx, '<span style="color:blue; text-decoration:underline">$1</span>');
+}
+
+
 

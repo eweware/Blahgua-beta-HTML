@@ -248,47 +248,70 @@
 }
 
 .BlahCommentBody {
-    background-color:#d3d3d3;
-    font-size: 12px;
+    font-size: 16px;
+    width:100%;
+    min-width:100%;
+    word-wrap: break-word;
+    padding-left:0px;
+    padding-right:0px;
 }
 
 .NoCommentSpan {
     font-style: italic;
 }
 
-.CommentDiv {
-    font-size: 16px;
-    width:100%;
-    min-width:100%;
-    word-wrap: break-word;
-    padding-left: 8px;
-    padding-right: 8px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-color: gray;
-    border-spacing:0px;
+
+.comment {
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 24px;
 }
 
-.CommentDiv:nth-child(even) {
-    background-color:white;
+
+.flipdown-btn {
+    float: right;
+
 }
 
-.CommentDiv:nth-child(odd) {
-    background-color:#d3d3d3;
+
+.user-image {
+
 }
+
+.user-image-thumbnail {
+    position: absolute;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.comment-content {
+    margin-left: 60px;
+
+}
+
+
+.Comment-metadata {
+
+
+}
+
 
 .CommentAuthor {
-    font-size: 12px;
-    font-style: italic;
-
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 17px;
+    padding-right: 9px;
+    color: #438bc5
 }
 
 .CommentDate {
-    font-size: 12px;
-    font-style: italic;
+    font-size:9px;
+    color: #999;
+}
 
+a {
+    text-decoration: none;
 }
 
 .CommentVote {
@@ -321,7 +344,6 @@
     position:relative;
     top:4px;
 }
-
 .ChannelViewersCountText {
 
 }

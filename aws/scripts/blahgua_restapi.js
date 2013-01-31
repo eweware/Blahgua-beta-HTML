@@ -3,7 +3,7 @@
 
 function BlahguaObject() {
     // properties
-    this.baseURL = "http://blahgua-rest.elasticbeanstalk.com/v2/";
+    this.baseURL = "http://beta.blahgua.com/v2/";
     //this.baseURL = "../v2/";
 
     // methods
