@@ -909,7 +909,7 @@ function GetNextBlah() {
     return nextBlah;
 }
 
-function GetNextMatchingBlah(blahSize) {
+function GetNextMatchingBlah(blahSize, recursive) {
     var curBlah;
     var nextBlah = null;
 
@@ -927,7 +927,11 @@ function GetNextMatchingBlah(blahSize) {
 
     if (nextBlah == null) {
         RefreshActiveBlahList();
-        nextBlah = GetNextMatchingBlah(blahSize);
+        if (recursive != true) {
+            nextBlah = GetNextMatchingBlah(blahSize, true);
+        } else {
+            alert("Blahs are ill-formed!")
+        }
     }
 
     return nextBlah;
@@ -937,7 +941,7 @@ function GetNextMatchingBlah(blahSize) {
 // ********************************************************
 // Creating the next row of content and adding it
 
-function BuildNextRow(rowHint) {
+function BuildNextRow() {
     var nextBlah = GetNextBlah();
 
     var size = nextBlah.displaySize;
@@ -1393,6 +1397,7 @@ function GetChannelsOK(theChannels) {
 }
 
 function SetCurrentChannel(whichChannel) {
+    $("#ChannelBanner").css("background-color", "#FFFFFF");
     StopAnimation();
     if (whichChannel == -1) {
         InstallUserChannel();
@@ -1449,20 +1454,24 @@ function PopulateUserChannel() {
     }
 
     $("#ChannelBannerLabel").html(ChannelName);
+    $("#BlahContainer").load("./userchannel.html #userchanneldiv");
     $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 
 
 function UpdateChannelViewers() {
     if (ViewerUpdateTimer != null) {
-        clearTimeout(ViewerUpdateChannel);
+        clearTimeout(ViewerUpdateTimer);
         ViewerUpdateTimer = null;
     }
+
     if (CurrentChannel == null) {
         Blahgua.GetViewersOfUser(UserId, OnChannelViewersOK, OnFailure);
     } else {
         Blahgua.GetViewersOfChannel(CurrentChannel.id, OnChannelViewersOK, OnFailure);
     }
+
+    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
 }
 
 function OnChannelViewersOK(numViewers) {

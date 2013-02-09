@@ -2,19 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f25f7e92-3142-4e3c-9f92-d64ddfa12771" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/userchannel.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aws/css/blahgua.css" afterPath="$PROJECT_DIR$/aws/css/blahgua.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aws/scripts/blahgua.js" afterPath="$PROJECT_DIR$/aws/scripts/blahgua.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/aws/scripts/blahgua_restapi.js" afterPath="$PROJECT_DIR$/aws/scripts/blahgua_restapi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/default.html" afterPath="$PROJECT_DIR$/default.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Blahgua-beta-HTML.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360270149145" ignored="false" />
+    <file path="/Dummy.txt" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360393529697" ignored="false" />
     <file path="/fragment.java" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360272542124" ignored="false" />
-    <file path="/fragment.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360371354812" ignored="false" />
-    <file path="/blahgua.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360374148567" ignored="false" />
-    <file path="/blahgua.css" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360266377305" ignored="false" />
+    <file path="/fragment.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360398610543" ignored="false" />
+    <file path="/blahgua.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360397906614" ignored="false" />
+    <file path="/blahgua.css" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360399403117" ignored="false" />
     <file path="$PROJECT_DIR$/../GEHOFWEB/XML/Chart.xml" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1359492736479" ignored="false" />
     <file path="$PROJECT_DIR$/../GEHOFWEB/XML/ChartModel.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1359414477286" ignored="false" />
     <file path="/ChartModel.js" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1359413638220" ignored="false" />
@@ -28,6 +27,7 @@
     <file path="$PROJECT_DIR$/../Pathway Code/PathwaysTestProject/src/PathwaysTest/Application.java" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360273009921" ignored="false" />
     <file path="/Application.java" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360273006887" ignored="false" />
     <file path="$PROJECT_DIR$/../GEHOFWEB/app/models/gemodels/TransferSequenceStepDependency.java" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360356741558" ignored="false" />
+    <file path="/userchannel.html" changelist="f25f7e92-3142-4e3c-9f92-d64ddfa12771" time="1360400321792" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +42,6 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -77,6 +76,7 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -91,20 +91,29 @@
           <file leaf-file-name="blahgua.css" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/aws/css/blahgua.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="89" column="12" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0">
+                <state line="94" column="0" selection-start="1270" selection-end="1270" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="blahgua.js" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="blahgua.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/aws/scripts/blahgua.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="1451" column="53" selection-start="43640" selection-end="43640" vertical-scroll-proportion="0.41951218">
+                <state line="1454" column="44" selection-start="43715" selection-end="43715" vertical-scroll-proportion="-4.28">
                   <folding>
-                    <marker date="1360374154222" expanded="true" signature="38037:38051" placeholder="..." />
-                    <marker date="1360374154222" expanded="false" signature="41335:41372" placeholder="..." />
+                    <marker date="1360399116084" expanded="false" signature="38154:38168" placeholder="..." />
+                    <marker date="1360399116084" expanded="false" signature="41452:41489" placeholder="..." />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="userchannel.html" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/userchannel.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="3" column="83" selection-start="49" selection-end="49" vertical-scroll-proportion="0.11724138">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -112,7 +121,7 @@
           <file leaf-file-name="blahgua_restapi.js" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/aws/scripts/blahgua_restapi.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="503" column="59" selection-start="23821" selection-end="23821" vertical-scroll-proportion="-10.92">
+                <state line="556" column="59" selection-start="25893" selection-end="25893" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
@@ -125,7 +134,7 @@
           <file leaf-file-name="blahgua.css" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/aws/css/blahgua.css">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="332" column="8" selection-start="4671" selection-end="4678" vertical-scroll-proportion="0.32643312">
+                <state line="405" column="13" selection-start="5909" selection-end="5909" vertical-scroll-proportion="0.3325893">
                   <folding />
                 </state>
               </provider>
@@ -151,19 +160,20 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/aws/css/blahgua.css" />
         <option value="$PROJECT_DIR$/default.html" />
         <option value="ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js" />
         <option value="$PROJECT_DIR$/aws/scripts/blahgua_restapi.js" />
         <option value="$PROJECT_DIR$/aws/scripts/blahgua.js" />
+        <option value="$PROJECT_DIR$/aws/css/blahgua.css" />
+        <option value="$PROJECT_DIR$/userchannel.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="54" />
     <option name="y" value="-8" />
-    <option name="width" value="1874" />
-    <option name="height" value="1216" />
+    <option name="width" value="1394" />
+    <option name="height" value="916" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -261,8 +271,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -272,14 +282,21 @@
     <property name="options.lastSelected" value="reference.settings.ide.settings.web.browsers" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Davevr\Documents\GitHub\Blahgua-beta-HTML" />
+      <recent name="C:\Users\Davevr\Documents\GitHub\Blahgua-beta-HTML\aws\pages" />
+    </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.Local Test">
     <configuration default="true" type="Remote" factoryName="Remote">
@@ -318,6 +335,13 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -337,13 +361,6 @@
       </option>
       <envs />
       <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="false" name="Local Test" type="JavascriptDebugSession" factoryName="Local" singleton="true">
@@ -376,22 +393,22 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1216" extended-state="6" />
+    <frame x="54" y="-8" width="1394" height="916" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35700756" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35582012" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14624724" sideWeight="0.35037878" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1524024" sideWeight="0.26984128" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14624724" sideWeight="0.28598484" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1524024" sideWeight="0.36507937" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -454,7 +471,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="32" />
+      <option name="time" value="37" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -462,12 +479,19 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/aws/css/blahgua.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="12" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/aws/scripts/blahgua.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="439" column="55" selection-start="14215" selection-end="14262" vertical-scroll-proportion="0.0">
           <folding>
-            <marker date="1360374154222" expanded="true" signature="38037:38051" placeholder="..." />
-            <marker date="1360374154222" expanded="false" signature="41335:41372" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="38154:38168" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="41452:41489" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -497,8 +521,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="355" column="18" selection-start="11652" selection-end="11652" vertical-scroll-proportion="0.0">
           <folding>
-            <marker date="1360374154222" expanded="true" signature="38037:38051" placeholder="..." />
-            <marker date="1360374154222" expanded="false" signature="41335:41372" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="38154:38168" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="41452:41489" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -522,20 +546,6 @@
         <state line="64" column="7" selection-start="1091" selection-end="1091" vertical-scroll-proportion="0.33223686" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../Pathway Code/HoFSimJContracts/src/gehc/HoFSim/JContracts/BedPatientAlloc/EPatientGender.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="96" selection-start="497" selection-end="497" vertical-scroll-proportion="0.24285714">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../../../Code/mxgraph/javascript/src/js/mxClient.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="4" selection-start="4080" selection-end="4080" vertical-scroll-proportion="0.2125">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/default.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="0" selection-start="1001" selection-end="1001" vertical-scroll-proportion="0.5537459">
@@ -545,18 +555,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aws/scripts/jquery.animate-colors-min.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aws/css/blahgua.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="12" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
       </provider>
     </entry>
     <entry file="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js">
@@ -566,18 +565,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aws/scripts/blahgua_restapi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="503" column="59" selection-start="23821" selection-end="23821" vertical-scroll-proportion="-10.92">
+        <state line="556" column="59" selection-start="25893" selection-end="25893" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/aws/scripts/blahgua.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1451" column="53" selection-start="43640" selection-end="43640" vertical-scroll-proportion="0.41951218">
+        <state line="1454" column="44" selection-start="43715" selection-end="43715" vertical-scroll-proportion="-4.28">
           <folding>
-            <marker date="1360374154222" expanded="true" signature="38037:38051" placeholder="..." />
-            <marker date="1360374154222" expanded="false" signature="41335:41372" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="38154:38168" placeholder="..." />
+            <marker date="1360399116084" expanded="false" signature="41452:41489" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aws/css/blahgua.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="94" column="0" selection-start="1270" selection-end="1270" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/userchannel.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="83" selection-start="49" selection-end="49" vertical-scroll-proportion="0.11724138">
+          <folding />
         </state>
       </provider>
     </entry>
