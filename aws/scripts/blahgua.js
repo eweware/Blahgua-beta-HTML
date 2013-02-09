@@ -3,9 +3,11 @@
 
 var BlahsMovingTimer = null;
 var BlahPreviewTimeout = null;
+var ViewerUpdateTimer = null;
 
 var ColorMap = [];
 var BlahList;
+var NextBlahList;
 var BlahIndex = 0;
 var LargeTileWidth = 400;
 var MediumTileWidth = 200;
@@ -26,6 +28,9 @@ var BlahFullItem;
 var FocusedBlah = null;
 var CurrentBlah = null;
 var CurrentComments = null;
+var CurrentChannel = null;
+var CurrentUser = null;
+var ChannelList = [];
 
 
 (function ($) {
@@ -51,7 +56,7 @@ var CurrentComments = null;
 
 
 $(document).ready(function () {
-    //BlahList = makeFakeBlahs();
+
     $("#BlahContainer").disableSelection();
     $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
     $("#BlahContainer").on('swiperight', HandleSwipeRight);
@@ -59,11 +64,13 @@ $(document).ready(function () {
     $("#BlahContainer").on('swipedown', HandleSwipeDown);
     $("#LightBox").click(function () { UnfocusBlah(); });
 
+    Blahgua.currentUser = UserId;
     CreateChannelBanner();
     CreatePreviewBlah();
     CreateFullBlah();
     ComputeSizes();
-    GetUserBlahs();
+    GetUserChannels();
+
 });
 
 
@@ -74,11 +81,11 @@ $(document).ready(function () {
 
 
 function HandleSwipeLeft(theEvent) {
-    alert("Swipe Left!");
+    GoNextChannel();
 }
 
 function HandleSwipeRight(theEvent) {
-    alert("Swipe Right!");
+    GoPrevChannel();
 }
 
 
@@ -199,6 +206,7 @@ function ComputeSizes() {
 function CreateChannelBanner() {
     var banner = document.getElementById("ChannelBanner");
     var label = document.createElement("span");
+    label.id = "ChannelBannerLabel";
     label.className = "ChannelNameText";
     label.innerHTML = "Blahgua";
     banner.appendChild(label);
@@ -218,8 +226,9 @@ function CreateChannelBanner() {
     eyeImage.height = "24";
     var countText = document.createElement("span");
     countText.className = "ChannelViewersCountText";
+    countText.id = "ChannelViewersCountText";
     viewCount.appendChild(countText);
-    countText.innerHTML = "2019";
+    countText.innerHTML = "";
 
     var options = document.createElement("div");
     options.className = "ChannelOptions";
@@ -297,7 +306,7 @@ function CreateFullBlah() {
     // add the image and the body
     html += '<tr height="*"><td colspan="5" align="center">';
     html += '<div class="FullBlahContent" id="FullBlahContent">';
-    html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
+    html += '<table class="FullBlahTable"><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
     html += '<tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>';
     // add the comment area
     html += '<tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>';
@@ -395,15 +404,20 @@ function PopulateFullBlah(whichBlah) {
 
 function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
-    var bodyText = document.getElementById("BlahFullBody");
+
     if (CurrentBlah.hasOwnProperty("c")) {
         document.getElementById("fullBlahComments").innerHTML = CurrentBlah.c;  // to do, change to 'c'
     }
 
+    var bodyTextDiv = document.getElementById("BlahFullBody");
     if (CurrentBlah.hasOwnProperty("b")) {
-        bodyText.innerHTML = unescape(CurrentBlah.b);
+        var bodyText = CurrentBlah.b;
+        if (bodyText && (bodyText != "")) {
+            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+        }
+        bodyTextDiv.innerHTML = bodyText;
     } else {
-        bodyText.innerHTML = "";
+        bodyTextDiv.innerHTML = "";
     }
 
     // update the comments
@@ -590,16 +604,22 @@ function PopulateBlahPreview(whichBlah) {
 }
 
 function UpdateBodyText(theFullBlah) {
-    var bodyText = document.getElementById("BlahPreviewBody");
     CurrentBlah = theFullBlah;
+
+    // update the comment count while we are here
     if (theFullBlah.hasOwnProperty("c")) {
-        document.getElementById("previewComments").innerHTML = theFullBlah.c;  // to do, change to 'c'
+        document.getElementById("previewComments").innerHTML = theFullBlah.c;
     }
 
+    var bodyTextDiv = document.getElementById("BlahPreviewBody");
     if (theFullBlah.hasOwnProperty("b")) {
-        bodyText.innerHTML = unescape(theFullBlah.b);
+        var bodyText = theFullBlah.b;
+        if (bodyText && (bodyText != "")) {
+            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+        }
+        bodyTextDiv.innerHTML = bodyText;
     } else {
-        bodyText.innerHTML = "";
+        bodyTextDiv.innerHTML = "";
     }
 }
 
@@ -758,7 +778,6 @@ function DrawInitialBlahs() {
         RowsOnScreen++;
     }
 
-    StartBlahsMoving();
     FadeRandomElement();
 }
 
@@ -864,12 +883,21 @@ function PeekNextBlah() {
 
 function RefreshActiveBlahList() {
     // when the list is empty, we refill it.  For now, we just use the same list
+    $("#ChannelBanner").css("background-color", "white");
     var nextBlahSet = [];
 
-    nextBlahSet = nextBlahSet.concat(BlahList);
+    if (NextBlahList.length > 0) {
+        nextBlahSet = nextBlahSet.concat(NextBlahList);
+    } else {
+        nextBlahSet = nextBlahSet.concat(BlahList);
+    }
+
+
     fisherYates(nextBlahSet);
 
     ActiveBlahList = ActiveBlahList.concat(nextBlahSet);
+    GetNextBlahList();
+
 }
 
 function GetNextBlah() {
@@ -1068,25 +1096,31 @@ function CreateSSMRow(theBlah, newRowEl) {
 // Getting the current inbox for the current user
 
 function GetUserBlahs() {
-    Blahgua.GetBlahsForUser(UserId, OnGetBlahsOK, OnFailure);
+    $("#BlahContainer").empty();
+    Blahgua.GetNextBlahs(OnGetBlahsOK, OnFailure);
 
 }
 
 function OnGetBlahsOK(theResult) {
     BlahList = theResult;
-    PrepareBlahList();
+    NextBlahList = [];
+    PrepareBlahList(BlahList);
+    ActiveBlahList = [];
+    RefreshActiveBlahList();
     DrawInitialBlahs();
+    StartAnimation();
+    GetNextBlahList();
 };
 
 
-function NormalizeStrengths() {
+function NormalizeStrengths(theBlahList) {
     // makes sure that the blahs here range in strength from 0.0 to 1.0
     var minStr = 1;
     var maxStr = 0;
     var currentBlah;
 
-    for (currentBlahIndex in BlahList) {
-        currentBlah = BlahList[currentBlahIndex];
+    for (currentBlahIndex in theBlahList) {
+        currentBlah = theBlahList[currentBlahIndex];
         if (currentBlah.s < minStr) {
             minStr = currentBlah.s;
         }
@@ -1100,47 +1134,54 @@ function NormalizeStrengths() {
     var scale = 1 / range;
 
 
-    for (currentBlahIndex in BlahList) {
-        currentBlah = BlahList[currentBlahIndex];
+    for (currentBlahIndex in theBlahList) {
+        currentBlah = theBlahList[currentBlahIndex];
         currentBlah.s = (currentBlah.s - offset) * scale;
+    }
+
+    // ensure 100 blahs
+    if (theBlahList.length < 100) {
+        var curLoc = 0;
+        while (theBlahList.length < 100) {
+            theBlahList.push(theBlahList[curLoc++]);
+        }
     }
 }
 
-function AssignSizes() {
+function AssignSizes(theBlahList) {
     // makes sure that there are a good ration of large, medium, small
     var numLarge = 10;
     var numMedium = 50;
     // the rest are small - presumably 40, since we get 100 blahs
  
     // first, sort the blahs by their size
-    BlahList.sort(function (a, b) {
+    theBlahList.sort(function (a, b) {
         return b.s - a.s;
     });
 
     var i = 0;
     while (i < numLarge) {
-        BlahList[i++].displaySize = 1;
+        theBlahList[i++].displaySize = 1;
     }
 
-    MaxMedium = BlahList[i].s;
+    MaxMedium = theBlahList[i].s;
 
     while (i < (numMedium + numLarge)) {
-        BlahList[i++].displaySize = 2;
+        theBlahList[i++].displaySize = 2;
     }
 
-    MaxSmall = BlahList[i].s;
+    MaxSmall = theBlahList[i].s;
 
-    while (i < BlahList.length) {
-        BlahList[i++].displaySize = 3;
+    while (i < theBlahList.length) {
+        theBlahList[i++].displaySize = 3;
     }
 
 }
 
-function PrepareBlahList() {
-    NormalizeStrengths();
-    AssignSizes();
-    ActiveBlahList = [];
-    RefreshActiveBlahList();
+function PrepareBlahList(theBlahList) {
+    NormalizeStrengths(theBlahList);
+    AssignSizes(theBlahList);
+
 }
 
 function fisherYates(myArray) {
@@ -1246,7 +1287,7 @@ function createCommentElement(theComment) {
     newHTML += '<a class="hyperlink-user-name " dir="ltr" href="/user/BolasDaGrk"">A blahger</a>';
     newHTML += '</span>';
     newHTML += '<span class="CommentDate" dir="ltr">';
-    newHTML += '<a dir="ltr" href="http://www.youtube.com/comment?lc=H0xVMasH7mGuJ2OEd_AWMfR39I-oktns87uHdahKtSw">';
+    newHTML += '<a dir="ltr" href="/clickondate">';
     newHTML += ElapsedTimeString(new Date(theComment.created));
     newHTML += '</a></span></p>';
 
@@ -1262,21 +1303,19 @@ function createCommentElement(theComment) {
     newHTML += '    <span class="separator">·</span>';
 
     // vote up
-    newHTML += '<span class="yt-uix-clickcard">';
-    newHTML += '  <button title="" class="start comment-action-vote-up comment-action yt-uix-clickcard-target yt-uix-button yt-uix-button-link yt-uix-tooltip yt-uix-button-empty" role="button" onclick=";return false;" type="button" data-tooltip-show-delay="300" data-action="">';
-    newHTML += '    <span class="yt-uix-button-icon-wrapper">';
-    newHTML += '      <img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-up" alt="" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
-    newHTML += '      <span class="yt-uix-button-valign"></span>';
+    newHTML += '<span class="clickcard">';
+    newHTML += '  <button title="" class="start-comment-action" onclick=";return false;" type="button" >';
+    newHTML += '    <span class="button-icon-wrapper">';
+    newHTML += '      <img class="comment-vote" alt="" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png">';
     newHTML += '    </span>';
     newHTML +=   '</button>';
     newHTML += '</span> ';
 
     // vote down
-    newHTML += '<span class="yt-uix-clickcard">';
-    newHTML += '<button title="" class="end comment-action-vote-down comment-action yt-uix-clickcard-target yt-uix-button yt-uix-button-link yt-uix-tooltip yt-uix-button-empty" role="button" onclick=";return false;" type="button" data-tooltip-show-delay="300" data-action="">';
-    newHTML += '<span class="yt-uix-button-icon-wrapper">';
-    newHTML += '<img class="yt-uix-button-icon yt-uix-button-icon-watch-comment-vote-down" alt="" src="//s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
-    newHTML += '<span class="yt-uix-button-valign"></span>';
+    newHTML += '<span class="clickcard">';
+    newHTML += '<button title="" class="end comment-action" onclick=";return false;" type="button" >';
+    newHTML += '<span class="button-icon-wrapper">';
+    newHTML += '<img class="comment-vote" alt="" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png">';
     newHTML += '</span>';
     newHTML += '</button>';
     newHTML += '</span>';
@@ -1309,4 +1348,124 @@ function FakeURLifyText(theText) {
 }
 
 
+// *****************************************
+// Channels
 
+function GoPrevChannel() {
+    var curLoc;
+
+    if (CurrentChannel == null) {
+        curLoc = ChannelList.length - 1;
+    } else {
+        curLoc = ChannelList.indexOf(CurrentChannel);
+        curLoc--;
+    }
+
+
+    SetCurrentChannel(curLoc);
+}
+
+function GoNextChannel() {
+    var curLoc;
+
+    if (CurrentChannel == null) {
+        curLoc = 0;
+    } else {
+        curLoc = ChannelList.indexOf(CurrentChannel);
+        curLoc++;
+        if (curLoc >= ChannelList.length) {
+            curLoc =  -1;
+        }
+    }
+
+
+
+    SetCurrentChannel(curLoc);
+}
+
+function GetUserChannels() {
+    Blahgua.GetUserChannels(GetChannelsOK, OnFailure)   ;
+}
+
+function GetChannelsOK(theChannels) {
+    ChannelList = theChannels;
+    SetCurrentChannel(0);
+}
+
+function SetCurrentChannel(whichChannel) {
+    StopAnimation();
+    if (whichChannel == -1) {
+        InstallUserChannel();
+    } else {
+        CurrentChannel = ChannelList[whichChannel];
+        Blahgua.SetCurrentChannel(CurrentChannel.groupId);
+        var labelDiv = document.getElementById("ChannelBannerLabel");
+        labelDiv.innerHTML = CurrentChannel.displayName;
+        GetUserBlahs();
+    }
+
+    UpdateChannelViewers();
+}
+
+function GetNextBlahList() {
+    Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
+}
+
+function OnGetNextBlahsOK(theResult) {
+    NextBlahList = theResult;
+    PrepareBlahList(NextBlahList);
+    $("#ChannelBanner").animate({"background-color": "#FF00FF" }, 'slow');
+
+}
+
+
+// *****************************************
+// User Channel
+
+function InstallUserChannel() {
+    // empty whatever is in there now
+    $("#BlahContainer").empty();
+    CurrentChannel = null;
+    if (CurrentUser == null) {
+        Blahgua.GetCurrentUser(OnGetUserOK, OnFailure);
+    }
+    else {
+        PopulateUserChannel();
+    }
+}
+
+function OnGetUserOK(theResult) {
+    CurrentUser = theResult;
+    PopulateUserChannel();
+}
+
+function PopulateUserChannel() {
+    var ChannelName = "";
+
+    if (CurrentUser.hasOwnProperty("n")) {
+        ChannelName = CurrentUser.n + "'s channel";
+    } else {
+        ChannelName = "your channel";
+    }
+
+    $("#ChannelBannerLabel").html(ChannelName);
+    $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+}
+
+
+function UpdateChannelViewers() {
+    if (ViewerUpdateTimer != null) {
+        clearTimeout(ViewerUpdateChannel);
+        ViewerUpdateTimer = null;
+    }
+    if (CurrentChannel == null) {
+        Blahgua.GetViewersOfUser(UserId, OnChannelViewersOK, OnFailure);
+    } else {
+        Blahgua.GetViewersOfChannel(CurrentChannel.id, OnChannelViewersOK, OnFailure);
+    }
+}
+
+function OnChannelViewersOK(numViewers) {
+    $("#ChannelViewersCountText").html(numViewers);
+
+}
