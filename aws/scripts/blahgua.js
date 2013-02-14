@@ -1447,8 +1447,11 @@ function PopulateUserChannel() {
     } else {
         ChannelName = "your channel";
     }
-
     $("#ChannelBannerLabel").html(ChannelName);
+
+    // now load the other page
+    $("#BlahContainer").load("./aws/pages/SelfPage.html#");
+
     $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 

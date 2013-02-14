@@ -32,15 +32,19 @@ function BlahguaObject() {
                 if (OnFailure != null) {
                     var response = {};
                     var message = "An error occured";
-                    if (theErr.responseText != "") {
-                        response = JSON.parse(theErr.responseText);
-                        try {
-                            message = JSON.parse(response.Message);
+                    if (theErr.hasOwnProperty("responseText")) {
+                        if (theErr.responseText != "") {
+                            response = JSON.parse(theErr.responseText);
+                            try {
+                                message = JSON.parse(response.Message);
+                            }
+                            catch (exp) {
+                                message = new Object();
+                                message["_message"] = response.Message;
+                            }
                         }
-                        catch (exp) {
-                            message = new Object();
-                            message["_message"] = response.Message;
-                        }
+                    } else {
+                        message = theErr.statusText;
                     }
 
                     OnFailure(message);
@@ -72,15 +76,19 @@ function BlahguaObject() {
                 if (OnFailure != null) {
                     var response = {};
                     var message = "An error occured";
-                    if (theErr.responseText != "") {
-                        response = JSON.parse(theErr.responseText);
-                        try {
-                            message = JSON.parse(response.Message);
+                    if (theErr.hasOwnProperty("responseText")) {
+                        if (theErr.responseText != "") {
+                            response = JSON.parse(theErr.responseText);
+                            try {
+                                message = JSON.parse(response.Message);
+                            }
+                            catch (exp) {
+                                message = new Object();
+                                message["_message"] = response.Message;
+                            }
                         }
-                        catch (exp) {
-                            message = new Object();
-                            message["_message"] = response.Message;
-                        }
+                    } else {
+                        message = theErr.statusText;
                     }
 
                     OnFailure(message);
