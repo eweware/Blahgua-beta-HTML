@@ -417,6 +417,10 @@ a {
     border-top-right-radius:4px;
 }
 
+.UserChannelDiv {
+    margin-top: 100px;
+}
+
 .Footer {
     width:100%;
     position:fixed;
