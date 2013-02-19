@@ -231,6 +231,7 @@ function CreateChannelBanner() {
     countText.innerHTML = "";
 
     var options = document.createElement("div");
+    options.onclick = DoCreateBlah;
     options.className = "ChannelOptions";
     options.innerHTML = "+";
     banner.appendChild(options);
@@ -280,45 +281,9 @@ function CreatePreviewBlah() {
 
 
 function CreateFullBlah() {
-    BlahFullItem = document.getElementById("BlahFullItem");
-    var html = "";
-    html += '<table width="100%" class="BlahFullTable">';
-    html += '<tr class="BlahFullHeader"><td colspan="4"><span class="fullBlahgerName">A female blahger from Santa Monica, CA says:</span></td>';
-    html += '<td align="right"><img width="24px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_eye.png">';
-    html += '<span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td></tr>';
-    html += '<tr><td colspan="5" class="BlahFullHeadline" id="BlahFullHeadline"></td></tr>';
-    // add the row of voting buttons
-    html += '<tr height="48px">';
-    html += '<td width="20%"></td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="16px" alt="vote up" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png">';
-    html += '<span class="statsText" id="fullBlahUpVote">21</span>';
-    html += '</td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="16px" alt="vote down" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png">';
-    html += '<span class="statsText" id="fullBlahDownVote">1,563</span>';
-    html += '</td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="16px" alt="comment" src="http://files.blahgua.com/webapp/img/black_comment.png">';
-    html += '<span class="statsText" id="fullBlahComments">65</span>';
-    html += '</td>';
-    html += '<td width="20%"></td></tr>';
-    // add the image and the body
-    html += '<tr height="*"><td colspan="5" align="center">';
-    html += '<div class="FullBlahContent" id="FullBlahContent">';
-    html += '<table class="FullBlahTable"><tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>';
-    html += '<tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>';
-    // add the comment area
-    html += '<tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>';
-    html += '</table></div> </td></tr>';
-    html += '</table>';
-    BlahFullItem.innerHTML = html;
-    BlahFullItem.headline = document.getElementById("BlahFullHeadline");
-    BlahFullItem.headline.onclick = DoCloseBlah;
+
 }
 
-// ********************************************************
-// Handle blah events
 
 function DoBlahDoubleClick(theEvent)   {
     theEvent = window.event || theEvent;
@@ -365,8 +330,7 @@ function StartAnimation() {
 
 function OpenBlah(whichBlah) {
     StopAnimation();
-    var commentDiv = document.getElementById("BlahCommentBody");
-    commentDiv.innerHTML = "";  // erase existing content
+    $(BlahFullItem).load("./aws/pages/BlahDetailPage.html#");
     PopulateFullBlah(whichBlah);
     $(BlahFullItem).fadeIn("fast");
 }
@@ -1471,4 +1435,10 @@ function UpdateChannelViewers() {
 function OnChannelViewersOK(numViewers) {
     $("#ChannelViewersCountText").html(numViewers);
 
+}
+
+function DoCreateBlah() {
+    StopAnimation();
+    $(BlahFullItem).load("./aws/pages/CreateBlahPage.html#");
+    $(BlahFullItem).fadeIn("fast");
 }
