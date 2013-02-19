@@ -1393,6 +1393,7 @@ function GetChannelsOK(theChannels) {
 }
 
 function SetCurrentChannel(whichChannel) {
+    $("#ChannelBanner").css("background-color", "#FFFFFF");
     StopAnimation();
     if (whichChannel == -1) {
         InstallUserChannel();
@@ -1450,7 +1451,9 @@ function PopulateUserChannel() {
     $("#ChannelBannerLabel").html(ChannelName);
 
     // now load the other page
-    $("#BlahContainer").load("./aws/pages/SelfPage.html#");
+    $("#BlahContainer").load("#");
+    $("#BlahContainer").load("./aws/pages/SelfPage.html #userchanneldiv");
+
 
     $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
@@ -1458,7 +1461,7 @@ function PopulateUserChannel() {
 
 function UpdateChannelViewers() {
     if (ViewerUpdateTimer != null) {
-        clearTimeout(ViewerUpdateChannel);
+        clearTimeout(ViewerUpdateTimer);
         ViewerUpdateTimer = null;
     }
     if (CurrentChannel == null) {
@@ -1466,6 +1469,8 @@ function UpdateChannelViewers() {
     } else {
         Blahgua.GetViewersOfChannel(CurrentChannel.id, OnChannelViewersOK, OnFailure);
     }
+
+    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
 }
 
 function OnChannelViewersOK(numViewers) {
