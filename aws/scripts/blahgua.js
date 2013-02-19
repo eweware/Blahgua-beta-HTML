@@ -281,7 +281,7 @@ function CreatePreviewBlah() {
 
 
 function CreateFullBlah() {
-
+    BlahFullItem = document.getElementById("BlahFullItem");
 }
 
 
@@ -313,7 +313,7 @@ function CloseBlah() {
 
     // hide the preview blah and reset the variables
     UnfocusBlah();
-    $("#BlahFullItem").fadeOut("fast");
+    $(BlahFullItem).fadeOut("fast", function() {$(BlahFullItem).empty()});
 
 }
 
@@ -330,10 +330,13 @@ function StartAnimation() {
 
 function OpenBlah(whichBlah) {
     StopAnimation();
-    $(BlahFullItem).load("./aws/pages/BlahDetailPage.html#");
-    PopulateFullBlah(whichBlah);
-    $(BlahFullItem).fadeIn("fast");
+    $(BlahFullItem).load("./aws/Pages/BlahDetailPage.html  #FullBlahDiv", function() {
+        PopulateFullBlah(whichBlah);
+        $(BlahFullItem).fadeIn("fast");
+    });
+
 }
+
 
 function PopulateFullBlah(whichBlah) {
 
