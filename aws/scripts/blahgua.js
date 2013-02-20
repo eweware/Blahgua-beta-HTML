@@ -132,8 +132,10 @@ function SelectRandomElement() {
     var pickedEl = LastFadeElement;
     var curRow, numChildren;
     var firstRow = TopRow;
+    var attempts = 0;
     
-    while (pickedEl == LastFadeElement) {
+    while ((pickedEl == LastFadeElement) && (attempts < 10)) {
+        attempts++;
         curRow = TopRow;
         randRow = Math.floor(Math.random() * RowsOnScreen);
         while (randRow > 0) {
@@ -1488,12 +1490,35 @@ function CreateBlah() {
     var blahHeadline = $("#BlahHeadline").val();
     var blahBody = $("#BlahBody").val();
     var blahGroup = CurrentChannel._id;
+    var options = null;
 
-    Blahgua.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, OnCreateBlahOK, OnFailure);
+    // check for additional options
+    var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
+    switch (blahTypeStr.name)   {
+        case "asks":
+            // add the poll items
+            var pollItems = [];
+            var curPollItem;
+            var pollDivs = document.getElementsByName("PollItem");
+            for (i = 0; i < pollDivs.length; i++) {
+                curPollItem = new Object();
+                curPollItem["g"] = pollDivs[i].childNodes[1].value;
+                curPollItem["t"] = pollDivs[i].childNodes[3].value;
+                pollItems.push(curPollItem);
+            }
+            options = new Object();
+            options["pt"] = pollItems;
+            break;
+        default:
+            break;
+    }
+
+    Blahgua.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, OnFailure);
 }
 
 function OnCreateBlahOK(json) {
-    alert("Blah created!")
+    CurrentBlah = json;
+    OpenBlah(CurrentBlah);
 }
 
 function UpdateBlahInfoArea() {
@@ -1512,24 +1537,31 @@ function UpdateBlahInfoArea() {
 }
 
 function UpdateAskAuthorPage() {
-    var newHTML = CreateAskAuthorItem();
-    $("#PollAnswersArea").html(newHTML);
+    var newItem = CreateAskAuthorItem();
+    $("#PollAnswersArea").append(newItem);
 }
 
 function AddPollAnswer() {
-    var oldHTML = $("#PollAnswersArea").html();
-    var newHTML = CreateAskAuthorItem();
-    $("#PollAnswersArea").html(oldHTML + newHTML);
+    var newItem = CreateAskAuthorItem();
+    $("#PollAnswersArea").append(newItem);
 }
 
 function CreateAskAuthorItem() {
     var newHTML = "";
-    newHTML += '<div>';
+    newHTML += '<div name="PollItem">';
     newHTML += '<span>choice:</span>' ;
-    newHTML += '<input type="text">';
+    newHTML += '<input name="PollChoice"  type="text">';
     newHTML += '<span>details:</span>';
-    newHTML += '<input type="text">';
+    newHTML += '<input name="PollDescription" type="text">';
     newHTML += '<button onclick="DoDeleteAskChoice(); return false;">X</button>';
     newHTML += '</div>';
+
     return newHTML;
+}
+
+
+function DoDeleteAskChoice(theEvent) {
+    var who = event.target || event.srcElement;
+    var deadDiv = who.parentElement;
+    $("#PollAnswersArea").removeChild(deadDiv);
 }

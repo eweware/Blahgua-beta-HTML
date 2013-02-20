@@ -23,9 +23,9 @@ function BlahguaObject() {
             data: paramString,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            success: function (blahList) {
+            success: function (theObj) {
                 if (OnSuccess != null) {
-                    OnSuccess(blahList.d);
+                    OnSuccess(theObj);
                 }
             },
             error: function (theErr) {
@@ -468,7 +468,7 @@ function BlahguaObject() {
     };
 
 
-    this.CreateUserBlah = function (blahText, blahType, blahGroup, bodyText, OnSuccess, OnFailure) {
+    this.CreateUserBlah = function (blahText, blahType, blahGroup, bodyText, infoObj, OnSuccess, OnFailure) {
         /// <summary>Joins the session user to the group</summary>
         /// <param name="blahText">The text of the new blah</param>
         /// <param name="blahType">The ID of the type of the new blah</param>
@@ -482,6 +482,11 @@ function BlahguaObject() {
         param["groupId"] = blahGroup;
         param["text"] = blahText;
         param["typeId"] = blahType;
+        if (infoObj != null) {
+            for (propName in infoObj) {
+                param[propName] = infoObj[propName];
+            }
+        }
         if (bodyText != "") {
             param["b"] = bodyText;
         }
