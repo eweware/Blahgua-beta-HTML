@@ -440,3 +440,43 @@ a {
     top:0px;
 }
 
+
+.PollChoiceWrapper {
+    font-size:smaller;
+    width:100%;
+}
+
+.PollTitle {
+    width:100px;
+    color:black;
+}
+
+.PollChartDiv {
+    text-align:right;
+    float:left;
+    background-color:red;
+    height:1em
+}
+
+.PollDescription {
+    text-align: right;
+    border-left: solid 1px black;
+}
+
+.PollVotes {
+    width: 32px;
+}
+.PollVoteIcon {
+    width: 18px;
+
+}
+
+.PollVoteText {
+    font-size:small;
+}
+
+.PollComment {
+    font-size:small;
+    font-weight:normal;
+    font-style:italic;
+}

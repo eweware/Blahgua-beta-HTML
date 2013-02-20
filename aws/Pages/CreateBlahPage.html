@@ -15,13 +15,23 @@
         <input id="BlahHeadline" type="text">
         <label for="BlahBody">body</label>
         <textarea id="BlahBody"></textarea>
-        <label for="BlahImage">image</label>
-        <input id="BlahImage" type="file">
+        <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+            <label for="BlahImage">image</label>
+            <input id="BlahImage" name="file" type="file"/>
+            <input type="text" name="objectType" hidden="true" value="B"/>
+            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+            <input type="text" name="primary" hidden="true" value="true"/>
+        </form>
     </fieldset>
     <div id="AdditionalInfoDiv">
         Additional Info goes here
     </div>
     <button onclick="CreateBlah(); return false;">Create</button>
+    <div id="ProgressDiv" style="display:none">
+        <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+            <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

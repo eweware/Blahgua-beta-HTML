@@ -455,8 +455,45 @@ function BlahguaObject() {
         this.CallPageMethod("GetViewerCount", paramStr, OnSuccess, OnFailure);
     };
 
+    this.AddBlahViewsOpens = function (blahID, numViews, numOpens, OnSuccess, OnFailure) {
+        /// <summary>Adds the specified number of views and opens to the blah's stats</summary>
+        /// <param name="blahID">The ID of the blah to modify</param>
+        /// <param name="numViews">The number of views to add</param>
+        /// <param name="numOpens">The number of opens to add</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        var paramStr = '{"numViews":' + numViews + ', "numOpens":' + numOpens + ', "blahID":"' + blahID + '"}';
+        this.CallPageMethod("AddBlahViewsOpens", paramStr, OnSuccess, OnFailure);
+    };
+
+
 
     //  ACTUAL WORKING FUNCTIONS
+
+    this.SetUserPollVote = function (blahID, userID, optionIndex, OnSuccess, OnFailure) {
+        /// <summary>Returns the users vote on a poll, if any</summary>
+        /// <param name="blahID">the ID of the blah</param>
+        /// <param name="userID">the ID of the user</param>
+        /// <param name="optionIndex">the zero-based index of the option the user is voting on</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>nothing</returns>
+        var paramStr = '{}';
+        var method = "blahs/" + blahId + "/pollVote/" + userID + "/" + optionIndex;
+        this.CallPutMethod(method, paramStr, OnSuccess, OnFailure);
+    };
+
+    this.GetUserPollVote = function (blahID, userID, OnSuccess, OnFailure) {
+        /// <summary>Returns the users vote on a poll, if any</summary>
+        /// <param name="blahID">the ID of the blah</param>
+        /// <param name="userID">the ID of the user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>{"p": poll-option-index, "t": datetime-when-voted}</returns>
+        var paramStr = '{}';
+        var method = "blahs/" + blahID + "/pollVote/" + userID;
+        this.CallGetMethod(method, paramStr, OnSuccess, OnFailure);
+    };
 
     this.GetBlahTypes = function (OnSuccess, OnFailure) {
         /// <summary>Returns the currently available blah types</summary>
@@ -604,16 +641,7 @@ function BlahguaObject() {
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
-    this.AddBlahViewsOpens = function (blahID, numViews, numOpens, OnSuccess, OnFailure) {
-        /// <summary>Adds the specified number of views and opens to the blah's stats</summary>
-        /// <param name="blahID">The ID of the blah to modify</param>
-        /// <param name="numViews">The number of views to add</param>
-        /// <param name="numOpens">The number of opens to add</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"numViews":' + numViews + ', "numOpens":' + numOpens + ', "blahID":"' + blahID + '"}';
-        this.CallPageMethod("AddBlahViewsOpens", paramStr, OnSuccess, OnFailure);
-    };
+
 
 
 }

@@ -71,6 +71,7 @@ $(document).ready(function () {
     CreateFullBlah();
     ComputeSizes();
     GetUserChannels();
+    UpdateBlahTypes();
 
 });
 
@@ -127,7 +128,6 @@ function AltFade(theElement) {
 var LastFadeElement;
 
 function SelectRandomElement() {
-    var theEl = null;
     var randRow;
     var pickedEl = LastFadeElement;
     var curRow, numChildren;
@@ -148,9 +148,6 @@ function SelectRandomElement() {
 
         // have the row, pick the object
         pickedEl = curRow.childNodes[Math.floor(Math.random() * curRow.childNodes.length)];
-        if (pickedEl.style.backgroundImage == "") {
-            pickedEl = LastFadeElement;
-        }
     }
     
     return pickedEl;
@@ -158,7 +155,9 @@ function SelectRandomElement() {
 
 function FadeRandomElement() {
     var theEl = SelectRandomElement();
-    $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
+    if (theEl.style.backgroundImage != "") {
+        $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
+    }
     LastFadeElement = theEl;
 }
 
@@ -242,44 +241,16 @@ function CreateChannelBanner() {
 }
 
 function CreatePreviewBlah() {
-
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
-    var html = "";
-    html += '<table width="100%" class="BlahPreviewTable">';
-    html += '<tr class="BlahPreviewHeader"><td colspan="4"><span class="previewBlahgerName">A female blahger from Santa Monica, CA says:</span></td>';
-    html += '<td align="right"><img width="24px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_eye.png">';
-    html += '<span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>';
-    html += '<tr><td colspan="5" class="BlahPreviewHeadline" id="BlahPreviewHeadline"></td></tr>';
-    html += '<tr height="*"><td colspan="5" align="center">';
-    html += '<div class="blah-preview-content" id="FullBlahContent">';
-    html += '<table><tr><td align="center"><img alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>';
-    html += '<tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>';
-    html += '</table></div> </td></tr>';
-    html += '<tr height="48px">';
-    html += '<td width="20%"></td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png"><br/>';
-    html += '<span class="statsText" id="previewUpVote">21</span>';
-    html += '</td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png"><br/>';
-    html += '<span class="statsText" id="previewDownVote">1,563</span>';
-    html += '</td>';
-    html += '<td width="20%" align="center">';
-    html += '<img width="36px" alt="viewers" src="http://files.blahgua.com/webapp/img/black_comment.png"><br/>';
-    html += '<span class="statsText" id="previewComments">65</span>';
-    html += '</td>';
-    html += '<td width="20%"></td></tr>';
-    html += '</table>';
-    BlahPreviewItem.innerHTML = html;
-    BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
-    BlahPreviewItem.onclick = function() {
-        if (BlahPreviewTimeout != null) {
-            clearTimeout(BlahPreviewTimeout);
-            BlahPreviewTimeout = null;
-        }
-        OpenBlah(FocusedBlah);};
-
+    $(BlahPreviewItem).load("./aws/Pages/BlahPreview.html #BlahPreview", function () {
+        BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
+        BlahPreviewItem.onclick = function() {
+            if (BlahPreviewTimeout != null) {
+                clearTimeout(BlahPreviewTimeout);
+                BlahPreviewTimeout = null;
+            }
+            OpenBlah(FocusedBlah);}
+    });
 }
 
 
@@ -342,28 +313,6 @@ function OpenBlah(whichBlah) {
 
 
 function PopulateFullBlah(whichBlah) {
-
-    var headlineText = document.getElementById("BlahFullHeadline");
-    headlineText.innerHTML = unescape(whichBlah.text);
-
-
-    var image = getBlahImage(whichBlah);
-    var imageEl = document.getElementById("blahFullImage");
-    if (image == "") {
-        imageEl.style.display = "none";
-        headlineText.style.fontSize = "36px";
-    } else {
-        imageEl.style.display = "block";
-        imageEl.src = image;
-        headlineText.style.fontSize = "24px";
-    }
-
-    // stats
-    document.getElementById("fullBlahUpVote").innerHTML = whichBlah.u;
-    document.getElementById("fullBlahDownVote").innerHTML = whichBlah.d;
-    document.getElementById("fullBlahComments").innerHTML = "";
-    document.getElementById("FullBlahViewerCount").innerHTML = whichBlah.o; // change to actual viewers
-
     // get the entire blah to update the rest...
     if (CurrentBlah == null) {
         Blahgua.GetBlah(whichBlah.blahId, UpdateFullBlahBody, OnFailure);
@@ -372,11 +321,45 @@ function PopulateFullBlah(whichBlah) {
     }
 }
 
+
+function getSafeProperty(obj, prop, defVal) {
+    if(obj.hasOwnProperty(prop)) {
+        return obj[prop];
+    } else {
+        return defVal;
+    }
+}
+
+function GetBlahTypeStr() {
+    var type = CurrentBlah.typeId;
+    for (curType in BlahTypeList) {
+        if (BlahTypeList[curType]._id == type) {
+            return BlahTypeList[curType].name;
+        }
+    }
+    return "";
+}
+
 function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
+    var headlineText = document.getElementById("BlahFullHeadline");
+    headlineText.innerHTML = unescape(CurrentBlah.text);
 
-    if (CurrentBlah.hasOwnProperty("c")) {
-        document.getElementById("fullBlahComments").innerHTML = CurrentBlah.c;  // to do, change to 'c'
+    // stats
+    document.getElementById("fullBlahUpVote").innerHTML = getSafeProperty(CurrentBlah, "vu", 0);
+    document.getElementById("fullBlahDownVote").innerHTML = getSafeProperty(CurrentBlah, "vd", 0);
+    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
+    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
+
+    var image = GetBlahImage(newBlah, "C");
+    var imageEl = document.getElementById("blahFullImage");
+    if (image == "") {
+        imageEl.style.display = "none";
+        headlineText.style.fontSize = "36px";
+    } else {
+        imageEl.style.display = "block";
+        imageEl.src = image;
+        headlineText.style.fontSize = "24px";
     }
 
     var bodyTextDiv = document.getElementById("BlahFullBody");
@@ -390,18 +373,106 @@ function UpdateFullBlahBody(newBlah) {
         bodyTextDiv.innerHTML = "";
     }
 
+    // update any additional area
+    switch (GetBlahTypeStr())   {
+        case "predicts":
+            $("#AdditionalInfoArea").text("A prediction!");
+            break;
+        case "asks":
+            $("#AdditionalInfoArea").load("./aws/pages/BlahTypeAskPage.html #BlahTypeAskPage",
+                function() { UpdateAskPage(); })
+            break;
+        default:
+
+    }
+
     // update the comments
     if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
         // blah has comments
         Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
     } else {
-        // no comments
+        // no comments                      GetBlahTypeStr()
         var commentDiv = document.getElementById("BlahCommentBody");
         var newHTML = "";
         newHTML += '<span class="NoCommentSpan">No Comments</span>';
         commentDiv.innerHTML = newHTML;
     }
 }
+
+function UpdateAskPage() {
+    // test
+    if (!CurrentBlah.hasOwnProperty("pt")) {
+        var newObj = [];
+        newObj.push({"g":"Choice 1", "t":"This is choice 1", "pv":120});
+        newObj.push({"g":"Choice 2", "t":"This is choice 2", "pv":64});
+        newObj.push({"g":"Choice 3", "t":"This is choice 3", "pv":12});
+        CurrentBlah["pt"] = newObj;
+    }
+
+    if (CurrentBlah.hasOwnProperty("pt")) {
+        var choices = CurrentBlah.pt;
+        var newChoice;
+        var maxVotes = 0, curVotes;
+        for (curIndex in choices) {
+            curVotes = getSafeProperty(choices[curIndex], "pv", 0);
+            if (curVotes > maxVotes) {
+                maxVotes = curVotes;
+            }
+        }
+
+        for (curIndex in choices) {
+            newChoice = CreatePollChoiceElement(choices[curIndex], maxVotes, curIndex);
+            $("#PollAnswersArea").append(newChoice);
+        }
+
+        Blahgua.GetUserPollVote(CurrentBlah._id, UserId, OnGetUserPollVoteOK);
+    }
+}
+
+function OnGetUserPollVoteOK(json) {
+    if (json.hasOwnProperty("p")) {
+        // to do: user has voted, indicate their vote
+        // remove all vote btns
+        // indicate cur vote btn
+    }
+}
+
+function CreatePollChoiceElement(pollChoice, maxVotes, choiceIndex) {
+    var maxWidth = $("body").width() - 150;
+    var curVotes = getSafeProperty(pollChoice, "pv", 0);
+    var ratio = curVotes/ maxVotes;
+    var curRatio = Math.floor(100 * ratio);
+    var newHTML = "";
+    newHTML += '<table class="PollChoiceWrapper"><tbody><tr style="width:100%">';
+    newHTML += '<td class="PollTitle"><span>' + pollChoice.g + '</span></td>';
+    newHTML += '<td class="PollDescription" style="width=' + maxWidth + 'px">';
+    newHTML += '<div class="PollChartDiv" style="width=' + curRatio + '%"></div></td>';
+    newHTML += '<td class="PollVotes">';
+    newHTML += '<img class="PollVoteIcon" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
+    newHTML += '<span class="PollVoteText">' + getSafeProperty(pollChoice, "pv", 0) + '</span>';
+    newHTML += '</td></tr>';
+    // add a row for the comment, if any
+    if (pollChoice.hasOwnProperty("t")) {
+        newHTML += '<tr><td></td><td colspan="2" class="PollComment">';
+        newHTML += '<span style="font-style:italic">' + pollChoice.t + '</span>';
+        newHTML += '</td></tr>';
+    }
+    newHTML += "</tbody></table>";
+
+    return newHTML;
+}
+
+function DoPollVote(theChoice) {
+    var who = event.target || event.srcElement;
+
+    Blahgua.SetUserPollVote(CurrentBlah._id, UserId, Number(who.id), OnSetUserPollVoteOk);
+}
+
+function OnSetUserPollVoteOk() {
+    alert("Poll vote recorded");
+}
+
+
 
 function SortAndRedrawComments(theComments) {
     CurrentComments = theComments;
@@ -550,9 +621,25 @@ function FocusBlah(who) {
 function PopulateBlahPreview(whichBlah) {
     var headlineText = document.getElementById("BlahPreviewHeadline");
     headlineText.innerHTML = unescape(whichBlah.text);
-   
 
-    var image = getBlahImage(whichBlah);
+    // stats
+    document.getElementById("previewUpVote").innerHTML = getSafeProperty(whichBlah, "u", 0);
+    document.getElementById("previewDownVote").innerHTML = getSafeProperty(whichBlah, "d", 0);
+    document.getElementById("PreviewViewerCount").innerHTML =getSafeProperty(whichBlah, "o", 0);
+
+    // get the entire blah to update the rest...
+    Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
+}
+
+function UpdateBodyText(theFullBlah) {
+    CurrentBlah = theFullBlah;
+    var headlineText = document.getElementById("BlahPreviewHeadline");
+
+    // update the comment count while we are here
+    document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "c", 0);
+
+    // image
+    var image = GetBlahImage(CurrentBlah, "B");
     var imageEl = document.getElementById("blahPreviewImage");
     if (image == "") {
         imageEl.style.display = "none";
@@ -561,24 +648,6 @@ function PopulateBlahPreview(whichBlah) {
         imageEl.style.display = "block";
         imageEl.src = image;
         headlineText.style.fontSize = "24px";
-    }
-
-    // stats
-    document.getElementById("previewUpVote").innerHTML = whichBlah.u;
-    document.getElementById("previewDownVote").innerHTML = whichBlah.d;
-    document.getElementById("previewComments").innerHTML = "";
-    document.getElementById("PreviewViewerCount").innerHTML = whichBlah.o; // change to actual viewers
-
-    // get the entire blah to update the rest...
-    Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
-}
-
-function UpdateBodyText(theFullBlah) {
-    CurrentBlah = theFullBlah;
-
-    // update the comment count while we are here
-    if (theFullBlah.hasOwnProperty("c")) {
-        document.getElementById("previewComments").innerHTML = theFullBlah.c;
     }
 
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
@@ -591,6 +660,25 @@ function UpdateBodyText(theFullBlah) {
     } else {
         bodyTextDiv.innerHTML = "";
     }
+
+    // check if it is a special type
+    switch (GetBlahTypeStr())   {
+        case "predicts":
+            $("#BlahPreviewExtra").text("A prediction!");
+            break;
+        case "asks":
+            $("#BlahPreviewExtra").load("./aws/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
+                function() { UpdateAskPreviewPage(); })
+            break;
+        default:
+
+    }
+}
+
+
+function UpdateAskPreviewPage() {
+    // for now just use the full blah routine...
+    UpdateAskPage();
 }
 
 
@@ -614,6 +702,8 @@ function UnfocusBlah(who) {
     FocusedBlah = null;
     CurrentBlah = null;
     $("#BlahPreviewItem").hide();
+    document.getElementById("blahPreviewImage").style.display = "none";
+    $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
     StartAnimation();
 }
@@ -640,8 +730,11 @@ function CreateBaseDiv(theBlah) {
     newDiv.appendChild(textDiv);
     newDiv.blahTextDiv = textDiv;
     newDiv.blahTextDiv.innerHTML = unescape(theBlah.text);
-
-    var imagePath = getBlahImage(theBlah);
+    var blahImageSize = "A";
+    if (theBlah.displaySize == 3) {
+        blahImageSize = "B";
+    }
+    var imagePath = GetBlahImage(theBlah, blahImageSize);
     if (imagePath != "") {
         newDiv.style.backgroundImage = "url('" + imagePath + "')";
         var r = (Math.round(Math.random() * 127) + 127);
@@ -683,19 +776,29 @@ function darkColors() {
     return '#' + r + g + b;
 }
 
-function getBlahImage(theBlah) {
+function GetBlahImage(theBlah, size) {
     var imagePathName = "";
-    if (Math.random() < .50) {
-        var numImages = 45;
-        var imageNum = 1 + Math.floor(Math.random() * numImages);
-        imagePathName = imageNum + ".jpg";
-        if (imagePathName.length == 5) {
-            imagePathName = "0" + imagePathName;
-        }
-        imagePathName = "http://files.blahgua.com/webapp/blahimages/" + imagePathName;
-        //imagePathName = "http://files.blahgua.com/webapp/walmartimages/" + imagePathName;
+    if (theBlah.hasOwnProperty("img")) {
+        // fetch the correct image size
+        var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
+        var imageName = theBlah.img[0];
+        imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
+    } else {
+        /*
+        if (Math.random() < .50) {
+            var numImages = 45;
+            var imageNum = 1 + Math.floor(Math.random() * numImages);
+            imagePathName = imageNum + ".jpg";
+            if (imagePathName.length == 5) {
+                imagePathName = "0" + imagePathName;
+            }
+            imagePathName = "http://files.blahgua.com/webapp/blahimages/" + imagePathName;
+            //imagePathName = "http://files.blahgua.com/webapp/walmartimages/" + imagePathName;
 
+        }
+        */
     }
+
 
     return imagePathName;
 
@@ -1460,20 +1563,14 @@ function DoCreateBlah() {
     });
  }
 
+function UpdateBlahTypes() {
+    Blahgua.GetBlahTypes(function (json) {
+        BlahTypeList = json;
+    });
+}
+
+
 function PopulateBlahTypeOptions() {
-    if (BlahTypeList == null) {
-        Blahgua.GetBlahTypes(OnGetBlahTypesOK);
-    }
-    else
-        UpdateBlahTypeOptions();
-}
-
-function OnGetBlahTypesOK(json) {
-    BlahTypeList = json;
-    UpdateBlahTypeOptions();
-}
-
-function UpdateBlahTypeOptions() {
     var curOption;
     curHTML = "";
     for (curItem in BlahTypeList) {
@@ -1518,7 +1615,61 @@ function CreateBlah() {
 
 function OnCreateBlahOK(json) {
     CurrentBlah = json;
-    OpenBlah(CurrentBlah);
+    // check for images
+    if ($("#BlahImage").val() != "") {
+        UploadBlahImage(CurrentBlah._id);
+    } else {
+        OpenBlah(CurrentBlah);
+    }
+}
+
+function UploadBlahImage(blahId) {
+    $("#ProgressDiv").show();
+    $("#objectId").val(blahId);
+     //document.getElementById("ImageForm").submit();
+
+    var formData = new FormData($("#ImageForm")[0]);
+    $.ajax({
+        url: "http://beta.blahgua.com/v2/images/upload",
+
+        type: 'POST',
+        xhr: function() {  // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // if upload property exists
+                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+            }
+            return myXhr;
+        },
+        //Ajax events
+        success: completeHandler = function(data) {
+            OnUploadImageOK(data);
+
+        },
+        error: errorHandler = function(theErr) {
+            alert("Error uploading");
+        },
+        // Form data
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    }, 'json');
+}
+
+function progressHandlingFunction(evt) {
+    var maxWidth = $("#ProgressBar").width();
+    var curWidth = 100;
+    var ratio = evt.loaded / evt.total;
+    var newWidth = Math.floor(maxWidth * ratio);
+    $("#Indicator").width(newWidth);
+}
+
+function OnUploadImageOK(result) {
+    Blahgua.GetBlah(CurrentBlah._id, function(theBlah) {
+        CurrentBlah = theBlah;
+        OpenBlah(CurrentBlah);
+    });
 }
 
 function UpdateBlahInfoArea() {
