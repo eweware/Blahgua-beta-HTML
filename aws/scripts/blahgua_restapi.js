@@ -366,18 +366,6 @@ function BlahguaObject() {
         this.CallPageMethod("JoinUserToGroup", paramStr, OnSuccess, OnFailure);
     };
 
-    this.CreateUserBlah = function (blahText, blahType, blahGroup, bodyText, OnSuccess, OnFailure) {
-        /// <summary>Joins the session user to the group</summary>
-        /// <param name="blahText">The text of the new blah</param>
-        /// <param name="blahType">The ID of the type of the new blah</param>
-        /// <param name="blahGroup">The ID of the group for the new blah</param>
-        /// <param name="bodyText">The text of the blah body</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>A new blah object</returns>
-        var paramStr = '{"blahText":"' + blahText + '", "blahTypeID":"' + blahType + '", "blahGroupID":"' + blahGroup + '", "body":"' + bodyText + '"}';
-        this.CallPageMethod("CreateUserBlah", paramStr, OnSuccess, OnFailure);
-    };
 
     this.CreateUser = function (userName, email, isAdmin, OnSuccess, OnFailure) {
         /// <summary>Creates a new user</summary>
@@ -467,14 +455,40 @@ function BlahguaObject() {
         this.CallPageMethod("GetViewerCount", paramStr, OnSuccess, OnFailure);
     };
 
-    this.AssertCurrentPage = function (PageName, OnSuccess, OnFailure) {
-        ///
-        var paramStr = '{"pageName":"' + PageName + '"}';
-        this.CallPageMethod("AssertCurrentPage", paramStr, OnSuccess, OnFailure);
+
+    //  ACTUAL WORKING FUNCTIONS
+
+    this.GetBlahTypes = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the currently available blah types</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>an array of blah types</returns>
+        var paramStr = '{}';
+        this.CallGetMethod("blahs/types", paramStr, OnSuccess, OnFailure);
     };
 
 
-    //  ACTUAL WORKING FUNCTIONS
+    this.CreateUserBlah = function (blahText, blahType, blahGroup, bodyText, OnSuccess, OnFailure) {
+        /// <summary>Joins the session user to the group</summary>
+        /// <param name="blahText">The text of the new blah</param>
+        /// <param name="blahType">The ID of the type of the new blah</param>
+        /// <param name="blahGroup">The ID of the group for the new blah</param>
+        /// <param name="bodyText">The text of the blah body</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A new blah object</returns>
+        var param = new Object();
+        param["authorId"] = UserId;
+        param["groupId"] = blahGroup;
+        param["text"] = blahText;
+        param["typeId"] = blahType;
+        if (bodyText != "") {
+            param["b"] = bodyText;
+        }
+
+        this.CallPostMethod("blahs", JSON.stringify(param), OnSuccess, OnFailure);
+    };
+
 
     this.SetCurrentUser = function (theID) {
         this.currentUser = theID;
@@ -596,30 +610,7 @@ function BlahguaObject() {
         this.CallPageMethod("AddBlahViewsOpens", paramStr, OnSuccess, OnFailure);
     };
 
-    this.UpdateUserProfile = function (profile, OnSuccess, OnFailure) {
-        ///
-        var dataObj = new Object();
-        dataObj["profileObj"] = profile;// { test: 10, waste: 20 };
-        //this.CallPageMethod("UpdateUserProfile", paramStr, OnSuccess, OnFailure);
-        $.ajax({
-            type: "POST",
-            url: this.baseURL + "/" + "UpdateUserProfile",
-            processData: false,
-            data: JSON.stringify(dataObj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (blahList) {
-                if (OnSuccess != null) {
-                    OnSuccess(blahList.d);
-                }
-            },
-            error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
-                }
-            }
-        });
-    };
+
 }
 
 

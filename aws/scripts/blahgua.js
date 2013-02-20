@@ -31,6 +31,7 @@ var CurrentComments = null;
 var CurrentChannel = null;
 var CurrentUser = null;
 var ChannelList = [];
+var BlahTypeList = null;
 
 
 (function ($) {
@@ -1392,6 +1393,7 @@ function OnGetNextBlahsOK(theResult) {
 
 function InstallUserChannel() {
     // empty whatever is in there now
+    StopAnimation();
     $("#BlahContainer").empty();
     CurrentChannel = null;
     if (CurrentUser == null) {
@@ -1408,6 +1410,7 @@ function OnGetUserOK(theResult) {
 }
 
 function PopulateUserChannel() {
+
     var ChannelName = "";
 
     if (CurrentUser.hasOwnProperty("n")) {
@@ -1418,10 +1421,12 @@ function PopulateUserChannel() {
     $("#ChannelBannerLabel").html(ChannelName);
 
     // now load the other page
-    $("#BlahContainer").load("#");
-    $("#BlahContainer").load("./aws/pages/SelfPage.html #userchanneldiv");
+    $("#BlahContainer").load("./aws/pages/SelfPage.html #userchanneldiv", RefreshUserChannelContent);
 
 
+ }
+
+function RefreshUserChannelContent() {
     $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 
@@ -1447,6 +1452,84 @@ function OnChannelViewersOK(numViewers) {
 
 function DoCreateBlah() {
     StopAnimation();
-    $(BlahFullItem).load("./aws/pages/CreateBlahPage.html#");
-    $(BlahFullItem).fadeIn("fast");
+    $(BlahFullItem).load("./aws/pages/CreateBlahPage.html", function() {
+        PopulateBlahTypeOptions();
+        $(BlahFullItem).fadeIn("fast");
+    });
+ }
+
+function PopulateBlahTypeOptions() {
+    if (BlahTypeList == null) {
+        Blahgua.GetBlahTypes(OnGetBlahTypesOK);
+    }
+    else
+        UpdateBlahTypeOptions();
+}
+
+function OnGetBlahTypesOK(json) {
+    BlahTypeList = json;
+    UpdateBlahTypeOptions();
+}
+
+function UpdateBlahTypeOptions() {
+    var curOption;
+    curHTML = "";
+    for (curItem in BlahTypeList) {
+        curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '">';
+        curHTML += BlahTypeList[curItem].name;
+        curHTML += '</OPTION>';
+    }
+    $("#BlahTypeList").html(curHTML);
+}
+
+
+function CreateBlah() {
+    var blahType = $("#BlahTypeList").val();
+    var blahHeadline = $("#BlahHeadline").val();
+    var blahBody = $("#BlahBody").val();
+    var blahGroup = CurrentChannel._id;
+
+    Blahgua.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, OnCreateBlahOK, OnFailure);
+}
+
+function OnCreateBlahOK(json) {
+    alert("Blah created!")
+}
+
+function UpdateBlahInfoArea() {
+    var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
+    switch (blahTypeStr.name)   {
+        case "predicts":
+            $("#AdditionalInfoDiv").text("A prediction!");
+            break;
+        case "asks":
+            $("#AdditionalInfoDiv").load("./aws/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
+            function() { UpdateAskAuthorPage(); })
+            break;
+        default:
+            $("#AdditionalInfoDiv").text("A normalish blah that needs no extra info");
+    }
+}
+
+function UpdateAskAuthorPage() {
+    var newHTML = CreateAskAuthorItem();
+    $("#PollAnswersArea").html(newHTML);
+}
+
+function AddPollAnswer() {
+    var oldHTML = $("#PollAnswersArea").html();
+    var newHTML = CreateAskAuthorItem();
+    $("#PollAnswersArea").html(oldHTML + newHTML);
+}
+
+function CreateAskAuthorItem() {
+    var newHTML = "";
+    newHTML += '<div>';
+    newHTML += '<span>choice:</span>' ;
+    newHTML += '<input type="text">';
+    newHTML += '<span>details:</span>';
+    newHTML += '<input type="text">';
+    newHTML += '<button onclick="DoDeleteAskChoice(); return false;">X</button>';
+    newHTML += '</div>';
+    return newHTML;
 }

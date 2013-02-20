@@ -4,8 +4,24 @@
     <title></title>
 </head>
 <body>
-<div style="margin-top:60px; background-color: red"  id="CreateBlahPage" onclick="DoCloseBlah(); return false;">
-    This is where the blah creation happens!  Wootage!
+<div id="CreateBlahPage" >
+    <div onclick="DoCloseBlah(); return false;">Create Blah!</div>
+    <fieldset>
+        <label for="BlahTypeList">Blah Type</label>
+        <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;">
+
+        </select>
+        <label for="BlahHeadline">headline</label>
+        <input id="BlahHeadline" type="text">
+        <label for="BlahBody">body</label>
+        <textarea id="BlahBody"></textarea>
+        <label for="BlahImage">image</label>
+        <input id="BlahImage" type="file">
+    </fieldset>
+    <div id="AdditionalInfoDiv">
+        Additional Info goes here
+    </div>
+    <button onclick="CreateBlah(); return false;">Create</button>
 </div>
 </body>
 </html>
