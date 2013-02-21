@@ -32,6 +32,8 @@ var CurrentChannel = null;
 var CurrentUser = null;
 var ChannelList = [];
 var BlahTypeList = null;
+//var fragmentURL = "./aws";
+var fragmentURL = "http://files.blahgua.com/webapp";
 
 
 (function ($) {
@@ -242,7 +244,7 @@ function CreateChannelBanner() {
 
 function CreatePreviewBlah() {
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
-    $(BlahPreviewItem).load("./aws/Pages/BlahPreview.html #BlahPreview", function () {
+    $(BlahPreviewItem).load(fragmentURL + "/Pages/BlahPreview.html #BlahPreview", function () {
         BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
         BlahPreviewItem.onclick = function() {
             if (BlahPreviewTimeout != null) {
@@ -304,7 +306,7 @@ function StartAnimation() {
 
 function OpenBlah(whichBlah) {
     StopAnimation();
-    $(BlahFullItem).load("./aws/Pages/BlahDetailPage.html  #FullBlahDiv", function() {
+    $(BlahFullItem).load(fragmentURL + "/Pages/BlahDetailPage.html  #FullBlahDiv", function() {
         PopulateFullBlah(whichBlah);
         $(BlahFullItem).fadeIn("fast");
     });
@@ -379,7 +381,7 @@ function UpdateFullBlahBody(newBlah) {
             $("#AdditionalInfoArea").text("A prediction!");
             break;
         case "asks":
-            $("#AdditionalInfoArea").load("./aws/pages/BlahTypeAskPage.html #BlahTypeAskPage",
+            $("#AdditionalInfoArea").load(fragmentURL + "/Pages/BlahTypeAskPage.html #BlahTypeAskPage",
                 function() { UpdateAskPage(); })
             break;
         default:
@@ -667,7 +669,7 @@ function UpdateBodyText(theFullBlah) {
             $("#BlahPreviewExtra").text("A prediction!");
             break;
         case "asks":
-            $("#BlahPreviewExtra").load("./aws/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
+            $("#BlahPreviewExtra").load(fragmentURL + "/Pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
                 function() { UpdateAskPreviewPage(); })
             break;
         default:
@@ -1526,7 +1528,7 @@ function PopulateUserChannel() {
     $("#ChannelBannerLabel").html(ChannelName);
 
     // now load the other page
-    $("#BlahContainer").load("./aws/pages/SelfPage.html #userchanneldiv", RefreshUserChannelContent);
+    $("#BlahContainer").load(fragmentURL + "/Pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
 
 
  }
@@ -1557,7 +1559,7 @@ function OnChannelViewersOK(numViewers) {
 
 function DoCreateBlah() {
     StopAnimation();
-    $(BlahFullItem).load("./aws/pages/CreateBlahPage.html", function() {
+    $(BlahFullItem).load(fragmentURL + "/Pages/CreateBlahPage.html", function() {
         PopulateBlahTypeOptions();
         $(BlahFullItem).fadeIn("fast");
     });
@@ -1679,7 +1681,7 @@ function UpdateBlahInfoArea() {
             $("#AdditionalInfoDiv").text("A prediction!");
             break;
         case "asks":
-            $("#AdditionalInfoDiv").load("./aws/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
+            $("#AdditionalInfoDiv").load(fragmentURL + "/Pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
             function() { UpdateAskAuthorPage(); })
             break;
         default:
