@@ -479,7 +479,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>nothing</returns>
         var paramStr = '{}';
-        var method = "blahs/" + blahId + "/pollVote/" + userID + "/" + optionIndex;
+        var method = "blahs/" + blahID + "/pollVote/" + userID + "/" + optionIndex;
         this.CallPutMethod(method, paramStr, OnSuccess, OnFailure);
     };
 

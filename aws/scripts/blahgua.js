@@ -32,8 +32,8 @@ var CurrentChannel = null;
 var CurrentUser = null;
 var ChannelList = [];
 var BlahTypeList = null;
-//var fragmentURL = "./aws";
-var fragmentURL = "http://files.blahgua.com/webapp";
+var fragmentURL = ".";
+
 
 
 (function ($) {
@@ -59,7 +59,7 @@ var fragmentURL = "http://files.blahgua.com/webapp";
 
 
 $(document).ready(function () {
-
+    document.domain = "blahgua.com";
     $("#BlahContainer").disableSelection();
     $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
     $("#BlahContainer").on('swiperight', HandleSwipeRight);
@@ -380,7 +380,7 @@ function UpdateFullBlahBody(newBlah) {
         case "predicts":
             $("#AdditionalInfoArea").text("A prediction!");
             break;
-        case "asks":
+        case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/Pages/BlahTypeAskPage.html #BlahTypeAskPage",
                 function() { UpdateAskPage(); })
             break;
@@ -668,7 +668,7 @@ function UpdateBodyText(theFullBlah) {
         case "predicts":
             $("#BlahPreviewExtra").text("A prediction!");
             break;
-        case "asks":
+        case "polls":
             $("#BlahPreviewExtra").load(fragmentURL + "/Pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
                 function() { UpdateAskPreviewPage(); })
             break;
@@ -1594,7 +1594,7 @@ function CreateBlah() {
     // check for additional options
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     switch (blahTypeStr.name)   {
-        case "asks":
+        case "polls":
             // add the poll items
             var pollItems = [];
             var curPollItem;
@@ -1680,7 +1680,7 @@ function UpdateBlahInfoArea() {
         case "predicts":
             $("#AdditionalInfoDiv").text("A prediction!");
             break;
-        case "asks":
+        case "polls":
             $("#AdditionalInfoDiv").load(fragmentURL + "/Pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
             function() { UpdateAskAuthorPage(); })
             break;
