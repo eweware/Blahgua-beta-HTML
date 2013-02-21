@@ -59,7 +59,7 @@ var fragmentURL = ".";
 
 
 $(document).ready(function () {
-    document.domain = "blahgua.com";
+
     $("#BlahContainer").disableSelection();
     $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
     $("#BlahContainer").on('swiperight', HandleSwipeRight);
@@ -306,6 +306,8 @@ function StartAnimation() {
 
 function OpenBlah(whichBlah) {
     StopAnimation();
+    $("#BlahPreviewExtra").empty();
+    $("#LightBox").hide();
     $(BlahFullItem).load(fragmentURL + "/Pages/BlahDetailPage.html  #FullBlahDiv", function() {
         PopulateFullBlah(whichBlah);
         $(BlahFullItem).fadeIn("fast");
@@ -382,7 +384,7 @@ function UpdateFullBlahBody(newBlah) {
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/Pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage(); })
+                function() { UpdateAskPage("PollAnswersArea"); })
             break;
         default:
 
@@ -401,7 +403,7 @@ function UpdateFullBlahBody(newBlah) {
     }
 }
 
-function UpdateAskPage() {
+function UpdateAskPage(previewAreaName) {
     // test
     if (!CurrentBlah.hasOwnProperty("pt")) {
         var newObj = [];
@@ -413,18 +415,20 @@ function UpdateAskPage() {
 
     if (CurrentBlah.hasOwnProperty("pt")) {
         var choices = CurrentBlah.pt;
+        var votes = CurrentBlah.pv;
         var newChoice;
         var maxVotes = 0, curVotes;
-        for (curIndex in choices) {
-            curVotes = getSafeProperty(choices[curIndex], "pv", 0);
+        for (curIndex in votes) {
+            curVotes = votes[curIndex];
             if (curVotes > maxVotes) {
                 maxVotes = curVotes;
             }
         }
 
+        previewAreaName = "#" + previewAreaName;
         for (curIndex in choices) {
-            newChoice = CreatePollChoiceElement(choices[curIndex], maxVotes, curIndex);
-            $("#PollAnswersArea").append(newChoice);
+            newChoice = CreatePollChoiceElement(choices[curIndex],votes[curIndex], maxVotes, curIndex);
+            $(previewAreaName).append(newChoice);
         }
 
         Blahgua.GetUserPollVote(CurrentBlah._id, UserId, OnGetUserPollVoteOK);
@@ -433,15 +437,15 @@ function UpdateAskPage() {
 
 function OnGetUserPollVoteOK(json) {
     if (json.hasOwnProperty("p")) {
-        // to do: user has voted, indicate their vote
-        // remove all vote btns
-        // indicate cur vote btn
+        // disable all vote buttons
+        $(".PollVoteIcon").remove();
+        $(".PollVoteText")[Number(json.p)].style.color = "#FF0000";
+        $(".PollVoteText")[Number(json.p)].style.fontWeight = "bold";
     }
 }
 
-function CreatePollChoiceElement(pollChoice, maxVotes, choiceIndex) {
+function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
     var maxWidth = $("body").width() - 150;
-    var curVotes = getSafeProperty(pollChoice, "pv", 0);
     var ratio = curVotes/ maxVotes;
     var curRatio = Math.floor(100 * ratio);
     var newHTML = "";
@@ -451,7 +455,7 @@ function CreatePollChoiceElement(pollChoice, maxVotes, choiceIndex) {
     newHTML += '<div class="PollChartDiv" style="width=' + curRatio + '%"></div></td>';
     newHTML += '<td class="PollVotes">';
     newHTML += '<img class="PollVoteIcon" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
-    newHTML += '<span class="PollVoteText">' + getSafeProperty(pollChoice, "pv", 0) + '</span>';
+    newHTML += '<span class="PollVoteText">' + curVotes + '</span>';
     newHTML += '</td></tr>';
     // add a row for the comment, if any
     if (pollChoice.hasOwnProperty("t")) {
@@ -467,12 +471,17 @@ function CreatePollChoiceElement(pollChoice, maxVotes, choiceIndex) {
 function DoPollVote(theChoice) {
     var who = event.target || event.srcElement;
 
-    Blahgua.SetUserPollVote(CurrentBlah._id, UserId, Number(who.id), OnSetUserPollVoteOk);
+    Blahgua.SetUserPollVote(CurrentBlah._id, UserId, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
 }
 
-function OnSetUserPollVoteOk() {
+function OnSetUserPollVoteOk(json) {
     alert("Poll vote recorded");
 }
+
+function OnPollVoteFail(json) {
+    alert("Poll vote failed!");
+}
+
 
 
 
@@ -680,7 +689,7 @@ function UpdateBodyText(theFullBlah) {
 
 function UpdateAskPreviewPage() {
     // for now just use the full blah routine...
-    UpdateAskPage();
+    UpdateAskPage("PollAnswersAreaPreview");
 }
 
 
