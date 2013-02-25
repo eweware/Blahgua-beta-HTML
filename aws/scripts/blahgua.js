@@ -16,7 +16,6 @@ var LargeTileHeight = 400;
 var MediumTileHeight = 200;
 var SmallTileHeight = 100;
 var ActiveBlahList;
-var UserId = "507c81dae4b006df4807a6c3";
 var MaxMedium = 0;
 var MaxSmall = 0;
 var TopRow = null;
@@ -32,8 +31,11 @@ var CurrentChannel = null;
 var CurrentUser = null;
 var ChannelList = [];
 var BlahTypeList = null;
-var fragmentURL = ".";
+var IsUserLoggedIn = false;
 
+var fragmentURL = ".";
+//var fragmentURL = "http://files.blahgua.com/webapp";
+//var fragmentURL = "https://s3.amazonaws.com/files.blahgua.com/webapp";
 
 
 (function ($) {
@@ -67,17 +69,131 @@ $(document).ready(function () {
     $("#BlahContainer").on('swipedown', HandleSwipeDown);
     $("#LightBox").click(function () { UnfocusBlah(); });
 
-    Blahgua.currentUser = UserId;
+
+
+    SignIn();
+
+});
+
+function SignIn() {
+    var savedID = $.cookie("userId");
+    var pwd = $.cookie("password");
+
+    if (savedID == null) {
+        CreateTempUserAndSignIn();
+    }
+    else {
+        if (pwd == null) {
+            pwd = prompt("Welcome back.  enter password:")
+        }
+
+        // sign in
+        Blahgua.GetUserByName(savedID,
+            function(json) {
+                CurrentUser = json;
+                DoUserLogin(savedID, pwd);
+            },
+            function () {
+                alert("There is no user named " + savedID);
+            }
+        );
+    }
+}
+
+function GenerateGUID() {
+    return Date.now().toString() + 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
+
+
+function CreateTempUserAndSignIn() {
+    var tempUserName = GenerateGUID();
+    var pwd = "Demo20130215";
+    Blahgua.CreateUser(tempUserName, pwd,
+        function (json) {
+            CurrentUser = json;
+            $.cookie("userId", tempUserName, { expires: 30, path: '/'});
+            $.cookie("password", pwd, { expires: 30, path: '/'});
+            finalizeInitialLoad();
+        },
+        function (theErr) {
+            alert("Could not sign in to blahgua.  Soz!");
+        }
+    );
+}
+
+
+
+function DoUserLogIn(userName, userPassword) {
+    if (userName != "demo") {
+        Blahgua.LoginUser(userName, userPassword, OnLoginUserOK, OnLoginUserFail);
+    } else {
+        // demo user
+        finalizeInitialLoad();
+    }
+}
+
+function OnLoginUserOK(json) {
+    alert("You are logged in!");
+    IsUserLoggedIn = true;
+    finalizeInitialLoad();
+
+}
+
+function OnLoginUserFail(json) {
+    alert("Login Failed!");
+}
+
+function ChannelIDFromName(Channel, ChannelList) {
+    var curChannel;
+    for (curIndex in ChannelList) {
+        curChannel = ChannelList[curIndex];
+        if (curChannel.displayName == Channel) {
+            return curChannel._id;
+        }
+    }
+    return null;
+}
+
+
+function AddDefaultChannelsToNewUser() {
+    Blahgua.GetAllChannels(OnGetChannelsOK);
+}
+
+function OnGetChannelsOK(channelList) {
+    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Blahgua Network", channelList),
+        function () {
+            Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Entertainment", channelList),
+                function () {
+                    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Politics", channelList),
+                        function () {
+                            Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Sports", channelList),
+                                function () {
+                                    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Humor", channelList),
+                                        GetUserChannels);
+                                }
+                            );
+                        }
+                    );
+                }
+            );
+        }
+    );
+}
+
+
+
+function finalizeInitialLoad() {
+    Blahgua.currentUser = CurrentUser._id;
     CreateChannelBanner();
     CreatePreviewBlah();
     CreateFullBlah();
     ComputeSizes();
     GetUserChannels();
     UpdateBlahTypes();
-
-});
-
-
+}
 
 
 // ********************************************************
@@ -244,7 +360,7 @@ function CreateChannelBanner() {
 
 function CreatePreviewBlah() {
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
-    $(BlahPreviewItem).load(fragmentURL + "/Pages/BlahPreview.html #BlahPreview", function () {
+    $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
         BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
         BlahPreviewItem.onclick = function() {
             if (BlahPreviewTimeout != null) {
@@ -308,7 +424,7 @@ function OpenBlah(whichBlah) {
     StopAnimation();
     $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
-    $(BlahFullItem).load(fragmentURL + "/Pages/BlahDetailPage.html  #FullBlahDiv", function() {
+    $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html  #FullBlahDiv", function() {
         PopulateFullBlah(whichBlah);
         $(BlahFullItem).fadeIn("fast");
     });
@@ -383,7 +499,7 @@ function UpdateFullBlahBody(newBlah) {
             $("#AdditionalInfoArea").text("A prediction!");
             break;
         case "polls":
-            $("#AdditionalInfoArea").load(fragmentURL + "/Pages/BlahTypeAskPage.html #BlahTypeAskPage",
+            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
                 function() { UpdateAskPage("PollAnswersArea"); })
             break;
         default:
@@ -431,7 +547,7 @@ function UpdateAskPage(previewAreaName) {
             $(previewAreaName).append(newChoice);
         }
 
-        Blahgua.GetUserPollVote(CurrentBlah._id, UserId, OnGetUserPollVoteOK);
+        Blahgua.GetUserPollVote(CurrentBlah._id, CurrentUser._id, OnGetUserPollVoteOK);
     }
 }
 
@@ -471,7 +587,7 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
 function DoPollVote(theChoice) {
     var who = event.target || event.srcElement;
 
-    Blahgua.SetUserPollVote(CurrentBlah._id, UserId, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
+    Blahgua.SetUserPollVote(CurrentBlah._id, CurrentUser._id, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
 }
 
 function OnSetUserPollVoteOk(json) {
@@ -678,7 +794,7 @@ function UpdateBodyText(theFullBlah) {
             $("#BlahPreviewExtra").text("A prediction!");
             break;
         case "polls":
-            $("#BlahPreviewExtra").load(fragmentURL + "/Pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
+            $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
                 function() { UpdateAskPreviewPage(); })
             break;
         default:
@@ -1473,7 +1589,10 @@ function GetUserChannels() {
 
 function GetChannelsOK(theChannels) {
     ChannelList = theChannels;
-    SetCurrentChannel(0);
+    if (theChannels.length == 0) {
+        AddDefaultChannelsToNewUser();
+    }
+    else SetCurrentChannel(0);
 }
 
 function SetCurrentChannel(whichChannel) {
@@ -1537,13 +1656,73 @@ function PopulateUserChannel() {
     $("#ChannelBannerLabel").html(ChannelName);
 
     // now load the other page
-    $("#BlahContainer").load(fragmentURL + "/Pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
+    if (IsUserLoggedIn)
+        $("#BlahContainer").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
+    else
+        $("#BlahContainer").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
 
 
  }
 
 function RefreshUserChannelContent() {
     $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+}
+
+function RefreshSignupContent() {
+    $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+}
+
+function CreateNewUser() {
+    var userName = $("#userName").val();
+    var pwd = $("#pwd").val();
+    Blahgua.CreateUser(userName, pwd, HandleCreateUserOK, HandleCreateUserFail);
+}
+
+function SignInExistingUser() {
+    var userName = $("#userName2").val();
+    var pwd = $("#pwd2").val();
+    Blahgua.LoginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+}
+
+function HandleCreateUserOK(json) {
+    alert("user created ok!  Now logging in...");
+
+    var userName = $("#userName").val();
+    var pwd = $("#pwd").val();
+    if ($("#rememberme").val()) {
+        $.cookie("userId", tempUserName, { expires: 30, path: '/'});
+        $.cookie("password", pwd, { expires: 30, path: '/'});
+    }
+    $("#userName2").val(userName);
+    $("#pwd2").val(pwd);
+    Blahgua.LoginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+}
+
+function HandleCreateUserFail(json) {
+    alert("User creation failed!");
+}
+
+
+function HandleUserLoginOK(json) {
+    IsUserLoggedIn = true;
+    var userName = $("#userName2").val();
+    var pwd = $("#pwd2").val();
+    if ($("#rememberme2").val()) {
+        $.cookie("userId", userName, { expires: 30, path: '/'});
+        $.cookie("password", pwd, { expires: 30, path: '/'});
+    }
+    Blahgua.GetUserByName(userName, RefreshPageForNewUser);
+}
+
+function HandleUserLoginFail(json) {
+    alert("Login Failed. Check username and password.");
+}
+
+function RefreshPageForNewUser(json) {
+    // get the new channel list
+    CurrentUser = json;
+    Blahgua.currentUser = CurrentUser._id;
+    GetUserChannels();
 }
 
 
@@ -1553,7 +1732,7 @@ function UpdateChannelViewers() {
         ViewerUpdateTimer = null;
     }
     if (CurrentChannel == null) {
-        Blahgua.GetViewersOfUser(UserId, OnChannelViewersOK, OnFailure);
+        Blahgua.GetViewersOfUser(CurrentUser._id, OnChannelViewersOK, OnFailure);
     } else {
         Blahgua.GetViewersOfChannel(CurrentChannel.id, OnChannelViewersOK, OnFailure);
     }
@@ -1568,7 +1747,7 @@ function OnChannelViewersOK(numViewers) {
 
 function DoCreateBlah() {
     StopAnimation();
-    $(BlahFullItem).load(fragmentURL + "/Pages/CreateBlahPage.html", function() {
+    $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
         PopulateBlahTypeOptions();
         $(BlahFullItem).fadeIn("fast");
     });
@@ -1690,7 +1869,7 @@ function UpdateBlahInfoArea() {
             $("#AdditionalInfoDiv").text("A prediction!");
             break;
         case "polls":
-            $("#AdditionalInfoDiv").load(fragmentURL + "/Pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
+            $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
             function() { UpdateAskAuthorPage(); })
             break;
         default:
