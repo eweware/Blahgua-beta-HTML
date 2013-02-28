@@ -32,6 +32,8 @@ var CurrentUser = null;
 var ChannelList = [];
 var BlahTypeList = null;
 var IsUserLoggedIn = false;
+var IsTempUser = true;
+var IsVertical = true;
 
 var fragmentURL = ".";
 //var fragmentURL = "http://files.blahgua.com/webapp";
@@ -58,10 +60,23 @@ var fragmentURL = ".";
     };
 })(jQuery);
 
+function require(script) {
+    $.ajax({
+        url: script,
+        dataType: "script",
+        async: false,           // <-- this is the key
+        success: function () {
+            // all good...
+        },
+        error: function (theErr) {
+            throw new Error("Could not load script " + script);
+        }
+    });
+}
+
 
 
 $(document).ready(function () {
-
     $("#BlahContainer").disableSelection();
     $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
     $("#BlahContainer").on('swiperight', HandleSwipeRight);
@@ -72,8 +87,11 @@ $(document).ready(function () {
 
 
     SignIn();
-
 });
+
+// *****************************************************
+// Sign-in
+
 
 function SignIn() {
     var savedID = $.cookie("userId");
@@ -91,6 +109,7 @@ function SignIn() {
         Blahgua.GetUserByName(savedID,
             function(json) {
                 CurrentUser = json;
+                IsTempUser = $.cookie("isTemp");
                 DoUserLogin(savedID, pwd);
             },
             function () {
@@ -100,12 +119,14 @@ function SignIn() {
     }
 }
 
+
 function GenerateGUID() {
     return Date.now().toString() + 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
         return v.toString(16);
     });
 }
+
 
 
 function CreateTempUserAndSignIn() {
@@ -116,6 +137,8 @@ function CreateTempUserAndSignIn() {
             CurrentUser = json;
             $.cookie("userId", tempUserName, { expires: 30, path: '/'});
             $.cookie("password", pwd, { expires: 30, path: '/'});
+            $.cookie("isTemp", true, { expires: 30, path: '/'});
+            IsTempUser = true;
             finalizeInitialLoad();
         },
         function (theErr) {
@@ -126,17 +149,17 @@ function CreateTempUserAndSignIn() {
 
 
 
-function DoUserLogIn(userName, userPassword) {
-    if (userName != "demo") {
+function DoUserLogin(userName, userPassword) {
+    if (!IsTempUser) {
         Blahgua.LoginUser(userName, userPassword, OnLoginUserOK, OnLoginUserFail);
     } else {
         // demo user
+        IsTempUser = false;
         finalizeInitialLoad();
     }
 }
 
 function OnLoginUserOK(json) {
-    alert("You are logged in!");
     IsUserLoggedIn = true;
     finalizeInitialLoad();
 
@@ -145,6 +168,11 @@ function OnLoginUserOK(json) {
 function OnLoginUserFail(json) {
     alert("Login Failed!");
 }
+
+
+
+// *************************************************
+// Channels
 
 function ChannelIDFromName(Channel, ChannelList) {
     var curChannel;
@@ -183,16 +211,18 @@ function OnGetChannelsOK(channelList) {
     );
 }
 
-
+// *************************************************
+// Initial Load
 
 function finalizeInitialLoad() {
     Blahgua.currentUser = CurrentUser._id;
     CreateChannelBanner();
     CreatePreviewBlah();
     CreateFullBlah();
-    ComputeSizes();
     GetUserChannels();
     UpdateBlahTypes();
+
+    ComputeSizes();
 }
 
 
@@ -293,7 +323,17 @@ function FadeRandomElement() {
 function ComputeSizes() {
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
-   
+
+    if (windowWidth > windowHeight) {
+        isVertical = false;
+    } else {
+        isVertical = true;
+    }
+
+    var numCols, numRows;
+
+
+
     var numCols = Math.floor(windowWidth / 400);
     var numRows = Math.ceil(windowHeight / 400);
 
@@ -869,12 +909,12 @@ function CreateBaseDiv(theBlah) {
         var b = (Math.round(Math.random() * 127) + 127);
         var colorStr = "rgba(" + r + "," + g + "," + b + ", .8)";
         if (theBlah.displaySize != 3) {
-            textDiv.classList.add("BlahAltTextDiv");
+            $(textDiv).addClass("BlahAltTextDiv");
             textDiv.style.backgroundColor = colorStr;
         }
         else {
             textDiv.style.backgroundColor = pastelColors();
-            textDiv.classList.add("BlahExpandTextDiv");
+            $(textDiv).addClass("BlahExpandTextDiv");
             // start with no text
             $(textDiv).fadeOut(1000);
 
@@ -938,15 +978,16 @@ function CreateElementForBlah(theBlah) {
     if (theBlah.displaySize == 1) {
         newEl.style.width = LargeTileWidth - paddingOffset + "px";
         newEl.style.height = LargeTileHeight - paddingOffset + "px";
-        newEl.classList.add('LargeBlahFormat');
+        $(newEl).addClass('LargeBlahFormat');
+
     } else if (theBlah.displaySize == 2) {
         newEl.style.width = MediumTileWidth - paddingOffset + "px";
         newEl.style.height = MediumTileHeight - paddingOffset + "px";
-        newEl.classList.add('MediumBlahFormat');
+        $(newEl).addClass('MediumBlahFormat');
     } else {
         newEl.style.width = SmallTileWidth - paddingOffset + "px";
         newEl.style.height = SmallTileHeight - paddingOffset + "px";
-        newEl.classList.add('SmallBlahFormat');
+        $(newEl).addClass('SmallBlahFormat');
     }
 
     newEl.style.backgroundColor = pastelColors();
@@ -1690,8 +1731,9 @@ function HandleCreateUserOK(json) {
     var userName = $("#userName").val();
     var pwd = $("#pwd").val();
     if ($("#rememberme").val()) {
-        $.cookie("userId", tempUserName, { expires: 30, path: '/'});
+        $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
+        $.removeCookie('isTemp');
     }
     $("#userName2").val(userName);
     $("#pwd2").val(pwd);
@@ -1710,6 +1752,7 @@ function HandleUserLoginOK(json) {
     if ($("#rememberme2").val()) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
+        $.removeCookie('isTemp');
     }
     Blahgua.GetUserByName(userName, RefreshPageForNewUser);
 }
@@ -1882,6 +1925,7 @@ function UpdateAskAuthorPage() {
     $("#PollAnswersArea").append(newItem);
 }
 
+
 function AddPollAnswer() {
     var newItem = CreateAskAuthorItem();
     $("#PollAnswersArea").append(newItem);
@@ -1900,9 +1944,25 @@ function CreateAskAuthorItem() {
     return newHTML;
 }
 
-
 function DoDeleteAskChoice(theEvent) {
     var who = event.target || event.srcElement;
     var deadDiv = who.parentElement;
     $("#PollAnswersArea").removeChild(deadDiv);
 }
+
+function ForgetUser() {
+    $.removeCookie("userId");
+    $.removeCookie("password");
+    Blahgua.LogoutUser(OnLogoutOK);
+}
+
+function OnLogoutOK(json) {
+    alert("you have been logged out.");
+}
+
+function AddBadge() {
+    alert("Adding a badge!");
+}
+
+// *****************************************
+// Channel Browser
