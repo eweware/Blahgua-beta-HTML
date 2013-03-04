@@ -23,13 +23,18 @@
     <script type="text/javascript" src="http://files.blahgua.com/webapp/scripts/blahgua.js"></script>-->
 
 
-    <script type="text/javascript" src="aws/scripts/blahgua_restapi.js"></script>
+       <script type="text/javascript" src="aws/scripts/blahgua_restapi.js"></script>
+       <script type="text/javascript" src="aws/scripts/jquery.flippy.min.js"></script>
     <script type="text/javascript" src="aws/scripts/blahgua.js"></script>
 
 
    <div class="PageBody">
         <div id="ChannelBanner" class="ChannelBanner"></div>
         <div id="BlahContainer" class="BlahContainer"></div>
+        <div id="ChannelDropMenu" class="ChannelDropMenu" style="display:none">
+            <ul id="ChannelList"></ul>
+            <a href="#" onclick="DoBrowseChannels(); return false;">Browse & Join Channels</a>
+        </div>
         <div id="LightBox" class="LightBox"></div>
         <div id="BlahPreviewItem" class="BlahPreview"></div>
         <div id="BlahFullItem" class="BlahFullItem"></div>

@@ -323,7 +323,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the group types</returns>
         var paramStr = '{}';
-        this.CallPageMethod("GetGroupTypes", paramStr, OnSuccess, OnFailure);
+        this.CallGetMethod("groupTypes", paramStr, OnSuccess, OnFailure);
     };
 
     this.GetChannelsForType = function (ChannelType, OnSuccess, OnFailure) {
@@ -332,8 +332,9 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the group types</returns>
-        var paramStr = '{"id":"' + GroupType + '"}';
-        this.CallPageMethod("GetGroupsForType", paramStr, OnSuccess, OnFailure);
+        var paramStr = '{}';
+        var methodName = "groups?type=" + ChannelType;
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
     this.GetChannelInfo = function (ChannelID, OnSuccess, OnFailure) {

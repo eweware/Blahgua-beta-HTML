@@ -33,7 +33,7 @@ var ChannelList = [];
 var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var IsTempUser = true;
-var IsVertical = true;
+var ChannelDropMenu = null;
 
 var fragmentURL = ".";
 //var fragmentURL = "http://files.blahgua.com/webapp";
@@ -305,6 +305,17 @@ function FadeRandomElement() {
     var theEl = SelectRandomElement();
     if (theEl.style.backgroundImage != "") {
         $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
+    }  else {
+        //theEl.blahTextDiv.style.backgroundColor = "red";
+        $(theEl).flippy({
+            content: theEl.blahTextDiv.innerHTML,
+            direction:"LEFT",
+            duration:"750",
+            onFinish:function(){
+                FadeRandomElement();
+            }
+
+        });
     }
     LastFadeElement = theEl;
 }
@@ -362,6 +373,19 @@ function ComputeSizes() {
 
 }
 
+function ShowHideChannelList() {
+    var menu = document.getElementById("ChannelDropMenu");
+    menu.style.left = document.getElementById("ChannelBanner").style.left;
+    if (menu.style.display == "none") {
+        StopAnimation();
+        menu.style.display = "block";
+    } else {
+        $(menu).fadeOut("fast");
+        StartAnimation();
+    }
+
+}
+
 
 function CreateChannelBanner() {
     var banner = document.getElementById("ChannelBanner");
@@ -371,6 +395,10 @@ function CreateChannelBanner() {
     label.innerHTML = "Blahgua";
     banner.appendChild(label);
     banner.channelLabel = label;
+
+    $("#ChannelBanner").click(function () {
+        ShowHideChannelList();
+    })
     
 
     var viewCount = document.createElement("span");
@@ -396,6 +424,10 @@ function CreateChannelBanner() {
     options.innerHTML = "+";
     banner.appendChild(options);
     banner.options = options;
+
+
+
+
 }
 
 function CreatePreviewBlah() {
@@ -950,20 +982,6 @@ function GetBlahImage(theBlah, size) {
         var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
         var imageName = theBlah.img[0];
         imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
-    } else {
-        /*
-        if (Math.random() < .50) {
-            var numImages = 45;
-            var imageNum = 1 + Math.floor(Math.random() * numImages);
-            imagePathName = imageNum + ".jpg";
-            if (imagePathName.length == 5) {
-                imagePathName = "0" + imagePathName;
-            }
-            imagePathName = "http://files.blahgua.com/webapp/blahimages/" + imagePathName;
-            //imagePathName = "http://files.blahgua.com/webapp/walmartimages/" + imagePathName;
-
-        }
-        */
     }
 
 
@@ -1633,7 +1651,45 @@ function GetChannelsOK(theChannels) {
     if (theChannels.length == 0) {
         AddDefaultChannelsToNewUser();
     }
-    else SetCurrentChannel(0);
+    else {
+        PopulateChannelMenu();
+        SetCurrentChannel(0);
+    }
+}
+
+function PopulateChannelMenu( ) {
+    var newHTML = "";
+
+    newHTML +=   createChannelHTML(-1, getUserChannelName());
+    $.each(ChannelList, function(index, element) {
+        newHTML += createChannelHTML(index, element.displayName);
+    });
+
+    document.getElementById("ChannelList").innerHTML = newHTML;
+}
+
+function getUserChannelName() {
+    if (IsUserLoggedIn) {
+        return "view your profile";
+    } else {
+        return "sign in to blahgua";
+    }
+}
+
+function createChannelHTML(index, curChannel) {
+    var newHTML = "";
+    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
+    newHTML += "<a>" + curChannel + "</a>";
+    newHTML += "</li>"
+    return newHTML;
+}
+
+function DoJumpToChannel() {
+    var who = event;
+    var what = event.target.parentElement;
+    var channelID = what.attributes["channelId"].nodeValue;
+    ShowHideChannelList();
+    SetCurrentChannel(channelID);
 }
 
 function SetCurrentChannel(whichChannel) {
@@ -1966,3 +2022,83 @@ function AddBadge() {
 
 // *****************************************
 // Channel Browser
+
+function DoBrowseChannels() {
+    StopAnimation();
+    ShowHideChannelList();
+    $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html  #ChannelBrowserDiv", function() {
+        PopulateChannelBrowser();
+        $(BlahFullItem).fadeIn("fast");
+    });
+}
+
+function PopulateChannelBrowser() {
+    Blahgua.GetChannelTypes(OnGetChannelTypesOK);
+}
+
+function OnGetChannelTypesOK(typeList) {
+    var newHTML = "";
+    $.each(typeList, function (index, element) {
+        newHTML += GenerateHTMLForChannelType(element);
+    });
+
+    document.getElementById("ChannelTypeList").innerHTML = newHTML;
+
+}
+
+function  GenerateHTMLForChannelType(channelType) {
+    var newHTML= "";
+    newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
+    newHTML += "<a>" +  channelType.displayName + "</a>";
+    newHTML += "</li>"
+    return newHTML;
+}
+
+function  GenerateHTMLForChannelBrowser(channel) {
+    var newHTML= "";
+    newHTML += '<li id="' + channel._id + '" onclick="DoOpenChannelPage();return false;">';
+    newHTML += "<a>" +  channel.displayName + "</a>";
+    newHTML += "</li>"
+    return newHTML;
+}
+
+function DoExpandItem() {
+    var mainItem = event.srcElement.parentElement;
+    var itemID = mainItem.id;
+
+    var channelSubList = $(mainItem).find(".channelSubItems");
+
+    if (channelSubList.length == 0) {
+        // fetch a new channel list
+        Blahgua.GetChannelsForType(itemID, GetSubChannelsOK);
+    } else {
+        channelSubList.toggle();
+    }
+
+}
+
+function GetSubChannelsOK(newChannelList) {
+    var newHTML = "";
+    newHTML += '<ul class="channelSubItems">';
+    $.each(newChannelList, function (index, element) {
+        newHTML += GenerateHTMLForChannelBrowser(element);
+    });
+    newHTML += "</ul>";
+
+    document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+}
+
+function DoOpenChannelPage() {
+    var mainItem = event.srcElement.parentElement;
+    var itemID = mainItem.id;
+
+    var channelSubList = $(mainItem).find(".channelSubItems");
+
+    if (channelSubList.length == 0) {
+        // fetch a new channel list
+        Blahgua.GetChannelsForType(itemID, GetSubChannelsOK);
+    } else {
+        channelSubList.toggle();
+    }
+
+}
