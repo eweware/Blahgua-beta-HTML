@@ -35,9 +35,9 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-var fragmentURL = ".";
+//var fragmentURL = ".";
 //var fragmentURL = "http://files.blahgua.com/webapp";
-//var fragmentURL = "https://s3.amazonaws.com/files.blahgua.com/webapp";
+var fragmentURL = "https://s3.amazonaws.com/files.blahgua.com/webapp";
 
 
 (function ($) {
