@@ -30,23 +30,6 @@ function BlahguaObject() {
             },
             error: function (theErr) {
                 if (OnFailure != null) {
-                    var response = {};
-                    var message = "An error occured";
-                    if (theErr.hasOwnProperty("responseText")) {
-                        if (theErr.responseText != "") {
-                            response = JSON.parse(theErr.responseText);
-                            try {
-                                message = JSON.parse(response.Message);
-                            }
-                            catch (exp) {
-                                message = new Object();
-                                message["_message"] = response.Message;
-                            }
-                        }
-                    } else {
-                        message = theErr.statusText;
-                    }
-
                     OnFailure(message);
                 }
             }
@@ -74,24 +57,7 @@ function BlahguaObject() {
             },
             error: function (theErr) {
                 if (OnFailure != null) {
-                    var response = {};
-                    var message = "An error occured";
-                    if (theErr.hasOwnProperty("responseText")) {
-                        if (theErr.responseText != "") {
-                            response = JSON.parse(theErr.responseText);
-                            try {
-                                message = JSON.parse(response.Message);
-                            }
-                            catch (exp) {
-                                message = new Object();
-                                message["_message"] = response.Message;
-                            }
-                        }
-                    } else {
-                        message = theErr.statusText;
-                    }
-
-                    OnFailure(message);
+                    OnFailure(theErr);
                 }
             }
         });
@@ -476,7 +442,7 @@ function BlahguaObject() {
     };
 
 
-    this.LoginUser = function (userName, password, OnSuccess, OnFailure) {
+    this.loginUser = function (userName, password, OnSuccess, OnFailure) {
         /// <summary>Creates a new user</summary>
         /// <param name="userName">The internal name of the new user</param>
         /// <param name="password">password of the user</param>
@@ -644,6 +610,16 @@ function BlahguaObject() {
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    this.GetFeaturedChannels = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the channels for an anonymous user</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A list of the user's groups</returns>
+        var paramStr = '{}';
+        var methodName = "groups/featured";
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
     this.GetUsers = function (OnSuccess, OnFailure) {
         ///
         var paramStr = '{}';
@@ -656,7 +632,7 @@ function BlahguaObject() {
         paramStr["start"] = 0;
         paramStr["end"] = 100;
         paramStr["groupId"] = this.currentChannel;
-        var methodName = "users/" + this.currentUser + "/inbox";
+        var methodName = "users/inbox";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 

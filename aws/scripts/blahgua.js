@@ -84,10 +84,10 @@ $(document).ready(function () {
     $("#BlahContainer").on('swipedown', HandleSwipeDown);
     $("#LightBox").click(function () { UnfocusBlah(); });
 
-
-
     SignIn();
 });
+
+
 
 // *****************************************************
 // Sign-in
@@ -97,25 +97,17 @@ function SignIn() {
     var savedID = $.cookie("userId");
     var pwd = $.cookie("password");
 
-    if (savedID == null) {
-        CreateTempUserAndSignIn();
-    }
-    else {
+    if (savedID != null) {
         if (pwd == null) {
             pwd = prompt("Welcome back.  enter password:")
         }
 
         // sign in
-        Blahgua.GetUserByName(savedID,
-            function(json) {
-                CurrentUser = json;
-                IsTempUser = $.cookie("isTemp");
-                DoUserLogin(savedID, pwd);
-            },
-            function () {
-                alert("There is no user named " + savedID);
-            }
-        );
+        Blahgua.LoginUser(savedID, pwd, OnLoginUserOK, OnLoginUserFail);
+    } else {
+        IsUserLoggedIn = false;
+        // user is anonymous
+        finalizeInitialLoad();
     }
 }
 
@@ -148,17 +140,6 @@ function CreateTempUserAndSignIn() {
 }
 
 
-
-function DoUserLogin(userName, userPassword) {
-    if (!IsTempUser) {
-        Blahgua.LoginUser(userName, userPassword, OnLoginUserOK, OnLoginUserFail);
-    } else {
-        // demo user
-        IsTempUser = false;
-        finalizeInitialLoad();
-    }
-}
-
 function OnLoginUserOK(json) {
     IsUserLoggedIn = true;
     finalizeInitialLoad();
@@ -166,7 +147,7 @@ function OnLoginUserOK(json) {
 }
 
 function OnLoginUserFail(json) {
-    alert("Login Failed!");
+    alert("login failed!");
 }
 
 
@@ -215,7 +196,6 @@ function OnGetChannelsOK(channelList) {
 // Initial Load
 
 function finalizeInitialLoad() {
-    Blahgua.currentUser = CurrentUser._id;
     CreateChannelBanner();
     CreatePreviewBlah();
     CreateFullBlah();
@@ -231,7 +211,10 @@ function finalizeInitialLoad() {
 
 
 function HandleSwipeLeft(theEvent) {
+
     GoNextChannel();
+
+
 }
 
 function HandleSwipeRight(theEvent) {
@@ -306,16 +289,20 @@ function FadeRandomElement() {
     if (theEl.style.backgroundImage != "") {
         $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
     }  else {
+        setTimeout(FadeRandomElement, 1000);
+        /*
         //theEl.blahTextDiv.style.backgroundColor = "red";
         $(theEl).flippy({
-            content: theEl.blahTextDiv.innerHTML,
+            content: $(theEl.blahTextDiv),
             direction:"LEFT",
             duration:"750",
             onFinish:function(){
+                theEl.style.backgroundColor = "red";
                 FadeRandomElement();
             }
 
         });
+        */
     }
     LastFadeElement = theEl;
 }
@@ -476,6 +463,9 @@ function DoCloseBlah(theEvent) {
 function CloseBlah() {
 
     // hide the preview blah and reset the variables
+    $(BlahFullItem).off('swipeleft');
+    $(BlahFullItem).off('swiperight');
+
     UnfocusBlah();
     $(BlahFullItem).fadeOut("fast", function() {$(BlahFullItem).empty()});
 
@@ -492,16 +482,76 @@ function StartAnimation() {
     StartBlahsMoving();
 }
 
+var OpenBlahPage;
+
 function OpenBlah(whichBlah) {
     StopAnimation();
     $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
     $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html  #FullBlahDiv", function() {
         PopulateFullBlah(whichBlah);
+        BlahFullItem.curPage = "Overview";
+        $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast");
+        $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
+        $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
 
 }
+
+function HandleBlahSwipeLeft() {
+    switch (BlahFullItem.curPage) {
+        case "Overview":
+            GoToBlahComments();
+            break;
+        case "Comments":
+            GoToBlahStats();
+            break;
+        case "Stats":
+            GoToBlahUser();
+            break;
+        case "User":
+            GoToBlahOverview();
+            break;
+    }
+}
+
+function HandleBlahSwipeRight() {
+    switch (BlahFullItem.curPage) {
+        case "Overview":
+            GoToBlahUser();
+            break;
+        case "Comments":
+            GoToBlahOverview();
+            break;
+        case "Stats":
+            GoToBlahComments();
+            break;
+        case "User":
+            GoToBlahStats();
+            break;
+    }
+}
+
+function GoToBlahOverview() {
+
+}
+
+function GoToBlahComments() {
+
+}
+
+
+function GoToBlahStats() {
+
+}
+
+
+function GoToBlahUser() {
+
+}
+
+
 
 
 function PopulateFullBlah(whichBlah) {
@@ -1015,29 +1065,35 @@ function CreateElementForBlah(theBlah) {
 }
 
 function DrawInitialBlahs() {
-    var curRow = BuildNextRow();
-    $("#BlahContainer").append(curRow);
-    ResizeRowText(curRow);
-    TopRow = curRow;
-    var curTop = curRow.rowHeight;
-    var bottom = $("#BlahContainer").height();
-    var lastRow = curRow;
-    RowsOnScreen = 1;
-
-    while (curTop <= bottom) {
-        curRow = BuildNextRow();
-        curRow.style.top = curTop + "px";
+    if (ActiveBlahList.length > 0) {
+        var curRow = BuildNextRow();
         $("#BlahContainer").append(curRow);
         ResizeRowText(curRow);
-        curTop += curRow.rowHeight;
-        lastRow.rowBelow = curRow;
-        curRow.rowAbove = lastRow;
-        BottomRow = curRow;
-        lastRow = curRow;
-        RowsOnScreen++;
-    }
+        TopRow = curRow;
+        var curTop = curRow.rowHeight;
+        var bottom = $("#BlahContainer").height();
+        var lastRow = curRow;
+        RowsOnScreen = 1;
 
-    FadeRandomElement();
+        while (curTop <= bottom) {
+            curRow = BuildNextRow();
+            curRow.style.top = curTop + "px";
+            $("#BlahContainer").append(curRow);
+            ResizeRowText(curRow);
+            curTop += curRow.rowHeight;
+            lastRow.rowBelow = curRow;
+            curRow.rowAbove = lastRow;
+            BottomRow = curRow;
+            lastRow = curRow;
+            RowsOnScreen++;
+        }
+
+        FadeRandomElement();
+    }
+    else {
+        var newDiv = document.createElement("div");
+        newDiv.innerHTML = "Soz, no blahs in this channel."
+    }
 }
 
 function DoAddBlahRow() {
@@ -1367,7 +1423,10 @@ function OnGetBlahsOK(theResult) {
     ActiveBlahList = [];
     RefreshActiveBlahList();
     DrawInitialBlahs();
-    StartAnimation();
+    if (BlahList.length > 0)
+    {
+        StartAnimation();
+    }
     GetNextBlahList();
 };
 
@@ -1438,8 +1497,10 @@ function AssignSizes(theBlahList) {
 }
 
 function PrepareBlahList(theBlahList) {
-    NormalizeStrengths(theBlahList);
-    AssignSizes(theBlahList);
+    if (theBlahList.length > 0) {
+        NormalizeStrengths(theBlahList);
+        AssignSizes(theBlahList);
+    }
 
 }
 
@@ -1643,7 +1704,11 @@ function GoNextChannel() {
 }
 
 function GetUserChannels() {
-    Blahgua.GetUserChannels(GetChannelsOK, OnFailure)   ;
+    if (IsUserLoggedIn) {
+        Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
+    } else {
+        Blahgua.GetFeaturedChannels(GetChannelsOK, OnFailure);
+    }
 }
 
 function GetChannelsOK(theChannels) {
@@ -1699,7 +1764,7 @@ function SetCurrentChannel(whichChannel) {
         InstallUserChannel();
     } else {
         CurrentChannel = ChannelList[whichChannel];
-        Blahgua.SetCurrentChannel(CurrentChannel.groupId);
+        Blahgua.SetCurrentChannel(CurrentChannel._id);
         var labelDiv = document.getElementById("ChannelBannerLabel");
         labelDiv.innerHTML = CurrentChannel.displayName;
         GetUserBlahs();
