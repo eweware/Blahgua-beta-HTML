@@ -453,13 +453,13 @@ function BlahguaObject() {
         this.CallPostMethod("users/login", paramStr, OnSuccess, OnFailure);
     };
 
-    this.LogoutUser = function (OnSuccess, OnFailure) {
+    this.logoutUser = function (OnSuccess, OnFailure) {
         /// <summary>Logs out the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>The ID of the user</returns>
         var paramStr = '{}';
-        this.CallPostMethod("Logout", paramStr, OnSuccess, OnFailure);
+        this.CallPostMethod("users/logout", paramStr, OnSuccess, OnFailure);
     };
 
 
@@ -547,7 +547,7 @@ function BlahguaObject() {
 
 
 
-    this.GetViewersOfUser = function (UserID, OnSuccess, OnFailure) {
+    this.GetViewersOfUser = function (OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
@@ -566,11 +566,9 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>the json for the user object</returns>
         var paramStr = null;
-        var methodName = "users/" + this.currentUser;
-        //this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
-        // temp for now
-        var userCount = Math.floor(Math.random() * 5000)  + 1000;
-        OnSuccess(userCount);
+        var methodName = "groups/" + ChannelID + "/viewerCount";
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+
     };
 
     this.GetViewersOfBlah = function (BlahID, OnSuccess, OnFailure) {

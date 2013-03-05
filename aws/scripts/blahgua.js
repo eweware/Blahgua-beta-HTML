@@ -172,7 +172,7 @@ function AddDefaultChannelsToNewUser() {
 }
 
 function OnGetChannelsOK(channelList) {
-    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Blahgua Network", channelList),
+    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("The Now Network", channelList),
         function () {
             Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Entertainment", channelList),
                 function () {
@@ -364,6 +364,10 @@ function ShowHideChannelList() {
     var menu = document.getElementById("ChannelDropMenu");
     menu.style.left = document.getElementById("ChannelBanner").style.left;
     if (menu.style.display == "none") {
+        if (IsUserLoggedIn)
+            $("#BrowseChannelBtn").show();
+        else
+            $("#BrowseChannelBtn").hide();
         StopAnimation();
         menu.style.display = "block";
     } else {
@@ -406,7 +410,7 @@ function CreateChannelBanner() {
     countText.innerHTML = "";
 
     var options = document.createElement("div");
-    options.onclick = DoCreateBlah;
+    options.onclick = function(event) {DoCreateBlah(); event.stopPropagation();};
     options.className = "ChannelOptions";
     options.innerHTML = "+";
     banner.appendChild(options);
@@ -457,6 +461,7 @@ function DoBlahClick(theEvent) {
 }
 
 function DoCloseBlah(theEvent) {
+    $("#AdditionalInfoArea").empty();
     CloseBlah();
 }
 
@@ -1092,7 +1097,19 @@ function DrawInitialBlahs() {
     }
     else {
         var newDiv = document.createElement("div");
-        newDiv.innerHTML = "Soz, no blahs in this channel."
+        var newHTML = "The " + CurrentChannel.displayName + " channel currently has no blahs in it.  ";
+
+        if (IsUserLoggedIn) {
+            newHTML += "Click below to add the first!<br/>" +
+                       "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
+        }    else {
+            newHTML += "Click below to sign in.  Then you can make the first!<br/>";
+            newHTML += "<a onclick='SetCurrentChannel(-1); return false;'>Sign in</a>";
+        }
+
+        newDiv.innerHTML = newHTML;
+        newDiv.className = "no-blahs-in-channel-warning";
+        $("#BlahContainer").append(newDiv);
     }
 }
 
@@ -1106,6 +1123,7 @@ function DoAddBlahRow() {
     $("#BlahContainer").append(nextRow);
     ResizeRowText(nextRow);
     RowsOnScreen++;
+    // to do - add blah specific animation
     StartBlahsMoving();
 
 }
@@ -1731,6 +1749,8 @@ function PopulateChannelMenu( ) {
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
+
+
 }
 
 function getUserChannelName() {
@@ -1793,21 +1813,26 @@ function InstallUserChannel() {
     StopAnimation();
     $("#BlahContainer").empty();
     CurrentChannel = null;
-    if (CurrentUser == null) {
-        Blahgua.GetCurrentUser(OnGetUserOK, OnFailure);
-    }
+    if (IsUserLoggedIn) {
+        if (CurrentUser == null) {
+            Blahgua.GetCurrentUser(function (theResult) {
+                CurrentUser = theResult;
+                PopulateUserChannel();
+            }, OnFailure);
+        }
     else {
-        PopulateUserChannel();
+            PopulateUserChannel();
+        }
+    } else {
+        // anonymous user
+        $("#ChannelBannerLabel").html("Sign in");
+
+        $("#BlahContainer").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
     }
 }
 
-function OnGetUserOK(theResult) {
-    CurrentUser = theResult;
-    PopulateUserChannel();
-}
 
 function PopulateUserChannel() {
-
     var ChannelName = "";
 
     if (CurrentUser.hasOwnProperty("n")) {
@@ -1817,13 +1842,7 @@ function PopulateUserChannel() {
     }
     $("#ChannelBannerLabel").html(ChannelName);
 
-    // now load the other page
-    if (IsUserLoggedIn)
-        $("#BlahContainer").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
-    else
-        $("#BlahContainer").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
-
-
+    $("#BlahContainer").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
  }
 
 function RefreshUserChannelContent() {
@@ -1843,7 +1862,7 @@ function CreateNewUser() {
 function SignInExistingUser() {
     var userName = $("#userName2").val();
     var pwd = $("#pwd2").val();
-    Blahgua.LoginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+    Blahgua.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
 }
 
 function HandleCreateUserOK(json) {
@@ -1858,7 +1877,7 @@ function HandleCreateUserOK(json) {
     }
     $("#userName2").val(userName);
     $("#pwd2").val(pwd);
-    Blahgua.LoginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+    Blahgua.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
 }
 
 function HandleCreateUserFail(json) {
@@ -1896,16 +1915,24 @@ function UpdateChannelViewers() {
         ViewerUpdateTimer = null;
     }
     if (CurrentChannel == null) {
-        Blahgua.GetViewersOfUser(CurrentUser._id, OnChannelViewersOK, OnFailure);
+        Blahgua.GetViewersOfUser(OnChannelViewersOK, OnFailure);
     } else {
-        Blahgua.GetViewersOfChannel(CurrentChannel.id, OnChannelViewersOK, OnFailure);
+        Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK, OnFailure);
     }
 
     ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
 }
 
+function getProp(obj, propName, defVal) {
+    if (obj.hasOwnProperty(propName) && (obj[propName] != null)) {
+        return obj[propName];
+    } else {
+        return defVal;
+    }
+}
+
 function OnChannelViewersOK(numViewers) {
-    $("#ChannelViewersCountText").html(numViewers);
+   $("#ChannelViewersCountText").html(getProp(numViewers, "v", 0));
 
 }
 
@@ -1935,6 +1962,9 @@ function PopulateBlahTypeOptions() {
     $("#BlahTypeList").html(curHTML);
 }
 
+function CancelCreate() {
+   CloseBlah();
+}
 
 function CreateBlah() {
     var blahType = $("#BlahTypeList").val();
@@ -2074,11 +2104,21 @@ function DoDeleteAskChoice(theEvent) {
 function ForgetUser() {
     $.removeCookie("userId");
     $.removeCookie("password");
-    Blahgua.LogoutUser(OnLogoutOK);
+    Blahgua.logoutUser(OnLogoutOK);
+}
+
+
+function LogoutUser() {
+    Blahgua.logoutUser(OnLogoutOK);
+
 }
 
 function OnLogoutOK(json) {
     alert("you have been logged out.");
+    IsUserLoggedIn = false;
+    CurrentUser = null;
+    GetUserChannels();
+
 }
 
 function AddBadge() {
@@ -2106,8 +2146,8 @@ function OnGetChannelTypesOK(typeList) {
     $.each(typeList, function (index, element) {
         newHTML += GenerateHTMLForChannelType(element);
     });
-
     document.getElementById("ChannelTypeList").innerHTML = newHTML;
+
 
 }
 

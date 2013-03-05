@@ -35,6 +35,32 @@
     vertical-align:middle;
 }
 
+.no-blahs-in-channel-warning {
+    position: absolute;
+    left: 8px;
+    top: 66px;
+    right: 8px;
+    background-color: #ff00ff;
+    color:white;
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
+    padding: 16px;
+    margin:8px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.no-blahs-in-channel-warning a {
+    background-color: white;
+    color:black;
+    font-size: medium;
+    padding: 4px 8px;
+    margin-top:4px;
+    border-radius: 8px;
+    display:inline-block;
+}
+
 .BlahTextDiv {
     background-color: transparent;
     font-family: Verdana, Geneva, sans-serif;
