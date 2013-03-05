@@ -35,9 +35,8 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-//var fragmentURL = ".";
-//var fragmentURL = "http://files.blahgua.com/webapp";
-var fragmentURL = "https://s3.amazonaws.com/files.blahgua.com/webapp";
+//var fragmentURL = "./aws";
+var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 
 
 (function ($) {
@@ -82,7 +81,10 @@ $(document).ready(function () {
     $("#BlahContainer").on('swiperight', HandleSwipeRight);
     $("#BlahContainer").on('swipeup', HandleSwipeUp);
     $("#BlahContainer").on('swipedown', HandleSwipeDown);
-    $("#LightBox").click(function () { UnfocusBlah(); });
+    $("#LightBox").click(function () {
+        $("#ChannelDropMenu").hide();
+        UnfocusBlah();
+    });
 
     SignIn();
 });
@@ -103,7 +105,14 @@ function SignIn() {
         }
 
         // sign in
-        Blahgua.LoginUser(savedID, pwd, OnLoginUserOK, OnLoginUserFail);
+        Blahgua.loginUser(savedID, pwd, function () {
+            IsUserLoggedIn = true;
+            Blahgua.GetUserByName(savedID, function (json) {
+                CurrentUser = json;
+                Blahgua.currentUser = CurrentUser._id;
+                finalizeInitialLoad();
+            });
+        }, OnLoginUserFail);
     } else {
         IsUserLoggedIn = false;
         // user is anonymous
@@ -142,6 +151,7 @@ function CreateTempUserAndSignIn() {
 
 function OnLoginUserOK(json) {
     IsUserLoggedIn = true;
+    Blahgua.currentUser = CurrentUser._id;
     finalizeInitialLoad();
 
 }
@@ -332,18 +342,18 @@ function ComputeSizes() {
 
 
 
-    var numCols = Math.floor(windowWidth / 400);
-    var numRows = Math.ceil(windowHeight / 400);
-
-    if (numCols < 1) numCols = 1;
+    var numCols = 1;
 
     SmallTileWidth = Math.floor(windowWidth / (numCols * 4));
+    if (SmallTileWidth > 128) {
+        SmallTileWidth = 128;
+    }
     MediumTileWidth = SmallTileWidth * 2;
     LargeTileWidth = MediumTileWidth * 2;
 
-    SmallTileHeight = Math.floor(windowHeight / (numRows * 4));
-    MediumTileHeight = SmallTileHeight * 2;
-    LargeTileHeight = MediumTileHeight * 2;
+    SmallTileHeight = SmallTileWidth;
+    MediumTileHeight = MediumTileWidth ;
+    LargeTileHeight = LargeTileWidth;
 
     // now make the window the correct size
     var offset = Math.floor((windowWidth - LargeTileWidth) / 2);
@@ -364,6 +374,7 @@ function ShowHideChannelList() {
     var menu = document.getElementById("ChannelDropMenu");
     menu.style.left = document.getElementById("ChannelBanner").style.left;
     if (menu.style.display == "none") {
+        $("#LightBox").show();
         if (IsUserLoggedIn)
             $("#BrowseChannelBtn").show();
         else
@@ -371,6 +382,7 @@ function ShowHideChannelList() {
         StopAnimation();
         menu.style.display = "block";
     } else {
+        $("#LightBox").hide();
         $(menu).fadeOut("fast");
         StartAnimation();
     }
@@ -397,7 +409,7 @@ function CreateChannelBanner() {
     banner.appendChild(viewCount);
     banner.viewCount = viewCount;
     var eyeImage = document.createElement("img");
-    eyeImage.src = "http://files.blahgua.com/webapp/img/black_eye.png";
+    eyeImage.src = fragmentURL + "/img/black_eye.png";
     eyeImage.className = "ChannelViewersImg";
     eyeImage.alt = "viewer count";
     viewCount.appendChild(eyeImage);
@@ -473,6 +485,7 @@ function CloseBlah() {
 
     UnfocusBlah();
     $(BlahFullItem).fadeOut("fast", function() {$(BlahFullItem).empty()});
+    RefreshCurrentChannel();
 
 }
 
@@ -674,7 +687,8 @@ function UpdateAskPage(previewAreaName) {
             $(previewAreaName).append(newChoice);
         }
 
-        Blahgua.GetUserPollVote(CurrentBlah._id, CurrentUser._id, OnGetUserPollVoteOK);
+        if (IsUserLoggedIn)
+            Blahgua.GetUserPollVote(CurrentBlah._id, CurrentUser._id, OnGetUserPollVoteOK);
     }
 }
 
@@ -697,7 +711,7 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
     newHTML += '<td class="PollDescription" style="width=' + maxWidth + 'px">';
     newHTML += '<div class="PollChartDiv" style="width=' + curRatio + '%"></div></td>';
     newHTML += '<td class="PollVotes">';
-    newHTML += '<img class="PollVoteIcon" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
+    newHTML += '<img class="PollVoteIcon" src="' + fragmentURL + '/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
     newHTML += '<span class="PollVoteText">' + curVotes + '</span>';
     newHTML += '</td></tr>';
     // add a row for the comment, if any
@@ -1192,7 +1206,7 @@ function MakeBlahsMove() {
             CurrentScrollSpeed = 1;
         }
         // see if a new top row is on the screen...
-        if (TopRow.hasOwnProperty("rowAbove") && (TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
+        if ((TopRow != null) && TopRow.hasOwnProperty("rowAbove") && (TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
             TopRow = TopRow.rowAbove;
             RowsOnScreen++;
         }
@@ -1614,7 +1628,7 @@ function createCommentElement(theComment) {
     // user image
     newHTML += '<a class="user-image" href="/user/username">';
     newHTML += '<span class="user-image-thumbnail">';
-    newHTML += '<img width="48" alt="Username" src="http://files.blahgua.com/images/unknown-user.png">';
+    newHTML += '<img width="48" alt="Username" src="' + fragmentURL + '/images/unknown-user.png">';
     newHTML += '</span></a>';
 
     // content
@@ -1644,7 +1658,7 @@ function createCommentElement(theComment) {
     newHTML += '<span class="clickcard">';
     newHTML += '  <button title="" class="start-comment-action" onclick=";return false;" type="button" >';
     newHTML += '    <span class="button-icon-wrapper">';
-    newHTML += '      <img class="comment-vote" alt="" src="http://files.blahgua.com/webapp/img/black_thumbsUp.png">';
+    newHTML += '      <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_thumbsUp.png">';
     newHTML += '    </span>';
     newHTML +=   '</button>';
     newHTML += '</span> ';
@@ -1653,7 +1667,7 @@ function createCommentElement(theComment) {
     newHTML += '<span class="clickcard">';
     newHTML += '<button title="" class="end comment-action" onclick=";return false;" type="button" >';
     newHTML += '<span class="button-icon-wrapper">';
-    newHTML += '<img class="comment-vote" alt="" src="http://files.blahgua.com/webapp/img/black_thumbsDown.png">';
+    newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_thumbsDown.png">';
     newHTML += '</span>';
     newHTML += '</button>';
     newHTML += '</span>';
@@ -1697,6 +1711,7 @@ function GoPrevChannel() {
     } else {
         curLoc = ChannelList.indexOf(CurrentChannel);
         curLoc--;
+        if (curLoc < 0) curLoc = ChannelList.length - 1;
     }
 
 
@@ -1712,7 +1727,7 @@ function GoNextChannel() {
         curLoc = ChannelList.indexOf(CurrentChannel);
         curLoc++;
         if (curLoc >= ChannelList.length) {
-            curLoc =  -1;
+            curLoc =  0;
         }
     }
 
@@ -1743,12 +1758,12 @@ function GetChannelsOK(theChannels) {
 function PopulateChannelMenu( ) {
     var newHTML = "";
 
-    newHTML +=   createChannelHTML(-1, getUserChannelName());
     $.each(ChannelList, function(index, element) {
         newHTML += createChannelHTML(index, element.displayName);
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
+    $("#ViewProfileBtn").text(getUserChannelName);
 
 
 }
@@ -1761,10 +1776,21 @@ function getUserChannelName() {
     }
 }
 
+function imgError(theImage) {
+    theImage.onerror = "";
+    theImage.src = fragmentURL + "/images/groups/default.png";
+    return true;
+}
+
+
 function createChannelHTML(index, curChannel) {
     var newHTML = "";
-    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
-    newHTML += "<a>" + curChannel + "</a>";
+    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'><a>";
+    if (index != -1) {
+        newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel + '.png"';
+        newHTML += 'onerror="imgError(this);">';
+    }
+    newHTML += curChannel + "</a>";
     newHTML += "</li>"
     return newHTML;
 }
@@ -1777,19 +1803,20 @@ function DoJumpToChannel() {
     SetCurrentChannel(channelID);
 }
 
+function RefreshCurrentChannel() {
+    $("#ChannelBanner").css("background-color", "#FFFFFF");
+   GetUserBlahs();
+
+}
+
 function SetCurrentChannel(whichChannel) {
     $("#ChannelBanner").css("background-color", "#FFFFFF");
     StopAnimation();
-    if (whichChannel == -1) {
-        InstallUserChannel();
-    } else {
-        CurrentChannel = ChannelList[whichChannel];
-        Blahgua.SetCurrentChannel(CurrentChannel._id);
-        var labelDiv = document.getElementById("ChannelBannerLabel");
-        labelDiv.innerHTML = CurrentChannel.displayName;
-        GetUserBlahs();
-    }
-
+    CurrentChannel = ChannelList[whichChannel];
+    Blahgua.SetCurrentChannel(CurrentChannel._id);
+    var labelDiv = document.getElementById("ChannelBannerLabel");
+    labelDiv.innerHTML = CurrentChannel.displayName;
+    GetUserBlahs();
     UpdateChannelViewers();
 }
 
@@ -1810,6 +1837,7 @@ function OnGetNextBlahsOK(theResult) {
 
 function InstallUserChannel() {
     // empty whatever is in there now
+    ShowHideChannelList();
     StopAnimation();
     $("#BlahContainer").empty();
     CurrentChannel = null;
