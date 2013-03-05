@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div id="UserChannelDiv" class="UserChannelDiv">
+    <h2>Account</h2>
+        <label for="userName">Username:</label>
+        <input disabled="true" id="userName"  type="text">
+
+        <label for="nickname">Nickname:</label>
+        <input id="nickname"  type="text">
+
+        <label for="description">Description</label>
+        <textarea id="description" disabled="true">A white male Blahger from Santa Monica, CA</textarea>
+    <hr>
+    <h2>Badges</h2>
+    <button onclick="AddBadge(); return false;"">Add Badge</button>
+    <hr>
+    <button disabled="true" >Update</button>
+    <button onclick="LogoutUser(); return false;">Logout</button><br/>
+    <button onclick="ForgetUser(); return false;">Forget Me on this machine</button>
+
+</div>
+</body>
+</html>
