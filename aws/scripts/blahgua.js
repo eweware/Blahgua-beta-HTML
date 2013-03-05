@@ -103,7 +103,14 @@ function SignIn() {
         }
 
         // sign in
-        Blahgua.LoginUser(savedID, pwd, OnLoginUserOK, OnLoginUserFail);
+        Blahgua.loginUser(savedID, pwd, function () {
+            IsUserLoggedIn = true;
+            Blahgua.GetUserByName(savedID, function (json) {
+                CurrentUser = json;
+                Blahgua.currentUser = CurrentUser._id;
+                finalizeInitialLoad();
+            });
+        }, OnLoginUserFail);
     } else {
         IsUserLoggedIn = false;
         // user is anonymous
@@ -142,6 +149,7 @@ function CreateTempUserAndSignIn() {
 
 function OnLoginUserOK(json) {
     IsUserLoggedIn = true;
+    Blahgua.currentUser = CurrentUser._id;
     finalizeInitialLoad();
 
 }
@@ -332,18 +340,18 @@ function ComputeSizes() {
 
 
 
-    var numCols = Math.floor(windowWidth / 400);
-    var numRows = Math.ceil(windowHeight / 400);
-
-    if (numCols < 1) numCols = 1;
+    var numCols = 1;
 
     SmallTileWidth = Math.floor(windowWidth / (numCols * 4));
+    if (SmallTileWidth > 128) {
+        SmallTileWidth = 128;
+    }
     MediumTileWidth = SmallTileWidth * 2;
     LargeTileWidth = MediumTileWidth * 2;
 
-    SmallTileHeight = Math.floor(windowHeight / (numRows * 4));
-    MediumTileHeight = SmallTileHeight * 2;
-    LargeTileHeight = MediumTileHeight * 2;
+    SmallTileHeight = SmallTileWidth;
+    MediumTileHeight = MediumTileWidth ;
+    LargeTileHeight = LargeTileWidth;
 
     // now make the window the correct size
     var offset = Math.floor((windowWidth - LargeTileWidth) / 2);
@@ -1761,10 +1769,21 @@ function getUserChannelName() {
     }
 }
 
+function imgError(theImage) {
+    theImage.onerror = "";
+    theImage.src = "http://files.blahgua.com/images/groups/default.png";
+    return true;
+}
+
+
 function createChannelHTML(index, curChannel) {
     var newHTML = "";
-    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
-    newHTML += "<a>" + curChannel + "</a>";
+    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'><a>";
+    if (index != -1) {
+        newHTML += '<img class="channelimage" src="http://files.blahgua.com/images/groups/' + curChannel + '.png"';
+        newHTML += 'onerror="imgError(this);">';
+    }
+    newHTML += curChannel + "</a>";
     newHTML += "</li>"
     return newHTML;
 }
