@@ -230,7 +230,7 @@ function OnSuccess(theArg) {
 }
 
 function OnFailure(theErr) {
-    alert("Error!");
+    alert("ERROR!");
 }
 
 

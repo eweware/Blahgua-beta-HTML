@@ -1,18 +1,15 @@
 ﻿body {
     margin: 0px;
     color: black;
-    overflow:hidden;
 }
 
 .PageBody {
     position:absolute;
     margin:0px;
-    width:80%;
+    width:100%;
     height:100%;
     z-index:0;
     background-color:darkgray;
- 
-    padding-right:30px;
 }
 
 .Overlay {
@@ -107,8 +104,8 @@
 }
 
 .blah-preview-content {
-    overflow-x:hidden;
-    overflow-y:hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .BlahPreview {
@@ -120,19 +117,17 @@
     position:absolute;
     height:auto;
     top:50px;
-    overflow:hidden;
     z-index:15;
 }
 
 .BlahPreviewHeadline {
-    font-size:30px;
+    font-size:36px;
     font-family: Verdana, Geneva, sans-serif;
-    width:400px;
+    width:100%;
     text-align:center;
     font-weight:bold;
-    margin-top:10px;
+    margin:16px 16px 16px 16px;
     word-wrap: break-word;
-    overflow-x:hidden
 }
 
 .BlahPreviewTable {
@@ -162,8 +157,8 @@
 }
 
 .BlahPreviewImage {
-    max-height:256px;
-    max-width:256px;
+    max-height:300px;
+    max-width:90%;
     padding-top:16px;
     padding-bottom:16px;
 }
@@ -194,7 +189,7 @@
 
 .FullBlahContent {
     overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 
@@ -434,8 +429,8 @@ a {
     width:100%;
     position:fixed;
     bottom:0px;
-    height:100px;
-    color:transparent;
+    height:32px;
+    color:white;
     background-color:#000000;
 }
 
