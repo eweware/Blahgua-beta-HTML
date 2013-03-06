@@ -35,7 +35,6 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-//var fragmentURL = "./aws";
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 
 
@@ -85,7 +84,10 @@ $(document).ready(function () {
         $("#ChannelDropMenu").hide();
         UnfocusBlah();
     });
-
+    if (window.location.hostname == "") {
+        // running local
+        fragmentURL = "./aws";
+    }
     SignIn();
 });
 
@@ -112,7 +114,12 @@ function SignIn() {
                 Blahgua.currentUser = CurrentUser._id;
                 finalizeInitialLoad();
             });
-        }, OnLoginUserFail);
+        }, function() {
+            $.removeCookie("userId");
+            $.removeCookie("password");
+            IsUserLoggedIn = false;
+            finalizeInitialLoad();
+        });
     } else {
         IsUserLoggedIn = false;
         // user is anonymous
@@ -1118,7 +1125,7 @@ function DrawInitialBlahs() {
                        "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
         }    else {
             newHTML += "Click below to sign in.  Then you can make the first!<br/>";
-            newHTML += "<a onclick='SetCurrentChannel(-1); return false;'>Sign in</a>";
+            newHTML += "<a onclick='InstallUserChannel(); return false;'>Sign in</a>";
         }
 
         newDiv.innerHTML = newHTML;
@@ -1736,11 +1743,33 @@ function GoNextChannel() {
     SetCurrentChannel(curLoc);
 }
 
+function GetChannelByName(theName, theList) {
+    var theEl = null;
+    for (curIndex in theList) {
+        if (theList[curIndex].displayName == theName) {
+            theEl = theList[curIndex];
+            break;
+        }
+    }
+
+
+    return theEl;
+}
+
 function GetUserChannels() {
     if (IsUserLoggedIn) {
         Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
     } else {
-        Blahgua.GetFeaturedChannels(GetChannelsOK, OnFailure);
+        Blahgua.GetFeaturedChannels(function (channelList) {
+            var sortList = [];
+            sortList.push(GetChannelByName("The Now Network", channelList));
+            sortList.push(GetChannelByName("Entertainment", channelList));
+            sortList.push(GetChannelByName("Politics", channelList));
+            sortList.push(GetChannelByName("Sports", channelList));
+            sortList.push(GetChannelByName("Humor", channelList));
+            GetChannelsOK(sortList);
+        },
+            OnFailure);
     }
 }
 
@@ -1786,18 +1815,37 @@ function imgError(theImage) {
 function createChannelHTML(index, curChannel) {
     var newHTML = "";
     newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'><a>";
-    if (index != -1) {
-        newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel + '.png"';
-        newHTML += 'onerror="imgError(this);">';
+
+    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel + '.png"';
+    newHTML += 'onerror="imgError(this);">';
+
+    newHTML += curChannel;
+    if (IsUserLoggedIn) {
+        newHTML += '<img class="removechannel" src="' + fragmentURL + '/img/delete.png" onclick="DoRemoveChannel();  event.stopPropagation();">';
     }
-    newHTML += curChannel + "</a>";
+    newHTML += "</a>";
     newHTML += "</li>"
     return newHTML;
 }
 
+function DoRemoveChannel() {
+    var who = event.target || event.srcElement;
+    var what = who.parentElement.parentElement;
+
+    var channelIndex = what.attributes["channelId"].nodeValue
+    var channelId = ChannelList[channelIndex]._id;
+    Blahgua.removeUserFromChannel(channelId, OnRemoveChannelOK(what), OnFailure);
+}
+
+function OnRemoveChannelOK(deadItem) {
+    $(deadItem).remove();
+}
+
+
 function DoJumpToChannel() {
-    var who = event;
-    var what = event.target.parentElement;
+    var who = event.target || event.srcElement;
+    var what = who.parentElement;
+
     var channelID = what.attributes["channelId"].nodeValue;
     ShowHideChannelList();
     SetCurrentChannel(channelID);
@@ -1837,9 +1885,8 @@ function OnGetNextBlahsOK(theResult) {
 
 function InstallUserChannel() {
     // empty whatever is in there now
-    ShowHideChannelList();
     StopAnimation();
-    $("#BlahContainer").empty();
+    $("#BlahFullItem").empty();
     CurrentChannel = null;
     if (IsUserLoggedIn) {
         if (CurrentUser == null) {
@@ -1848,37 +1895,27 @@ function InstallUserChannel() {
                 PopulateUserChannel();
             }, OnFailure);
         }
-    else {
+        else {
             PopulateUserChannel();
         }
     } else {
-        // anonymous user
-        $("#ChannelBannerLabel").html("Sign in");
-
-        $("#BlahContainer").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
+        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
     }
 }
 
 
 function PopulateUserChannel() {
-    var ChannelName = "";
-
-    if (CurrentUser.hasOwnProperty("n")) {
-        ChannelName = CurrentUser.n + "'s channel";
-    } else {
-        ChannelName = "your channel";
-    }
-    $("#ChannelBannerLabel").html(ChannelName);
-
-    $("#BlahContainer").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
+    $("#BlahFullItem").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
  }
 
 function RefreshUserChannelContent() {
-    $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+    $("#BlahFullItem").show();
+    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 
 function RefreshSignupContent() {
-    $("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+    $("#BlahFullItem").show();
 }
 
 function CreateNewUser() {
@@ -1931,9 +1968,15 @@ function HandleUserLoginFail(json) {
 
 function RefreshPageForNewUser(json) {
     // get the new channel list
+    $("#BlahFullItem").hide();
     CurrentUser = json;
     Blahgua.currentUser = CurrentUser._id;
     GetUserChannels();
+}
+
+function ClosePage() {
+    $("#BlahFullItem").hide();
+    StartAnimation();
 }
 
 
@@ -2145,6 +2188,7 @@ function OnLogoutOK(json) {
     alert("you have been logged out.");
     IsUserLoggedIn = false;
     CurrentUser = null;
+    ClosePage();
     GetUserChannels();
 
 }

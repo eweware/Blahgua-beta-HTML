@@ -7,7 +7,7 @@
 .PageBody {
     position:absolute;
     margin:0px;
-    width:80%;
+    width:100%;
     height:100%;
     z-index:0;
     background-color:darkgray;
@@ -392,11 +392,6 @@ a {
 
 }
 
-.UserChannelDiv {
-    margin-top: 100px;
- }
-
-
 
 .ChannelViewersSpan {
     float:right;
@@ -455,7 +450,7 @@ a {
 }
 
 .UserChannelDiv {
-    margin-top: 100px;
+
 }
 
 .Footer {
@@ -547,6 +542,12 @@ a {
 
 }
 
+.removechannel {
+    width:16px;
+    height: 16px;
+    float:right;
+}
+
 .ChannelDropMenu ul a:hover
 {
     background-color: #369;
@@ -575,5 +576,10 @@ a {
     font-size:24px;
     background-color:white;
     color:blue;
+
+}
+
+.profile-close-btn {
+    float: right;
 
 }

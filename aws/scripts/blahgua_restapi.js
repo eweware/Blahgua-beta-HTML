@@ -30,7 +30,7 @@ function BlahguaObject() {
             },
             error: function (theErr) {
                 if (OnFailure != null) {
-                    OnFailure(message);
+                    OnFailure(theErr);
                 }
             }
         });
@@ -84,20 +84,34 @@ function BlahguaObject() {
             },
             error: function (theErr) {
                 if (OnFailure != null) {
-                    var response = {};
-                    var message = "An error occured";
-                    if (theErr.responseText != "") {
-                        response = JSON.parse(theErr.responseText);
-                        try {
-                            message = JSON.parse(response.Message);
-                        }
-                        catch (exp) {
-                            message = new Object();
-                            message["_message"] = response.Message;
-                        }
-                    }
+                    OnFailure(theErr);
+                }
+            }
+        });
+    };
 
-                    OnFailure(message);
+    this.CallDeleteMethod = function (methodName, paramString, OnSuccess, OnFailure) {
+        /// <summary>Calls the specified method on the page with the specified parameters</summary>
+        /// <param name="methodName">the name of the method to call</param>
+        /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+
+
+        $.ajax({
+            type: "DELETE",
+            url: this.baseURL + methodName,
+            data: paramString,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                if (OnSuccess != null) {
+                    OnSuccess(result);
+                }
+            },
+            error: function (theErr) {
+                if (OnFailure != null) {
+                    OnFailure(theErr);
                 }
             }
         });
@@ -218,23 +232,7 @@ function BlahguaObject() {
         this.CallPageMethod("AddBlahComment", paramStr, OnSuccess, OnFailure);
     };
 
-    this.SetBlahVote = function (newVote, OnSuccess, OnFailure) {
-        /// <summary>Sets the user's vote for the current blah</summary>
-        /// <param name="newVote">the new vote</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"newVote":' + newVote + '}';
-        this.CallPageMethod("SetBlahVote", paramStr, OnSuccess, OnFailure);
-    };
 
-    this.SetCommentVote = function (commentID, newVote, OnSuccess, OnFailure) {
-        /// <summary>Sets the user's vote for the current blah</summary>
-        /// <param name="newVote">the new vote</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"commentID":"' + commentID + '", "newVote":' + newVote + '}';
-        this.CallPageMethod("SetCommentVote", paramStr, OnSuccess, OnFailure);
-    };
 
     this.GetUserStats = function (OnSuccess, OnFailure) {
         /// <summary>Returns the stats of the current user</summary>
@@ -265,14 +263,7 @@ function BlahguaObject() {
 
 
 
-    this.LeaveChannel = function (ChannelID, OnSuccess, OnFailure) {
-        /// <summary>Leaves the specified group</summary>
-        /// <param name="GroupID">the id of the group to leave</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"groupID":"' + GroupID + '"}';
-        this.CallPageMethod("LeaveGroup", paramStr, OnSuccess, OnFailure);
-    };
+
 
     this.ValidateUserInChannel = function (code, OnSuccess, OnFailure) {
         /// <summary>validates the user in a group with a code</summary>
@@ -409,6 +400,41 @@ function BlahguaObject() {
 
 
     //  ACTUAL WORKING FUNCTIONS
+
+    this.SetBlahVote = function (blahId, newVote, OnSuccess, OnFailure) {
+        /// <summary>Sets the user's vote for the current blah</summary>
+        /// <param name="blahId">the id of the blah</param>
+        /// <param name="newVote">the new vote</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        var param = new Object();
+        param["v"] = newVote;
+        var methodName = "blahs/" + blahId;
+        this.CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+    this.SetCommentVote = function (commentID, newVote, OnSuccess, OnFailure) {
+        /// <summary>Sets the user's vote for the current blah</summary>
+        /// <param name="newVote">the new vote</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        var param = new Object();
+        param["v"] = newVote;
+        var methodName = "comments/" + commentID;
+        this.CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+
+
+    this.removeUserFromChannel = function (ChannelID, OnSuccess, OnFailure) {
+        /// <summary>Leaves the specified group</summary>
+        /// <param name="GroupID">the id of the group to leave</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        var paramStr = "{}";
+        var methodName = "userGroups/" + this.currentUser + "/" + ChannelID;
+        this.CallDeleteMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
 
     this.JoinUserToChannel = function (userId, channelId, OnSuccess, OnFailure) {
         /// <summary>Joins the session user to the group</summary>
