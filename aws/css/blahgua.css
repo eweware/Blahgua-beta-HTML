@@ -186,10 +186,10 @@
     z-index:20;
 }
 
-
 .FullBlahContent {
     overflow-x: hidden;
     overflow-y: scroll;
+    max-height:400px;
 }
 
 
@@ -201,7 +201,9 @@
     text-align:center;
     font-weight:bold;
     margin:16px 16px 16px 16px;
+    padding:10px 10px;
     word-wrap: break-word;
+    background:#F777AA;
 }
 
 .BlahFullTable {
@@ -209,12 +211,23 @@
 }
 
 .BlahFullHeader {
+    background-color:#FA3987;
+    padding:10px 10px;
+}
+.BlahFullHeader1 {
     background-color:lightgray;
+    padding:10px 10px;
 }
 
 
 
 .fullBlahgerName {
+    padding-left:12px;
+    font-size:24px;
+    font-family: Verdana, Geneva, sans-serif;
+
+}
+.fullBlahgerName1 {
     padding-left:12px;
     font-size:12px;
     font-family: Verdana, Geneva, sans-serif;
@@ -237,9 +250,8 @@
 
 .BlahFullImage {
     max-height:300px;
-    max-width:90%;
-    padding-top:16px;
-    padding-bottom:16px;
+    max-width:300px;
+    padding:10px 10px;
 }
 
 .comment-vote {
@@ -359,11 +371,6 @@ a {
 
 }
 
-.UserChannelDiv {
-    margin-top: 100px;
- }
-
-
 
 .ChannelViewersSpan {
     float:right;
@@ -422,7 +429,7 @@ a {
 }
 
 .UserChannelDiv {
-    margin-top: 100px;
+
 }
 
 .Footer {
@@ -479,4 +486,79 @@ a {
     font-size:small;
     font-weight:normal;
     font-style:italic;
+}
+
+.ChannelDropMenu {
+    position: absolute;
+    padding:16px 0px 0px 0px;
+    left:8px;
+    top:56px;
+    width:400px;
+    height:auto;
+    border-width: 4px;
+    background-color: white;
+    box-shadow:rgba(0,0,0,.4) 4px 4px;
+    z-index: 12;
+}
+
+.ChannelDropMenu ul  {
+    list-style-type: none;
+    padding-left: 8px;
+    margin-left: 0;
+}
+.ChannelDropMenu ul a {
+    font-size:36px;
+    width:100%;
+    background-color:transparent;
+    color:black;
+}
+
+.channelimage {
+    width:32px;
+    height:32px;
+    margin-right:8px;
+    margin-top:4px;
+
+}
+
+.removechannel {
+    width:16px;
+    height: 16px;
+    float:right;
+}
+
+.ChannelDropMenu ul a:hover
+{
+    background-color: #369;
+    color: #FFF;
+}
+
+.ChannelDropMenu a {
+    font-size:36px;
+    background-color: #add8e6;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:100%;
+    border-radius: 8px;
+
+}
+
+.ChannelDropMenu a:hover {
+
+    background-color: #00008b;
+    color:white;
+}
+
+
+.channelSubItems a {
+    font-size:24px;
+    background-color:white;
+    color:blue;
+
+}
+
+.profile-close-btn {
+    float: right;
+
 }
