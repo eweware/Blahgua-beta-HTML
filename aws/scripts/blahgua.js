@@ -73,6 +73,19 @@ function require(script) {
 }
 
 
+function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split('&');
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split('=');
+        if (decodeURIComponent(pair[0]) == variable) {
+            return decodeURIComponent(pair[1]);
+        }
+    }
+     return null;
+}
+
+
 
 $(document).ready(function () {
     $("#BlahContainer").disableSelection();
@@ -87,8 +100,17 @@ $(document).ready(function () {
     if (window.location.hostname == "") {
         // running local
         fragmentURL = "./aws";
+        SignIn();
+    } else {
+        var host = window.location.hostname.split('.')[0];
+        if (host != "beta") {
+            window.location = "http://beta.blahgua.com/?channel=" + host;
+        }
+        else {
+            SignIn();
+        }
     }
-    SignIn();
+
 });
 
 
@@ -1746,7 +1768,7 @@ function GoNextChannel() {
 function GetChannelByName(theName, theList) {
     var theEl = null;
     for (curIndex in theList) {
-        if (theList[curIndex].displayName == theName) {
+        if (theList[curIndex].displayName.toLowerCase() == theName.toLowerCase()) {
             theEl = theList[curIndex];
             break;
         }
@@ -1761,26 +1783,69 @@ function GetUserChannels() {
         Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
     } else {
         Blahgua.GetFeaturedChannels(function (channelList) {
-            var sortList = [];
+                var sortList = [];
+            var defChannel = getQueryVariable('channel');
+            if (defChannel != null) {
+                var theChannel = GetChannelByName(defChannel, channelList);
+                if (theChannel != null)
+                    sortList.push(theChannel);
+            }
             sortList.push(GetChannelByName("The Now Network", channelList));
             sortList.push(GetChannelByName("Entertainment", channelList));
             sortList.push(GetChannelByName("Politics", channelList));
             sortList.push(GetChannelByName("Sports", channelList));
             sortList.push(GetChannelByName("Humor", channelList));
+
             GetChannelsOK(sortList);
         },
             OnFailure);
     }
 }
 
+
 function GetChannelsOK(theChannels) {
     ChannelList = theChannels;
+
     if (theChannels.length == 0) {
         AddDefaultChannelsToNewUser();
-    }
-    else {
-        PopulateChannelMenu();
-        SetCurrentChannel(0);
+    } else  {
+        // fetch URL parameter Channel
+        var defChannel = getQueryVariable('channel');
+        if (defChannel != null) {
+            for (curIndex in ChannelList) {
+                if (ChannelList[curIndex].displayName.toLowerCase() == defChannel.toLowerCase())
+                {
+                    PopulateChannelMenu();
+                    SetCurrentChannel(curIndex);
+                    return;
+                    break;
+                }
+            }
+            // user does not have this channel - add it!
+            if (IsUserLoggedIn) {
+                Blahgua.GetAllChannels(function (allChannels) {
+                    for (curIndex in allChannels) {
+                        if (allChannels[curIndex].displayName.toLowerCase() == defChannel.toLowerCase())
+                        {
+                            Blahgua.JoinUserToChannel(CurrentUser._id, allChannels[curIndex]._id, function() {
+                                ChannelList.splice(0,0,allChannels[curIndex]);
+                                PopulateChannelMenu();
+                                SetCurrentChannel(0);
+                            }, OnFailure);
+                            break;
+                        }
+                    }
+                }, OnFailure);
+            }  else {
+                // for some reason the channel is not available..
+                // TO DO:  show a warning
+                PopulateChannelMenu();
+                SetCurrentChannel(0);
+            }
+        } else {
+            PopulateChannelMenu();
+            SetCurrentChannel(0);
+        }
     }
 }
 
