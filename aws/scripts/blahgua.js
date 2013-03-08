@@ -35,7 +35,7 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
+var fragmentURL = "./aws";
 
 
 (function ($) {
