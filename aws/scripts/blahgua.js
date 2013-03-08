@@ -97,7 +97,7 @@ $(document).ready(function () {
         $("#ChannelDropMenu").hide();
         UnfocusBlah();
     });
-    if (window.location.hostname == "") {
+    if ((window.location.hostname == "") || (window.location.hostname == "localhost"))  {
         // running local
         fragmentURL = "./aws";
         SignIn();
@@ -131,9 +131,8 @@ function SignIn() {
         // sign in
         Blahgua.loginUser(savedID, pwd, function () {
             IsUserLoggedIn = true;
-            Blahgua.GetUserByName(savedID, function (json) {
+            Blahgua.getUserInfo(function (json) {
                 CurrentUser = json;
-                Blahgua.currentUser = CurrentUser._id;
                 finalizeInitialLoad();
             });
         }, function() {
@@ -1780,7 +1779,7 @@ function GetChannelByName(theName, theList) {
 
 function GetUserChannels() {
     if (IsUserLoggedIn) {
-        Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
+        Blahgua.GetUserChannels(CurrentUser._id, GetChannelsOK, OnFailure);
     } else {
         Blahgua.GetFeaturedChannels(function (channelList) {
                 var sortList = [];
@@ -1857,7 +1856,7 @@ function PopulateChannelMenu( ) {
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
-    $("#ViewProfileBtn").text(getUserChannelName);
+    $("#ViewProfileBtn").text(getUserChannelName());
 
 
 }
@@ -1926,7 +1925,7 @@ function SetCurrentChannel(whichChannel) {
     $("#ChannelBanner").css("background-color", "#FFFFFF");
     StopAnimation();
     CurrentChannel = ChannelList[whichChannel];
-    Blahgua.SetCurrentChannel(CurrentChannel._id);
+    Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
     labelDiv.innerHTML = CurrentChannel.displayName;
     GetUserBlahs();
@@ -1952,7 +1951,6 @@ function InstallUserChannel() {
     // empty whatever is in there now
     StopAnimation();
     $("#BlahFullItem").empty();
-    CurrentChannel = null;
     if (IsUserLoggedIn) {
         if (CurrentUser == null) {
             Blahgua.GetCurrentUser(function (theResult) {
@@ -2024,7 +2022,7 @@ function HandleUserLoginOK(json) {
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
     }
-    Blahgua.GetUserByName(userName, RefreshPageForNewUser);
+    Blahgua.getUserInfo(RefreshPageForNewUser);
 }
 
 function HandleUserLoginFail(json) {
@@ -2035,7 +2033,6 @@ function RefreshPageForNewUser(json) {
     // get the new channel list
     $("#BlahFullItem").hide();
     CurrentUser = json;
-    Blahgua.currentUser = CurrentUser._id;
     GetUserChannels();
 }
 

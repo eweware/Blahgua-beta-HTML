@@ -4,7 +4,6 @@
 function BlahguaObject() {
     // properties
     this.baseURL = "http://beta.blahgua.com/v2/";
-    this.currentUser = "";
     this.currentChannel = "";
     //this.baseURL = "../v2/";
 
@@ -426,13 +425,13 @@ function BlahguaObject() {
 
 
 
-    this.removeUserFromChannel = function (ChannelID, OnSuccess, OnFailure) {
+    this.removeUserFromChannel = function (userID, ChannelID, OnSuccess, OnFailure) {
         /// <summary>Leaves the specified group</summary>
         /// <param name="GroupID">the id of the group to leave</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         var paramStr = "{}";
-        var methodName = "userGroups/" + this.currentUser + "/" + ChannelID;
+        var methodName = "userGroups/" + userID + "/" + ChannelID;
         this.CallDeleteMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
@@ -456,14 +455,13 @@ function BlahguaObject() {
         this.CallGetMethod("groups", paramStr, OnSuccess, OnFailure);
     };
 
-    this.GetUserByName = function (userName, OnSuccess, OnFailure) {
-        /// <summary>returns a user record given a user name</summary>
-        /// <param name="userName">the user's name to get</param>
+    this.getUserInfo = function (OnSuccess, OnFailure) {
+        /// <summary>returns a user record on the logged in user</summary>
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
         /// <param name="OnFailure">method to call on the event of a failure</param>
         /// <returns>user object</returns>
         var paramStr = '{}';
-        var method = "users/" + userName + "/?u=true";
+        var method = "users/info";
         this.CallGetMethod(method, paramStr, OnSuccess, OnFailure);
     };
 
@@ -546,7 +544,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A new blah object</returns>
         var param = new Object();
-        param["authorId"] = this.currentUser;
+        //param["authorId"] = this.currentUser;
         param["groupId"] = blahGroup;
         param["text"] = blahText;
         param["typeId"] = blahType;
@@ -563,15 +561,6 @@ function BlahguaObject() {
     };
 
 
-    this.SetCurrentUser = function (theID) {
-        this.currentUser = theID;
-    }
-
-    this.SetCurrentChannel = function (theID) {
-        this.currentChannel = theID;
-    }
-
-
 
     this.GetViewersOfUser = function (OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
@@ -579,7 +568,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>the json for the user object</returns>
         var paramStr = null;
-        var methodName = "users/" + this.currentUser;
+        //var methodName = "users/" + this.currentUser;
         //this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
         // temp for now
         var userCount = Math.floor(Math.random() * 100)  + 5;
@@ -603,7 +592,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>the json for the user object</returns>
         var paramStr = null;
-        var methodName = "users/" + this.currentUser;
+        //var methodName = "users/" + this.currentUser;
         //this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
         // temp for now
         var userCount = Math.floor(Math.random() * 1000)  + 50;
@@ -613,24 +602,14 @@ function BlahguaObject() {
 
 
 
-    this.GetCurrentUser = function (OnSuccess, OnFailure) {
-        /// <summary>Returns the current user</summary>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>the json for the user object</returns>
-        var paramStr = null;
-        var methodName = "users/" + this.currentUser;
-        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
-    };
 
-
-    this.GetUserChannels = function (OnSuccess, OnFailure) {
+    this.GetUserChannels = function (userId, OnSuccess, OnFailure) {
         /// <summary>Returns the groups of the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the user's groups</returns>
         var paramStr = '{"state":"A"}';
-        var methodName = "userGroups/" + this.currentUser;
+        var methodName = "userGroups/" + userId;
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
