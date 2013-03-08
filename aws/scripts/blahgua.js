@@ -82,8 +82,7 @@ function getQueryVariable(variable) {
             return decodeURIComponent(pair[1]);
         }
     }
-    console.log('Query variable %s not found', variable);
-    return null;
+     return null;
 }
 
 
