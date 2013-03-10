@@ -26,22 +26,28 @@
            </table>
         </div>
         <table width="100%" class="BlahPreviewTable">
-        <tr style="height:70px;width:100%;background:white">
+        <tr id="PreviewRowVote" style="height:70px;width:100%;background:white">
             <td width="20%" ></td>
-            <td width="20%" align="center" id="one">
-                <img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_thumbsUp.png"><br/>
-                <span class="statsText" id="previewUpVote">21</span>
+            <td width="20%" align="center">
+                <img id="PreviewPromoteBlah" onclick="DoPromotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
+
             </td>
             <td width="20%" align="center">
-                <img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_thumbsDown.png"><br/>
-                <span class="statsText" id="previewDownVote">1,563</span>
+                <img id="PreviewDemoteBlah" onclick="DoDemotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
             </td>
             <td width="20%" align="center">
-                <img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png"><br/>
+                <img width="36px" alt="viewers" onclick="DoAddCommentPreview(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
                 <span class="statsText" id="previewComments">65</span>
             </td>
             <td width="20%"></td>
- 
+
+            </tr>
+            <tr id="PreviewRowSignIn">
+              <td colspan="5" style="text-align: center">
+                  <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!'); return false;">
+                      Sign in to promote, demote, or comment
+                  </div>
+              </td>
             </tr>
     </table>
 </div>

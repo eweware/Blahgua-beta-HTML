@@ -564,14 +564,81 @@ a {
 }
 
 
-.channelSubItems a {
-    font-size:24px;
-    background-color:white;
-    color:blue;
 
-}
 
 .profile-close-btn {
     float: right;
 
+}
+
+.signin-message {
+    font-size:18px;
+    background-color: orange;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:80%;
+    border-radius: 8px;
+}
+
+.ChannelBrowser {
+    width:100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.channelBrowserGroupItem {
+    font-size:36px;
+    background-color: #add8e6;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:100%;
+    border-radius: 8px;
+
+}
+
+
+.ChannelBrowser ul  {
+    list-style-type: none;
+    padding-left: 8px;
+    margin-left: 0;
+    background-color:transparent;
+}
+.channelBrowserGroupItem {
+    font-size:36px;
+    width:100%;
+    background-color:transparent;
+    color:black;
+}
+
+.channelBrowserGroupItem:hover
+{
+    background-color: #369;
+    color: #FFF;
+}
+
+
+.channelBrowserChannelItem {
+    font-size:24px;
+    width:100%;
+    background-color:transparent;
+    color:#a9a9a9;
+}
+
+.channelBrowserChannelItem:hover
+{
+    background-color: #369;
+    color: #a9a9a9;
+}
+
+.SuggestSignIn {
+    text-align: center;
+    font-size:18px;
+    background-color: orange;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:80%;
+    border-radius: 8px;
 }

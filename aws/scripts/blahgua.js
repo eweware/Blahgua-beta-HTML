@@ -35,7 +35,7 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-var fragmentURL = "./aws";
+var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 
 
 (function ($) {
@@ -402,6 +402,26 @@ function ShowHideChannelList() {
     var menu = document.getElementById("ChannelDropMenu");
     menu.style.left = document.getElementById("ChannelBanner").style.left;
     if (menu.style.display == "none") {
+        ShowChannelList();
+    } else {
+       HideChannelList();
+    }
+}
+
+function HideChannelList() {
+    var menu = document.getElementById("ChannelDropMenu");
+    menu.style.left = document.getElementById("ChannelBanner").style.left;
+    if (menu.style.display != "none") {
+        $("#LightBox").hide();
+        $(menu).fadeOut("fast");
+        StartAnimation();
+    }
+}
+
+function ShowChannelList() {
+    var menu = document.getElementById("ChannelDropMenu");
+    menu.style.left = document.getElementById("ChannelBanner").style.left;
+    if (menu.style.display == "none") {
         $("#LightBox").show();
         if (IsUserLoggedIn)
             $("#BrowseChannelBtn").show();
@@ -409,12 +429,7 @@ function ShowHideChannelList() {
             $("#BrowseChannelBtn").hide();
         StopAnimation();
         menu.style.display = "block";
-    } else {
-        $("#LightBox").hide();
-        $(menu).fadeOut("fast");
-        StartAnimation();
     }
-
 }
 
 
@@ -465,7 +480,7 @@ function CreatePreviewBlah() {
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
     $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
         BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
-        BlahPreviewItem.onclick = function() {
+        BlahPreviewItem.headline.onclick = function() {
             if (BlahPreviewTimeout != null) {
                 clearTimeout(BlahPreviewTimeout);
                 BlahPreviewTimeout = null;
@@ -915,13 +930,20 @@ function FocusBlah(who) {
 }
 
 function PopulateBlahPreview(whichBlah) {
+    $("#BlahPreviewExtra").empty();
     var headlineText = document.getElementById("BlahPreviewHeadline");
     headlineText.innerHTML = unescape(whichBlah.text);
 
     // stats
-    document.getElementById("previewUpVote").innerHTML = getSafeProperty(whichBlah, "u", 0);
-    document.getElementById("previewDownVote").innerHTML = getSafeProperty(whichBlah, "d", 0);
-    document.getElementById("PreviewViewerCount").innerHTML =getSafeProperty(whichBlah, "o", 0);
+    if (IsUserLoggedIn) {
+        $("#PreviewRowVote").show();
+        $("#PreviewRowSignIn").hide();
+        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(whichBlah, "o", 0);
+    } else {
+        $("#PreviewRowVote").hide();
+        $("#PreviewRowSignIn").show();
+    }
+
 
     // get the entire blah to update the rest...
     Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
@@ -1911,7 +1933,7 @@ function DoJumpToChannel() {
     var what = who.parentElement;
 
     var channelID = what.attributes["channelId"].nodeValue;
-    ShowHideChannelList();
+    HideChannelList();
     SetCurrentChannel(channelID);
 }
 
@@ -1962,8 +1984,18 @@ function InstallUserChannel() {
             PopulateUserChannel();
         }
     } else {
-        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
+        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv",
+        function () {
+            RefreshSignupContent();
+        });
     }
+}
+
+function SuggestUserSignIn(message) {
+    $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", function() {
+        RefreshSignupContent(message);
+    });
+
 }
 
 
@@ -1973,12 +2005,16 @@ function PopulateUserChannel() {
 
 function RefreshUserChannelContent() {
     $("#BlahFullItem").show();
-    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 
-function RefreshSignupContent() {
-    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+function RefreshSignupContent(message) {
     $("#BlahFullItem").show();
+    if ((message != null) && (message != "")) {
+        $("#SignInMessageDiv").text(message);
+        $("#SignInMessageDiv").fadeIn();
+    } else {
+        $("#SignInMessageDiv").hide();
+    }
 }
 
 function CreateNewUser() {
@@ -2071,10 +2107,15 @@ function OnChannelViewersOK(numViewers) {
 
 function DoCreateBlah() {
     StopAnimation();
-    $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
-        PopulateBlahTypeOptions();
-        $(BlahFullItem).fadeIn("fast");
-    });
+    if (IsUserLoggedIn) {
+        $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
+            PopulateBlahTypeOptions();
+            $(BlahFullItem).fadeIn("fast");
+        });
+    }   else {
+        SuggestUserSignIn("you must sign in before you can create a new blah")
+    }
+
  }
 
 function UpdateBlahTypes() {
@@ -2264,7 +2305,7 @@ function AddBadge() {
 
 function DoBrowseChannels() {
     StopAnimation();
-    ShowHideChannelList();
+    HideChannelList();
     $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
         PopulateChannelBrowser();
         $(BlahFullItem).fadeIn("fast");
@@ -2288,15 +2329,19 @@ function OnGetChannelTypesOK(typeList) {
 function GenerateHTMLForChannelType(channelType) {
     var newHTML= "";
     newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
-    newHTML += "<a>" + channelType.displayName + "</a>";
+    newHTML += "<a class='channelBrowserGroupItem'>" + channelType.displayName + "</a>";
     newHTML += "</li>"
     return newHTML;
 }
 
-function GenerateHTMLForChannelBrowser(channel) {
-    var newHTML= "";
-    newHTML += '<li id="' + channel._id + '" onclick="DoOpenChannelPage();return false;">';
-    newHTML += "<a>" + channel.displayName + "</a>";
+function GenerateHTMLForChannelBrowser(curChannel) {
+    var newHTML = "";
+    newHTML += "<li class='channelBrowserChannelItem'  channelId='" + curChannel._id + "' onclick='DoOpenChannelPage(); return false;'><a >";
+
+    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel.displayName + '.png"';
+    newHTML += 'onerror="imgError(this);">';
+    newHTML += curChannel.displayName;
+    newHTML += "</a>";
     newHTML += "</li>"
     return newHTML;
 }
@@ -2319,25 +2364,67 @@ function DoExpandItem() {
 function GetSubChannelsOK(newChannelList) {
     var newHTML = "";
     newHTML += '<ul class="channelSubItems">';
-    $.each(newChannelList, function (index, element) {
-        newHTML += GenerateHTMLForChannelBrowser(element);
-    });
+    if (newChannelList.length > 0) {
+        $.each(newChannelList, function (index, element) {
+            newHTML += GenerateHTMLForChannelBrowser(element);
+        });
+        document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+    }   else {
+         //to do - add some text about how there are no channels...
+        var who = event | window.event;
+        var what = who.target | who.srcElement;
+    }
+
     newHTML += "</ul>";
 
-    document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+
 }
 
 function DoOpenChannelPage() {
-    var mainItem = event.srcElement.parentElement;
-    var itemID = mainItem.id;
+    var who = event || window.event;
+    var what = who.target || who.srcElement;
 
-    var channelSubList = $(mainItem).find(".channelSubItems");
-
-    if (channelSubList.length == 0) {
-        // fetch a new channel list
-        Blahgua.GetChannelsForType(itemID, GetSubChannelsOK);
-    } else {
-        channelSubList.toggle();
+    while (what.attributes["channelid"] == null) {
+        what = what.parentElement;
     }
 
+    var itemID = what.attributes["channelid"].value;
+
+    $(BlahFullItem).load(fragmentURL + "/pages/ChannelDetailPage.html #ChannelDetailPage", function() {
+        PopulateChannelDetailPage(itemID);
+    });
+}
+
+function   PopulateChannelDetailPage(channelId) {
+    Blahgua.GetChannelInfo(channelId, function(theChannel) {
+        $("#ChannelTitleDiv").text(theChannel.displayName);
+        document.getElementById("ChannelDetailPage").attr["channelObj"] = theChannel;
+    })
+
+
+}
+
+function DoChannelBrowserReturn() {
+    $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
+        PopulateChannelBrowser();
+        $(BlahFullItem).fadeIn("fast");
+    });
+}
+
+function DoPromotePreview() {
+    Blahgua.SetBlahVote(CurrentBlah._id, 1, function() {
+        UnfocusBlah();
+    }, function(theErr) {
+        // to do - inspect the errror
+        UnfocusBlah();
+    })
+}
+
+function DoDemotePreview() {
+    Blahgua.SetBlahVote(CurrentBlah._id, -1, function() {
+        UnfocusBlah();
+    }, function(theErr) {
+        // to do - inspect the errror
+        UnfocusBlah();
+    })
 }

@@ -15,9 +15,11 @@
         <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
             <label for="BlahImage">image</label>
             <input id="BlahImage" name="file" type="file"/>
-            <input type="text" name="objectType" hidden="true" value="B"/>
-            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-            <input type="text" name="primary" hidden="true" value="true"/>
+            <div style="display:none">
+                <input type="text" name="objectType" hidden="true" value="B"/>
+                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                <input type="text" name="primary" hidden="true" value="true"/>
+            </div>
         </form>
     </fieldset>
     <div id="AdditionalInfoDiv">

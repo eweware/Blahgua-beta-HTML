@@ -293,15 +293,7 @@ function BlahguaObject() {
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
-    this.GetChannelInfo = function (ChannelID, OnSuccess, OnFailure) {
-        /// <summary>Returns info about the specified group</summary>
-        /// <param name="GroupID">The ID of the group </param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>A group object</returns>
-        var paramStr = '{"groupID":"' + GroupID + '"}';
-        this.CallPageMethod("GetGroupInfo", paramStr, OnSuccess, OnFailure);
-    };
+
 
     this.GetChannelStats = function (ChannelID, OnSuccess, OnFailure) {
         /// <summary>Returns statistics on the specified group</summary>
@@ -400,14 +392,25 @@ function BlahguaObject() {
 
     //  ACTUAL WORKING FUNCTIONS
 
+    this.GetChannelInfo = function (ChannelID, OnSuccess, OnFailure) {
+        /// <summary>Returns info about the specified group</summary>
+        /// <param name="GroupID">The ID of the group </param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A group object</returns>
+        var paramStr = '{}';
+        var methodName = "groups/" + ChannelID;
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
     this.SetBlahVote = function (blahId, newVote, OnSuccess, OnFailure) {
         /// <summary>Sets the user's vote for the current blah</summary>
         /// <param name="blahId">the id of the blah</param>
         /// <param name="newVote">the new vote</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var param = new Object();
-        param["v"] = newVote;
+        var paramStr = '{"v":' + newVote + '}';
+
         var methodName = "blahs/" + blahId;
         this.CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
@@ -420,7 +423,7 @@ function BlahguaObject() {
         var param = new Object();
         param["v"] = newVote;
         var methodName = "comments/" + commentID;
-        this.CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
+        this.CallPutMethod(methodName, param, OnSuccess, OnFailure);
     };
 
 
