@@ -26,15 +26,17 @@
 
 .BlahDiv {
     background-color:#000000;
-    font-family:Verdana, Geneva, sans-serif;
+    font-family:'Archivo Narrow', sans-serif;
     padding: 8px;
     overflow:hidden;
     vertical-align:middle;
 }
 
+
+
 .BlahTextDiv {
     background-color: transparent;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Oswald', sans-serif;
     height:auto;
     min-height:100%;
     width:auto;
@@ -122,7 +124,7 @@
 
 .BlahPreviewHeadline {
     font-size:24px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Oswald', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
@@ -143,8 +145,7 @@
 .previewBlahgerName {
     padding-left:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
-
+    font-family: 'Archivo Narrow', sans-serif;
 }
 
 .PreviewViewerCount {
@@ -152,7 +153,7 @@
     top:-4px;
     padding-right:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
     padding-left:4px;
 }
 
@@ -165,7 +166,7 @@
 
 .BlahPreviewBody {
     font-size:16px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
     width:100%;
     padding-left:16px;
     padding-right:16px;
@@ -198,7 +199,7 @@
 
 .BlahFullHeadline {
     font-size:36px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'oswald', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
@@ -228,13 +229,13 @@
 .fullBlahgerName {
     padding-left:12px;
     font-size:20px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
 
 }
 .fullBlahgerName1 {
    
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
   
 
 }
@@ -244,7 +245,7 @@
     top:-4px;
     padding-right:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'archivo narrow', sans-serif;
     padding-left:4px;
 }
 
@@ -268,14 +269,14 @@
 .statsText
 {
 	font-size:12px;
-	font-weight:strong;
+	font-weight:bold;
 	margin-top:100px;
 }
 
 
 .BlahFullBody {
     font-size:16px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'archivo narrow', sans-serif;
     width:100%;
     padding-left:16px;
     padding-right:16px;
@@ -363,8 +364,8 @@ a {
     z-index:10;
     background-color:magenta;
     color:black;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size:22px;
+    font-family: 'oswald', sans-serif;
+    font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
     box-shadow:rgba(0,0,0,.4) 0px 4px;

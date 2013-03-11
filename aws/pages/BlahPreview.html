@@ -4,7 +4,7 @@
 <body>
 <div id="BlahPreview">
     <table width="100%" class="BlahPreviewTable">
-        <tr class="BlahPreviewHeader"><td colspan="4"><span class="previewBlahgerName">A female blahger from Santa Monica, CA says: </span></td>
+        <tr class="BlahPreviewHeader"><td colspan="4"><span id="PreviewBlahNickname" class="previewBlahgerName">A female blahger from Santa Monica, CA says: </span></td>
             <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
                 <span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>
         </table>
@@ -29,11 +29,13 @@
         <tr id="PreviewRowVote" style="height:70px;width:100%;background:white">
             <td width="20%" ></td>
             <td width="20%" align="center">
-                <img id="PreviewPromoteBlah" onclick="DoPromotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
+                <img id="PreviewPromoteBlah" onclick="DoPromotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png"><br/>
+                <span id="PreviewUserPromoteSpan" class="statsText"></span>
 
             </td>
             <td width="20%" align="center">
-                <img id="PreviewDemoteBlah" onclick="DoDemotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
+                <img id="PreviewDemoteBlah" onclick="DoDemotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png"> <br/>
+                <span id="PreviewUserDemoteSpan"  class="statsText"></span>
             </td>
             <td width="20%" align="center">
                 <img width="36px" alt="viewers" onclick="DoAddCommentPreview(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
@@ -49,6 +51,7 @@
                   </div>
               </td>
             </tr>
+
     </table>
 </div>
 

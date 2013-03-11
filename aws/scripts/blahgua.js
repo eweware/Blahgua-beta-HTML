@@ -640,6 +640,7 @@ function GetBlahTypeStr() {
             return BlahTypeList[curType].name;
         }
     }
+
     return "";
 }
 
@@ -649,8 +650,6 @@ function UpdateFullBlahBody(newBlah) {
     headlineText.innerHTML = unescape(CurrentBlah.text);
 
     // stats
-    document.getElementById("fullBlahUpVote").innerHTML = getSafeProperty(CurrentBlah, "vu", 0);
-    document.getElementById("fullBlahDownVote").innerHTML = getSafeProperty(CurrentBlah, "vd", 0);
     document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
     document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
 
@@ -688,6 +687,10 @@ function UpdateFullBlahBody(newBlah) {
         default:
 
     }
+
+    // update the opens
+    Blahgua.AddBlahViewsOpens(theFullBlah._id, 0, 1, null, OnFailure);
+
 
     // update the comments
     if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
@@ -934,17 +937,6 @@ function PopulateBlahPreview(whichBlah) {
     var headlineText = document.getElementById("BlahPreviewHeadline");
     headlineText.innerHTML = unescape(whichBlah.text);
 
-    // stats
-    if (IsUserLoggedIn) {
-        $("#PreviewRowVote").show();
-        $("#PreviewRowSignIn").hide();
-        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(whichBlah, "o", 0);
-    } else {
-        $("#PreviewRowVote").hide();
-        $("#PreviewRowSignIn").show();
-    }
-
-
     // get the entire blah to update the rest...
     Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
 }
@@ -952,9 +944,60 @@ function PopulateBlahPreview(whichBlah) {
 function UpdateBodyText(theFullBlah) {
     CurrentBlah = theFullBlah;
     var headlineText = document.getElementById("BlahPreviewHeadline");
+    var nickNameStr =  getSafeProperty(theFullBlah, "nickname", "a blahger");
+    var blahTypeStr =  GetBlahTypeStr();
+    var isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
 
+    if (isOwnBlah) {
+        niceNameStr += " (you)";
+    }
     // update the comment count while we are here
     document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "c", 0);
+    document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "views", 0);
+    document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
+
+
+
+    // reformat the promote area if the user has already voted
+    if (IsUserLoggedIn) {
+
+        $("#PreviewRowVote").show();
+        $("#PreviewRowSignIn").hide();
+        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "o", 0);
+
+        if (isOwnBlah) {
+            $("#PreviewDemoteBlah").show();
+            $("#PreviewUserPromoteSpan").text("promote");
+            $("#PreviewPromoteBlah").show();
+            $("#PreviewUserDemoteSpan").text("demote");
+        } else {
+            var userVote = getSafeProperty(theFullBlah, "uv", 0);
+            if (userVote && (userVote != 0)) {
+                if (userVote == 1) {
+                    $("#PreviewDemoteBlah").hide()
+                    $("#PreviewPromoteBlah").show();
+                    $("#PreviewUserPromoteSpan").text("promoted by you!");
+                    $("#PreviewUserDemoteSpan").text("");
+                }  else {
+                    $("#PreviewPromoteBlah").hide();
+                    $("#PreviewDemoteBlah").show();
+                    $("#PreviewUserDemoteSpan").text("demoted by you!");
+                    $("#PreviewUserPromoteSpan").text("");
+                }
+            } else {
+                $("#PreviewDemoteBlah").show();
+                $("#PreviewUserPromoteSpan").text("promote");
+                $("#PreviewPromoteBlah").show();
+                $("#PreviewUserDemoteSpan").text("demote");
+            }
+        }
+        // add a view
+        Blahgua.AddBlahViewsOpens(theFullBlah._id, 1, 0, null, OnFailure);
+    } else {
+        $("#PreviewRowVote").hide();
+        $("#PreviewRowSignIn").show();
+    }
+
 
     // image
     var image = GetBlahImage(CurrentBlah, "B");
@@ -991,6 +1034,8 @@ function UpdateBodyText(theFullBlah) {
         default:
 
     }
+
+
 }
 
 
@@ -1801,7 +1846,7 @@ function GetChannelByName(theName, theList) {
 
 function GetUserChannels() {
     if (IsUserLoggedIn) {
-        Blahgua.GetUserChannels(CurrentUser._id, GetChannelsOK, OnFailure);
+        Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
     } else {
         Blahgua.GetFeaturedChannels(function (channelList) {
                 var sortList = [];

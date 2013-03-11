@@ -371,11 +371,13 @@ function BlahguaObject() {
         this.CallPageMethod("GenerateNewPasscode", paramStr, OnSuccess, OnFailure);
     };
 
-    this.GetViewerCount = function (PageName, OnSuccess, OnFailure) {
-        ///
-        var paramStr = '{"pageName":"' + PageName + '"}';
-        this.CallPageMethod("GetViewerCount", paramStr, OnSuccess, OnFailure);
-    };
+
+
+
+
+
+
+    //  ACTUAL WORKING FUNCTIONS
 
     this.AddBlahViewsOpens = function (blahID, numViews, numOpens, OnSuccess, OnFailure) {
         /// <summary>Adds the specified number of views and opens to the blah's stats</summary>
@@ -384,13 +386,11 @@ function BlahguaObject() {
         /// <param name="numOpens">The number of opens to add</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"numViews":' + numViews + ', "numOpens":' + numOpens + ', "blahID":"' + blahID + '"}';
-        this.CallPageMethod("AddBlahViewsOpens", paramStr, OnSuccess, OnFailure);
+        var paramStr = '{"views":' + numViews + ', "opens":' + numOpens + '}';
+        var methodname = "blahs/" + blahID;
+        this.CallPutMethod(methodname, paramStr, OnSuccess, OnFailure);
     };
 
-
-
-    //  ACTUAL WORKING FUNCTIONS
 
     this.GetChannelInfo = function (ChannelID, OnSuccess, OnFailure) {
         /// <summary>Returns info about the specified group</summary>
@@ -402,6 +402,18 @@ function BlahguaObject() {
         var methodName = "groups/" + ChannelID;
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
+
+    this.GetUserChannelInfo = function (ChannelID, OnSuccess, OnFailure) {
+        /// <summary>Returns info about the specified group</summary>
+        /// <param name="GroupID">The ID of the group </param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A group object</returns>
+        var paramStr = '{}';
+        var methodName = "userGroups/" + ChannelID;
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
 
     this.SetBlahVote = function (blahId, newVote, OnSuccess, OnFailure) {
         /// <summary>Sets the user's vote for the current blah</summary>
@@ -428,24 +440,24 @@ function BlahguaObject() {
 
 
 
-    this.removeUserFromChannel = function (userID, ChannelID, OnSuccess, OnFailure) {
+    this.removeUserFromChannel = function (ChannelID, OnSuccess, OnFailure) {
         /// <summary>Leaves the specified group</summary>
         /// <param name="GroupID">the id of the group to leave</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var paramStr = "{}";
-        var methodName = "userGroups/" + userID + "/" + ChannelID;
+        var paramStr = "{'g':'" + ChannelID + "'}";
+        var methodName = "userGroups/";
         this.CallDeleteMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
-    this.JoinUserToChannel = function (userId, channelId, OnSuccess, OnFailure) {
+    this.JoinUserToChannel = function (channelId, OnSuccess, OnFailure) {
         /// <summary>Joins the session user to the group</summary>
         /// <param name="userId">The ID of the user</param>
         /// <param name="channelId">The ID of the group to join</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A group object</returns>
-        var paramStr = '{"userId": "'+ userId + '", "groupId": "' + channelId + '"}';
+        var paramStr = '{"g": "' + channelId + '"}';
         this.CallPostMethod("userGroups", paramStr, OnSuccess, OnFailure);
     };
 
@@ -606,13 +618,13 @@ function BlahguaObject() {
 
 
 
-    this.GetUserChannels = function (userId, OnSuccess, OnFailure) {
+    this.GetUserChannels = function (OnSuccess, OnFailure) {
         /// <summary>Returns the groups of the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the user's groups</returns>
         var paramStr = '{"state":"A"}';
-        var methodName = "userGroups/" + userId;
+        var methodName = "userGroups";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
