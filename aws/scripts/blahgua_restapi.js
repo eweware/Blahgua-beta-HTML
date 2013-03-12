@@ -379,6 +379,19 @@ function BlahguaObject() {
 
     //  ACTUAL WORKING FUNCTIONS
 
+    this.getUserDescriptorString = function (userId, OnSuccess, OnFailure) {
+        /// <summary>Returns info about the specified group</summary>
+        /// <param name="GroupID">The ID of the group </param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A group object</returns>
+        var paramStr = '{"i":"' + userId + '"}';
+        var methodName = "users/profiles/descriptor";
+        this.CallPostMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+
+
     this.AddBlahViewsOpens = function (blahID, numViews, numOpens, OnSuccess, OnFailure) {
         /// <summary>Adds the specified number of views and opens to the blah's stats</summary>
         /// <param name="blahID">The ID of the blah to modify</param>
