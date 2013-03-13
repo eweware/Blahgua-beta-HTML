@@ -100,17 +100,8 @@ $(document).ready(function () {
     if (window.location.hostname == "") {
         // running local
         fragmentURL = "./aws";
+       }
         SignIn();
-    } else {
-        var host = window.location.hostname.split('.')[0];
-        if (host != "beta") {
-            window.location = "http://beta.blahgua.com/?channel=" + host;
-        }
-        else {
-            SignIn();
-        }
-    }
-
 });
 
 
@@ -669,7 +660,7 @@ function UpdateFullBlahBody(newBlah) {
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage("PollAnswersArea"); })
+                function() { UpdateAskPage(""); })
             break;
         default:
 
