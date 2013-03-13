@@ -753,7 +753,8 @@ function UpdateFullBlahBody(newBlah) {
     // update any additional area
     switch (GetBlahTypeStr()) {
         case "predicts":
-            $("#AdditionalInfoArea").text("A prediction!");
+            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredictPage",
+                function() { UpdatePredictPage("PredictStatusArea"); })
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
@@ -1125,7 +1126,8 @@ function UpdateBodyText(theFullBlah) {
     // check if it is a special type
     switch (GetBlahTypeStr()) {
         case "predicts":
-            $("#BlahPreviewExtra").text("A prediction!");
+            $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePredictPreview.html #BlahTypePredictAuthorPage",
+                function() { UpdatePredictPreviewPage(); })
             break;
         case "polls":
             $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
@@ -2325,6 +2327,9 @@ function CreateBlah() {
             options = new Object();
             options["pt"] = pollItems;
             break;
+        case "polls":
+            // to do - uppdate the prediction on create
+            break;
         default:
             break;
     }
@@ -2395,7 +2400,8 @@ function UpdateBlahInfoArea() {
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     switch (blahTypeStr.name) {
         case "predicts":
-            $("#AdditionalInfoDiv").text("A prediction!");
+            $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
+                function() { UpdatePredictAuthorPage(); })
             break;
         case "polls":
             $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
