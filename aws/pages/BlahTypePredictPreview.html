@@ -4,34 +4,62 @@
     <title></title>
 </head>
 <body>
-<div id="BlahTypePredictPreview" >
+<div id="BlahTypePredictPreview" class="BlahTypePredictPreview">
         <hr>
-        <span>happening within </span><span class="elapsedTimePreview" id="elapsedTimePreview">2 months</span><br/>
-        <span class="predictionDatePreview" id="predictionDatePreview">Jan 1, 2014</span> <br/>
-        <span class="predictionVotePrompt">Do you agree?</span>
-        <table>
+        <div class="predictTimeDiv">
+            <span  id="previewElapsedTimeText" class="elapsedTimeText">happening within </span>
+            <span class="elapsedTimePreview" id="elapsedTimePreview">2 months</span>
+        </div>
+        <div style="text-align: center">
+            <span class="predictionDatePreview" id="predictionDatePreview">Jan 1, 2014</span>
+        </div>
+        <div class="predictionVotePrompt"><span id="previewPredictVotePrompt">Do you agree?</span></div>
+        <table id="PreviewPredictVoteTable" class="PredictionChoiceTable">
             <tr>
-                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteYes"> </td>
+                <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass"  id="PredictPreviewYesImg" onclick="SetPredictResponse('y'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
                 <td>
-                    <div id="PredictPreviewYesSpan" class="PredictPreviewYesSpan"></div>
                     <span class="PredictPreviewAnswerText">Yes, it will happen</span>
+                    <div id="PredictPreviewYesSpan" class="PredictPreviewSpan"  style="background-color:green"></div>
                 </td>
             </tr>
             <tr>
-                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteNo"> </td>
+                <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass" id="PredictPreviewNoImg"  onclick="SetPredictResponse('n'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
                 <td>
-                    <div id="PredictPreviewNoSpan" class="PredictPreviewNoSpan"></div>
                     <span class="PredictPreviewAnswerText">No, it won't</span>
+                    <div id="PredictPreviewNoSpan" class="PredictPreviewSpan" style="background-color:red"></div>
                 </td>
             </tr>
             <tr>
-                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteMaybe"> </td>
+                <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass" id="PredictPreviewMaybeImg"  onclick="SetPredictResponse('u'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
                 <td>
-                    <div id="PredictPreviewMaybeSpan" class="PredictPreviewMaybeSpan"></div>
                     <span class="PredictPreviewAnswerText">Unclear</span>
+                    <div id="PredictPreviewMaybeSpan" class="PredictPreviewSpan" style="background-color:blue"></div>
                 </td>
             </tr>
         </table>
+    <table id="PreviewExpPredictVoteTable" class="PredictionChoiceTable">
+        <tr>
+            <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass"  id="ExpPredictPreviewYesImg" onclick="SetExpPredictResponse('y'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
+            <td>
+                <span class="PredictPreviewAnswerText">Yes, it happened</span>
+                <div id="ExpPredictPreviewYesSpan" class="PredictPreviewSpan"  style="background-color:green"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass" id="ExpPredictPreviewNoImg"  onclick="SetExpPredictResponse('n'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
+            <td>
+                <span class="PredictPreviewAnswerText">No, it did not</span>
+                <div id="ExpPredictPreviewNoSpan" class="PredictPreviewSpan" style="background-color:red"></div>
+            </td>
+        </tr>
+        <tr>
+            <td class="PredictCheckBoxWrapper"><img class="PredictCheckBoxClass" id="ExpPredictPreviewMaybeImg"  onclick="SetExpPredictResponse('u'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png"> </td>
+            <td>
+                <span class="PredictPreviewAnswerText">Unclear</span>
+                <div id="ExpPredictPreviewMaybeSpan" class="PredictPreviewSpan" style="background-color:blue"></div>
+            </td>
+        </tr>
+    </table>
         <hr>
     </div>
 </div>

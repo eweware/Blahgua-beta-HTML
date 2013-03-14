@@ -210,15 +210,15 @@ function AddDefaultChannelsToNewUser() {
 }
 
 function OnGetChannelsOK(channelList) {
-    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("The Now Network", channelList),
+    Blahgua.JoinUserToChannel(ChannelIDFromName("The Now Network", channelList),
         function () {
-            Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Entertainment", channelList),
+            Blahgua.JoinUserToChannel(ChannelIDFromName("Entertainment", channelList),
                 function () {
-                    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Politics", channelList),
+                    Blahgua.JoinUserToChannel(ChannelIDFromName("Politics", channelList),
                         function () {
-                            Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Sports", channelList),
+                            Blahgua.JoinUserToChannel(ChannelIDFromName("Sports", channelList),
                                 function () {
-                                    Blahgua.JoinUserToChannel(CurrentUser._id, ChannelIDFromName("Humor", channelList),
+                                    Blahgua.JoinUserToChannel(ChannelIDFromName("Humor", channelList),
                                         GetUserChannels);
                                 }
                             );
@@ -804,14 +804,6 @@ function UpdatePredictPage(predictAreaName) {
 }
 
 function UpdateAskPage(previewAreaName) {
-    // test
-    if (!CurrentBlah.hasOwnProperty("pt")) {
-        var newObj = [];
-        newObj.push({"g":"Choice 1", "t":"This is choice 1", "pv":120});
-        newObj.push({"g":"Choice 2", "t":"This is choice 2", "pv":64});
-        newObj.push({"g":"Choice 3", "t":"This is choice 3", "pv":12});
-        CurrentBlah["pt"] = newObj;
-    }
 
     if (CurrentBlah.hasOwnProperty("pt")) {
         var choices = CurrentBlah.pt;
@@ -832,7 +824,7 @@ function UpdateAskPage(previewAreaName) {
         }
 
         if (IsUserLoggedIn)
-            Blahgua.GetUserPollVote(CurrentBlah._id, CurrentUser._id, OnGetUserPollVoteOK);
+            Blahgua.GetUserPollVote(CurrentBlah._id, OnGetUserPollVoteOK);
     }
 }
 
@@ -872,7 +864,7 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
 function DoPollVote(theChoice) {
     var who = event.target || event.srcElement;
 
-    Blahgua.SetUserPollVote(CurrentBlah._id, CurrentUser._id, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
+    Blahgua.SetUserPollVote(CurrentBlah._id, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
 }
 
 function OnSetUserPollVoteOk(json) {
@@ -1169,8 +1161,108 @@ function UpdatePredictPreviewPage() {
     var expDateVal = getSafeProperty(CurrentBlah, "e", Date.now());
     var expDate = new Date(expDateVal);
     var elapStr = ElapsedTimeString(expDate);
+    var isPast = (expDate < new Date(Date.now()));
+
+    if (isPast) {
+        $("#previewElapsedTimeText").text("should have happened ");
+        $("#previewPredictVotePrompt").text("Did it happen?");
+        $("#PreviewPredictVoteTable").hide();
+        $("#PreviewExpPredictVoteTable").show();
+    }  else {
+        $("#previewElapsedTimeText").text("happening within ");
+        $("#previewPredictVotePrompt").text("Do you agree?");
+        $("#PreviewPredictVoteTable").show();
+        $("#PreviewExpPredictVoteTable").hide();
+    }
+
     $("#elapsedTimePreview").text(elapStr);
     $("#predictionDatePreview").text(expDate.toLocaleDateString());
+
+    // update the bars
+    var yesVotes = getSafeProperty(CurrentBlah, "p4", 0);
+    var noVotes = getSafeProperty(CurrentBlah, "p5", 0);
+    var maybeVotes = getSafeProperty(CurrentBlah, "p6", 0);
+    var totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
+    var yesRatio = 0;
+    var noRatio = 0;
+    var maybeRatio = 0;
+
+    if (totalVotes > 0) {
+         yesRatio = Math.floor((yesVotes / totalVotes) * 100);
+         noRatio = Math.floor((noVotes / totalVotes) * 100);
+         maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
+    }
+    document.getElementById("PredictPreviewYesSpan").style.width = yesRatio + "%";
+    document.getElementById("PredictPreviewNoSpan").style.width = noRatio + "%";
+    document.getElementById("PredictPreviewMaybeSpan").style.width = maybeRatio + "%";
+
+    // expired ui
+    yesVotes = getSafeProperty(CurrentBlah, "p1", 0);
+    noVotes = getSafeProperty(CurrentBlah, "p2", 0);
+    maybeVotes = getSafeProperty(CurrentBlah, "p3", 0);
+    totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
+    yesRatio = 0;
+    noRatio = 0;
+    maybeRatio = 0;
+
+    if (totalVotes > 0) {
+        yesRatio = Math.floor((yesVotes / totalVotes) * 100);
+        noRatio = Math.floor((noVotes / totalVotes) * 100);
+        maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
+    }
+    document.getElementById("ExpPredictPreviewYesSpan").style.width = yesRatio + "%";
+    document.getElementById("ExpPredictPreviewNoSpan").style.width = noRatio + "%";
+    document.getElementById("ExpPredictPreviewMaybeSpan").style.width = maybeRatio + "%";
+
+
+    if (IsUserLoggedIn) {
+        // update the user's vote
+        Blahgua.GetUserPredictionVote(CurrentBlah._id,
+        function(json) {
+            // update the vote
+           var userVote = getSafeProperty(json, "x", null);
+            var expVote = getSafeProperty(json, "y", null);
+            if (userVote) {
+                switch (userVote) {
+                    case "y":
+                        document.getElementById("PredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewNoImg").hide();
+                        $("#PredictPreviewMaybeImg").hide();
+                        break;
+                    case "n":
+                        document.getElementById("PredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewYesImg").hide();
+                        $("#PredictPreviewMaybeImg").hide();
+                        break;
+                    case "u":
+                        document.getElementById("PredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewNoImg").hide();
+                        $("#PredictPreviewYesImg").hide();
+                        break;
+                }
+            }
+
+            if (expVote) {
+                switch (expVote) {
+                    case "y":
+                        document.getElementById("ExpPredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewNoImg").hide();
+                        $("#ExpPredictPreviewMaybeImg").hide();
+                        break;
+                    case "n":
+                        document.getElementById("ExpPredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewYesImg").hide();
+                        $("#ExpPredictPreviewMaybeImg").hide();
+                        break;
+                    case "u":
+                        document.getElementById("ExpPredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewNoImg").hide();
+                        $("#ExpPredictPreviewYesImg").hide();
+                        break;
+                }
+            }
+        }, OnFailure);
+    }
 
 }
 
@@ -2037,7 +2129,7 @@ function GetChannelsOK(theChannels) {
                     for (curIndex in allChannels) {
                         if (allChannels[curIndex].displayName.toLowerCase() == defChannel.toLowerCase())
                         {
-                            Blahgua.JoinUserToChannel(CurrentUser._id, allChannels[curIndex]._id, function() {
+                            Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
                                 ChannelList.splice(0,0,allChannels[curIndex]);
                                 PopulateChannelMenu();
                                 SetCurrentChannel(0);
@@ -2643,4 +2735,57 @@ function DoDemotePreview() {
         });
     }
 
+}
+
+// Prediction Logic
+ function SetPredictResponse(val) {
+     if (IsUserLoggedIn) {
+         if (IsUsersOwnBlah()) {
+            alert("You can't vote on your own prediction");
+         } else {
+             // they can vote
+             Blahgua.SetUserPredictionVote(CurrentBlah._id, val,
+                 function(json) {
+                     Blahgua.GetBlah(CurrentBlah._id,
+                         function(theBlah) {
+                             CurrentBlah = theBlah;
+                             UpdatePredictPreviewPage();
+                         });
+                 },
+             function (theErr) {
+                 alert("It failed!");
+                 OnFailure(theErr);
+             });
+         }
+
+     }  else {
+         // flash the vote prompt or something..
+         alert("You must be logged in to pile on to a prediction");
+     }
+ }
+
+function SetExpPredictResponse(val) {
+    if (IsUserLoggedIn) {
+        if (IsUsersOwnBlah()) {
+            alert("You can't vote on your own prediction");
+        } else {
+            // they can vote
+            Blahgua.SetUserExpiredPredictionVote(CurrentBlah._id, val,
+                function(json) {
+                    Blahgua.GetBlah(CurrentBlah._id,
+                        function(theBlah) {
+                            CurrentBlah = theBlah;
+                            UpdatePredictPreviewPage();
+                        });
+                },
+                function (theErr) {
+                    alert("It failed!");
+                    OnFailure(theErr);
+                });
+        }
+
+    }  else {
+        // flash the vote prompt or something..
+        alert("You must be logged in to pile on to a prediction");
+    }
 }

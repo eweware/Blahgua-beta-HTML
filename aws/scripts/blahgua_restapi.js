@@ -379,6 +379,48 @@ function BlahguaObject() {
 
     //  ACTUAL WORKING FUNCTIONS
 
+    this.SetUserPredictionVote = function (blahID, theVote, OnSuccess, OnFailure) {
+        /// <summary>Returns the users vote on a poll, if any</summary>
+        /// <param name="blahID">the ID of the blah</param>
+        /// <param name="userID">the ID of the user</param>
+        /// <param name="optionIndex">the zero-based index of the option the user is voting on</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>nothing</returns>
+        var paramObj = new Object();
+        paramObj["t"] = "pre";
+        paramObj["v"] = theVote;
+        var method = "blahs/" + blahID + "/predicts"
+        this.CallPutMethod(method, JSON.stringify(paramObj), OnSuccess, OnFailure);
+    };
+
+    this.SetUserExpiredPredictionVote = function (blahID, theVote, OnSuccess, OnFailure) {
+        /// <summary>Returns the users vote on a poll, if any</summary>
+        /// <param name="blahID">the ID of the blah</param>
+        /// <param name="userID">the ID of the user</param>
+        /// <param name="optionIndex">the zero-based index of the option the user is voting on</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>nothing</returns>
+        var paramObj = new Object();
+        paramObj["t"] = "post";
+        paramObj["v"] = theVote;
+        var method = "blahs/" + blahID + "/predicts"
+        this.CallPutMethod(method, JSON.stringify(paramObj), OnSuccess, OnFailure);
+    };
+
+    this.GetUserPredictionVote = function (blahID, OnSuccess, OnFailure) {
+        /// <summary>Returns the users vote on a poll, if any</summary>
+        /// <param name="blahID">the ID of the blah</param>
+        /// <param name="userID">the ID of the user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>{"p": poll-option-index, "t": datetime-when-voted}</returns>
+        var paramStr = '{}';
+        var method = "blahs/" + blahID + "/predicts";
+        this.CallGetMethod(method, paramStr, OnSuccess, OnFailure);
+    };
+
     this.getUserDescriptorString = function (userId, OnSuccess, OnFailure) {
         /// <summary>Returns info about the specified group</summary>
         /// <param name="GroupID">The ID of the group </param>
@@ -527,28 +569,26 @@ function BlahguaObject() {
     };
 
 
-    this.SetUserPollVote = function (blahID, userID, optionIndex, OnSuccess, OnFailure) {
+    this.SetUserPollVote = function (blahID, optionIndex, OnSuccess, OnFailure) {
         /// <summary>Returns the users vote on a poll, if any</summary>
         /// <param name="blahID">the ID of the blah</param>
-        /// <param name="userID">the ID of the user</param>
         /// <param name="optionIndex">the zero-based index of the option the user is voting on</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>nothing</returns>
         var paramStr = '{}';
-        var method = "blahs/" + blahID + "/pollVote/" + userID + "/" + optionIndex;
+        var method = "blahs/" + blahID + "/pollVote/" + optionIndex;
         this.CallPutMethod(method, paramStr, OnSuccess, OnFailure);
     };
 
-    this.GetUserPollVote = function (blahID, userID, OnSuccess, OnFailure) {
+    this.GetUserPollVote = function (blahID, OnSuccess, OnFailure) {
         /// <summary>Returns the users vote on a poll, if any</summary>
         /// <param name="blahID">the ID of the blah</param>
-        /// <param name="userID">the ID of the user</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>{"p": poll-option-index, "t": datetime-when-voted}</returns>
         var paramStr = '{}';
-        var method = "blahs/" + blahID + "/pollVote/" + userID;
+        var method = "blahs/" + blahID + "/pollVote";
         this.CallGetMethod(method, paramStr, OnSuccess, OnFailure);
     };
 
