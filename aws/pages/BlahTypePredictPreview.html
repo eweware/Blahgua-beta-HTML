@@ -5,7 +5,35 @@
 </head>
 <body>
 <div id="BlahTypePredictPreview" >
-    <div id="PredictPreviewStatusArea"></div>
+        <hr>
+        <span>happening within </span><span class="elapsedTimePreview" id="elapsedTimePreview">2 months</span><br/>
+        <span class="predictionDatePreview" id="predictionDatePreview">Jan 1, 2014</span> <br/>
+        <span class="predictionVotePrompt">Do you agree?</span>
+        <table>
+            <tr>
+                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteYes"> </td>
+                <td>
+                    <div id="PredictPreviewYesSpan" class="PredictPreviewYesSpan"></div>
+                    <span class="PredictPreviewAnswerText">Yes, it will happen</span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteNo"> </td>
+                <td>
+                    <div id="PredictPreviewNoSpan" class="PredictPreviewNoSpan"></div>
+                    <span class="PredictPreviewAnswerText">No, it won't</span>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="previewPredictVote" id="previewPredictVoteMaybe"> </td>
+                <td>
+                    <div id="PredictPreviewMaybeSpan" class="PredictPreviewMaybeSpan"></div>
+                    <span class="PredictPreviewAnswerText">Unclear</span>
+                </td>
+            </tr>
+        </table>
+        <hr>
+    </div>
 </div>
 </body>
 </html>
