@@ -21,7 +21,7 @@
        <div style="width:40px;height:40px;background:grey;"></div>
        <div>
        <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-            <input id="BlahImage" name="file" type="file"/ style="position:fixed;right:20px;margin-top:-20px">
+            <input id="BlahImage" name="file" type="file"/ style="position:fixed;right:350px;margin-top:-35px">
             <div style="display:none">
                 <input type="text" name="objectType" hidden="true" value="B"/>
                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -32,11 +32,13 @@
         </div>
     <div id="AdditionalInfoDiv"style="margin-left:30px"> </div>
     
-    <div style="position:fixed;bottom:0px;width:100%;height:60px">
-    <div style="width:40%;"align="right"><button onclick="CancelCreate(); return false;">Cancel</button></div>
-    
-    <div style="position:relative;"><button onclick="CreateBlah(); return false;">Create</button></div>
-    </div>
+    <table style="height:60px;width:512px;position:fixed;bottom:0px;background:#2A99F5"> 
+    <tr>
+    <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;">Cancel</button></td>
+   
+    <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;">Create</button></td>
+    </tr>
+    </table>
    
     <div id="ProgressDiv" style="display:none">
         <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
