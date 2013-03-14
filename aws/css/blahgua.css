@@ -26,15 +26,18 @@
 
 .BlahDiv {
     background-color:#000000;
-    font-family:Verdana, Geneva, sans-serif;
+    font-family:'Archivo Narrow', sans-serif;
     padding: 8px;
     overflow:hidden;
     vertical-align:middle;
+    background-size: cover;
 }
+
+
 
 .BlahTextDiv {
     background-color: transparent;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Oswald', sans-serif;
     height:auto;
     min-height:100%;
     width:auto;
@@ -105,7 +108,7 @@
 
 .blah-preview-content {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .BlahPreview {
@@ -122,16 +125,18 @@
 
 .BlahPreviewHeadline {
     font-size:24px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Oswald', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
-    margin:16px 16px 16px 16px;
+    margin:4px 0px 4px 0px;
     word-wrap: break-word;
 }
 
 .BlahPreviewTable {
     border-spacing:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
 }
 
 .BlahPreviewHeader {
@@ -143,8 +148,7 @@
 .previewBlahgerName {
     padding-left:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
-
+    font-family: 'Archivo Narrow', sans-serif;
 }
 
 .PreviewViewerCount {
@@ -152,7 +156,7 @@
     top:-4px;
     padding-right:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
     padding-left:4px;
 }
 
@@ -165,7 +169,7 @@
 
 .BlahPreviewBody {
     font-size:16px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
     width:100%;
     padding-left:16px;
     padding-right:16px;
@@ -173,13 +177,26 @@
 
 }
 
+.CloseBlahBtn {
+   text-align: center;
+    padding-left:4px;
+    padding-right: 4px;
+    border-width: 1px;
+    border-style: solid;
+    background-color:white;
+    color:red;
+    font-weight: bold;
+;
+}
+
+.CloseBlahBtn:hover {
+    background-color: red;
+    color:white;
+}
 
 .BlahFullItem {
     display:none;
     background-color: white;
-    border-style:solid;
-    border-width: 1px;
-    border-color:black;
     position:absolute;
     width:100%;
     height:100%;
@@ -188,17 +205,30 @@
 
 .FullBlahContent {
     overflow-x: hidden;
-    overflow-y: scroll;
-    max-height:400px;
+    overflow-y: auto;
     border-spacing:0px;
     border:0px;
 }
 
 
+.FullBlahProfileString {
+    padding-left:4px;
+    font-size:12px;
+    font-family: 'Archivo Narrow', sans-serif;
+}
+
+.FullBlahDateStr {
+    font-size:12px;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-style: italic;
+    padding-right:4px;
+
+}
+
 
 .BlahFullHeadline {
     font-size:36px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'oswald', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
@@ -210,13 +240,25 @@
 
 .BlahFullTable {
     border-spacing:0px;
+    border-collapse: collapse;
     border:0px;
+    bottom:0px;
+
 }
 
 .BlahFullHeader {
     background-color:#FA3987;
-    padding:10px 10px;
+    border-spacing:0px;
+    border:0px;
+    bottom:0px;
 }
+
+.FullBlahTableFooter {
+    background-color: #d3d3d3;
+    border-spacing:0px;
+    border-collapse: collapse;
+}
+
 .BlahFullHeader1 {
     background-color:lightgray;
     padding-top:0px;
@@ -227,14 +269,14 @@
 
 .fullBlahgerName {
     padding-left:12px;
-    font-size:20px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-size:24px;
+    font-family: 'Archivo Narrow', sans-serif;
 
 }
 .fullBlahgerName1 {
    
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
   
 
 }
@@ -244,7 +286,7 @@
     top:-4px;
     padding-right:12px;
     font-size:12px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'archivo narrow', sans-serif;
     padding-left:4px;
 }
 
@@ -256,9 +298,7 @@
 
 .BlahFullImage {
     max-height:512px;
-    max-width:100%;
-    padding-top:20px;
-    padding-left:30px;
+    max-width:90%;
 }
 
 .comment-vote {
@@ -268,19 +308,19 @@
 .statsText
 {
 	font-size:12px;
-	font-weight:strong;
+	font-weight:bold;
 	margin-top:100px;
 }
 
 
 .BlahFullBody {
     font-size:16px;
-    font-family: Verdana, Geneva, sans-serif;
+    font-family: 'archivo narrow', sans-serif;
     width:100%;
-    padding-left:16px;
-    padding-right:16px;
-    padding-bottom:16px;
     word-wrap: break-word;
+    padding-left:8px;
+    padding-right:8px;
+    padding-top:4px;
 }
 
 .BlahCommentBody {
@@ -363,8 +403,8 @@ a {
     z-index:10;
     background-color:magenta;
     color:black;
-    font-family: Verdana, Geneva, sans-serif;
-    font-size:22px;
+    font-family: 'oswald', sans-serif;
+    font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
     box-shadow:rgba(0,0,0,.4) 0px 4px;
@@ -574,14 +614,81 @@ a {
 }
 
 
-.channelSubItems a {
-    font-size:24px;
-    background-color:white;
-    color:blue;
 
-}
 
 .profile-close-btn {
     float: right;
 
+}
+
+.signin-message {
+    font-size:18px;
+    background-color: orange;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:80%;
+    border-radius: 8px;
+}
+
+.ChannelBrowser {
+    width:100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.channelBrowserGroupItem {
+    font-size:36px;
+    background-color: #add8e6;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:100%;
+    border-radius: 8px;
+
+}
+
+
+.ChannelBrowser ul  {
+    list-style-type: none;
+    padding-left: 8px;
+    margin-left: 0;
+    background-color:transparent;
+}
+.channelBrowserGroupItem {
+    font-size:36px;
+    width:100%;
+    background-color:transparent;
+    color:black;
+}
+
+.channelBrowserGroupItem:hover
+{
+    background-color: #369;
+    color: #FFF;
+}
+
+
+.channelBrowserChannelItem {
+    font-size:24px;
+    width:100%;
+    background-color:transparent;
+    color:#a9a9a9;
+}
+
+.channelBrowserChannelItem:hover
+{
+    background-color: #369;
+    color: #a9a9a9;
+}
+
+.SuggestSignIn {
+    text-align: center;
+    font-size:18px;
+    background-color: orange;
+    color:black;
+    margin: 4px;
+    padding: 8px;
+    width:80%;
+    border-radius: 8px;
 }

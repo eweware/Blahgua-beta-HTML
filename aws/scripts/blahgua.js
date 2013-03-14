@@ -35,7 +35,7 @@ var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
 
-var fragmentURL = "./aws";
+var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 
 
 (function ($) {
@@ -97,7 +97,7 @@ $(document).ready(function () {
         $("#ChannelDropMenu").hide();
         UnfocusBlah();
     });
-    if (window.location.hostname == "") {
+    if ((window.location.hostname == "") || (window.location.hostname == "localhost"))  {
         // running local
         fragmentURL = "./aws";
        }
@@ -122,9 +122,8 @@ function SignIn() {
         // sign in
         Blahgua.loginUser(savedID, pwd, function () {
             IsUserLoggedIn = true;
-            Blahgua.GetUserByName(savedID, function (json) {
+            Blahgua.getUserInfo(function (json) {
                 CurrentUser = json;
-                Blahgua.currentUser = CurrentUser._id;
                 finalizeInitialLoad();
             });
         }, function() {
@@ -273,7 +272,19 @@ function OnSuccess(theArg) {
 }
 
 function OnFailure(theErr) {
-    alert("Error!");
+    var errString = "An error occured.  Soz!";
+    var responseText = getSafeProperty(theErr, "responseText", null);
+    if (responseText) {
+        try {
+            var responseObj = JSON.parse(responseText);
+            var message = getSafeProperty(responseObj, "message", "An error occured");
+            var code = getSafeProperty(responseObj, "errorCode", "<no id>");
+            errString = "Error: (" + code + "): " + message;
+        } catch (exp) {
+            errString = "Error: " + responseText;
+        }
+    }
+    alert(errString);
 }
 
 
@@ -384,13 +395,33 @@ function ComputeSizes() {
     $("#BlahContainer").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
     $("#ChannelBanner").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
     $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-100+'px' });
-    $("#BlahPreviewContent").css({ 'max-height': windowHeight-260 + 'px'});
+
     $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
-    $("#FullBlahContent").css({ 'max-height': windowHeight-260 + 'px'});
+
 
 }
 
 function ShowHideChannelList() {
+    var menu = document.getElementById("ChannelDropMenu");
+    menu.style.left = document.getElementById("ChannelBanner").style.left;
+    if (menu.style.display == "none") {
+        ShowChannelList();
+    } else {
+       HideChannelList();
+    }
+}
+
+function HideChannelList() {
+    var menu = document.getElementById("ChannelDropMenu");
+    menu.style.left = document.getElementById("ChannelBanner").style.left;
+    if (menu.style.display != "none") {
+        $("#LightBox").hide();
+        $(menu).fadeOut("fast");
+        StartAnimation();
+    }
+}
+
+function ShowChannelList() {
     var menu = document.getElementById("ChannelDropMenu");
     menu.style.left = document.getElementById("ChannelBanner").style.left;
     if (menu.style.display == "none") {
@@ -401,12 +432,7 @@ function ShowHideChannelList() {
             $("#BrowseChannelBtn").hide();
         StopAnimation();
         menu.style.display = "block";
-    } else {
-        $("#LightBox").hide();
-        $(menu).fadeOut("fast");
-        StartAnimation();
     }
-
 }
 
 
@@ -457,7 +483,7 @@ function CreatePreviewBlah() {
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
     $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
         BlahPreviewItem.headline = document.getElementById("BlahPreviewHeadline");
-        BlahPreviewItem.onclick = function() {
+        BlahPreviewItem.headline.onclick = function() {
             if (BlahPreviewTimeout != null) {
                 clearTimeout(BlahPreviewTimeout);
                 BlahPreviewTimeout = null;
@@ -527,13 +553,20 @@ function OpenBlah(whichBlah) {
     $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
     $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
+        var windowHeight = $(window).height();
         PopulateFullBlah(whichBlah);
         BlahFullItem.curPage = "Overview";
         $(BlahFullItem).disableSelection();
-        $(BlahFullItem).fadeIn("fast");
+        $(BlahFullItem).fadeIn("fast", function() {
+            var windowHeight = $(window).height();
+            var delta = $("#FullBlahHeader").height() + $("#FullBlahFooter").height();
+
+            $("#BlahScrollContainer").css({ 'height': windowHeight-delta + 'px'});
+        });
         $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
         $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
+
 
 }
 
@@ -617,6 +650,7 @@ function GetBlahTypeStr() {
             return BlahTypeList[curType].name;
         }
     }
+
     return "";
 }
 
@@ -624,14 +658,68 @@ function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
     var headlineText = document.getElementById("BlahFullHeadline");
     headlineText.innerHTML = unescape(CurrentBlah.text);
+    var nickNameStr =  getSafeProperty(CurrentBlah, "nickname", "a blahger");
+    var blahTypeStr =  GetBlahTypeStr();
+    var isOwnBlah;
+
+
+    if (IsUserLoggedIn) {
+        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+    } else {
+        isOwnBlah = false;
+    }
+
+    if (isOwnBlah) {
+        nickNameStr += " (you)";
+    }
 
     // stats
-    document.getElementById("fullBlahUpVote").innerHTML = getSafeProperty(CurrentBlah, "vu", 0);
-    document.getElementById("fullBlahDownVote").innerHTML = getSafeProperty(CurrentBlah, "vd", 0);
     document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
     document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
+    document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
 
-    var image = GetBlahImage(newBlah, "C");
+    // reformat the promote area if the user has already voted
+    if (IsUserLoggedIn) {
+
+        $("#BlahRowVote").show();
+        $("#BlahRowSignIn").hide();
+
+        if (isOwnBlah) {
+            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
+            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
+
+            $("#PromoteBlahImage").show();
+            $("#UserPromoteSpan").text(upVotes + " promotes");
+            $("#DemoteBlahImage").show();
+            $("#UserDemoteSpan").text(downVotes + " demotes");
+        } else {
+            var userVote = getSafeProperty(CurrentBlah, "uv", 0);
+            if (userVote && (userVote != 0)) {
+                if (userVote == 1) {
+                    $("#PromoteBlahImage").show()
+                    $("#DemoteBlahImage").hide();
+                    $("#UserPromoteSpan").text("promoted by you!");
+                    $("#UserDemoteSpan").text("");
+                }  else {
+                    $("#PromoteBlahImage").hide();
+                    $("#PreviewDemoteBlah").show();
+                    $("#UserDemoteSpan").text("demoted by you!");
+                    $("#UserPromoteSpan").text("");
+                }
+            } else {
+                $("#PromoteBlahImage").show();
+                $("#UserPromoteSpan").text("promote");
+                $("#DemoteBlahImage").show();
+                $("#UserDemoteSpan").text("demote");
+            }
+        }
+    } else {
+        $("#BlahRowVote").hide();
+        $("#BlahRowSignIn").show();
+    }
+
+
+    var image = GetBlahImage(newBlah, "D");
     var imageEl = document.getElementById("blahFullImage");
     if (image == "") {
         imageEl.style.display = "none";
@@ -656,7 +744,8 @@ function UpdateFullBlahBody(newBlah) {
     // update any additional area
     switch (GetBlahTypeStr()) {
         case "predicts":
-            $("#AdditionalInfoArea").text("A prediction!");
+            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredictPage",
+                function() { UpdatePredictPage("PredictStatusArea"); })
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
@@ -665,6 +754,10 @@ function UpdateFullBlahBody(newBlah) {
         default:
 
     }
+
+    // update the opens
+    Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
+
 
     // update the comments
     if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
@@ -677,6 +770,19 @@ function UpdateFullBlahBody(newBlah) {
         newHTML += '<span class="NoCommentSpan">No Comments</span>';
         commentDiv.innerHTML = newHTML;
     }
+
+    // update the badges & date
+    Blahgua.getUserDescriptorString(CurrentBlah.authorId, function(theString) {
+        $("#FullBlahProfileString").text(theString);
+    }, function (theErr) {
+        $("#FullBlahProfileString").text("an anonymous blahger");
+    })
+
+    var curDate = new Date(getSafeProperty(CurrentBlah, "created", Date.now()));
+    var dateString = ElapsedTimeString(curDate);
+    $("#FullBlahDateStr").text(dateString);
+
+
 }
 
 function UpdateAskPage(previewAreaName) {
@@ -728,8 +834,8 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
     var newHTML = "";
     newHTML += '<table class="PollChoiceWrapper"><tbody><tr style="width:100%">';
     newHTML += '<td class="PollTitle"><span>' + pollChoice.g + '</span></td>';
-    newHTML += '<td class="PollDescription" style="width=' + maxWidth + 'px">';
-    newHTML += '<div class="PollChartDiv" style="width=' + curRatio + '%"></div></td>';
+    newHTML += '<td class="PollDescription" style="width:' + maxWidth + 'px">';
+    newHTML += '<div class="PollChartDiv" style="width:' + curRatio + '%"></div></td>';
     newHTML += '<td class="PollVotes">';
     newHTML += '<img class="PollVoteIcon" src="' + fragmentURL + '/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
     newHTML += '<span class="PollVoteText">' + curVotes + '</span>';
@@ -900,20 +1006,19 @@ function UpdateBlahComments() {
 function FocusBlah(who) {
     StopAnimation();
     $("#LightBox").show();
+    FocusedBlah = who.blah;
     PopulateBlahPreview(who.blah);
+    var winHeight =   $(window).height();
+    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-220 + 'px'});
     $(BlahPreviewItem).fadeIn("fast");
     BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
-    FocusedBlah = who.blah;
+
 }
 
 function PopulateBlahPreview(whichBlah) {
+    $("#BlahPreviewExtra").empty();
     var headlineText = document.getElementById("BlahPreviewHeadline");
     headlineText.innerHTML = unescape(whichBlah.text);
-
-    // stats
-    document.getElementById("previewUpVote").innerHTML = getSafeProperty(whichBlah, "u", 0);
-    document.getElementById("previewDownVote").innerHTML = getSafeProperty(whichBlah, "d", 0);
-    document.getElementById("PreviewViewerCount").innerHTML =getSafeProperty(whichBlah, "o", 0);
 
     // get the entire blah to update the rest...
     Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
@@ -922,9 +1027,69 @@ function PopulateBlahPreview(whichBlah) {
 function UpdateBodyText(theFullBlah) {
     CurrentBlah = theFullBlah;
     var headlineText = document.getElementById("BlahPreviewHeadline");
+    var nickNameStr =  getSafeProperty(theFullBlah, "nickname", "a blahger");
+    var blahTypeStr =  GetBlahTypeStr();
+    var isOwnBlah;
 
+    if (IsUserLoggedIn) {
+        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+    } else {
+        isOwnBlah = false;
+    }
+
+    if (isOwnBlah) {
+        nickNameStr += " (you)";
+    }
     // update the comment count while we are here
     document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "c", 0);
+    document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "views", 0);
+    document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
+
+
+
+    // reformat the promote area if the user has already voted
+    if (IsUserLoggedIn) {
+
+        $("#PreviewRowVote").show();
+        $("#PreviewRowSignIn").hide();
+        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "o", 0);
+
+        if (isOwnBlah) {
+            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
+            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
+
+            $("#PreviewDemoteBlah").show();
+            $("#PreviewUserPromoteSpan").text(upVotes + " promotes");
+            $("#PreviewPromoteBlah").show();
+            $("#PreviewUserDemoteSpan").text(downVotes + " demotes");
+        } else {
+            var userVote = getSafeProperty(theFullBlah, "uv", 0);
+            if (userVote && (userVote != 0)) {
+                if (userVote == 1) {
+                    $("#PreviewDemoteBlah").hide()
+                    $("#PreviewPromoteBlah").show();
+                    $("#PreviewUserPromoteSpan").text("promoted by you!");
+                    $("#PreviewUserDemoteSpan").text("");
+                }  else {
+                    $("#PreviewPromoteBlah").hide();
+                    $("#PreviewDemoteBlah").show();
+                    $("#PreviewUserDemoteSpan").text("demoted by you!");
+                    $("#PreviewUserPromoteSpan").text("");
+                }
+            } else {
+                $("#PreviewDemoteBlah").show();
+                $("#PreviewUserPromoteSpan").text("promote");
+                $("#PreviewPromoteBlah").show();
+                $("#PreviewUserDemoteSpan").text("demote");
+            }
+        }
+        // add a view
+        Blahgua.AddBlahViewsOpens(theFullBlah._id, 1, 0, null, OnFailure);
+    } else {
+        $("#PreviewRowVote").hide();
+        $("#PreviewRowSignIn").show();
+    }
+
 
     // image
     var image = GetBlahImage(CurrentBlah, "B");
@@ -952,7 +1117,8 @@ function UpdateBodyText(theFullBlah) {
     // check if it is a special type
     switch (GetBlahTypeStr()) {
         case "predicts":
-            $("#BlahPreviewExtra").text("A prediction!");
+            $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePredictPreview.html #BlahTypePredictAuthorPage",
+                function() { UpdatePredictPreviewPage(); })
             break;
         case "polls":
             $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
@@ -961,6 +1127,8 @@ function UpdateBodyText(theFullBlah) {
         default:
 
     }
+
+
 }
 
 
@@ -971,6 +1139,7 @@ function UpdateAskPreviewPage() {
 
 
 function TimeOutBlahFocus() {
+    /*
     if (BlahPreviewTimeout != null) {
         clearTimeout(BlahPreviewTimeout);
         BlahPreviewTimeout = null;
@@ -980,9 +1149,15 @@ function TimeOutBlahFocus() {
     $("#BlahPreviewItem").fadeOut();
     $("#LightBox").fadeOut();
     StartAnimation();
+    */
 }
 
-function UnfocusBlah(who) {
+function UnfocusBlah(animate) {
+    DismissPreview();
+    StartAnimation();
+}
+
+function DismissPreview() {
     if (BlahPreviewTimeout != null) {
         clearTimeout(BlahPreviewTimeout);
         BlahPreviewTimeout = null;
@@ -993,8 +1168,8 @@ function UnfocusBlah(who) {
     document.getElementById("blahPreviewImage").style.display = "none";
     $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
-    StartAnimation();
 }
+
 
 
 // ********************************************************
@@ -1018,10 +1193,18 @@ function CreateBaseDiv(theBlah) {
     newDiv.appendChild(textDiv);
     newDiv.blahTextDiv = textDiv;
     newDiv.blahTextDiv.innerHTML = unescape(theBlah.text);
-    var blahImageSize = "A";
-    if (theBlah.displaySize == 3) {
-        blahImageSize = "B";
+    switch (theBlah.displaySize) {
+        case 1:
+            blahImageSize = "C";
+            break;
+        case 2:
+            blahImageSize = "B";
+            break;
+        default:
+            blahImageSize = "A";
+            break;
     }
+
     var imagePath = GetBlahImage(theBlah, blahImageSize);
     if (imagePath != "") {
         newDiv.style.backgroundImage = "url('" + imagePath + "')";
@@ -1848,7 +2031,7 @@ function PopulateChannelMenu( ) {
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
-    $("#ViewProfileBtn").text(getUserChannelName);
+    $("#ViewProfileBtn").text(getUserChannelName());
 
 
 }
@@ -1903,7 +2086,7 @@ function DoJumpToChannel() {
     var what = who.parentElement;
 
     var channelID = what.attributes["channelId"].nodeValue;
-    ShowHideChannelList();
+    HideChannelList();
     SetCurrentChannel(channelID);
 }
 
@@ -1917,7 +2100,7 @@ function SetCurrentChannel(whichChannel) {
     $("#ChannelBanner").css("background-color", "#FFFFFF");
     StopAnimation();
     CurrentChannel = ChannelList[whichChannel];
-    Blahgua.SetCurrentChannel(CurrentChannel._id);
+    Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
     labelDiv.innerHTML = CurrentChannel.displayName;
     GetUserBlahs();
@@ -1943,7 +2126,6 @@ function InstallUserChannel() {
     // empty whatever is in there now
     StopAnimation();
     $("#BlahFullItem").empty();
-    CurrentChannel = null;
     if (IsUserLoggedIn) {
         if (CurrentUser == null) {
             Blahgua.GetCurrentUser(function (theResult) {
@@ -1955,8 +2137,19 @@ function InstallUserChannel() {
             PopulateUserChannel();
         }
     } else {
-        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", RefreshSignupContent);
+        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv",
+        function () {
+            RefreshSignupContent();
+        });
     }
+}
+
+function SuggestUserSignIn(message) {
+    $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", function() {
+        RefreshSignupContent(message);
+    });
+
+
 }
 
 
@@ -1966,12 +2159,16 @@ function PopulateUserChannel() {
 
 function RefreshUserChannelContent() {
     $("#BlahFullItem").show();
-    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
 }
 
-function RefreshSignupContent() {
-    //$("#ChannelBanner").animate({"background-color": "#8080FF" }, 'slow');
+function RefreshSignupContent(message) {
     $("#BlahFullItem").show();
+    if ((message != null) && (message != "")) {
+        $("#SignInMessageDiv").text(message);
+        $("#SignInMessageDiv").fadeIn();
+    } else {
+        $("#SignInMessageDiv").hide();
+    }
 }
 
 function CreateNewUser() {
@@ -2015,7 +2212,7 @@ function HandleUserLoginOK(json) {
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
     }
-    Blahgua.GetUserByName(userName, RefreshPageForNewUser);
+    Blahgua.getUserInfo(RefreshPageForNewUser);
 }
 
 function HandleUserLoginFail(json) {
@@ -2026,7 +2223,6 @@ function RefreshPageForNewUser(json) {
     // get the new channel list
     $("#BlahFullItem").hide();
     CurrentUser = json;
-    Blahgua.currentUser = CurrentUser._id;
     GetUserChannels();
 }
 
@@ -2065,10 +2261,15 @@ function OnChannelViewersOK(numViewers) {
 
 function DoCreateBlah() {
     StopAnimation();
-    $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
-        PopulateBlahTypeOptions();
-        $(BlahFullItem).fadeIn("fast");
-    });
+    if (IsUserLoggedIn) {
+        $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
+            PopulateBlahTypeOptions();
+            $(BlahFullItem).fadeIn("fast");
+        });
+    }   else {
+        SuggestUserSignIn("you must sign in before you can create a new blah")
+    }
+
  }
 
 function UpdateBlahTypes() {
@@ -2082,7 +2283,7 @@ function PopulateBlahTypeOptions() {
     var curOption;
     curHTML = "";
     for (curItem in BlahTypeList) {
-        curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '">';
+        curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '" style="background:transparent;font-weight:bold;font-size:30px">';
         curHTML += BlahTypeList[curItem].name;
         curHTML += '</OPTION>';
     }
@@ -2116,6 +2317,9 @@ function CreateBlah() {
             }
             options = new Object();
             options["pt"] = pollItems;
+            break;
+        case "polls":
+            // to do - uppdate the prediction on create
             break;
         default:
             break;
@@ -2187,7 +2391,8 @@ function UpdateBlahInfoArea() {
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     switch (blahTypeStr.name) {
         case "predicts":
-            $("#AdditionalInfoDiv").text("A prediction!");
+            $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
+                function() { UpdatePredictAuthorPage(); })
             break;
         case "polls":
             $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
@@ -2258,7 +2463,7 @@ function AddBadge() {
 
 function DoBrowseChannels() {
     StopAnimation();
-    ShowHideChannelList();
+    HideChannelList();
     $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
         PopulateChannelBrowser();
         $(BlahFullItem).fadeIn("fast");
@@ -2282,15 +2487,19 @@ function OnGetChannelTypesOK(typeList) {
 function GenerateHTMLForChannelType(channelType) {
     var newHTML= "";
     newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
-    newHTML += "<a>" + channelType.displayName + "</a>";
+    newHTML += "<a class='channelBrowserGroupItem'>" + channelType.displayName + "</a>";
     newHTML += "</li>"
     return newHTML;
 }
 
-function GenerateHTMLForChannelBrowser(channel) {
-    var newHTML= "";
-    newHTML += '<li id="' + channel._id + '" onclick="DoOpenChannelPage();return false;">';
-    newHTML += "<a>" + channel.displayName + "</a>";
+function GenerateHTMLForChannelBrowser(curChannel) {
+    var newHTML = "";
+    newHTML += "<li class='channelBrowserChannelItem'  channelId='" + curChannel._id + "' onclick='DoOpenChannelPage(); return false;'><a >";
+
+    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel.displayName + '.png"';
+    newHTML += 'onerror="imgError(this);">';
+    newHTML += curChannel.displayName;
+    newHTML += "</a>";
     newHTML += "</li>"
     return newHTML;
 }
@@ -2313,25 +2522,77 @@ function DoExpandItem() {
 function GetSubChannelsOK(newChannelList) {
     var newHTML = "";
     newHTML += '<ul class="channelSubItems">';
-    $.each(newChannelList, function (index, element) {
-        newHTML += GenerateHTMLForChannelBrowser(element);
-    });
+    if (newChannelList.length > 0) {
+        $.each(newChannelList, function (index, element) {
+            newHTML += GenerateHTMLForChannelBrowser(element);
+        });
+        document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+    }   else {
+         //to do - add some text about how there are no channels...
+        var who = event | window.event;
+        var what = who.target | who.srcElement;
+    }
+
     newHTML += "</ul>";
 
-    document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+
 }
 
 function DoOpenChannelPage() {
-    var mainItem = event.srcElement.parentElement;
-    var itemID = mainItem.id;
+    var who = event || window.event;
+    var what = who.target || who.srcElement;
 
-    var channelSubList = $(mainItem).find(".channelSubItems");
+    while (what.attributes["channelid"] == null) {
+        what = what.parentElement;
+    }
 
-    if (channelSubList.length == 0) {
-        // fetch a new channel list
-        Blahgua.GetChannelsForType(itemID, GetSubChannelsOK);
-    } else {
-        channelSubList.toggle();
+    var itemID = what.attributes["channelid"].value;
+
+    $(BlahFullItem).load(fragmentURL + "/pages/ChannelDetailPage.html #ChannelDetailPage", function() {
+        PopulateChannelDetailPage(itemID);
+    });
+}
+
+function   PopulateChannelDetailPage(channelId) {
+    Blahgua.GetChannelInfo(channelId, function(theChannel) {
+        $("#ChannelTitleDiv").text(theChannel.displayName);
+        document.getElementById("ChannelDetailPage").attr["channelObj"] = theChannel;
+    })
+
+
+}
+
+function DoChannelBrowserReturn() {
+    $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
+        PopulateChannelBrowser();
+        $(BlahFullItem).fadeIn("fast");
+    });
+}
+
+function IsUsersOwnBlah() {
+    return (CurrentUser._id == CurrentBlah.authorId);
+}
+
+
+function DoPromotePreview() {
+    if (!IsUsersOwnBlah()) {
+        Blahgua.SetBlahVote(CurrentBlah._id, 1, function() {
+            UnfocusBlah();
+        }, function(theErr) {
+            // to do - inspect the errror
+            UnfocusBlah();
+        });
+    }
+}
+
+function DoDemotePreview() {
+    if (!IsUsersOwnBlah()) {
+        Blahgua.SetBlahVote(CurrentBlah._id, -1, function() {
+            UnfocusBlah();
+        }, function(theErr) {
+            // to do - inspect the errror
+            UnfocusBlah();
+        });
     }
 
 }
