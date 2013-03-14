@@ -692,3 +692,69 @@ a {
     width:80%;
     border-radius: 8px;
 }
+
+.PredictCheckBoxClass {
+    width:24px;
+    height: 24px;
+}
+
+
+.elapsedTimeText {
+    font-family: 'archivo narrow', sans-serif;
+    font-size:18pt;
+}
+
+.elapsedTimePreview {
+    font-family: 'archivo narrow', sans-serif;
+    font-size:18pt;
+    font-weight: bold;
+}
+
+.predictionDatePreview {
+    font-family: 'archivo narrow', sans-serif;
+    font-size:12pt;
+    text-align: right;
+}
+
+.predictionVotePrompt {
+    font-family: 'oswald', sans-serif;
+    font-size: 16pt;
+    text-align: center;
+}
+
+.PredictionChoiceTable {
+    width:100%;
+    border-collapse: collapse;
+    padding-left:32px;
+
+}
+
+.PredictionChoiceTable tr {
+    width:100%;
+
+}
+
+.BlahPredictTypeTable {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.PredictPreviewSpan {
+    background-color: red;
+    height:18px;
+}
+
+.PredictCheckBoxWrapper {
+    width:32px;
+    padding-left:32px;
+}
+
+.predictTimeDiv {
+    text-align: center;
+}
+
+.PredictPreviewAnswerText {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size:18pt;
+
+}
