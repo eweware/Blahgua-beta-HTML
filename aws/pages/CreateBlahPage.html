@@ -8,37 +8,63 @@
         <table style="background-color:#2A99F5;width:100%">
         	<tr>
         		<td width="70px"><div style="width:40px;height:40px;background:grey; margin-left:10px;margin-bottom:5px;margin-top:5px"></div></td>
-        	    <td style="position:relative;left:10px;font-size:30px;font-weight:bold"> <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;"></select></td>        	    	
+        	    <td style="position:relative;left:10px;font-size:30px;font-weight:bold">
+        	    	 <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;"style="width:150px;height:30px;background:white;border:none;font-size:17px;font-weight:bold;box-shadow:none;"></select>
+        	    </td>        	    	
         	    </tr>
         </table>
-       <div style="width:200;height:140px;border:20px solid #fff;border-bottom:0px; ">
-       <input id="BlahHeadline" type="text" style="width:100%;height:130px;background-color:lightblue;border:2px solid #6FBDED;border-radius:5px;"> 
-       </div>
-       <div style="width:200;height:140px;border:20px solid #fff;">
+       <div style="height:440px;overflow-y:scroll;overflow-x:hidden;">
+       <div id="scroll">
+       <table width="100%" height="200px" style="overflow:scroll" >
+       <tr width="100%">
+       <td style="width:220px;height:140px;border:40px solid #fff;border-bottom:0px;border-top:10px solid #fff; ">
+       <input id="BlahHeadline" type="text" style="width:420px;height:130px;background-color:lightblue;border:2px solid #6FBDED;border-radius:5px;"> 
+       <td>
+       </tr>
+       <tr>
+       <td style="width:220px;height:140px;border:40px solid #fff;border-bottom:20px solid #FFF;border-top:10px solid #fff; ">
        <textarea id="BlahBody" style="width:100%;height:130px;border:2px solid #6FBDED;border-radius:5px;"></textarea>      
-       </div> 
-       <div style="margin-left:20px;width:90%;" > 
-       <div style="width:40px;height:40px;background:grey;"></div>
-       <div>
+       </td> 
+       </tr>
+       
+       <tr>            
+       <td>
+       <div style="width:40px;height:40px;background:grey;border:40px solid #fff;border-top:none;border-bottom:none;"></div>
+       </td>
+       <td>
        <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-            <input id="BlahImage" name="file" type="file"/ style="position:fixed;right:350px;margin-top:-35px">
-            <div style="display:none">
+            <input id="BlahImage" name="file" type="file"/ style="position:relative;right:250px;width:200px;height:20px;">
+                <div style="display:none">
                 <input type="text" name="objectType" hidden="true" value="B"/>
                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                 <input type="text" name="primary" hidden="true" value="true"/>
             </div>
         </form>
-        </div>
-        </div>
-    <div id="AdditionalInfoDiv"style="margin-left:30px"> </div>
+        </td>
+        </tr>
+        <tr width="100%">
+        <td><hr></td>
+        </tr>
+        <tr>
+        <td>             
+       <div id="AdditionalInfoDiv"style="margin-left:30px;position:relative;top:10px;"> </div>
+        </td>
+        </tr>
+        <tr width="100%" height="15px"></tr>
+        </table>
+         </div>
+         </div>
+      
+
     
-    <table style="height:60px;width:512px;position:fixed;bottom:0px;background:#2A99F5"> 
+    <table style="height:60px;width:512px;background:#B3DBF5;position:fixed;bottom:0px"> 
     <tr>
-    <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;">Cancel</button></td>
+    <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;"style="width:100px;height:30px;border-radius:5px;background:#2A99F5;color:white;font-size:16px;font-weight:bold">Cancel</button></td>
    
-    <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;">Create</button></td>
+    <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" style="width:100px;height:30px;border-radius:5px;background:#2A99F5;color:white;font-size:16px;font-weight:bold">Create</button></td>
     </tr>
     </table>
+    
    
     <div id="ProgressDiv" style="display:none">
         <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
