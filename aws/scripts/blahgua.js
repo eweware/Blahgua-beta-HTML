@@ -100,17 +100,8 @@ $(document).ready(function () {
     if ((window.location.hostname == "") || (window.location.hostname == "localhost"))  {
         // running local
         fragmentURL = "./aws";
+       }
         SignIn();
-    } else {
-        var host = window.location.hostname.split('.')[0];
-        if (host != "beta") {
-            window.location = "http://beta.blahgua.com/?channel=" + host;
-        }
-        else {
-            SignIn();
-        }
-    }
-
 });
 
 
@@ -758,7 +749,7 @@ function UpdateFullBlahBody(newBlah) {
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage("PollAnswersArea"); })
+                function() { UpdateAskPage(""); })
             break;
         default:
 
@@ -2435,7 +2426,7 @@ function PopulateBlahTypeOptions() {
     var curOption;
     curHTML = "";
     for (curItem in BlahTypeList) {
-        curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '">';
+        curHTML += '<OPTION  value="' + BlahTypeList[curItem]._id + '" >';
         curHTML += BlahTypeList[curItem].name;
         curHTML += '</OPTION>';
     }
@@ -2580,12 +2571,11 @@ function AddPollAnswer() {
 
 function CreateAskAuthorItem() {
     var newHTML = "";
-    newHTML += '<div name="PollItem">';
-    newHTML += '<span>choice:</span>' ;
-    newHTML += '<input name="PollChoice" type="text">';
-    newHTML += '<span>details:</span>';
-    newHTML += '<input name="PollDescription" type="text">';
-    newHTML += '<button onclick="DoDeleteAskChoice(); return false;">X</button>';
+    newHTML += '<div name="PollItem" width="350px">';
+    newHTML += '<input name="PollChoice" type="text" style="width:390px;height:30px;background:lightgrey;border:none;border-radius:3px;position:relative;top:-5px;">';
+    newHTML += '<button onclick="DoDeleteAskChoice(); return false;" style="position:relative;right:-5px;top:5px;width:40px;height:40px;background:#fff;border:none;font-size:30px;color:red;font-weight:bold">X</button>';
+    newHTML += '<input name="PollDescription" type="text" style="width:440px;height:50px;background:lightgrey;border:none;border-radius:3px;position:relative;top:10px;">';
+    newHTML += '<input name="PollDescription" type="text" style="width:440px;height:20px;background:#fff;border:none;border-radius:3px;position:relative;top:10px;">'
     newHTML += '</div>';
 
     return newHTML;

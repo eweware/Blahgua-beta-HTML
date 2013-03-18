@@ -503,28 +503,38 @@ a {
 
 .PollChoiceWrapper {
     font-size:smaller;
-    width:100%;
+    width:500px;
 }
 
 .PollTitle {
-    width:100px;
+    width:80px;
     color:black;
+   
+    font-size:16px;
+    font-weight:bold;
+    padding-left:8px;
 }
 
 .PollChartDiv {
-    text-align:right;
-    float:left;
+    text-align:middle;
     background-color:red;
     height:1em
 }
 
 .PollDescription {
-    text-align: right;
+    text-align: left;
     border-left: solid 1px black;
+    width:auto;
+    position:relative;
+    left:0px;
+    
 }
 
 .PollVotes {
-    width: 32px;
+    width: 80px;
+  
+    font-weight:bold;
+    
 }
 .PollVoteIcon {
     width: 18px;
