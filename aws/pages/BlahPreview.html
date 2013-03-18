@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html>
 
 <body>
@@ -7,49 +7,19 @@
         <tr class="BlahPreviewHeader"><td colspan="4"><span id="PreviewBlahNickname" class="previewBlahgerName">A female blahger from Santa Monica, CA says: </span></td>
             <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
                 <span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>
+    </table>
+    <div class="BlahPreviewHeadline" id="BlahPreviewHeadline" style="width:100%"></div>
+    <div class="blah-preview-content" id="BlahPreviewScrollContainer">
+
+        <table width="100%" class="BlahPreviewTable">
+            <tr><td align="center"><img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>
+            <tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>
+            <tr><td class="BlahPreviewExtra" id="BlahPreviewExtra"></td></tr>
         </table>
+    </div>
 
 
-        <div class="BlahPreviewHeadline" id="BlahPreviewHeadline" style="width:90%"></div>
-        <div style="max-height:300px;overflow-y:scroll;overflow-x:hidden;">
-        <table width="100%" class="BlahPreviewTable">
-
-        <tr>
-         <td colspan="5" align="center" >
-            <div class="blah-preview-content" id="FullBlahContent">
-                <table><tr><td align="center"><img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>
-                    <tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>
-                    <tr><td class="BlahPreviewExtra" id="BlahPreviewExtra" width="100%"></td></tr>
-        <div class="BlahPreviewHeadline" id="BlahPreviewHeadline" style="width:100%"> </div>
-
-        <div class="BlahPreviewHeadline" id="BlahPreviewHeadline" style="width:100%"></div>
-
-        <div class="blah-preview-content" id="BlahPreviewScrollContainer">
-
-
-            <tr>
-             <td colspan="5" align="center" >
-                <div  id="BlahPreviewContent">
-                    <table>
-                        <tr><td align="center"><img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>
-                        <tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>
-                        <tr><td class="BlahPreviewExtra" id="BlahPreviewExtra"></td></tr>
-                    </table>
-                </div>
-             </td>
-            </tr>
-           </table>
-
-            <table width="100%" class="BlahPreviewTable">
-                <tr><td align="center"><img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"></td></tr>
-                <tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>
-                <tr><td class="BlahPreviewExtra" id="BlahPreviewExtra"></td></tr>
-             </table>
-
-        </div>
-
-
-        <table width="100%" class="BlahPreviewTable">
+    <table width="100%" class="BlahPreviewTable">
         <tr id="PreviewRowVote" style="height:70px;width:100%;background:white">
             <td width="20%" ></td>
             <td width="20%" align="center">
@@ -67,14 +37,14 @@
             </td>
             <td width="20%"></td>
 
-            </tr>
-            <tr id="PreviewRowSignIn">
-              <td colspan="5" style="text-align: center">
-                  <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');     DismissPreview(); return false;">
-                      sign in to promote, demote, or comment
-                  </div>
-              </td>
-            </tr>
+        </tr>
+        <tr id="PreviewRowSignIn">
+            <td colspan="5" style="text-align: center">
+                <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');     DismissPreview(); return false;">
+                    sign in to promote, demote, or comment
+                </div>
+            </td>
+        </tr>
 
     </table>
 </div>

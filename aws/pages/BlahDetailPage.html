@@ -4,6 +4,7 @@
 <body>
 <div id="FullBlahDiv">
 
+
     <table width="100%" class="BlahFullTable">
     <tr class="BlahFullHeader">
     	<td style="height:40px;width:45px"><div style="width:30px;height:30px;background:lightgrey;border:5px solid #FA3987"></div></td>
@@ -53,18 +54,72 @@
                <span class="statsText" id="fullBlahComments"></span>
            </td>
            <td width="20%"></td>
+=======
+    <table width="100%" class="BlahFullHeader" id="FullBlahHeader">
+        <tr >
+            <td><span class="fullBlahgerName" id="FullBlahNickName">A blahger says:</span></td>
+            <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+                <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td>
+            <td align="right"><span class="CloseBlahBtn" onclick="DoCloseBlah(); return false">X</span></td>
+        </tr>
+        <tr><td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" ></td></tr>
+    </table>
 
-       </tr>
-       <tr id="BlahRowSignIn">
-           <td colspan="5" style="text-align: center">
-               <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');  return false;">
-                   sign in to promote, demote, or comment
-               </div>
-           </td>
-       </tr>
+    <div class="FullBlahContent" id="BlahScrollContainer">
+        <table width="100%" class="BlahFullTable">
+
+            <tr>
+                <td colspan="2" align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td>
+            </tr>
+
+            <tr><td colspan="2" class="BlahFullBody" id="BlahFullBody"></td></tr>
+            <tr><td colspan="2" class="ExtraInfoArea" id="AdditionalInfoArea"></td></tr>
+            <tr><td colspan="2" ><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>
+            <tr class="BlahFullHeader1" width="100%">
+                <td ><span class="FullBlahProfileStr" id="FullBlahProfileString" align="left">A female blahger from Santa Monica, CA</span></td>
+                <td align="right" ><span id="FullBlahDateStr" class="FullBlahDateStr">comment time out</span></td>
+            </tr>
+
+        </table>
+    </div>
+
+>>>>>>> aba516be7f1139cbe0e8499d296ffbd574bb317a
+
+    <table width="100%" class="FullBlahTableFooter" id="FullBlahFooter">
+        <tr id="BlahRowVote" style="height:70px;width:100%;">
+            <td width="20%" ></td>
+            <td width="20%" align="center" id="one">
+                <img id="PromoteBlahImage" width="36px" alt="viewers"  onclick="DoPromoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
+                <br/>
+                <span id="UserPromoteSpan" class="statsText"></span>
+            </td>
+            <td width="20%" align="center">
+                <img id="DemoteBlahImage" width="36px" alt="viewers"  onclick="DoDemoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
+                <br/>
+                <span id="PreviewUserDemoteSpan" class="statsText"></span>
+            </td>
+            <td width="20%" align="center">
+                <img width="36px" alt="viewers"  onclick="DoAddCommentBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png"><br/>
+                <span id="PreviewUserPromoteSpan" class="statsText"></span>
+                <span class="statsText" id="fullBlahComments">65</span>
+            </td>
+            <td width="20%"></td>
+
 
    </table>
    </div>
+=======
+        </tr>
+        <tr id="BlahRowSignIn">
+            <td colspan="5" style="text-align: center">
+                <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');  return false;">
+                    sign in to promote, demote, or comment
+                </div>
+            </td>
+        </tr>
+
+    </table>
+>>>>>>> aba516be7f1139cbe0e8499d296ffbd574bb317a
 </div>
 </body>
 </html>
