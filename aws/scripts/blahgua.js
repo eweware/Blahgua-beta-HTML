@@ -1192,6 +1192,7 @@ function UpdatePredictPreviewPage() {
          noRatio = Math.floor((noVotes / totalVotes) * 100);
          maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
     }
+    $("#PredictPreviewYesSpan").animate({'width': percentage}, 1000);
     document.getElementById("PredictPreviewYesSpan").style.width = yesRatio + "%";
     document.getElementById("PredictPreviewNoSpan").style.width = noRatio + "%";
     document.getElementById("PredictPreviewMaybeSpan").style.width = maybeRatio + "%";
@@ -1226,42 +1227,65 @@ function UpdatePredictPreviewPage() {
                 switch (userVote) {
                     case "y":
                         document.getElementById("PredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewYesImg").show();
                         $("#PredictPreviewNoImg").hide();
                         $("#PredictPreviewMaybeImg").hide();
                         break;
                     case "n":
                         document.getElementById("PredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewNoImg").show();
                         $("#PredictPreviewYesImg").hide();
                         $("#PredictPreviewMaybeImg").hide();
                         break;
                     case "u":
                         document.getElementById("PredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#PredictPreviewMaybeImg").show();
                         $("#PredictPreviewNoImg").hide();
                         $("#PredictPreviewYesImg").hide();
                         break;
                 }
+            } else {
+                // no vote yey
+                $("#PredictPreviewYesImg").show();
+                $("#PredictPreviewNoImg").show();
+                $("#PredictPreviewMaybeImg").show();
             }
 
             if (expVote) {
                 switch (expVote) {
                     case "y":
                         document.getElementById("ExpPredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewYesImg").show();
                         $("#ExpPredictPreviewNoImg").hide();
                         $("#ExpPredictPreviewMaybeImg").hide();
                         break;
                     case "n":
                         document.getElementById("ExpPredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewNoImg").show();
                         $("#ExpPredictPreviewYesImg").hide();
                         $("#ExpPredictPreviewMaybeImg").hide();
                         break;
                     case "u":
                         document.getElementById("ExpPredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                        $("#ExpPredictPreviewMaybeImg").show();
                         $("#ExpPredictPreviewNoImg").hide();
                         $("#ExpPredictPreviewYesImg").hide();
                         break;
                 }
+            } else {
+                // no vote yey
+                $("#ExpPredictPreviewYesImg").show();
+                $("#ExpPredictPreviewNoImg").show();
+                $("#ExpPredictPreviewMaybeImg").show();
             }
-        }, OnFailure);
+        }, function(theErr) {
+                $("#PredictPreviewYesImg").show();
+                $("#PredictPreviewNoImg").show();
+                $("#PredictPreviewMaybeImg").show();
+                $("#ExpPredictPreviewYesImg").show();
+                $("#ExpPredictPreviewNoImg").show();
+                $("#ExpPredictPreviewMaybeImg").show()
+            });
     }
 
 }

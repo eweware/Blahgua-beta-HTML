@@ -686,6 +686,7 @@ a {
 .PredictCheckBoxClass {
     width:24px;
     height: 24px;
+    display:none;
 }
 
 
@@ -732,6 +733,7 @@ a {
 .PredictPreviewSpan {
     background-color: red;
     height:18px;
+    width:0%;
 }
 
 .PredictCheckBoxWrapper {
