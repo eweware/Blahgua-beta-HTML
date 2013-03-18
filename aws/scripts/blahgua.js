@@ -561,7 +561,7 @@ function OpenBlah(whichBlah) {
             var windowHeight = $(window).height();
             var delta = $("#FullBlahHeader").height() + $("#FullBlahFooter").height();
 
-            $("#BlahScrollContainer").css({ 'height': windowHeight-delta + 'px'});
+           
         });
         $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
         $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);

@@ -257,6 +257,7 @@
     background-color: #d3d3d3;
     border-spacing:0px;
     border-collapse: collapse;
+    width:512px;
 }
 
 .BlahFullHeader1 {
@@ -283,11 +284,12 @@
 
 .FullBlahViewerCount {
     position:relative;
-    top:-4px;
-    padding-right:12px;
-    font-size:12px;
+    top:-6px;
+    padding-right:0px;
+    font-size:14px;
     font-family: 'archivo narrow', sans-serif;
     padding-left:4px;
+    width:50px;
 }
 
 .FullBlahTable {
@@ -691,6 +693,7 @@ a {
     padding: 8px;
     width:80%;
     border-radius: 8px;
+    margin-left:40px;
 }
 
 .PredictCheckBoxClass {
