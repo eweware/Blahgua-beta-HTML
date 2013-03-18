@@ -1183,7 +1183,7 @@ function UpdatePredictPreviewPage() {
          noRatio = Math.floor((noVotes / totalVotes) * 100);
          maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
     }
-    $("#PredictPreviewYesSpan").animate({'width': percentage}, 1000);
+    $("#PredictPreviewYesSpan").animate({'width': yesRatio + "%"}, 1000);
     document.getElementById("PredictPreviewYesSpan").style.width = yesRatio + "%";
     document.getElementById("PredictPreviewNoSpan").style.width = noRatio + "%";
     document.getElementById("PredictPreviewMaybeSpan").style.width = maybeRatio + "%";
