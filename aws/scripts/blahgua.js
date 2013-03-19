@@ -34,7 +34,9 @@ var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var IsTempUser = true;
 var ChannelDropMenu = null;
-
+var minRows = 1;              
+var maxRows = 99;
+var minRows1 = 3;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 
 
@@ -2479,6 +2481,10 @@ function CreateBlah() {
     Blahgua.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, OnFailure);
 }
 
+
+
+
+
 function OnCreateBlahOK(json) {
     CurrentBlah = json;
     // check for images
@@ -2803,3 +2809,78 @@ function SetExpPredictResponse(val) {
         alert("You must be logged in to pile on to a prediction");
     }
 }
+
+function ta(obj){
+	var val=$(obj).val().length;
+	if(val>128){
+		alert("You should keep it in 128 character");
+		$(obj).val($(obj).val().substring(0,128))
+		}
+}
+
+function ResizeTextarea1(){
+  var t = document.getElementById('BlahHeadline');
+  if (t.scrollTop == 0) t.scrollTop=1;
+  while (t.scrollTop == 0){
+   if (t.rows > minRows)
+    t.rows--;
+   else
+    break;
+   t.scrollTop = 1;
+   if (t.rows < maxRows)
+    t.style.overflowY = "hidden";
+   if (t.scrollTop > 0){
+    t.rows++;
+    break;
+   }
+  }
+  while(t.scrollTop > 0){
+   if (t.rows < maxRows){
+    t.rows++;
+    if (t.scrollTop == 0) t.scrollTop=1;
+   }
+   else{
+    t.style.overflowY = "hidden";
+    break;
+   }
+  }
+ }
+
+
+ function ResizeTextarea(){
+
+  var t = document.getElementById('BlahBody');
+  if (t.scrollTop == 0) t.scrollTop=1;
+  while (t.scrollTop == 0){
+   if (t.rows > minRows1)
+    t.rows--;
+   else
+    break;
+   t.scrollTop = 1;
+   if (t.rows < maxRows)
+    t.style.overflowY = "hidden";
+   if (t.scrollTop > 0){
+    t.rows++;
+    break;
+   }
+  }
+  while(t.scrollTop > 0){
+   if (t.rows < maxRows){
+    t.rows++;
+    if (t.scrollTop == 0) t.scrollTop=1;
+   }
+   else{
+    t.style.overflowY = "hidden";
+    break;
+   }
+  }
+ }
+ 
+ 
+
+
+
+
+
+
+
