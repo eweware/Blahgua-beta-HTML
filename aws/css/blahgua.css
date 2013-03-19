@@ -783,26 +783,26 @@ a {
 }
 .createblahheadlineoptionframe
 {
-	position:relative;
-	left:10px;
-	font-size:30px;
-	font-weight:bold;
+
 }
 .createblahheadlineoption
 {
-	width:150px;
-	height:30px;
-	background:white;
-	border:none;
-	font-size:17px;
-	font-weight:bold;
+	background:rgb(101, 179, 245);
 	box-shadow:none;
+    font-family:'Oswald' sans-serif;
+    font-size:20pt;
+    border:none;
+    float:right;
+    margin-right:16px;
 }
 .createblahscroll
 {
-	height:440px;
 	overflow-y:auto;
 	overflow-x:hidden;
+    position: fixed;
+    top: 55px;
+    bottom:45px;
+
 }
 .createblahscrolltable
 {
@@ -816,12 +816,16 @@ a {
 }
 .inputheadlineframe
 {
-	width:220px;
+	width:100%;
 	min-height:30px;
-	border:40px solid #fff;
-	border-bottom:10px solid #FFF;
-	border-top:10px solid #fff;
-	font-size:16px;
+	font-size:16pt;
+    padding: 8px;
+    border-radius: 4px;
+    color: black;
+    background-color: #add8e6;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 36pt;
+
 }
 .inputheadline
 {
@@ -832,12 +836,13 @@ a {
 }
 .inputbodyframe
 {
-	width:220px;
-	min-height:30px;
-	border:40px solid #fff;
-	border-bottom:20px solid #FFF;
-	border-top:10px solid #fff;
-	font-size:16px;
+	width:100%;
+	min-height:60px;
+	font-size:12pt;
+    font-family: 'oswald', sans-serif;
+    background-color: #F0F0F0;
+    color:black;
+    padding:8px;
 }
 .inputbody
 {
@@ -850,9 +855,7 @@ a {
 	width:40px;
 	height:40px;
 	background:grey;
-	border:40px solid #fff;
-	border-top:none;
-	border-bottom:none;
+
 }
 .uploadimagebutton
 {
@@ -874,7 +877,7 @@ a {
 }
 .creatblahfooter
 {
-	height:60px;
+
 	width:512px;
 	background:#B3DBF5;
 	position:fixed;
@@ -903,4 +906,8 @@ a {
 	background-color: red;
     width:1px;
     height:32px;
+}
+.BlahgerNickName {
+    font-family:'Oswald', sans-serif;
+    font-size:20pt;
 }

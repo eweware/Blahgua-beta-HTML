@@ -1,15 +1,11 @@
-<!DOCTYPE html>
 <html>
 <body>
 <div id="CreateBlahPage" >
-	<link rel="stylesheet" href="./css/blahgua.css" />
-	<link rel="stylesheet" href="./scripts/blahgua.js" />
-    <div onclick="DoCloseBlah(); return false;"></div>
-  
         <table class="createblahheadline">
         	<tr>
         		<td class="createblahheadlinephotoframe">
         			<div class="createblahheadlinephoto"></div></td>
+                <td class="BlahgerNickName">A blahger</td>
         	    <td class="createblahheadlineoptionframe">
         	    	 <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
         	    </td>        	    	
@@ -18,19 +14,12 @@
     <div class="createblahscroll" id="scroll">         
         <table class="createblahscrolltable" >
           <tr class="tr100">
-            <td class="inputheadlineframe">
-              <div>
-
-       	         <textarea id="BlahHeadline" rows="1" cols="57"   maxlength="128" onkeyup="ResizeTextarea1()"  class="inputheadline"></textarea>      
-              </div>
+            <td colspan="2" class="inputheadlineframe" contenteditable="true">
             </td>
            </tr>
            <tr>
-           <td class="inputbodyframe">
-              <div>
+            <td  colspan="2" class="inputbodyframe" contenteditable="true">
 
-                  <textarea id="BlahBody" rows="3" cols="57" onkeyup="ResizeTextarea()" class="inputbody"></textarea>      
-              </div>
              </td> 
            </tr>  
           <tr>            
@@ -39,7 +28,7 @@
           </td>
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-            <input id="BlahImage" name="file" type="file"/ class="uploadimagebutton">
+            <input id="BlahImage" name="file" type="file" class="uploadimagebutton">
                 <div style="display:none">
                 <input type="text" name="objectType" hidden="true" value="B"/>
                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -58,7 +47,6 @@
           <div id="AdditionalInfoDiv"  class="createblahadditional"></div>
         </td>
       </tr>
-      <tr class="creatblahspace"></tr>
     </table>
   </div>
       
@@ -73,11 +61,7 @@
     </table>
     
    
-    <div id="ProgressDiv" style="display:none">
-        <div id="ProgressBar" class="progressbar">
-            <div id="Indicator" class="indicator"></div>
-        </div>
-    </div>
+
 </div>
 </body>
 </html>
