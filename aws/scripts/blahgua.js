@@ -560,8 +560,12 @@ function OpenBlah(whichBlah) {
         BlahFullItem.curPage = "Overview";
         $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast", function() {
-            var windowHeight = $(window).height();
-            var delta = $("#FullBlahHeader").height() + $("#FullBlahFooter").height();
+            var windowWidth = $(window).width();
+            var delta = Math.round((widthWidth - 512) / 2);
+            if (delta < 0) delta = 0;
+            delta = delta + "px";
+
+            //$(".createblahscrolltable").css({'left': delta, 'right':delta});
 
            
         });
@@ -2409,6 +2413,13 @@ function DoCreateBlah() {
     if (IsUserLoggedIn) {
         $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
             PopulateBlahTypeOptions();
+            var windowWidth = $(window).width();
+            var delta = Math.round((windowWidth - 512) / 2);
+            if (delta < 0) delta = 0;
+            delta = delta + "px";
+
+            $(".createblahscroll").css({'left': delta, 'right':delta});
+
             $(BlahFullItem).fadeIn("fast");
         });
     }   else {
