@@ -38,6 +38,8 @@ var minRows = 1;
 var maxRows = 99;
 var minRows1 = 3;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
+var windowline1 = 430;
+var windowline2 = 500;
 
 
 (function ($) {
@@ -396,7 +398,7 @@ function ComputeSizes() {
 
     $("#BlahContainer").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
     $("#ChannelBanner").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
-    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-100+'px' });
+    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-50+'px' });
 
     $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
 
@@ -755,7 +757,7 @@ function UpdateFullBlahBody(newBlah) {
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage(""); })
+                function() { UpdateAskPage(); })
             break;
         default:
 
@@ -835,7 +837,7 @@ function OnGetUserPollVoteOK(json) {
 }
 
 function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
-    var maxWidth = $("body").width() - 150;
+    var maxWidth = $("body").width() - 280;
     var ratio = curVotes/ maxVotes;
     var curRatio = Math.floor(100 * ratio);
     var newHTML = "";
@@ -1025,7 +1027,7 @@ function FocusBlah(who) {
     FocusedBlah = who.blah;
     PopulateBlahPreview(who.blah);
     var winHeight =   $(window).height();
-    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-300 + 'px'});
+    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-290 + 'px'});
     $(BlahPreviewItem).fadeIn("fast");
     BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
 
@@ -1118,7 +1120,21 @@ function UpdateBodyText(theFullBlah) {
         imageEl.src = image;
         headlineText.style.fontSize = "24px";
     }
+     var windowWidth = $(window).width();
+    if (windowWidth > windowline2) {
+       $(blahPreviewImage).css({ 'left': 120 + 'px'});
+    } 
 
+    if (windowWidth <= windowline1)
+    {
+        $(blahPreviewImage).css({ 'left': 60 + 'px'});
+    
+    }
+    
+        if ((windowWidth <= windowline2)&&(windowWidth >= windowline1))
+    {
+    	 $(blahPreviewImage).css({ 'left': 90 + 'px'});
+    }
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
     if (theFullBlah.hasOwnProperty("b")) {
         var bodyText = theFullBlah.b;
