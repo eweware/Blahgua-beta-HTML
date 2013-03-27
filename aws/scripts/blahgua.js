@@ -1025,7 +1025,7 @@ function FocusBlah(who) {
     FocusedBlah = who.blah;
     PopulateBlahPreview(who.blah);
     var winHeight =   $(window).height();
-    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-220 + 'px'});
+    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-300 + 'px'});
     $(BlahPreviewItem).fadeIn("fast");
     BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
 

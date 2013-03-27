@@ -137,6 +137,8 @@
     border-spacing:0px;
     overflow-x:hidden;
     overflow-y:hidden;
+
+    
 }
 
 .BlahPreviewHeader {
@@ -258,6 +260,8 @@
     border-spacing:0px;
     border-collapse: collapse;
     width:512px;
+    position:fixed;
+    bottom:0px;
 }
 
 .BlahFullHeader1 {
@@ -505,13 +509,12 @@ a {
 
 .PollChoiceWrapper {
     font-size:smaller;
-    width:500px;
+    width:480px;
 }
 
 .PollTitle {
-    width:80px;
-    color:black;
-   
+	width:20%;
+    color:black;   
     font-size:16px;
     font-weight:bold;
     padding-left:8px;
@@ -727,9 +730,9 @@ a {
 }
 
 .PredictionChoiceTable {
-    width:100%;
+    width:95%;
     border-collapse: collapse;
-    padding-left:32px;
+    padding-left:20px;
 
 }
 
@@ -806,29 +809,28 @@ a {
 }
 .createblahscrolltable
 {
-	width:100%;
+	width:512px;
 	height:auto; 
 	overflow:auto;
 }
 .tr100
 {
-	width:100%;
+	width:512px;
 }
 .inputheadlineframe
 {
 	width:100%;
 	min-height:30px;
-	font-size:16pt;
     padding: 8px;
     border-radius: 4px;
     color: black;
     background-color: #add8e6;
     font-family: 'Archivo Narrow', sans-serif;
-    font-size: 36pt;
+    font-size: 30pt;
 
 }
 .inputheadline
-{
+{   width:512px;
 	overflow-y:hidden;
 	border-radius:5px;
 	background:lightblue;
@@ -860,7 +862,7 @@ a {
 .uploadimagebutton
 {
 	position:relative;
-	right:250px;
+	left:-200px;
 	width:200px;
 	height:20px;
 }
