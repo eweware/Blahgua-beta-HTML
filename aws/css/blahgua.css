@@ -257,7 +257,9 @@
     background-color: #d3d3d3;
     border-spacing:0px;
     border-collapse: collapse;
-    width:512px;
+    width:100%;
+    position: fixed;
+    bottom:0px;
 }
 
 .BlahFullHeader1 {

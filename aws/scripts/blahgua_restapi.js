@@ -239,7 +239,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>the user stats object</returns>
         var paramStr = '{}';
-        this.CallPageMethod("GetUserStats", paramStr, OnSuccess, OnFailure);
+        this.CallGetMethod("GetUserStats", paramStr, OnSuccess, OnFailure);
     };
 
     this.GetUserBlahs = function (OnSuccess, OnFailure) {
@@ -726,6 +726,31 @@ function BlahguaObject() {
         var methodName = "blahs/" + BlahID;
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
+
+    this.GetBlahStats = function (BlahID, OnSuccess, OnFailure) {
+        /// <summary>Returns the current session blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the blah object</returns>
+        var paramStr = '{}';
+        var methodName = "blahs/" + BlahID;
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+    this.GetUserStats = function (OnSuccess, OnFailure) {
+        /// <summary>returns a user record on the logged in user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var paramObj = new Object();
+        paramObj["stats"] = true;
+        paramObj["statsStartDate"] = "130101";
+        paramObj["statsEndDate"]  = "130101";
+        var paramStr = JSON.stringify(paramObj);
+        var method = "users/info";
+        this.CallGetMethod(method, paramStr, OnSuccess, OnFailure);
+    };
+
 
 
 

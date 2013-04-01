@@ -14,12 +14,13 @@
     <div class="createblahscroll" id="scroll">         
         <table class="createblahscrolltable" >
           <tr class="tr100">
-            <td colspan="2" class="inputheadlineframe" contenteditable="true">
+            <td id="BlahHeadline" onfocus="DoCreateBlahTitleFocus(); return false;" colspan="2" class="inputheadlineframe" contenteditable="true">
+              <span style="font-style:italic; color:gray">enter a catchy headline</span>
             </td>
            </tr>
            <tr>
-            <td  colspan="2" class="inputbodyframe" contenteditable="true">
-
+            <td id="BlahBody"  onfocus="DoCreateBlahBodyFocus(); return false;" colspan="2" class="inputbodyframe" contenteditable="true">
+                <span style="font-style:italic; color:gray">you can also enter some body text (optional)</span>
              </td> 
            </tr>  
           <tr>            
@@ -37,14 +38,12 @@
         </form>
         </td>
         </tr>
-        <tr class="tr100">
-          <td>
-            <hr>
-          </td>
-       </tr>
+
        <tr>
          <td>             
-          <div id="AdditionalInfoDiv"  class="createblahadditional"></div>
+          <div colspan="2" id="AdditionalInfoDiv"  class="createblahadditional">
+              &nbsp;
+          </div>
         </td>
       </tr>
     </table>

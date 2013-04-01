@@ -561,7 +561,7 @@ function OpenBlah(whichBlah) {
         $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast", function() {
             var windowWidth = $(window).width();
-            var delta = Math.round((widthWidth - 512) / 2);
+            var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
 
@@ -2308,6 +2308,11 @@ function PopulateUserChannel() {
 
 function RefreshUserChannelContent() {
     $("#BlahFullItem").show();
+    Blahgua.GetUserStats(OnGetStatsOK);
+}
+
+function OnGetStatsOK(theStats) {
+    alert("Got the stats!");
 }
 
 function RefreshSignupContent(message) {
@@ -2417,8 +2422,13 @@ function DoCreateBlah() {
             var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
+            var itemWidth = 512;
+            if (windowWidth < 512) {
+                itemWidth = windowWidth;
+            }
 
             $(".createblahscroll").css({'left': delta, 'right':delta});
+            $(".creatblahfooter").css({'width': itemWidth});
 
             $(BlahFullItem).fadeIn("fast");
         });
@@ -2455,8 +2465,8 @@ function CancelCreate() {
 
 function CreateBlah() {
     var blahType = $("#BlahTypeList").val();
-    var blahHeadline = $("#BlahHeadline").val();
-    var blahBody = $("#BlahBody").val();
+    var blahHeadline = $("#BlahHeadline").text();
+    var blahBody = $("#BlahBody").text();
     var blahGroup = CurrentChannel._id;
     var options = null;
 
@@ -2829,65 +2839,26 @@ function ta(obj){
 		}
 }
 
-function ResizeTextarea1(){
-  var t = document.getElementById('BlahHeadline');
-  if (t.scrollTop == 0) t.scrollTop=1;
-  while (t.scrollTop == 0){
-   if (t.rows > minRows)
-    t.rows--;
-   else
-    break;
-   t.scrollTop = 1;
-   if (t.rows < maxRows)
-    t.style.overflowY = "hidden";
-   if (t.scrollTop > 0){
-    t.rows++;
-    break;
-   }
-  }
-  while(t.scrollTop > 0){
-   if (t.rows < maxRows){
-    t.rows++;
-    if (t.scrollTop == 0) t.scrollTop=1;
-   }
-   else{
-    t.style.overflowY = "hidden";
-    break;
-   }
-  }
- }
+function DoCreateBlahTitleFocus() {
+    var element = document.getElementById("BlahHeadline");
+    if (!element.hasAttribute("edited")) {
+        element.innerHTML = "";
+        element.setAttribute("edited", true);
+        element.focus();
+        element.select();
+    }
+}
 
+function DoCreateBlahBodyFocus() {
+    var element = document.getElementById("BlahBody");
+    if (!element.hasAttribute("edited")) {
+        element.innerHTML = "";
+        element.setAttribute("edited", true);
+        element.focus();
+        element.select();
+    }
+}
 
- function ResizeTextarea(){
-
-  var t = document.getElementById('BlahBody');
-  if (t.scrollTop == 0) t.scrollTop=1;
-  while (t.scrollTop == 0){
-   if (t.rows > minRows1)
-    t.rows--;
-   else
-    break;
-   t.scrollTop = 1;
-   if (t.rows < maxRows)
-    t.style.overflowY = "hidden";
-   if (t.scrollTop > 0){
-    t.rows++;
-    break;
-   }
-  }
-  while(t.scrollTop > 0){
-   if (t.rows < maxRows){
-    t.rows++;
-    if (t.scrollTop == 0) t.scrollTop=1;
-   }
-   else{
-    t.style.overflowY = "hidden";
-    break;
-   }
-  }
- }
- 
- 
 
 
 
