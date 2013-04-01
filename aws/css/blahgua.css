@@ -109,6 +109,7 @@
 .blah-preview-content {
     overflow-x: hidden;
     overflow-y: auto;
+   
 }
 
 .BlahPreview {
@@ -137,6 +138,8 @@
     border-spacing:0px;
     overflow-x:hidden;
     overflow-y:hidden;
+
+    
 }
 
 .BlahPreviewHeader {
@@ -165,6 +168,8 @@
     max-width:90%;
     padding-top:16px;
     padding-bottom:16px;
+    position:relative;
+    left:-300px;
 }
 
 .BlahPreviewBody {
@@ -186,7 +191,6 @@
     background-color:white;
     color:red;
     font-weight: bold;
-;
 }
 
 .CloseBlahBtn:hover {
@@ -222,6 +226,7 @@
     font-family: 'Archivo Narrow', sans-serif;
     font-style: italic;
     padding-right:4px;
+    width:80px;
 
 }
 
@@ -259,7 +264,7 @@
     border-collapse: collapse;
     width:100%;
     position: fixed;
-    bottom:0px;
+   bottom:0px;
 }
 
 .BlahFullHeader1 {
@@ -507,20 +512,19 @@ a {
 
 .PollChoiceWrapper {
     font-size:smaller;
-    width:500px;
+    width:480px;
 }
 
 .PollTitle {
-    width:80px;
-    color:black;
-   
+	width:15%;
+    color:black;   
     font-size:16px;
     font-weight:bold;
     padding-left:8px;
 }
 
 .PollChartDiv {
-    text-align:middle;
+    text-align: center ;
     background-color:red;
     height:1em
 }
@@ -692,7 +696,9 @@ a {
     background-color: orange;
     color:black;
     margin: 4px;
-    padding: 8px;
+    padding-right: 8px;
+    padding-left:8px;
+    padding-top:0px;
     width:80%;
     border-radius: 8px;
     margin-left:40px;
@@ -729,9 +735,9 @@ a {
 }
 
 .PredictionChoiceTable {
-    width:100%;
+    width:95%;
     border-collapse: collapse;
-    padding-left:32px;
+    padding-left:20px;
 
 }
 
@@ -808,29 +814,28 @@ a {
 }
 .createblahscrolltable
 {
-	width:100%;
+	width:512px;
 	height:auto; 
 	overflow:auto;
 }
 .tr100
 {
-	width:100%;
+	width:512px;
 }
 .inputheadlineframe
 {
 	width:100%;
 	min-height:30px;
-	font-size:16pt;
     padding: 8px;
     border-radius: 4px;
     color: black;
     background-color: #add8e6;
     font-family: 'Archivo Narrow', sans-serif;
-    font-size: 36pt;
+    font-size: 30pt;
 
 }
 .inputheadline
-{
+{   width:512px;
 	overflow-y:hidden;
 	border-radius:5px;
 	background:lightblue;
@@ -862,7 +867,7 @@ a {
 .uploadimagebutton
 {
 	position:relative;
-	right:250px;
+	left:-200px;
 	width:200px;
 	height:20px;
 }
@@ -912,4 +917,8 @@ a {
 .BlahgerNickName {
     font-family:'Oswald', sans-serif;
     font-size:20pt;
+}
+
+.BlahStatsTable {
+    min-width: 100%;
 }

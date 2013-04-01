@@ -12,16 +12,17 @@
         	    </tr>
         </table>
     <div class="createblahscroll" id="scroll">         
-        <table class="createblahscrolltable" >
+        <table class="createblahscrolltable">
           <tr class="tr100">
-            <td id="BlahHeadline" onfocus="DoCreateBlahTitleFocus(); return false;" colspan="2" class="inputheadlineframe" contenteditable="true">
+            <td colspan="2" class="inputheadlineframe" ><span id="BlahHeadline" onfocus="DoCreateBlahTitleFocus(); return false;" contenteditable="true">
               <span style="font-style:italic; color:gray">enter a catchy headline</span>
-            </td>
+            </span></td>
            </tr>
+
            <tr>
-            <td id="BlahBody"  onfocus="DoCreateBlahBodyFocus(); return false;" colspan="2" class="inputbodyframe" contenteditable="true">
+            <td colspan="2" class="inputbodyframe" ><span id="BlahBody"  onfocus="DoCreateBlahBodyFocus(); return false;" contenteditable="true">
                 <span style="font-style:italic; color:gray">you can also enter some body text (optional)</span>
-             </td> 
+             </span></td>
            </tr>  
           <tr>            
           <td>
@@ -38,7 +39,6 @@
         </form>
         </td>
         </tr>
-
        <tr>
          <td>             
           <div colspan="2" id="AdditionalInfoDiv"  class="createblahadditional">
@@ -48,18 +48,18 @@
       </tr>
     </table>
   </div>
-      
 
-    
-    <table class="creatblahfooter"> 
+
+
+<table class="creatblahfooter">
     <tr>
-    <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="creatblahbutton">Cancel</button></td>
-   
-    <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">Create</button></td>
+        <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="creatblahbutton">Cancel</button></td>
+
+        <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">Create</button></td>
     </tr>
-    </table>
-    
-   
+</table>
+
+
 
 </div>
 </body>
