@@ -559,38 +559,61 @@ function OpenBlah(whichBlah) {
     $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
         var windowHeight = $(window).height();
         PopulateFullBlah(whichBlah);
-        BlahFullItem.curPage = "Overview";
         $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast", function() {
             var windowWidth = $(window).width();
-            var delta = Math.round((widthWidth - 512) / 2);
+            var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
-
-            //$(".createblahscrolltable").css({'left': delta, 'right':delta});
-
-           
+            SetBlahDetailPage("Overview");
         });
         $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
         $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
+}
 
-
+function SetBlahDetailPage(whichPage) {
+    switch (whichPage) {
+        case "Overview":
+            BlahFullItem.curPage = "Overview";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                UpdateBlahOverview();
+            });
+            break;
+        case "Comments":
+            BlahFullItem.curPage = "Comments";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                UpdateBlahComments();
+            });
+            break;
+        case "Stats":
+            BlahFullItem.curPage = "Stats";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                UpdateBlahStats();
+            });
+            break;
+        case "Author":
+            BlahFullItem.curPage = "Author";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahAuthorPage.html #FullBlahAuthorDiv", function() {
+                UpdateBlahAuthor();
+            });
+            break;
+    }
 }
 
 function HandleBlahSwipeLeft() {
     switch (BlahFullItem.curPage) {
         case "Overview":
-            GoToBlahComments();
+            SetBlahDetailPage("Comments");
             break;
         case "Comments":
-            GoToBlahStats();
+            SetBlahDetailPage("Stats");
             break;
         case "Stats":
-            GoToBlahUser();
+            SetBlahDetailPage("Author");
             break;
-        case "User":
-            GoToBlahOverview();
+        case "Author":
+            SetBlahDetailPage("Overview");
             break;
     }
 }
@@ -598,35 +621,274 @@ function HandleBlahSwipeLeft() {
 function HandleBlahSwipeRight() {
     switch (BlahFullItem.curPage) {
         case "Overview":
-            GoToBlahUser();
+            SetBlahDetailPage("Author");
             break;
         case "Comments":
-            GoToBlahOverview();
+            SetBlahDetailPage("Overview");
             break;
         case "Stats":
-            GoToBlahComments();
+            SetBlahDetailPage("Comments");
             break;
-        case "User":
-            GoToBlahStats();
+        case "Author":
+            SetBlahDetailPage("Stats");
             break;
     }
 }
 
-function GoToBlahOverview() {
+function UpdateBlahOverview() {
+// reformat the promote area if the user has already voted
+    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
+    var isOwnBlah;
 
+
+    if (IsUserLoggedIn) {
+        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+    } else {
+        isOwnBlah = false;
+    }
+
+    if (IsUserLoggedIn) {
+
+        $("#BlahRowVote").show();
+        $("#BlahRowSignIn").hide();
+
+        if (isOwnBlah) {
+            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
+            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
+
+            $("#PromoteBlahImage").show();
+            $("#UserPromoteSpan").text(upVotes + " promotes");
+            $("#DemoteBlahImage").show();
+            $("#UserDemoteSpan").text(downVotes + " demotes");
+        } else {
+            var userVote = getSafeProperty(CurrentBlah, "uv", 0);
+            if (userVote && (userVote != 0)) {
+                if (userVote == 1) {
+                    $("#PromoteBlahImage").show()
+                    $("#DemoteBlahImage").hide();
+                    $("#UserPromoteSpan").text("promoted by you!");
+                    $("#UserDemoteSpan").text("");
+                }  else {
+                    $("#PromoteBlahImage").hide();
+                    $("#PreviewDemoteBlah").show();
+                    $("#UserDemoteSpan").text("demoted by you!");
+                    $("#UserPromoteSpan").text("");
+                }
+            } else {
+                $("#PromoteBlahImage").show();
+                $("#UserPromoteSpan").text("promote");
+                $("#DemoteBlahImage").show();
+                $("#UserDemoteSpan").text("demote");
+            }
+        }
+    } else {
+        $("#BlahRowVote").hide();
+        $("#BlahRowSignIn").show();
+    }
+
+
+    var image = GetBlahImage(CurrentBlah, "D");
+    var imageEl = document.getElementById("blahFullImage");
+    var headlineText = document.getElementById("BlahFullHeadline");
+    if (image == "") {
+        imageEl.style.display = "none";
+        headlineText.style.fontSize = "36px";
+    } else {
+        imageEl.style.display = "block";
+        imageEl.src = image;
+        headlineText.style.fontSize = "24px";
+    }
+
+    var bodyTextDiv = document.getElementById("BlahFullBody");
+    if (CurrentBlah.hasOwnProperty("b")) {
+        var bodyText = CurrentBlah.b;
+        if (bodyText && (bodyText != "")) {
+            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+        }
+        bodyTextDiv.innerHTML = bodyText;
+    } else {
+        bodyTextDiv.innerHTML = "";
+    }
+
+    // update any additional area
+    switch (GetBlahTypeStr()) {
+        case "predicts":
+            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredictPage",
+                function() { UpdatePredictPage(); })
+            break;
+        case "polls":
+            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
+                function() { UpdateAskPage(); })
+            break;
+        default:
+
+    }
 }
 
-function GoToBlahComments() {
+function UpdateBlahComments() {
+// update the comments
 
+    if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
+        // blah has comments
+        Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
+    } else {
+        // no comments GetBlahTypeStr()
+        var newHTML = "";
+        newHTML += '<tr><td><span class="NoCommentSpan">No Comments</span></td></tr>';
+        $("#BlahCommentTable").append(newHTML);
+    }
 }
 
 
-function GoToBlahStats() {
+function UpdateBlahStats() {
+    // blah popularity over time
+    $('#BlahStrengthDiv').highcharts({
+        chart: {
+            type: 'area'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Popularity'
+        },
+        yAxis: {
+            title: {
+                text: 'strength'
+            }
+        },
+        series: [{
+            data: [1, 2,3,4,5,6,7,8,9,10]
+        }]
+    });
 
+    // opens, views, comments
+    $('#ViewChartDiv').highcharts({
+        chart: {
+            type: 'line'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Views, Opens, and Comments'
+        },
+        yAxis: {
+            title: {
+                text: 'Count'
+            }
+        },
+        series: [{
+            name: 'views',
+            data: [1, 0, 4]
+        }, {
+            name: 'opens',
+            data: [5, 7, 3]
+        }, {
+            name: 'comments',
+            data: [5, 7, 3]
+        }]
+    });
+
+    // demos
+    $('#BlahOpenChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Opens'
+        },
+        xAxis: {
+            categories: ['Male', 'Female', 'Unspecified']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: [{
+            data: [1, 0, 4]
+        }]
+    });
+
+    // comments
+    $('#BlahCommentChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Comments'
+        },
+        xAxis: {
+            categories: ['Male', 'Female', 'Unspecified']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: [{
+            data: [1, 0, 4]
+        }]
+    });
+
+    // Promotes
+    $('#BlahPromoteChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Promotes'
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            categories: ['Male', 'Female', 'Unspecified']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: [{
+            data: [1, 0, 4]
+        }]
+    });
+
+    // demotes
+    $('#BlahDemoteChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Demotes'
+        },
+        xAxis: {
+            categories: ['Male', 'Female', 'Unspecified']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: [{
+            data: [1, 0, 4]
+        }]
+    });
 }
 
 
-function GoToBlahUser() {
+function UpdateBlahAuthor() {
 
 }
 
@@ -635,11 +897,7 @@ function GoToBlahUser() {
 
 function PopulateFullBlah(whichBlah) {
     // get the entire blah to update the rest...
-    if (CurrentBlah == null) {
-        Blahgua.GetBlah(whichBlah.blahId, UpdateFullBlahBody, OnFailure);
-    } else {
-        UpdateFullBlahBody(CurrentBlah);
-    }
+    Blahgua.GetBlahWithStats(whichBlah.blahId, "130101", "130331", UpdateFullBlahBody, OnFailure);
 }
 
 
@@ -682,102 +940,11 @@ function UpdateFullBlahBody(newBlah) {
     }
 
     // stats
-    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
     document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
     document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
 
-    // reformat the promote area if the user has already voted
-    if (IsUserLoggedIn) {
-
-        $("#BlahRowVote").show();
-        $("#BlahRowSignIn").hide();
-
-        if (isOwnBlah) {
-            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
-            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
-
-            $("#PromoteBlahImage").show();
-            $("#UserPromoteSpan").text(upVotes + " promotes");
-            $("#DemoteBlahImage").show();
-            $("#UserDemoteSpan").text(downVotes + " demotes");
-        } else {
-            var userVote = getSafeProperty(CurrentBlah, "uv", 0);
-            if (userVote && (userVote != 0)) {
-                if (userVote == 1) {
-                    $("#PromoteBlahImage").show()
-                    $("#DemoteBlahImage").hide();
-                    $("#UserPromoteSpan").text("promoted by you!");
-                    $("#UserDemoteSpan").text("");
-                }  else {
-                    $("#PromoteBlahImage").hide();
-                    $("#PreviewDemoteBlah").show();
-                    $("#UserDemoteSpan").text("demoted by you!");
-                    $("#UserPromoteSpan").text("");
-                }
-            } else {
-                $("#PromoteBlahImage").show();
-                $("#UserPromoteSpan").text("promote");
-                $("#DemoteBlahImage").show();
-                $("#UserDemoteSpan").text("demote");
-            }
-        }
-    } else {
-        $("#BlahRowVote").hide();
-        $("#BlahRowSignIn").show();
-    }
-
-
-    var image = GetBlahImage(newBlah, "D");
-    var imageEl = document.getElementById("blahFullImage");
-    if (image == "") {
-        imageEl.style.display = "none";
-        headlineText.style.fontSize = "36px";
-    } else {
-        imageEl.style.display = "block";
-        imageEl.src = image;
-        headlineText.style.fontSize = "24px";
-    }
-
-    var bodyTextDiv = document.getElementById("BlahFullBody");
-    if (CurrentBlah.hasOwnProperty("b")) {
-        var bodyText = CurrentBlah.b;
-        if (bodyText && (bodyText != "")) {
-            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
-        }
-        bodyTextDiv.innerHTML = bodyText;
-    } else {
-        bodyTextDiv.innerHTML = "";
-    }
-
-    // update any additional area
-    switch (GetBlahTypeStr()) {
-        case "predicts":
-            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredictPage",
-                function() { UpdatePredictPage(); })
-            break;
-        case "polls":
-            $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage(); })
-            break;
-        default:
-
-    }
-
     // update the opens
     Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
-
-
-    // update the comments
-    if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
-        // blah has comments
-        Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
-    } else {
-        // no comments GetBlahTypeStr()
-        var commentDiv = document.getElementById("BlahCommentBody");
-        var newHTML = "";
-        newHTML += '<span class="NoCommentSpan">No Comments</span>';
-        commentDiv.innerHTML = newHTML;
-    }
 
     // update the badges & date
     Blahgua.getUserDescriptorString(CurrentBlah.authorId, function(theString) {
@@ -789,8 +956,6 @@ function UpdateFullBlahBody(newBlah) {
     var curDate = new Date(getSafeProperty(CurrentBlah, "created", Date.now()));
     var dateString = ElapsedTimeString(curDate);
     $("#FullBlahDateStr").text(dateString);
-
-
 }
 
 function UpdatePredictPage(predictAreaName) {
@@ -881,7 +1046,7 @@ function SortAndRedrawComments(theComments) {
     CurrentComments = theComments;
     SortComments();
 
-    UpdateBlahComments();
+    UpdateBlahCommentDiv();
 }
 
 function SortComments() {
@@ -945,6 +1110,9 @@ function dynamicSort(property, subProp) {
 }
 
 
+/**
+ * @return {string}
+ */
 function ElapsedTimeString(theDate) {
     var now = new Date();
     var timeSpan;
@@ -1009,9 +1177,9 @@ function ElapsedTimeString(theDate) {
 }
 
 
-function UpdateBlahComments() {
+function UpdateBlahCommentDiv() {
     var curComment;
-    var commentDiv = document.getElementById("BlahCommentBody");
+    var commentDiv = document.getElementById("BlahCommentTable");
     for (i in CurrentComments) {
         curComment = CurrentComments[i];
         var commentEl = createCommentElement(curComment);
@@ -1985,11 +2153,12 @@ function PostMe(what) {
 // Create comment HTML
 
 function createCommentElement(theComment) {
-    var newEl = document.createElement("li");
+    var newEl = document.createElement("tr");
     newEl.className = "comment";
 
     var newHTML = "";
     // button for making complaints about the comment, banning user, etc.
+    newHTML += '<td>';
     newHTML += '<button class="flipdown-btn" role="button" onclick=";return false;" type="button">';
     newHTML += '<span class="flipdown-btn-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-comment-close" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
     newHTML += '</span><img class="yt-uix-button-arrow" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif"><div class=" yt-uix-button-menu yt-uix-button-menu-link" style="display: none;"><ul><li class="comment-action-remove comment-action" data-action="remove"><span class="yt-uix-button-menu-item">Remove</span></li><li class="comment-action" data-action="flag-profile-pic"><span class="yt-uix-button-menu-item">Report profile image</span></li><li class="comment-action" data-action="flag"><span class="yt-uix-button-menu-item">Flag for spam</span></li><li class="comment-action-block comment-action" data-action="block"><span class="yt-uix-button-menu-item">Block User</span></li><li class="comment-action-unblock comment-action" data-action="unblock"><span class="yt-uix-button-menu-item">Unblock User</span></li></ul></div></button>';
@@ -2042,6 +2211,7 @@ function createCommentElement(theComment) {
     newHTML += '</div>';
 
     newHTML += '</div>';
+    newHTML += '</td>';
 
 
     newEl.innerHTML = newHTML;

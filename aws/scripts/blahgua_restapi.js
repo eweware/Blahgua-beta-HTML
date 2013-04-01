@@ -727,6 +727,17 @@ function BlahguaObject() {
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    this.GetBlahWithStats = function (BlahID, StartDate, EndDate, OnSuccess, OnFailure) {
+        /// <summary>Returns the current session blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the blah object</returns>
+        var paramStr = '';
+        var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+
 
 
 
