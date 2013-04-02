@@ -160,24 +160,9 @@ function BlahguaObject() {
         this.CallPageMethod("GetBlahTypes", paramStr, OnSuccess, OnFailure);
     };
 
-    this.GetProfileSchema = function (OnSuccess, OnFailure) {
-        /// <summary>Returns the profile schema object</summary>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>the profile schema object</returns>
-        var paramStr = '{}';
-        this.CallPageMethod("GetProfileSchema", paramStr, OnSuccess, OnFailure);
-    };
 
-    this.GetUserProfile = function (userID, OnSuccess, OnFailure) {
-        /// <summary>Returns the profile for the session user</summary>
-        /// <param name="userID">The id of the user, or "" for the session user</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        /// <returns>the user's profile object</returns>
-        var paramStr = '{"userID":"' + userID + '"}';
-        this.CallPageMethod("GetUserProfile", paramStr, OnSuccess, OnFailure);
-    };
+
+
 
 
    
@@ -221,15 +206,6 @@ function BlahguaObject() {
         this.CallPageMethod("AddCommentViewsOpens", paramStr, OnSuccess, OnFailure);
     };
 
-    this.AddBlahComment = function (commentText, commentVote, OnSuccess, OnFailure) {
-        /// <summary>Adds the specified comment to the current session blah</summary>
-        /// <param name="commentText">the text to add</param>
-        /// <param name="commentVote">The comment vote (should be 0)</param>
-        /// <param name="OnSuccess">Success callback</param>
-        /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"commentText":"' + commentText + '", "newVote":' + commentVote + '}';
-        this.CallPageMethod("AddBlahComment", paramStr, OnSuccess, OnFailure);
-    };
 
 
 
@@ -379,6 +355,56 @@ function BlahguaObject() {
 
     //  ACTUAL WORKING FUNCTIONS
 
+    this.CreateUserProfile = function (profileObj, OnSuccess, OnFailure) {
+        /// <summary>Returns the profile for the session user</summary>
+        /// <param name="userID">The id of the user, or "" for the session user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the user's profile object</returns>
+        var paramStr =  JSON.stringify(profileObj);
+        this.CallPostMethod("users/profile/info", paramStr, OnSuccess, OnFailure);
+    };
+
+    this.UpdateUserProfile = function (profileObj, OnSuccess, OnFailure) {
+        /// <summary>Returns the profile for the session user</summary>
+        /// <param name="userID">The id of the user, or "" for the session user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the user's profile object</returns>
+        var paramStr =  JSON.stringify(profileObj);
+        this.CallPutMethod("users/profile/info", paramStr, OnSuccess, OnFailure);
+    };
+
+    this.GetUserProfile = function (userID, OnSuccess, OnFailure) {
+        /// <summary>Returns the profile for the session user</summary>
+        /// <param name="userID">The id of the user, or "" for the session user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the user's profile object</returns>
+        var paramStr = '{}';
+        this.CallGetMethod("users/profile/info", paramStr, OnSuccess, OnFailure);
+    };
+
+    this.GetProfileSchema = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the profile schema object</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the profile schema object</returns>
+        var paramStr = null;
+        this.CallGetMethod("users/profile/schema", paramStr, OnSuccess, OnFailure);
+    };
+
+    this.AddBlahComment = function (commentText, blahId, OnSuccess, OnFailure) {
+        /// <summary>Adds the specified comment to the current session blah</summary>
+        /// <param name="commentText">the text to add</param>
+        /// <param name="commentVote">The comment vote (should be 0)</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        var paramStr = '{"text":"' + commentText + '", "blahId":"' + blahId + '"}';
+        this.CallPostMethod("comments", paramStr, OnSuccess, OnFailure);
+    };
+
+
     this.SetUserPredictionVote = function (blahID, theVote, OnSuccess, OnFailure) {
         /// <summary>Returns the users vote on a poll, if any</summary>
         /// <param name="blahID">the ID of the blah</param>
@@ -428,7 +454,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A group object</returns>
         var paramStr = '{"i":"' + userId + '"}';
-        var methodName = "users/profiles/descriptor";
+        var methodName = "users/profile/descriptor";
         this.CallPostMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
@@ -488,9 +514,11 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         var param = new Object();
-        param["v"] = newVote;
+
+        param["commentVotes"] = newVote;
+
         var methodName = "comments/" + commentID;
-        this.CallPutMethod(methodName, param, OnSuccess, OnFailure);
+        this.CallPutMethod(methodName, JSON.stringify(param), OnSuccess, OnFailure);
     };
 
 
@@ -731,7 +759,9 @@ function BlahguaObject() {
     this.GetBlahWithStats = function (BlahID, StartDate, EndDate, OnSuccess, OnFailure) {
 
         var paramStr = '';
-        var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
+//        var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
+        var methodName = "blahs/" + BlahID  + "?stats=true";
+        var methodName = "blahs/" + BlahID  + "?stats=true";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 

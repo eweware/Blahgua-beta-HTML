@@ -922,3 +922,12 @@ a {
 .BlahStatsTable {
     min-width: 100%;
 }
+
+
+.AddCommentBtn {
+    float:right;
+}
+.CommentTextArea {
+    width:100%;
+    min-height:2em;
+}
