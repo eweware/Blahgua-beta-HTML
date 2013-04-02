@@ -5,6 +5,9 @@
 </head>
 <body>
 <div id="UserChannelDiv" class="UserChannelDiv">
+    <div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
+
+    </div>
     <h2>Account</h2>
     <button class="profile-close-btn" onclick="ClosePage(); return false;">Close</button>
         <label for="userName">Username:</label>
@@ -24,9 +27,17 @@
     <label for="ZipcodeInput">Zipcode:</label>
     <input id="ZipcodeInput" type="text">
     <label for="CountryInput">Country:</label>
-    <input id="CountryInput" type="text">
+    <select id="CountryInput">  </select>
     <hr>
     <h2>Demographics</h2>
+    <label for="DOBInput">Date of Birth:</label>
+    <input id="DOBInput" type="date">
+    <label for="GenderInput">Gender:</label>
+    <select id="GenderInput">  </select>
+    <label for="EthnicityInput">Ethnicity:</label>
+    <select id="EthnicityInput">  </select>
+    <label for="IncomeInput">Income:</label>
+    <select id="IncomeInput">  </select>
     <hr>
     <h2>Permissions</h2>
         <p>Nickname
@@ -78,7 +89,10 @@
         </p>
     <hr>
     <h2>Badges</h2>
-    <button onclick="AddBadge(); return false;"">Add Badge</button>
+    <h3>Current Badeges</h3>
+    <div id="BadgesDiv"></div>
+    <button onclick="ShowBadgeSelection(); return false;">Get More Badges</button>
+    <div id="BadgeAuthorityArea"></div>
     <hr>
     <button onclick="UpdateUserProfile(); return false;" >Update</button>
     <button onclick="LogoutUser(); return false;">Logout</button><br/>

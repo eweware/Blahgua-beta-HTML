@@ -944,7 +944,7 @@ function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
     var headlineText = document.getElementById("BlahFullHeadline");
     headlineText.innerHTML = unescape(CurrentBlah.text);
-    var nickNameStr =  getSafeProperty(CurrentBlah, "nickname", "a blahger");
+    var nickNameStr =  getSafeProperty(CurrentBlah, "K", "a blahger");
     var blahTypeStr =  GetBlahTypeStr();
     var isOwnBlah;
 
@@ -968,7 +968,7 @@ function UpdateFullBlahBody(newBlah) {
 
     // update the badges & date
     Blahgua.getUserDescriptorString(CurrentBlah.authorId, function(theString) {
-        $("#FullBlahProfileString").text(theString);
+        $("#FullBlahProfileString").text(theString.d);
     }, function (theErr) {
         $("#FullBlahProfileString").text("an anonymous blahger");
     })
@@ -1234,7 +1234,7 @@ function PopulateBlahPreview(whichBlah) {
 function UpdateBodyText(theFullBlah) {
     CurrentBlah = theFullBlah;
     var headlineText = document.getElementById("BlahPreviewHeadline");
-    var nickNameStr =  getSafeProperty(theFullBlah, "nickname", "a blahger");
+    var nickNameStr =  getSafeProperty(theFullBlah, "K", "a blahger");
     var blahTypeStr =  GetBlahTypeStr();
     var isOwnBlah;
 
@@ -2181,7 +2181,7 @@ function createCommentElement(index, theComment) {
     var blahgerName = "a blahger";
 
     if (theComment.hasOwnProperty("K")) {
-        blahgerName = theComment.nickname;
+        blahgerName = theComment.K;
     }
 
     var isOwnComment = false;
@@ -2570,16 +2570,52 @@ function OnGetOwnProfileOK(theStats) {
     UserProfile = theStats;
     $("#NicknameInput").val(getSafeProperty(theStats, "n", ""));
     Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
-        $("#DescriptionDiv").text(theString);
+        $("#DescriptionDiv").text(theString.d);
     });
 
     // location
     $("#CityInput").val(getSafeProperty(theStats, "cy", ""));
     $("#StateInput").val(getSafeProperty(theStats, "s", ""));
     $("#ZipcodeInput").val(getSafeProperty(theStats, "z", ""));
-    $("#CountryInput").val(getSafeProperty(theStats, "c", ""));
+
+    // populate country codes
+    var newEl;
+    $.each(ProfileSchema.c.DT, function(index, item){
+            newEl = document.createElement("option");
+            newEl.value = index;
+            newEl.innerHTML = item;
+            if (index == getSafeProperty(theStats, "c", -1))
+                newEl.selected = "selected";
+            $("#CountryInput").append(newEl);
+    });
 
     // demographics
+    $("#DOBInput").val(getSafeProperty(theStats, "d", ""));
+
+    $.each(ProfileSchema.g.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "g", -1))
+            newEl.selected = "selected";
+        $("#GenderInput").append(newEl);
+    });
+    $.each(ProfileSchema.r.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "r", -1))
+            newEl.selected = "selected";
+        $("#EthnicityInput").append(newEl);
+    });
+    $.each(ProfileSchema.i.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "i", -1))
+            newEl.selected = "selected";
+        $("#IncomeInput").append(newEl);
+    });
 
     // permissions
     $('input[name=nickname]').val([getSafeProperty(theStats, "np", 0)]);
@@ -2594,7 +2630,55 @@ function OnGetOwnProfileOK(theStats) {
     $('input[name=gender]').val([getSafeProperty(theStats, "gp", 0)]);
     $('input[name=race]').val([getSafeProperty(theStats, "rp", 0)]);
 
+    // badges
+    UpdateBadgeArea();
 
+}
+
+function ShowBadgeSelection() {
+    Blahgua.getAuthorities(function (authList) {
+        var newHTML = "<table><tbody>";
+        $.each(authList, function(index, curAuth) {
+            newHTML += CreateBadgeAuthHTML(curAuth);
+        });
+        newHTML += "</tbody></table>";
+        $("#BadgeAuthorityArea").html(newHTML);
+    }, OnFailure);
+}
+
+function CreateBadgeAuthHTML(theAuth) {
+    var newHTML = "<tr>";
+    newHTML += "<td><span>" + theAuth.N + "</span></td>";
+    newHTML += "<td><span>" + theAuth.D + "</span></td>";
+    newHTML += "<td><button onclick='DoAddBadge(\"" + theAuth._id + "\"); return false;'>Add</button></td>";
+    newHTML += "</tr>";
+
+    return newHTML;
+}
+
+function UpdateBadgeArea() {
+    if (CurrentUser.hasOwnProperty("B")) {
+        // add badges
+        var newHTML = "";
+        $.each(CurrentUser.B, function(index, curBadge) {
+            newHTML += "<div>";
+            newHTML += curBadge.toString();
+            newHTML += "</div>";
+        });
+        $("#BadgesDiv").html(newHTML);
+    } else {
+        $("#BadgesDiv").text("You don't have no stinkin' badges!");
+    }
+}
+
+function DoAddBadge(badgeID) {
+    Blahgua.createBadgeForUser(badgeID, null, function(data) {
+        $("#BadgeOverlay").html(data).fadeIn();
+
+    }, function(data) {
+        $("#BadgeOverlay").html(data.responseText).fadeIn();
+
+    });
 }
 
 function UpdateUserProfile() {
@@ -2607,26 +2691,26 @@ function UpdateUserProfile() {
     UserProfile["c"] = $("#CountryInput").val();
 
     // demographics
-    UserProfile["d"] = -1;
-    UserProfile["i"] = -1;
-    UserProfile["g"] = -1;
-    UserProfile["r"] = -1;
+    UserProfile["d"] = $("#DOBInput").val();
+    UserProfile["i"] = $("#IncomeInput").val();
+    UserProfile["g"] = $("#GenderInput").val();
+    UserProfile["r"] = $("#EthnicityInput").val();
 
     // permissions
-    UserProfile["np"] = $('input:radio[name=nickname]:checked').val();
-    UserProfile["cyp"] = $('input:radio[name=city]:checked').val();
-    UserProfile["sp"] = $('input:radio[name=state]:checked').val();
-    UserProfile["zp"] = $('input:radio[name=zipcode]:checked').val();
-    UserProfile["cp"] = $('input:radio[name=country]:checked').val();
-    UserProfile["dp"] = $('input:radio[name=age]:checked').val();
-    UserProfile["ip"] = $('input:radio[name=income]:checked').val();
-    UserProfile["gp"] = $('input:radio[name=gender]:checked').val();
-    UserProfile["rp"] = $('input:radio[name=race]:checked').val();
+    UserProfile["np"] = Number($('input:radio[name=nickname]:checked').val());
+    UserProfile["cyp"] = Number($('input:radio[name=city]:checked').val());
+    UserProfile["sp"] = Number($('input:radio[name=state]:checked').val());
+    UserProfile["zp"] = Number($('input:radio[name=zipcode]:checked').val());
+    UserProfile["cp"] = Number($('input:radio[name=country]:checked').val());
+    UserProfile["dp"] = Number($('input:radio[name=age]:checked').val());
+    UserProfile["ip"] = Number($('input:radio[name=income]:checked').val());
+    UserProfile["gp"] = Number($('input:radio[name=gender]:checked').val());
+    UserProfile["rp"] = Number($('input:radio[name=race]:checked').val());
 
     // commit
     Blahgua.UpdateUserProfile(UserProfile, function(theBlah) {
         Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
-            $("#DescriptionDiv").text(theString);
+            $("#DescriptionDiv").text(theString.d);
         }, function(theErr) {
             $("#DescriptionDiv").text("a blahger");
         });
@@ -3256,5 +3340,8 @@ function CreateDemoData(whichDemo) {
 
     return curResult;
 }
+
+// badges
+
 
 

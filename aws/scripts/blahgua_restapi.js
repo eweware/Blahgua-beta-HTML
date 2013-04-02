@@ -355,6 +355,29 @@ function BlahguaObject() {
 
     //  ACTUAL WORKING FUNCTIONS
 
+    this.getAuthorities = function (OnSuccess, OnFailure) {
+        var paramStr =  "{}";
+        this.CallGetMethod("badges/authorities", paramStr, OnSuccess, OnFailure);
+
+    }
+
+    this.createBadgeForUser = function (authId, badgeId, OnSuccess, OnFailure) {
+        var param = new Object();
+        param["i"] = authId;
+        if (badgeId != null)
+            param["t"] = badgeId;
+        var paramStr = JSON.stringify(param);
+        this.CallPostMethod("badges", paramStr, OnSuccess, OnFailure);
+
+    }
+
+    this.getBadgeById = function (badgeId, OnSuccess, OnFailure) {
+        var paramStr =  "{}";
+        this.CallGetMethod("badges/authorities", paramStr, OnSuccess, OnFailure);
+
+    }
+
+
     this.CreateUserProfile = function (profileObj, OnSuccess, OnFailure) {
         /// <summary>Returns the profile for the session user</summary>
         /// <param name="userID">The id of the user, or "" for the session user</param>
@@ -454,7 +477,7 @@ function BlahguaObject() {
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A group object</returns>
         var paramStr = '{"i":"' + userId + '"}';
-        var methodName = "users/profile/descriptor";
+        var methodName = "users/descriptor";
         this.CallPostMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 

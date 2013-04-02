@@ -931,3 +931,16 @@ a {
     width:100%;
     min-height:2em;
 }
+
+.BadgeOverlay {
+    background-color: white;
+    position:absolute;
+    width:90%;
+    height:90%;
+    max-width: 512px;
+    min-height: 384px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #000000;
+    z-index: 25;
+}
