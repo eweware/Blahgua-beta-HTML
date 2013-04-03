@@ -212,6 +212,7 @@
     overflow-y: scroll;
     border-spacing:0px;
     border:0px;
+    margin-top:-2px;
 }
 
 
@@ -258,11 +259,15 @@
 
 .FullBlahTableFooter {
     background-color: #d3d3d3;
-    border-spacing:0px;
-    border-collapse: collapse;
+   
+    overflow-x:hidden;
+    overflow-y:hidden;
+    position:absolute;
+    bottom:0px;
+    height:70px;
     width:100%;
-    position: fixed;
-   bottom:0px;
+
+  
 }
 
 .BlahFullHeader1 {
@@ -1002,4 +1007,18 @@ a {
     margin-left: 16px;
     text-align: right;
     margin-right: 16px;
+}
+
+.detailpageheader
+{
+	height:auto;
+	overflow-x:hidden;
+	overflow-y:auto;
+    border-spacing:0px;
+    border-collapse: collapse;
+    border:0px;
+}
+.BlahRowVote
+{
+	height:70px;
 }
