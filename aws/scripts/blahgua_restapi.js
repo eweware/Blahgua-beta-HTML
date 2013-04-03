@@ -373,7 +373,7 @@ function BlahguaObject() {
 
     this.getBadgeById = function (badgeId, OnSuccess, OnFailure) {
         var paramStr =  "{}";
-        this.CallGetMethod("badges/authorities", paramStr, OnSuccess, OnFailure);
+        this.CallGetMethod("badges/" + badgeId, paramStr, OnSuccess, OnFailure);
 
     }
 

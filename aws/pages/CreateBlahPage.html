@@ -6,10 +6,10 @@
         		<td class="createblahheadlinephotoframe">
         			<div class="createblahheadlinephoto"></div></td>
                 <td class="BlahgerNickName">A blahger</td>
-        	    <td class="createblahheadlineoptionframe">
-        	    	 <select id="BlahTypeList"  class="createblahheadlineoption"></select>
-        	    </td>        	    	
-        	    </tr>
+                <td class="createblahheadlineoptionframe">
+                    <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
+                </td>
+            </tr>
         </table>
     <div class="createblahscroll" id="scroll">         
         <table class="createblahscrolltable">
@@ -21,7 +21,7 @@
            </tr>
 
            <tr>
-            <td colspan="2" class="inputbodyframe" ><span id="BlahBody"  onfocus="DoCreateBlahBodyFocus(); return false;" contenteditable="true">
+            <td colspan="2" class="inputbodyframe" ><span id="BlahBody" contenteditable="true">
                 you can also enter some body text (optional)
              </span></td>
            </tr>  
@@ -31,7 +31,7 @@
           </td>
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-            <input id="BlahImage" name="file" type="file" class="uploadimagebutton">
+            <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton">
                 <div style="display:none">
                 <input type="text" name="objectType" hidden="true" value="B"/>
                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -41,8 +41,8 @@
         </td>
         </tr>
        <tr>
-         <td>             
-          <div colspan="2" id="AdditionalInfoDiv"  class="createblahadditional">
+         <td  colspan="2" >
+          <div id="AdditionalInfoDiv"  class="createblahadditional">
               &nbsp;
           </div>
         </td>

@@ -103,7 +103,9 @@ $(document).ready(function () {
         $("#ChannelDropMenu").hide();
         UnfocusBlah();
     });
-    if ((window.location.hostname == "") || (window.location.hostname == "localhost"))  {
+    if ((window.location.hostname == "") || 
+    	(window.location.hostname == "localhost") ||
+    	(window.location.hostname == "127.0.0.1"))  {
         // running local
         fragmentURL = "./aws";
        }
@@ -2659,27 +2661,63 @@ function CreateBadgeAuthHTML(theAuth) {
 function UpdateBadgeArea() {
     if (CurrentUser.hasOwnProperty("B")) {
         // add badges
-        var newHTML = "";
+        $("#BadgesDiv").empty();
         $.each(CurrentUser.B, function(index, curBadge) {
-            newHTML += "<div>";
-            newHTML += curBadge.toString();
-            newHTML += "</div>";
+            CreateAndAppendBadgeHTML(curBadge);
         });
-        $("#BadgesDiv").html(newHTML);
     } else {
         $("#BadgesDiv").text("You don't have no stinkin' badges!");
     }
 }
 
+function CreateAndAppendBadgeHTML(theBadge) {
+    Blahgua.getBadgeById(theBadge, function(fullBadge) {
+        var newHTML = "";
+        var imagePath = "http://blahgua-webapp.s3.amazonaws.com/img/generic-badge.png";
+        newHTML += "<div class='badgeholder'>";
+        newHTML += "<div class='badgename'>";
+        if (fullBadge.hasOwnProperty("K")) {
+            imagePath = fullBadge.K;
+        }
+        newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
+        newHTML += fullBadge.N + "</div>";
+        newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>"
+        newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString()  + "</div>"
+        newHTML += "</div>";
+        $("#BadgesDiv").append(newHTML);
+    }, function (theErr) {
+        var newHTML = "";
+        newHTML += "<div>Error loading Badge id=" + theBadge + "</div>";
+        $("#BadgesDiv").append(newHTML);
+    });
+}
+
 function DoAddBadge(badgeID) {
     Blahgua.createBadgeForUser(badgeID, null, function(data) {
-        $("#BadgeOverlay").html(data).fadeIn();
+        var dialogHTML = data;
+    	var windowWidth = $(window).width();
+    	var offset = (windowWidth - 512) / 2;
+        if (offset < 0)
+            offset = 0;
+        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
+        $(".BadgeTitleBar").text(badgeID);
+        $("#badgedialog").html(dialogHTML);
+        $("#BadgeOverlay").fadeIn();
 
     }, function(data) {
-        $("#BadgeOverlay").html(data.responseText).fadeIn();
+        var dialogHTML = data.responseText;
+        var windowWidth = $(window).width();
+        var offset = (windowWidth - 512) / 2;
+        if (offset < 0)
+            offset = 0;
+        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
+        $(".BadgeTitleBar").text("talkikng to " + badgeID);
+        $("#badgedialog").html(dialogHTML);
+        $("#BadgeOverlay").fadeIn();
 
     });
 }
+
 
 function UpdateUserProfile() {
     UserProfile["n"] = $("#NicknameInput").val();
@@ -2985,6 +3023,14 @@ function UpdateBlahInfoArea() {
         default:
             $("#AdditionalInfoDiv").text("A normalish blah that needs no extra info");
     }
+}
+
+function HandleFilePreview() {
+    var theFile = $("#BlahImage").val();
+    if (theFile != "") {
+        $(".uploadimage").css({"background-image": theFile});
+    }
+
 }
 
 function UpdateAskAuthorPage() {

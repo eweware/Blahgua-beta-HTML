@@ -6,7 +6,21 @@
 <body>
 <div id="UserChannelDiv" class="UserChannelDiv">
     <div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
+        <script type="text/javascript">
+            function BadgeDialogOK(msg) {
+                alert("Everythng is OK");
+            }
 
+            function BadgeDialogFail(msg) {
+                alert("You didn't get a badge.  Soz.");
+            }
+
+            function BadgeDialogCancel(msg) {
+                alert("User Canceled.");
+            }
+        </script>
+        <div class="BadgeTitleBar"></div>
+    <div id="badgedialog" class="BadgeDialog"></div>
     </div>
     <h2>Account</h2>
     <button class="profile-close-btn" onclick="ClosePage(); return false;">Close</button>
@@ -40,6 +54,12 @@
     <select id="IncomeInput">  </select>
     <hr>
     <h2>Permissions</h2>
+    <p><h3>All</h3>
+        <input type="radio" name="nickname" value="0">private
+        <input type="radio" name="nickname" value="1">members
+        <input type="radio" name="nickname" value="2">public
+    </p>
+
         <p>Nickname
             <input type="radio" name="nickname" value="0">private
             <input type="radio" name="nickname" value="1">members
@@ -89,7 +109,7 @@
         </p>
     <hr>
     <h2>Badges</h2>
-    <h3>Current Badeges</h3>
+    <h3>Current Badges</h3>
     <div id="BadgesDiv"></div>
     <button onclick="ShowBadgeSelection(); return false;">Get More Badges</button>
     <div id="BadgeAuthorityArea"></div>
