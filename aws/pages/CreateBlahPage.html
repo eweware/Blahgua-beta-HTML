@@ -6,20 +6,24 @@
         		<td class="createblahheadlinephotoframe">
         			<div class="createblahheadlinephoto"></div></td>
                 <td class="BlahgerNickName">A blahger</td>
-        	    <td class="createblahheadlineoptionframe">
-        	    	 <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
-        	    </td>        	    	
-        	    </tr>
+                <td class="createblahheadlineoptionframe">
+                    <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
+                </td>
+            </tr>
         </table>
     <div class="createblahscroll" id="scroll">         
         <table class="createblahscrolltable">
           <tr class="tr100">
-         <td colspan="2" class="inputheadlineframe" contenteditable="true"></td></tr>
-       
-           <tr>
-            <td  colspan="2" class="inputbodyframe" contenteditable="true">
+            <td colspan="2" class="inputheadlineframe" ><div id="BlahHeadline" contenteditable="true">
+              enter a catchy headline
+            </div></td>
 
-             </td> 
+           </tr>
+
+           <tr>
+            <td colspan="2" class="inputbodyframe" ><span id="BlahBody" contenteditable="true">
+                you can also enter some body text (optional)
+             </span></td>
            </tr>  
           <tr>            
           <td>
@@ -27,7 +31,7 @@
           </td>
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-            <input id="BlahImage" name="file" type="file" class="uploadimagebutton">
+            <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton">
                 <div style="display:none">
                 <input type="text" name="objectType" hidden="true" value="B"/>
                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -36,30 +40,27 @@
         </form>
         </td>
         </tr>
-        <tr class="tr100">
-          <td>
-            <hr width="500px">
-          </td>
-       </tr>
        <tr>
-         <td>             
-          <div id="AdditionalInfoDiv"  class="createblahadditional"></div>
+         <td  colspan="2" >
+          <div id="AdditionalInfoDiv"  class="createblahadditional">
+              &nbsp;
+          </div>
         </td>
       </tr>
     </table>
   </div>
-      
 
-    
-    <table class="creatblahfooter"> 
+
+
+<table class="creatblahfooter">
     <tr>
-    <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="creatblahbutton">Cancel</button></td>
-   
-    <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">Create</button></td>
+        <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="creatblahbutton">Cancel</button></td>
+
+        <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">Create</button></td>
     </tr>
-    </table>
-    
-   
+</table>
+
+
 
 </div>
 </body>

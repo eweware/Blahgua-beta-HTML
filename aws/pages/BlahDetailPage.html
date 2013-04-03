@@ -4,16 +4,16 @@
 <body>
 <div id="FullBlahDiv">
 
-
-    <table width="100%" class="BlahFullTable">
-    <tr class="BlahFullHeader">
-    	<td style="height:40px;width:45px"><div style="width:30px;height:30px;background:lightgrey;border:5px solid #FA3987"></div></td>
-        <td><span class="fullBlahgerName" id="FullBlahNickName"></span></td>
-        <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
-            <span class="FullBlahViewerCount" id="FullBlahViewerCount"></span></td>
-    <td align="right" width="30px"><span class="CloseBlahBtn" onclick="DoCloseBlah(); return false">X</span></td></tr>
-     <tr><td colspan="4" class="BlahFullHeadline" id="BlahFullHeadline" ></td></tr>
+    <table width="100%" class="BlahFullHeader" id="FullBlahHeader">
+        <tr >
+            <td><span class="fullBlahgerName" id="FullBlahNickName">A blahger says:</span></td>
+            <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+                <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td>
+            <td align="right"><span class="CloseBlahBtn" onclick="DoCloseBlah(); return false">X</span></td>
+        </tr>
+        <tr><td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" ></td></tr>
     </table>
+
     
     	
     <table width="100%" class="BlahFullTable" style="overflow-x:hidden;overflow-y:scroll;">
@@ -69,6 +69,11 @@
             </td>
           </tr>
    </table>
+
+    <div id="BlahPageDiv">
+
+    </div>
+
 </div>
 </body>
 </html>

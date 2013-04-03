@@ -5,21 +5,116 @@
 </head>
 <body>
 <div id="UserChannelDiv" class="UserChannelDiv">
+    <div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
+        <script type="text/javascript">
+            function BadgeDialogOK(msg) {
+                alert("Everythng is OK");
+            }
+
+            function BadgeDialogFail(msg) {
+                alert("You didn't get a badge.  Soz.");
+            }
+
+            function BadgeDialogCancel(msg) {
+                alert("User Canceled.");
+            }
+        </script>
+        <div class="BadgeTitleBar"></div>
+    <div id="badgedialog" class="BadgeDialog"></div>
+    </div>
     <h2>Account</h2>
     <button class="profile-close-btn" onclick="ClosePage(); return false;">Close</button>
         <label for="userName">Username:</label>
         <input disabled="true" id="userName"  type="text">
+        <br/>
+        <label for="NicknameInput">Nickname:</label>
+        <input id="NicknameInput"  type="text">
+        <br/>
+        <label for="DescriptionDiv">Description</label>
+        <p id="DescriptionDiv"></p>
+    <hr>
+    <h2>Location</h2>
+    <label for="CityInput">City:</label>
+    <input id="CityInput" type="text">
+    <label for="StateInput">State:</label>
+    <input id="StateInput" type="text">
+    <label for="ZipcodeInput">Zipcode:</label>
+    <input id="ZipcodeInput" type="text">
+    <label for="CountryInput">Country:</label>
+    <select id="CountryInput">  </select>
+    <hr>
+    <h2>Demographics</h2>
+    <label for="DOBInput">Date of Birth:</label>
+    <input id="DOBInput" type="date">
+    <label for="GenderInput">Gender:</label>
+    <select id="GenderInput">  </select>
+    <label for="EthnicityInput">Ethnicity:</label>
+    <select id="EthnicityInput">  </select>
+    <label for="IncomeInput">Income:</label>
+    <select id="IncomeInput">  </select>
+    <hr>
+    <h2>Permissions</h2>
+    <p><h3>All</h3>
+        <input type="radio" name="nickname" value="0">private
+        <input type="radio" name="nickname" value="1">members
+        <input type="radio" name="nickname" value="2">public
+    </p>
 
-        <label for="nickname">Nickname:</label>
-        <input id="nickname"  type="text">
+        <p>Nickname
+            <input type="radio" name="nickname" value="0">private
+            <input type="radio" name="nickname" value="1">members
+            <input type="radio" name="nickname" value="2">public
+        </p>
 
-        <label for="description">Description</label>
-        <textarea id="description" disabled="true">A white male Blahger from Santa Monica, CA</textarea>
+        <p>City
+        <input type="radio" name="city" value="0">private
+        <input type="radio" name="city" value="1">members
+        <input type="radio" name="city" value="2">public
+        </p>
+
+        <p>State
+        <input type="radio" name="state" value="0">private
+        <input type="radio" name="state" value="1">members
+        <input type="radio" name="state" value="2">public
+        </p>
+        <p>Zipcode
+        <input type="radio" name="zipcode" value="0">private
+        <input type="radio" name="zipcode" value="1">members
+        <input type="radio" name="zipcode" value="2">public
+        </p>
+        <p>Country
+        <input type="radio" name="country" value="0">private
+        <input type="radio" name="country" value="1">members
+        <input type="radio" name="country" value="2">public
+        </p>
+        <p>Age
+        <input type="radio" name="age" value="0">private
+        <input type="radio" name="age" value="1">members
+        <input type="radio" name="age" value="2">public
+        </p>
+        <p>Gender
+        <input type="radio" name="gender" value="0">private
+        <input type="radio" name="gender" value="1">members
+        <input type="radio" name="gender" value="2">public
+        </p>
+        <p>Income
+        <input type="radio" name="income" value="0">private
+        <input type="radio" name="income" value="1">members
+        <input type="radio" name="income" value="2">public
+        </p>
+        <p>Ethnicity
+        <input type="radio" name="race" value="0">private
+        <input type="radio" name="race" value="1">members
+        <input type="radio" name="race" value="2">public
+        </p>
     <hr>
     <h2>Badges</h2>
-    <button onclick="AddBadge(); return false;"">Add Badge</button>
+    <h3>Current Badges</h3>
+    <div id="BadgesDiv"></div>
+    <button onclick="ShowBadgeSelection(); return false;">Get More Badges</button>
+    <div id="BadgeAuthorityArea"></div>
     <hr>
-    <button disabled="true" >Update</button>
+    <button onclick="UpdateUserProfile(); return false;" >Update</button>
     <button onclick="LogoutUser(); return false;">Logout</button><br/>
     <button onclick="ForgetUser(); return false;">Forget Me on this machine</button>
 

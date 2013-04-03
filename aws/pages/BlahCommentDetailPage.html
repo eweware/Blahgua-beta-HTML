@@ -6,12 +6,29 @@
 </head>
 <body>
 <div id="FullBlahCommentDiv">
-
-    <table class="FullBlahTable">
+    <div id="CreateCommentArea">
+        <table>
+            <tbody>
+            <tr >
+                <td >
+                    <textarea class="CommentTextArea" id="CommentTextArea"></textarea>
+                </td>
+            </tr>
+            <tr><td><button class="AddCommentBtn" onclick="DoAddComment(); return false;">Add Comment</button></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="SignInToCommentArea">
+        <table>
+            <tbody>
+            <tr >
+                <td><button onclick="SignInToComment(); return false;">Sign in to comment</button> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <table id="BlahCommentTable" class="FullBlahTable">
         <tr><td>Comments!</td></tr>
-
-
-        <tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>
 
     </table>
 </div>

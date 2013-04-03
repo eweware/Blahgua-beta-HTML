@@ -260,9 +260,9 @@
     background-color: #d3d3d3;
     border-spacing:0px;
     border-collapse: collapse;
-    width:512px;
-    position:fixed;
-    bottom:0px;
+    width:100%;
+    position: fixed;
+   bottom:0px;
 }
 
 .BlahFullHeader1 {
@@ -528,7 +528,7 @@ a {
 }
 
 .PollChartDiv {
-    text-align:middle;
+    text-align: center ;
     background-color:red;
     height:1em
 }
@@ -864,15 +864,14 @@ a {
 }
 .uploadimage
 {
-	width:40px;
-	height:40px;
+	width:64px;
+	height:64px;
 	background:grey;
 
 }
 .uploadimagebutton
 {
 	position:relative;
-	left:-200px;
 	width:200px;
 	height:20px;
 }
@@ -922,4 +921,85 @@ a {
 .BlahgerNickName {
     font-family:'Oswald', sans-serif;
     font-size:20pt;
+}
+
+.BlahStatsTable {
+    min-width: 100%;
+}
+
+
+.AddCommentBtn {
+    float:right;
+}
+.CommentTextArea {
+    width:100%;
+    min-height:2em;
+}
+
+.BadgeOverlay {
+    background-color: white;
+    position:fixed;
+    top: 32px;
+    left: 0px;
+    right: 0px;
+    max-width: 512px;
+    max-height: 384px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #000000;
+    z-index: 25;
+}
+
+.BadgeDialog {
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+
+.BadgeTitleBar {
+    width: 100%;
+    text-align: center;
+    background-color: lightblue;
+    font-size: 18pt;
+    font-family: 'Oswald', sans-serif;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.badgeholder {
+    font-family: 'Archivo Narrow', sans-serif;
+    border-top-style: solid;
+    border-top-width: 1px;
+    padding: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    background-color: #d3d3d3;
+}
+
+.badgename {
+    font-size: 28px;
+    font-family: 'Archivo Narrow', sans-serif;
+}
+
+.badgeimage {
+    width:32px;
+    height:32px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.badgesource {
+    font-size: 12pt;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.badgeexp {
+    font-size: 9pt;
+    font-style: italic;
+    color: gray;
+    margin-left: 16px;
+    text-align: right;
+    margin-right: 16px;
 }

@@ -40,6 +40,8 @@ var minRows1 = 3;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 var windowline1 = 430;
 var windowline2 = 500;
+var ProfileSchema = null;
+var UserProfile = null;
 
 
 (function ($) {
@@ -101,7 +103,9 @@ $(document).ready(function () {
         $("#ChannelDropMenu").hide();
         UnfocusBlah();
     });
-    if ((window.location.hostname == "") || (window.location.hostname == "localhost"))  {
+    if ((window.location.hostname == "") || 
+    	(window.location.hostname == "localhost") ||
+    	(window.location.hostname == "127.0.0.1"))  {
         // running local
         fragmentURL = "./aws";
        }
@@ -126,6 +130,9 @@ function SignIn() {
         // sign in
         Blahgua.loginUser(savedID, pwd, function () {
             IsUserLoggedIn = true;
+            Blahgua.GetProfileSchema(function(theSchema) {
+                ProfileSchema = theSchema.fieldNameToSpecMap;
+            }, OnFailure) ;
             Blahgua.getUserInfo(function (json) {
                 CurrentUser = json;
                 finalizeInitialLoad();
@@ -561,115 +568,93 @@ function OpenBlah(whichBlah) {
     $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
         var windowHeight = $(window).height();
         PopulateFullBlah(whichBlah);
-        BlahFullItem.curPage = "Overview";
         $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast", function() {
             var windowWidth = $(window).width();
-            var delta = Math.round((widthWidth - 512) / 2);
+            var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
-
-            //$(".createblahscrolltable").css({'left': delta, 'right':delta});
-
-           
+            SetBlahDetailPage("Overview");
         });
         $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
         $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
-
-
 }
 
-function HandleBlahSwipeLeft() {
-    switch (BlahFullItem.curPage) {
+function SetBlahDetailPage(whichPage) {
+
+    switch (whichPage) {
         case "Overview":
-            GoToBlahComments();
+            BlahFullItem.curPage = "Overview";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                UpdateBlahOverview();
+            });
             break;
         case "Comments":
-            GoToBlahStats();
+            BlahFullItem.curPage = "Comments";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                UpdateBlahComments();
+            });
             break;
         case "Stats":
-            GoToBlahUser();
+            BlahFullItem.curPage = "Stats";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                UpdateBlahStats();
+            });
             break;
-        case "User":
-            GoToBlahOverview();
+        case "Author":
+            BlahFullItem.curPage = "Author";
+            $("#BlahPageDiv").load(fragmentURL + "/pages/BlahAuthorPage.html #FullBlahAuthorDiv", function() {
+                UpdateBlahAuthor();
+            });
             break;
     }
 }
 
-function HandleBlahSwipeRight() {
+function HandleBlahSwipeLeft(theEvent) {
     switch (BlahFullItem.curPage) {
         case "Overview":
-            GoToBlahUser();
+            SetBlahDetailPage("Comments");
             break;
         case "Comments":
-            GoToBlahOverview();
+            SetBlahDetailPage("Stats");
             break;
         case "Stats":
-            GoToBlahComments();
+            SetBlahDetailPage("Author");
             break;
-        case "User":
-            GoToBlahStats();
+        case "Author":
+            SetBlahDetailPage("Overview");
             break;
     }
-}
-
-function GoToBlahOverview() {
-
-}
-
-function GoToBlahComments() {
+    if (theEvent != null)
+        theEvent.stopPropagation();
+    return false;
 
 }
 
-
-function GoToBlahStats() {
-
-}
-
-
-function GoToBlahUser() {
-
-}
-
-
-
-
-function PopulateFullBlah(whichBlah) {
-    // get the entire blah to update the rest...
-    if (CurrentBlah == null) {
-        Blahgua.GetBlah(whichBlah.blahId, UpdateFullBlahBody, OnFailure);
-    } else {
-        UpdateFullBlahBody(CurrentBlah);
+function HandleBlahSwipeRight(theEvent) {
+    switch (BlahFullItem.curPage) {
+        case "Overview":
+            SetBlahDetailPage("Author");
+            break;
+        case "Comments":
+            SetBlahDetailPage("Overview");
+            break;
+        case "Stats":
+            SetBlahDetailPage("Comments");
+            break;
+        case "Author":
+            SetBlahDetailPage("Stats");
+            break;
     }
+    if (theEvent != null)
+        theEvent.stopPropagation();
+    return false;
 }
 
-
-function getSafeProperty(obj, prop, defVal) {
-    if(obj.hasOwnProperty(prop)) {
-        return obj[prop];
-    } else {
-        return defVal;
-    }
-}
-
-function GetBlahTypeStr() {
-    var type = CurrentBlah.typeId;
-    for (curType in BlahTypeList) {
-        if (BlahTypeList[curType]._id == type) {
-            return BlahTypeList[curType].name;
-        }
-    }
-
-    return "";
-}
-
-function UpdateFullBlahBody(newBlah) {
-    CurrentBlah = newBlah;
-    var headlineText = document.getElementById("BlahFullHeadline");
-    headlineText.innerHTML = unescape(CurrentBlah.text);
-    var nickNameStr =  getSafeProperty(CurrentBlah, "nickname", "a blahger");
-    var blahTypeStr =  GetBlahTypeStr();
+function UpdateBlahOverview() {
+// reformat the promote area if the user has already voted
+    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
     var isOwnBlah;
 
 
@@ -679,16 +664,6 @@ function UpdateFullBlahBody(newBlah) {
         isOwnBlah = false;
     }
 
-    if (isOwnBlah) {
-        nickNameStr += " (you)";
-    }
-
-    // stats
-    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
-    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
-    document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
-
-    // reformat the promote area if the user has already voted
     if (IsUserLoggedIn) {
 
         $("#BlahRowVote").show();
@@ -729,8 +704,9 @@ function UpdateFullBlahBody(newBlah) {
     }
 
 
-    var image = GetBlahImage(newBlah, "D");
+    var image = GetBlahImage(CurrentBlah, "D");
     var imageEl = document.getElementById("blahFullImage");
+    var headlineText = document.getElementById("BlahFullHeadline");
     if (image == "") {
         imageEl.style.display = "none";
         headlineText.style.fontSize = "36px";
@@ -764,26 +740,239 @@ function UpdateFullBlahBody(newBlah) {
         default:
 
     }
+}
 
-    // update the opens
-    Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
-
-
-    // update the comments
+function UpdateBlahComments() {
+// update the comments
+    $("#BlahCommentTable").empty();
     if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
         // blah has comments
         Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
     } else {
         // no comments GetBlahTypeStr()
-        var commentDiv = document.getElementById("BlahCommentBody");
         var newHTML = "";
-        newHTML += '<span class="NoCommentSpan">No Comments</span>';
-        commentDiv.innerHTML = newHTML;
+        newHTML += '<tr><td><span class="NoCommentSpan">No Comments</span></td></tr>';
+        $("#BlahCommentTable").append(newHTML);
     }
+
+    // update the input area
+    if (IsUserLoggedIn) {
+        $("#SignInToCommentArea").hide();
+        $("#CreateCommentArea").show();
+    } else {
+        $("#SignInToCommentArea").show();
+        $("#CreateCommentArea").hide();
+    }
+}
+
+
+function UpdateBlahStats() {
+    // blah popularity over time
+    $('#BlahStrengthDiv').highcharts({
+        chart: {
+            type: 'area'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Popularity'
+        },
+        yAxis: {
+            title: {
+                text: 'strength'
+            }
+        },
+        series: [{
+            data: [1, 2,3,4,5,6,7,8,9,10]
+        }]
+    });
+
+    // opens, views, comments
+    $('#ViewChartDiv').highcharts({
+        chart: {
+            type: 'line'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Views, Opens, and Comments'
+        },
+        yAxis: {
+            title: {
+                text: 'Count'
+            }
+        },
+        series: [{
+            name: 'views',
+            data: [1, 0, 4]
+        }, {
+            name: 'opens',
+            data: [5, 7, 3]
+        }, {
+            name: 'comments',
+            data: [5, 7, 3]
+        }]
+    });
+
+    // demos
+    var BlahGenderData = CreateDemoData("g");
+    var BlahRaceData = CreateDemoData("r");
+    var BlahIncomeData = CreateDemoData("i");
+    var BlahAgeData = CreateDemoData("c");
+
+
+    $('#BlahOpenChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Gender'
+        },
+        xAxis: {
+            categories: ['Open', 'Promote', 'Comment']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: BlahGenderData
+    });
+
+    // comments
+    $('#BlahCommentChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Race'
+        },
+        xAxis: {
+            categories: ['Open', 'Promote', 'Comment']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: BlahRaceData
+    });
+
+    // Promotes
+    $('#BlahPromoteChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Age'
+        },
+        credits: {
+            enabled: false
+        },
+        xAxis: {
+            categories: ['Open', 'Promote', 'Comment']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: BlahAgeData
+    });
+
+    // demotes
+    $('#BlahDemoteChartDiv').highcharts({
+        chart: {
+            type: 'bar'
+        },
+        credits: {
+            enabled: false
+        },
+        title: {
+            text: 'Income'
+        },
+        xAxis: {
+            categories: ['Open', 'Promote', 'Comment']
+        },
+        yAxis: {
+            title: {
+                text: 'count'
+            }
+        },
+        series: BlahIncomeData
+    });
+}
+
+
+function UpdateBlahAuthor() {
+
+}
+
+
+
+
+function PopulateFullBlah(whichBlah) {
+    // get the entire blah to update the rest...
+    Blahgua.GetBlahWithStats(whichBlah.blahId, "130101", "130331", UpdateFullBlahBody, OnFailure);
+}
+
+
+function getSafeProperty(obj, prop, defVal) {
+    if(obj.hasOwnProperty(prop)) {
+        return obj[prop];
+    } else {
+        return defVal;
+    }
+}
+
+function GetBlahTypeStr() {
+    var type = CurrentBlah.typeId;
+    for (curType in BlahTypeList) {
+        if (BlahTypeList[curType]._id == type) {
+            return BlahTypeList[curType].name;
+        }
+    }
+
+    return "";
+}
+
+function UpdateFullBlahBody(newBlah) {
+    CurrentBlah = newBlah;
+    var headlineText = document.getElementById("BlahFullHeadline");
+    headlineText.innerHTML = unescape(CurrentBlah.text);
+    var nickNameStr =  getSafeProperty(CurrentBlah, "K", "a blahger");
+    var blahTypeStr =  GetBlahTypeStr();
+    var isOwnBlah;
+
+
+    if (IsUserLoggedIn) {
+        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+    } else {
+        isOwnBlah = false;
+    }
+
+    if (isOwnBlah) {
+        nickNameStr += " (you)";
+    }
+
+    // stats
+    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
+    document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
+
+    // update the opens
+    Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
     // update the badges & date
     Blahgua.getUserDescriptorString(CurrentBlah.authorId, function(theString) {
-        $("#FullBlahProfileString").text(theString);
+        $("#FullBlahProfileString").text(theString.d);
     }, function (theErr) {
         $("#FullBlahProfileString").text("an anonymous blahger");
     })
@@ -791,8 +980,6 @@ function UpdateFullBlahBody(newBlah) {
     var curDate = new Date(getSafeProperty(CurrentBlah, "created", Date.now()));
     var dateString = ElapsedTimeString(curDate);
     $("#FullBlahDateStr").text(dateString);
-
-
 }
 
 function UpdatePredictPage(predictAreaName) {
@@ -881,9 +1068,10 @@ function OnPollVoteFail(json) {
 
 function SortAndRedrawComments(theComments) {
     CurrentComments = theComments;
+    CurrentBlah["c"] = CurrentComments.length;
     SortComments();
 
-    UpdateBlahComments();
+    UpdateBlahCommentDiv();
 }
 
 function SortComments() {
@@ -947,6 +1135,9 @@ function dynamicSort(property, subProp) {
 }
 
 
+/**
+ * @return {string}
+ */
 function ElapsedTimeString(theDate) {
     var now = new Date();
     var timeSpan;
@@ -1011,12 +1202,12 @@ function ElapsedTimeString(theDate) {
 }
 
 
-function UpdateBlahComments() {
+function UpdateBlahCommentDiv() {
     var curComment;
-    var commentDiv = document.getElementById("BlahCommentBody");
+    var commentDiv = document.getElementById("BlahCommentTable");
     for (i in CurrentComments) {
         curComment = CurrentComments[i];
-        var commentEl = createCommentElement(curComment);
+        var commentEl = createCommentElement(i, curComment);
         commentDiv.appendChild(commentEl);
     }
 }
@@ -1047,7 +1238,7 @@ function PopulateBlahPreview(whichBlah) {
 function UpdateBodyText(theFullBlah) {
     CurrentBlah = theFullBlah;
     var headlineText = document.getElementById("BlahPreviewHeadline");
-    var nickNameStr =  getSafeProperty(theFullBlah, "nickname", "a blahger");
+    var nickNameStr =  getSafeProperty(theFullBlah, "K", "a blahger");
     var blahTypeStr =  GetBlahTypeStr();
     var isOwnBlah;
 
@@ -1986,12 +2177,27 @@ function PostMe(what) {
 
 // Create comment HTML
 
-function createCommentElement(theComment) {
-    var newEl = document.createElement("li");
+function createCommentElement(index, theComment) {
+    var newEl = document.createElement("tr");
     newEl.className = "comment";
 
     var newHTML = "";
+    var blahgerName = "a blahger";
+
+    if (theComment.hasOwnProperty("K")) {
+        blahgerName = theComment.K;
+    }
+
+    var isOwnComment = false;
+    if (theComment.authorId == CurrentUser._id) {
+        isOwnComment = true;
+        blahgerName += " (you)"
+    }
+
+    var ownVote = getSafeProperty(theComment, "commentVotes", 0);
+
     // button for making complaints about the comment, banning user, etc.
+    newHTML += '<td>';
     newHTML += '<button class="flipdown-btn" role="button" onclick=";return false;" type="button">';
     newHTML += '<span class="flipdown-btn-icon-wrapper"><img class="yt-uix-button-icon yt-uix-button-icon-comment-close" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif">';
     newHTML += '</span><img class="yt-uix-button-arrow" alt="" src="http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif"><div class=" yt-uix-button-menu yt-uix-button-menu-link" style="display: none;"><ul><li class="comment-action-remove comment-action" data-action="remove"><span class="yt-uix-button-menu-item">Remove</span></li><li class="comment-action" data-action="flag-profile-pic"><span class="yt-uix-button-menu-item">Report profile image</span></li><li class="comment-action" data-action="flag"><span class="yt-uix-button-menu-item">Flag for spam</span></li><li class="comment-action-block comment-action" data-action="block"><span class="yt-uix-button-menu-item">Block User</span></li><li class="comment-action-unblock comment-action" data-action="unblock"><span class="yt-uix-button-menu-item">Unblock User</span></li></ul></div></button>';
@@ -2006,7 +2212,7 @@ function createCommentElement(theComment) {
     // meta-data
     newHTML += '<p class="comment-metadata">';
     newHTML += '<span class="CommentAuthor">';
-    newHTML += '<a class="hyperlink-user-name " dir="ltr" href="/user/BolasDaGrk"">A blahger</a>';
+    newHTML += '<a class="hyperlink-user-name " dir="ltr" href="/user/BolasDaGrk"">' + blahgerName + '</a>';
     newHTML += '</span>';
     newHTML += '<span class="CommentDate" dir="ltr">';
     newHTML += '<a dir="ltr" href="/clickondate">';
@@ -2024,26 +2230,51 @@ function createCommentElement(theComment) {
     newHTML += ' <a class="inspect-btn" onclick=";return false;">Inspect </a>';
     newHTML += ' <span class="separator">·</span>';
 
-    // vote up
-    newHTML += '<span class="clickcard">';
-    newHTML += ' <button title="" class="start-comment-action" onclick=";return false;" type="button" >';
-    newHTML += ' <span class="button-icon-wrapper">';
-    newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_thumbsUp.png">';
-    newHTML += ' </span>';
-    newHTML += '</button>';
-    newHTML += '</span> ';
+    if (isOwnComment || (ownVote != 0)) {
+        // vote up
+        newHTML += '<span class="clickcard">';
+        newHTML += ' <span class="button-icon-wrapper">';
+        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
+        newHTML += ' </span>';
+        newHTML +=  getSafeProperty(theComment, "cuv", 0);
+        if (ownVote > 0)
+            newHTML += "X"
+        newHTML += '</span> ';
 
-    // vote down
-    newHTML += '<span class="clickcard">';
-    newHTML += '<button title="" class="end comment-action" onclick=";return false;" type="button" >';
-    newHTML += '<span class="button-icon-wrapper">';
-    newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_thumbsDown.png">';
-    newHTML += '</span>';
-    newHTML += '</button>';
-    newHTML += '</span>';
+        // vote down
+        newHTML += '<span class="clickcard">';
+        newHTML += '<span class="button-icon-wrapper">';
+        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
+        newHTML += '</span>';
+        newHTML +=  getSafeProperty(theComment, "cdv", 0);
+        if (ownVote < 0)
+            newHTML += "X"
+        newHTML += '</span>';
+    } else {
+        // vote up
+        newHTML += '<span class="clickcard">';
+        newHTML += ' <button class="start-comment-action"onclick="PromoteComment(\'' +index + '\'); return false;" type="button" >';
+        newHTML += ' <span class="button-icon-wrapper">';
+        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
+        newHTML += ' </span>';
+        newHTML += '</button>';
+        newHTML +=  getSafeProperty(theComment, "cuv", 0);
+        newHTML += '</span> ';
+
+        // vote down
+        newHTML += '<span class="clickcard">';
+        newHTML += '<button class="end comment-action" onclick="DemoteComment(' + index + ');return false;" type="button" >';
+        newHTML += '<span class="button-icon-wrapper">';
+        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
+        newHTML += '</span>';
+        newHTML += '</button>';
+        newHTML +=  getSafeProperty(theComment, "cdv", 0);
+        newHTML += '</span>';
+    }
     newHTML += '</div>';
 
     newHTML += '</div>';
+    newHTML += '</td>';
 
 
     newEl.innerHTML = newHTML;
@@ -2326,6 +2557,205 @@ function PopulateUserChannel() {
 
 function RefreshUserChannelContent() {
     $("#BlahFullItem").show();
+    Blahgua.GetUserProfile(CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
+}
+
+function OnGetOwnProfileFailed(theErr) {
+    if (theErr.status == 404) {
+        // profile doesn't exist - add one!
+        UserProfile = new Object();
+        UserProfile["n"] = "a blahger";
+        Blahgua.CreateUserProfile(UserProfile, OnGetOwnProfileOK, OnFailure);
+    }
+}
+
+
+function OnGetOwnProfileOK(theStats) {
+    UserProfile = theStats;
+    $("#NicknameInput").val(getSafeProperty(theStats, "n", ""));
+    Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
+        $("#DescriptionDiv").text(theString.d);
+    });
+
+    // location
+    $("#CityInput").val(getSafeProperty(theStats, "cy", ""));
+    $("#StateInput").val(getSafeProperty(theStats, "s", ""));
+    $("#ZipcodeInput").val(getSafeProperty(theStats, "z", ""));
+
+    // populate country codes
+    var newEl;
+    $.each(ProfileSchema.c.DT, function(index, item){
+            newEl = document.createElement("option");
+            newEl.value = index;
+            newEl.innerHTML = item;
+            if (index == getSafeProperty(theStats, "c", -1))
+                newEl.selected = "selected";
+            $("#CountryInput").append(newEl);
+    });
+
+    // demographics
+    $("#DOBInput").val(getSafeProperty(theStats, "d", ""));
+
+    $.each(ProfileSchema.g.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "g", -1))
+            newEl.selected = "selected";
+        $("#GenderInput").append(newEl);
+    });
+    $.each(ProfileSchema.r.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "r", -1))
+            newEl.selected = "selected";
+        $("#EthnicityInput").append(newEl);
+    });
+    $.each(ProfileSchema.i.DT, function(index, item){
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "i", -1))
+            newEl.selected = "selected";
+        $("#IncomeInput").append(newEl);
+    });
+
+    // permissions
+    $('input[name=nickname]').val([getSafeProperty(theStats, "np", 0)]);
+
+    $('input[name=city]').val([getSafeProperty(theStats, "cyp", 0)]);
+    $('input[name=state]').val([getSafeProperty(theStats, "sp", 0)]);
+    $('input[name=zipcode]').val([getSafeProperty(theStats, "zp", 0)]);
+    $('input[name=country]').val([getSafeProperty(theStats, "cp", 0)]);
+
+    $('input[name=age]').val([getSafeProperty(theStats, "dp", 0)]);
+    $('input[name=income]').val([getSafeProperty(theStats, "ip", 0)]);
+    $('input[name=gender]').val([getSafeProperty(theStats, "gp", 0)]);
+    $('input[name=race]').val([getSafeProperty(theStats, "rp", 0)]);
+
+    // badges
+    UpdateBadgeArea();
+
+}
+
+function ShowBadgeSelection() {
+    Blahgua.getAuthorities(function (authList) {
+        var newHTML = "<table><tbody>";
+        $.each(authList, function(index, curAuth) {
+            newHTML += CreateBadgeAuthHTML(curAuth);
+        });
+        newHTML += "</tbody></table>";
+        $("#BadgeAuthorityArea").html(newHTML);
+    }, OnFailure);
+}
+
+function CreateBadgeAuthHTML(theAuth) {
+    var newHTML = "<tr>";
+    newHTML += "<td><span>" + theAuth.N + "</span></td>";
+    newHTML += "<td><span>" + theAuth.D + "</span></td>";
+    newHTML += "<td><button onclick='DoAddBadge(\"" + theAuth._id + "\"); return false;'>Add</button></td>";
+    newHTML += "</tr>";
+
+    return newHTML;
+}
+
+function UpdateBadgeArea() {
+    if (CurrentUser.hasOwnProperty("B")) {
+        // add badges
+        $("#BadgesDiv").empty();
+        $.each(CurrentUser.B, function(index, curBadge) {
+            CreateAndAppendBadgeHTML(curBadge);
+        });
+    } else {
+        $("#BadgesDiv").text("You don't have no stinkin' badges!");
+    }
+}
+
+function CreateAndAppendBadgeHTML(theBadge) {
+    Blahgua.getBadgeById(theBadge, function(fullBadge) {
+        var newHTML = "";
+        var imagePath = "http://blahgua-webapp.s3.amazonaws.com/img/generic-badge.png";
+        newHTML += "<div class='badgeholder'>";
+        newHTML += "<div class='badgename'>";
+        if (fullBadge.hasOwnProperty("K")) {
+            imagePath = fullBadge.K;
+        }
+        newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
+        newHTML += fullBadge.N + "</div>";
+        newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>"
+        newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString()  + "</div>"
+        newHTML += "</div>";
+        $("#BadgesDiv").append(newHTML);
+    }, function (theErr) {
+        var newHTML = "";
+        newHTML += "<div>Error loading Badge id=" + theBadge + "</div>";
+        $("#BadgesDiv").append(newHTML);
+    });
+}
+
+function DoAddBadge(badgeID) {
+    Blahgua.createBadgeForUser(badgeID, null, function(data) {
+        var dialogHTML = data;
+    	var windowWidth = $(window).width();
+    	var offset = (windowWidth - 512) / 2;
+        if (offset < 0)
+            offset = 0;
+        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
+        $(".BadgeTitleBar").text(badgeID);
+        $("#badgedialog").html(dialogHTML);
+        $("#BadgeOverlay").fadeIn();
+
+    }, function(data) {
+        var dialogHTML = data.responseText;
+        var windowWidth = $(window).width();
+        var offset = (windowWidth - 512) / 2;
+        if (offset < 0)
+            offset = 0;
+        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
+        $(".BadgeTitleBar").text("talkikng to " + badgeID);
+        $("#badgedialog").html(dialogHTML);
+        $("#BadgeOverlay").fadeIn();
+
+    });
+}
+
+
+function UpdateUserProfile() {
+    UserProfile["n"] = $("#NicknameInput").val();
+
+    // location
+    UserProfile["cy"] = $("#CityInput").val();
+    UserProfile["s"] = $("#StateInput").val();
+    UserProfile["z"] = $("#ZipcodeInput").val();
+    UserProfile["c"] = $("#CountryInput").val();
+
+    // demographics
+    UserProfile["d"] = $("#DOBInput").val();
+    UserProfile["i"] = $("#IncomeInput").val();
+    UserProfile["g"] = $("#GenderInput").val();
+    UserProfile["r"] = $("#EthnicityInput").val();
+
+    // permissions
+    UserProfile["np"] = Number($('input:radio[name=nickname]:checked').val());
+    UserProfile["cyp"] = Number($('input:radio[name=city]:checked').val());
+    UserProfile["sp"] = Number($('input:radio[name=state]:checked').val());
+    UserProfile["zp"] = Number($('input:radio[name=zipcode]:checked').val());
+    UserProfile["cp"] = Number($('input:radio[name=country]:checked').val());
+    UserProfile["dp"] = Number($('input:radio[name=age]:checked').val());
+    UserProfile["ip"] = Number($('input:radio[name=income]:checked').val());
+    UserProfile["gp"] = Number($('input:radio[name=gender]:checked').val());
+    UserProfile["rp"] = Number($('input:radio[name=race]:checked').val());
+
+    // commit
+    Blahgua.UpdateUserProfile(UserProfile, function(theBlah) {
+        Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
+            $("#DescriptionDiv").text(theString.d);
+        }, function(theErr) {
+            $("#DescriptionDiv").text("a blahger");
+        });
+    });
+
 }
 
 function RefreshSignupContent(message) {
@@ -2372,6 +2802,9 @@ function HandleCreateUserFail(json) {
 
 function HandleUserLoginOK(json) {
     IsUserLoggedIn = true;
+    Blahgua.GetProfileSchema(function(theSchema) {
+        ProfileSchema = theSchema.fieldNameToSpecMap;
+    }, OnFailure) ;
     var userName = $("#userName2").val();
     var pwd = $("#pwd2").val();
     if ($("#rememberme2").val()) {
@@ -2405,9 +2838,9 @@ function UpdateChannelViewers() {
         ViewerUpdateTimer = null;
     }
     if (CurrentChannel == null) {
-        Blahgua.GetViewersOfUser(OnChannelViewersOK, OnFailure);
+        Blahgua.GetViewersOfUser(OnChannelViewersOK);
     } else {
-        Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK, OnFailure);
+        Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
     }
 
     ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
@@ -2435,8 +2868,13 @@ function DoCreateBlah() {
             var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
+            var itemWidth = 512;
+            if (windowWidth < 512) {
+                itemWidth = windowWidth;
+            }
 
             $(".createblahscroll").css({'left': delta, 'right':delta});
+            $(".creatblahfooter").css({'width': itemWidth});
 
             $(BlahFullItem).fadeIn("fast");
         });
@@ -2473,8 +2911,8 @@ function CancelCreate() {
 
 function CreateBlah() {
     var blahType = $("#BlahTypeList").val();
-    var blahHeadline = $("#BlahHeadline").val();
-    var blahBody = $("#BlahBody").val();
+    var blahHeadline = escape($("#BlahHeadline").text());
+    var blahBody = escape($("#BlahBody").text());
     var blahGroup = CurrentChannel._id;
     var options = null;
 
@@ -2587,6 +3025,14 @@ function UpdateBlahInfoArea() {
         default:
             $("#AdditionalInfoDiv").text("A normalish blah that needs no extra info");
     }
+}
+
+function HandleFilePreview() {
+    var theFile = $("#BlahImage").val();
+    if (theFile != "") {
+        $(".uploadimage").css({"background-image": theFile});
+    }
+
 }
 
 function UpdateAskAuthorPage() {
@@ -2847,69 +3293,103 @@ function ta(obj){
 		}
 }
 
-function ResizeTextarea1(){
-  var t = document.getElementById('BlahHeadline');
-  if (t.scrollTop == 0) t.scrollTop=1;
-  while (t.scrollTop == 0){
-   if (t.rows > minRows)
-    t.rows--;
-   else
-    break;
-   t.scrollTop = 1;
-   if (t.rows < maxRows)
-    t.style.overflowY = "hidden";
-   if (t.scrollTop > 0){
-    t.rows++;
-    break;
-   }
-  }
-  while(t.scrollTop > 0){
-   if (t.rows < maxRows){
-    t.rows++;
-    if (t.scrollTop == 0) t.scrollTop=1;
-   }
-   else{
-    t.style.overflowY = "hidden";
-    break;
-   }
-  }
- }
+function DoCreateBlahTitleFocus() {
+    var element = document.getElementById("BlahHeadline");
+    if (!element.hasAttribute("edited")) {
+        element.innerHTML = "";
+        element.setAttribute("edited", true);
+        element.focus();
+        element.select();
+    }
+}
+
+function DoCreateBlahBodyFocus() {
+    var element = document.getElementById("BlahBody");
+    if (!element.hasAttribute("edited")) {
+        element.innerHTML = "";
+        element.setAttribute("edited", true);
+        element.focus();
+        element.select();
+    }
+}
 
 
- function ResizeTextarea(){
+function SignInToComment() {
+    SuggestUserSignIn("Sign in to comment on a blah!");
+}
 
-  var t = document.getElementById('BlahBody');
-  if (t.scrollTop == 0) t.scrollTop=1;
-  while (t.scrollTop == 0){
-   if (t.rows > minRows1)
-    t.rows--;
-   else
-    break;
-   t.scrollTop = 1;
-   if (t.rows < maxRows)
-    t.style.overflowY = "hidden";
-   if (t.scrollTop > 0){
-    t.rows++;
-    break;
-   }
-  }
-  while(t.scrollTop > 0){
-   if (t.rows < maxRows){
-    t.rows++;
-    if (t.scrollTop == 0) t.scrollTop=1;
-   }
-   else{
-    t.style.overflowY = "hidden";
-    break;
-   }
-  }
- }
- 
- 
+function DoAddComment() {
+    var commentText = escape($("#CommentTextArea").val());
+    commentText =
+    Blahgua.AddBlahComment(commentText, CurrentBlah._id, function (newComment) {
+        $("#CommentTextArea").val("");
+        if (CurrentBlah.hasOwnProperty("c")) {
+            CurrentBlah.c++;
+        } else {
+            CurrentBlah["c"] = 1;
+        }
+        UpdateBlahComments();
+    }, OnFailure);
+}
+
+function PromoteComment(commentIndex) {
+    var theID = CurrentComments[commentIndex]._id;
+    var targetDiv = $(event.target).parents('tr');
+    Blahgua.SetCommentVote(theID, 1, function(json) {
+        if (CurrentComments[commentIndex].hasOwnProperty("cuv"))
+            CurrentComments[commentIndex].cuv++;
+        else
+            CurrentComments[commentIndex]["cuv"] = 1;
+        CurrentComments[commentIndex]["commentVotes"] = 1;
+        var newEl = createCommentElement(commentIndex, CurrentComments[commentIndex]);
+        targetDiv.html(newEl.innerHTML);
+    }, OnFailure);
+}
 
 
+function DemoteComment(commentIndex) {
+    var theID = CurrentComments[commentIndex]._id;
+    var targetDiv = $(event.target).parents('tr');
+    Blahgua.SetCommentVote(theID, -1, function(json) {
+        if (CurrentComments[commentIndex].hasOwnProperty("cdv"))
+            CurrentComments[commentIndex].cdv++;
+        else
+            CurrentComments[commentIndex]["cdv"] = 1;
+        CurrentComments[commentIndex]["commentVotes"] = -1;
+        var newEl = createCommentElement(commentIndex, CurrentComments[commentIndex]);
+        targetDiv.html(newEl.innerHTML);
+    }, OnFailure);
+}
 
 
+// chart helpers
+function CreateDemoData(whichDemo) {
+    var curResult = [];
+    var curData;
+    var curIndexName;
+    var o, p,c;
+    if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) {
+        for(curIndex in ProfileSchema[whichDemo].DT) {
+            curData = new Object();
+            curIndexName = ProfileSchema[whichDemo].DT[curIndex];
+            curData.name = curIndexName;
+            curData.data = [];
+            o = getSafeProperty(CurrentBlah._d._o[whichDemo], curIndex,0);
+            p = getSafeProperty(CurrentBlah._d._u[whichDemo], curIndex,0);
+            c = getSafeProperty(CurrentBlah._d._c[whichDemo], curIndex,0);
+            if ((o > 0) || (p > 0) || (c > 0)) {
+                curData.data.push(o);
+                curData.data.push(p);
+                curData.data.push(c);
+                curResult.push(curData);
+            }
+        }
+    }
+
+    return curResult;
+}
+
+// badges
 
 
 
