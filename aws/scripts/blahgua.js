@@ -400,7 +400,7 @@ function ComputeSizes() {
     $("#ChannelBanner").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
     $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-50+'px' });
 
-    $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
+    $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' , 'maxHeight':windowHeight + 'px'});
 
 
 }
@@ -499,7 +499,9 @@ function CreatePreviewBlah() {
 
 function CreateFullBlah() {
     BlahFullItem = document.getElementById("BlahFullItem");
-}
+    var windowHeight = $(window).height();
+    $("FullBlahContent").css({'maxheight': windowHeight + 'px'});
+}  
 
 
 function DoBlahDoubleClick(theEvent) {
