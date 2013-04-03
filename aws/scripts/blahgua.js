@@ -2871,7 +2871,20 @@ function DoCreateBlah() {
             if (windowWidth < 512) {
                 itemWidth = windowWidth;
             }
+            if (windowWidth > windowline2) {
+       $(BlahImage).css({ 'left': 200 + 'px'});
+    }
 
+    if (windowWidth <= windowline1)
+    {
+        $(BlahImage).css({ 'left': 100 + 'px'});
+    
+    }
+    
+        if ((windowWidth <= windowline2)&&(windowWidth >= windowline1))
+    {
+     $(BlahImage).css({ 'left': 160 + 'px'});
+    }
             $(".createblahscroll").css({'left': delta, 'right':delta});
             $(".creatblahfooter").css({'width': itemWidth});
 

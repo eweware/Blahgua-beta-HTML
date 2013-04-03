@@ -707,7 +707,7 @@ a {
     margin: 4px;
     padding-right: 8px;
     padding-left:8px;
-    padding-top:20px;
+    padding-top:12px;
     width:80%;
     height:80%;
     border-radius: 8px;
@@ -823,10 +823,10 @@ a {
 
 }
 .createblahscrolltable
-{
-	width:512px;
+{   width:100%;
 	height:auto; 
 	overflow:auto;
+	border:10px solid white;
 }
 .tr100
 {
@@ -834,10 +834,11 @@ a {
 }
 .inputheadlineframe
 {
+	
 	width:100%;
 	min-height:30px;
-    padding: 8px;
-    border-radius: 4px;
+    padding: 20px;
+    border:none;
     color: black;
     background-color: #add8e6;
     font-family: 'Archivo Narrow', sans-serif;
@@ -875,16 +876,15 @@ a {
 
 }
 .uploadimagebutton
-{
+{   
 	position:relative;
+	
 	width:200px;
 	height:20px;
 }
 .createblahadditional
 {
-	margin-left:30px;
-	position:relative;
-	top:10px;
+	
 }
 .creatblahspace
 {
