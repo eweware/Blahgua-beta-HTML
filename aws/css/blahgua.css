@@ -209,7 +209,7 @@
 
 .FullBlahContent {
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     border-spacing:0px;
     border:0px;
     margin-top:-2px;
@@ -220,6 +220,7 @@
     padding-left:4px;
     font-size:12px;
     font-family: 'Archivo Narrow', sans-serif;
+    text-align: left;
 }
 
 .FullBlahDateStr {
@@ -227,7 +228,7 @@
     font-family: 'Archivo Narrow', sans-serif;
     font-style: italic;
     padding-right:4px;
-    width:80px;
+    text-align: right;
 
 }
 
@@ -962,6 +963,26 @@ a {
     padding: 8px;
 }
 
+.no-blahs-in-channel-warning {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    margin-top: 65px;
+}
+
+.no-blahs-in-channel-warning a {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+
+
 .BadgeTitleBar {
     width: 100%;
     text-align: center;
@@ -1012,8 +1033,7 @@ a {
 .detailpageheader
 {
 	height:auto;
-	overflow-x:hidden;
-	overflow-y:auto;
+
     border-spacing:0px;
     border-collapse: collapse;
     border:0px;
