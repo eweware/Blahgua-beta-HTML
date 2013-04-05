@@ -404,6 +404,12 @@ function BlahguaObject() {
         this.CallPostMethod("users/logout", paramStr, OnSuccess, OnFailure);
     };
 
+    this.CheckUsernameExists = function(theName, OnSuccess, OnFailure) {
+        var paramStr = '{"U":"' + theName + '"}';
+        this.CallPostMethod("users/check/username", paramStr, OnSuccess, OnFailure);
+
+    }
+
 
     this.CreateUser = function (userName, password, OnSuccess, OnFailure) {
         /// <summary>Creates a new user</summary>

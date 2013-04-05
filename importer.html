@@ -12,11 +12,40 @@
 <body>
     <script type="text/javascript" src="http://blahgua-webapp.s3.amazonaws.com/scripts/blahgua_restapi.js"></script>
     <script type="text/javascript">
+        var ArrayData = null;
+        var curRecordIndex;
+        var curUserName = "";
+        var curUserId = "";
+        var curBlahId = "";
+        var BlahTypesList = [];
+        var ChannelList = [];
+
+
         $(document).ready(function() {
             if(isAPIAvailable()) {
                 $('#files').bind('change', handleFileSelect);
             }
         });
+
+        function ChannelIDFromName(ChannelName) {
+            var curChannel;
+            for (curIndex in ChannelList) {
+                curChannel = ChannelList[curIndex];
+                if (curChannel.N == ChannelName) {
+                    return curChannel._id;
+                }
+            }
+            return null;
+        }
+
+        function GetUserChannels() {
+            Blahgua.GetAllChannels(function (channelList) {
+                ChannelList = channelList;
+            });
+        }
+
+
+        // IMPORT CSV functions
 
         function isAPIAvailable() {
             // Check for the various File API support.
@@ -60,11 +89,13 @@
         }
 
         function printTable(file) {
+            ArrayData = [];
             var reader = new FileReader();
             reader.readAsText(file);
             reader.onload = function(event){
                 var csv = event.target.result;
                 var data = $.csv.toArrays(csv);
+                ArrayData.push(data);
                 var html = '';
                 for(var row in data) {
                     html += '<tr>\r\n';
@@ -78,12 +109,90 @@
             reader.onerror = function(){ alert('Unable to read ' + file.fileName); };
         }
 
+
+        // Do the creation
+
+        var BlahCreateItem = new function(curRow) {
+            Channel = curRow[0];
+            Username = curRow[1];
+            BlahType = curRow[2];
+            Title = curRow[3];
+            Body = curRow[4];
+            Image = curRow[5];
+            ImagePath = curRow[6];
+            Data1 = curRow[7];
+            Data2 = curRow[8];
+            Data3 = curRow[9];
+            Data4 = curRow[10];
+            Data5 = curRow[11];
+            Data6 = curRow[12];
+            Data7 = curRow[13];
+            Data8 = curRow[14];
+            Data9 = curRow[15];
+            Data10 = curRow[16];
+        }
+
+        function DoImport() {
+            if (ArrayData == null) {
+                alert("No data loaded.");
+            } else {
+                curRecordIndex = 1;
+                ImportNextRecord();
+            }
+        }
+
+        function ImportNextRecord() {
+            CurRecord = new BlahCreateItem(ArrayData[curRecordIndex]);
+
+            setCurrentUser(CurRecord.Username);
+        }
+
+        function setCurrentUser(userName) {
+            if (userName != curUserName) {
+                if (curUserName != "") {
+                    Blahgua.logoutUser();
+                    curUserName = "";
+                }
+
+                Blahgua.CheckUsernameExists(userName, function() {
+                    // does not exist
+                    CreateUser(userName, "secret", function() {
+                        SignInUser(userName);
+                    });
+                }, function () {
+                    // already exists
+                    SignInUser(userName);
+                });
+            }
+        }
+
+        function SignInUser(userName) {
+            Blahgua.loginUser(userName, "secret", function (theUser) {
+                curUserName = userName;
+                curUserId = theUser._id;
+                CreateBlahForUser();
+            })   ;
+        }
+
+        function CreateBlahForUser() {
+            var blahText =
+            Blahgua.CreateUserBlah(blahText, blahType, blahGroup, bodyText, infoObj, function(theBlah) {
+                alert("Blah Created!");
+                // now do the image
+
+                // now do the next blah
+                curRecordIndex++;
+                ImportNextRecord();
+            })
+        }
+
     </script>
 
 <h2>Blahgua CSV Importer</h2>
 <p>Welcome!  Please choose a CSV file:</p>
     <div id=inputs class=clearfix>
         <input type=file id=files name=files[] multiple />
+        <button onclick="DoImport(); return false;">Import to Blahgua</button>
     </div>
     <hr />
     <output id=list>
