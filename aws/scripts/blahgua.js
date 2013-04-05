@@ -26,6 +26,7 @@ var BlahPreviewItem;
 var BlahFullItem;
 var FocusedBlah = null;
 var CurrentBlah = null;
+var CurrentBlahId = null;
 var CurrentComments = null;
 var CurrentChannel = null;
 var CurrentUser = null;
@@ -42,6 +43,7 @@ var windowline1 = 430;
 var windowline2 = 500;
 var ProfileSchema = null;
 var UserProfile = null;
+var CurrentBlahNickname = "";
 
 
 (function ($) {
@@ -558,7 +560,6 @@ function OpenBlah(whichBlah) {
     $("#LightBox").hide();
     $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
         var windowHeight = $(window).height();
-        PopulateFullBlah(whichBlah);
         $(BlahFullItem).disableSelection();
         $(BlahFullItem).fadeIn("fast", function() {
             var windowWidth = $(window).width();
@@ -644,7 +645,14 @@ function HandleBlahSwipeRight(theEvent) {
 }
 
 function UpdateBlahOverview() {
-// reformat the promote area if the user has already voted
+    if (CurrentBlah == null) {
+        Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+            CurrentBlah= theBlah;
+            UpdateBlahOverview();
+        }, OnFailure);
+        return;
+    }
+    UpdateFullBlahBody();
     document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "C", 0);
     var isOwnBlah;
      var winHeight = $(window).height();
@@ -727,7 +735,7 @@ function UpdateBlahOverview() {
             break;
         case "polls":
             $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
-                function() { UpdateAskPage(); })
+                function() { UpdateAskPage("PollAnswersArea"); })
             break;
         default:
 
@@ -809,10 +817,10 @@ function UpdateBlahStats() {
     });
 
     // demos
-    var BlahGenderData = CreateDemoData("g");
-    var BlahRaceData = CreateDemoData("r");
-    var BlahIncomeData = CreateDemoData("i");
-    var BlahAgeData = CreateDemoData("c");
+    var BlahGenderData = CreateDemoData("B");
+    var BlahRaceData = CreateDemoData("D");
+    var BlahIncomeData = CreateDemoData("E");
+    var BlahAgeData = CreateDemoData("C");
 
 
     $('#BlahOpenChartDiv').highcharts({
@@ -911,11 +919,6 @@ function UpdateBlahAuthor() {
 
 
 
-function PopulateFullBlah(whichBlah) {
-    // get the entire blah to update the rest...
-    Blahgua.GetBlahWithStats(whichBlah._id, "130101", "130331", UpdateFullBlahBody, OnFailure);
-}
-
 
 function getSafeProperty(obj, prop, defVal) {
     if(obj.hasOwnProperty(prop)) {
@@ -927,7 +930,7 @@ function getSafeProperty(obj, prop, defVal) {
 
 function GetBlahTypeStr() {
     var type = CurrentBlah.Y;
-    for (curType in BlahTypeList) {
+    for (var curType in BlahTypeList) {
         if (BlahTypeList[curType]._id == type) {
             return BlahTypeList[curType].N;
         }
@@ -936,11 +939,10 @@ function GetBlahTypeStr() {
     return "";
 }
 
-function UpdateFullBlahBody(newBlah) {
-    CurrentBlah = newBlah;
+function UpdateFullBlahBody() {
     var headlineText = document.getElementById("BlahFullHeadline");
     headlineText.innerHTML = unescape(CurrentBlah.T);
-    var nickNameStr = getSafeProperty(CurrentBlah, "K", "a blahger");
+    var nickNameStr = CurrentBlahNickname;
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
 
@@ -964,17 +966,17 @@ function UpdateFullBlahBody(newBlah) {
 
     // update the badges & date
     Blahgua.getUserDescriptorString(CurrentBlah.A, function(theString) {
-        $("#FullBlahProfileString").text(theString.D);
+        $("#FullBlahProfileString").text(theString.d);
     }, function (theErr) {
         $("#FullBlahProfileString").text("an anonymous blahger");
     })
 
-    var curDate = new Date(getSafeProperty(CurrentBlah, "C", Date.now()));
+    var curDate = new Date(getSafeProperty(CurrentBlah, "c", Date.now()));
     var dateString = ElapsedTimeString(curDate);
     $("#FullBlahDateStr").text(dateString);
 }
 
-function UpdatePredictPage(predictAreaName) {
+function UpdatePredictPage() {
     // update the prediction divs
     var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
     var expDate = new Date(expDateVal);
@@ -986,7 +988,7 @@ function UpdatePredictPage(predictAreaName) {
 function UpdateAskPage(previewAreaName) {
 
     if (CurrentBlah.hasOwnProperty("I")) {
-        var choices = CurrentBlah.pt;
+        var choices = CurrentBlah.I;
         var votes = CurrentBlah.J;
         var newChoice;
         var maxVotes = 0, curVotes;
@@ -1060,7 +1062,7 @@ function OnPollVoteFail(json) {
 
 function SortAndRedrawComments(theComments) {
     CurrentComments = theComments;
-    CurrentBlah["c"] = CurrentComments.length;
+    CurrentBlah["C"] = CurrentComments.length;
     SortComments();
 
     UpdateBlahCommentDiv();
@@ -1146,8 +1148,8 @@ function ElapsedTimeString(theDate) {
 
     var curYears = Math.floor(timeSpan / 31536000);
     if (curYears > 0) {
-        if (curYear > 2) {
-            return curYear + " years" + tailStr;
+        if (curYears > 2) {
+            return curYears + " years" + tailStr;
         } else {
             return Math.floor(timeSpan / 2592000) + " months" + tailStr;
         }
@@ -1207,9 +1209,11 @@ function UpdateBlahCommentDiv() {
 
 
 function FocusBlah(who) {
+    CurrentBlah = null;
     StopAnimation();
     $("#LightBox").show();
     FocusedBlah = who.blah;
+    CurrentBlahId = who.blah.I;
     PopulateBlahPreview(who.blah);
     var winHeight = $(window).height();
     $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-290 + 'px'});
@@ -1224,7 +1228,7 @@ function PopulateBlahPreview(whichBlah) {
     headlineText.innerHTML = unescape(whichBlah.T);
 
     // get the entire blah to update the rest...
-    Blahgua.GetBlah(whichBlah.I, UpdateBodyText, OnFailure);
+    Blahgua.GetBlah(CurrentBlahId, UpdateBodyText, OnFailure);
 }
 
 function UpdateBodyText(theFullBlah) {
@@ -1232,7 +1236,8 @@ function UpdateBodyText(theFullBlah) {
     if (FocusedBlah.hasOwnProperty("K"))
         CurrentBlah.K = FocusedBlah.K;
     var headlineText = document.getElementById("BlahPreviewHeadline");
-    var nickNameStr = getSafeProperty(theFullBlah, "K", "a blahger");
+    CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "a blahger");
+    var nickNameStr = CurrentBlahNickname;
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
 
@@ -2178,7 +2183,7 @@ function createCommentElement(index, theComment) {
 
     // comment text
     newHTML += '<div class="CommentText" dir="ltr">';
-    newHTML += '<p>' + URLifyText(unescape(theComment.text)).replace(/\n/g, "<br/>"); + '</p>';
+    newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
     newHTML += '</div>';
 
     // comment actions
@@ -2824,7 +2829,7 @@ function DoCreateBlah() {
             if (windowWidth < 512) {
                 itemWidth = windowWidth;
             }
-            $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "K", "a blahger" ));
+            $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
 
             /*
             if (windowWidth > windowline2) {
@@ -2884,7 +2889,7 @@ function CreateBlah() {
 
     // check for additional options
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
-    switch (blahTypeStr.name) {
+    switch (blahTypeStr.N) {
         case "polls":
             // add the poll items
             var pollItems = [];
@@ -2892,8 +2897,8 @@ function CreateBlah() {
             var pollDivs = document.getElementsByName("PollItem");
             for (i = 0; i < pollDivs.length; i++) {
                 curPollItem = new Object();
-                curPollItem["G"] = pollDivs[i].childNodes[1].value;
-                curPollItem["T"] = pollDivs[i].childNodes[3].value;
+                curPollItem["G"] = pollDivs[i].childNodes[0].value;
+                curPollItem["T"] = pollDivs[i].childNodes[2].value;
                 pollItems.push(curPollItem);
             }
             options = new Object();
@@ -2920,11 +2925,15 @@ function CreateBlah() {
 
 function OnCreateBlahOK(json) {
     CurrentBlah = json;
+    CurrentBlahId = CurrentBlah._id;
     // check for images
     if ($("#BlahImage").val() != "") {
         UploadBlahImage(CurrentBlah._id);
     } else {
-        OpenBlah(CurrentBlah);
+        Blahgua.GetBlahWithStats(CurrentBlah._id,   "130101", "130331",function(theBlah) {
+            CurrentBlah = theBlah;
+            OpenBlah(CurrentBlah);
+        });
     }
 }
 
@@ -2971,7 +2980,7 @@ function progressHandlingFunction(evt) {
 }
 
 function OnUploadImageOK(result) {
-    Blahgua.GetBlah(CurrentBlah._id, function(theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlah._id, function(theBlah) {
         CurrentBlah = theBlah;
         OpenBlah(CurrentBlah);
     });
@@ -3022,7 +3031,6 @@ function CreateAskAuthorItem() {
     newHTML += '<input name="PollChoice" type="text" style="width:390px;height:30px;background:lightgrey;border:none;border-radius:3px;position:relative;top:-5px;">';
     newHTML += '<button onclick="DoDeleteAskChoice(); return false;" style="position:relative;right:-5px;top:5px;width:40px;height:40px;background:#fff;border:none;font-size:30px;color:red;font-weight:bold">X</button>';
     newHTML += '<input name="PollDescription" type="text" style="width:440px;height:50px;background:lightgrey;border:none;border-radius:3px;position:relative;top:10px;">';
-    newHTML += '<input name="PollDescription" type="text" style="width:440px;height:20px;background:#fff;border:none;border-radius:3px;position:relative;top:10px;">'
     newHTML += '</div>';
 
     return newHTML;
@@ -3325,7 +3333,6 @@ function SignInToComment() {
 
 function DoAddComment() {
     var commentText = escape($("#CommentTextArea").val());
-    commentText =
     Blahgua.AddBlahComment(commentText, CurrentBlah._id, function (newComment) {
         $("#CommentTextArea").val("");
         if (CurrentBlah.hasOwnProperty("C")) {

@@ -547,7 +547,7 @@ function BlahguaObject() {
         ///
         var paramStr = new Object();
         paramStr["start"] = 0;
-        paramStr["end"] = 100;
+        paramStr["count"] = 100;
         paramStr["groupId"] = this.currentChannel;
         var methodName = "users/inbox";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
@@ -578,7 +578,7 @@ function BlahguaObject() {
 
         var paramStr = '';
 //        var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
-        var methodName = "blahs/" + BlahID  + "?stats=true";
+
         var methodName = "blahs/" + BlahID  + "?stats=true";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
