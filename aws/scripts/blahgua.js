@@ -199,7 +199,7 @@ function ChannelIDFromName(Channel, ChannelList) {
     var curChannel;
     for (curIndex in ChannelList) {
         curChannel = ChannelList[curIndex];
-        if (curChannel.displayName == Channel) {
+        if (curChannel.N == Channel) {
             return curChannel._id;
         }
     }
@@ -208,23 +208,16 @@ function ChannelIDFromName(Channel, ChannelList) {
 
 
 function AddDefaultChannelsToNewUser() {
-    Blahgua.GetAllChannels(OnGetChannelsOK);
+    Blahgua.GetFeaturedChannels(OnGetChannelsOK);
 }
 
 function OnGetChannelsOK(channelList) {
     Blahgua.JoinUserToChannel(ChannelIDFromName("The Now Network", channelList),
         function () {
-            Blahgua.JoinUserToChannel(ChannelIDFromName("Entertainment", channelList),
+            Blahgua.JoinUserToChannel(ChannelIDFromName("Technology", channelList),
                 function () {
-                    Blahgua.JoinUserToChannel(ChannelIDFromName("Politics", channelList),
-                        function () {
-                            Blahgua.JoinUserToChannel(ChannelIDFromName("Sports", channelList),
-                                function () {
-                                    Blahgua.JoinUserToChannel(ChannelIDFromName("Humor", channelList),
-                                        GetUserChannels);
-                                }
-                            );
-                        }
+                    Blahgua.JoinUserToChannel(ChannelIDFromName("Entertainment", channelList),
+                        GetUserChannels
                     );
                 }
             );
@@ -652,13 +645,13 @@ function HandleBlahSwipeRight(theEvent) {
 
 function UpdateBlahOverview() {
 // reformat the promote area if the user has already voted
-    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "c", 0);
+    document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "C", 0);
     var isOwnBlah;
      var winHeight = $(window).height();
     $("#FullBlahContent").css({ 'max-height': winHeight-155 + 'px'});
 
     if (IsUserLoggedIn) {
-        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+        isOwnBlah = (CurrentBlah.A == CurrentUser._id);
     } else {
         isOwnBlah = false;
     }
@@ -669,8 +662,8 @@ function UpdateBlahOverview() {
         $("#BlahRowSignIn").hide();
 
         if (isOwnBlah) {
-            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
-            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
+            var upVotes = getSafeProperty(CurrentBlah, "P", 0);
+            var downVotes = getSafeProperty(CurrentBlah, "D", 0);
 
             $("#PromoteBlahImage").show();
             $("#UserPromoteSpan").text(upVotes + " promotes");
@@ -716,8 +709,8 @@ function UpdateBlahOverview() {
     }
 
     var bodyTextDiv = document.getElementById("BlahFullBody");
-    if (CurrentBlah.hasOwnProperty("b")) {
-        var bodyText = CurrentBlah.b;
+    if (CurrentBlah.hasOwnProperty("F")) {
+        var bodyText = CurrentBlah.F;
         if (bodyText && (bodyText != "")) {
             bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
         }
@@ -744,7 +737,7 @@ function UpdateBlahOverview() {
 function UpdateBlahComments() {
 // update the comments
     $("#BlahCommentTable").empty();
-    if (CurrentBlah.hasOwnProperty("c") && CurrentBlah.c > 0) {
+    if (CurrentBlah.hasOwnProperty("C") && CurrentBlah.C > 0) {
         // blah has comments
         Blahgua.GetBlahComments(CurrentBlah._id, SortAndRedrawComments, OnFailure);
     } else {
@@ -920,7 +913,7 @@ function UpdateBlahAuthor() {
 
 function PopulateFullBlah(whichBlah) {
     // get the entire blah to update the rest...
-    Blahgua.GetBlahWithStats(whichBlah.blahId, "130101", "130331", UpdateFullBlahBody, OnFailure);
+    Blahgua.GetBlahWithStats(whichBlah._id, "130101", "130331", UpdateFullBlahBody, OnFailure);
 }
 
 
@@ -933,10 +926,10 @@ function getSafeProperty(obj, prop, defVal) {
 }
 
 function GetBlahTypeStr() {
-    var type = CurrentBlah.typeId;
+    var type = CurrentBlah.Y;
     for (curType in BlahTypeList) {
         if (BlahTypeList[curType]._id == type) {
-            return BlahTypeList[curType].name;
+            return BlahTypeList[curType].N;
         }
     }
 
@@ -946,14 +939,14 @@ function GetBlahTypeStr() {
 function UpdateFullBlahBody(newBlah) {
     CurrentBlah = newBlah;
     var headlineText = document.getElementById("BlahFullHeadline");
-    headlineText.innerHTML = unescape(CurrentBlah.text);
+    headlineText.innerHTML = unescape(CurrentBlah.T);
     var nickNameStr = getSafeProperty(CurrentBlah, "K", "a blahger");
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
 
 
     if (IsUserLoggedIn) {
-        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+        isOwnBlah = (CurrentBlah.A == CurrentUser._id);
     } else {
         isOwnBlah = false;
     }
@@ -963,27 +956,27 @@ function UpdateFullBlahBody(newBlah) {
     }
 
     // stats
-    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "views", 0); // change to actual viewers
+    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
     document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
 
     // update the opens
     Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
     // update the badges & date
-    Blahgua.getUserDescriptorString(CurrentBlah.authorId, function(theString) {
-        $("#FullBlahProfileString").text(theString.d);
+    Blahgua.getUserDescriptorString(CurrentBlah.A, function(theString) {
+        $("#FullBlahProfileString").text(theString.D);
     }, function (theErr) {
         $("#FullBlahProfileString").text("an anonymous blahger");
     })
 
-    var curDate = new Date(getSafeProperty(CurrentBlah, "created", Date.now()));
+    var curDate = new Date(getSafeProperty(CurrentBlah, "C", Date.now()));
     var dateString = ElapsedTimeString(curDate);
     $("#FullBlahDateStr").text(dateString);
 }
 
 function UpdatePredictPage(predictAreaName) {
     // update the prediction divs
-    var expDateVal = getSafeProperty(CurrentBlah, "e", Date.now());
+    var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
     var expDate = new Date(expDateVal);
     var elapStr = ElapsedTimeString(expDate);
     $("#elapsedTimeBlah").text(elapStr);
@@ -992,9 +985,9 @@ function UpdatePredictPage(predictAreaName) {
 
 function UpdateAskPage(previewAreaName) {
 
-    if (CurrentBlah.hasOwnProperty("pt")) {
+    if (CurrentBlah.hasOwnProperty("I")) {
         var choices = CurrentBlah.pt;
-        var votes = CurrentBlah.pv;
+        var votes = CurrentBlah.J;
         var newChoice;
         var maxVotes = 0, curVotes;
         for (curIndex in votes) {
@@ -1016,11 +1009,11 @@ function UpdateAskPage(previewAreaName) {
 }
 
 function OnGetUserPollVoteOK(json) {
-    if (json.hasOwnProperty("p")) {
+    if (json.hasOwnProperty("W")) {
         // disable all vote buttons
         $(".PollVoteIcon").remove();
-        $(".PollVoteText")[Number(json.p)].style.color = "#FF0000";
-        $(".PollVoteText")[Number(json.p)].style.fontWeight = "bold";
+        $(".PollVoteText")[Number(json.W)].style.color = "#FF0000";
+        $(".PollVoteText")[Number(json.W)].style.fontWeight = "bold";
     }
 }
 
@@ -1030,7 +1023,7 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
     var curRatio = Math.floor(100 * ratio);
     var newHTML = "";
     newHTML += '<table class="PollChoiceWrapper"><tbody><tr style="width:100%">';
-    newHTML += '<td class="PollTitle"><span>' + pollChoice.g + '</span></td>';
+    newHTML += '<td class="PollTitle"><span>' + pollChoice.G + '</span></td>';
     newHTML += '<td class="PollDescription" style="width:' + maxWidth + 'px">';
     newHTML += '<div class="PollChartDiv" style="width:' + curRatio + '%"></div></td>';
     newHTML += '<td class="PollVotes">';
@@ -1038,9 +1031,9 @@ function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
     newHTML += '<span class="PollVoteText">' + curVotes + '</span>';
     newHTML += '</td></tr>';
     // add a row for the comment, if any
-    if (pollChoice.hasOwnProperty("t")) {
+    if (pollChoice.hasOwnProperty("T")) {
         newHTML += '<tr><td></td><td colspan="2" class="PollComment">';
-        newHTML += '<span style="font-style:italic">' + pollChoice.t + '</span>';
+        newHTML += '<span style="font-style:italic">' + pollChoice.T + '</span>';
         newHTML += '</td></tr>';
     }
     newHTML += "</tbody></table>";
@@ -1082,23 +1075,23 @@ function SortComments() {
     }
 
     if (SortBy == "newest") {
-        CurrentComments.sort(dynamicSort("created"));
+        CurrentComments.sort(dynamicSort("c"));
         CurrentComments.reverse();
 
     }
     else if (SortBy == "oldest") {
-        CurrentComments.sort(dynamicSort("created"));
+        CurrentComments.sort(dynamicSort("c"));
     }
     else if (SortBy == "most_relevant") {
         // do nothing for now
     }
     else if (SortBy == "most_positive") {
-        CurrentComments.sort(dynamicSort("cuv"));
+        CurrentComments.sort(dynamicSort("U"));
         CurrentComments.reverse();
     }
     else if (SortBy == "most_negative") {
         // to do: need to fix for negative comments
-        CurrentComments.sort(dynamicSort("cdv"));
+        CurrentComments.sort(dynamicSort("D"));
         CurrentComments.reverse();
     }
 
@@ -1228,21 +1221,23 @@ function FocusBlah(who) {
 function PopulateBlahPreview(whichBlah) {
     $("#BlahPreviewExtra").empty();
     var headlineText = document.getElementById("BlahPreviewHeadline");
-    headlineText.innerHTML = unescape(whichBlah.text);
+    headlineText.innerHTML = unescape(whichBlah.T);
 
     // get the entire blah to update the rest...
-    Blahgua.GetBlah(whichBlah.blahId, UpdateBodyText, OnFailure);
+    Blahgua.GetBlah(whichBlah.I, UpdateBodyText, OnFailure);
 }
 
 function UpdateBodyText(theFullBlah) {
     CurrentBlah = theFullBlah;
+    if (FocusedBlah.hasOwnProperty("K"))
+        CurrentBlah.K = FocusedBlah.K;
     var headlineText = document.getElementById("BlahPreviewHeadline");
     var nickNameStr = getSafeProperty(theFullBlah, "K", "a blahger");
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
 
     if (IsUserLoggedIn) {
-        isOwnBlah = (CurrentBlah.authorId == CurrentUser._id);
+        isOwnBlah = (CurrentBlah.A == CurrentUser._id);
     } else {
         isOwnBlah = false;
     }
@@ -1251,8 +1246,8 @@ function UpdateBodyText(theFullBlah) {
         nickNameStr += " (you)";
     }
     // update the comment count while we are here
-    document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "c", 0);
-    document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "views", 0);
+    document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "C", 0);
+    document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "V", 0);
     document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
 
 
@@ -1262,11 +1257,11 @@ function UpdateBodyText(theFullBlah) {
 
         $("#PreviewRowVote").show();
         $("#PreviewRowSignIn").hide();
-        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "o", 0);
+        document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "O", 0);
 
         if (isOwnBlah) {
-            var upVotes = getSafeProperty(CurrentBlah, "vu", 0);
-            var downVotes = getSafeProperty(CurrentBlah, "vd", 0);
+            var upVotes = getSafeProperty(CurrentBlah, "P", 0);
+            var downVotes = getSafeProperty(CurrentBlah, "D", 0);
 
             $("#PreviewDemoteBlah").show();
             $("#PreviewUserPromoteSpan").text(upVotes + " promotes");
@@ -1328,8 +1323,8 @@ function UpdateBodyText(theFullBlah) {
      $(blahPreviewImage).css({ 'left': 90 + 'px'});
     }
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
-    if (theFullBlah.hasOwnProperty("b")) {
-        var bodyText = theFullBlah.b;
+    if (theFullBlah.hasOwnProperty("F")) {
+        var bodyText = theFullBlah.F;
         if (bodyText && (bodyText != "")) {
             bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
         }
@@ -1363,7 +1358,7 @@ function UpdateAskPreviewPage() {
 
 function UpdatePredictPreviewPage() {
     // update the prediction divs
-    var expDateVal = getSafeProperty(CurrentBlah, "e", Date.now());
+    var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
     var expDate = new Date(expDateVal);
     var elapStr = ElapsedTimeString(expDate);
     var isPast = (expDate < new Date(Date.now()));
@@ -1384,9 +1379,9 @@ function UpdatePredictPreviewPage() {
     $("#predictionDatePreview").text(expDate.toLocaleDateString());
 
     // update the bars
-    var yesVotes = getSafeProperty(CurrentBlah, "p4", 0);
-    var noVotes = getSafeProperty(CurrentBlah, "p5", 0);
-    var maybeVotes = getSafeProperty(CurrentBlah, "p6", 0);
+    var yesVotes = getSafeProperty(CurrentBlah, "4", 0);
+    var noVotes = getSafeProperty(CurrentBlah, "5", 0);
+    var maybeVotes = getSafeProperty(CurrentBlah, "6", 0);
     var totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
     var yesRatio = 0;
     var noRatio = 0;
@@ -1403,9 +1398,9 @@ function UpdatePredictPreviewPage() {
     document.getElementById("PredictPreviewMaybeSpan").style.width = maybeRatio + "%";
 
     // expired ui
-    yesVotes = getSafeProperty(CurrentBlah, "p1", 0);
-    noVotes = getSafeProperty(CurrentBlah, "p2", 0);
-    maybeVotes = getSafeProperty(CurrentBlah, "p3", 0);
+    yesVotes = getSafeProperty(CurrentBlah, "1", 0);
+    noVotes = getSafeProperty(CurrentBlah, "2", 0);
+    maybeVotes = getSafeProperty(CurrentBlah, "3", 0);
     totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
     yesRatio = 0;
     noRatio = 0;
@@ -1426,8 +1421,8 @@ function UpdatePredictPreviewPage() {
         Blahgua.GetUserPredictionVote(CurrentBlah._id,
         function(json) {
             // update the vote
-           var userVote = getSafeProperty(json, "x", null);
-            var expVote = getSafeProperty(json, "y", null);
+           var userVote = getSafeProperty(json, "D", null);
+            var expVote = getSafeProperty(json, "Z", null);
             if (userVote) {
                 switch (userVote) {
                     case "y":
@@ -1549,7 +1544,7 @@ function CreateBaseDiv(theBlah) {
     textDiv.className = "BlahTextDiv";
     newDiv.appendChild(textDiv);
     newDiv.blahTextDiv = textDiv;
-    newDiv.blahTextDiv.innerHTML = unescape(theBlah.text);
+    newDiv.blahTextDiv.innerHTML = unescape(theBlah.T);
     switch (theBlah.displaySize) {
         case 1:
             blahImageSize = "C";
@@ -1606,10 +1601,10 @@ function darkColors() {
 
 function GetBlahImage(theBlah, size) {
     var imagePathName = "";
-    if (theBlah.hasOwnProperty("img")) {
+    if (theBlah.hasOwnProperty("M")) {
         // fetch the correct image size
         var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
-        var imageName = theBlah.img[0];
+        var imageName = theBlah.M[0];
         imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
     }
 
@@ -1671,7 +1666,7 @@ function DrawInitialBlahs() {
     }
     else {
         var newDiv = document.createElement("div");
-        var newHTML = "The " + CurrentChannel.displayName + " channel currently has no blahs in it. ";
+        var newHTML = "<b>" + CurrentChannel.N + "</b> currently has no blahs in it.</br> ";
 
         if (IsUserLoggedIn) {
             newHTML += "Click below to add the first!<br/>" +
@@ -2024,31 +2019,6 @@ function OnGetBlahsOK(theResult) {
 
 
 function NormalizeStrengths(theBlahList) {
-    // makes sure that the blahs here range in strength from 0.0 to 1.0
-    var minStr = 1;
-    var maxStr = 0;
-    var currentBlah;
-
-    for (currentBlahIndex in theBlahList) {
-        currentBlah = theBlahList[currentBlahIndex];
-        if (currentBlah.s < minStr) {
-            minStr = currentBlah.s;
-        }
-        if (currentBlah.s > maxStr) {
-            maxStr = currentBlah.s;
-        }
-    }
-    
-    var offset = minStr;
-    var range = maxStr - minStr;
-    var scale = 1 / range;
-
-
-    for (currentBlahIndex in theBlahList) {
-        currentBlah = theBlahList[currentBlahIndex];
-        currentBlah.s = (currentBlah.s - offset) * scale;
-    }
-
     // ensure 100 blahs
     if (theBlahList.length < 100) {
         var curLoc = 0;
@@ -2064,27 +2034,15 @@ function AssignSizes(theBlahList) {
     var numMedium = 50;
     // the rest are small - presumably 40, since we get 100 blahs
  
-    // first, sort the blahs by their size
-    theBlahList.sort(function (a, b) {
-        return b.s - a.s;
-    });
-
-    var i = 0;
-    while (i < numLarge) {
-        theBlahList[i++].displaySize = 1;
+    for (var curIndex in theBlahList) {
+        if (theBlahList[curIndex].S > .9)
+            theBlahList[curIndex].displaySize = 1;
+        else if (theBlahList[curIndex].S > .4)
+            theBlahList[curIndex].displaySize = 2;
+        else
+            theBlahList[curIndex].displaySize = 3;
     }
 
-    MaxMedium = theBlahList[i].s;
-
-    while (i < (numMedium + numLarge)) {
-        theBlahList[i++].displaySize = 2;
-    }
-
-    MaxSmall = theBlahList[i].s;
-
-    while (i < theBlahList.length) {
-        theBlahList[i++].displaySize = 3;
-    }
 
 }
 
@@ -2188,12 +2146,12 @@ function createCommentElement(index, theComment) {
     }
 
     var isOwnComment = false;
-    if (theComment.authorId == CurrentUser._id) {
+    if (theComment.A == CurrentUser._id) {
         isOwnComment = true;
         blahgerName += " (you)"
     }
 
-    var ownVote = getSafeProperty(theComment, "commentVotes", 0);
+    var ownVote = getSafeProperty(theComment, "C", 0);
 
     // button for making complaints about the comment, banning user, etc.
     newHTML += '<td>';
@@ -2215,7 +2173,7 @@ function createCommentElement(index, theComment) {
     newHTML += '</span>';
     newHTML += '<span class="CommentDate" dir="ltr">';
     newHTML += '<a dir="ltr" href="/clickondate">';
-    newHTML += ElapsedTimeString(new Date(theComment.created));
+    newHTML += ElapsedTimeString(new Date(theComment.c));
     newHTML += '</a></span></p>';
 
     // comment text
@@ -2235,7 +2193,7 @@ function createCommentElement(index, theComment) {
         newHTML += ' <span class="button-icon-wrapper">';
         newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
         newHTML += ' </span>';
-        newHTML += getSafeProperty(theComment, "cuv", 0);
+        newHTML += getSafeProperty(theComment, "U", 0);
         if (ownVote > 0)
             newHTML += "X"
         newHTML += '</span> ';
@@ -2245,7 +2203,7 @@ function createCommentElement(index, theComment) {
         newHTML += '<span class="button-icon-wrapper">';
         newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
         newHTML += '</span>';
-        newHTML += getSafeProperty(theComment, "cdv", 0);
+        newHTML += getSafeProperty(theComment, "D", 0);
         if (ownVote < 0)
             newHTML += "X"
         newHTML += '</span>';
@@ -2257,7 +2215,7 @@ function createCommentElement(index, theComment) {
         newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
         newHTML += ' </span>';
         newHTML += '</button>';
-        newHTML += getSafeProperty(theComment, "cuv", 0);
+        newHTML += getSafeProperty(theComment, "U", 0);
         newHTML += '</span> ';
 
         // vote down
@@ -2267,7 +2225,7 @@ function createCommentElement(index, theComment) {
         newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
         newHTML += '</span>';
         newHTML += '</button>';
-        newHTML += getSafeProperty(theComment, "cdv", 0);
+        newHTML += getSafeProperty(theComment, "D", 0);
         newHTML += '</span>';
     }
     newHTML += '</div>';
@@ -2339,7 +2297,7 @@ function GoNextChannel() {
 function GetChannelByName(theName, theList) {
     var theEl = null;
     for (curIndex in theList) {
-        if (theList[curIndex].displayName.toLowerCase() == theName.toLowerCase()) {
+        if (theList[curIndex].N.toLowerCase() == theName.toLowerCase()) {
             theEl = theList[curIndex];
             break;
         }
@@ -2354,20 +2312,15 @@ function GetUserChannels() {
         Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
     } else {
         Blahgua.GetFeaturedChannels(function (channelList) {
-                var sortList = [];
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
                 var theChannel = GetChannelByName(defChannel, channelList);
                 if (theChannel != null)
-                    sortList.push(theChannel);
+                    channelList.push(theChannel);
             }
-            sortList.push(GetChannelByName("The Now Network", channelList));
-            sortList.push(GetChannelByName("Entertainment", channelList));
-            sortList.push(GetChannelByName("Politics", channelList));
-            sortList.push(GetChannelByName("Sports", channelList));
-            sortList.push(GetChannelByName("Humor", channelList));
 
-            GetChannelsOK(sortList);
+
+            GetChannelsOK(channelList);
         },
             OnFailure);
     }
@@ -2384,7 +2337,7 @@ function GetChannelsOK(theChannels) {
         var defChannel = getQueryVariable('channel');
         if (defChannel != null) {
             for (curIndex in ChannelList) {
-                if (ChannelList[curIndex].displayName.toLowerCase() == defChannel.toLowerCase())
+                if (ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                 {
                     PopulateChannelMenu();
                     SetCurrentChannel(curIndex);
@@ -2396,7 +2349,7 @@ function GetChannelsOK(theChannels) {
             if (IsUserLoggedIn) {
                 Blahgua.GetAllChannels(function (allChannels) {
                     for (curIndex in allChannels) {
-                        if (allChannels[curIndex].displayName.toLowerCase() == defChannel.toLowerCase())
+                        if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                         {
                             Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
                                 ChannelList.splice(0,0,allChannels[curIndex]);
@@ -2424,7 +2377,7 @@ function PopulateChannelMenu( ) {
     var newHTML = "";
 
     $.each(ChannelList, function(index, element) {
-        newHTML += createChannelHTML(index, element.displayName);
+        newHTML += createChannelHTML(index, element.N);
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
@@ -2499,7 +2452,7 @@ function SetCurrentChannel(whichChannel) {
     CurrentChannel = ChannelList[whichChannel];
     Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
-    labelDiv.innerHTML = CurrentChannel.displayName;
+    labelDiv.innerHTML = CurrentChannel.N;
     GetUserBlahs();
     UpdateChannelViewers();
 }
@@ -2563,7 +2516,7 @@ function OnGetOwnProfileFailed(theErr) {
     if (theErr.status == 404) {
         // profile doesn't exist - add one!
         UserProfile = new Object();
-        UserProfile["n"] = "a blahger";
+        UserProfile["A"] = "a blahger";
         Blahgua.CreateUserProfile(UserProfile, OnGetOwnProfileOK, OnFailure);
     }
 }
@@ -2571,67 +2524,67 @@ function OnGetOwnProfileFailed(theErr) {
 
 function OnGetOwnProfileOK(theStats) {
     UserProfile = theStats;
-    $("#NicknameInput").val(getSafeProperty(theStats, "n", ""));
+    $("#NicknameInput").val(getSafeProperty(theStats, "A", ""));
     Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
         $("#DescriptionDiv").text(theString.d);
     });
 
     // location
-    $("#CityInput").val(getSafeProperty(theStats, "cy", ""));
-    $("#StateInput").val(getSafeProperty(theStats, "s", ""));
-    $("#ZipcodeInput").val(getSafeProperty(theStats, "z", ""));
+    $("#CityInput").val(getSafeProperty(theStats, "G", ""));
+    $("#StateInput").val(getSafeProperty(theStats, "H", ""));
+    $("#ZipcodeInput").val(getSafeProperty(theStats, "I", ""));
 
     // populate country codes
     var newEl;
-    $.each(ProfileSchema.c.DT, function(index, item){
+    $.each(ProfileSchema.J.DT, function(index, item){
             newEl = document.createElement("option");
             newEl.value = index;
             newEl.innerHTML = item;
-            if (index == getSafeProperty(theStats, "c", -1))
+            if (index == getSafeProperty(theStats, "J", -1))
                 newEl.selected = "selected";
             $("#CountryInput").append(newEl);
     });
 
     // demographics
-    $("#DOBInput").val(getSafeProperty(theStats, "d", ""));
+    $("#DOBInput").val(getSafeProperty(theStats, "C", ""));
 
-    $.each(ProfileSchema.g.DT, function(index, item){
+    $.each(ProfileSchema.B.DT, function(index, item){
         newEl = document.createElement("option");
         newEl.value = index;
         newEl.innerHTML = item;
-        if (index == getSafeProperty(theStats, "g", -1))
+        if (index == getSafeProperty(theStats, "B", -1))
             newEl.selected = "selected";
         $("#GenderInput").append(newEl);
     });
-    $.each(ProfileSchema.r.DT, function(index, item){
+    $.each(ProfileSchema.D.DT, function(index, item){
         newEl = document.createElement("option");
         newEl.value = index;
         newEl.innerHTML = item;
-        if (index == getSafeProperty(theStats, "r", -1))
+        if (index == getSafeProperty(theStats, "D", -1))
             newEl.selected = "selected";
         $("#EthnicityInput").append(newEl);
     });
-    $.each(ProfileSchema.i.DT, function(index, item){
+    $.each(ProfileSchema.E.DT, function(index, item){
         newEl = document.createElement("option");
         newEl.value = index;
         newEl.innerHTML = item;
-        if (index == getSafeProperty(theStats, "i", -1))
+        if (index == getSafeProperty(theStats, "E", -1))
             newEl.selected = "selected";
         $("#IncomeInput").append(newEl);
     });
 
     // permissions
-    $('input[name=nickname]').val([getSafeProperty(theStats, "np", 0)]);
+    $('input[name=nickname]').val([getSafeProperty(theStats, "0", 0)]);
 
-    $('input[name=city]').val([getSafeProperty(theStats, "cyp", 0)]);
-    $('input[name=state]').val([getSafeProperty(theStats, "sp", 0)]);
-    $('input[name=zipcode]').val([getSafeProperty(theStats, "zp", 0)]);
-    $('input[name=country]').val([getSafeProperty(theStats, "cp", 0)]);
+    $('input[name=city]').val([getSafeProperty(theStats, "6", 0)]);
+    $('input[name=state]').val([getSafeProperty(theStats, "7", 0)]);
+    $('input[name=zipcode]').val([getSafeProperty(theStats, "8", 0)]);
+    $('input[name=country]').val([getSafeProperty(theStats, "9", 0)]);
 
-    $('input[name=age]').val([getSafeProperty(theStats, "dp", 0)]);
-    $('input[name=income]').val([getSafeProperty(theStats, "ip", 0)]);
-    $('input[name=gender]').val([getSafeProperty(theStats, "gp", 0)]);
-    $('input[name=race]').val([getSafeProperty(theStats, "rp", 0)]);
+    $('input[name=age]').val([getSafeProperty(theStats, "2", 0)]);
+    $('input[name=income]').val([getSafeProperty(theStats, "4", 0)]);
+    $('input[name=gender]').val([getSafeProperty(theStats, "1", 0)]);
+    $('input[name=race]').val([getSafeProperty(theStats, "3", 0)]);
 
     // badges
     UpdateBadgeArea();
@@ -2712,7 +2665,7 @@ function DoAddBadge(badgeID) {
         if (offset < 0)
             offset = 0;
         $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-        $(".BadgeTitleBar").text("talkikng to " + badgeID);
+        $(".BadgeTitleBar").text("talking to " + badgeID);
         $("#badgedialog").html(dialogHTML);
         $("#BadgeOverlay").fadeIn();
 
@@ -2721,30 +2674,30 @@ function DoAddBadge(badgeID) {
 
 
 function UpdateUserProfile() {
-    UserProfile["n"] = $("#NicknameInput").val();
+    UserProfile["A"] = $("#NicknameInput").val();
 
     // location
-    UserProfile["cy"] = $("#CityInput").val();
-    UserProfile["s"] = $("#StateInput").val();
-    UserProfile["z"] = $("#ZipcodeInput").val();
-    UserProfile["c"] = $("#CountryInput").val();
+    UserProfile["G"] = $("#CityInput").val();
+    UserProfile["H"] = $("#StateInput").val();
+    UserProfile["I"] = $("#ZipcodeInput").val();
+    UserProfile["J"] = $("#CountryInput").val();
 
     // demographics
-    UserProfile["d"] = $("#DOBInput").val();
-    UserProfile["i"] = $("#IncomeInput").val();
-    UserProfile["g"] = $("#GenderInput").val();
-    UserProfile["r"] = $("#EthnicityInput").val();
+    UserProfile["C"] = $("#DOBInput").val();
+    UserProfile["E"] = $("#IncomeInput").val();
+    UserProfile["B"] = $("#GenderInput").val();
+    UserProfile["D"] = $("#EthnicityInput").val();
 
     // permissions
-    UserProfile["np"] = Number($('input:radio[name=nickname]:checked').val());
-    UserProfile["cyp"] = Number($('input:radio[name=city]:checked').val());
-    UserProfile["sp"] = Number($('input:radio[name=state]:checked').val());
-    UserProfile["zp"] = Number($('input:radio[name=zipcode]:checked').val());
-    UserProfile["cp"] = Number($('input:radio[name=country]:checked').val());
-    UserProfile["dp"] = Number($('input:radio[name=age]:checked').val());
-    UserProfile["ip"] = Number($('input:radio[name=income]:checked').val());
-    UserProfile["gp"] = Number($('input:radio[name=gender]:checked').val());
-    UserProfile["rp"] = Number($('input:radio[name=race]:checked').val());
+    UserProfile["0"] = Number($('input:radio[name=nickname]:checked').val());
+    UserProfile["6"] = Number($('input:radio[name=city]:checked').val());
+    UserProfile["7"] = Number($('input:radio[name=state]:checked').val());
+    UserProfile["8"] = Number($('input:radio[name=zipcode]:checked').val());
+    UserProfile["9"] = Number($('input:radio[name=country]:checked').val());
+    UserProfile["2"] = Number($('input:radio[name=age]:checked').val());
+    UserProfile["4"] = Number($('input:radio[name=income]:checked').val());
+    UserProfile["1"] = Number($('input:radio[name=gender]:checked').val());
+    UserProfile["3"] = Number($('input:radio[name=race]:checked').val());
 
     // commit
     Blahgua.UpdateUserProfile(UserProfile, function(theBlah) {
@@ -2854,7 +2807,7 @@ function getProp(obj, propName, defVal) {
 }
 
 function OnChannelViewersOK(numViewers) {
-   $("#ChannelViewersCountText").html(getProp(numViewers, "v", 0));
+   $("#ChannelViewersCountText").html(getProp(numViewers, "V", 0));
 
 }
 
@@ -2871,20 +2824,22 @@ function DoCreateBlah() {
             if (windowWidth < 512) {
                 itemWidth = windowWidth;
             }
-            if (windowWidth > windowline2) {
-       $(BlahImage).css({ 'left': 200 + 'px'});
-    }
+            $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "K", "a blahger" ));
 
-    if (windowWidth <= windowline1)
-    {
-        $(BlahImage).css({ 'left': 100 + 'px'});
+            /*
+            if (windowWidth > windowline2) {
+               $(BlahImage).css({ 'left': 200 + 'px'});
+            }
+
+            if (windowWidth <= windowline1) {
+                $(BlahImage).css({ 'left': 100 + 'px'});
+            }
     
-    }
-    
-        if ((windowWidth <= windowline2)&&(windowWidth >= windowline1))
-    {
-     $(BlahImage).css({ 'left': 160 + 'px'});
-    }
+            if ((windowWidth <= windowline2)&&(windowWidth >= windowline1)) {
+                $(BlahImage).css({ 'left': 160 + 'px'});
+            }
+            */
+
             $(".createblahscroll").css({'left': delta, 'right':delta});
             $(".creatblahfooter").css({'width': itemWidth});
 
@@ -2893,7 +2848,6 @@ function DoCreateBlah() {
     } else {
         SuggestUserSignIn("you must sign in before you can create a new blah")
     }
-
  }
 
 function UpdateBlahTypes() {
@@ -2908,7 +2862,7 @@ function PopulateBlahTypeOptions() {
     curHTML = "";
     for (curItem in BlahTypeList) {
         curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '" >';
-        curHTML += BlahTypeList[curItem].name;
+        curHTML += BlahTypeList[curItem].N;
         curHTML += '</OPTION>';
     }
     $("#BlahTypeList").html(curHTML);
@@ -2938,12 +2892,12 @@ function CreateBlah() {
             var pollDivs = document.getElementsByName("PollItem");
             for (i = 0; i < pollDivs.length; i++) {
                 curPollItem = new Object();
-                curPollItem["g"] = pollDivs[i].childNodes[1].value;
-                curPollItem["t"] = pollDivs[i].childNodes[3].value;
+                curPollItem["G"] = pollDivs[i].childNodes[1].value;
+                curPollItem["T"] = pollDivs[i].childNodes[3].value;
                 pollItems.push(curPollItem);
             }
             options = new Object();
-            options["pt"] = pollItems;
+            options["I"] = pollItems;
             break;
         case "predicts":
             // update the prediction on create
@@ -2951,7 +2905,7 @@ function CreateBlah() {
             var theDateStr = $("#PredictionEndDateInput").val();
             var theTimeStr = $("#PredictionEndTimeInput").val();
             var theDate = new Date(theDateStr + " " + theTimeStr);
-            options["e"] = theDate;
+            options["E"] = theDate;
             break;
         default:
             break;
@@ -3025,7 +2979,7 @@ function OnUploadImageOK(result) {
 
 function UpdateBlahInfoArea() {
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
-    switch (blahTypeStr.name) {
+    switch (blahTypeStr.N) {
         case "predicts":
             $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
                 function() { UpdatePredictAuthorPage(); })
@@ -3134,7 +3088,7 @@ function OnGetChannelTypesOK(typeList) {
 function GenerateHTMLForChannelType(channelType) {
     var newHTML= "";
     newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
-    newHTML += "<a class='channelBrowserGroupItem'>" + channelType.displayName + "</a>";
+    newHTML += "<a class='channelBrowserGroupItem'>" + channelType.N + "</a>";
     newHTML += "</li>"
     return newHTML;
 }
@@ -3143,9 +3097,9 @@ function GenerateHTMLForChannelBrowser(curChannel) {
     var newHTML = "";
     newHTML += "<li class='channelBrowserChannelItem' channelId='" + curChannel._id + "' onclick='DoOpenChannelPage(); return false;'><a >";
 
-    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel.displayName + '.png"';
+    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png"';
     newHTML += 'onerror="imgError(this);">';
-    newHTML += curChannel.displayName;
+    newHTML += curChannel.N;
     newHTML += "</a>";
     newHTML += "</li>"
     return newHTML;
@@ -3173,7 +3127,7 @@ function GetSubChannelsOK(newChannelList) {
         $.each(newChannelList, function (index, element) {
             newHTML += GenerateHTMLForChannelBrowser(element);
         });
-        document.getElementById(newChannelList[0].groupTypeId).innerHTML += newHTML;
+        document.getElementById(newChannelList[0].Y).innerHTML += newHTML;
     } else {
          //to do - add some text about how there are no channels...
         var who = event | window.event;
@@ -3202,11 +3156,50 @@ function DoOpenChannelPage() {
 
 function PopulateChannelDetailPage(channelId) {
     Blahgua.GetChannelInfo(channelId, function(theChannel) {
-        $("#ChannelTitleDiv").text(theChannel.displayName);
-        document.getElementById("ChannelDetailPage").attr["channelObj"] = theChannel;
+        document.getElementById("ChannelDetailPage").setAttribute("channelObj", channelId);
+        $("#ChannelTitleDiv").text(theChannel.N);
+        $("#ChannelDescriptionArea").text(getSafeProperty(theChannel, "D", "a channel"));
+        RefreshChannelDetailPage(theChannel._id);
     })
+}
 
+function RefreshChannelDetailPage(theChannelId) {
+    if (UserIsOnChannel(theChannelId)) {
+        $("#JoinChannelBtn").hide();
+        $("#LeaveChannelBtn").show();
+    } else {
+        $("#JoinChannelBtn").show();
+        $("#LeaveChannelBtn").hide();
+    }
+}
 
+function UserIsOnChannel(channelId) {
+    for (curIndex in ChannelList) {
+        if (ChannelList[curIndex]._id == channelId)
+            return true;
+    }
+
+    return false;
+}
+
+function DoJoinChannel() {
+    var channelId = document.getElementById("ChannelDetailPage").getAttribute("channelObj");
+    Blahgua.JoinUserToChannel(channelId, function() {
+        Blahgua.GetUserChannels(function(theList) {
+            ChannelList = theList;
+            RefreshChannelDetailPage();
+        });
+    });
+}
+
+function DoLeaveChannel() {
+    var channelId = document.getElementById("ChannelDetailPage").getAttribute("channelObj");
+    Blahgua.RemoveUserFromChannel(channelId, function() {
+        Blahgua.GetUserChannels(function(theList) {
+            ChannelList = theList;
+            RefreshChannelDetailPage();
+        });
+    });
 }
 
 function DoChannelBrowserReturn() {
@@ -3217,7 +3210,7 @@ function DoChannelBrowserReturn() {
 }
 
 function IsUsersOwnBlah() {
-    return (CurrentUser._id == CurrentBlah.authorId);
+    return (CurrentUser._id == CurrentBlah.A);
 }
 
 
@@ -3335,10 +3328,10 @@ function DoAddComment() {
     commentText =
     Blahgua.AddBlahComment(commentText, CurrentBlah._id, function (newComment) {
         $("#CommentTextArea").val("");
-        if (CurrentBlah.hasOwnProperty("c")) {
-            CurrentBlah.c++;
+        if (CurrentBlah.hasOwnProperty("C")) {
+            CurrentBlah.C++;
         } else {
-            CurrentBlah["c"] = 1;
+            CurrentBlah["C"] = 1;
         }
         UpdateBlahComments();
     }, OnFailure);
@@ -3348,11 +3341,11 @@ function PromoteComment(commentIndex) {
     var theID = CurrentComments[commentIndex]._id;
     var targetDiv = $(event.target).parents('tr');
     Blahgua.SetCommentVote(theID, 1, function(json) {
-        if (CurrentComments[commentIndex].hasOwnProperty("cuv"))
-            CurrentComments[commentIndex].cuv++;
+        if (CurrentComments[commentIndex].hasOwnProperty("U"))
+            CurrentComments[commentIndex].U++;
         else
-            CurrentComments[commentIndex]["cuv"] = 1;
-        CurrentComments[commentIndex]["commentVotes"] = 1;
+            CurrentComments[commentIndex]["U"] = 1;
+        CurrentComments[commentIndex]["C"] = 1;
         var newEl = createCommentElement(commentIndex, CurrentComments[commentIndex]);
         targetDiv.html(newEl.innerHTML);
     }, OnFailure);
@@ -3363,11 +3356,11 @@ function DemoteComment(commentIndex) {
     var theID = CurrentComments[commentIndex]._id;
     var targetDiv = $(event.target).parents('tr');
     Blahgua.SetCommentVote(theID, -1, function(json) {
-        if (CurrentComments[commentIndex].hasOwnProperty("cdv"))
-            CurrentComments[commentIndex].cdv++;
+        if (CurrentComments[commentIndex].hasOwnProperty("D"))
+            CurrentComments[commentIndex].D++;
         else
-            CurrentComments[commentIndex]["cdv"] = 1;
-        CurrentComments[commentIndex]["commentVotes"] = -1;
+            CurrentComments[commentIndex]["D"] = 1;
+        CurrentComments[commentIndex]["C"] = -1;
         var newEl = createCommentElement(commentIndex, CurrentComments[commentIndex]);
         targetDiv.html(newEl.innerHTML);
     }, OnFailure);

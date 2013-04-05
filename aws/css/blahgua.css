@@ -962,6 +962,26 @@ a {
     padding: 8px;
 }
 
+.no-blahs-in-channel-warning {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    margin-top: 65px;
+}
+
+.no-blahs-in-channel-warning a {
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+
+
 .BadgeTitleBar {
     width: 100%;
     text-align: center;
