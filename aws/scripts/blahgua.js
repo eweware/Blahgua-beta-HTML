@@ -976,7 +976,7 @@ function UpdateFullBlahBody(newBlah) {
         $("#FullBlahProfileString").text("an anonymous blahger");
     })
 
-    var curDate = new Date(getSafeProperty(CurrentBlah, "created", Date.now()));
+    var curDate = new Date(getSafeProperty(CurrentBlah, "c", Date.now()));
     var dateString = ElapsedTimeString(curDate);
     $("#FullBlahDateStr").text(dateString);
 }
@@ -1082,12 +1082,12 @@ function SortComments() {
     }
 
     if (SortBy == "newest") {
-        CurrentComments.sort(dynamicSort("created"));
+        CurrentComments.sort(dynamicSort("c"));
         CurrentComments.reverse();
 
     }
     else if (SortBy == "oldest") {
-        CurrentComments.sort(dynamicSort("created"));
+        CurrentComments.sort(dynamicSort("c"));
     }
     else if (SortBy == "most_relevant") {
         // do nothing for now
@@ -2215,7 +2215,7 @@ function createCommentElement(index, theComment) {
     newHTML += '</span>';
     newHTML += '<span class="CommentDate" dir="ltr">';
     newHTML += '<a dir="ltr" href="/clickondate">';
-    newHTML += ElapsedTimeString(new Date(theComment.created));
+    newHTML += ElapsedTimeString(new Date(theComment.c));
     newHTML += '</a></span></p>';
 
     // comment text
