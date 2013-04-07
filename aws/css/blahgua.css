@@ -19,7 +19,7 @@
 .BlahContainer {
     position: absolute;
     height:100%;
-    background-color: #CFC0C0;
+    background-color: #2c1212;
     overflow:hidden;
 
 }
@@ -27,10 +27,17 @@
 .BlahDiv {
     background-color:#000000;
     font-family:'Archivo Narrow', sans-serif;
-    padding: 8px;
+
     overflow:hidden;
     vertical-align:middle;
     background-size: cover;
+    border-radius:4px;
+
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
 
 
@@ -39,53 +46,90 @@
     background-color: transparent;
     font-family: 'Oswald', sans-serif;
     height:auto;
-    min-height:100%;
     width:auto;
     min-width:100%;
     font-size:9px;
+    padding: 4px;
 }
 
 .BlahAltTextDiv {
     min-height:50%;
-    margin-left:0px;
     text-align:center;
-
 
 }
 
 .BlahExpandTextDiv {
-    margin-top:-8px;
-    margin-left:-8px;
-    margin-right:-8px;
-    margin-bottom:-8px;
     text-align:center;
-
-
-}
-
-.BlahSmallTextLight {
-    background-color: rgba(0,0,0,.5);
-    color:white;
-}
-
-.BlahSmallTextDark {
-    background-color: rgba(255,255,255,.5);
-    color:black;
 }
 
 
 .SmallBlahFormat {
-   
+    font-size:24px;
 }
 
 .MediumBlahFormat {
-
+    font-size:48px;
 }
 
 
 .LargeBlahFormat {
-    font-weight:bold;
+    font-size: 72px;
 }
+
+.BlahTypeSays {
+    color: black;
+    background-color:  #EDE5E2;
+}
+
+.BlahTypeLeaks {
+    color: #ffd9ee;
+    background-color: #ea3556;
+}
+
+.BlahTypePolls {
+    color: black;
+    background-color: #61d2d6;
+
+}
+
+.BlahTypePredicts {
+    color: black;
+    background-color: #edde45;
+
+}
+
+.BlahTypeAd {
+    color: white;
+    background-color:blue;
+
+}
+
+.BlahTypeSaysImgText {
+    color: black;
+    background-color: rgba(237,229,226  ,0.6);
+}
+
+.BlahTypeLeaksImgText {
+    color: black;
+    background-color: rgba(234,53,86,0.6);
+}
+
+.BlahTypePollsImgText {
+    color: black;
+    background-color: rgba(97,210,214,0.6);
+}
+
+.BlahTypePredictsImgText {
+    color: black;
+    background-color: rgba(227,232,69,0.6);
+}
+
+.BlahTypeAddImgText {
+    color: white;
+    background-color: rgba(0,0,255,0.6);
+}
+
+
 
 .BlahImage {
     position:absolute;

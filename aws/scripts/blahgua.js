@@ -44,6 +44,14 @@ var windowline2 = 500;
 var ProfileSchema = null;
 var UserProfile = null;
 var CurrentBlahNickname = "";
+var kBlahTypeSays;
+var kBlahTypeLeaks;
+var kBlahTypePolls;
+var kBlahTypePredicts;
+var kBlahTypeAd;
+var edgeGutter = 2;
+var interBlahGutter = 4;
+
 
 
 (function ($) {
@@ -380,29 +388,33 @@ function ComputeSizes() {
 
 
     var numCols = 1;
+    var totalGutter = edgeGutter * 2 + interBlahGutter * 3;
 
-    SmallTileWidth = Math.floor(windowWidth / (numCols * 4));
+    SmallTileWidth = Math.floor((windowWidth - totalGutter) / (numCols * 4));
     if (SmallTileWidth > 128) {
         SmallTileWidth = 128;
     }
-    MediumTileWidth = SmallTileWidth * 2;
-    LargeTileWidth = MediumTileWidth * 2;
+    MediumTileWidth = (SmallTileWidth * 2) + interBlahGutter;
+    LargeTileWidth = (MediumTileWidth * 2) + interBlahGutter;
+    //LargeTileWidth = (SmallTileWidth * 3) + (interBlahGutter * 2);
 
     SmallTileHeight = SmallTileWidth;
     MediumTileHeight = MediumTileWidth ;
-    LargeTileHeight = LargeTileWidth;
+    //LargeTileHeight = LargeTileWidth;
+    LargeTileHeight = MediumTileHeight;
 
     // now make the window the correct size
-    var offset = Math.floor((windowWidth - LargeTileWidth) / 2);
+    var targetWidthWidth = (SmallTileWidth * 4) + totalGutter;
+    var offset = Math.floor((windowWidth - targetWidthWidth) / 2);
     var blahContainer = document.getElementById("BlahContainer");
     blahContainer.style.left = offset + "px";
     blahContainer.style.width = LargeTileWidth + "px";
 
-    $("#BlahContainer").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
-    $("#ChannelBanner").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
-    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': LargeTileWidth - 32 + 'px', 'maxHeight': windowHeight-50+'px' });
+    $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
+    $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
+    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': targetWidthWidth - 32 + 'px', 'maxHeight': windowHeight-50+'px' });
 
-    $("#BlahFullItem").css({ 'left': offset + 'px', 'width': LargeTileWidth + 'px' });
+    $("#BlahFullItem").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
 
 
 }
@@ -939,6 +951,16 @@ function GetBlahTypeStr() {
     return "";
 }
 
+function GetBlahTypeId(theType) {
+    for (var curType in BlahTypeList) {
+        if (BlahTypeList[curType].N == theType) {
+            return BlahTypeList[curType]._id;
+        }
+    }
+
+    return "";
+}
+
 function UpdateFullBlahBody() {
     var headlineText = document.getElementById("BlahFullHeadline");
     headlineText.innerHTML = unescape(CurrentBlah.T);
@@ -1224,8 +1246,8 @@ function FocusBlah(who) {
 
 function PopulateBlahPreview(whichBlah) {
     $("#BlahPreviewExtra").empty();
-    var headlineText = document.getElementById("BlahPreviewHeadline");
-    headlineText.innerHTML = unescape(whichBlah.T);
+    //var headlineText = document.getElementById("BlahPreviewHeadline");
+    $("#BlahPreviewHeadline").text(unescape(whichBlah.T));
 
     // get the entire blah to update the rest...
     Blahgua.GetBlah(CurrentBlahId, UpdateBodyText, OnFailure);
@@ -1549,41 +1571,57 @@ function CreateBaseDiv(theBlah) {
     textDiv.className = "BlahTextDiv";
     newDiv.appendChild(textDiv);
     newDiv.blahTextDiv = textDiv;
-    newDiv.blahTextDiv.innerHTML = unescape(theBlah.T);
+    $(textDiv).text(unescape(theBlah.T));
     switch (theBlah.displaySize) {
         case 1:
             blahImageSize = "C";
+           $(newDiv).addClass("LargeBlahFormat");
             break;
         case 2:
             blahImageSize = "B";
+            $(newDiv).addClass("MediumBlahFormat");
             break;
         default:
             blahImageSize = "A";
+            $(newDiv).addClass("SmallBlahFormat");
             break;
     }
+
 
     var imagePath = GetBlahImage(theBlah, blahImageSize);
     if (imagePath != "") {
         newDiv.style.backgroundImage = "url('" + imagePath + "')";
-        var r = (Math.round(Math.random() * 127) + 127);
-        var g = (Math.round(Math.random() * 127) + 127);
-        var b = (Math.round(Math.random() * 127) + 127);
-        var colorStr = "rgba(" + r + "," + g + "," + b + ", .8)";
+
         if (theBlah.displaySize != 3) {
             $(textDiv).addClass("BlahAltTextDiv");
-            textDiv.style.backgroundColor = colorStr;
         }
         else {
-            textDiv.style.backgroundColor = pastelColors();
-            $(textDiv).addClass("BlahExpandTextDiv");
-            // start with no text
-            $(textDiv).fadeOut(1000);
 
+            $(textDiv).addClass("BlahExpandTextDiv");
+            $(textDiv).fadeOut(1000);
+        }
+
+        switch (theBlah.Y) {
+            case kBlahTypeSays:
+                $(textDiv).addClass("BlahTypeSaysImgText");
+                break;
+            case kBlahTypeLeaks:
+                $(textDiv).addClass("BlahTypeLeaksImgText");
+                break;
+            case kBlahTypePolls:
+                $(textDiv).addClass("BlahTypePollsImgText");
+                break;
+            case kBlahTypePredicts:
+                $(textDiv).addClass("BlahTypePredictsImgText");
+                break;
+            case kBlahTypeAd:
+                $(textDiv).addClass("BlahTypeAddImgText");
+                break;
+            default:
+                break;
         }
     }
 
-
-    
     return newDiv;
 
 }
@@ -1620,25 +1658,40 @@ function GetBlahImage(theBlah, size) {
 
 function CreateElementForBlah(theBlah) {
     var newEl = CreateBaseDiv(theBlah);
-    var paddingOffset = 8 * 2;
+    var paddingOffset = 0;//8 * 2;
 
     if (theBlah.displaySize == 1) {
         newEl.style.width = LargeTileWidth - paddingOffset + "px";
         newEl.style.height = LargeTileHeight - paddingOffset + "px";
-        $(newEl).addClass('LargeBlahFormat');
 
     } else if (theBlah.displaySize == 2) {
         newEl.style.width = MediumTileWidth - paddingOffset + "px";
         newEl.style.height = MediumTileHeight - paddingOffset + "px";
-        $(newEl).addClass('MediumBlahFormat');
     } else {
         newEl.style.width = SmallTileWidth - paddingOffset + "px";
         newEl.style.height = SmallTileHeight - paddingOffset + "px";
-        $(newEl).addClass('SmallBlahFormat');
     }
 
-    newEl.style.backgroundColor = pastelColors();
-    newEl.style.color = darkColors();
+    switch (theBlah.Y) {
+        case kBlahTypeSays:
+            $(newEl).addClass("BlahTypeSays");
+            break;
+        case kBlahTypeLeaks:
+            $(newEl).addClass("BlahTypeLeaks");
+            break;
+        case kBlahTypePolls:
+            $(newEl).addClass("BlahTypePolls");
+            break;
+        case kBlahTypePredicts:
+            $(newEl).addClass("BlahTypePredicts");
+            break;
+        case kBlahTypeAd:
+            $(newEl).addClass("BlahTypeAd");
+            break;
+    }
+
+    //newEl.style.backgroundColor = pastelColors();
+    //newEl.style.color = darkColors();
 
     return newEl;
 }
@@ -1649,7 +1702,7 @@ function DrawInitialBlahs() {
         $("#BlahContainer").append(curRow);
         ResizeRowText(curRow);
         TopRow = curRow;
-        var curTop = curRow.rowHeight;
+        var curTop = curRow.rowHeight + interBlahGutter;
         var bottom = $("#BlahContainer").height();
         var lastRow = curRow;
         RowsOnScreen = 1;
@@ -1659,7 +1712,7 @@ function DrawInitialBlahs() {
             curRow.style.top = curTop + "px";
             $("#BlahContainer").append(curRow);
             ResizeRowText(curRow);
-            curTop += curRow.rowHeight;
+            curTop += curRow.rowHeight + interBlahGutter;
             lastRow.rowBelow = curRow;
             curRow.rowAbove = lastRow;
             BottomRow = curRow;
@@ -1693,7 +1746,7 @@ function DoAddBlahRow() {
     nextRow.rowAbove = BottomRow;
     BottomRow.rowBelow = nextRow;
     BottomRow = nextRow;
-    nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop()) + "px";
+    nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop() + interBlahGutter) + "px";
     $("#BlahContainer").append(nextRow);
     ResizeRowText(nextRow);
     RowsOnScreen++;
@@ -1703,6 +1756,7 @@ function DoAddBlahRow() {
 }
 
 function ResizeRowText(newRow) {
+    //return;
     var curTile;
     var tileHeight;
     var textHeight;
@@ -1729,6 +1783,7 @@ function ResizeRowText(newRow) {
         if (scaleText) {
             curTile.blahTextDiv.style.marginTop = (height - 8) + "px";
         }
+        curTile.blahTextDiv.style.height = "100%";
     }
 }
 
@@ -1887,115 +1942,137 @@ function BuildNextRow(rowHint) {
 
 function CreateLRow(theBlah, newRowEl) {
     var newBlahEl = CreateElementForBlah(theBlah);
+    newBlahEl.style.left = edgeGutter + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
 function CreateMMRow(theBlah, newRowEl) {
+    var curLeft = edgeGutter;
     var newBlahEl = CreateElementForBlah(theBlah);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(2);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = MediumTileWidth + "px";
+    curLeft += MediumTileWidth + interBlahGutter;
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
 function CreateSSSSRow(theBlah, newRowEl) {
+    var curLeft = edgeGutter;
     var newBlahEl = CreateElementForBlah(theBlah);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth + "px";
+    curLeft += SmallTileWidth + interBlahGutter;
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth * 2 + "px";
+    curLeft += SmallTileWidth + interBlahGutter;
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth * 3 + "px";
+    curLeft += SmallTileWidth + interBlahGutter;
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
 function CreateMSSRow(theBlah, newRowEl) {
+    var curLeft = edgeGutter;
     var newBlahEl = CreateElementForBlah(theBlah);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = MediumTileWidth + "px";
+    curLeft += (MediumTileWidth + interBlahGutter);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = MediumTileWidth + "px";
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.left = curLeft + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = (MediumTileWidth + SmallTileWidth) + "px";
+    curLeft += (SmallTileWidth + interBlahGutter);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = (MediumTileWidth + SmallTileWidth) + "px";
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.left = curLeft + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
 function CreateSMSRow(theBlah, newRowEl) {
+    var curLeft = edgeGutter + SmallTileWidth + interBlahGutter;
     var newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth + "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
+    curLeft = edgeGutter;
+    newBlahEl.style.left = curLeft +  "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = (MediumTileWidth + SmallTileWidth) + "px";
+    curLeft += (MediumTileWidth + interBlahGutter + interBlahGutter + SmallTileWidth);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = (MediumTileWidth + SmallTileWidth) + "px";
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.left = curLeft +  + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
 function CreateSSMRow(theBlah, newRowEl) {
+    var curLeft = edgeGutter + (SmallTileWidth + interBlahGutter) * 2;
     var newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = MediumTileWidth + "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
+    curLeft = edgeGutter;
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth + "px";
+    curLeft += (SmallTileWidth + interBlahGutter);
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = SmallTileWidth + "px";
-    newBlahEl.style.top = SmallTileHeight + "px";
+    newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 }
 
@@ -2035,8 +2112,8 @@ function NormalizeStrengths(theBlahList) {
 
 function AssignSizes(theBlahList) {
     // makes sure that there are a good ration of large, medium, small
-    var numLarge = 10;
-    var numMedium = 50;
+    var largeBlahThreshold = .8;
+    var mediumBlahThreshold = .3;
     // the rest are small - presumably 40, since we get 100 blahs
  
     for (var curIndex in theBlahList) {
@@ -2858,6 +2935,11 @@ function DoCreateBlah() {
 function UpdateBlahTypes() {
     Blahgua.GetBlahTypes(function (json) {
         BlahTypeList = json;
+        kBlahTypeLeaks = GetBlahTypeId("leaks");
+        kBlahTypePolls = GetBlahTypeId("polls");
+        kBlahTypePredicts = GetBlahTypeId("predicts");
+        kBlahTypeSays = GetBlahTypeId("says");
+        kBlahTypeAd = GetBlahTypeId("ad");
     });
 }
 
