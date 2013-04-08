@@ -2030,6 +2030,7 @@ function CreateSMSRow(theBlah, newRowEl) {
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
     newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+    newBlahEl.style.left = curLeft +  "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
@@ -2040,7 +2041,7 @@ function CreateSMSRow(theBlah, newRowEl) {
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
-    newBlahEl.style.left = curLeft +  + "px";
+    newBlahEl.style.left = curLeft + "px";
     newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
     newRowEl.appendChild(newBlahEl);
 }
