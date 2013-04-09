@@ -521,7 +521,23 @@ function BlahguaObject() {
     };
 
 
+    this.GetUserBlahs = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the groups of the current user</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A list of the user's groups</returns>
+        var methodName = "blahs";
+        this.CallGetMethod(methodName, "{}", OnSuccess, OnFailure);
+    };
 
+    this.GetUserComments = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the groups of the current user</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A list of the user's groups</returns>
+        var methodName = "comments";
+        this.CallGetMethod(methodName, "{}", OnSuccess, OnFailure);
+    };
 
 
     this.GetUserChannels = function (OnSuccess, OnFailure) {

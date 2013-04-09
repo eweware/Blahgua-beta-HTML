@@ -881,7 +881,6 @@ a {
 }
 .inputheadlineframe
 {
-	
 	width:100%;
 	min-height:30px;
     padding: 20px;
@@ -907,7 +906,6 @@ a {
     font-family: 'oswald', sans-serif;
     background-color: #F0F0F0;
     color:black;
-    padding:8px;
 }
 .inputbody
 {

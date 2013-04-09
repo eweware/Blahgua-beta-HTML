@@ -51,7 +51,7 @@ var kBlahTypePredicts;
 var kBlahTypeAd;
 var edgeGutter = 2;
 var interBlahGutter = 12;
-
+var newlineToken = "[_r;";
 
 
 (function ($) {
@@ -680,6 +680,7 @@ function UpdateBlahOverview() {
 
         $("#BlahRowVote").show();
         $("#BlahRowSignIn").hide();
+        $("#UploadImageTable").show();
 
         if (isOwnBlah) {
             var upVotes = getSafeProperty(CurrentBlah, "P", 0);
@@ -690,6 +691,7 @@ function UpdateBlahOverview() {
             $("#DemoteBlahImage").show();
             $("#UserDemoteSpan").text(downVotes + " demotes");
         } else {
+            $("#UploadImageTable").hide();
             var userVote = getSafeProperty(CurrentBlah, "uv", 0);
             if (userVote && (userVote != 0)) {
                 if (userVote == 1) {
@@ -713,6 +715,7 @@ function UpdateBlahOverview() {
     } else {
         $("#BlahRowVote").hide();
         $("#BlahRowSignIn").show();
+        $("#UploadImageTable").hide();
     }
 
 
@@ -732,7 +735,8 @@ function UpdateBlahOverview() {
     if (CurrentBlah.hasOwnProperty("F")) {
         var bodyText = CurrentBlah.F;
         if (bodyText && (bodyText != "")) {
-            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+            //bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+            bodyText = bodyText;
         }
         bodyTextDiv.innerHTML = bodyText;
     } else {
@@ -753,6 +757,51 @@ function UpdateBlahOverview() {
 
     }
 }
+
+function DoAddImageToBlah() {
+    var blahId = CurrentBlah._id;
+    $("#ProgressDiv").show();
+    $("#objectId").val(blahId);
+
+    var formData = new FormData($("#ImageForm")[0]);
+    $.ajax({
+        url: "http://beta.blahgua.com/v2/images/upload",
+
+        type: 'POST',
+        xhr: function() { // custom xhr
+            myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // if upload property exists
+                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+            }
+            return myXhr;
+        },
+        //Ajax events
+        success: completeHandler = function(data) {
+            OnAddImageOK(data);
+
+        },
+        error: errorHandler = function(theErr) {
+            alert("Error uploading");
+        },
+        // Form data
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false
+    }, 'json');
+}
+
+function OnAddImageOK(data) {
+    Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+        CurrentBlah= theBlah;
+        SetBlahDetailPage("Overview");
+    }, OnFailure);
+    return;
+}
+
+
+
 
 function UpdateBlahComments() {
 // update the comments
@@ -963,7 +1012,8 @@ function GetBlahTypeId(theType) {
 
 function UpdateFullBlahBody() {
     var headlineText = document.getElementById("BlahFullHeadline");
-    headlineText.innerHTML = unescape(CurrentBlah.T);
+    //headlineText.innerHTML = unescape(CurrentBlah.T);
+    headlineText.innerHTML = CurrentBlah.T;
     var nickNameStr = CurrentBlahNickname;
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
@@ -1247,7 +1297,8 @@ function FocusBlah(who) {
 function PopulateBlahPreview(whichBlah) {
     $("#BlahPreviewExtra").empty();
     //var headlineText = document.getElementById("BlahPreviewHeadline");
-    $("#BlahPreviewHeadline").text(unescape(whichBlah.T));
+    //$("#BlahPreviewHeadline").text(unescape(whichBlah.T));
+    $("#BlahPreviewHeadline").text(whichBlah.T);
 
     // get the entire blah to update the rest...
     Blahgua.GetBlah(CurrentBlahId, UpdateBodyText, OnFailure);
@@ -1352,9 +1403,11 @@ function UpdateBodyText(theFullBlah) {
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
     if (theFullBlah.hasOwnProperty("F")) {
         var bodyText = theFullBlah.F;
+        /*
         if (bodyText && (bodyText != "")) {
             bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
         }
+        */
         bodyTextDiv.innerHTML = bodyText;
     } else {
         bodyTextDiv.innerHTML = "";
@@ -1571,7 +1624,8 @@ function CreateBaseDiv(theBlah) {
     textDiv.className = "BlahTextDiv";
     newDiv.appendChild(textDiv);
     newDiv.blahTextDiv = textDiv;
-    $(textDiv).text(unescape(theBlah.T));
+    //$(textDiv).text(unescape(theBlah.T));
+    $(textDiv).text(theBlah.T);
     switch (theBlah.displaySize) {
         case 1:
             blahImageSize = "C";
@@ -2176,12 +2230,12 @@ function completeHandler(theArg) {
         bgImage = "url('" + newFile + "')";
     }
     document.getElementById("BlahContainer").style.backgroundImage = bgImage;
-    $('progress').hide();
+    $('#ProgressDiv').hide();
 }
 
 function errorHandler(theArg) {
     $("#DivToShowHide").html(theArg);
-    $('progress').hide();
+    $('#ProgressDiv').hide();
 }
 
 function progressHandlingFunction(e) {
@@ -2198,34 +2252,6 @@ $(':file').change(function () {
     //your validation
 });
 
-
-function PostMe(what) {
-    $('progress').show();
-    var formData = new FormData($('form')[0]);
-    $.ajax({
-        url: 'BlahguaService.asmx/UploadFile', //server script to process data
-        //url: 'http://ec2-50-112-195-162.us-west-2.compute.amazonaws.com:50192/api/v2/images/upload',
-        type: 'POST',
-        //crossDomain: true,
-        xhr: function () { // custom xhr
-            myXhr = $.ajaxSettings.xhr();
-            if (myXhr.upload) { // check if upload property exists
-                myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // for handling the progress of the upload
-            }
-            return myXhr;
-        },
-        //Ajax events
-        beforeSend: beforeSendHandler,
-        success: completeHandler,
-        error: errorHandler,
-        // Form data
-        data: formData,
-        //Options to tell JQuery not to process data or worry about content-type
-        cache: false,
-        contentType: false,
-        processData: false
-    });
-}
 
 
 // Create comment HTML
@@ -2274,7 +2300,8 @@ function createCommentElement(index, theComment) {
 
     // comment text
     newHTML += '<div class="CommentText" dir="ltr">';
-    newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
+    //newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
+    newHTML += '<p>' + theComment.T  + '</p>';
     newHTML += '</div>';
 
     // comment actions
@@ -2600,7 +2627,20 @@ function SuggestUserSignIn(message) {
 
 
 function PopulateUserChannel() {
-    $("#BlahFullItem").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", RefreshUserChannelContent);
+    $("#BlahFullItem").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", function() {
+        var windowHeight = $(window).height();
+        $(BlahFullItem).disableSelection();
+        $(BlahFullItem).fadeIn("fast", function() {
+            var windowWidth = $(window).width();
+            var delta = Math.round((windowWidth - 512) / 2);
+            if (delta < 0) delta = 0;
+            delta = delta + "px";
+            SetSelfDetailPage("Profile");
+        });
+        $(BlahFullItem).on('swipeleft', HandleSelfPageSwipeLeft);
+        $(BlahFullItem).on('swiperight', HandleSelfPageSwipeRight);
+
+    });
  }
 
 function RefreshUserChannelContent() {
@@ -2978,8 +3018,10 @@ function CancelCreate() {
 
 function CreateBlah() {
     var blahType = $("#BlahTypeList").val();
-    var blahHeadline = escape($("#BlahHeadline").text());
-    var blahBody = escape($("#BlahBody").text());
+    //var blahHeadline = escape($("#BlahHeadline").text());
+    //var blahBody = escape($("#BlahBody").text());
+    var blahHeadline = $("#BlahHeadline").val();
+    var blahBody = $("#BlahBody").val();
     var blahGroup = CurrentChannel._id;
     var options = null;
 
@@ -3428,7 +3470,8 @@ function SignInToComment() {
 }
 
 function DoAddComment() {
-    var commentText = escape($("#CommentTextArea").val());
+    //var commentText = escape($("#CommentTextArea").val());
+    var commentText = $("#CommentTextArea").val();
     Blahgua.AddBlahComment(commentText, CurrentBlah._id, function (newComment) {
         $("#CommentTextArea").val("");
         if (CurrentBlah.hasOwnProperty("C")) {
@@ -3497,9 +3540,123 @@ function CreateDemoData(whichDemo) {
     return curResult;
 }
 
-// badges
+// self page
+
+function SetSelfDetailPage(whichPage) {
+
+    switch (whichPage) {
+        case "Profile":
+            BlahFullItem.curPage = "Profile";
+            $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                UpdateSelfProfile();
+            });
+            break;
+        case "History":
+            BlahFullItem.curPage = "History";
+            $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                UpdateSelfHistory();
+            });
+            break;
+        case "Stats":
+            BlahFullItem.curPage = "Stats";
+            $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                UpdateSelfStats();
+            });
+            break;
+    }
+}
 
 
+
+function UpdateSelfProfile() {
+    RefreshUserChannelContent();
+
+}
+
+function UpdateSelfHistory() {
+    var blahsDiv = $("#UserBlahList");
+    var commentDiv = $("#UserCommentList");
+    blahsDiv.empty();
+    commentDiv.empty();
+
+    Blahgua.GetUserBlahs(function (blahList) {
+        var newHTML = "";
+        $.each(blahList, function (index, item) {
+            newHTML = CreateUserBlahHTML(item);
+            blahsDiv.append(newHTML);
+        })
+
+
+    }, OnFailure);
+    Blahgua.GetUserComments(function(commentList) {
+        var newHTML = "";
+        $.each(commentList, function (index, item) {
+            newHTML = CreateUserCommentHTML(item);
+            commentDiv.append(newHTML);
+        })
+    }, OnFailure);
+
+}
+
+function CreateUserBlahHTML(theBlah) {
+    var newHTML = "";
+    newHTML += "<li><a onclick=\"";
+    newHTML += "DoOpenUserBlah('" + theBlah._id + "'); return false;\">";
+    newHTML += theBlah.F;
+    newHTML += "</a></li>"
+    return newHTML;
+}
+
+function CreateUserCommentHTML(theComment) {
+    var newHTML = "";
+    newHTML += "<li><a onclick=\"";
+    newHTML += "DoOpenUserComment('" + theComment._id + "'); return false;\">";
+    newHTML += theComment.T;
+    newHTML += "</a></li>"
+    return newHTML;
+}
+
+
+function UpdateSelfStats() {
+
+
+}
+
+
+function HandleSelfPageSwipeLeft(theEvent) {
+    switch (BlahFullItem.curPage) {
+        case "Profile":
+            SetSelfDetailPage("History");
+            break;
+        case "History":
+            SetSelfDetailPage("Stats");
+            break;
+        case "Stats":
+            SetSelfDetailPage("Profile");
+            break;
+    }
+    if (theEvent != null)
+        theEvent.stopPropagation();
+    return false;
+
+}
+
+function HandleSelfPageSwipeRight(theEvent) {
+    switch (BlahFullItem.curPage) {
+        case "Profile":
+            SetSelfDetailPage("Stats");
+            break;
+        case "History":
+            SetSelfDetailPage("Profile");
+            break;
+        case "Stats":
+            SetSelfDetailPage("History");
+            break;
+    }
+    if (theEvent != null)
+        theEvent.stopPropagation();
+    return false;
+}
 
 
 
