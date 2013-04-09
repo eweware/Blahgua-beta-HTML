@@ -50,7 +50,7 @@ var kBlahTypePolls;
 var kBlahTypePredicts;
 var kBlahTypeAd;
 var edgeGutter = 2;
-var interBlahGutter = 4;
+var interBlahGutter = 12;
 
 
 
@@ -1622,6 +1622,17 @@ function CreateBaseDiv(theBlah) {
         }
     }
 
+    // some rotation
+    var angle = ( Math.random() * 10) - 5;
+    $(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+    $(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+    $(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+    $(newDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
+    angle = -angle;
+    $(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+    $(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+    $(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+    $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
     return newDiv;
 
 }
@@ -2109,6 +2120,8 @@ function NormalizeStrengths(theBlahList) {
             theBlahList.push(theBlahList[curLoc++]);
         }
     }
+
+
 }
 
 function AssignSizes(theBlahList) {
@@ -2118,9 +2131,9 @@ function AssignSizes(theBlahList) {
     // the rest are small - presumably 40, since we get 100 blahs
  
     for (var curIndex in theBlahList) {
-        if (theBlahList[curIndex].S > .9)
+        if (theBlahList[curIndex].S > .7)
             theBlahList[curIndex].displaySize = 1;
-        else if (theBlahList[curIndex].S > .4)
+        else if (theBlahList[curIndex].S > .2)
             theBlahList[curIndex].displaySize = 2;
         else
             theBlahList[curIndex].displaySize = 3;
