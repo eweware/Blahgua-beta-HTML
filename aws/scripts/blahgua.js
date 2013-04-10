@@ -52,6 +52,8 @@ var kBlahTypeAd;
 var edgeGutter = 2;
 var interBlahGutter = 12;
 var newlineToken = "[_r;";
+var BlahReturnPage = "";
+
 
 
 (function ($) {
@@ -506,6 +508,7 @@ function CreatePreviewBlah() {
                 clearTimeout(BlahPreviewTimeout);
                 BlahPreviewTimeout = null;
             }
+            BlahReturnPage = "BlahRoll";
             OpenBlah(FocusedBlah);}
     });
 }
@@ -522,6 +525,7 @@ function DoBlahDoubleClick(theEvent) {
     while (who.hasOwnProperty("blah") == false) {
         who = who.parentElement;
     }
+    BlahReturnPage = "BlahRoll";
     OpenBlah(who.blah);
 }
 
@@ -548,8 +552,18 @@ function CloseBlah() {
     $(BlahFullItem).off('swiperight');
 
     UnfocusBlah();
-    $(BlahFullItem).fadeOut("fast", function() {$(BlahFullItem).empty()});
-    RefreshCurrentChannel();
+    switch (BlahReturnPage) {
+        case "UserBlahList":
+            PopulateUserChannel("History");
+            break;
+
+        default:
+        $(BlahFullItem).fadeOut("fast", function() {
+            $(BlahFullItem).empty();
+            RefreshCurrentChannel();
+        });
+
+    }
 
 }
 
@@ -1324,7 +1338,7 @@ function UpdateBodyText(theFullBlah) {
         nickNameStr += " (you)";
     }
     // update the comment count while we are here
-    document.getElementById("previewComments").innerHTML =getSafeProperty(theFullBlah, "C", 0);
+    document.getElementById("previewComments").innerHTML = getSafeProperty(theFullBlah, "C", 0);
     document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "V", 0);
     document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
 
@@ -1677,7 +1691,7 @@ function CreateBaseDiv(theBlah) {
     }
 
     // some rotation
-    var angle = ( Math.random() * 10) - 5;
+/*    var angle = ( Math.random() * 10) - 5;
     $(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
     $(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
     $(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
@@ -1686,7 +1700,7 @@ function CreateBaseDiv(theBlah) {
     $(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
     $(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
     $(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
+    $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
     return newDiv;
 
 }
@@ -1823,7 +1837,6 @@ function DoAddBlahRow() {
 function ResizeRowText(newRow) {
     //return;
     var curTile;
-    var tileHeight;
     var textHeight;
     var fontSize;
     var maxFontSize = 128;
@@ -1832,13 +1845,13 @@ function ResizeRowText(newRow) {
     for (i = 0; i < newRow.childNodes.length; i++) {
         fontSize = 9;
         curTile = newRow.childNodes[i];
-        height = curTile.offsetHeight - 8; // allow for padding...
+        var tileHeight = curTile.offsetHeight - 8; // allow for padding...
         scaleText = (curTile.style.backgroundImage != "") && (curTile.blah.displaySize != 3);
         if (scaleText) {
-            height /= 2;
+            tileHeight /= 2;
         }
         textHeight = curTile.blahTextDiv.offsetHeight;
-        while ((textHeight < height) && (fontSize < maxFontSize)) {
+        while ((textHeight < tileHeight) && (fontSize < maxFontSize)) {
             fontSize++;
             curTile.blahTextDiv.style.fontSize = fontSize + "px";
             textHeight = curTile.blahTextDiv.offsetHeight;
@@ -1846,7 +1859,8 @@ function ResizeRowText(newRow) {
         fontSize--;
         curTile.blahTextDiv.style.fontSize = fontSize + "px";
         if (scaleText) {
-            curTile.blahTextDiv.style.marginTop = (height - 8) + "px";
+            var offset = tileHeight + (tileHeight - curTile.blahTextDiv.offsetHeight);
+            curTile.blahTextDiv.style.marginTop = offset + "px";
         }
         curTile.blahTextDiv.style.height = "100%";
     }
@@ -2165,6 +2179,8 @@ function OnGetBlahsOK(theResult) {
     GetNextBlahList();
 };
 
+/*
+// There are the PROPER functions
 
 function NormalizeStrengths(theBlahList) {
     // ensure 100 blahs
@@ -2192,9 +2208,77 @@ function AssignSizes(theBlahList) {
         else
             theBlahList[curIndex].displaySize = 3;
     }
+}
 
+*/
+
+// These are the temp ones
+function NormalizeStrengths(theBlahList) {
+    // makes sure that the blahs here range in strength from 0.0 to 1.0
+    var minStr = 1;
+    var maxStr = 0;
+    var currentBlah;
+
+    for (currentBlahIndex in theBlahList) {
+        currentBlah = theBlahList[currentBlahIndex];
+        if (currentBlah.s < minStr) {
+            minStr = currentBlah.s;
+        }
+        if (currentBlah.s > maxStr) {
+            maxStr = currentBlah.s;
+        }
+    }
+
+    var offset = minStr;
+    var range = maxStr - minStr;
+    var scale = 1 / range;
+
+
+    for (currentBlahIndex in theBlahList) {
+        currentBlah = theBlahList[currentBlahIndex];
+        currentBlah.s = (currentBlah.s - offset) * scale;
+    }
+
+    // ensure 100 blahs
+    if (theBlahList.length < 100) {
+        var curLoc = 0;
+        while (theBlahList.length < 100) {
+            theBlahList.push(theBlahList[curLoc++]);
+        }
+    }
+}
+
+function AssignSizes(theBlahList) {
+    // makes sure that there are a good ration of large, medium, small
+    var numLarge = 10;
+    var numMedium = 50;
+    // the rest are small - presumably 40, since we get 100 blahs
+
+    // first, sort the blahs by their size
+    theBlahList.sort(function (a, b) {
+        return b.s - a.s;
+    });
+
+    var i = 0;
+    while (i < numLarge) {
+        theBlahList[i++].displaySize = 1;
+    }
+
+    MaxMedium = theBlahList[i].s;
+
+    while (i < (numMedium + numLarge)) {
+        theBlahList[i++].displaySize = 2;
+    }
+
+    MaxSmall = theBlahList[i].s;
+
+    while (i < theBlahList.length) {
+        theBlahList[i++].displaySize = 3;
+    }
 
 }
+
+// end
 
 function PrepareBlahList(theBlahList) {
     if (theBlahList.length > 0) {
@@ -2603,11 +2687,11 @@ function InstallUserChannel() {
         if (CurrentUser == null) {
             Blahgua.GetCurrentUser(function (theResult) {
                 CurrentUser = theResult;
-                PopulateUserChannel();
+                PopulateUserChannel("Profile");
             }, OnFailure);
         }
         else {
-            PopulateUserChannel();
+            PopulateUserChannel("Profile");
         }
     } else {
         $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv",
@@ -2626,7 +2710,7 @@ function SuggestUserSignIn(message) {
 }
 
 
-function PopulateUserChannel() {
+function PopulateUserChannel(whichPage) {
     $("#BlahFullItem").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", function() {
         var windowHeight = $(window).height();
         $(BlahFullItem).disableSelection();
@@ -2635,7 +2719,7 @@ function PopulateUserChannel() {
             var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
-            SetSelfDetailPage("Profile");
+            SetSelfDetailPage(whichPage);
         });
         $(BlahFullItem).on('swipeleft', HandleSelfPageSwipeLeft);
         $(BlahFullItem).on('swiperight', HandleSelfPageSwipeRight);
@@ -3075,6 +3159,7 @@ function OnCreateBlahOK(json) {
     } else {
         Blahgua.GetBlahWithStats(CurrentBlah._id,   "130101", "130331",function(theBlah) {
             CurrentBlah = theBlah;
+            BlahReturnPage = "BlahRoll";
             OpenBlah(CurrentBlah);
         });
     }
@@ -3123,8 +3208,9 @@ function progressHandlingFunction(evt) {
 }
 
 function OnUploadImageOK(result) {
-    Blahgua.GetBlahWithStats(CurrentBlah._id, function(theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlah._id,  "130101", "130331", function(theBlah) {
         CurrentBlah = theBlah;
+        BlahReturnPage = "BlahRoll";
         OpenBlah(CurrentBlah);
     });
 }
@@ -3605,7 +3691,7 @@ function UpdateSelfHistory() {
 
 function CreateUserBlahHTML(theBlah) {
     var newHTML = "";
-    newHTML += "<li><a onclick=\"";
+    newHTML += "<li><a href='#' onclick=\"";
     newHTML += "DoOpenUserBlah('" + theBlah._id + "'); return false;\">";
     newHTML += theBlah.F;
     newHTML += "</a></li>"
@@ -3614,13 +3700,21 @@ function CreateUserBlahHTML(theBlah) {
 
 function CreateUserCommentHTML(theComment) {
     var newHTML = "";
-    newHTML += "<li><a onclick=\"";
+    newHTML += "<li><a href='#' onclick=\"";
     newHTML += "DoOpenUserComment('" + theComment._id + "'); return false;\">";
     newHTML += theComment.T;
     newHTML += "</a></li>"
     return newHTML;
 }
 
+
+function DoOpenUserBlah(blahId) {
+    Blahgua.GetBlahWithStats(blahId,  "130101", "130331", function(theBlah) {
+        CurrentBlah = theBlah;
+        BlahReturnPage = "UserBlahList";
+        OpenBlah(blahId);
+    }, OnFailure);
+}
 
 function UpdateSelfStats() {
 

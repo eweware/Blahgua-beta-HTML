@@ -31,9 +31,13 @@
     overflow:hidden;
     vertical-align:middle;
     background-size: cover;
+    border-style: outset;
+    border-width: 2px;
 
-    border-radius: 16px;
-    box-shadow: 8px 4px 5px #888888;
+
+
+
+
     -ms-word-break: break-all;
     word-break: break-word;
     -webkit-hyphens: auto;
@@ -41,6 +45,10 @@
     hyphens: auto;
 }
 
+.SavedStyles {
+    box-shadow: 8px 4px 5px #888888;
+    border-radius: 16px;
+}
 
 
 .BlahTextDiv {
@@ -55,7 +63,7 @@
 }
 
 .BlahAltTextDiv {
-    min-height:50%;
+
     text-align:center;
 
 }
@@ -81,28 +89,33 @@
 .BlahTypeSays {
     color: black;
     background-color:  #EDE5E2;
+    border-color: #EDE5E2;
 }
 
 .BlahTypeLeaks {
     color: #ffd9ee;
     background-color: #ea3556;
+    border-color: #ea3556;
 }
 
 .BlahTypePolls {
     color: black;
     background-color: #61d2d6;
+    border-color: #61d2d6;
 
 }
 
 .BlahTypePredicts {
     color: black;
     background-color: #edde45;
+    border-color: #edde45;
 
 }
 
 .BlahTypeAd {
     color: white;
     background-color:blue;
+    border-color: blue;
 
 }
 
