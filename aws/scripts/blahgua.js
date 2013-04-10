@@ -2804,10 +2804,15 @@ function DoAddBadge(badgeID) {
         $(".BadgeTitleBar").text("talking to " + badgeID);
         $("#badgedialog").html(dialogHTML);
         $("#BadgeOverlay").fadeIn();
-
+        window.ba_dialog_closed = HandleBadgeDismiss;
     });
 }
-
+                                               7
+function HandleBadgeDismiss(theMsg) {
+    $("#BadgeOverlay").fadeOut( 200, function () {
+        $("#badgedialog").empty();
+    } );
+}
 
 function UpdateUserProfile() {
     UserProfile["A"] = $("#NicknameInput").val();
