@@ -2891,9 +2891,9 @@ function DoAddBadge(badgeID) {
         window.ba_dialog_closed = HandleBadgeDismiss;
     });
 }
-                                               7
+
 function HandleBadgeDismiss(theMsg) {
-    $("#BadgeOverlay").fadeOut( 200, function () {
+    $("#BadgeOverlay").fadeOut( 150, function () {
         $("#badgedialog").empty();
     } );
 }
