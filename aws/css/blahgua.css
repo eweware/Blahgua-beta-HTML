@@ -630,7 +630,7 @@ a {
 
 .ChannelDropMenu {
     position: absolute;
-    padding:16px 0px 0px 0px;
+    padding:16px 0px 16px 0px;
     left:8px;
     top:56px;
     width:400px;
@@ -665,6 +665,8 @@ a {
     width:16px;
     height: 16px;
     float:right;
+    padding-right:20px;
+    padding-top:18px;
 }
 
 .ChannelDropMenu ul a:hover
