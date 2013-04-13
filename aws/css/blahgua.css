@@ -845,12 +845,13 @@ a {
 }
 .createblahheadline
 {
-	background-color:#2A99F5;
+	background-color:#6E696B;
 	width:100%;
 }
 .createblahheadlinephotoframe
 {
 	width:70px;
+	
 }
 .createblahheadlinephoto
 {
@@ -874,6 +875,7 @@ a {
     border:none;
     float:right;
     margin-right:16px;
+ 
 }
 .createblahscroll
 {
@@ -897,9 +899,11 @@ a {
 .inputheadlineframe
 {
 	width:100%;
-	min-height:30px;
-    padding: 20px;
-    border:none;
+	min-height:60px;
+    
+    border:2px solid darkgrey;
+    border-radius:8px;
+    
     color: black;
     background-color: #add8e6;
     font-family: 'Archivo Narrow', sans-serif;
@@ -921,6 +925,8 @@ a {
     font-family: 'oswald', sans-serif;
     background-color: #F0F0F0;
     color:black;
+    border:2px solid darkgrey;
+    border-radius:8px;
 }
 .inputbody
 {
@@ -954,21 +960,34 @@ a {
 .creatblahfooter
 {
 
-	width:512px;
-	background:#B3DBF5;
+	width:100%;
 	position:fixed;
 	bottom:0px
 	
 }
-.creatblahbutton
+.cancleblahbutton
 {
-	width:100px;
-	height:30px;
-	border-radius:5px;
-	background:#2A99F5;
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:grey;
 	color:white;
 	font-size:16px;
-	font-weight:bold;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
+}
+.creatblahbutton
+{
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:#86D98C;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
 }
 .progressbar
 {
@@ -986,6 +1005,7 @@ a {
 .BlahgerNickName {
     font-family:'Oswald', sans-serif;
     font-size:20pt;
+    color:white;
 }
 
 .BlahStatsTable {
@@ -1100,4 +1120,11 @@ a {
 .BlahRowVote
 {
 	height:70px;
+}
+.shorttitle
+{   font-family:Arial,Helvetica,sans-serif;
+	font-size:17px;
+	font-weight:strong;
+	margin-left:20px;
+	color:#545253;
 }

@@ -13,6 +13,10 @@
         </table>
       
         <table class="createblahscrolltable">
+         <tr height="10px"></tr>
+          <tr>
+          <td class="shorttitle">SHORT TITLE</td>
+          </tr>
           <tr>
             <td colspan="2" >
             <input type="text" id="BlahHeadline" class="inputheadlineframe" >
@@ -20,6 +24,7 @@
 
            </tr>
            <tr height="20px"></tr>
+           <td class="shorttitle">BODY TEXT</td>
            <tr>
             <td colspan="2"  >
                 <textarea class="inputbodyframe" id="BlahBody">
@@ -27,9 +32,6 @@
            </tr>  
            <tr height="20px"></tr>
           <tr>            
-          <td>
-            <div class="uploadimage"></div>
-          </td>
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
                 <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton">
@@ -53,9 +55,9 @@
 
 <table class="creatblahfooter">
     <tr>
-        <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="creatblahbutton">Cancel</button></td>
+        <td style="width:50%;"align="center"><button onclick="CancelCreate(); return false;" class="cancleblahbutton">SAVE AS DRAFT</button></td>
 
-        <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">Create</button></td>
+        <td style="width:50%" align="center"><button onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
     </tr>
     <tr>
     <div id="ProgressDiv" style="display:none">
