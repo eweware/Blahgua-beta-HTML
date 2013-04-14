@@ -1,17 +1,22 @@
 <html>
 <body>
-<div id="CreateBlahPage" >
+<div id="CreateBlahPage">
         <table class="createblahheadline">
         	<tr>
         		<td class="createblahheadlinephotoframe">
         			<div class="createblahheadlinephoto"></div></td>
                 <td id="CreateBlahNicknameDiv" class="BlahgerNickName"></td>
+            
                 <td class="createblahheadlineoptionframe">
+             
                     <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
+                
                 </td>
+                
+    
             </tr>
         </table>
-        <div style="overflow-y:auto;" id="createcontent">
+        <div style="overflow-y:auto;" id="createcontent" >
         <table class="createblahscrolltable">
          <tr height="10px"></tr>
           <tr>
@@ -36,7 +41,7 @@
           <tr>            
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-                <button id="BlahImage" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton" >ADD A BADGE</button>
+                <button id="BlahImage" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton" >ADD AN IMAGE</button>
                 <div style="display:none">
                     <input type="text" name="objectType" hidden="true" value="B"/>
                     <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -68,9 +73,9 @@
 
 
 
-<table class="creatblahfooter">
+<table class="creatblahfooter" >
     <tr>
-        <td style="width:50%;"><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">SAVE AS DRAFT</button></td>
+        <td><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">SAVE AS DRAFT</button></td>
 
         <td align="right"><button onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
     </tr>

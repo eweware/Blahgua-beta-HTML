@@ -867,19 +867,27 @@ a {
 	margin-top:5px;
 }
 .createblahheadlineoptionframe
-{
-	
+{   overflow: hidden;
+    width: 70px;   
+    background: url("Red_Arrow_Down.png") no-repeat scroll 85px 18px #6E696B;
 
 }
 .createblahheadlineoption
-{
-	background:transparent;
-	box-shadow:none;
+{	
     font-family:'Oswald' sans-serif;
-    font-size:20pt;
     border:none;
     float:right;
-    margin-right:16px;
+    margin-right:16px;  
+    border: 0 none;
+    color: #FFFFFF;
+    background: none;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 2px 10px;
+    width: 105px;
+    *width: 110px;
+    *background: none;
+ 
  
 }
 .createblahscroll
@@ -895,8 +903,9 @@ a {
 {   width:100%;
 	height:auto; 
 	overflow-y:scroll;
+	overflow-x:hidden;
 
-	border:10px solid white;
+	border:2px solid white;
 }
 .tr100
 {
@@ -904,7 +913,7 @@ a {
 }
 .inputheadlineframe
 {
-	width:100%;
+	width:98%;
 	min-height:60px;
     
     border:2px solid darkgrey;
@@ -925,7 +934,7 @@ a {
 }
 .inputbodyframe
 {
-	width:100%;
+	width:98%;
 	min-height:60px;
 	font-size:12pt;
     font-family: 'oswald', sans-serif;
@@ -972,10 +981,11 @@ a {
 }
 .creatblahfooter
 {
-
+    height:70px;
 	width:100%;
 	position:fixed;
-	bottom:0px
+	bottom:0px;
+
 	
 }
 .cancleblahbutton
@@ -1176,3 +1186,8 @@ a {
   font-family:Arial,Helvetica,sans-serif;
   
 }
+#createcontent
+{
+	background: url("white.jpg");
+}
+
