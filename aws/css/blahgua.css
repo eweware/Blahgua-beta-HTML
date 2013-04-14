@@ -846,7 +846,11 @@ a {
 .createblahheadline
 {
 	background-color:#6E696B;
-    width:100%
+    width:100%;
+    border-spacing:0;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    
 }
 .createblahheadlinephotoframe
 {
@@ -864,11 +868,12 @@ a {
 }
 .createblahheadlineoptionframe
 {
+	
 
 }
 .createblahheadlineoption
 {
-	background:rgb(101, 179, 245);
+	background:transparent;
 	box-shadow:none;
     font-family:'Oswald' sans-serif;
     font-size:20pt;
@@ -945,9 +950,16 @@ a {
 .uploadimagebutton
 {   
 	position:relative;
-	
-	width:200px;
-	height:30px;
+	background:#FC7A56;
+	width:180px;
+	height:50px;
+    color:white;
+    font-size:16px;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
+	border-radius:10px;
+	border-color:transparent;
+    
 }
 .createblahadditional
 {

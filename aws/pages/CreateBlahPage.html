@@ -11,7 +11,7 @@
                 </td>
             </tr>
         </table>
-      
+        <div style="overflow-y:auto;" id="createcontent">
         <table class="createblahscrolltable">
          <tr height="10px"></tr>
           <tr>
@@ -36,7 +36,7 @@
           <tr>            
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-                <input id="BlahImage" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton" >
+                <button id="BlahImage" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton" >ADD A BADGE</button>
                 <div style="display:none">
                     <input type="text" name="objectType" hidden="true" value="B"/>
                     <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -64,7 +64,7 @@
         </td>
       </tr>
     </table>
- 
+   </div>
 
 
 
