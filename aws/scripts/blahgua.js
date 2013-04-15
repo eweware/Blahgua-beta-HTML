@@ -163,45 +163,6 @@ function SignIn() {
 }
 
 
-function GenerateGUID() {
-    return Date.now().toString() + 'xxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-    });
-}
-
-
-
-function CreateTempUserAndSignIn() {
-    var tempUserName = GenerateGUID();
-    var pwd = "Demo20130215";
-    Blahgua.CreateUser(tempUserName, pwd,
-        function (json) {
-            CurrentUser = json;
-            $.cookie("userId", tempUserName, { expires: 30, path: '/'});
-            $.cookie("password", pwd, { expires: 30, path: '/'});
-            $.cookie("isTemp", true, { expires: 30, path: '/'});
-            IsTempUser = true;
-            finalizeInitialLoad();
-        },
-        function (theErr) {
-            alert("Could not sign in to blahgua. Soz!");
-        }
-    );
-}
-
-
-function OnLoginUserOK(json) {
-    IsUserLoggedIn = true;
-    Blahgua.currentUser = CurrentUser._id;
-    finalizeInitialLoad();
-
-}
-
-function OnLoginUserFail(json) {
-    alert("login failed!");
-}
-
 
 
 // *************************************************
@@ -2966,6 +2927,10 @@ function HandleCreateUserOK(json) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
+    } else {
+        $.removeCookie("userId");
+        $.removeCookie("password");
+        $.removeCookie('isTemp');
     }
     $("#userName2").val(userName);
     $("#pwd2").val(pwd);
@@ -2987,6 +2952,10 @@ function HandleUserLoginOK(json) {
     if ($("#rememberme2").val()) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
+        $.removeCookie('isTemp');
+    }  else {
+        $.removeCookie("userId");
+        $.removeCookie("password");
         $.removeCookie('isTemp');
     }
     Blahgua.getUserInfo(RefreshPageForNewUser);
