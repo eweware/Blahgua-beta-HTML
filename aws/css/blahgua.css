@@ -845,12 +845,17 @@ a {
 }
 .createblahheadline
 {
-	background-color:#2A99F5;
-	width:100%;
+	background-color:#6E696B;
+    width:100%;
+    border-spacing:0;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    
 }
 .createblahheadlinephotoframe
 {
 	width:70px;
+	
 }
 .createblahheadlinephoto
 {
@@ -862,18 +867,28 @@ a {
 	margin-top:5px;
 }
 .createblahheadlineoptionframe
-{
+{   overflow: hidden;
+    width: 70px;   
+    background: url("Red_Arrow_Down.png") no-repeat scroll 85px 18px #6E696B;
 
 }
 .createblahheadlineoption
-{
-	background:rgb(101, 179, 245);
-	box-shadow:none;
+{	
     font-family:'Oswald' sans-serif;
-    font-size:20pt;
     border:none;
     float:right;
-    margin-right:16px;
+    margin-right:16px;  
+    border: 0 none;
+    color: #FFFFFF;
+    background: none;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 2px 10px;
+    width: 105px;
+    *width: 110px;
+    *background: none;
+ 
+ 
 }
 .createblahscroll
 {
@@ -887,8 +902,10 @@ a {
 .createblahscrolltable
 {   width:100%;
 	height:auto; 
-	overflow:auto;
-	border:10px solid white;
+	overflow-y:scroll;
+	overflow-x:hidden;
+
+	border:2px solid white;
 }
 .tr100
 {
@@ -896,10 +913,12 @@ a {
 }
 .inputheadlineframe
 {
-	width:100%;
-	min-height:30px;
-    padding: 20px;
-    border:none;
+	width:98%;
+	min-height:60px;
+    
+    border:2px solid darkgrey;
+    border-radius:8px;
+    
     color: black;
     background-color: #add8e6;
     font-family: 'Archivo Narrow', sans-serif;
@@ -915,12 +934,14 @@ a {
 }
 .inputbodyframe
 {
-	width:100%;
+	width:98%;
 	min-height:60px;
 	font-size:12pt;
     font-family: 'oswald', sans-serif;
     background-color: #F0F0F0;
     color:black;
+    border:2px solid darkgrey;
+    border-radius:8px;
 }
 .inputbody
 {
@@ -938,9 +959,16 @@ a {
 .uploadimagebutton
 {   
 	position:relative;
-	
-	width:200px;
-	height:20px;
+	background:#FC7A56;
+	width:180px;
+	height:50px;
+    color:white;
+    font-size:16px;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
+	border-radius:10px;
+	border-color:transparent;
+    
 }
 .createblahadditional
 {
@@ -953,22 +981,36 @@ a {
 }
 .creatblahfooter
 {
-
-	width:512px;
-	background:#B3DBF5;
+    height:70px;
+	width:100%;
 	position:fixed;
-	bottom:0px
+	bottom:0px;
+
 	
+}
+.cancleblahbutton
+{
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:grey;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
 }
 .creatblahbutton
 {
-	width:100px;
-	height:30px;
-	border-radius:5px;
-	background:#2A99F5;
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:#86D98C;
 	color:white;
 	font-size:16px;
-	font-weight:bold;
+	font-weight:strong;
+	font-family:Arial,Helvetica,sans-serif;
 }
 .progressbar
 {
@@ -986,6 +1028,7 @@ a {
 .BlahgerNickName {
     font-family:'Oswald', sans-serif;
     font-size:20pt;
+    color:white;
 }
 
 .BlahStatsTable {
@@ -1101,3 +1144,50 @@ a {
 {
 	height:70px;
 }
+.shorttitle
+{   font-family:Arial,Helvetica,sans-serif;
+	font-size:17px;
+	font-weight:strong;
+	margin-left:20px;
+	color:#545253;
+
+}
+.shorttitle1
+{   font-family:Arial,Helvetica,sans-serif;
+	font-size:17px;
+	font-weight:strong;
+	margin-left:20px;
+	color:#545253;
+	border-top:1px solid grey;
+}
+.aboutyouframe
+{
+    width:100%;
+	min-height:10px;
+	font-size:12pt;
+    font-family: 'oswald', sans-serif;
+    background-color:transparent;
+    color:black;
+    border:none;
+   
+
+    
+}
+.aboutbutton
+{
+  width:180px;
+  height:50px;
+  background-color:#FC7A56;
+  border-radius:10px;
+  border-color:transparent;
+  color:white;
+  font-size:16px;
+  font-weight:strong;
+  font-family:Arial,Helvetica,sans-serif;
+  
+}
+#createcontent
+{
+	background: url("white.jpg");
+}
+

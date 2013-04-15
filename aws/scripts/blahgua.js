@@ -3011,13 +3011,15 @@ function DoCreateBlah() {
         $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
             PopulateBlahTypeOptions();
             var windowWidth = $(window).width();
+             var winowHeight = $(window).height();
             var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
             var itemWidth = 512;
             if (windowWidth < 512) {
-                itemWidth = windowWidth;
+                itemWidth = windowWidth;          
             }
+             $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
             $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
 
             /*
@@ -3033,6 +3035,7 @@ function DoCreateBlah() {
                 $(BlahImage).css({ 'left': 160 + 'px'});
             }
             */
+         
 
             $(".createblahscroll").css({'left': delta, 'right':delta});
             $(".creatblahfooter").css({'width': itemWidth});
