@@ -24,25 +24,31 @@
           </tr>
           <tr>
             <td colspan="2" >
-            <input type="text" id="BlahHeadline" class="inputheadlineframe" >
+            <textarea id="BlahHeadline" class="inputheadlineframe"
+                   onkeyup="HandleHeadlineTextInput(this);" onchange="HandleHeadlineTextInput(this);"></textarea>
             </td>
 
            </tr>
+            <tr><td><span id="HeadlineCharCount" class="charcounter"></span></td></tr>
            <tr height="20px"></tr>
            <tr>
            <td class="shorttitle">BODY TEXT</td>
            </tr>
            <tr>
             <td colspan="2"  >
-                <textarea class="inputbodyframe" id="BlahBody">
-             </textarea></td>
-           </tr>  
+                <textarea class="inputbodyframe" id="BlahBody"
+                          onkeyup="HandleBodyTextInput(this);" onchange="HandleBodyTextInput(this);"></textarea>
+                </td>
+           </tr>
+            <tr><td><span id="BodyCharCount" class="charcounter"></span></td></tr>
            <tr height="20px"></tr>
           <tr>            
           <td>
             <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">        
-                <button id="BlahImage" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton" >ADD AN IMAGE</button>
-                <div style="display:none">
+                <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="uploadimagebutton">ADD AN IMAGE</button>
+                    <span class="CreateBlahImageNameSpan" id="CreateBlahImageNameSpan"></span>
+                    <div style="display:none">
+                        <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;">
                     <input type="text" name="objectType" hidden="true" value="B"/>
                     <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                     <input type="text" name="primary" hidden="true" value="true"/>
@@ -55,7 +61,7 @@
        </tr>
        <tr>
        <td colspan="2"  >
-       <textarea class="aboutyouframe" id="BlahBody">
+       <textarea class="aboutyouframe" id="AboutYouArea">
        </textarea>
        </td>
        </tr> 
@@ -75,9 +81,9 @@
 
 <table class="creatblahfooter" >
     <tr>
-        <td><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">SAVE AS DRAFT</button></td>
+        <td><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">CANCEL</button></td>
 
-        <td align="right"><button onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
+        <td align="right"><button disabled="disabled" id="PublishBlahBtn" onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
     </tr>
     <tr>
     <div id="ProgressDiv" style="display:none">

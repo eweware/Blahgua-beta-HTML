@@ -3060,14 +3060,55 @@ function UpdateBlahTypes() {
 
 
 function PopulateBlahTypeOptions() {
-    var curOption;
-    curHTML = "";
-    for (curItem in BlahTypeList) {
-        curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '" >';
-        curHTML += BlahTypeList[curItem].N;
-        curHTML += '</OPTION>';
+    var curHTML = "";
+    for (var curItem in BlahTypeList) {
+        if (BlahTypeList[curItem].N != "ad") {
+            curHTML += '<OPTION value="' + BlahTypeList[curItem]._id + '"';
+            if (BlahTypeList[curItem].N == "says")
+                curHTML += ' selected="selected" ';
+            curHTML += ' >';
+            curHTML += BlahTypeList[curItem].N;
+            curHTML += '</OPTION>';
+        }
     }
     $("#BlahTypeList").html(curHTML);
+}
+
+function HandleHeadlineTextInput(target) {
+    if(target.scrollHeight > target.clientHeight)
+        target.style.height=target.scrollHeight+'px';
+    var numCharsRemaining = 128 - target.value.length;
+    if (numCharsRemaining < 32) {
+        $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
+    } else {
+        $("#HeadlineCharCount").text("");
+    }
+
+    CheckPublishBtnDisable();
+
+
+}
+
+function CheckPublishBtnDisable() {
+    var headLineLen = document.getElementById("BlahHeadline").value.length;
+    var bodyLen = document.getElementById("BlahBody").value.length;
+    if ((headLineLen < 2)   || (headLineLen > 128) || (bodyLen > 4000))
+        document.getElementById("PublishBlahBtn").disabled = true;
+    else
+        document.getElementById("PublishBlahBtn").disabled = false;
+}
+
+function HandleBodyTextInput(target) {
+    if(target.scrollHeight > target.clientHeight)
+        target.style.height=target.scrollHeight+'px';
+    var numCharsRemaining = 4000 - target.value.length;
+    if (numCharsRemaining < 100) {
+        $("#BodyCharCount").text(numCharsRemaining + " chars left");
+    } else {
+        $("#BodyCharCount").text("");
+    }
+    CheckPublishBtnDisable();
+
 }
 
 function CancelCreate() {
@@ -3205,8 +3246,10 @@ function UpdateBlahInfoArea() {
 
 function HandleFilePreview() {
     var theFile = $("#BlahImage").val();
+    $("#CreateBlahImageNameSpan").text(theFile);
     if (theFile != "") {
         $(".uploadimage").css({"background-image": theFile});
+
     }
 
 }

@@ -920,9 +920,10 @@ a {
     border-radius:8px;
     
     color: black;
-    background-color: #add8e6;
+    background-color: #F0F0F0;
     font-family: 'Archivo Narrow', sans-serif;
     font-size: 30pt;
+    overflow-y: hidden;
 
 }
 .inputheadline
@@ -942,6 +943,7 @@ a {
     color:black;
     border:2px solid darkgrey;
     border-radius:8px;
+    overflow-y: hidden;
 }
 .inputbody
 {
@@ -1012,6 +1014,15 @@ a {
 	font-weight:strong;
 	font-family:Arial,Helvetica,sans-serif;
 }
+
+.creatblahbutton[disabled]
+{
+
+    background: #daf9d9;
+    color: #afafaf;
+
+}
+
 .progressbar
 {
 	width:400px; 
@@ -1191,3 +1202,8 @@ a {
 	background: url("white.jpg");
 }
 
+
+.charcounter {
+    font-size:xx-small;
+    float: right;
+}
