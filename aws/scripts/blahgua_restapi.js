@@ -322,7 +322,7 @@ function BlahguaObject() {
         /// <param name="newVote">the new vote</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"v":' + newVote + '}';
+        var paramStr = '{"uv":' + newVote + '}';
 
         var methodName = "blahs/" + blahId;
         this.CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
