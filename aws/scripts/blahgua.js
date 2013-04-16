@@ -1,6 +1,4 @@
-﻿﻿
-
-
+﻿
 var BlahsMovingTimer = null;
 var BlahPreviewTimeout = null;
 var ViewerUpdateTimer = null;
@@ -366,7 +364,7 @@ function ComputeSizes() {
 
     $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
     $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
-    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': targetWidthWidth - 32 + 'px', 'maxHeight': windowHeight-50+'px' });
+    $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': targetWidthWidth - 32 + 'px', 'maxHeight': windowHeight-100+'px' });
 
     $("#BlahFullItem").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
 
@@ -702,7 +700,7 @@ function UpdateBlahOverview() {
         var bodyText = CurrentBlah.F;
         if (bodyText && (bodyText != "")) {
             //bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
-            bodyText = bodyText;
+            bodyText = UnCodifyText(bodyText);
         }
         bodyTextDiv.innerHTML = bodyText;
     } else {
@@ -1250,11 +1248,15 @@ function FocusBlah(who) {
     CurrentBlah = null;
     StopAnimation();
     $("#LightBox").show();
+    BlahPreviewItem.style.display = "block";
     FocusedBlah = who.blah;
     CurrentBlahId = who.blah.I;
     PopulateBlahPreview(who.blah);
     var winHeight = $(window).height();
-    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-416 + 'px'});
+    var staticHeight =  $("#BlahPreviewHeadline").height() + 250;
+    var maxHeight = (winHeight - staticHeight);
+    $("#BlahPreviewScrollContainer").css({ 'max-height': maxHeight + 'px'});
+    BlahPreviewItem.style.display = "none";
     $(BlahPreviewItem).fadeIn("fast");
     BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
 
@@ -1341,7 +1343,7 @@ function UpdateBodyText(theFullBlah) {
 
 
     // image
-    var image = GetBlahImage(CurrentBlah, "C");
+    var image = GetBlahImage(CurrentBlah, "B");
     var imageEl = document.getElementById("blahPreviewImage");
     if (image == "") {
         imageEl.style.display = "none";
@@ -1352,31 +1354,15 @@ function UpdateBodyText(theFullBlah) {
         headlineText.style.fontSize = "36px";
     }
 
-    /*
-     var windowWidth = $(window).width();
-    if (windowWidth > windowline2) {
-       $(blahPreviewImage).css({ 'left': 120 + 'px'});
-    }
 
-    if (windowWidth <= windowline1)
-    {
-        $(blahPreviewImage).css({ 'left': 60 + 'px'});
-    
-    }
-    
-        if ((windowWidth <= windowline2)&&(windowWidth >= windowline1))
-    {
-     $(blahPreviewImage).css({ 'left': 90 + 'px'});
-    }
-    */
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
     if (theFullBlah.hasOwnProperty("F")) {
         var bodyText = theFullBlah.F;
-        /*
+
         if (bodyText && (bodyText != "")) {
-            bodyText = URLifyText(unescape(bodyText)).replace(/\n/g, "<br/>");
+            bodyText = UnCodifyText(bodyText);
         }
-        */
+
         bodyTextDiv.innerHTML = bodyText;
     } else {
         bodyTextDiv.innerHTML = "";
@@ -1598,15 +1584,15 @@ function CreateBaseDiv(theBlah) {
     switch (theBlah.displaySize) {
         case 1:
             blahImageSize = "C";
-           $(newDiv).addClass("LargeBlahFormat");
+           $(textDiv).addClass("LargeBlahFormat");
             break;
         case 2:
             blahImageSize = "B";
-            $(newDiv).addClass("MediumBlahFormat");
+            $(textDiv).addClass("MediumBlahFormat");
             break;
         default:
             blahImageSize = "A";
-            $(newDiv).addClass("SmallBlahFormat");
+            $(textDiv).addClass("SmallBlahFormat");
             break;
     }
 
@@ -1619,7 +1605,6 @@ function CreateBaseDiv(theBlah) {
             $(textDiv).addClass("BlahAltTextDiv");
         }
         else {
-
             $(textDiv).addClass("BlahExpandTextDiv");
             $(textDiv).fadeOut(1000);
         }
@@ -1658,22 +1643,6 @@ function CreateBaseDiv(theBlah) {
     $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
     return newDiv;
 
-}
-
-
-
-function pastelColors() {
-    var r = (Math.round(Math.random() * 127) + 127).toString(16);
-    var g = (Math.round(Math.random() * 127) + 127).toString(16);
-    var b = (Math.round(Math.random() * 127) + 127).toString(16);
-    return '#' + r + g + b;
-}
-
-function darkColors() {
-    var r = (Math.round(Math.random() * 32) + 16).toString(16);
-    var g = (Math.round(Math.random() * 32) + 16).toString(16);
-    var b = (Math.round(Math.random() * 32) + 16).toString(16);
-    return '#' + r + g + b;
 }
 
 function GetBlahImage(theBlah, size) {
@@ -1794,7 +1763,7 @@ function ResizeRowText(newRow) {
     var curTile;
     var textHeight;
     var fontSize;
-    var maxFontSize = 128;
+    var maxFontSize = 96;
     var scaleText = false;
 
     for (i = 0; i < newRow.childNodes.length; i++) {
@@ -2176,11 +2145,11 @@ function NormalizeStrengths(theBlahList) {
 
     for (currentBlahIndex in theBlahList) {
         currentBlah = theBlahList[currentBlahIndex];
-        if (currentBlah.s < minStr) {
-            minStr = currentBlah.s;
+        if (currentBlah.S < minStr) {
+            minStr = currentBlah.S;
         }
-        if (currentBlah.s > maxStr) {
-            maxStr = currentBlah.s;
+        if (currentBlah.S > maxStr) {
+            maxStr = currentBlah.S;
         }
     }
 
@@ -2191,7 +2160,7 @@ function NormalizeStrengths(theBlahList) {
 
     for (currentBlahIndex in theBlahList) {
         currentBlah = theBlahList[currentBlahIndex];
-        currentBlah.s = (currentBlah.s - offset) * scale;
+        currentBlah.S = (currentBlah.S - offset) * scale;
     }
 
     // ensure 100 blahs
@@ -2211,7 +2180,7 @@ function AssignSizes(theBlahList) {
 
     // first, sort the blahs by their size
     theBlahList.sort(function (a, b) {
-        return b.s - a.s;
+        return b.S - a.S;
     });
 
     var i = 0;
@@ -2219,13 +2188,13 @@ function AssignSizes(theBlahList) {
         theBlahList[i++].displaySize = 1;
     }
 
-    MaxMedium = theBlahList[i].s;
+    MaxMedium = theBlahList[i].S;
 
     while (i < (numMedium + numLarge)) {
         theBlahList[i++].displaySize = 2;
     }
 
-    MaxSmall = theBlahList[i].s;
+    MaxSmall = theBlahList[i].S;
 
     while (i < theBlahList.length) {
         theBlahList[i++].displaySize = 3;
@@ -2340,7 +2309,7 @@ function createCommentElement(index, theComment) {
     // comment text
     newHTML += '<div class="CommentText" dir="ltr">';
     //newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
-    newHTML += '<p>' + theComment.T  + '</p>';
+    newHTML += '<p>' + UnCodifyText(theComment.T)  + '</p>';
     newHTML += '</div>';
 
     // comment actions
@@ -3108,12 +3077,22 @@ function HandleBodyTextInput(target) {
 
 }
 
-function CancelCreate() {
+function CancelCreate() {          3
    CloseBlah();
 }
 
 
+function CodifyText(theText) {
+    var regX = /\r\n|\r|\n/g;
+    var replaceString = newlineToken;
+    return theText.replace(regX, replaceString);
+}
 
+function UnCodifyText(theText) {
+    var regX = new RegExp("\\" + newlineToken,"g");
+    var replaceString = "<br />";
+    return theText.replace(regX, replaceString);
+}
 
 function CreateBlah() {
     var blahType = $("#BlahTypeList").val();
@@ -3121,6 +3100,7 @@ function CreateBlah() {
     //var blahBody = escape($("#BlahBody").text());
     var blahHeadline = $("#BlahHeadline").val();
     var blahBody = $("#BlahBody").val();
+    blahBody = CodifyText(blahBody);
     var blahGroup = CurrentChannel._id;
     var options = null;
 

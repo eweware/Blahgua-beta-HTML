@@ -27,7 +27,7 @@
 
 .BlahDiv {
     background-color:#000000;
-    font-family:'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
 
     overflow:hidden;
     vertical-align:middle;
@@ -46,7 +46,7 @@
 
 .BlahTextDiv {
     background-color: transparent;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     height:auto;
     width:auto;
     font-size:9px;
@@ -55,31 +55,32 @@
 }
 
 .BlahAltTextDiv {
-
+    font-size:9px;
     text-align:center;
 
 }
 
 .BlahExpandTextDiv {
     text-align:center;
+    font-size:9px;
 }
 
 
 .SmallBlahFormat {
-    font-size:24px;
+
 }
 
 .XSmallBlahFormat {
-    font-size:24px;
+
 }
 
 .MediumBlahFormat {
-    font-size:48px;
+
 }
 
 
 .LargeBlahFormat {
-    font-size: 72px;
+
 }
 
 .BlahTypeSays {
@@ -154,7 +155,7 @@
 
 .LightBox {
     display:none;
-    background-color:rgba(0,0,0,.75);
+    background-color:rgba(0,0,0,.85);
     position:absolute;
     width:100%;
     height:100%;
@@ -183,7 +184,7 @@
 
 .BlahPreviewHeadline {
     font-size:24px;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
@@ -227,7 +228,7 @@
     padding-left:12px;
     font-size:24px;
     color:white;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 
 .PreviewViewerCount {
@@ -236,23 +237,23 @@
     padding-right:12px;
     font-size:24px;
     color:white;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     padding-left:4px;
 }
 
 .BlahPreviewImage {
-    max-height:640px;
-    width:100%;
+    margin: 0 auto;
     padding-top:16px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    width:256px;
+    height:256px;
+    border-radius: 8px;
     box-shadow: 0px 5px 5px rgba(0,0,0,.3);
 
 }
 
 .BlahPreviewBody {
     font-size:16px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     padding:16px;
 
@@ -295,13 +296,13 @@
 .FullBlahProfileString {
     padding-left:4px;
     font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     text-align: left;
 }
 
 .FullBlahDateStr {
     font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-style: italic;
     padding-right:4px;
     text-align: right;
@@ -311,7 +312,7 @@
 
 .BlahFullHeadline {
     font-size:36px;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
@@ -358,13 +359,13 @@
 .fullBlahgerName {
     padding-left:12px;
     font-size:24px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
 
 }
 .fullBlahgerName1 {
    
     font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
   
 
 }
@@ -374,7 +375,7 @@
     top:-6px;
     padding-right:0px;
     font-size:14px;
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     padding-left:4px;
     width:50px;
 }
@@ -410,7 +411,7 @@
 
 .BlahFullBody {
     font-size:16px;
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     word-wrap: break-word;
     padding-left:8px;
@@ -498,7 +499,7 @@ a {
     z-index:10;
     background-color:magenta;
     color:black;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
@@ -801,24 +802,24 @@ a {
 
 
 .elapsedTimeText {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
 }
 
 .elapsedTimePreview {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
     font-weight: bold;
 }
 
 .predictionDatePreview {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:12pt;
     text-align: right;
 }
 
 .predictionVotePrompt {
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 16pt;
     text-align: center;
 }
@@ -856,7 +857,7 @@ a {
 }
 
 .PredictPreviewAnswerText {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
 
 }
@@ -891,7 +892,7 @@ a {
 }
 .createblahheadlineoption
 {	
-    font-family:'Oswald' sans-serif;
+    font-family:'Arimo' sans-serif;
     border:none;
     float:right;
     margin-right:16px;  
@@ -938,7 +939,7 @@ a {
     
     color: black;
     background-color: #F0F0F0;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 30pt;
     overflow-y: hidden;
 
@@ -955,7 +956,7 @@ a {
 	width:98%;
 	min-height:60px;
 	font-size:12pt;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     background-color: #F0F0F0;
     color:black;
     border:2px solid darkgrey;
@@ -984,7 +985,7 @@ a {
     color:white;
     font-size:16px;
 	font-weight:strong;
-	font-family:Arial,Helvetica,sans-serif;
+	font-family: 'Arimo',sans-serif;
 	border-radius:10px;
 	border-color:transparent;
     
@@ -1017,7 +1018,7 @@ a {
 	color:white;
 	font-size:16px;
 	font-weight:strong;
-	font-family:Arial,Helvetica,sans-serif;
+	font-family:'Arimo',sans-serif;
 }
 .creatblahbutton
 {
@@ -1029,7 +1030,7 @@ a {
 	color:white;
 	font-size:16px;
 	font-weight:strong;
-	font-family:Arial,Helvetica,sans-serif;
+	font-family:'Arimo',sans-serif;
 }
 
 .creatblahbutton[disabled]
@@ -1054,7 +1055,7 @@ a {
     height:32px;
 }
 .BlahgerNickName {
-    font-family:'Oswald', sans-serif;
+    font-family:'Arimo', sans-serif;
     font-size:20pt;
     color:white;
 }
@@ -1094,7 +1095,7 @@ a {
 }
 
 .no-blahs-in-channel-warning {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 20px;
     background-color: orange;
     border-radius: 8px;
@@ -1104,7 +1105,7 @@ a {
 }
 
 .no-blahs-in-channel-warning a {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 18px;
     background-color: white;
     border-radius: 8px;
@@ -1118,13 +1119,13 @@ a {
     text-align: center;
     background-color: lightblue;
     font-size: 18pt;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     padding-top: 4px;
     padding-bottom: 4px;
 }
 
 .badgeholder {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     border-top-style: solid;
     border-top-width: 1px;
     padding: 4px;
@@ -1135,7 +1136,7 @@ a {
 
 .badgename {
     font-size: 28px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 
 .badgeimage {
@@ -1173,7 +1174,7 @@ a {
 	height:70px;
 }
 .shorttitle
-{   font-family:Arial,Helvetica,sans-serif;
+{   font-family:'Arimo',sans-serif;
 	font-size:17px;
 	font-weight:strong;
 	margin-left:20px;
@@ -1181,7 +1182,7 @@ a {
 
 }
 .shorttitle1
-{   font-family:Arial,Helvetica,sans-serif;
+{   font-family:'Arimo',sans-serif;
 	font-size:17px;
 	font-weight:strong;
 	margin-left:20px;
@@ -1193,7 +1194,7 @@ a {
     width:100%;
 	min-height:10px;
 	font-size:12pt;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     background-color:transparent;
     color:black;
     border:none;
@@ -1211,7 +1212,7 @@ a {
   color:white;
   font-size:16px;
   font-weight:strong;
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:'Arimo',sans-serif;
   
 }
 #createcontent
