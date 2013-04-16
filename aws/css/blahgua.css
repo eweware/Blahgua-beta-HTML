@@ -863,7 +863,7 @@ a {
 }
 .createblahheadline
 {
-	background-color:#6E696B;
+	background-color:#545253;
     width:100%;
     border-spacing:0;
     overflow-x:hidden;
@@ -887,7 +887,7 @@ a {
 .createblahheadlineoptionframe
 {   overflow: hidden;
     width: 70px;   
-    background: url("Red_Arrow_Down.png") no-repeat scroll 85px 18px #6E696B;
+    background:#545253;
 
 }
 .createblahheadlineoption
@@ -1026,7 +1026,7 @@ a {
 	height:50px;
 	border-radius:10px;
 	border:transparent;
-	background:#86D98C;
+	background:green;
 	color:white;
 	font-size:16px;
 	font-weight:strong;
@@ -1036,8 +1036,15 @@ a {
 .creatblahbutton[disabled]
 {
 
-    background: #daf9d9;
-    color: #afafaf;
+    width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:#45B445;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
 
 }
 
@@ -1225,3 +1232,37 @@ a {
     font-size:xx-small;
     float: right;
 }
+.optioncover1
+{
+	z-index:10;
+	position:absolute;
+	width:180;
+	height:18;
+	overflow:hidden;
+}
+.optioncover2
+{
+	position:absolute;
+	z-index:-1;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	scrolling:no;
+}
+.optioncover3
+{
+	background-color:#545253;
+	width:88px;
+	height:40px;
+	font-size:18px;
+	font-weight:strong;
+	font-family:Arial, Helvetica, sans-serif;
+	color:lightgrey;
+}
+.optioncover4
+{
+	padding-left:15px;
+	padding-top:5px;
+}
+
