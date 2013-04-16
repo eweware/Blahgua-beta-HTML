@@ -1,14 +1,12 @@
-﻿
+﻿﻿
 
 
 var BlahsMovingTimer = null;
 var BlahPreviewTimeout = null;
 var ViewerUpdateTimer = null;
 
-var ColorMap = [];
 var BlahList;
 var NextBlahList;
-var BlahIndex = 0;
 var LargeTileWidth = 400;
 var MediumTileWidth = 200;
 var SmallTileWidth = 100;
@@ -33,11 +31,7 @@ var CurrentUser = null;
 var ChannelList = [];
 var BlahTypeList = null;
 var IsUserLoggedIn = false;
-var IsTempUser = true;
 var ChannelDropMenu = null;
-var minRows = 1;
-var maxRows = 99;
-var minRows1 = 3;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
 var windowline1 = 430;
 var windowline2 = 500;
@@ -49,10 +43,11 @@ var kBlahTypeLeaks;
 var kBlahTypePolls;
 var kBlahTypePredicts;
 var kBlahTypeAd;
-var edgeGutter = 2;
+var edgeGutter = 12;
 var interBlahGutter = 12;
 var newlineToken = "[_r;";
 var BlahReturnPage = "";
+var MaxTitleLength = 64;
 
 
 
@@ -339,6 +334,9 @@ FadeRandomElement();
 function ComputeSizes() {
     var windowWidth = $(window).width();
     var windowHeight = $(window).height();
+    var desiredWidth = 640;
+    if (windowWidth < desiredWidth)
+        desiredWidth = windowWidth;
 
     if (windowWidth > windowHeight) {
         isVertical = false;
@@ -346,17 +344,10 @@ function ComputeSizes() {
         isVertical = true;
     }
 
-    var numCols, numRows;
-
-
-
-    var numCols = 1;
     var totalGutter = edgeGutter * 2 + interBlahGutter * 3;
 
-    SmallTileWidth = Math.floor((windowWidth - totalGutter) / (numCols * 4));
-    if (SmallTileWidth > 128) {
-        SmallTileWidth = 128;
-    }
+    SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 4);
+
     MediumTileWidth = (SmallTileWidth * 2) + interBlahGutter;
     LargeTileWidth = (MediumTileWidth * 2) + interBlahGutter;
     //LargeTileWidth = (SmallTileWidth * 3) + (interBlahGutter * 2);
@@ -1263,7 +1254,7 @@ function FocusBlah(who) {
     CurrentBlahId = who.blah.I;
     PopulateBlahPreview(who.blah);
     var winHeight = $(window).height();
-    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-290 + 'px'});
+    $("#BlahPreviewScrollContainer").css({ 'max-height': winHeight-416 + 'px'});
     $(BlahPreviewItem).fadeIn("fast");
     BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
 
@@ -1350,7 +1341,7 @@ function UpdateBodyText(theFullBlah) {
 
 
     // image
-    var image = GetBlahImage(CurrentBlah, "B");
+    var image = GetBlahImage(CurrentBlah, "C");
     var imageEl = document.getElementById("blahPreviewImage");
     if (image == "") {
         imageEl.style.display = "none";
@@ -1358,8 +1349,10 @@ function UpdateBodyText(theFullBlah) {
     } else {
         imageEl.style.display = "block";
         imageEl.src = image;
-        headlineText.style.fontSize = "24px";
+        headlineText.style.fontSize = "36px";
     }
+
+    /*
      var windowWidth = $(window).width();
     if (windowWidth > windowline2) {
        $(blahPreviewImage).css({ 'left': 120 + 'px'});
@@ -1375,6 +1368,7 @@ function UpdateBodyText(theFullBlah) {
     {
      $(blahPreviewImage).css({ 'left': 90 + 'px'});
     }
+    */
     var bodyTextDiv = document.getElementById("BlahPreviewBody");
     if (theFullBlah.hasOwnProperty("F")) {
         var bodyText = theFullBlah.F;
@@ -2621,6 +2615,9 @@ function SetCurrentChannel(whichChannel) {
     Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
     labelDiv.innerHTML = CurrentChannel.N;
+    var imageURL = "url('http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/"
+    imageURL += CurrentChannel.N + ".jpg')";
+    document.getElementById("BlahContainer").style.backgroundImage = imageURL;
     GetUserBlahs();
     UpdateChannelViewers();
 }
@@ -3077,7 +3074,7 @@ function PopulateBlahTypeOptions() {
 function HandleHeadlineTextInput(target) {
     if(target.scrollHeight > target.clientHeight)
         target.style.height=target.scrollHeight+'px';
-    var numCharsRemaining = 128 - target.value.length;
+    var numCharsRemaining = MaxTitleLength - target.value.length;
     if (numCharsRemaining < 32) {
         $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
     } else {
@@ -3092,7 +3089,7 @@ function HandleHeadlineTextInput(target) {
 function CheckPublishBtnDisable() {
     var headLineLen = document.getElementById("BlahHeadline").value.length;
     var bodyLen = document.getElementById("BlahBody").value.length;
-    if ((headLineLen < 2)   || (headLineLen > 128) || (bodyLen > 4000))
+    if ((headLineLen < 2)   || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
         document.getElementById("PublishBlahBtn").disabled = true;
     else
         document.getElementById("PublishBlahBtn").disabled = false;

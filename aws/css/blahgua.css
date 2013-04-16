@@ -19,7 +19,8 @@
 .BlahContainer {
     position: absolute;
     height:100%;
-    background-color: #cbc7c5;
+    background-color: #d4d4d4;
+    background-image: url(http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/tealrock.jpg);
     overflow:hidden;
 
 }
@@ -31,11 +32,9 @@
     overflow:hidden;
     vertical-align:middle;
     background-size: cover;
-    border-style: outset;
-    border-width: 2px;
 
-
-
+    border-radius: 8px;
+    box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
 
 
     -ms-word-break: break-all;
@@ -45,18 +44,11 @@
     hyphens: auto;
 }
 
-.SavedStyles {
-    box-shadow: 8px 4px 5px #888888;
-    border-radius: 16px;
-}
-
-
 .BlahTextDiv {
     background-color: transparent;
     font-family: 'Oswald', sans-serif;
     height:auto;
     width:auto;
-    min-width:100%;
     font-size:9px;
     padding: 4px;
     text-align: center;
@@ -77,6 +69,10 @@
     font-size:24px;
 }
 
+.XSmallBlahFormat {
+    font-size:24px;
+}
+
 .MediumBlahFormat {
     font-size:48px;
 }
@@ -87,8 +83,8 @@
 }
 
 .BlahTypeSays {
-    color: black;
-    background-color:  #EDE5E2;
+    color: white;
+    background-color:  #666666;
     border-color: #EDE5E2;
 }
 
@@ -158,7 +154,7 @@
 
 .LightBox {
     display:none;
-    background-color:rgba(0,0,0,.5);
+    background-color:rgba(0,0,0,.75);
     position:absolute;
     width:100%;
     height:100%;
@@ -168,15 +164,17 @@
 .blah-preview-content {
     overflow-x: hidden;
     overflow-y: auto;
-   
+    background-color: white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    z-index: 3;
+    position: relative;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
 }
 
 .BlahPreview {
     display:none;
-    background-color: white;
-    border-style:solid;
-    border-width: 4px;
-    border-color:black;
+    background-color: transparent;
     position:absolute;
     height:auto;
     top:50px;
@@ -189,55 +187,74 @@
     width:100%;
     text-align:center;
     font-weight:bold;
-    margin:4px 0px 4px 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     word-wrap: break-word;
+    background-color: white;
+    padding-top:8px;
 }
 
 .BlahPreviewTable {
     border-spacing:0px;
     overflow-x:hidden;
     overflow-y:hidden;
+}
 
-    
+.preview-footer-button {
+    padding-top:8px;
+}
+
+.BlahPreviewFooter {
+    position:relative;
+    border-spacing:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    background-color:lightgrey;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    z-index: 2;
+    margin-top: -8px;
+
 }
 
 .BlahPreviewHeader {
-    background-color:lightgray;
+    background-color:transparent;
 }
 
 
 
 .previewBlahgerName {
     padding-left:12px;
-    font-size:12px;
+    font-size:24px;
+    color:white;
     font-family: 'Archivo Narrow', sans-serif;
 }
 
 .PreviewViewerCount {
     position:relative;
-    top:-4px;
+    top:-8px;
     padding-right:12px;
-    font-size:12px;
+    font-size:24px;
+    color:white;
     font-family: 'Archivo Narrow', sans-serif;
     padding-left:4px;
 }
 
 .BlahPreviewImage {
-    max-height:300px;
-    max-width:90%;
+    max-height:640px;
+    width:100%;
     padding-top:16px;
-    padding-bottom:16px;
-    position:relative;
-    left:-300px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+
 }
 
 .BlahPreviewBody {
     font-size:16px;
     font-family: 'Archivo Narrow', sans-serif;
     width:100%;
-    padding-left:16px;
-    padding-right:16px;
-    padding-bottom:16px;
+    padding:16px;
 
 }
 

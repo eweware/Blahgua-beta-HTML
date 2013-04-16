@@ -5,10 +5,12 @@
 <div id="BlahPreview">
     <table width="100%" class="BlahPreviewTable">
         <tr class="BlahPreviewHeader"><td colspan="4"><span id="PreviewBlahNickname" class="previewBlahgerName">A female blahger from Santa Monica, CA says: </span></td>
-            <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+            <td align="right"><img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
                 <span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>
     </table>
-    <div class="BlahPreviewHeadline" id="BlahPreviewHeadline" style="width:100%"></div>
+    <div class="BlahPreviewHeadline" style="width:100%">
+        <span id="BlahPreviewHeadline"></span>
+    </div>
     <div class="blah-preview-content" id="BlahPreviewScrollContainer">
 
         <table class="BlahPreviewTable" width="100%">
@@ -19,19 +21,19 @@
     </div>
 
 
-    <table width="100%" class="BlahPreviewTable"   height="70px">
-        <tr id="PreviewRowVote" style="height:70px;width:100%;background:white">
+    <table width="100%" class="BlahPreviewFooter"   height="80px">
+        <tr id="PreviewRowVote" style="height:70px;width:100%">
             <td width="20%" ></td>
-            <td width="20%" align="center">
+            <td width="20%" align="center" class="preview-footer-button">
                 <img id="PreviewPromoteBlah" onclick="DoPromotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png"><br/>
                 <span id="PreviewUserPromoteSpan" class="statsText"></span>
 
             </td>
-            <td width="20%" align="center">
+            <td width="20%" align="center" class="preview-footer-button">
                 <img id="PreviewDemoteBlah" onclick="DoDemotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png"> <br/>
                 <span id="PreviewUserDemoteSpan"  class="statsText"></span>
             </td>
-            <td width="20%" align="center">
+            <td width="20%" align="center" class="preview-footer-button">
                 <img width="36px" alt="viewers" onclick="DoAddCommentPreview(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
                 <br/><span class="statsText" id="previewComments">65</span>
             </td>
