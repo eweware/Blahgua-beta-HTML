@@ -688,11 +688,11 @@ function UpdateBlahOverview() {
     var headlineText = document.getElementById("BlahFullHeadline");
     if (image == "") {
         imageEl.style.display = "none";
-        headlineText.style.fontSize = "36px";
+        //headlineText.style.fontSize = "36px";
     } else {
-        imageEl.style.display = "block";
+        imageEl.style.display = "absolute";
         imageEl.src = image;
-        headlineText.style.fontSize = "24px";
+        //headlineText.style.fontSize = "24px";
     }
 
     var bodyTextDiv = document.getElementById("BlahFullBody");
@@ -994,7 +994,7 @@ function UpdateFullBlahBody() {
     }
 
     // stats
-    document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
+    //document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
     document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
 
     // update the opens

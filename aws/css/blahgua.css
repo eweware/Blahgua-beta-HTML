@@ -293,34 +293,8 @@
 }
 
 
-.FullBlahProfileString {
-    padding-left:4px;
-    font-size:12px;
-    font-family: 'Arimo', sans-serif;
-    text-align: left;
-}
-
-.FullBlahDateStr {
-    font-size:12px;
-    font-family: 'Arimo', sans-serif;
-    font-style: italic;
-    padding-right:4px;
-    text-align: right;
-
-}
 
 
-.BlahFullHeadline {
-    font-size:36px;
-    font-family: 'Arimo', sans-serif;
-    width:100%;
-    text-align:center;
-    font-weight:bold;
-    margin:16px 16px 16px 16px;
-    padding:10px 10px;
-    word-wrap: break-word;
-    background:#F777AA;
-}
 
 .BlahFullTable {
     border-spacing:0px;
@@ -328,47 +302,8 @@
     border:0px;
 }
 
-.BlahFullHeader {
-    background-color:#FA3987;
-    border-spacing:0px;
-    border:0px;
-    bottom:0px;
-}
-
-.FullBlahTableFooter {
-    background-color: #d3d3d3;
-   
-    overflow-x:hidden;
-    overflow-y:hidden;
-    position:absolute;
-    bottom:0px;
-    height:70px;
-    width:100%;
-
-  
-}
-
-.BlahFullHeader1 {
-    background-color:lightgray;
-    padding-top:0px;
-    padding-left:0px;
-}
 
 
-
-.fullBlahgerName {
-    padding-left:12px;
-    font-size:24px;
-    font-family: 'Arimo', sans-serif;
-
-}
-.fullBlahgerName1 {
-   
-    font-size:12px;
-    font-family: 'Arimo', sans-serif;
-  
-
-}
 
 .FullBlahViewerCount {
     position:relative;
@@ -1266,3 +1201,174 @@ a {
 	padding-top:5px;
 }
 
+/* classes for the blah detail page */
+
+.full-blah-div {
+    background-image: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    top:0px;
+    bottom:0px;
+    position:absolute;
+}
+
+.BlahPageFooter {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:80px;
+    border-collapse: collapse;
+    background-color: #E4E4E4;
+
+}
+
+.author-image {
+    width:64px;
+    height:64px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:white;
+    margin: 8px;
+}
+
+.BlahButton {
+    width:100%;
+    height:60px;
+    border:none;
+    background-color: #999999;
+    color:black;
+    font-size:18px;
+}
+
+.BlahFullHeader {
+    border-spacing:0px;
+    border-collapse: collapse;
+    border:0px;
+    bottom:0px;
+    width:100%;
+}
+
+.fullBlahgerName {
+    font-size:30px;
+    font-weight: bold;
+    font-family: 'Arimo', sans-serif;
+    color:white;
+
+}
+
+.fullBlahSpeechAct {
+    font-size:26px;
+    font-family: 'Arimo', sans-serif;
+    color:#999999;
+}
+
+.CloseButton {
+    width:52px;
+    height:52px;
+    border:none;
+    background-color: white;
+    color:red;
+    font-size:18px;
+    border-radius: 6px;
+    margin:8px;
+}
+
+.CloseButton:hover {
+    background-color: red;
+    color:white;
+
+}
+
+.BlahFullHeadline {
+    font-size:36px;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    margin:16px 16px 16px 16px;
+    padding:10px 10px;
+    word-wrap: break-word;
+}
+
+
+
+.BlahButton span {
+
+}
+
+.BlahButton:hover {
+    background-color: #BBBBBB;
+
+}
+
+.BlahBtnSelected {
+    background-color: #E1644E;
+    color:white;
+
+}
+
+.BlahButton .BlahBtnSelected :hover{
+    background-color: #e19783;
+    color:white;
+
+}
+
+.Button-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.Button-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+.blah-summary-bar {
+    background-color: rgba(0,0,0,.1);
+    width: 90%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 20px;
+    margin: -1px auto;
+    padding-top: 4px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+
+.FullBlahProfileString {
+    padding-left:4px;
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    float:left;
+}
+
+.FullBlahDateStr {
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    padding-right:4px;
+    text-align: right;
+    float:right;
+
+}
+
+.fullBlahgerName1 {
+
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+
+
+}
+
+/* classes for the full blah Summary page */
+
+.FullBlahTableFooter {
+    background-color: #d3d3d3;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    position:absolute;
+    bottom:80px;
+    height:70px;
+    width:100%;
+}
