@@ -1,21 +1,43 @@
 <html>
 
 <body>
-<div id="FullBlahDiv">
+<div id="FullBlahDiv" class="full-blah-div">
 
     <table width="100%" class="BlahFullHeader" id="FullBlahHeader">
-        <tr >
-            <td><span class="fullBlahgerName" id="FullBlahNickName">A blahger</span></td>
-            <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
-                <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td>
-            <td align="right"><span class="CloseBlahBtn" onclick="DoCloseBlah(); return false">X</span></td>
+        <tr style="background-color: rgba(25,25,25,.9)" >
+            <td rowspan="2"><div id="BlahAuthorImage" class="author-image"></div></td>
+            <td style="width:100%"><span class="fullBlahgerName" id="FullBlahNickName">A blahger</span></td>
+            <td rowspan="2"><button class="CloseButton" onclick="DoCloseBlah(); return false"><span>X</span></button></td>
         </tr>
+        <tr  style="background-color: rgba(25,25,25,.9)">
+            <td><span class="fullBlahSpeechAct">says to the blahgua network:</span></td>
+        </tr>
+        <tr >
+            <td  colspan="3">
+                <div class="blah-summary-bar">
+                    <span class="FullBlahProfileString" id="FullBlahProfileString"></span>
+                    <span id="FullBlahDateStr" class="FullBlahDateStr"></span>
+                </div>
+            </td>
+        </tr>
+
         <tr><td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" ></td></tr>
     </table>
 
     <div id="BlahPageDiv">
 
     </div>
+
+    <table class="BlahPageFooter">
+        <tr>
+            <td  width="5%"></td>
+            <td width="30%"><button class="BlahButton Button-left BlahBtnSelected"><span>SUMMARY</span></button></td>
+            <td width="30%"><button class="BlahButton"><span>COMMENTING</span></button></td>
+            <td width="30%"><button class="BlahButton Button-right"><span>STATS</span></button> </td>
+            <td width="5%"></td>
+
+        </tr>
+    </table>
 
 
 
