@@ -285,8 +285,9 @@ function OnFailure(theErr) {
             var code = getSafeProperty(responseObj, "errorCode", "<no id>");
             errString = "Error: (" + code + "): " + message;
         } catch (exp) {
-            errString = "Error: " + responseText;
+
         }
+        errString += "\nFull Text: \n" + responseText;
     }
     alert(errString);
 }
