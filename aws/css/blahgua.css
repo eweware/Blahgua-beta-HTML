@@ -19,63 +19,59 @@
 .BlahContainer {
     position: absolute;
     height:100%;
-    background-color: #CFC0C0;
+    background-color: #d4d4d4;
+    background-image: url(http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/tealrock.jpg);
     overflow:hidden;
 
 }
 
 .BlahDiv {
     background-color:#000000;
-    font-family:'Archivo Narrow', sans-serif;
-    padding: 8px;
+    font-family: 'Arimo', sans-serif;
+
     overflow:hidden;
     vertical-align:middle;
     background-size: cover;
+
+    border-radius: 8px;
+    box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
+
+
+    -ms-word-break: break-all;
+    word-break: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    hyphens: auto;
 }
-
-
 
 .BlahTextDiv {
     background-color: transparent;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     height:auto;
-    min-height:100%;
     width:auto;
-    min-width:100%;
     font-size:9px;
+    padding: 4px;
+    text-align: center;
 }
 
 .BlahAltTextDiv {
-    min-height:50%;
-    margin-left:0px;
+    font-size:9px;
     text-align:center;
-
 
 }
 
 .BlahExpandTextDiv {
-    margin-top:-8px;
-    margin-left:-8px;
-    margin-right:-8px;
-    margin-bottom:-8px;
     text-align:center;
-
-
-}
-
-.BlahSmallTextLight {
-    background-color: rgba(0,0,0,.5);
-    color:white;
-}
-
-.BlahSmallTextDark {
-    background-color: rgba(255,255,255,.5);
-    color:black;
+    font-size:9px;
 }
 
 
 .SmallBlahFormat {
-   
+
+}
+
+.XSmallBlahFormat {
+
 }
 
 .MediumBlahFormat {
@@ -84,8 +80,68 @@
 
 
 .LargeBlahFormat {
-    font-weight:bold;
+
 }
+
+.BlahTypeSays {
+    color: white;
+    background-color:  #666666;
+    border-color: #EDE5E2;
+}
+
+.BlahTypeLeaks {
+    color: #ffd9ee;
+    background-color: #ea3556;
+    border-color: #ea3556;
+}
+
+.BlahTypePolls {
+    color: black;
+    background-color: #61d2d6;
+    border-color: #61d2d6;
+
+}
+
+.BlahTypePredicts {
+    color: black;
+    background-color: #edde45;
+    border-color: #edde45;
+
+}
+
+.BlahTypeAd {
+    color: white;
+    background-color:blue;
+    border-color: blue;
+
+}
+
+.BlahTypeSaysImgText {
+    color: black;
+    background-color: rgba(237,229,226  ,0.6);
+}
+
+.BlahTypeLeaksImgText {
+    color: black;
+    background-color: rgba(234,53,86,0.6);
+}
+
+.BlahTypePollsImgText {
+    color: black;
+    background-color: rgba(97,210,214,0.6);
+}
+
+.BlahTypePredictsImgText {
+    color: black;
+    background-color: rgba(227,232,69,0.6);
+}
+
+.BlahTypeAddImgText {
+    color: white;
+    background-color: rgba(0,0,255,0.6);
+}
+
+
 
 .BlahImage {
     position:absolute;
@@ -99,7 +155,7 @@
 
 .LightBox {
     display:none;
-    background-color:rgba(0,0,0,.5);
+    background-color:rgba(0,0,0,.85);
     position:absolute;
     width:100%;
     height:100%;
@@ -109,15 +165,17 @@
 .blah-preview-content {
     overflow-x: hidden;
     overflow-y: auto;
-   
+    background-color: white;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    z-index: 3;
+    position: relative;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
 }
 
 .BlahPreview {
     display:none;
-    background-color: white;
-    border-style:solid;
-    border-width: 4px;
-    border-color:black;
+    background-color: transparent;
     position:absolute;
     height:auto;
     top:50px;
@@ -126,59 +184,78 @@
 
 .BlahPreviewHeadline {
     font-size:24px;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     text-align:center;
     font-weight:bold;
-    margin:4px 0px 4px 0px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
     word-wrap: break-word;
+    background-color: white;
+    padding-top:8px;
 }
 
 .BlahPreviewTable {
     border-spacing:0px;
     overflow-x:hidden;
     overflow-y:hidden;
+}
 
-    
+.preview-footer-button {
+    padding-top:8px;
+}
+
+.BlahPreviewFooter {
+    position:relative;
+    border-spacing:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    background-color:lightgrey;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    z-index: 2;
+    margin-top: -8px;
+
 }
 
 .BlahPreviewHeader {
-    background-color:lightgray;
+    background-color:transparent;
 }
 
 
 
 .previewBlahgerName {
     padding-left:12px;
-    font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-size:24px;
+    color:white;
+    font-family: 'Arimo', sans-serif;
 }
 
 .PreviewViewerCount {
     position:relative;
-    top:-4px;
+    top:-8px;
     padding-right:12px;
-    font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-size:24px;
+    color:white;
+    font-family: 'Arimo', sans-serif;
     padding-left:4px;
 }
 
 .BlahPreviewImage {
-    max-height:300px;
-    max-width:90%;
+    margin: 0 auto;
     padding-top:16px;
-    padding-bottom:16px;
-    position:relative;
-    left:-300px;
+    width:256px;
+    height:256px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+
 }
 
 .BlahPreviewBody {
     font-size:16px;
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
-    padding-left:16px;
-    padding-right:16px;
-    padding-bottom:16px;
+    padding:16px;
 
 }
 
@@ -212,89 +289,28 @@
     overflow-y: auto;
     border-spacing:0px;
     border:0px;
+    margin-top:-2px;
 }
 
 
-.FullBlahProfileString {
-    padding-left:4px;
-    font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
-}
-
-.FullBlahDateStr {
-    font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
-    font-style: italic;
-    padding-right:4px;
-    width:80px;
-
-}
 
 
-.BlahFullHeadline {
-    font-size:36px;
-    font-family: 'oswald', sans-serif;
-    width:100%;
-    text-align:center;
-    font-weight:bold;
-    margin:16px 16px 16px 16px;
-    padding:10px 10px;
-    word-wrap: break-word;
-    background:#F777AA;
-}
 
 .BlahFullTable {
     border-spacing:0px;
     border-collapse: collapse;
     border:0px;
-    bottom:0px;
-
-}
-
-.BlahFullHeader {
-    background-color:#FA3987;
-    border-spacing:0px;
-    border:0px;
-    bottom:0px;
-}
-
-.FullBlahTableFooter {
-    background-color: #d3d3d3;
-    border-spacing:0px;
-    border-collapse: collapse;
-    width:512px;
-    position:fixed;
-    bottom:0px;
-}
-
-.BlahFullHeader1 {
-    background-color:lightgray;
-    padding-top:0px;
-    padding-left:0px;
 }
 
 
 
-.fullBlahgerName {
-    padding-left:12px;
-    font-size:24px;
-    font-family: 'Archivo Narrow', sans-serif;
-
-}
-.fullBlahgerName1 {
-   
-    font-size:12px;
-    font-family: 'Archivo Narrow', sans-serif;
-  
-
-}
 
 .FullBlahViewerCount {
     position:relative;
     top:-6px;
     padding-right:0px;
     font-size:14px;
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     padding-left:4px;
     width:50px;
 }
@@ -321,10 +337,16 @@
 	margin-top:100px;
 }
 
+.statsText1
+{
+	font-size:12px;
+	font-weight:bold;
+	margin-top:200px;
+}
 
 .BlahFullBody {
     font-size:16px;
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     width:100%;
     word-wrap: break-word;
     padding-left:8px;
@@ -412,7 +434,7 @@ a {
     z-index:10;
     background-color:magenta;
     color:black;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
@@ -524,7 +546,7 @@ a {
 }
 
 .PollChartDiv {
-    text-align:middle;
+    text-align: center ;
     background-color:red;
     height:1em
 }
@@ -561,7 +583,7 @@ a {
 
 .ChannelDropMenu {
     position: absolute;
-    padding:16px 0px 0px 0px;
+    padding:16px 0px 16px 0px;
     left:8px;
     top:56px;
     width:400px;
@@ -596,6 +618,8 @@ a {
     width:16px;
     height: 16px;
     float:right;
+    padding-right:20px;
+    padding-top:18px;
 }
 
 .ChannelDropMenu ul a:hover
@@ -698,8 +722,9 @@ a {
     margin: 4px;
     padding-right: 8px;
     padding-left:8px;
-    padding-top:0px;
+    padding-top:12px;
     width:80%;
+    height:80%;
     border-radius: 8px;
     margin-left:40px;
 }
@@ -712,24 +737,24 @@ a {
 
 
 .elapsedTimeText {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
 }
 
 .elapsedTimePreview {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
     font-weight: bold;
 }
 
 .predictionDatePreview {
-    font-family: 'archivo narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:12pt;
     text-align: right;
 }
 
 .predictionVotePrompt {
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 16pt;
     text-align: center;
 }
@@ -767,18 +792,23 @@ a {
 }
 
 .PredictPreviewAnswerText {
-    font-family: 'Archivo Narrow', sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size:18pt;
 
 }
 .createblahheadline
 {
-	background-color:#2A99F5;
-	width:100%;
+	background-color:#545253;
+    width:100%;
+    border-spacing:0;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    
 }
 .createblahheadlinephotoframe
 {
 	width:70px;
+	
 }
 .createblahheadlinephoto
 {
@@ -790,18 +820,28 @@ a {
 	margin-top:5px;
 }
 .createblahheadlineoptionframe
-{
+{   overflow: hidden;
+    width: 70px;   
+    background:#545253;
 
 }
 .createblahheadlineoption
-{
-	background:rgb(101, 179, 245);
-	box-shadow:none;
-    font-family:'Oswald' sans-serif;
-    font-size:20pt;
+{	
+    font-family:'Arimo' sans-serif;
     border:none;
     float:right;
-    margin-right:16px;
+    margin-right:16px;  
+    border: 0 none;
+    color: #FFFFFF;
+    background: none;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 2px 10px;
+    width: 105px;
+    *width: 110px;
+    *background: none;
+ 
+ 
 }
 .createblahscroll
 {
@@ -813,10 +853,12 @@ a {
 
 }
 .createblahscrolltable
-{
-	width:512px;
+{   width:100%;
 	height:auto; 
-	overflow:auto;
+	overflow-y:scroll;
+	overflow-x:hidden;
+
+	border:2px solid white;
 }
 .tr100
 {
@@ -824,14 +866,17 @@ a {
 }
 .inputheadlineframe
 {
-	width:100%;
-	min-height:30px;
-    padding: 8px;
-    border-radius: 4px;
+	width:98%;
+	min-height:60px;
+    
+    border:2px solid darkgrey;
+    border-radius:8px;
+    
     color: black;
-    background-color: #add8e6;
-    font-family: 'Archivo Narrow', sans-serif;
+    background-color: #F0F0F0;
+    font-family: 'Arimo', sans-serif;
     font-size: 30pt;
+    overflow-y: hidden;
 
 }
 .inputheadline
@@ -843,13 +888,15 @@ a {
 }
 .inputbodyframe
 {
-	width:100%;
+	width:98%;
 	min-height:60px;
 	font-size:12pt;
-    font-family: 'oswald', sans-serif;
+    font-family: 'Arimo', sans-serif;
     background-color: #F0F0F0;
     color:black;
-    padding:8px;
+    border:2px solid darkgrey;
+    border-radius:8px;
+    overflow-y: hidden;
 }
 .inputbody
 {
@@ -859,23 +906,28 @@ a {
 }
 .uploadimage
 {
-	width:40px;
-	height:40px;
+	width:64px;
+	height:64px;
 	background:grey;
 
 }
 .uploadimagebutton
-{
+{   
 	position:relative;
-	left:-200px;
-	width:200px;
-	height:20px;
+	background:#FC7A56;
+	width:180px;
+	height:50px;
+    color:white;
+    font-size:16px;
+	font-weight:strong;
+	font-family: 'Arimo',sans-serif;
+	border-radius:10px;
+	border-color:transparent;
+    
 }
 .createblahadditional
 {
-	margin-left:30px;
-	position:relative;
-	top:10px;
+	
 }
 .creatblahspace
 {
@@ -884,23 +936,53 @@ a {
 }
 .creatblahfooter
 {
-
-	width:512px;
-	background:#B3DBF5;
+    height:70px;
+	width:100%;
 	position:fixed;
-	bottom:0px
+	bottom:0px;
+
 	
+}
+.cancleblahbutton
+{
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:grey;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
 }
 .creatblahbutton
 {
-	width:100px;
-	height:30px;
-	border-radius:5px;
-	background:#2A99F5;
+	width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:green;
 	color:white;
 	font-size:16px;
-	font-weight:bold;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
 }
+
+.creatblahbutton[disabled]
+{
+
+    width:180px;
+	height:50px;
+	border-radius:10px;
+	border:transparent;
+	background:#45B445;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
+
+}
+
 .progressbar
 {
 	width:400px; 
@@ -915,6 +997,432 @@ a {
     height:32px;
 }
 .BlahgerNickName {
-    font-family:'Oswald', sans-serif;
+    font-family:'Arimo', sans-serif;
     font-size:20pt;
+    color:white;
 }
+
+.BlahStatsTable {
+    min-width: 100%;
+}
+
+
+.AddCommentBtn {
+    float:right;
+}
+.CommentTextArea {
+    width:100%;
+    min-height:2em;
+}
+
+.BadgeOverlay {
+    background-color: white;
+    position:fixed;
+    top: 32px;
+    left: 0px;
+    right: 0px;
+    max-width: 512px;
+    max-height: 384px;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #000000;
+    z-index: 25;
+}
+
+.BadgeDialog {
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+
+.no-blahs-in-channel-warning {
+    font-family: 'Arimo', sans-serif;
+    font-size: 20px;
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    margin-top: 65px;
+}
+
+.no-blahs-in-channel-warning a {
+    font-family: 'Arimo', sans-serif;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}
+
+
+.BadgeTitleBar {
+    width: 100%;
+    text-align: center;
+    background-color: lightblue;
+    font-size: 18pt;
+    font-family: 'Arimo', sans-serif;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.badgeholder {
+    font-family: 'Arimo', sans-serif;
+    border-top-style: solid;
+    border-top-width: 1px;
+    padding: 4px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    background-color: #d3d3d3;
+}
+
+.badgename {
+    font-size: 28px;
+    font-family: 'Arimo', sans-serif;
+}
+
+.badgeimage {
+    width:32px;
+    height:32px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.badgesource {
+    font-size: 12pt;
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.badgeexp {
+    font-size: 9pt;
+    font-style: italic;
+    color: gray;
+    margin-left: 16px;
+    text-align: right;
+    margin-right: 16px;
+}
+
+.detailpageheader
+{
+	height:auto;
+
+    border-spacing:0px;
+    border-collapse: collapse;
+    border:0px;
+}
+.BlahRowVote
+{
+	height:70px;
+}
+.shorttitle
+{   font-family:'Arimo',sans-serif;
+	font-size:17px;
+	font-weight:strong;	
+	color:#545253;
+	margin-left:20px;
+
+}
+.shorttitle1
+{   font-family:'Arimo',sans-serif;
+	font-size:17px;
+	font-weight:strong;
+	margin-left:20px;
+	color:#545253;
+	border-top:1px solid grey;
+}
+.aboutyouframe
+{
+    width:100%;
+	min-height:10px;
+	font-size:12pt;
+    font-family: 'Arimo', sans-serif;
+    background-color:transparent;
+    color:black;
+    border:none;
+   
+
+    
+}
+.aboutbutton
+{
+  width:180px;
+  height:50px;
+  background-color:#FC7A56;
+  border-radius:10px;
+  border-color:transparent;
+  color:white;
+  font-size:16px;
+  font-weight:strong;
+  font-family:'Arimo',sans-serif;
+  
+}
+#createcontent
+{
+	background: url("white.jpg");
+}
+
+
+.charcounter {
+    font-size:xx-small;
+    float: right;
+}
+.optioncover1
+{
+	z-index:10;
+	position:absolute;
+	width:180;
+	height:18;
+	overflow:hidden;
+}
+.optioncover2
+{
+	position:absolute;
+	z-index:-1;
+	width:100%;
+	height:100%;
+	top:0;
+	left:0;
+	scrolling:no;
+}
+.optioncover3
+{
+	background-color:#545253;
+	width:88px;
+	height:40px;
+	font-size:18px;
+	font-weight:strong;
+	font-family:Arial, Helvetica, sans-serif;
+	color:lightgrey;
+}
+.optioncover4
+{
+	padding-left:15px;
+	padding-top:5px;
+}
+
+.imageupload1
+{
+	position:relative; 
+	float:left; 
+	padding:8px 0;
+	font-size:12px;
+	margin:0
+}
+.imageupload2
+{
+	float:left;
+}
+.imageupload3
+{
+	width:1px; 
+	border:1px solid #888; 
+	z-index:99;
+	padding-left:0px;
+	margin-left:50px;
+}
+.imageupload4
+{
+	padding-top:20px;
+	padding-left:25px;
+	width:150px;
+	height:35px;
+	display:block; 
+	float:left; 
+	background:#FC7A56;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
+	border-radius:10px;
+    border-color:transparent; 
+    z-index:1; 
+    margin-left:-50px; 
+    vertical-align:middle; 
+    cursor: pointer;
+}
+.imageupload5
+{
+	position:absolute; 
+	left:20px; 
+	top:8px; 
+	display:none;
+	filter:alpha(opacity=0);
+	opacity:0;
+	width:180px;
+	height:40px;
+}
+
+
+/* classes for the blah detail page */
+
+.full-blah-div {
+    background-image: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    top:0px;
+    bottom:0px;
+    position:absolute;
+}
+
+.BlahPageFooter {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:80px;
+    border-collapse: collapse;
+    background-color: #E4E4E4;
+
+}
+
+.author-image {
+    width:64px;
+    height:64px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:white;
+    margin: 8px;
+}
+
+.BlahButton {
+    width:100%;
+    height:60px;
+    border:none;
+    background-color: #999999;
+    color:black;
+    font-size:18px;
+}
+
+.BlahFullHeader {
+    border-spacing:0px;
+    border-collapse: collapse;
+    border:0px;
+    bottom:0px;
+    width:100%;
+}
+
+.fullBlahgerName {
+    font-size:30px;
+    font-weight: bold;
+    font-family: 'Arimo', sans-serif;
+    color:white;
+
+}
+
+.fullBlahSpeechAct {
+    font-size:26px;
+    font-family: 'Arimo', sans-serif;
+    color:#999999;
+}
+
+.CloseButton {
+    width:52px;
+    height:52px;
+    border:none;
+    background-color: white;
+    color:red;
+    font-size:18px;
+    border-radius: 6px;
+    margin:8px;
+}
+
+.CloseButton:hover {
+    background-color: red;
+    color:white;
+
+}
+
+.BlahFullHeadline {
+    font-size:36px;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    margin:16px 16px 16px 16px;
+    padding:10px 10px;
+    word-wrap: break-word;
+}
+
+
+
+.BlahButton span {
+
+}
+
+.BlahButton:hover {
+    background-color: #BBBBBB;
+
+}
+
+.BlahBtnSelected {
+    background-color: #E1644E;
+    color:white;
+
+}
+
+.BlahButton .BlahBtnSelected :hover{
+    background-color: #e19783;
+    color:white;
+
+}
+
+.Button-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.Button-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+.blah-summary-bar {
+    background-color: rgba(0,0,0,.1);
+    width: 90%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 20px;
+    margin: -1px auto;
+    padding-top: 4px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+
+.FullBlahProfileString {
+    padding-left:4px;
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    float:left;
+}
+
+.FullBlahDateStr {
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    padding-right:4px;
+    text-align: right;
+    float:right;
+
+}
+
+.fullBlahgerName1 {
+
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+
+
+}
+
+/* classes for the full blah Summary page */
+
+.FullBlahTableFooter {
+    background-color: #d3d3d3;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    position:absolute;
+    bottom:80px;
+    height:70px;
+    width:100%;
+}
+

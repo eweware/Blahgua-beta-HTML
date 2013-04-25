@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/blahgua.css" />
+</head>
+<body>
+<div id="FullBlahBodyDiv">
+
+        <div class="FullBlahContent" id="FullBlahContent">
+                <table class="FullBlahTable" width="100%">
+                        <tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>
+                        <tr><td>
+                            <table id="UploadImageTable" style="display:none">
+                                <tr>
+                                    <td>
+                                        <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+                                            <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton">
+                                            <div style="display:none">
+                                                <input type="text" name="objectType" hidden="true" value="B"/>
+                                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                                <input type="text" name="primary" hidden="true" value="true"/>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <button onclick="DoAddImageToBlah(); return false;">Add Image</button>
+                                    </td>
+                                </tr>
+                                <tr><td>
+                                    <div id="ProgressDiv" style="display:none">
+                                        <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+                                            <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+                                        </div>
+                                    </div>
+                                </td></tr>
+                            </table>
+                        </td></tr>
+                        <tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>
+                        <tr><td class="ExtraInfoArea" id="AdditionalInfoArea" style="width:500px;"></td></tr>
+                        <tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>
+                </table>
+        </div>
+
+    
+    <table  class="FullBlahTableFooter">
+        <tr>
+        <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+            <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td>
+        </tr>
+        <tr id="BlahRowVote" class="BlahRowVote">
+            <td width="20%" ></td>
+            <td width="20%" align="center" id="one">
+                <img id="PromoteBlahImage" width="36px" alt="viewers"  onclick="DoPromoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
+                <br/>
+                <span id="UserPromoteSpan" class="statsText"></span>
+            </td>
+            <td width="20%" align="center">
+                <img id="DemoteBlahImage" width="36px" alt="viewers"  onclick="DoDemoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
+                <br/>
+                <span id="UserDemoteSpan" class="statsText"></span>
+            </td>
+            <td width="20%" align="center">
+                <img width="36px" alt="comments"  onclick="SetBlahDetailPage('Comments'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png"><br/>
+                <br/>
+                <span class="statsText" id="fullBlahComments">65</span>
+            </td>
+            <td width="20%"></td>
+        </tr>
+        <tr id="BlahRowSignIn">
+            <td colspan="5" style="text-align: center">
+                <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');  return false;">
+                    sign in to promote, demote, or comment
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
