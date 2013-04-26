@@ -937,7 +937,6 @@ a {
 .creatblahfooter
 {
     height:70px;
-	width:100%;
 	position:fixed;
 	bottom:0px;
 
@@ -966,6 +965,7 @@ a {
 	font-size:16px;
 	font-weight:strong;
 	font-family:'Arimo',sans-serif;
+    
 }
 
 .creatblahbutton[disabled]
@@ -1424,5 +1424,63 @@ a {
     bottom:80px;
     height:70px;
     width:100%;
+}
+#mySel{
+position:absolute;
+width:200px;
+}
+#mySelInput{
+width:100px;
+height:38px;
+line-height:38px;
+border:1px solid #545253;
+border-right:0;
+background:#545253;
+float:left;
+font-size:18px;
+color:lightgrey;
+}
+#mySelButton{
+width:40px;
+height:42px;
+border:1px solid #545253;
+background:#545253;
+float:left;
+font-size:24px;
+font-weight:bolder;
+color:red;
+}
+#mySelOptions{
+list-style:none;
+width:120px;
+
+float:left;
+display:none;
+margin-top:5px;
+color:lightgrey
+}
+#mySelOptions li{
+height:20px;
+width:120px;
+
+}
+#mySelOptions li a{
+width:120px;
+height:20px;
+line-height:20px;
+text-decoration:none;
+color:#545253;
+background:#fff;
+display:block;
+float:left;
+font-size:20px;
+font-weight:bolder;
+margin-left:-35px
+}
+#mySelOptions li a:hover{
+text-decoration:none;
+color:#545253;
+background:#ccc;
+float:left;
 }
 

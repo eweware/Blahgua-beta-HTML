@@ -622,7 +622,7 @@ function HandleBlahSwipeRight(theEvent) {
 
 function UpdateBlahOverview() {
     if (CurrentBlah == null) {
-        Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+        Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
             CurrentBlah= theBlah;
             UpdateBlahOverview();
         }, OnFailure);
@@ -757,7 +757,7 @@ function DoAddImageToBlah() {
 }
 
 function OnAddImageOK(data) {
-    Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
         CurrentBlah= theBlah;
         SetBlahDetailPage("Overview");
     }, OnFailure);
@@ -1253,7 +1253,7 @@ function FocusBlah(who) {
     CurrentBlahId = who.blah.I;
     PopulateBlahPreview(who.blah);
     var winHeight = $(window).height();
-    var staticHeight =  $("#BlahPreviewHeadline").height() + 250;
+    var staticHeight = $("#BlahPreviewHeadline").height() + 250;
     var maxHeight = (winHeight - staticHeight);
     $("#BlahPreviewScrollContainer").css({ 'max-height': maxHeight + 'px'});
     BlahPreviewItem.style.display = "none";
@@ -1631,16 +1631,16 @@ function CreateBaseDiv(theBlah) {
     }
 
     // some rotation
-/*    var angle = ( Math.random() * 10) - 5;
-    $(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
-    angle = -angle;
-    $(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
+/* var angle = ( Math.random() * 10) - 5;
+$(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+$(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+$(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+$(newDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
+angle = -angle;
+$(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+$(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+$(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+$(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
     return newDiv;
 
 }
@@ -2027,13 +2027,13 @@ function CreateSMSRow(theBlah, newRowEl) {
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
     curLeft = edgeGutter;
-    newBlahEl.style.left = curLeft +  "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
     newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
-    newBlahEl.style.left = curLeft +  "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
@@ -2107,31 +2107,30 @@ function OnGetBlahsOK(theResult) {
 // There are the PROPER functions
 
 function NormalizeStrengths(theBlahList) {
-    // ensure 100 blahs
-    if (theBlahList.length < 100) {
-        var curLoc = 0;
-        while (theBlahList.length < 100) {
-            theBlahList.push(theBlahList[curLoc++]);
-        }
-    }
+// ensure 100 blahs
+if (theBlahList.length < 100) {
+var curLoc = 0;
+while (theBlahList.length < 100) {
+theBlahList.push(theBlahList[curLoc++]);
+}
+}
 
 
 }
 
 function AssignSizes(theBlahList) {
-    // makes sure that there are a good ration of large, medium, small
-    var largeBlahThreshold = .8;
-    var mediumBlahThreshold = .3;
-    // the rest are small - presumably 40, since we get 100 blahs
- 
-    for (var curIndex in theBlahList) {
-        if (theBlahList[curIndex].S > .7)
-            theBlahList[curIndex].displaySize = 1;
-        else if (theBlahList[curIndex].S > .2)
-            theBlahList[curIndex].displaySize = 2;
-        else
-            theBlahList[curIndex].displaySize = 3;
-    }
+// makes sure that there are a good ration of large, medium, small
+var largeBlahThreshold = .8;
+var mediumBlahThreshold = .3;
+// the rest are small - presumably 40, since we get 100 blahs
+for (var curIndex in theBlahList) {
+if (theBlahList[curIndex].S > .7)
+theBlahList[curIndex].displaySize = 1;
+else if (theBlahList[curIndex].S > .2)
+theBlahList[curIndex].displaySize = 2;
+else
+theBlahList[curIndex].displaySize = 3;
+}
 }
 
 */
@@ -2309,7 +2308,7 @@ function createCommentElement(index, theComment) {
     // comment text
     newHTML += '<div class="CommentText" dir="ltr">';
     //newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
-    newHTML += '<p>' + UnCodifyText(theComment.T)  + '</p>';
+    newHTML += '<p>' + UnCodifyText(theComment.T) + '</p>';
     newHTML += '</div>';
 
     // comment actions
@@ -2919,7 +2918,7 @@ function HandleUserLoginOK(json) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
-    }  else {
+    } else {
         $.removeCookie("userId");
         $.removeCookie("password");
         $.removeCookie('isTemp');
@@ -2983,24 +2982,23 @@ function DoCreateBlah() {
             delta = delta + "px";
             var itemWidth = 512;
             if (windowWidth < 512) {
-                itemWidth = windowWidth;          
+                itemWidth = windowWidth;
             }
              $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
             $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
 
             /*
-            if (windowWidth > windowline2) {
-               $(BlahImage).css({ 'left': 200 + 'px'});
-            }
+if (windowWidth > windowline2) {
+$(BlahImage).css({ 'left': 200 + 'px'});
+}
 
-            if (windowWidth <= windowline1) {
-                $(BlahImage).css({ 'left': 100 + 'px'});
-            }
-    
-            if ((windowWidth <= windowline2)&&(windowWidth >= windowline1)) {
-                $(BlahImage).css({ 'left': 160 + 'px'});
-            }
-            */
+if (windowWidth <= windowline1) {
+$(BlahImage).css({ 'left': 100 + 'px'});
+}
+if ((windowWidth <= windowline2)&&(windowWidth >= windowline1)) {
+$(BlahImage).css({ 'left': 160 + 'px'});
+}
+*/
          
 
             $(".createblahscroll").css({'left': delta, 'right':delta});
@@ -3058,7 +3056,7 @@ function HandleHeadlineTextInput(target) {
 function CheckPublishBtnDisable() {
     var headLineLen = document.getElementById("BlahHeadline").value.length;
     var bodyLen = document.getElementById("BlahBody").value.length;
-    if ((headLineLen < 2)   || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
+    if ((headLineLen < 2) || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
         document.getElementById("PublishBlahBtn").disabled = true;
     else
         document.getElementById("PublishBlahBtn").disabled = false;
@@ -3077,7 +3075,7 @@ function HandleBodyTextInput(target) {
 
 }
 
-function CancelCreate() {          3
+function CancelCreate() { 3
    CloseBlah();
 }
 
@@ -3151,7 +3149,7 @@ function OnCreateBlahOK(json) {
     if ($("#BlahImage").val() != "") {
         UploadBlahImage(CurrentBlah._id);
     } else {
-        Blahgua.GetBlahWithStats(CurrentBlah._id,   "130101", "130331",function(theBlah) {
+        Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331",function(theBlah) {
             CurrentBlah = theBlah;
             BlahReturnPage = "BlahRoll";
             OpenBlah(CurrentBlah);
@@ -3202,7 +3200,7 @@ function progressHandlingFunction(evt) {
 }
 
 function OnUploadImageOK(result) {
-    Blahgua.GetBlahWithStats(CurrentBlah._id,  "130101", "130331", function(theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331", function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "BlahRoll";
         OpenBlah(CurrentBlah);
@@ -3706,7 +3704,7 @@ function CreateUserCommentHTML(theComment) {
 
 
 function DoOpenUserBlah(blahId) {
-    Blahgua.GetBlahWithStats(blahId,  "130101", "130331", function(theBlah) {
+    Blahgua.GetBlahWithStats(blahId, "130101", "130331", function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "UserBlahList";
         OpenBlah(blahId);
@@ -3753,6 +3751,34 @@ function HandleSelfPageSwipeRight(theEvent) {
         theEvent.stopPropagation();
     return false;
 }
-
-
-
+function doselect()
+{
+var mySel = document.getElementById("mySel");
+var mySelInput = document.getElementById("mySelInput");
+var mySelButton = document.getElementById("mySelButton");
+var mySelOptions = document.getElementById("mySelOptions");
+var mySelOpts = mySelOptions.getElementsByTagName("a");
+for(i=0,l=mySelOpts.length;i<l;i++){
+    mySelOpts[i].onclick = function(){
+        mySelInput.value = this.innerHTML;
+        window.location=this.href;
+        hideOptions();
+        return false;
+    }
+}
+function showOptions () {
+	mySelOptions.style.display='block';
+}
+function hideOptions () {
+	mySelOptions.style.display='none';
+}
+document.onclick = function(e){
+	var evt = e?e:window.event;
+	var ele = evt.srcElement || evt.target;
+	if(ele.id == 'mySelInput' || ele.id == 'mySelButton'){
+		showOptions();
+	}else{
+		hideOptions();
+	}
+}
+}
