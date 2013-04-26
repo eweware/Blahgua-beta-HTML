@@ -497,9 +497,6 @@ function DoCloseBlah(theEvent) {
 
 function CloseBlah() {
 
-    // hide the preview blah and reset the variables
-    $(BlahFullItem).off('swipeleft');
-    $(BlahFullItem).off('swiperight');
 
     UnfocusBlah();
     switch (BlahReturnPage) {
@@ -544,8 +541,6 @@ function OpenBlah(whichBlah) {
             delta = delta + "px";
             SetBlahDetailPage("Overview");
         });
-        $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
-        $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
 }
 
@@ -554,6 +549,12 @@ function SetBlahDetailPage(whichPage) {
     switch (whichPage) {
         case "Overview":
             BlahFullItem.curPage = "Overview";
+            $('#BlahPageDiv').load(function() {
+                var winHeight = $(window).height();
+                var curTop = document.getElementById("FullBlahContent").clientTop;
+                var dif = 80 + 70 + curTop;
+                $("#FullBlahContent").css({ 'max-height': winHeight-dif + 'px'});
+            });
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
                 UpdateBlahOverview();
             });
@@ -579,46 +580,7 @@ function SetBlahDetailPage(whichPage) {
     }
 }
 
-function HandleBlahSwipeLeft(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Overview":
-            SetBlahDetailPage("Comments");
-            break;
-        case "Comments":
-            SetBlahDetailPage("Stats");
-            break;
-        case "Stats":
-            SetBlahDetailPage("Author");
-            break;
-        case "Author":
-            SetBlahDetailPage("Overview");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
 
-}
-
-function HandleBlahSwipeRight(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Overview":
-            SetBlahDetailPage("Author");
-            break;
-        case "Comments":
-            SetBlahDetailPage("Overview");
-            break;
-        case "Stats":
-            SetBlahDetailPage("Comments");
-            break;
-        case "Author":
-            SetBlahDetailPage("Stats");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
-}
 
 function UpdateBlahOverview() {
     if (CurrentBlah == null) {
@@ -631,14 +593,14 @@ function UpdateBlahOverview() {
     UpdateFullBlahBody();
     document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "C", 0);
     var isOwnBlah;
-     var winHeight = $(window).height();
-    $("#FullBlahContent").css({ 'max-height': winHeight-155 + 'px'});
+
 
     if (IsUserLoggedIn) {
         isOwnBlah = (CurrentBlah.A == CurrentUser._id);
     } else {
         isOwnBlah = false;
     }
+    var image = GetBlahImage(CurrentBlah, "D");
 
     if (IsUserLoggedIn) {
 
@@ -647,6 +609,9 @@ function UpdateBlahOverview() {
         $("#UploadImageTable").show();
 
         if (isOwnBlah) {
+            if (image != "") {
+                $("#UploadImageTable").hide();
+            }
             var upVotes = getSafeProperty(CurrentBlah, "P", 0);
             var downVotes = getSafeProperty(CurrentBlah, "D", 0);
 
@@ -683,16 +648,16 @@ function UpdateBlahOverview() {
     }
 
 
-    var image = GetBlahImage(CurrentBlah, "D");
+
     var imageEl = document.getElementById("blahFullImage");
     var headlineText = document.getElementById("BlahFullHeadline");
     if (image == "") {
         imageEl.style.display = "none";
-        //headlineText.style.fontSize = "36px";
+        $(".blah-body-divider").show();
     } else {
         imageEl.style.display = "absolute";
+        $(".blah-body-divider").hide();
         imageEl.src = image;
-        //headlineText.style.fontSize = "24px";
     }
 
     var bodyTextDiv = document.getElementById("BlahFullBody");
@@ -2584,7 +2549,7 @@ function SetCurrentChannel(whichChannel) {
     Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
     labelDiv.innerHTML = CurrentChannel.N;
-    var imageURL = "url('http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/"
+    var imageURL = "url('" + fragmentURL + "/images/groups/bkgnds/";
     imageURL += CurrentChannel.N + ".jpg')";
     document.getElementById("BlahContainer").style.backgroundImage = imageURL;
     GetUserBlahs();
@@ -2648,8 +2613,6 @@ function PopulateUserChannel(whichPage) {
             delta = delta + "px";
             SetSelfDetailPage(whichPage);
         });
-        $(BlahFullItem).on('swipeleft', HandleSelfPageSwipeLeft);
-        $(BlahFullItem).on('swiperight', HandleSelfPageSwipeRight);
 
     });
  }
@@ -3711,42 +3674,6 @@ function DoOpenUserBlah(blahId) {
 function UpdateSelfStats() {
 
 
-}
-
-
-function HandleSelfPageSwipeLeft(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Profile":
-            SetSelfDetailPage("History");
-            break;
-        case "History":
-            SetSelfDetailPage("Stats");
-            break;
-        case "Stats":
-            SetSelfDetailPage("Profile");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
-
-}
-
-function HandleSelfPageSwipeRight(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Profile":
-            SetSelfDetailPage("Stats");
-            break;
-        case "History":
-            SetSelfDetailPage("Profile");
-            break;
-        case "Stats":
-            SetSelfDetailPage("History");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
 }
 
 

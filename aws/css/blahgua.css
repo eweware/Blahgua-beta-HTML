@@ -321,10 +321,6 @@
 }
 
 
-.BlahFullImage {
-    max-height:512px;
-    max-width:90%;
-}
 
 .comment-vote {
     width: 18px;
@@ -344,15 +340,6 @@
 	margin-top:200px;
 }
 
-.BlahFullBody {
-    font-size:16px;
-    font-family: 'Arimo', sans-serif;
-    width:100%;
-    word-wrap: break-word;
-    padding-left:8px;
-    padding-right:8px;
-    padding-top:4px;
-}
 
 .BlahCommentBody {
     font-size: 16px;
@@ -1204,11 +1191,17 @@ a {
 /* classes for the blah detail page */
 
 .full-blah-div {
-    background-image: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
     top:0px;
     bottom:0px;
     position:absolute;
+    width:100%;
 }
+
+.BlahFullImage {
+    width:100%;
+}
+
 
 .BlahPageFooter {
     position:absolute;
@@ -1242,7 +1235,7 @@ a {
     border-spacing:0px;
     border-collapse: collapse;
     border:0px;
-    bottom:0px;
+    top:0px;
     width:100%;
 }
 
@@ -1365,10 +1358,31 @@ a {
 
 .FullBlahTableFooter {
     background-color: #d3d3d3;
-    overflow-x:hidden;
-    overflow-y:hidden;
-    position:absolute;
-    bottom:80px;
-    height:70px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    bottom: 80px;
+    height: 70px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+    z-index: 2;
+}
+
+.blah-body-divider {
+    width: 100%;
+    background-color: #4A4A4A;
+    height: 2px;
+
+}
+
+.BlahFullBody {
+    font-size:20px;
+    color: #666666;
+    font-family: 'Arimo', sans-serif;
     width:100%;
+    word-wrap: break-word;
+    padding-left:16px;
+    padding-right:16px;
+    padding-top:4px;
 }
