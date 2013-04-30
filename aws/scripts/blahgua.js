@@ -48,6 +48,20 @@ var BlahReturnPage = "";
 var MaxTitleLength = 64;
 
 
+function GlobalReset() {
+    // clear all timers
+    clearInterval(BlahsMovingTimer);
+    clearInterval(BlahPreviewTimeout);
+    clearInterval(ViewerUpdateTimer);
+    if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
+        $.removeCookie("userId");
+        $.removeCookie("password");
+    }
+
+    location.reload();
+}
+
+
 
 (function ($) {
     $.fn.disableSelection = function () {
@@ -2055,6 +2069,7 @@ function GetUserBlahs() {
 }
 
 function OnGetBlahsOK(theResult) {
+    alert("Got " + theResult.length + " blahs");
     BlahList = theResult;
     NextBlahList = [];
     PrepareBlahList(BlahList);
@@ -2918,7 +2933,7 @@ function UpdateChannelViewers() {
         Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
     }
 
-    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
+    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
 }
 
 function getProp(obj, propName, defVal) {

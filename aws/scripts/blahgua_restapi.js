@@ -28,8 +28,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -55,8 +59,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -82,8 +90,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -109,8 +121,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
