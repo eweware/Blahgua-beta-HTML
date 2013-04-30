@@ -3066,11 +3066,25 @@ function CreateBlah() {
     blahBody = CodifyText(blahBody);
     var blahGroup = CurrentChannel._id;
     var options = null;
-
+    var contentchoice=BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
+    var contentchoice=$("#pagechoice").val();
+    
     // check for additional options
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     switch (blahTypeStr.N) {
-        case "polls":
+
+        case "predicts":
+            // update the prediction on create
+            options = new Object();
+            var theDateStr = $("#PredictionEndDateInput").val();
+            var theTimeStr = $("#PredictionEndTimeInput").val();
+            var theDate = new Date(theDateStr + " " + theTimeStr);
+            options["E"] = theDate;
+            break;
+        default:
+            break;
+            
+               case "polls":
             // add the poll items
             var pollItems = [];
             var curPollItem;
@@ -3083,16 +3097,6 @@ function CreateBlah() {
             }
             options = new Object();
             options["I"] = pollItems;
-            break;
-        case "predicts":
-            // update the prediction on create
-            options = new Object();
-            var theDateStr = $("#PredictionEndDateInput").val();
-            var theTimeStr = $("#PredictionEndTimeInput").val();
-            var theDate = new Date(theDateStr + " " + theTimeStr);
-            options["E"] = theDate;
-            break;
-        default:
             break;
     }
 
@@ -3191,6 +3195,7 @@ function HandleFilePreview() {
         $(".uploadimage").css({"background-image": theFile});
 
     }
+  
 
 }
 

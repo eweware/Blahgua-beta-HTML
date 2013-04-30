@@ -33,6 +33,18 @@
     vertical-align:middle;
     background-size: cover;
 
+}
+
+
+/*
+.BlahDiv {
+    background-color:#000000;
+    font-family: 'Arimo', sans-serif;
+
+    overflow:hidden;
+    vertical-align:middle;
+    background-size: cover;
+
     border-radius: 8px;
     box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
 
@@ -43,6 +55,8 @@
     -moz-hyphens: auto;
     hyphens: auto;
 }
+
+*/
 
 .BlahTextDiv {
     background-color: transparent;
@@ -1105,9 +1119,9 @@ a {
 .shorttitle
 {   font-family:'Arimo',sans-serif;
 	font-size:17px;
-	font-weight:strong;
-	margin-left:20px;
+	font-weight:strong;	
 	color:#545253;
+	margin-left:20px;
 
 }
 .shorttitle1
@@ -1187,6 +1201,59 @@ a {
 	padding-left:15px;
 	padding-top:5px;
 }
+
+.imageupload1
+{
+	position:relative; 
+	float:left; 
+	padding:8px 0;
+	font-size:12px;
+	margin:0
+}
+.imageupload2
+{
+	float:left;
+}
+.imageupload3
+{
+	width:1px; 
+	border:1px solid #888; 
+	z-index:99;
+	padding-left:0px;
+	margin-left:50px;
+}
+.imageupload4
+{
+	padding-top:20px;
+	padding-left:25px;
+	width:150px;
+	height:35px;
+	display:block; 
+	float:left; 
+	background:#FC7A56;
+	color:white;
+	font-size:16px;
+	font-weight:strong;
+	font-family:'Arimo',sans-serif;
+	border-radius:10px;
+    border-color:transparent; 
+    z-index:1; 
+    margin-left:-50px; 
+    vertical-align:middle; 
+    cursor: pointer;
+}
+.imageupload5
+{
+	position:absolute; 
+	left:20px; 
+	top:8px; 
+	display:none;
+	filter:alpha(opacity=0);
+	opacity:0;
+	width:180px;
+	height:40px;
+}
+
 
 /* classes for the blah detail page */
 
@@ -1386,3 +1453,4 @@ a {
     padding-right:16px;
     padding-top:4px;
 }
+
