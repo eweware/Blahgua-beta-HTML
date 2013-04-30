@@ -98,27 +98,27 @@
 }
 
 .BlahTypeSays {
-    color: white;
-    background-color:  #666666;
-    border-color: #EDE5E2;
+    color: #ECEBBB;
+    background-color: #6C648D;
+    border-color: #00FF8C;
 }
 
 .BlahTypeLeaks {
-    color: #ffd9ee;
-    background-color: #ea3556;
+    color: #ECEBBB;
+    background-color: #3271B4;
     border-color: #ea3556;
 }
 
 .BlahTypePolls {
-    color: black;
-    background-color: #61d2d6;
+    color: #ECEBBB;
+    background-color: #2F9855;
     border-color: #61d2d6;
 
 }
 
 .BlahTypePredicts {
-    color: black;
-    background-color: #edde45;
+    color: #ECEBBB;
+    background-color: #BB564E;
     border-color: #edde45;
 
 }
@@ -131,23 +131,23 @@
 }
 
 .BlahTypeSaysImgText {
-    color: black;
-    background-color: rgba(237,229,226  ,0.6);
+    color: #6C648D;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypeLeaksImgText {
-    color: black;
-    background-color: rgba(234,53,86,0.6);
+    color: #3271B4;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypePollsImgText {
-    color: black;
-    background-color: rgba(97,210,214,0.6);
+    color: #2F9855;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypePredictsImgText {
-    color: black;
-    background-color: rgba(227,232,69,0.6);
+    color: #BB564E;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypeAddImgText {
