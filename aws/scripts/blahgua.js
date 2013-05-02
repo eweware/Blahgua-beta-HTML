@@ -2070,7 +2070,6 @@ function GetUserBlahs() {
 }
 
 function OnGetBlahsOK(theResult) {
-    alert("Got " + theResult.length + " blahs");
     BlahList = theResult;
     NextBlahList = [];
     PrepareBlahList(BlahList);
@@ -2186,6 +2185,7 @@ function AssignSizes(theBlahList) {
 // end
 
 function PrepareBlahList(theBlahList) {
+    $("#ChannelBannerLabel").html(CurrentChannel.N + " (" + theBlahList.length + ")");
     if (theBlahList.length > 0) {
         NormalizeStrengths(theBlahList);
         AssignSizes(theBlahList);
