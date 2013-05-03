@@ -5,9 +5,38 @@
 </head>
 <body>
 <div id="UserChannelDiv" class="UserChannelDiv">
+    <table width="100%" class="BlahFullHeader" id="FullBlahHeader">
+        <tr style="background-color: rgba(25,25,25,.9)" >
+            <td rowspan="2"><div id="BlahAuthorImage" class="author-image"></div></td>
+            <td style="width:100%"><span class="fullBlahgerName" id="FullBlahNickName">A blahger</span></td>
+            <td rowspan="2"><button class="CloseButton" onclick="DoCloseBlah(); return false"><span>X</span></button></td>
+        </tr>
+        <tr  style="background-color: rgba(25,25,25,.9)">
+            <td><span class="fullBlahSpeechAct">an anonymous blahger</span></td>
+        </tr>
+        <tr >
+            <td  colspan="3">
+                <div class="blah-summary-bar">
+                    <span class="FullBlahProfileString" id="FullBlahProfileString"></span>
+                    <span id="FullBlahDateStr" class="FullBlahDateStr"></span>
+                </div>
+            </td>
+        </tr>
+
+        <tr><td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" ></td></tr>
+    </table>
     <div id="SelfPageDiv">
     
     </div>
+    <table class="BlahPageFooter">
+        <tr>
+            <td  width="5%"></td>
+            <td width="30%"><button id="BlahDetailSummaryBtn" onclick="SetBlahDetailPage('Overview'); return false;" class="BlahButton Button-left BlahBtnSelected"><span>SUMMARY</span></button></td>
+            <td width="30%"><button id="BlahDetailCommentsBtn" onclick="SetBlahDetailPage('Comments'); return false;" class="BlahButton"><span>COMMENTING</span></button></td>
+            <td width="30%"><button id="BlahDetailStatsBtn" onclick="SetBlahDetailPage('Stats'); return false;" class="BlahButton Button-right"><span>STATS</span></button> </td>
+            <td width="5%"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>

@@ -12,8 +12,6 @@ var LargeTileHeight = 400;
 var MediumTileHeight = 200;
 var SmallTileHeight = 100;
 var ActiveBlahList;
-var MaxMedium = 0;
-var MaxSmall = 0;
 var TopRow = null;
 var BottomRow = null;
 var CurrentScrollSpeed = 1;
@@ -31,8 +29,6 @@ var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var ChannelDropMenu = null;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
-var windowline1 = 430;
-var windowline2 = 500;
 var ProfileSchema = null;
 var UserProfile = null;
 var CurrentBlahNickname = "";
@@ -46,6 +42,10 @@ var interBlahGutter = 12;
 var newlineToken = "[_r;";
 var BlahReturnPage = "";
 var MaxTitleLength = 64;
+var kLargeBlahStrength = .7;
+var kSmallBlahStrength = .2;
+var kBannerHighlightColor = "#FFFFFF";
+var kBannerColor = "#FF00FF";
 
 
 function GlobalReset() {
@@ -57,7 +57,7 @@ function GlobalReset() {
         $.removeCookie("userId");
         $.removeCookie("password");
     }
-
+    Blahgua.logoutUser();
     location.reload();
 }
 
@@ -83,18 +83,16 @@ function GlobalReset() {
     };
 })(jQuery);
 
-function require(script) {
-    $.ajax({
-        url: script,
-        dataType: "script",
-        async: false, // <-- this is the key
-        success: function () {
-            // all good...
-        },
-        error: function (theErr) {
-            throw new Error("Could not load script " + script);
-        }
-    });
+
+var resizeTimer = null;
+$(window).resize(function(){
+    resizeTimer && clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(HandleWindowResize, 100);
+});
+
+function HandleWindowResize() {
+    ComputeSizes();
+    SetCurrentChannel(ChannelList.indexOf(CurrentChannel));
 }
 
 
@@ -560,7 +558,7 @@ function OpenBlah(whichBlah) {
 }
 
 function SetBlahDetailPage(whichPage) {
-
+    $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
     switch (whichPage) {
         case "Overview":
             BlahFullItem.curPage = "Overview";
@@ -571,18 +569,21 @@ function SetBlahDetailPage(whichPage) {
                 $("#FullBlahContent").css({ 'max-height': winHeight-dif + 'px'});
             });
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
                 UpdateBlahOverview();
             });
             break;
         case "Comments":
             BlahFullItem.curPage = "Comments";
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                 UpdateBlahComments();
             });
             break;
         case "Stats":
             BlahFullItem.curPage = "Stats";
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                 UpdateBlahStats();
             });
             break;
@@ -1745,11 +1746,13 @@ function ResizeRowText(newRow) {
     var fontSize;
     var maxFontSize = 96;
     var scaleText = false;
+    var minFontSize = 18;
 
-    for (i = 0; i < newRow.childNodes.length; i++) {
+    for (var i = 0; i < newRow.childNodes.length; i++) {
         fontSize = 9;
         curTile = newRow.childNodes[i];
         var tileHeight = curTile.offsetHeight - 8; // allow for padding...
+        var tileWidth = curTile.offsetWidth - 8;
         scaleText = (curTile.style.backgroundImage != "") && (curTile.blah.displaySize != 3);
         if (scaleText) {
             tileHeight /= 2;
@@ -1762,6 +1765,16 @@ function ResizeRowText(newRow) {
         }
         fontSize--;
         curTile.blahTextDiv.style.fontSize = fontSize + "px";
+
+        curTile.blahTextDiv.scrollLeft++;
+
+        while((curTile.blahTextDiv.scrollLeft > 0) && (fontSize > minFontSize)) {
+            curTile.blahTextDiv.scrollLeft = 0;
+            fontSize--;
+            curTile.blahTextDiv.style.fontSize = fontSize + "px";
+            curTile.blahTextDiv.scrollLeft++;
+        }
+
         if (scaleText) {
             var offset = tileHeight + (tileHeight - curTile.blahTextDiv.offsetHeight);
             curTile.blahTextDiv.style.marginTop = offset + "px";
@@ -1828,7 +1841,7 @@ function PeekNextBlah() {
 
 function RefreshActiveBlahList() {
     // when the list is empty, we refill it. For now, we just use the same list
-    $("#ChannelBanner").css("background-color", "white");
+   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
     var nextBlahSet = [];
 
     if (NextBlahList.length > 0) {
@@ -2083,12 +2096,12 @@ function OnGetBlahsOK(theResult) {
     GetNextBlahList();
 };
 
-/*
+
 // There are the PROPER functions
 
 function NormalizeStrengths(theBlahList) {
     // ensure 100 blahs
-    if (theBlahList.length < 100) {
+    if (theBlahList.length < 20) {
         var curLoc = 0;
         while (theBlahList.length < 100) {
             theBlahList.push(theBlahList[curLoc++]);
@@ -2105,17 +2118,16 @@ function AssignSizes(theBlahList) {
     // the rest are small - presumably 40, since we get 100 blahs
  
     for (var curIndex in theBlahList) {
-        if (theBlahList[curIndex].S > .7)
+        if (theBlahList[curIndex].S > kLargeBlahStrength)
             theBlahList[curIndex].displaySize = 1;
-        else if (theBlahList[curIndex].S > .2)
+        else if (theBlahList[curIndex].S > kSmallBlahStrength)
             theBlahList[curIndex].displaySize = 2;
         else
             theBlahList[curIndex].displaySize = 3;
     }
 }
 
-*/
-
+ /*
 // These are the temp ones
 function NormalizeStrengths(theBlahList) {
     // makes sure that the blahs here range in strength from 0.0 to 1.0
@@ -2181,6 +2193,7 @@ function AssignSizes(theBlahList) {
     }
 
 }
+*/
 
 // end
 
@@ -2553,13 +2566,13 @@ function DoJumpToChannel() {
 }
 
 function RefreshCurrentChannel() {
-    $("#ChannelBanner").css("background-color", "#FFFFFF");
+   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
    GetUserBlahs();
 
 }
 
 function SetCurrentChannel(whichChannel) {
-    $("#ChannelBanner").css("background-color", "#FFFFFF");
+    $("#ChannelBanner").css("background-color", kBannerHighlightColor);
     StopAnimation();
     CurrentChannel = ChannelList[whichChannel];
     Blahgua.currentChannel = CurrentChannel._id;
@@ -2579,7 +2592,7 @@ function GetNextBlahList() {
 function OnGetNextBlahsOK(theResult) {
     NextBlahList = theResult;
     PrepareBlahList(NextBlahList);
-    $("#ChannelBanner").animate({"background-color": "#FF00FF" }, 'slow');
+    $("#ChannelBanner").animate({"background-color": kBannerColor }, 'slow');
 
 }
 
@@ -2774,17 +2787,6 @@ function CreateAndAppendBadgeHTML(theBadge) {
 
 function DoAddBadge(badgeID) {
     Blahgua.createBadgeForUser(badgeID, null, function(data) {
-        var dialogHTML = data;
-     var windowWidth = $(window).width();
-     var offset = (windowWidth - 512) / 2;
-        if (offset < 0)
-            offset = 0;
-        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-        $(".BadgeTitleBar").text(badgeID);
-        $("#badgedialog").html(dialogHTML);
-        $("#BadgeOverlay").fadeIn();
-
-    }, function(data) {
         var dialogHTML = data.responseText;
         var windowWidth = $(window).width();
         var offset = (windowWidth - 512) / 2;
@@ -2795,12 +2797,19 @@ function DoAddBadge(badgeID) {
         $("#badgedialog").html(dialogHTML);
         $("#BadgeOverlay").fadeIn();
         window.ba_dialog_closed = HandleBadgeDismiss;
-    });
+
+    }, OnFailure);
 }
 
 function HandleBadgeDismiss(theMsg) {
     $("#BadgeOverlay").fadeOut( 150, function () {
         $("#badgedialog").empty();
+        // refresh the badges for the user
+        Blahgua.getUserInfo(function (json) {
+            CurrentUser = json;
+            UpdateBadgeArea();
+        });
+
     } );
 }
 
@@ -2864,11 +2873,9 @@ function SignInExistingUser() {
 }
 
 function HandleCreateUserOK(json) {
-    alert("user created ok! Now logging in...");
-
-    var userName = $("#userName").val();
+     var userName = $("#userName").val();
     var pwd = $("#pwd").val();
-    if ($("#rememberme").val()) {
+    if ($('#rememberme2').is(':checked')) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
@@ -2894,7 +2901,7 @@ function HandleUserLoginOK(json) {
     }, OnFailure) ;
     var userName = $("#userName2").val();
     var pwd = $("#pwd2").val();
-    if ($("#rememberme2").val()) {
+    if ($('#rememberme2').is(':checked')) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
@@ -3613,8 +3620,14 @@ function SetSelfDetailPage(whichPage) {
 
     switch (whichPage) {
         case "Profile":
+
             BlahFullItem.curPage = "Profile";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                var winHeight = $(window).height();
+                var curTop = document.getElementById("SelfPageDetailsDiv").clientTop;
+                var dif = 80 + 70 + curTop;
+                $("#SelfPageDetailsDiv").css({ 'max-height': winHeight-dif + 'px'});
+                $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                 UpdateSelfProfile();
             });
             break;
