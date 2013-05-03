@@ -1,4 +1,11 @@
-﻿body {
+﻿@media (max-width: 400px) {
+@-ms-viewport {
+		width: 320px;
+	}
+}
+
+
+body {
     margin: 0px;
     color: black;
 }
