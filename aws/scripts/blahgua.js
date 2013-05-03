@@ -3617,7 +3617,7 @@ function CreateDemoData(whichDemo) {
 // self page
 
 function SetSelfDetailPage(whichPage) {
-
+    $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
     switch (whichPage) {
         case "Profile":
 
@@ -3627,19 +3627,21 @@ function SetSelfDetailPage(whichPage) {
                 var curTop = document.getElementById("SelfPageDetailsDiv").clientTop;
                 var dif = 80 + 70 + curTop;
                 $("#SelfPageDetailsDiv").css({ 'max-height': winHeight-dif + 'px'});
-                $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
+                $("#SelfProfileBtn").addClass("BlahBtnSelected");
                 UpdateSelfProfile();
             });
             break;
         case "History":
             BlahFullItem.curPage = "History";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                $("#SelfHistoryBtn").addClass("BlahBtnSelected");
                 UpdateSelfHistory();
             });
             break;
         case "Stats":
             BlahFullItem.curPage = "Stats";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                $("#SelfStatsBtn").addClass("BlahBtnSelected");
                 UpdateSelfStats();
             });
             break;
