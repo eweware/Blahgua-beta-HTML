@@ -2663,9 +2663,12 @@ function OnGetOwnProfileFailed(theErr) {
 
 function OnGetOwnProfileOK(theStats) {
     UserProfile = theStats;
-    $("#NicknameInput").val(getSafeProperty(theStats, "A", ""));
+    $("#userName").val(CurrentUser.N);
+    var nickName = getSafeProperty(theStats, "A", "A Blahger");
+    $("#NicknameInput").val(nickName);
+    $("#FullBlahNickName").text(nickName);
     Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
-        $("#DescriptionDiv").text(theString.d);
+        $("#DescriptionSpan").text(theString.d);
     });
 
     // location
@@ -2727,6 +2730,17 @@ function OnGetOwnProfileOK(theStats) {
 
     // badges
     UpdateBadgeArea();
+    $("#SaveProfileBtn").attr("disabled", "disabled");
+    $('input').change(function(){
+        var validated = true;
+        if(validated) $("#SaveProfileBtn").removeAttr("disabled");
+       });
+
+    // headers
+    $('.accordian h2').click(function(theEvent) {
+        $(this.parentElement).children("table").toggle('fast') ;
+
+    })
 
 }
 
@@ -2787,7 +2801,7 @@ function CreateAndAppendBadgeHTML(theBadge) {
 
 function DoAddBadge(badgeID) {
     Blahgua.createBadgeForUser(badgeID, null, function(data) {
-        var dialogHTML = data.responseText;
+        var dialogHTML = data;
         var windowWidth = $(window).width();
         var offset = (windowWidth - 512) / 2;
         if (offset < 0)

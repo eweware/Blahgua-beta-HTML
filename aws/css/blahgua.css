@@ -1356,8 +1356,8 @@ a {
 
 }
 
-.BlahButton .BlahBtnSelected :hover{
-    background-color: #e19783;
+.BlahBtnSelected:hover{
+    background-color: #7a362a;
     color:white;
 
 }
@@ -1445,6 +1445,125 @@ a {
     padding-top:4px;
 }
 
+/* self pages */
+.SelfPageDiv {
+    width:100%;
+    position: absolute;
+    top: 84px;
+    bottom: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+ }
+
+.SelfPageDiv h2 {
+    background-color:#add8e6;
+    font-family: 'Arimo', sans-serif;
+    margin-top: 0px;
+    padding-left: 10px;
+}
+
+.user-profile-description {
+    font-size:20px;
+    font-family: 'Arimo', sans-serif;
+    color:#999999;
+}
+
+
+.small-button {
+    font-size: 20px;
+    color: #FFFFFF;
+    font-family: 'Arimo', sans-serif;
+    background-color: #666666;
+    padding: 8px 12px;
+    border-style: none;
+    border-radius: 8px;
+}
+
+.small-button:hover {
+    background-color: #888888;
+}
+
+.default-button {
+    background-color: #3FC681;
+}
+
+.default-button:hover {
+    background-color: #51FFA5;
+}
+
+.default-button:disabled {
+    background-color: #C4C4C4;
+}
+
+
+.permission-table {
+    background-color:#add8e6;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
+}
+
+.permission-table thead {
+    background-color: #78B5E6;
+}
+
+.permission-table tr {
+    border-bottom: solid;
+    border-bottom-color: white;
+    border-bottom-width: 1px;
+}
+
+.permission-table .attribute-col {
+    text-align: right;
+}
+
+.permission-table td {
+    text-align: center;
+    padding: 8px;
+}
+
+.permission-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.attribute-table {
+    background-color:#add8e6;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
+}
+
+.attribute-table thead {
+    background-color: #78B5E6;
+}
+
+.attribute-table tr {
+    border-bottom: solid;
+    border-bottom-color: white;
+    border-bottom-width: 1px;
+}
+
+.attribute-table .attribute-col {
+    text-align: right;
+}
+
+.attribute-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.attribute-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+
+
+/* media-specific styles */
 
  @media only screen and (max-device-width: 480px) {
      /* iphone specific fixes */
@@ -1456,4 +1575,13 @@ a {
      }
  }
 
-@media only screen
+@media (max-width: 400px) {
+@-ms-viewport {
+		.BlahDiv {
+
+         border-radius: 0px;
+         box-shadow: none;
+
+     }
+	}
+}
