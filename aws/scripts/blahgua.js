@@ -2762,7 +2762,9 @@ function OnGetOwnProfileOK(theStats) {
 
     // headers
     $('.accordian h2').click(function(theEvent) {
+    	$(this.parentElement).children("#uploadimage").toggle('fast');
         $(this.parentElement).children("table").toggle('fast') ;
+        $(this.parentElement).children("#description").toggle('fast');
 
     })
 

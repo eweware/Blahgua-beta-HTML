@@ -1,4 +1,8 @@
-﻿@media (max-width: 400px) {
+﻿@media {
+	max-width: 400px;
+	}
+
+
 @-ms-viewport {
 		width: 320px;
 	}
@@ -1074,7 +1078,7 @@ a {
 }
 
 .badgeimage {
-    width:32px;
+    width:22px;
     height:32px;
     margin-left: 8px;
     margin-right: 8px;
@@ -1272,12 +1276,12 @@ a {
 }
 
 .author-image {
-    width:64px;
-    height:64px;
+    width:40px;
+    height:40px;
     border-style: solid;
     border-width: 1px;
     border-color:white;
-    margin: 8px;
+    margin: 10px;
 }
 
 .BlahButton {
@@ -1295,6 +1299,7 @@ a {
     border:0px;
     top:0px;
     width:100%;
+    background-color:#999999;
 }
 
 .fullBlahgerName {
@@ -1308,12 +1313,12 @@ a {
 .fullBlahSpeechAct {
     font-size:26px;
     font-family: 'Arimo', sans-serif;
-    color:#999999;
+    color:red;
 }
 
 .CloseButton {
-    width:52px;
-    height:52px;
+    width:32px;
+    height:32px;
     border:none;
     background-color: white;
     color:red;
@@ -1449,7 +1454,7 @@ a {
 .SelfPageDiv {
     width:100%;
     position: absolute;
-    top: 84px;
+    top: 65px;
     bottom: 80px;
     overflow-x: hidden;
     overflow-y: auto;
@@ -1457,16 +1462,17 @@ a {
  }
 
 .SelfPageDiv h2 {
-    background-color:#add8e6;
     font-family: 'Arimo', sans-serif;
-    margin-top: 0px;
-    padding-left: 10px;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-top:20px
+    color:#545253;
 }
 
 .user-profile-description {
     font-size:20px;
     font-family: 'Arimo', sans-serif;
-    color:#999999;
+    color:red;
 }
 #mySel{
 position:absolute;
@@ -1588,7 +1594,9 @@ float:left;
 }
 
 .attribute-table {
-    background-color:#add8e6;
+    position:relative;
+    top:-180px;
+    left:200px;
     border-radius: 8px;
     font-family: 'Arimo', sans-serif;
     border-collapse: collapse;
@@ -1606,7 +1614,10 @@ float:left;
 }
 
 .attribute-table .attribute-col {
-    text-align: right;
+    text-align: left;
+    color:#545253;
+    font-size:18px;
+    weight:20px;
 }
 
 .attribute-table td {
@@ -1642,4 +1653,34 @@ float:left;
 
      }
 	}
+}
+.uploadimage {
+	width:150px;
+	height:150px;
+	background-color:grey;
+	position:relative;
+	top:0px;
+	left:20px;
+}
+.userName
+{
+  width:250px;
+  height:28px;
+  font-size:20px;
+}
+.DescriptionInput
+{
+	width:100%;
+	height:90px;
+	font-size:20px;
+	color:#545253;
+	border-radius:8px;
+
+}
+#description
+{
+	position:relative;
+	top:-170px;
+	padding-left:20px;
+	padding-right:20px;
 }
