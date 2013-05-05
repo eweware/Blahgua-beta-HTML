@@ -15,8 +15,10 @@
                                 <tr>
                                     <td>
                                         <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-                                            <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;" class="uploadimagebutton">
+                                            <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="uploadimagebutton">ADD AN IMAGE</button>
+                                            <span class="CreateBlahImageNameSpan" id="CreateBlahImageNameSpan"></span>
                                             <div style="display:none">
+                                                <input id="BlahImage" name="file" type="file" onchange="HandleFilePreview(); return false;">
                                                 <input type="text" name="objectType" hidden="true" value="B"/>
                                                 <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                                                 <input type="text" name="primary" hidden="true" value="true"/>
@@ -24,7 +26,7 @@
                                         </form>
                                     </td>
                                     <td>
-                                        <button onclick="DoAddImageToBlah(); return false;">Add Image</button>
+                                        <button enabled="false" class="uploadimagebutton" id="UploadImageBtn" onclick="DoAddImageToBlah(); return false;">Upload It</button>
                                     </td>
                                 </tr>
                                 <tr><td>
@@ -36,6 +38,7 @@
                                 </td></tr>
                             </table>
                         </td></tr>
+                        <tr><td><div class="blah-body-divider"></div></td></tr>
                         <tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>
                         <tr><td class="ExtraInfoArea" id="AdditionalInfoArea" style="width:500px;"></td></tr>
                         <tr><td><ul class="BlahCommentBody" id="BlahCommentBody"></ul></td></tr>
@@ -44,24 +47,24 @@
 
     
     <table  class="FullBlahTableFooter">
-        <tr>
-        <td align="right"><img width="24px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
-            <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span></td>
-        </tr>
         <tr id="BlahRowVote" class="BlahRowVote">
-            <td width="20%" ></td>
-            <td width="20%" align="center" id="one">
+            <td width="25%" align="center"  >
+            <img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+                <br />
+                <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span>
+            </td>
+            <td width="25%" align="center" id="one">
                 <img id="PromoteBlahImage" width="36px" alt="viewers"  onclick="DoPromoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
                 <br/>
                 <span id="UserPromoteSpan" class="statsText"></span>
             </td>
-            <td width="20%" align="center">
+            <td width="25%" align="center">
                 <img id="DemoteBlahImage" width="36px" alt="viewers"  onclick="DoDemoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
                 <br/>
                 <span id="UserDemoteSpan" class="statsText"></span>
             </td>
-            <td width="20%" align="center">
-                <img width="36px" alt="comments"  onclick="SetBlahDetailPage('Comments'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png"><br/>
+            <td width="25%" align="center">
+                <img width="36px" alt="comments"  onclick="SetBlahDetailPage('Comments'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
                 <br/>
                 <span class="statsText" id="fullBlahComments">65</span>
             </td>

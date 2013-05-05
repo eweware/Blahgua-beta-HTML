@@ -1,4 +1,11 @@
-﻿body {
+﻿@media (max-width: 400px) {
+@-ms-viewport {
+		width: 320px;
+	}
+}
+
+
+body {
     margin: 0px;
     color: black;
 }
@@ -25,6 +32,7 @@
 
 }
 
+
 .BlahDiv {
     background-color:#000000;
     font-family: 'Arimo', sans-serif;
@@ -36,23 +44,20 @@
     border-radius: 8px;
     box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
 
-
-    -ms-word-break: break-all;
-    word-break: break-word;
-    -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
 }
+
 
 .BlahTextDiv {
     background-color: transparent;
     font-family: 'Arimo', sans-serif;
+    overflow-x:hidden;
     height:auto;
     width:auto;
     font-size:9px;
     padding: 4px;
     text-align: center;
 }
+
 
 .BlahAltTextDiv {
     font-size:9px;
@@ -84,27 +89,27 @@
 }
 
 .BlahTypeSays {
-    color: white;
-    background-color:  #666666;
-    border-color: #EDE5E2;
+    color: #ECEBBB;
+    background-color: #6C648D;
+    border-color: #00FF8C;
 }
 
 .BlahTypeLeaks {
-    color: #ffd9ee;
-    background-color: #ea3556;
+    color: #ECEBBB;
+    background-color: #3271B4;
     border-color: #ea3556;
 }
 
 .BlahTypePolls {
-    color: black;
-    background-color: #61d2d6;
+    color: #ECEBBB;
+    background-color: #2F9855;
     border-color: #61d2d6;
 
 }
 
 .BlahTypePredicts {
-    color: black;
-    background-color: #edde45;
+    color: #ECEBBB;
+    background-color: #BB564E;
     border-color: #edde45;
 
 }
@@ -117,23 +122,23 @@
 }
 
 .BlahTypeSaysImgText {
-    color: black;
-    background-color: rgba(237,229,226  ,0.6);
+    color: #6C648D;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypeLeaksImgText {
-    color: black;
-    background-color: rgba(234,53,86,0.6);
+    color: #3271B4;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypePollsImgText {
-    color: black;
-    background-color: rgba(97,210,214,0.6);
+    color: #2F9855;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypePredictsImgText {
-    color: black;
-    background-color: rgba(227,232,69,0.6);
+    color: #BB564E;
+    background-color: rgba(236,235,187,0.75);
 }
 
 .BlahTypeAddImgText {
@@ -321,10 +326,6 @@
 }
 
 
-.BlahFullImage {
-    max-height:512px;
-    max-width:90%;
-}
 
 .comment-vote {
     width: 18px;
@@ -344,15 +345,6 @@
 	margin-top:200px;
 }
 
-.BlahFullBody {
-    font-size:16px;
-    font-family: 'Arimo', sans-serif;
-    width:100%;
-    word-wrap: break-word;
-    padding-left:8px;
-    padding-right:8px;
-    padding-top:4px;
-}
 
 .BlahCommentBody {
     font-size: 16px;
@@ -1257,11 +1249,17 @@ a {
 /* classes for the blah detail page */
 
 .full-blah-div {
-    background-image: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
     top:0px;
     bottom:0px;
     position:absolute;
+    width:100%;
 }
+
+.BlahFullImage {
+    width:100%;
+}
+
 
 .BlahPageFooter {
     position:absolute;
@@ -1295,7 +1293,7 @@ a {
     border-spacing:0px;
     border-collapse: collapse;
     border:0px;
-    bottom:0px;
+    top:0px;
     width:100%;
 }
 
@@ -1358,8 +1356,8 @@ a {
 
 }
 
-.BlahButton .BlahBtnSelected :hover{
-    background-color: #e19783;
+.BlahBtnSelected:hover{
+    background-color: #7a362a;
     color:white;
 
 }
@@ -1418,12 +1416,57 @@ a {
 
 .FullBlahTableFooter {
     background-color: #d3d3d3;
-    overflow-x:hidden;
-    overflow-y:hidden;
-    position:absolute;
-    bottom:80px;
-    height:70px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    bottom: 80px;
+    height: 70px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+    z-index: 2;
+}
+
+.blah-body-divider {
+    width: 100%;
+    background-color: #4A4A4A;
+    height: 2px;
+
+}
+
+.BlahFullBody {
+    font-size:20px;
+    color: #666666;
+    font-family: 'Arimo', sans-serif;
     width:100%;
+    word-wrap: break-word;
+    padding-left:16px;
+    padding-right:16px;
+    padding-top:4px;
+}
+
+/* self pages */
+.SelfPageDiv {
+    width:100%;
+    position: absolute;
+    top: 84px;
+    bottom: 80px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+ }
+
+.SelfPageDiv h2 {
+    background-color:#add8e6;
+    font-family: 'Arimo', sans-serif;
+    margin-top: 0px;
+    padding-left: 10px;
+}
+
+.user-profile-description {
+    font-size:20px;
+    font-family: 'Arimo', sans-serif;
+    color:#999999;
 }
 #mySel{
 position:absolute;
@@ -1484,3 +1527,119 @@ background:#ccc;
 float:left;
 }
 
+
+.small-button {
+    font-size: 20px;
+    color: #FFFFFF;
+    font-family: 'Arimo', sans-serif;
+    background-color: #666666;
+    padding: 8px 12px;
+    border-style: none;
+    border-radius: 8px;
+}
+
+.small-button:hover {
+    background-color: #888888;
+}
+
+.default-button {
+    background-color: #3FC681;
+}
+
+.default-button:hover {
+    background-color: #51FFA5;
+}
+
+.default-button:disabled {
+    background-color: #C4C4C4;
+}
+
+
+.permission-table {
+    background-color:#add8e6;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
+}
+
+.permission-table thead {
+    background-color: #78B5E6;
+}
+
+.permission-table tr {
+    border-bottom: solid;
+    border-bottom-color: white;
+    border-bottom-width: 1px;
+}
+
+.permission-table .attribute-col {
+    text-align: right;
+}
+
+.permission-table td {
+    text-align: center;
+    padding: 8px;
+}
+
+.permission-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.attribute-table {
+    background-color:#add8e6;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
+}
+
+.attribute-table thead {
+    background-color: #78B5E6;
+}
+
+.attribute-table tr {
+    border-bottom: solid;
+    border-bottom-color: white;
+    border-bottom-width: 1px;
+}
+
+.attribute-table .attribute-col {
+    text-align: right;
+}
+
+.attribute-table td {
+    text-align: left;
+    padding: 8px;
+}
+
+.attribute-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+
+
+/* media-specific styles */
+
+ @media only screen and (max-device-width: 480px) {
+     /* iphone specific fixes */
+     .BlahDiv {
+
+         border-radius: 0px;
+         box-shadow: none;
+
+     }
+ }
+
+@media (max-width: 400px) {
+@-ms-viewport {
+		.BlahDiv {
+
+         border-radius: 0px;
+         box-shadow: none;
+
+     }
+	}
+}

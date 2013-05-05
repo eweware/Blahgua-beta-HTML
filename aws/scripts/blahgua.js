@@ -12,8 +12,6 @@ var LargeTileHeight = 400;
 var MediumTileHeight = 200;
 var SmallTileHeight = 100;
 var ActiveBlahList;
-var MaxMedium = 0;
-var MaxSmall = 0;
 var TopRow = null;
 var BottomRow = null;
 var CurrentScrollSpeed = 1;
@@ -31,8 +29,6 @@ var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var ChannelDropMenu = null;
 var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
-var windowline1 = 430;
-var windowline2 = 500;
 var ProfileSchema = null;
 var UserProfile = null;
 var CurrentBlahNickname = "";
@@ -46,6 +42,24 @@ var interBlahGutter = 12;
 var newlineToken = "[_r;";
 var BlahReturnPage = "";
 var MaxTitleLength = 64;
+var kLargeBlahStrength = .7;
+var kSmallBlahStrength = .2;
+var kBannerHighlightColor = "#FFFFFF";
+var kBannerColor = "#FF00FF";
+
+
+function GlobalReset() {
+    // clear all timers
+    clearInterval(BlahsMovingTimer);
+    clearInterval(BlahPreviewTimeout);
+    clearInterval(ViewerUpdateTimer);
+    if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
+        $.removeCookie("userId");
+        $.removeCookie("password");
+    }
+    Blahgua.logoutUser();
+    location.reload();
+}
 
 
 
@@ -69,18 +83,16 @@ var MaxTitleLength = 64;
     };
 })(jQuery);
 
-function require(script) {
-    $.ajax({
-        url: script,
-        dataType: "script",
-        async: false, // <-- this is the key
-        success: function () {
-            // all good...
-        },
-        error: function (theErr) {
-            throw new Error("Could not load script " + script);
-        }
-    });
+
+var resizeTimer = null;
+$(window).resize(function(){
+    resizeTimer && clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(HandleWindowResize, 100);
+});
+
+function HandleWindowResize() {
+    ComputeSizes();
+    SetCurrentChannel(ChannelList.indexOf(CurrentChannel));
 }
 
 
@@ -498,9 +510,6 @@ function DoCloseBlah(theEvent) {
 
 function CloseBlah() {
 
-    // hide the preview blah and reset the variables
-    $(BlahFullItem).off('swipeleft');
-    $(BlahFullItem).off('swiperight');
 
     UnfocusBlah();
     switch (BlahReturnPage) {
@@ -545,29 +554,36 @@ function OpenBlah(whichBlah) {
             delta = delta + "px";
             SetBlahDetailPage("Overview");
         });
-        $(BlahFullItem).on('swipeleft', HandleBlahSwipeLeft);
-        $(BlahFullItem).on('swiperight', HandleBlahSwipeRight);
     });
 }
 
 function SetBlahDetailPage(whichPage) {
-
+    $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
     switch (whichPage) {
         case "Overview":
             BlahFullItem.curPage = "Overview";
+            $('#BlahPageDiv').load(function() {
+                var winHeight = $(window).height();
+                var curTop = document.getElementById("FullBlahContent").clientTop;
+                var dif = 80 + 70 + curTop;
+                $("#FullBlahContent").css({ 'max-height': winHeight-dif + 'px'});
+            });
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
                 UpdateBlahOverview();
             });
             break;
         case "Comments":
             BlahFullItem.curPage = "Comments";
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                 UpdateBlahComments();
             });
             break;
         case "Stats":
             BlahFullItem.curPage = "Stats";
             $("#BlahPageDiv").load(fragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                 UpdateBlahStats();
             });
             break;
@@ -580,46 +596,7 @@ function SetBlahDetailPage(whichPage) {
     }
 }
 
-function HandleBlahSwipeLeft(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Overview":
-            SetBlahDetailPage("Comments");
-            break;
-        case "Comments":
-            SetBlahDetailPage("Stats");
-            break;
-        case "Stats":
-            SetBlahDetailPage("Author");
-            break;
-        case "Author":
-            SetBlahDetailPage("Overview");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
 
-}
-
-function HandleBlahSwipeRight(theEvent) {
-    switch (BlahFullItem.curPage) {
-        case "Overview":
-            SetBlahDetailPage("Author");
-            break;
-        case "Comments":
-            SetBlahDetailPage("Overview");
-            break;
-        case "Stats":
-            SetBlahDetailPage("Comments");
-            break;
-        case "Author":
-            SetBlahDetailPage("Stats");
-            break;
-    }
-    if (theEvent != null)
-        theEvent.stopPropagation();
-    return false;
-}
 
 function UpdateBlahOverview() {
     if (CurrentBlah == null) {
@@ -632,14 +609,14 @@ function UpdateBlahOverview() {
     UpdateFullBlahBody();
     document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "C", 0);
     var isOwnBlah;
-     var winHeight = $(window).height();
-    $("#FullBlahContent").css({ 'max-height': winHeight-155 + 'px'});
+
 
     if (IsUserLoggedIn) {
         isOwnBlah = (CurrentBlah.A == CurrentUser._id);
     } else {
         isOwnBlah = false;
     }
+    var image = GetBlahImage(CurrentBlah, "D");
 
     if (IsUserLoggedIn) {
 
@@ -648,6 +625,9 @@ function UpdateBlahOverview() {
         $("#UploadImageTable").show();
 
         if (isOwnBlah) {
+            if (image != "") {
+                $("#UploadImageTable").hide();
+            }
             var upVotes = getSafeProperty(CurrentBlah, "P", 0);
             var downVotes = getSafeProperty(CurrentBlah, "D", 0);
 
@@ -684,16 +664,16 @@ function UpdateBlahOverview() {
     }
 
 
-    var image = GetBlahImage(CurrentBlah, "D");
+
     var imageEl = document.getElementById("blahFullImage");
     var headlineText = document.getElementById("BlahFullHeadline");
     if (image == "") {
         imageEl.style.display = "none";
-        //headlineText.style.fontSize = "36px";
+        $(".blah-body-divider").show();
     } else {
         imageEl.style.display = "absolute";
+        $(".blah-body-divider").hide();
         imageEl.src = image;
-        //headlineText.style.fontSize = "24px";
     }
 
     var bodyTextDiv = document.getElementById("BlahFullBody");
@@ -1766,11 +1746,13 @@ function ResizeRowText(newRow) {
     var fontSize;
     var maxFontSize = 96;
     var scaleText = false;
+    var minFontSize = 18;
 
-    for (i = 0; i < newRow.childNodes.length; i++) {
+    for (var i = 0; i < newRow.childNodes.length; i++) {
         fontSize = 9;
         curTile = newRow.childNodes[i];
         var tileHeight = curTile.offsetHeight - 8; // allow for padding...
+        var tileWidth = curTile.offsetWidth - 8;
         scaleText = (curTile.style.backgroundImage != "") && (curTile.blah.displaySize != 3);
         if (scaleText) {
             tileHeight /= 2;
@@ -1783,6 +1765,16 @@ function ResizeRowText(newRow) {
         }
         fontSize--;
         curTile.blahTextDiv.style.fontSize = fontSize + "px";
+
+        curTile.blahTextDiv.scrollLeft++;
+
+        while((curTile.blahTextDiv.scrollLeft > 0) && (fontSize > minFontSize)) {
+            curTile.blahTextDiv.scrollLeft = 0;
+            fontSize--;
+            curTile.blahTextDiv.style.fontSize = fontSize + "px";
+            curTile.blahTextDiv.scrollLeft++;
+        }
+
         if (scaleText) {
             var offset = tileHeight + (tileHeight - curTile.blahTextDiv.offsetHeight);
             curTile.blahTextDiv.style.marginTop = offset + "px";
@@ -1849,7 +1841,7 @@ function PeekNextBlah() {
 
 function RefreshActiveBlahList() {
     // when the list is empty, we refill it. For now, we just use the same list
-    $("#ChannelBanner").css("background-color", "white");
+   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
     var nextBlahSet = [];
 
     if (NextBlahList.length > 0) {
@@ -2104,10 +2096,11 @@ function OnGetBlahsOK(theResult) {
     GetNextBlahList();
 };
 
-/*
+
 // There are the PROPER functions
 
 function NormalizeStrengths(theBlahList) {
+
 // ensure 100 blahs
 if (theBlahList.length < 100) {
 var curLoc = 0;
@@ -2116,10 +2109,20 @@ theBlahList.push(theBlahList[curLoc++]);
 }
 }
 
+    // ensure 100 blahs
+    if (theBlahList.length < 20) {
+        var curLoc = 0;
+        while (theBlahList.length < 100) {
+            theBlahList.push(theBlahList[curLoc++]);
+        }
+    }
+
+
 
 }
 
 function AssignSizes(theBlahList) {
+
 // makes sure that there are a good ration of large, medium, small
 var largeBlahThreshold = .8;
 var mediumBlahThreshold = .3;
@@ -2132,10 +2135,23 @@ theBlahList[curIndex].displaySize = 2;
 else
 theBlahList[curIndex].displaySize = 3;
 }
+    // makes sure that there are a good ration of large, medium, small
+    var largeBlahThreshold = .8;
+    var mediumBlahThreshold = .3;
+    // the rest are small - presumably 40, since we get 100 blahs
+ 
+    for (var curIndex in theBlahList) {
+        if (theBlahList[curIndex].S > kLargeBlahStrength)
+            theBlahList[curIndex].displaySize = 1;
+        else if (theBlahList[curIndex].S > kSmallBlahStrength)
+            theBlahList[curIndex].displaySize = 2;
+        else
+            theBlahList[curIndex].displaySize = 3;
+    }
+
 }
 
-*/
-
+ /*
 // These are the temp ones
 function NormalizeStrengths(theBlahList) {
     // makes sure that the blahs here range in strength from 0.0 to 1.0
@@ -2201,10 +2217,12 @@ function AssignSizes(theBlahList) {
     }
 
 }
+*/
 
 // end
 
 function PrepareBlahList(theBlahList) {
+    $("#ChannelBannerLabel").html(CurrentChannel.N + " (" + theBlahList.length + ")");
     if (theBlahList.length > 0) {
         NormalizeStrengths(theBlahList);
         AssignSizes(theBlahList);
@@ -2572,19 +2590,19 @@ function DoJumpToChannel() {
 }
 
 function RefreshCurrentChannel() {
-    $("#ChannelBanner").css("background-color", "#FFFFFF");
+   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
    GetUserBlahs();
 
 }
 
 function SetCurrentChannel(whichChannel) {
-    $("#ChannelBanner").css("background-color", "#FFFFFF");
+    $("#ChannelBanner").css("background-color", kBannerHighlightColor);
     StopAnimation();
     CurrentChannel = ChannelList[whichChannel];
     Blahgua.currentChannel = CurrentChannel._id;
     var labelDiv = document.getElementById("ChannelBannerLabel");
     labelDiv.innerHTML = CurrentChannel.N;
-    var imageURL = "url('http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/"
+    var imageURL = "url('" + fragmentURL + "/images/groups/bkgnds/";
     imageURL += CurrentChannel.N + ".jpg')";
     document.getElementById("BlahContainer").style.backgroundImage = imageURL;
     GetUserBlahs();
@@ -2598,7 +2616,7 @@ function GetNextBlahList() {
 function OnGetNextBlahsOK(theResult) {
     NextBlahList = theResult;
     PrepareBlahList(NextBlahList);
-    $("#ChannelBanner").animate({"background-color": "#FF00FF" }, 'slow');
+    $("#ChannelBanner").animate({"background-color": kBannerColor }, 'slow');
 
 }
 
@@ -2648,8 +2666,6 @@ function PopulateUserChannel(whichPage) {
             delta = delta + "px";
             SetSelfDetailPage(whichPage);
         });
-        $(BlahFullItem).on('swipeleft', HandleSelfPageSwipeLeft);
-        $(BlahFullItem).on('swiperight', HandleSelfPageSwipeRight);
 
     });
  }
@@ -2671,9 +2687,12 @@ function OnGetOwnProfileFailed(theErr) {
 
 function OnGetOwnProfileOK(theStats) {
     UserProfile = theStats;
-    $("#NicknameInput").val(getSafeProperty(theStats, "A", ""));
+    $("#userName").val(CurrentUser.N);
+    var nickName = getSafeProperty(theStats, "A", "A Blahger");
+    $("#NicknameInput").val(nickName);
+    $("#FullBlahNickName").text(nickName);
     Blahgua.getUserDescriptorString(CurrentUser._id, function(theString) {
-        $("#DescriptionDiv").text(theString.d);
+        $("#DescriptionSpan").text(theString.d);
     });
 
     // location
@@ -2735,6 +2754,17 @@ function OnGetOwnProfileOK(theStats) {
 
     // badges
     UpdateBadgeArea();
+    $("#SaveProfileBtn").attr("disabled", "disabled");
+    $('input').change(function(){
+        var validated = true;
+        if(validated) $("#SaveProfileBtn").removeAttr("disabled");
+       });
+
+    // headers
+    $('.accordian h2').click(function(theEvent) {
+        $(this.parentElement).children("table").toggle('fast') ;
+
+    })
 
 }
 
@@ -2796,17 +2826,6 @@ function CreateAndAppendBadgeHTML(theBadge) {
 function DoAddBadge(badgeID) {
     Blahgua.createBadgeForUser(badgeID, null, function(data) {
         var dialogHTML = data;
-     var windowWidth = $(window).width();
-     var offset = (windowWidth - 512) / 2;
-        if (offset < 0)
-            offset = 0;
-        $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-        $(".BadgeTitleBar").text(badgeID);
-        $("#badgedialog").html(dialogHTML);
-        $("#BadgeOverlay").fadeIn();
-
-    }, function(data) {
-        var dialogHTML = data.responseText;
         var windowWidth = $(window).width();
         var offset = (windowWidth - 512) / 2;
         if (offset < 0)
@@ -2816,12 +2835,19 @@ function DoAddBadge(badgeID) {
         $("#badgedialog").html(dialogHTML);
         $("#BadgeOverlay").fadeIn();
         window.ba_dialog_closed = HandleBadgeDismiss;
-    });
+
+    }, OnFailure);
 }
 
 function HandleBadgeDismiss(theMsg) {
     $("#BadgeOverlay").fadeOut( 150, function () {
         $("#badgedialog").empty();
+        // refresh the badges for the user
+        Blahgua.getUserInfo(function (json) {
+            CurrentUser = json;
+            UpdateBadgeArea();
+        });
+
     } );
 }
 
@@ -2885,11 +2911,9 @@ function SignInExistingUser() {
 }
 
 function HandleCreateUserOK(json) {
-    alert("user created ok! Now logging in...");
-
-    var userName = $("#userName").val();
+     var userName = $("#userName").val();
     var pwd = $("#pwd").val();
-    if ($("#rememberme").val()) {
+    if ($('#rememberme2').is(':checked')) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
@@ -2915,7 +2939,7 @@ function HandleUserLoginOK(json) {
     }, OnFailure) ;
     var userName = $("#userName2").val();
     var pwd = $("#pwd2").val();
-    if ($("#rememberme2").val()) {
+    if ($('#rememberme2').is(':checked')) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
@@ -2955,7 +2979,7 @@ function UpdateChannelViewers() {
         Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
     }
 
-    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 2000);
+    ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
 }
 
 function getProp(obj, propName, defVal) {
@@ -3630,23 +3654,31 @@ function CreateDemoData(whichDemo) {
 // self page
 
 function SetSelfDetailPage(whichPage) {
-
+    $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
     switch (whichPage) {
         case "Profile":
+
             BlahFullItem.curPage = "Profile";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                var winHeight = $(window).height();
+                var curTop = document.getElementById("SelfPageDetailsDiv").clientTop;
+                var dif = 80 + 70 + curTop;
+                $("#SelfPageDetailsDiv").css({ 'max-height': winHeight-dif + 'px'});
+                $("#SelfProfileBtn").addClass("BlahBtnSelected");
                 UpdateSelfProfile();
             });
             break;
         case "History":
             BlahFullItem.curPage = "History";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                $("#SelfHistoryBtn").addClass("BlahBtnSelected");
                 UpdateSelfHistory();
             });
             break;
         case "Stats":
             BlahFullItem.curPage = "Stats";
             $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                $("#SelfStatsBtn").addClass("BlahBtnSelected");
                 UpdateSelfStats();
             });
             break;
@@ -3718,6 +3750,7 @@ function UpdateSelfStats() {
 }
 
 
+
 function HandleSelfPageSwipeLeft(theEvent) {
     switch (BlahFullItem.curPage) {
         case "Profile":
@@ -3783,3 +3816,4 @@ document.onclick = function(e){
 	}
 }
 }
+

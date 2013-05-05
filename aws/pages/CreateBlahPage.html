@@ -1,6 +1,7 @@
 <html>
 <body>
 <div id="CreateBlahPage">
+<<<<<<< HEAD
         <table class="createblahheadline">
         	<tr>
         		<td class="createblahheadlinephotoframe">
@@ -34,54 +35,84 @@
           <tr>
             <td colspan="2" >
             <textarea id="BlahHeadline" class="inputheadlineframe" onkeyup="HandleHeadlineTextInput(this);" onchange="HandleHeadlineTextInput(this);"></textarea>
+=======
+    <table class="createblahheadline">
+        <tr>
+            <td class="createblahheadlinephotoframe">
+                <div class="createblahheadlinephoto"></div></td>
+            <td id="CreateBlahNicknameDiv" class="BlahgerNickName"></td>
+
+            <td class="createblahheadlineoptionframe">
+                <div class="optioncover1" onmouseover="this.style.height=18;" onmouseout="this.style.height=40;">
+                    <iframe  class="optioncover2" frameborder="0" src="/about:blank"></iframe>
+                    <div class="optioncover3">
+                        <div class="optioncover4" id="pagechoice"></div>
+                    </div>
+                </div>
+                <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
+
+>>>>>>> ee312931e243a426430bebf562e3f26a0b1735d5
             </td>
+        </tr>
+    </table>
+    <div style="overflow-y:auto;" id="createcontent" >
+        <table class="createblahscrolltable">
+            <tr height="10px"></tr>
+            <tr>
+                <td class="shorttitle">SHORT TITLE</td>
+            </tr>
+            <tr>
+                <td colspan="2" >
+                    <textarea id="BlahHeadline" class="inputheadlineframe" onkeyup="HandleHeadlineTextInput(this);" onchange="HandleHeadlineTextInput(this);"></textarea>
+                </td>
             </tr>
             <tr><td><span id="HeadlineCharCount" class="charcounter"></span></td></tr>
             <tr height="20px"></tr>
             <tr>
-            <td class="shorttitle">BODY TEXT</td>
+                <td class="shorttitle">BODY TEXT</td>
             </tr>
             <tr>
-            <td colspan="2"  >
-            <textarea class="inputbodyframe" id="BlahBody" onkeyup="HandleBodyTextInput(this);" onchange="HandleBodyTextInput(this);"></textarea>
-            </td>
+                <td colspan="2"  >
+                    <textarea class="inputbodyframe" id="BlahBody" onkeyup="HandleBodyTextInput(this);" onchange="HandleBodyTextInput(this);"></textarea>
+                </td>
             </tr>
             <tr><td><span id="BodyCharCount" class="charcounter"></span></td></tr>
             <tr height="20px"></tr>
-            <tr>            
-            <td>
-   <div class="imageupload1">   
-     <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+            <tr>
+                <td>
+                    <div class="imageupload1">
+                        <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
     <span class="imageupload2">                           
       <input id="BlahImageBtn" type="text" onmouseout="document.getElementById('BlahImage').style.display='none';" class="imageupload3">
     </span>
-    <label for="unload" onmouseover="document.getElementById('BlahImage').style.display='block';" class="imageupload4">ADD AN IMAGE</label>
-    <input id="BlahImage" type="file" onchange="HandleFilePreview(); return false;"  onchange="document.getElementById('BlahImageBtn').value=this.value;this.style.display='none';"class="imageupload5">       
-   </fprm>
-</div>
-            </td>
+                            <label for="unload" onmouseover="document.getElementById('BlahImage').style.display='block';" class="imageupload4">ADD AN IMAGE</label>
+                            <input id="BlahImage" type="file" onchange="HandleFilePreview(); return false;"  onchange="document.getElementById('BlahImageBtn').value=this.value;this.style.display='none';"class="imageupload5">
+                            </fprm>
+                    </div>
+                </td>
             </tr>
             <tr width="100%">
-            <td  id="AdditionalInfoDiv"  class="createblahadditional">         
-            </td>
+                <td  id="AdditionalInfoDiv"  class="createblahadditional">
+                </td>
             </tr>
             <tr height="10px"></tr>
             <tr>
-            <td class="shorttitle1"><p style="margin-top:10px">ABOUT YOU<p></td>
+                <td class="shorttitle1"><p style="margin-top:10px">ABOUT YOU<p></td>
             </tr>
             <tr>
-            <td colspan="2"  >
-            <textarea class="aboutyouframe" id="AboutYouArea">
-            </textarea>
-            </td>
-            </tr> 
+                <td colspan="2"  >
+                    <textarea class="aboutyouframe" id="AboutYouArea">
+                    </textarea>
+                </td>
+            </tr>
             <tr><td><button class="aboutbutton" >ADD A BADGE</button></td></tr>
 
-    </table>
-   </div>
+        </table>
+    </div>
 
 
 
+<<<<<<< HEAD
 <table class="creatblahfooter">
     <tr style="width:100%">
         <td ><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">Cancel</button></td>
@@ -97,6 +128,22 @@
     </div>
     </tr>
 </table>
+=======
+    <table class="creatblahfooter" >
+        <tr>
+            <td><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">CANCEL</button></td>
+
+            <td align="right"><button disabled="disabled" id="PublishBlahBtn" onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
+        </tr>
+        <tr>
+            <div id="ProgressDiv" style="display:none">
+                <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+                    <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+                </div>
+            </div>
+        </tr>
+    </table>
+>>>>>>> ee312931e243a426430bebf562e3f26a0b1735d5
 
 
 

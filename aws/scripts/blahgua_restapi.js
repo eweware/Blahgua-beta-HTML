@@ -28,8 +28,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -55,8 +59,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -82,8 +90,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -109,8 +121,12 @@ function BlahguaObject() {
                 }
             },
             error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
             }
         });
@@ -164,8 +180,27 @@ function BlahguaObject() {
         if (badgeId != null)
             param["T"] = badgeId;
         var paramStr = JSON.stringify(param);
-        this.CallPostMethod("badges", paramStr, OnSuccess, OnFailure);
 
+        $.ajax({
+            type: "POST",
+            url: this.baseURL + "badges",
+            data: paramStr,
+            contentType: "application/json; charset=utf-8",
+            success: function (theObj) {
+                if (OnSuccess != null) {
+                    OnSuccess(theObj);
+                }
+            },
+            error: function (theErr) {
+                if (theErr.status >= 500) {
+                    GlobalReset();
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
+                }
+            }
+        });
     }
 
     this.getBadgeById = function (badgeId, OnSuccess, OnFailure) {
