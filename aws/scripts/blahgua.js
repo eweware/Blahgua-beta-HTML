@@ -3732,6 +3732,22 @@ function UpdateSelfStats() {
     });
 }
 
+function GetDailyStatValuesForTimeRange(startTime, endTime, statsObj, statName) {
+    var startMonth, startDay;
+
+    startMonth = startTime.getMonth();
+    startDay = startTime.getDate();
+
+    while (startTime <= endTime) {
+
+        startTime = new Date(startTime.getTime() + 3600 * 24); // add one day
+        startMonth = startTime.getMonth();
+        startDay = startTime.getDate();
+    }
+
+
+}
+
 
 
 
