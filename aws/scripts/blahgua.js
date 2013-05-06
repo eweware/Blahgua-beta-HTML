@@ -3683,7 +3683,7 @@ function DoOpenUserComment(blahId) {
     }, OnFailure);
 }
 
-function createDateString(theDate) {
+function createDateString(theDate, short) {
     var newString = "";
     var year = (theDate.getFullYear() - 2000).toString();
     var month = theDate.getMonth() + 1;
@@ -3691,13 +3691,30 @@ function createDateString(theDate) {
         month = "0" + month.toString();
     else
         month = month.toString();
-    var day = theDate.getDate();
-    if (day < 10)
-        day = "0" + day.toString();
-    else
-        day = day.toString();
-    newString = year + month + day;
+    if (short == true) {
+        newString = year + month;
+    } else {
+        var day = theDate.getDate();
+        if (day < 10)
+            day = "0" + day.toString();
+        else
+            day = day.toString();
+        newString = year + month + day;
+    }
     return newString;
+}
+
+function makeDateRangeAxis(startDate, endDate) {
+    var newCat = [];
+
+
+    while (startDate <= endDate) {
+        newStr = startDate.getMonth() + 1 + "/" + startDate.getDate();
+        newCat.push(newStr);
+        startDate = new Date(startDate.getTime() + (24 * 3600 * 1000));
+    }
+
+    return newCat;
 }
 
 function UpdateSelfStats() {
@@ -3710,10 +3727,91 @@ function UpdateSelfStats() {
     var end = createDateString(endDate);
     Blahgua.GetUserStats(start, end, function(statsObj) {
         // refresh all of the stat markets and charts
-        var stats = statsObj[0];
-        // strength and controvery
+
+        // Overall standings
         var userStrength = getSafeProperty(statsObj, 'S', 0);
         var userContro = getSafeProperty(statsObj, 'K', 0);
+
+        $('#UserStandingDiv').highcharts({
+            title: {
+                text:null
+            },
+            legend: {
+                enabled:false
+            },
+            credits: {
+                enabled:false
+            },
+            xAxis: {
+                categories: ['Strength', 'Controversy']
+            },
+            yAxis: {
+                min:0,
+                max:100,
+                title: { text: null}
+            },
+            series: [{
+                type: 'bar',
+                data: [{color: '#FF0000', y: userStrength * 100},
+                    {color: '#0000FF', y: userContro * 100}]
+            }]
+        });
+
+
+        // Your Activity
+        var viewData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
+        var openData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
+        var blahsMade = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "X");
+        var commentsMade  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
+        var catAxis = makeDateRangeAxis(startDate, endDate);
+
+        $('#UserActivityDiv').highcharts({
+            title: {
+                text:null
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            credits: {
+                enabled:false
+            },
+            xAxis: {
+                categories: catAxis
+            },
+            yAxis: {
+                min:0,
+                title: { text: null}
+            },
+            series: [{
+                type: 'spline',
+                data: viewData,
+                name: "#blahs viewed"
+            },
+                {
+                    type: 'areaspline',
+                    data: openData,
+                    name: "#blahs opened"
+                } ,
+                {
+                    type: 'areaspline',
+                    data: blahsMade,
+                    name: "#blahs made"
+                },
+                {
+                    type: 'areaspline',
+                    data: commentsMade,
+                    name: "#comments made"
+                }]
+        });
+
+        // Your Blahs and Comments
+
+        // Your Stats
+
 
     }, function (theErr) {
         // indicate that the stats are not available
@@ -3733,19 +3831,36 @@ function UpdateSelfStats() {
 }
 
 function GetDailyStatValuesForTimeRange(startTime, endTime, statsObj, statName) {
-    var startMonth, startDay;
+    var startMonth, startDay, newVal;
+    var results = [];
 
     startMonth = startTime.getMonth();
     startDay = startTime.getDate();
 
     while (startTime <= endTime) {
+        newVal = GetStatValue(statsObj, startTime, statName);
+         results.push(newVal);
 
-        startTime = new Date(startTime.getTime() + 3600 * 24); // add one day
+        startTime = new Date(startTime.getTime() + 3600 * 24 * 1000); // add one day
         startMonth = startTime.getMonth();
         startDay = startTime.getDate();
     }
 
+    return results;
+}
 
+function GetStatValue(statsObj, date, stat) {
+    var statVal = 0, item = 0;
+    var statStr = createDateString(date, true);
+    for (var index in statsObj.L) {
+        item = statsObj.L[index];
+        if (item._id.substring(item._id.length - 4) == statStr) {
+            // found the month
+            statVal = item.dy[date.getDate() - 1][stat];
+            break;
+        }
+    }
+    return statVal;
 }
 
 
