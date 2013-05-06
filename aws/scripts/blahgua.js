@@ -67,18 +67,18 @@ function GlobalReset() {
     $.fn.disableSelection = function () {
         return this.each(function () {
             $(this).attr('unselectable', 'on')
-                   .css({
-                       '-moz-user-select': 'none',
-                       '-o-user-select': 'none',
-                       '-khtml-user-select': 'none',
-                       '-webkit-user-select': 'none',
-                       '-ms-user-select': 'none',
-                       'user-select': 'none'
-                   })
-                   .each(function () {
-                       $(this).attr('unselectable', 'on')
-                       .bind('selectstart', function () { return false; });
-                   });
+                .css({
+                    '-moz-user-select': 'none',
+                    '-o-user-select': 'none',
+                    '-khtml-user-select': 'none',
+                    '-webkit-user-select': 'none',
+                    '-ms-user-select': 'none',
+                    'user-select': 'none'
+                })
+                .each(function () {
+                    $(this).attr('unselectable', 'on')
+                        .bind('selectstart', function () { return false; });
+                });
         });
     };
 })(jQuery);
@@ -105,7 +105,7 @@ function getQueryVariable(variable) {
             return decodeURIComponent(pair[1]);
         }
     }
-     return null;
+    return null;
 }
 
 
@@ -121,12 +121,12 @@ $(document).ready(function () {
         UnfocusBlah();
     });
     if ((window.location.hostname == "") ||
-     (window.location.hostname == "localhost") ||
-     (window.location.hostname == "127.0.0.1")) {
+        (window.location.hostname == "localhost") ||
+        (window.location.hostname == "127.0.0.1")) {
         // running local
         fragmentURL = "./aws";
-       }
-        SignIn();
+    }
+    SignIn();
 });
 
 
@@ -288,7 +288,7 @@ function SelectRandomElement() {
     var curRow, numChildren;
     var firstRow = TopRow;
     var attempts = 0;
-    
+
     while ((pickedEl == LastFadeElement) && (attempts < 10)) {
         attempts++;
         curRow = TopRow;
@@ -304,7 +304,7 @@ function SelectRandomElement() {
         // have the row, pick the object
         pickedEl = curRow.childNodes[Math.floor(Math.random() * curRow.childNodes.length)];
     }
-    
+
     return pickedEl;
 }
 
@@ -315,18 +315,18 @@ function FadeRandomElement() {
     } else {
         setTimeout(FadeRandomElement, 1000);
         /*
-//theEl.blahTextDiv.style.backgroundColor = "red";
-$(theEl).flippy({
-content: $(theEl.blahTextDiv),
-direction:"LEFT",
-duration:"750",
-onFinish:function(){
-theEl.style.backgroundColor = "red";
-FadeRandomElement();
-}
+         //theEl.blahTextDiv.style.backgroundColor = "red";
+         $(theEl).flippy({
+         content: $(theEl.blahTextDiv),
+         direction:"LEFT",
+         duration:"750",
+         onFinish:function(){
+         theEl.style.backgroundColor = "red";
+         FadeRandomElement();
+         }
 
-});
-*/
+         });
+         */
     }
     LastFadeElement = theEl;
 }
@@ -390,7 +390,7 @@ function ShowHideChannelList() {
     if (menu.style.display == "none") {
         ShowChannelList();
     } else {
-       HideChannelList();
+        HideChannelList();
     }
 }
 
@@ -431,7 +431,7 @@ function CreateChannelBanner() {
     $("#ChannelBanner").click(function () {
         ShowHideChannelList();
     })
-    
+
 
     var viewCount = document.createElement("span");
     viewCount.className = "ChannelViewersSpan";
@@ -518,10 +518,10 @@ function CloseBlah() {
             break;
 
         default:
-        $(BlahFullItem).fadeOut("fast", function() {
-            $(BlahFullItem).empty();
-            RefreshCurrentChannel();
-        });
+            $(BlahFullItem).fadeOut("fast", function() {
+                $(BlahFullItem).empty();
+                RefreshCurrentChannel();
+            });
 
     }
     BlahReturnPage = null;
@@ -601,7 +601,7 @@ function SetBlahDetailPage(whichPage) {
 
 function UpdateBlahOverview() {
     if (CurrentBlah == null) {
-        Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+        Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
             CurrentBlah= theBlah;
             UpdateBlahOverview();
         }, OnFailure);
@@ -739,7 +739,7 @@ function DoAddImageToBlah() {
 }
 
 function OnAddImageOK(data) {
-    Blahgua.GetBlahWithStats(CurrentBlahId,  "130101", "130331", function (theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
         CurrentBlah= theBlah;
         SetBlahDetailPage("Overview");
     }, OnFailure);
@@ -1148,8 +1148,8 @@ function dynamicSort(property, subProp) {
 
 
 /**
-* @return {string}
-*/
+ * @return {string}
+ */
 function ElapsedTimeString(theDate) {
     var now = new Date();
     var timeSpan;
@@ -1235,7 +1235,7 @@ function FocusBlah(who) {
     CurrentBlahId = who.blah.I;
     PopulateBlahPreview(who.blah);
     var winHeight = $(window).height();
-    var staticHeight =  $("#BlahPreviewHeadline").height() + 250;
+    var staticHeight = $("#BlahPreviewHeadline").height() + 250;
     var maxHeight = (winHeight - staticHeight);
     $("#BlahPreviewScrollContainer").css({ 'max-height': maxHeight + 'px'});
     BlahPreviewItem.style.display = "none";
@@ -1405,9 +1405,9 @@ function UpdatePredictPreviewPage() {
     var maybeRatio = 0;
 
     if (totalVotes > 0) {
-         yesRatio = Math.floor((yesVotes / totalVotes) * 100);
-         noRatio = Math.floor((noVotes / totalVotes) * 100);
-         maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
+        yesRatio = Math.floor((yesVotes / totalVotes) * 100);
+        noRatio = Math.floor((noVotes / totalVotes) * 100);
+        maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
     }
     $("#PredictPreviewYesSpan").animate({'width': yesRatio + "%"}, 1000);
     document.getElementById("PredictPreviewYesSpan").style.width = yesRatio + "%";
@@ -1436,66 +1436,66 @@ function UpdatePredictPreviewPage() {
     if (IsUserLoggedIn) {
         // update the user's vote
         Blahgua.GetUserPredictionVote(CurrentBlah._id,
-        function(json) {
-            // update the vote
-           var userVote = getSafeProperty(json, "D", null);
-            var expVote = getSafeProperty(json, "Z", null);
-            if (userVote) {
-                switch (userVote) {
-                    case "y":
-                        document.getElementById("PredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#PredictPreviewYesImg").show();
-                        $("#PredictPreviewNoImg").hide();
-                        $("#PredictPreviewMaybeImg").hide();
-                        break;
-                    case "n":
-                        document.getElementById("PredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#PredictPreviewNoImg").show();
-                        $("#PredictPreviewYesImg").hide();
-                        $("#PredictPreviewMaybeImg").hide();
-                        break;
-                    case "u":
-                        document.getElementById("PredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#PredictPreviewMaybeImg").show();
-                        $("#PredictPreviewNoImg").hide();
-                        $("#PredictPreviewYesImg").hide();
-                        break;
+            function(json) {
+                // update the vote
+                var userVote = getSafeProperty(json, "D", null);
+                var expVote = getSafeProperty(json, "Z", null);
+                if (userVote) {
+                    switch (userVote) {
+                        case "y":
+                            document.getElementById("PredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#PredictPreviewYesImg").show();
+                            $("#PredictPreviewNoImg").hide();
+                            $("#PredictPreviewMaybeImg").hide();
+                            break;
+                        case "n":
+                            document.getElementById("PredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#PredictPreviewNoImg").show();
+                            $("#PredictPreviewYesImg").hide();
+                            $("#PredictPreviewMaybeImg").hide();
+                            break;
+                        case "u":
+                            document.getElementById("PredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#PredictPreviewMaybeImg").show();
+                            $("#PredictPreviewNoImg").hide();
+                            $("#PredictPreviewYesImg").hide();
+                            break;
+                    }
+                } else {
+                    // no vote yey
+                    $("#PredictPreviewYesImg").show();
+                    $("#PredictPreviewNoImg").show();
+                    $("#PredictPreviewMaybeImg").show();
                 }
-            } else {
-                // no vote yey
-                $("#PredictPreviewYesImg").show();
-                $("#PredictPreviewNoImg").show();
-                $("#PredictPreviewMaybeImg").show();
-            }
 
-            if (expVote) {
-                switch (expVote) {
-                    case "y":
-                        document.getElementById("ExpPredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#ExpPredictPreviewYesImg").show();
-                        $("#ExpPredictPreviewNoImg").hide();
-                        $("#ExpPredictPreviewMaybeImg").hide();
-                        break;
-                    case "n":
-                        document.getElementById("ExpPredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#ExpPredictPreviewNoImg").show();
-                        $("#ExpPredictPreviewYesImg").hide();
-                        $("#ExpPredictPreviewMaybeImg").hide();
-                        break;
-                    case "u":
-                        document.getElementById("ExpPredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                        $("#ExpPredictPreviewMaybeImg").show();
-                        $("#ExpPredictPreviewNoImg").hide();
-                        $("#ExpPredictPreviewYesImg").hide();
-                        break;
+                if (expVote) {
+                    switch (expVote) {
+                        case "y":
+                            document.getElementById("ExpPredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#ExpPredictPreviewYesImg").show();
+                            $("#ExpPredictPreviewNoImg").hide();
+                            $("#ExpPredictPreviewMaybeImg").hide();
+                            break;
+                        case "n":
+                            document.getElementById("ExpPredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#ExpPredictPreviewNoImg").show();
+                            $("#ExpPredictPreviewYesImg").hide();
+                            $("#ExpPredictPreviewMaybeImg").hide();
+                            break;
+                        case "u":
+                            document.getElementById("ExpPredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                            $("#ExpPredictPreviewMaybeImg").show();
+                            $("#ExpPredictPreviewNoImg").hide();
+                            $("#ExpPredictPreviewYesImg").hide();
+                            break;
+                    }
+                } else {
+                    // no vote yey
+                    $("#ExpPredictPreviewYesImg").show();
+                    $("#ExpPredictPreviewNoImg").show();
+                    $("#ExpPredictPreviewMaybeImg").show();
                 }
-            } else {
-                // no vote yey
-                $("#ExpPredictPreviewYesImg").show();
-                $("#ExpPredictPreviewNoImg").show();
-                $("#ExpPredictPreviewMaybeImg").show();
-            }
-        }, function(theErr) {
+            }, function(theErr) {
                 $("#PredictPreviewYesImg").show();
                 $("#PredictPreviewNoImg").show();
                 $("#PredictPreviewMaybeImg").show();
@@ -1509,8 +1509,8 @@ function UpdatePredictPreviewPage() {
 
 function TimeOutBlahFocus() {
     if (BlahPreviewTimeout != null) {
-    clearTimeout(BlahPreviewTimeout);
-    BlahPreviewTimeout = null;
+        clearTimeout(BlahPreviewTimeout);
+        BlahPreviewTimeout = null;
     }
     FocusedBlah = null;
     CurrentBlah = null;
@@ -1565,7 +1565,7 @@ function CreateBaseDiv(theBlah) {
     switch (theBlah.displaySize) {
         case 1:
             blahImageSize = "C";
-           $(textDiv).addClass("LargeBlahFormat");
+            $(textDiv).addClass("LargeBlahFormat");
             break;
         case 2:
             blahImageSize = "B";
@@ -1612,16 +1612,16 @@ function CreateBaseDiv(theBlah) {
     }
 
     // some rotation
-/*    var angle = ( Math.random() * 10) - 5;
-    $(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
-    $(newDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
-    angle = -angle;
-    $(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
-    $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
+    /* var angle = ( Math.random() * 10) - 5;
+     $(newDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+     $(newDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+     $(newDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+     $(newDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );
+     angle = -angle;
+     $(textDiv).css( 'transform', 'rotate(' + angle + 'deg)' );
+     $(textDiv).css( '-moz-transform', 'rotate(' + angle + 'deg)' );
+     $(textDiv).css( '-webkit-transform', 'rotate(' + angle + 'deg)' );
+     $(textDiv).css( '-o-transform', 'rotate(' + angle + 'deg)' );*/
     return newDiv;
 
 }
@@ -1712,7 +1712,7 @@ function DrawInitialBlahs() {
 
         if (IsUserLoggedIn) {
             newHTML += "Click below to add the first!<br/>" +
-                       "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
+                "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
         } else {
             newHTML += "Click below to sign in. Then you can make the first!<br/>";
             newHTML += "<a onclick='InstallUserChannel(); return false;'>Sign in</a>";
@@ -1841,7 +1841,7 @@ function PeekNextBlah() {
 
 function RefreshActiveBlahList() {
     // when the list is empty, we refill it. For now, we just use the same list
-   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
+    $("#ChannelBanner").css("background-color", kBannerHighlightColor);
     var nextBlahSet = [];
 
     if (NextBlahList.length > 0) {
@@ -2020,13 +2020,13 @@ function CreateSMSRow(theBlah, newRowEl) {
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
     curLeft = edgeGutter;
-    newBlahEl.style.left = curLeft +  "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
     newBlahEl = CreateElementForBlah(theBlah);
     newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
-    newBlahEl.style.left = curLeft +  "px";
+    newBlahEl.style.left = curLeft + "px";
     newRowEl.appendChild(newBlahEl);
 
     theBlah = GetNextMatchingBlah(3);
@@ -2097,7 +2097,6 @@ function OnGetBlahsOK(theResult) {
 };
 
 
-// There are the PROPER functions
 
 function NormalizeStrengths(theBlahList) {
     // ensure 100 blahs
@@ -2116,7 +2115,7 @@ function AssignSizes(theBlahList) {
     var largeBlahThreshold = .8;
     var mediumBlahThreshold = .3;
     // the rest are small - presumably 40, since we get 100 blahs
- 
+
     for (var curIndex in theBlahList) {
         if (theBlahList[curIndex].S > kLargeBlahStrength)
             theBlahList[curIndex].displaySize = 1;
@@ -2127,73 +2126,6 @@ function AssignSizes(theBlahList) {
     }
 }
 
- /*
-// These are the temp ones
-function NormalizeStrengths(theBlahList) {
-    // makes sure that the blahs here range in strength from 0.0 to 1.0
-    var minStr = 1;
-    var maxStr = 0;
-    var currentBlah;
-
-    for (currentBlahIndex in theBlahList) {
-        currentBlah = theBlahList[currentBlahIndex];
-        if (currentBlah.S < minStr) {
-            minStr = currentBlah.S;
-        }
-        if (currentBlah.S > maxStr) {
-            maxStr = currentBlah.S;
-        }
-    }
-
-    var offset = minStr;
-    var range = maxStr - minStr;
-    var scale = 1 / range;
-
-
-    for (currentBlahIndex in theBlahList) {
-        currentBlah = theBlahList[currentBlahIndex];
-        currentBlah.S = (currentBlah.S - offset) * scale;
-    }
-
-    // ensure 100 blahs
-    if (theBlahList.length < 100) {
-        var curLoc = 0;
-        while (theBlahList.length < 100) {
-            theBlahList.push(theBlahList[curLoc++]);
-        }
-    }
-}
-
-function AssignSizes(theBlahList) {
-    // makes sure that there are a good ration of large, medium, small
-    var numLarge = 10;
-    var numMedium = 50;
-    // the rest are small - presumably 40, since we get 100 blahs
-
-    // first, sort the blahs by their size
-    theBlahList.sort(function (a, b) {
-        return b.S - a.S;
-    });
-
-    var i = 0;
-    while (i < numLarge) {
-        theBlahList[i++].displaySize = 1;
-    }
-
-    MaxMedium = theBlahList[i].S;
-
-    while (i < (numMedium + numLarge)) {
-        theBlahList[i++].displaySize = 2;
-    }
-
-    MaxSmall = theBlahList[i].S;
-
-    while (i < theBlahList.length) {
-        theBlahList[i++].displaySize = 3;
-    }
-
-}
-*/
 
 // end
 
@@ -2303,7 +2235,7 @@ function createCommentElement(index, theComment) {
     // comment text
     newHTML += '<div class="CommentText" dir="ltr">';
     //newHTML += '<p>' + URLifyText(unescape(theComment.T)).replace(/\n/g, "<br/>"); + '</p>';
-    newHTML += '<p>' + UnCodifyText(theComment.T)  + '</p>';
+    newHTML += '<p>' + UnCodifyText(theComment.T) + '</p>';
     newHTML += '</div>';
 
     // comment actions
@@ -2437,16 +2369,16 @@ function GetUserChannels() {
         Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
     } else {
         Blahgua.GetFeaturedChannels(function (channelList) {
-            var defChannel = getQueryVariable('channel');
-            if (defChannel != null) {
-                var theChannel = GetChannelByName(defChannel, channelList);
-                if (theChannel != null)
-                    channelList.push(theChannel);
-            }
+                var defChannel = getQueryVariable('channel');
+                if (defChannel != null) {
+                    var theChannel = GetChannelByName(defChannel, channelList);
+                    if (theChannel != null)
+                        channelList.push(theChannel);
+                }
 
 
-            GetChannelsOK(channelList);
-        },
+                GetChannelsOK(channelList);
+            },
             OnFailure);
     }
 }
@@ -2566,8 +2498,8 @@ function DoJumpToChannel() {
 }
 
 function RefreshCurrentChannel() {
-   $("#ChannelBanner").css("background-color", kBannerHighlightColor);
-   GetUserBlahs();
+    $("#ChannelBanner").css("background-color", kBannerHighlightColor);
+    GetUserBlahs();
 
 }
 
@@ -2616,9 +2548,9 @@ function InstallUserChannel() {
         }
     } else {
         $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv",
-        function () {
-            RefreshSignupContent();
-        });
+            function () {
+                RefreshSignupContent();
+            });
     }
 }
 
@@ -2644,7 +2576,7 @@ function PopulateUserChannel(whichPage) {
         });
 
     });
- }
+}
 
 function RefreshUserChannelContent() {
     $("#BlahFullItem").show();
@@ -2676,15 +2608,15 @@ function OnGetOwnProfileOK(theStats) {
     $("#StateInput").val(getSafeProperty(theStats, "H", ""));
     $("#ZipcodeInput").val(getSafeProperty(theStats, "I", ""));
 
-    // populate country codes                                                      CurrentUser._d._o
+    // populate country codes
     var newEl;
     $.each(ProfileSchema.J.DT, function(index, item){
-            newEl = document.createElement("option");
-            newEl.value = index;
-            newEl.innerHTML = item;
-            if (index == getSafeProperty(theStats, "J", -1))
-                newEl.selected = "selected";
-            $("#CountryInput").append(newEl);
+        newEl = document.createElement("option");
+        newEl.value = index;
+        newEl.innerHTML = item;
+        if (index == getSafeProperty(theStats, "J", -1))
+            newEl.selected = "selected";
+        $("#CountryInput").append(newEl);
     });
 
     // demographics
@@ -2735,15 +2667,16 @@ function OnGetOwnProfileOK(theStats) {
     $('input').change(function(){
         var validated = true;
         if(validated) $("#SaveProfileBtn").removeAttr("disabled");
-       });
+    });
 
     // headers
+
     $('.accordion h2').click(function(theEvent) {
         $(".accordion-content").hide();
         $(this.parentElement).find(".accordion-content").show() ;
 
-    });
 
+    });
 }
 
 function ShowBadgeSelection() {
@@ -2891,7 +2824,7 @@ function SignInExistingUser() {
 }
 
 function HandleCreateUserOK(json) {
-     var userName = $("#userName").val();
+    var userName = $("#userName").val();
     var pwd = $("#pwd").val();
     if ($('#rememberme2').is(':checked')) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
@@ -2923,7 +2856,7 @@ function HandleUserLoginOK(json) {
         $.cookie("userId", userName, { expires: 30, path: '/'});
         $.cookie("password", pwd, { expires: 30, path: '/'});
         $.removeCookie('isTemp');
-    }  else {
+    } else {
         $.removeCookie("userId");
         $.removeCookie("password");
         $.removeCookie('isTemp');
@@ -2967,7 +2900,7 @@ function getProp(obj, propName, defVal) {
 }
 
 function OnChannelViewersOK(numViewers) {
-   $("#ChannelViewersCountText").html(getProp(numViewers, "V", 0));
+    $("#ChannelViewersCountText").html(getProp(numViewers, "V", 0));
 
 }
 
@@ -2977,31 +2910,30 @@ function DoCreateBlah() {
         $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
             PopulateBlahTypeOptions();
             var windowWidth = $(window).width();
-             var winowHeight = $(window).height();
+            var winowHeight = $(window).height();
             var delta = Math.round((windowWidth - 512) / 2);
             if (delta < 0) delta = 0;
             delta = delta + "px";
             var itemWidth = 512;
             if (windowWidth < 512) {
-                itemWidth = windowWidth;          
+                itemWidth = windowWidth;
             }
-             $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
+            $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
             $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
 
             /*
-            if (windowWidth > windowline2) {
-               $(BlahImage).css({ 'left': 200 + 'px'});
-            }
+             if (windowWidth > windowline2) {
+             $(BlahImage).css({ 'left': 200 + 'px'});
+             }
 
-            if (windowWidth <= windowline1) {
-                $(BlahImage).css({ 'left': 100 + 'px'});
-            }
-    
-            if ((windowWidth <= windowline2)&&(windowWidth >= windowline1)) {
-                $(BlahImage).css({ 'left': 160 + 'px'});
-            }
-            */
-         
+             if (windowWidth <= windowline1) {
+             $(BlahImage).css({ 'left': 100 + 'px'});
+             }
+             if ((windowWidth <= windowline2)&&(windowWidth >= windowline1)) {
+             $(BlahImage).css({ 'left': 160 + 'px'});
+             }
+             */
+
 
             $(".createblahscroll").css({'left': delta, 'right':delta});
             $(".creatblahfooter").css({'width': itemWidth});
@@ -3011,7 +2943,7 @@ function DoCreateBlah() {
     } else {
         SuggestUserSignIn("you must sign in before you can create a new blah")
     }
- }
+}
 
 function UpdateBlahTypes() {
     Blahgua.GetBlahTypes(function (json) {
@@ -3058,7 +2990,7 @@ function HandleHeadlineTextInput(target) {
 function CheckPublishBtnDisable() {
     var headLineLen = document.getElementById("BlahHeadline").value.length;
     var bodyLen = document.getElementById("BlahBody").value.length;
-    if ((headLineLen < 2)   || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
+    if ((headLineLen < 2) || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
         document.getElementById("PublishBlahBtn").disabled = true;
     else
         document.getElementById("PublishBlahBtn").disabled = false;
@@ -3077,8 +3009,8 @@ function HandleBodyTextInput(target) {
 
 }
 
-function CancelCreate() {          3
-   CloseBlah();
+function CancelCreate() { 3
+    CloseBlah();
 }
 
 
@@ -3107,7 +3039,7 @@ function CreateBlah() {
     var options = null;
     var contentchoice=BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     var contentchoice=$("#pagechoice").val();
-    
+
     // check for additional options
     var blahTypeStr = BlahTypeList[$("#BlahTypeList")[0].selectedIndex];
     switch (blahTypeStr.N) {
@@ -3122,8 +3054,8 @@ function CreateBlah() {
             break;
         default:
             break;
-            
-               case "polls":
+
+        case "polls":
             // add the poll items
             var pollItems = [];
             var curPollItem;
@@ -3153,7 +3085,7 @@ function OnCreateBlahOK(json) {
     if ($("#BlahImage").val() != "") {
         UploadBlahImage(CurrentBlah._id);
     } else {
-        Blahgua.GetBlahWithStats(CurrentBlah._id,   "130101", "130331",function(theBlah) {
+        Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331",function(theBlah) {
             CurrentBlah = theBlah;
             BlahReturnPage = "BlahRoll";
             OpenBlah(CurrentBlah);
@@ -3164,7 +3096,7 @@ function OnCreateBlahOK(json) {
 function UploadBlahImage(blahId) {
     $("#ProgressDiv").show();
     $("#objectId").val(blahId);
-     //document.getElementById("ImageForm").submit();
+    //document.getElementById("ImageForm").submit();
 
     var formData = new FormData($("#ImageForm")[0]);
     $.ajax({
@@ -3204,7 +3136,7 @@ function progressHandlingFunction(evt) {
 }
 
 function OnUploadImageOK(result) {
-    Blahgua.GetBlahWithStats(CurrentBlah._id,  "130101", "130331", function(theBlah) {
+    Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331", function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "BlahRoll";
         OpenBlah(CurrentBlah);
@@ -3220,7 +3152,7 @@ function UpdateBlahInfoArea() {
             break;
         case "polls":
             $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
-            function() { UpdateAskAuthorPage(); })
+                function() { UpdateAskAuthorPage(); })
             break;
         default:
             $("#AdditionalInfoDiv").text("A normalish blah that needs no extra info");
@@ -3234,7 +3166,7 @@ function HandleFilePreview() {
         $(".uploadimage").css({"background-image": theFile});
 
     }
-  
+
 
 }
 
@@ -3365,7 +3297,7 @@ function GetSubChannelsOK(newChannelList) {
         });
         document.getElementById(newChannelList[0].Y).innerHTML += newHTML;
     } else {
-         //to do - add some text about how there are no channels...
+        //to do - add some text about how there are no channels...
         var who = event | window.event;
         var what = who.target | who.srcElement;
     }
@@ -3474,31 +3406,31 @@ function DoDemotePreview() {
 }
 
 // Prediction Logic
- function SetPredictResponse(val) {
-     if (IsUserLoggedIn) {
-         if (IsUsersOwnBlah()) {
+function SetPredictResponse(val) {
+    if (IsUserLoggedIn) {
+        if (IsUsersOwnBlah()) {
             alert("You can't vote on your own prediction");
-         } else {
-             // they can vote
-             Blahgua.SetUserPredictionVote(CurrentBlah._id, val,
-                 function(json) {
-                     Blahgua.GetBlah(CurrentBlah._id,
-                         function(theBlah) {
-                             CurrentBlah = theBlah;
-                             UpdatePredictPreviewPage();
-                         });
-                 },
-             function (theErr) {
-                 alert("It failed!");
-                 OnFailure(theErr);
-             });
-         }
+        } else {
+            // they can vote
+            Blahgua.SetUserPredictionVote(CurrentBlah._id, val,
+                function(json) {
+                    Blahgua.GetBlah(CurrentBlah._id,
+                        function(theBlah) {
+                            CurrentBlah = theBlah;
+                            UpdatePredictPreviewPage();
+                        });
+                },
+                function (theErr) {
+                    alert("It failed!");
+                    OnFailure(theErr);
+                });
+        }
 
-     } else {
-         // flash the vote prompt or something..
-         alert("You must be logged in to pile on to a prediction");
-     }
- }
+    } else {
+        // flash the vote prompt or something..
+        alert("You must be logged in to pile on to a prediction");
+    }
+}
 
 function SetExpPredictResponse(val) {
     if (IsUserLoggedIn) {
@@ -3527,11 +3459,11 @@ function SetExpPredictResponse(val) {
 }
 
 function ta(obj){
-var val=$(obj).val().length;
-if(val>128){
-alert("You should keep it in 128 character");
-$(obj).val($(obj).val().substring(0,128))
-}
+    var val=$(obj).val().length;
+    if(val>128){
+        alert("You should keep it in 128 character");
+        $(obj).val($(obj).val().substring(0,128))
+    }
 }
 
 function DoCreateBlahTitleFocus() {
@@ -3680,10 +3612,10 @@ function UpdateSelfHistory() {
     Blahgua.GetUserBlahs(function (blahList) {
         var newHTML = "";
         if (blahList.length > 0) {
-        $.each(blahList, function (index, item) {
-            newHTML = CreateUserBlahHTML(item);
-            blahsDiv.append(newHTML);
-        })
+            $.each(blahList, function (index, item) {
+                newHTML = CreateUserBlahHTML(item);
+                blahsDiv.append(newHTML);
+            })
         } else {
             newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
             blahsDiv.append(newHTML);
@@ -3736,7 +3668,7 @@ function CreateUserCommentHTML(theComment) {
 
 
 function DoOpenUserBlah(blahId) {
-    Blahgua.GetBlahWithStats(blahId,  "130101", "130331", function(theBlah) {
+    Blahgua.GetBlahWithStats(blahId, "130101", "130331", function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "UserBlahList";
         OpenBlah(blahId);
@@ -3799,6 +3731,7 @@ function UpdateSelfStats() {
 
     });
 }
+
 
 
 

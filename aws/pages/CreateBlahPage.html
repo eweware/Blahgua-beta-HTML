@@ -1,24 +1,41 @@
 <html>
 <body>
 <div id="CreateBlahPage">
-    <table class="createblahheadline">
-        <tr>
-            <td class="createblahheadlinephotoframe">
-                <div class="createblahheadlinephoto"></div></td>
-            <td id="CreateBlahNicknameDiv" class="BlahgerNickName"></td>
 
-            <td class="createblahheadlineoptionframe">
-                <div class="optioncover1" onmouseover="this.style.height=18;" onmouseout="this.style.height=40;">
-                    <iframe  class="optioncover2" frameborder="0" src="/about:blank"></iframe>
-                    <div class="optioncover3">
-                        <div class="optioncover4" id="pagechoice"></div>
-                    </div>
-                </div>
-                <select id="BlahTypeList" onchange="UpdateBlahInfoArea(); return false;" class="createblahheadlineoption"></select>
+        <table class="createblahheadline">
+        	<tr>
+        		<td class="createblahheadlinephotoframe">
+        			<div class="createblahheadlinephoto"></div></td>
+                <td id="CreateBlahNicknameDiv" class="BlahgerNickName"></td>
+                <td width="25%">
+                	<div id="doselect" style="margin-top:-20px">
+<div id="mySel">
+	<input id="mySelInput" value="ADS" type="text" onchange="doselect()"> 
+	<input id="mySelButton" type="button" value="v" onclick="doselect()">
+<ol id="mySelOptions">
+    <li><a href="">SAYS</a></li>
+    <li><a href="">PREDICTS</a></li>
+    <li><a href="">LEAKS</a></li>
+    <li><a href="">POLLS</a></li>
+</ol>
+</div>
+</div>
+                
+                </td>
+                
+    
+            </tr>
+        </table>
+        <div style="overflow-y:auto;" id="createcontent" >
+        <table class="createblahscrolltable">
+         <tr height="10px"></tr>
+          <tr>
+          <td class="shorttitle">SHORT TITLE</td>
+          </tr>
+          <tr>
+            <td colspan="2" >
+            <textarea id="BlahHeadline" class="inputheadlineframe" onkeyup="HandleHeadlineTextInput(this);" onchange="HandleHeadlineTextInput(this);"></textarea>
 
-            </td>
-        </tr>
-    </table>
     <div style="overflow-y:auto;" id="createcontent" >
         <table class="createblahscrolltable">
             <tr height="10px"></tr>
@@ -76,11 +93,28 @@
 
 
 
+
+<table class="creatblahfooter">
+    <tr style="width:100%">
+        <td ><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">Cancel</button></td>
+
+        <td><button id="PublishBlahBtn" onclick="CreateBlah(); return false;" class="creatblahbutton">Publish</button></td>
+    </tr>
+    <tr>
+   
+    <div id="ProgressDiv" style="display:none">
+        <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+            <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+        </div>
+    </div>
+    </tr>
+</table>
+
     <table class="creatblahfooter" >
         <tr>
             <td><button onclick="CancelCreate(); return false;" class="cancleblahbutton" style="margin-left:10px;">CANCEL</button></td>
 
-            <td align="right"><button disabled="disabled" id="PublishBlahBtn" onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
+            <td><button  id="PublishBlahBtn" onclick="CreateBlah(); return false;" class="creatblahbutton">PUBLISH</button></td>
         </tr>
         <tr>
             <div id="ProgressDiv" style="display:none">
@@ -90,6 +124,7 @@
             </div>
         </tr>
     </table>
+
 
 
 

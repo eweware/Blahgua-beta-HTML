@@ -1,4 +1,8 @@
-﻿@media (max-width: 400px) {
+﻿@media {
+	max-width: 400px;
+	}
+
+
 @-ms-viewport {
 		width: 320px;
 	}
@@ -929,11 +933,9 @@ a {
 .creatblahfooter
 {
     height:70px;
-	width:100%;
 	position:fixed;
 	bottom:0px;
-
-	
+    width:100%;
 }
 .cancleblahbutton
 {
@@ -958,6 +960,7 @@ a {
 	font-size:16px;
 	font-weight:strong;
 	font-family:'Arimo',sans-serif;
+    
 }
 
 .creatblahbutton[disabled]
@@ -1074,7 +1077,7 @@ a {
 }
 
 .badgeimage {
-    width:32px;
+    width:22px;
     height:32px;
     margin-left: 8px;
     margin-right: 8px;
@@ -1272,12 +1275,12 @@ a {
 }
 
 .author-image {
-    width:64px;
-    height:64px;
+    width:40px;
+    height:40px;
     border-style: solid;
     border-width: 1px;
     border-color:white;
-    margin: 8px;
+    margin: 10px;
 }
 
 .BlahButton {
@@ -1295,6 +1298,7 @@ a {
     border:0px;
     top:0px;
     width:100%;
+    background-color:#999999;
 }
 
 .fullBlahgerName {
@@ -1312,8 +1316,8 @@ a {
 }
 
 .CloseButton {
-    width:52px;
-    height:52px;
+    width:32px;
+    height:32px;
     border:none;
     background-color: white;
     color:red;
@@ -1444,6 +1448,8 @@ a {
     padding-right:16px;
     padding-top:4px;
 }
+
+/* self pages */
 
 /* self pages */
 .SelfPageDiv {
@@ -1592,17 +1598,35 @@ a {
 }
 
 
+
+.uploadimage {
+
+}
+.userName
+{
+
+}
+.DescriptionInput
+{
+
+
+}
+#description
+{
+
+}
+
 /* media-specific styles */
 
- @media only screen and (max-device-width: 480px) {
-     /* iphone specific fixes */
-     .BlahDiv {
+@media only screen and (max-device-width: 480px) {
+    /* iphone specific fixes */
+    .BlahDiv {
 
-         border-radius: 0px;
-         box-shadow: none;
+        border-radius: 0px;
+        box-shadow: none;
 
-     }
- }
+    }
+}
 
 @media (max-width: 400px) {
 @-ms-viewport {
