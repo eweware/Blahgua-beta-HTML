@@ -9,9 +9,13 @@
         <div class="BadgeTitleBar"></div>
         <div id="badgedialog" class="BadgeDialog"></div>
     </div>
-    <div class="accordian">
+    <div class="accordion">
     <h2>Account</h2>
-    <table class="attribute-table">
+        <div class="accordion-body">
+            <div class="instruction-text">
+                set up your nickname and user image
+            </div>
+    <table class="attribute-table accordion-content">
         <thead>
         <tr>
             <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -30,11 +34,16 @@
         </tbody>
     </table>
         </div>
+    </div>
 
-    <div class="accordian">
+    <div class="accordion">
         <h2>Location</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                share your location information to get better targeted blahs!
+            </div>
 
-    <table class="attribute-table">
+    <table class="attribute-table accordion-content" style="display:none">
         <thead>
         <tr>
             <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -61,10 +70,16 @@
         </tbody>
     </table>
     </div>
-    <div class="accordian">
-        <h2>Demographics</h2>
+    </div>
 
-    <table class="attribute-table">
+    <div class="accordion">
+        <h2>Demographics</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                share your demographics and you can see the demographics of others as well!
+            </div>
+
+    <table class="attribute-table accordion-content" style="display:none">
         <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -91,10 +106,15 @@
         </tbody>
     </table>
     </div>
+    </div>
 
-    <div class="accordian">
+    <div class="accordion">
         <h2>Permissions</h2>
-    <table class="permission-table">
+        <div class="accordion-body">
+            <div class="instruction-text">
+                set whether your profile details are private, visiable only to other members, or visible to the public
+            </div>
+    <table class="permission-table accordion-content" style="display:none">
         <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -168,15 +188,47 @@
         </tr>
     </table>
         </div>
+    </div>
 
-    <div>
 
+        <div class="accordion">
     <h2>Badges</h2>
-    <h3>Current Badges</h3>
-    <div id="BadgesDiv"></div>
-    <button onclick="ShowBadgeSelection(); return false;">Get More Badges</button>
-    <div id="BadgeAuthorityArea"></div>
-    <hr>
+            <div class="accordion-body">
+                <div class="instruction-text">
+                    badges let you share verified facts about yourself without sharing your identity
+                </div>
+        <table class="attribute-table accordion-content" style="display:none">
+
+            </thead>
+            <tbody id="BadgesDiv">
+
+            </tbody>
+        </table>
+            </div>
+        </div>
+
+
+    <div class="accordion">
+        <h2>Badging Authorities</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                need badges?  get them from these badge authorities.
+            </div>
+        <table class="attribute-table accordion-content"  style="display:none">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Authority Name</th>
+                <th scope="col">Description</th>
+                <th scope="col" style="border-top-right-radius: 8px;"></th>
+            </tr>
+            </thead>
+            <tbody id="BadgeAuthorityArea">
+
+            </tbody>
+        </table>
+    </div>
+    </div>
+
     <table style="width:90%">
         <tr><td>
             <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" onclick="UpdateUserProfile(); return false;" >Update</button>
@@ -187,7 +239,7 @@
 
         </td>
         <td>
-            <button class="small-button" onclick="ForgetUser(); return false;">Forget Me on this machine</button>
+            <button class="small-button" onclick="ForgetUser(); return false;">Forget Me</button>
 
         </td></tr>
     </table>

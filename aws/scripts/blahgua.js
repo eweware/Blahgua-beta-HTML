@@ -524,6 +524,7 @@ function CloseBlah() {
         });
 
     }
+    BlahReturnPage = null;
 
 }
 
@@ -1507,17 +1508,16 @@ function UpdatePredictPreviewPage() {
 }
 
 function TimeOutBlahFocus() {
-    /*
-if (BlahPreviewTimeout != null) {
-clearTimeout(BlahPreviewTimeout);
-BlahPreviewTimeout = null;
-}
-FocusedBlah = null;
-CurrentBlah = null;
-$("#BlahPreviewItem").fadeOut();
-$("#LightBox").fadeOut();
-StartAnimation();
-*/
+    if (BlahPreviewTimeout != null) {
+    clearTimeout(BlahPreviewTimeout);
+    BlahPreviewTimeout = null;
+    }
+    FocusedBlah = null;
+    CurrentBlah = null;
+    $("#BlahPreviewItem").fadeOut();
+    $("#LightBox").fadeOut();
+    StartAnimation();
+
 }
 
 function UnfocusBlah(animate) {
@@ -2676,7 +2676,7 @@ function OnGetOwnProfileOK(theStats) {
     $("#StateInput").val(getSafeProperty(theStats, "H", ""));
     $("#ZipcodeInput").val(getSafeProperty(theStats, "I", ""));
 
-    // populate country codes
+    // populate country codes                                                      CurrentUser._d._o
     var newEl;
     $.each(ProfileSchema.J.DT, function(index, item){
             newEl = document.createElement("option");
@@ -2730,6 +2730,7 @@ function OnGetOwnProfileOK(theStats) {
 
     // badges
     UpdateBadgeArea();
+    ShowBadgeSelection();
     $("#SaveProfileBtn").attr("disabled", "disabled");
     $('input').change(function(){
         var validated = true;
@@ -2737,10 +2738,11 @@ function OnGetOwnProfileOK(theStats) {
        });
 
     // headers
-    $('.accordian h2').click(function(theEvent) {
-        $(this.parentElement).children("table").toggle('fast') ;
+    $('.accordion h2').click(function(theEvent) {
+        $(".accordion-content").hide();
+        $(this.parentElement).find(".accordion-content").show() ;
 
-    })
+    });
 
 }
 
@@ -2773,7 +2775,7 @@ function UpdateBadgeArea() {
             CreateAndAppendBadgeHTML(curBadge);
         });
     } else {
-        $("#BadgesDiv").text("You don't have no stinkin' badges!");
+        $("#BadgesDiv").html("<tr><td>You don't have no stinkin' badges!</tr></td>");
     }
 }
 
@@ -2781,7 +2783,7 @@ function CreateAndAppendBadgeHTML(theBadge) {
     Blahgua.getBadgeById(theBadge, function(fullBadge) {
         var newHTML = "";
         var imagePath = "http://blahgua-webapp.s3.amazonaws.com/img/generic-badge.png";
-        newHTML += "<div class='badgeholder'>";
+        newHTML += "<tr><td><div class='badgeholder'>";
         newHTML += "<div class='badgename'>";
         if (fullBadge.hasOwnProperty("K")) {
             imagePath = fullBadge.K;
@@ -2790,11 +2792,13 @@ function CreateAndAppendBadgeHTML(theBadge) {
         newHTML += fullBadge.N + "</div>";
         newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>"
         newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>"
-        newHTML += "</div>";
+        newHTML += "</div></td>";
+
+        newHTML += "</tr>";
         $("#BadgesDiv").append(newHTML);
     }, function (theErr) {
         var newHTML = "";
-        newHTML += "<div>Error loading Badge id=" + theBadge + "</div>";
+        newHTML += "<tr><td><div>Error loading Badge id=" + theBadge + "</div></td></tr>";
         $("#BadgesDiv").append(newHTML);
     });
 }
@@ -2949,11 +2953,7 @@ function UpdateChannelViewers() {
         clearTimeout(ViewerUpdateTimer);
         ViewerUpdateTimer = null;
     }
-    if (CurrentChannel == null) {
-        Blahgua.GetViewersOfUser(OnChannelViewersOK);
-    } else {
-        Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
-    }
+    Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
 
     ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
 }
@@ -3095,6 +3095,8 @@ function UnCodifyText(theText) {
 }
 
 function CreateBlah() {
+    // disable create button to prevent double-submit
+    document.getElementById("PublishBlahBtn").disabled = true;
     var blahType = $("#BlahTypeList").val();
     //var blahHeadline = escape($("#BlahHeadline").text());
     //var blahBody = escape($("#BlahBody").text());
@@ -3677,38 +3679,58 @@ function UpdateSelfHistory() {
 
     Blahgua.GetUserBlahs(function (blahList) {
         var newHTML = "";
+        if (blahList.length > 0) {
         $.each(blahList, function (index, item) {
             newHTML = CreateUserBlahHTML(item);
             blahsDiv.append(newHTML);
         })
-
-
+        } else {
+            newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
+            blahsDiv.append(newHTML);
+        }
     }, OnFailure);
     Blahgua.GetUserComments(function(commentList) {
         var newHTML = "";
-        $.each(commentList, function (index, item) {
-            newHTML = CreateUserCommentHTML(item);
+        if (commentList.length > 0) {
+            $.each(commentList, function (index, item) {
+                newHTML = CreateUserCommentHTML(item);
+                commentDiv.append(newHTML);
+            })
+        } else {
+            newHTML = "<tr><td colspan='2'>You have not created any comments yet.</td></tr>";
             commentDiv.append(newHTML);
-        })
+        }
     }, OnFailure);
+    // headers
+    $('.accordion h2').click(function(theEvent) {
+        $(".accordion-content").hide();
+        $(this.parentElement).find(".accordion-content").show() ;
+
+    });
 
 }
 
 function CreateUserBlahHTML(theBlah) {
     var newHTML = "";
-    newHTML += "<li><a href='#' onclick=\"";
+    newHTML += "<tr>";
+    newHTML += "<td style='width:100%'><a href='javascript:void(null)' onclick=\"";
     newHTML += "DoOpenUserBlah('" + theBlah._id + "'); return false;\">";
-    newHTML += theBlah.F;
-    newHTML += "</a></li>"
+    newHTML += theBlah.T;
+    newHTML += "</a></td>";
+    newHTML += "<td>" + ElapsedTimeString(new Date(theBlah.c)) + "</td>";
+    newHTML += "</tr>";
     return newHTML;
 }
 
 function CreateUserCommentHTML(theComment) {
     var newHTML = "";
-    newHTML += "<li><a href='#' onclick=\"";
-    newHTML += "DoOpenUserComment('" + theComment._id + "'); return false;\">";
+    newHTML += "<tr>"
+    newHTML += "<td style='width:100%'><a href='javascript:void(null)' onclick=\"";
+    newHTML += "DoOpenUserComment('" + theComment.B + "'); return false;\">";
     newHTML += theComment.T;
-    newHTML += "</a></li>"
+    newHTML += "</a></td>";
+    newHTML += "<td>" + ElapsedTimeString(new Date(theComment.c)) + "</td>"
+    newHTML += "</tr>";
     return newHTML;
 }
 
@@ -3721,9 +3743,61 @@ function DoOpenUserBlah(blahId) {
     }, OnFailure);
 }
 
+function DoOpenUserComment(blahId) {
+    Blahgua.GetBlahWithStats(blahId,  "130101", "130331", function(theBlah) {
+        CurrentBlah = theBlah;
+        BlahReturnPage = "UserBlahList";
+        OpenBlah(blahId);
+    }, OnFailure);
+}
+
+function createDateString(theDate) {
+    var newString = "";
+    var year = (theDate.getFullYear() - 2000).toString();
+    var month = theDate.getMonth() + 1;
+    if (month < 10)
+        month = "0" + month.toString();
+    else
+        month = month.toString();
+    var day = theDate.getDate();
+    if (day < 10)
+        day = "0" + day.toString();
+    else
+        day = day.toString();
+    newString = year + month + day;
+    return newString;
+}
+
 function UpdateSelfStats() {
+    // load the stats
+    var numStatsDaysToShow = 7;
+    var endDate = new Date(Date.now());
+    var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
 
+    var start = createDateString(startDate);
+    var end = createDateString(endDate);
+    Blahgua.GetUserStats(start, end, function(statsObj) {
+        // refresh all of the stat markets and charts
+        var stats = statsObj[0];
+        // strength and controvery
+        var userStrength = getSafeProperty(statsObj, 'S', 0);
+        var userContro = getSafeProperty(statsObj, 'K', 0);
 
+    }, function (theErr) {
+        // indicate that the stats are not available
+        var sorryText = "<div>Sorry, stats are not available now.</div>";
+        $("#UserStandingDiv").append(sorryText);
+        $("#UserActivityDiv").append(sorryText);
+        $("#UserBlahActivityDiv").append(sorryText);
+        $("#UserStatsTable").append("<tr><td>" + sorryText + "</td></tr>");
+
+    });
+    // headers
+    $('.accordion h2').click(function(theEvent) {
+        $(".accordion-content").hide();
+        $(this.parentElement).find(".accordion-content").show() ;
+
+    });
 }
 
 

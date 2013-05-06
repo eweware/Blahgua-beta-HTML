@@ -138,13 +138,14 @@ function BlahguaObject() {
 
 
     //  ACTUAL WORKING FUNCTIONS
-    this.GetUserStats = function (OnSuccess, OnFailure) {
+    this.GetUserStats = function (start, end, OnSuccess, OnFailure) {
         /// <summary>Returns the stats of the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>the user stats object</returns>
-        var paramStr = '{}';
-        this.CallGetMethod("GetUserStats", paramStr, OnSuccess, OnFailure);
+        var paramStr = '?stats=true&s=' + start + '&e=' + end;
+        var method = "users/info" + paramStr;
+        this.CallGetMethod(method, "{}", OnSuccess, OnFailure);
     };
 
     this.GetChannelTypes = function (OnSuccess, OnFailure) {

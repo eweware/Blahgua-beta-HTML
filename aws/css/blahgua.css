@@ -1454,13 +1454,20 @@ a {
     overflow-x: hidden;
     overflow-y: auto;
     background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
- }
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+}
 
 .SelfPageDiv h2 {
     background-color:#add8e6;
     font-family: 'Arimo', sans-serif;
     margin-top: 0px;
     padding-left: 10px;
+    margin-bottom: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .user-profile-description {
@@ -1527,6 +1534,7 @@ a {
 .permission-table th {
     text-align: center;
     padding: 8px;
+
 }
 
 .attribute-table {
@@ -1561,6 +1569,27 @@ a {
     padding: 8px;
 }
 
+.instruction-text {
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    width: 90%;
+    text-align: left;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding: 8px;
+}
+
+.accordion-body {
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    background-color: rgb(217, 229, 233);
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 16px;
+    padding-bottom: 1px;
+    box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
+
+}
 
 
 /* media-specific styles */
