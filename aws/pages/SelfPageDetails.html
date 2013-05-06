@@ -38,65 +38,60 @@
         </div>
 
     <div class="accordian">
-        <h2>Location</h2>
-
-    <table class="attribute-table">
-        <thead>
-        <tr>
-            <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-            <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-        </tr>
-        </thead>
-        <tbody>
+        <h2 class="location">Location</h2>
+    <table class="location-table" width="100%" >       
         <tr>
             <td class="attribute-col">City</td>
-            <td><input id="CityInput" type="text"></td>
+             <td class="attribute-col">State</td>
+           
         </tr>
         <tr>
-            <td class="attribute-col">State</td>
-            <td>  <input id="StateInput" type="text"></td>
+           <td><input id="CityInput" type="text" class="locationinputstyle"></td>
+          
+            <td>  <input id="StateInput" type="text" class="locationinputstyle"></td>
         </tr>
         <tr>
             <td class="attribute-col">Zipcode</td>
-            <td><input id="ZipcodeInput" type="text"></select></td>
+              <td class="attribute-col">Country</td>
         </tr>
         <tr>
-            <td class="attribute-col">Country</td>
-            <td><select id="CountryInput">  </select> </select></td>
+            <td><input id="ZipcodeInput" type="text" class="locationinputstyle"></td>
+           
+             <td><input id="CountryInput" type="text" class="locationinputstyle"></td>
+        
         </tr>
-        </tbody>
+        <tr width="100%"><hr/></tr>
     </table>
     </div>
     <div class="accordian">
-        <h2>Demographics</h2>
-
-    <table class="attribute-table">
-        <thead>
-            <tr>
-                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h2 class="demographics">Demographics</h2>
+          <table class="demographics-table" width="100%">
             <tr>
                 <td class="attribute-col">Date of Birth</td>
-                <td>    <input id="DOBInput" type="date"></td>
+                     
+            </tr>
+            <tr width="100%">
+              <td><input id="DOBInput" type="date" class="dobinput"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Gender</td>
-                <td> <select id="GenderInput">  </select></td>
+               <td class="attribute-col">Gender</td>   
+               <td class="attribute-col">Ethnicity</td>  
+            </tr>
+            <tr width="100%">              
+                <td> <select id="GenderInput" width="70%" height="30px">  </select></td>
+                 <td><select id="EthnicityInput" width="70%" height="30px">  </select></td>
             </tr>
             <tr>
-                <td class="attribute-col">Ethnicity</td>
-                <td><select id="EthnicityInput">  </select></td>
+                
+                 <td class="attribute-col">Income</td>
             </tr>
-            <tr>
-                <td class="attribute-col">Income</td>
-                <td><select id="IncomeInput">  </select></td>
+            <tr width="100%">              
+                <td><select id="IncomeInput" width="120%" height="30px">  </select></td>
             </tr>
-        </tbody>
-    </table>
-    </div>
+            
+         </table>
+         <div width="100%"><hr/><div>
+       </div>
 
     <div class="accordian">
         <h2>Permissions</h2>

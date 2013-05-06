@@ -1602,7 +1602,22 @@ float:left;
     border-collapse: collapse;
     margin:20px;
 }
-
+.location-table
+{
+    position:relative;
+    top:-170px;
+    left:0px;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
+}
+.locationinputstyle
+{
+	width:70%;
+	height:30px;
+	border-radius:8px;
+}
 .attribute-table thead {
     background-color: #78B5E6;
 }
@@ -1683,4 +1698,37 @@ float:left;
 	top:-170px;
 	padding-left:20px;
 	padding-right:20px;
+}
+.location
+{
+	font-size:24px;
+	font-weight:14px;
+	color:#545253;
+	position:relative;
+	top:-150px;
+}
+.demographics
+{
+	font-size:24px;
+	font-weight:14px;
+	color:#545253;
+	position:relative;
+	top:-150px;
+	
+}
+.dobinput
+{
+	width:120%;
+	height:40px;
+	border-radius:8px;
+}
+.demographics-table
+{
+	position:relative;
+    top:-160px;
+    left:0px;
+    border-radius: 8px;
+    font-family: 'Arimo', sans-serif;
+    border-collapse: collapse;
+    margin:20px;
 }
