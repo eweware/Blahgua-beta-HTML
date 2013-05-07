@@ -2,20 +2,20 @@
 <html>
 
 <body>
-<div id="BlahPreview">
+<div id="BlahPreview" onclick="UnfocusBlah(true); return false;">
     <table width="100%" class="BlahPreviewTable">
-        <tr class="BlahPreviewHeader"><td colspan="4"><span id="PreviewBlahNickname" class="previewBlahgerName">A female blahger from Santa Monica, CA says: </span></td>
+        <tr class="BlahPreviewHeader"><td colspan="4"><span id="PreviewBlahNickname" class="previewBlahgerName"></span></td>
             <td align="right"><img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
-                <span class="PreviewViewerCount" id="PreviewViewerCount">24</span></td></tr>
+                <span class="PreviewViewerCount" id="PreviewViewerCount"></span></td></tr>
     </table>
-    <div class="BlahPreviewHeadline" style="width:100%">
+    <div class="BlahPreviewHeadline" style="width:100%" onclick="OpenFocusedBlah(); return false;">
         <span id="BlahPreviewHeadline"></span>
     </div>
     <div class="blah-preview-content" id="BlahPreviewScrollContainer">
 
         <table class="BlahPreviewTable" width="100%">
             <tr><td><div style="width:100%; text-align: center">
-                <img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage" >
+                <img src="" alt="Blah Image" class="BlahPreviewImage" id="blahPreviewImage"  onclick="window.event.cancelBubble = true; OpenFocusedBlah(); return false;">
             </div></td></tr>
             <tr><td class="BlahPreviewBody" id="BlahPreviewBody"></td></tr>
             <tr><td class="BlahPreviewExtra" id="BlahPreviewExtra"></td></tr>
@@ -25,21 +25,24 @@
 
     <table width="100%" class="BlahPreviewFooter"   height="80px">
         <tr id="PreviewRowVote" style="height:70px;width:100%">
-            <td width="20%" ></td>
+            <td width="5%"></td>
             <td width="20%" align="center" class="preview-footer-button">
-                <img id="PreviewPromoteBlah" onclick="DoPromotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png"><br/>
+                <img id="PreviewPromoteBlah" onclick="SetBlahPreviewVote(1); window.event.cancelBubble = true;  return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png"><br/>
                 <span id="PreviewUserPromoteSpan" class="statsText"></span>
-
             </td>
             <td width="20%" align="center" class="preview-footer-button">
-                <img id="PreviewDemoteBlah" onclick="DoDemotePreview(); return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png"> <br/>
+                <img id="PreviewDemoteBlah" onclick="SetBlahPreviewVote(-1); window.event.cancelBubble = true; return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png"> <br/>
                 <span id="PreviewUserDemoteSpan"  class="statsText"></span>
             </td>
             <td width="20%" align="center" class="preview-footer-button">
-                <img width="36px" alt="viewers" onclick="DoAddCommentPreview(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
+                <img id="PreviewOpenBlah" onclick="OpenFocusedBlah(); window.event.cancelBubble = true; return false;" width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_open.png"><br/>
+                <span id="PreviewOpenBlahSpan" class="statsText"></span>
+            </td>
+            <td width="20%" align="center" class="preview-footer-button">
+                <img width="36px" alt="viewers" onclick="DoAddCommentPreview(); window.event.cancelBubble = true; return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
                 <br/><span class="statsText" id="previewComments">65</span>
             </td>
-            <td width="20%"></td>
+            <td width="5%"></td>
 
         </tr>
         <tr id="PreviewRowSignIn">

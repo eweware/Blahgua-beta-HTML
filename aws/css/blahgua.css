@@ -305,16 +305,6 @@ body {
 
 
 
-.FullBlahViewerCount {
-    position:relative;
-    top:-6px;
-    padding-right:0px;
-    font-size:14px;
-    font-family: 'Arimo', sans-serif;
-    padding-left:4px;
-    width:50px;
-}
-
 .FullBlahTable {
     width: 100%;
     border-spacing:0;
@@ -329,8 +319,7 @@ body {
 .statsText
 {
 	font-size:12px;
-	font-weight:bold;
-	margin-top:100px;
+    font-family: 'Arimo', sans-serif;
 }
 
 .statsText1
@@ -1098,6 +1087,7 @@ a {
 .BlahRowVote
 {
 	height:70px;
+    width: 100%;
 }
 .shorttitle
 {   font-family:'Arimo',sans-serif;
@@ -1143,7 +1133,8 @@ a {
 }
 #createcontent
 {
-	background: url("white.jpg");
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+
 }
 
 
@@ -1418,6 +1409,7 @@ a {
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 5px rgba(0,0,0,.3);
     z-index: 2;
+    width:100%;
 }
 
 .blah-body-divider {

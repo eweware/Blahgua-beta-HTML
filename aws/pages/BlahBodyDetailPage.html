@@ -48,27 +48,32 @@
     
     <table  class="FullBlahTableFooter">
         <tr id="BlahRowVote" class="BlahRowVote">
-            <td width="25%" align="center"  >
-            <img width="36px" alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
+            <td width="20%" align="center"  >
+            <img width="36px" alt="views" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
                 <br />
-                <span class="FullBlahViewerCount" id="FullBlahViewerCount">24</span>
+                <span class="statsText" id="FullBlahViewerCount"></span>
             </td>
-            <td width="25%" align="center" id="one">
-                <img id="PromoteBlahImage" width="36px" alt="viewers"  onclick="DoPromoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
+            <td width="20%" align="center">
+                <img width="36px" alt="opens"  src="http://blahgua-webapp.s3.amazonaws.com/img/black_open.png">
+                <br/>
+                <span class="statsText" id="FullBlahOpenCount"></span>
+            </td>
+            <td width="20%" align="center" id="one">
+                <img id="PromoteBlahImage" width="36px" alt="promote"  onclick="SetBlahVote(1); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png">
                 <br/>
                 <span id="UserPromoteSpan" class="statsText"></span>
             </td>
-            <td width="25%" align="center">
-                <img id="DemoteBlahImage" width="36px" alt="viewers"  onclick="DoDemoteBlah(); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
+            <td width="20%" align="center">
+                <img id="DemoteBlahImage" width="36px" alt="demote"  onclick="SetBlahVote(-1); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png">
                 <br/>
                 <span id="UserDemoteSpan" class="statsText"></span>
             </td>
-            <td width="25%" align="center">
+            <td width="20%" align="center">
                 <img width="36px" alt="comments"  onclick="SetBlahDetailPage('Comments'); return false;" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png">
                 <br/>
-                <span class="statsText" id="fullBlahComments">65</span>
+                <span class="statsText" id="fullBlahComments"></span>
             </td>
-            <td width="20%"></td>
+
         </tr>
         <tr id="BlahRowSignIn">
             <td colspan="5" style="text-align: center">
