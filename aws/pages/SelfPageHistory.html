@@ -6,13 +6,46 @@
 </head>
 <body>
 <div id="SelfPageHistoryDiv" >
-    <h2>Your Blahs</h2>
-    <ul id="UserBlahList"></ul>
-    </ul>
-    <hr>
-    <h2>Your Comments</h2>
-    <ul id="UserCommentList"></ul>
-    </ul>
+    <div class="accordion">
+        <h2>Your Blahs</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                need badges? get them from these badge authorities.
+            </div>
+            <table class="attribute-table accordion-content">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Blah</th>
+                    <th scope="col" style="border-top-right-radius: 8px;">Date</th>
+                </tr>
+                </thead>
+                <tbody id="UserBlahList">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="accordion">
+        <h2>Your Comments</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                See all of the comments you have made.
+            </div>
+            <table class="attribute-table accordion-content" style="display:none">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Comment</th>
+                    <th scope="col" style="border-top-right-radius: 8px;">Date</th>
+                </tr>
+                </thead>
+                <tbody id="UserCommentList">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
