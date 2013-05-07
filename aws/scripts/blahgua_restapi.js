@@ -571,8 +571,9 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the user's groups</returns>
+        var paramStr = 'authorId=' + CurrentUser._id;
         var methodName = "comments";
-        this.CallGetMethod(methodName, "{}", OnSuccess, OnFailure);
+        this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
 
@@ -635,9 +636,9 @@ function BlahguaObject() {
     this.GetBlahWithStats = function (BlahID, StartDate, EndDate, OnSuccess, OnFailure) {
 
         var paramStr = '';
-//        var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
+       var methodName = "blahs/" + BlahID  + "?stats=true&s=" + StartDate + "&e=" + EndDate;
 
-        var methodName = "blahs/" + BlahID  + "?stats=true";
+        //var methodName = "blahs/" + BlahID  + "?stats=true";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 

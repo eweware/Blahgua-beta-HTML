@@ -46,6 +46,7 @@ var kLargeBlahStrength = .7;
 var kSmallBlahStrength = .2;
 var kBannerHighlightColor = "#FFFFFF";
 var kBannerColor = "#FF00FF";
+var numStatsDaysToShow = 7;
 
 
 function GlobalReset() {
@@ -601,7 +602,12 @@ function SetBlahDetailPage(whichPage) {
 
 function UpdateBlahOverview() {
     if (CurrentBlah == null) {
-        Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
+        var EndDate = new Date(Date.now());
+        var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+        var startStr = createDateString(StartDate);
+        var endStr = createDateString(EndDate);
+
+        Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
             CurrentBlah= theBlah;
             UpdateBlahOverview();
         }, OnFailure);
@@ -739,7 +745,12 @@ function DoAddImageToBlah() {
 }
 
 function OnAddImageOK(data) {
-    Blahgua.GetBlahWithStats(CurrentBlahId, "130101", "130331", function (theBlah) {
+    var EndDate = new Date(Date.now());
+    var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+    var startStr = createDateString(StartDate);
+    var endStr = createDateString(EndDate);
+
+    Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
         CurrentBlah= theBlah;
         SetBlahDetailPage("Overview");
     }, OnFailure);
@@ -928,7 +939,7 @@ function UpdateBlahAuthor() {
 
 
 function getSafeProperty(obj, prop, defVal) {
-    if(obj.hasOwnProperty(prop)) {
+    if(obj && obj.hasOwnProperty(prop)) {
         return obj[prop];
     } else {
         return defVal;
@@ -963,6 +974,7 @@ function UpdateFullBlahBody() {
     var nickNameStr = CurrentBlahNickname;
     var blahTypeStr = GetBlahTypeStr();
     var isOwnBlah;
+    var blahChannelStr = GetChannelNameFromID(CurrentBlah.G);
 
 
     if (IsUserLoggedIn) {
@@ -977,7 +989,8 @@ function UpdateFullBlahBody() {
 
     // stats
     //document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
-    document.getElementById("FullBlahNickName").innerHTML = nickNameStr + " " + blahTypeStr;
+    document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
+    document.getElementById("BlahSpeechAct").innerHTML = blahTypeStr + " in " + blahChannelStr;
 
     // update the opens
     Blahgua.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
@@ -1534,6 +1547,7 @@ function DismissPreview() {
     CurrentBlah = null;
     $("#BlahPreviewItem").hide();
     document.getElementById("blahPreviewImage").style.display = "none";
+    document.getElementById("blahPreviewImage").src = "";
     $("#BlahPreviewExtra").empty();
     $("#LightBox").hide();
 }
@@ -2364,6 +2378,18 @@ function GetChannelByName(theName, theList) {
     return theEl;
 }
 
+function GetChannelNameFromID(channelID) {
+    var theName = "";
+    for (curIndex in ChannelList) {
+        if (ChannelList[curIndex]._id == channelID) {
+            theName = ChannelList[curIndex].N;
+            break;
+        }
+    }
+
+    return theName;
+}
+
 function GetUserChannels() {
     if (IsUserLoggedIn) {
         Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
@@ -3085,7 +3111,12 @@ function OnCreateBlahOK(json) {
     if ($("#BlahImage").val() != "") {
         UploadBlahImage(CurrentBlah._id);
     } else {
-        Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331",function(theBlah) {
+        var EndDate = new Date(Date.now());
+        var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+        var startStr = createDateString(StartDate);
+        var endStr = createDateString(EndDate);
+
+        Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
             CurrentBlah = theBlah;
             BlahReturnPage = "BlahRoll";
             OpenBlah(CurrentBlah);
@@ -3136,7 +3167,12 @@ function progressHandlingFunction(evt) {
 }
 
 function OnUploadImageOK(result) {
-    Blahgua.GetBlahWithStats(CurrentBlah._id, "130101", "130331", function(theBlah) {
+    var EndDate = new Date(Date.now());
+    var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+    var startStr = createDateString(StartDate);
+    var endStr = createDateString(EndDate);
+
+    Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "BlahRoll";
         OpenBlah(CurrentBlah);
@@ -3668,7 +3704,12 @@ function CreateUserCommentHTML(theComment) {
 
 
 function DoOpenUserBlah(blahId) {
-    Blahgua.GetBlahWithStats(blahId, "130101", "130331", function(theBlah) {
+    var EndDate = new Date(Date.now());
+    var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+    var startStr = createDateString(StartDate);
+    var endStr = createDateString(EndDate);
+
+    Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "UserBlahList";
         OpenBlah(blahId);
@@ -3676,7 +3717,12 @@ function DoOpenUserBlah(blahId) {
 }
 
 function DoOpenUserComment(blahId) {
-    Blahgua.GetBlahWithStats(blahId,  "130101", "130331", function(theBlah) {
+    var EndDate = new Date(Date.now());
+    var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+    var startStr = createDateString(StartDate);
+    var endStr = createDateString(EndDate);
+
+    Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
         CurrentBlah = theBlah;
         BlahReturnPage = "UserBlahList";
         OpenBlah(blahId);
@@ -3719,7 +3765,6 @@ function makeDateRangeAxis(startDate, endDate) {
 
 function UpdateSelfStats() {
     // load the stats
-    var numStatsDaysToShow = 7;
     var endDate = new Date(Date.now());
     var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
 
@@ -3759,8 +3804,8 @@ function UpdateSelfStats() {
 
 
         // Your Activity
-        var viewData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
-        var openData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
+        var viewData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["v", "V"]);
+        var openData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["o", "O"]);
         var blahsMade = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "X");
         var commentsMade  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
         var catAxis = makeDateRangeAxis(startDate, endDate);
@@ -3782,12 +3827,17 @@ function UpdateSelfStats() {
             xAxis: {
                 categories: catAxis
             },
-            yAxis: {
+            yAxis: [{
                 min:0,
-                title: { text: null}
-            },
+                title: { text: "views & opens"}
+            },  {
+                min:0,
+                opposite: true,
+                endOnTick: true,
+                title: { text: "creation"}
+            }],
             series: [{
-                type: 'spline',
+                type: 'areaspline',
                 data: viewData,
                 name: "#blahs viewed"
             },
@@ -3797,20 +3847,136 @@ function UpdateSelfStats() {
                     name: "#blahs opened"
                 } ,
                 {
-                    type: 'areaspline',
+                    type: 'column',
                     data: blahsMade,
-                    name: "#blahs made"
+                    name: "#blahs",
+                    yAxis: 1
                 },
                 {
-                    type: 'areaspline',
+                    type: 'column',
                     data: commentsMade,
-                    name: "#comments made"
+                    name: "#comments",
+                    yAxis: 1
                 }]
         });
 
         // Your Blahs and Comments
+        var otherUpVotes = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
+        var otherDownVotes = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj,"DT");
+        var otherViews = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
+        var otherOpens  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "O");
+        var otherComments  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "C");
 
-        // Your Stats
+        var reverseDown = [];
+        for (var curIndex in otherDownVotes) {
+            reverseDown.push(-otherDownVotes[curIndex]);
+        }
+
+
+        $('#UserBlahActivityDiv').highcharts({
+            title: {
+                text:"User Engagement"
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            credits: {
+                enabled:false
+            },
+            xAxis: {
+                categories: catAxis
+            },
+            yAxis: [{
+                min:0,
+                title: { text: "views & opens"}
+            },  {
+                min:0,
+                opposite: true,
+                endOnTick: true,
+                title: { text: "creation"}
+            }],
+            series: [{
+                type: 'areaspline',
+                data: otherViews,
+                name: "#blahs viewed"
+            },
+                {
+                    type: 'areaspline',
+                    data: otherOpens,
+                    name: "#blahs opened"
+                } ,
+                {
+                    type: 'column',
+                    data: otherComments,
+                    name: "#comments",
+                    yAxis: 1
+                }]
+        });
+
+        $('#UserBlahSentimentDiv').highcharts({
+            colors: ["#00FF00", "#FF0000"],
+            title: {
+                text:"User Sentiment"
+            },
+            plotOptions: {
+                series: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            credits: {
+                enabled:false
+            },
+            xAxis: {
+                categories: catAxis
+            },
+            yAxis: [{
+                title: { text: "votes"}
+            }],
+            series: [
+                {
+                    type: 'areaspline',
+                    data: otherUpVotes,
+                    name: "promotes"
+                } ,
+                {
+                    type: 'areaspline',
+                    data: reverseDown,
+                    name: "demotes"
+                }]
+        });
+
+        // Your Audience Demographics
+        if (UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
+            $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions("Gender", "B"));
+        else
+            $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Gender", "B"));
+
+        if (UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
+            $("#DemoEthnicityChartArea").highcharts(MakeDemoChartOptions("Ethnicity", "D"));
+        else
+            $("#DemoEthnicityChartArea").html(GenerateShareDemoHTML("Ethnicity", "D"));
+
+        /*
+        if (UserProfile.hasOwnProperty("C") && (UserProfile["C"] != -1))
+            $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions("Age", "C"));
+        else
+            $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
+        */
+
+        if (UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
+            $("#DemoCountryChartArea").highcharts(MakeDemoChartOptions("Country", "J"));
+        else
+            $("#DemoCountryChartArea").html(GenerateShareDemoHTML("Country", "J"));
+
+
+
+        // your stats
 
 
     }, function (theErr) {
@@ -3830,16 +3996,107 @@ function UpdateSelfStats() {
     });
 }
 
+function GenerateShareDemoHTML(demoString, demoName) {
+    var newHTML = "";
+
+    newHTML += "<div class='request-demographic'>";
+    newHTML += "You need to set your own " + demoString + " on the user profile page in order to see the " + demoString + " of other users.";
+    newHTML += "</div>";
+    return newHTML;
+}
+function MakeDemoChartOptions(demoString, demoName) {
+    var demoSeries = MakeDemoSeries(demoName);
+    var demoCat = MakeDemoCategories(demoName);
+    var chartHeight = 125 + (25 * demoCat.length);
+
+    var newDemos = {
+        colors: ["#FF0000", "#00FF00"],
+        chart: {
+            type: "bar",
+            height:chartHeight
+        },
+        title: {
+            text:demoString ,
+        },
+        xAxis: {
+            categories:demoCat
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal',
+                marker: {
+                    enabled: false
+                }
+            },
+            bar : {
+                pointPadding:0,
+                groupPadding:0
+            }
+        },
+        credits: {
+            enabled:false
+        },
+
+        yAxis: [{
+            title: { text: "votes"}
+        }],
+        series: demoSeries
+    };
+
+    return newDemos
+}
+
+
+function MakeDemoCategories(whichDemo) {
+    var catArray = [];
+    $.each(ProfileSchema[whichDemo].DT, function(index, item){
+        catArray.push(item);
+    });
+
+    return catArray;
+}
+
+function MakeDemoSeries(whichDemo) {
+    // one series for upVote and downVote
+    // one data point for each unique value of the demo
+    var newSeries;
+    if (CurrentUser.hasOwnProperty("_d")) {
+        var upVoteSet = getSafeProperty(CurrentUser._d._u, whichDemo, null);
+        var downVoteSet = getSafeProperty(CurrentUser._d._d, whichDemo, null);
+        var upData = [], downData = [];
+
+        $.each(ProfileSchema[whichDemo].DT, function(index, item){
+            upData.push(getSafeProperty(upVoteSet, index, 0));
+            downData.push(-getSafeProperty(downVoteSet, index, 0));
+        });
+
+        newSeries = [
+            {"data":downData,"name":"demotes"},
+            {"data":upData,"name":"promotes"}];
+    } else {
+        newSeries = [];
+    }
+
+    return newSeries;
+
+}
+
+
 function GetDailyStatValuesForTimeRange(startTime, endTime, statsObj, statName) {
     var startMonth, startDay, newVal;
     var results = [];
 
     startMonth = startTime.getMonth();
     startDay = startTime.getDate();
+    statName = [].concat(statName); // ensure array
 
     while (startTime <= endTime) {
-        newVal = GetStatValue(statsObj, startTime, statName);
-         results.push(newVal);
+        newVal = 0;
+        for (var curStat in statName) {
+         newVal += GetStatValue(statsObj, startTime, statName[curStat]);
+        }
+
+        results.push(newVal);
 
         startTime = new Date(startTime.getTime() + 3600 * 24 * 1000); // add one day
         startMonth = startTime.getMonth();

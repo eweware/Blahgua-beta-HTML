@@ -9,6 +9,20 @@
         <div class="BadgeTitleBar"></div>
         <div id="badgedialog" class="BadgeDialog"></div>
     </div>
+    <table style="width:90%">
+        <tr><td>
+            <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" onclick="UpdateUserProfile(); return false;" >Update</button>
+
+        </td>
+            <td>
+                <button class="small-button" onclick="LogoutUser(); return false;">Logout</button><br/>
+
+            </td>
+            <td>
+                <button class="small-button" onclick="ForgetUser(); return false;">Forget Me</button>
+
+            </td></tr>
+    </table>
     <div class="accordion">
     <h2>Account</h2>
         <div class="accordion-body">
@@ -33,15 +47,12 @@
             <td><input id="NicknameInput"  type="text" class="userName"></td>
         </tr>
         <tr>
-            <td class="attribute-col" >Description</td>
-            <td width="100%"><input id="DescriptionInput"  type="text" class="DescriptionInput"></td>
-        </tr>
-        <tr>
             <td class="attribute-col" >Image</td>
             <td><div id="uploadimage" class="uploadimage"></div></td>
         </tr>
         </tbody>
     </table>
+
             </div>
     </div>
 
@@ -239,20 +250,7 @@
     </div>
     </div>
 
-    <table style="width:90%">
-        <tr><td>
-            <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" onclick="UpdateUserProfile(); return false;" >Update</button>
 
-        </td>
-        <td>
-            <button class="small-button" onclick="LogoutUser(); return false;">Logout</button><br/>
-
-        </td>
-        <td>
-            <button class="small-button" onclick="ForgetUser(); return false;">Forget Me</button>
-
-        </td></tr>
-    </table>
 
     </div>
 </div>

@@ -1,13 +1,4 @@
-﻿@media {
-	max-width: 400px;
-	}
-
-
-@-ms-viewport {
-		width: 320px;
-	}
-}
-
+﻿
 
 body {
     margin: 0px;
@@ -828,14 +819,12 @@ a {
     float:right;
     margin-right:16px;  
     border: 0 none;
-    color: #FFFFFF;
+    color: #000000;
     background: none;
     font-size: 22px;
     font-weight: bold;
-    padding: 2px 10px;
-    width: 105px;
-    *width: 110px;
-    *background: none;
+
+
  
  
 }
@@ -1298,7 +1287,7 @@ a {
     border:0px;
     top:0px;
     width:100%;
-    background-color:#999999;
+
 }
 
 .fullBlahgerName {
@@ -1597,6 +1586,17 @@ a {
 
 }
 
+.request-demographic {
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    width: 90%;
+    text-align: left;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: orangered;
+}
 
 
 .uploadimage {
