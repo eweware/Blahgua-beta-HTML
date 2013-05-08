@@ -1608,6 +1608,46 @@ a {
 
 }
 
+/* Comment Detail Area */
+
+.comment-detail-area {
+    background-color: #333333;
+
+}
+
+.comment-text-area {
+    background-color: #EEEEEE;
+    border-radius: 8px;
+    min-height: 80px;
+    width:100%;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    box-shadow: inset 5px 5px 4px rgba(0,0,0,0.2);
+    overflow-y: hidden;
+}
+
+.add-comment-btn {
+    background-color: #E1644E;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    height: 80px;
+    border-style: none;
+}
+
+
+.blah-comment-table {
+    background-color: #333333;
+}
+
+
+.add-comment-btn:hover {
+    background-color: #8d3020;
+    color: white;
+}
+
+
 /* media-specific styles */
 
 @media only screen and (max-device-width: 480px) {

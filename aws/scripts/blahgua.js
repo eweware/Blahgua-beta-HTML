@@ -823,10 +823,17 @@ function UpdateBlahComments() {
     if (IsUserLoggedIn) {
         $("#SignInToCommentArea").hide();
         $("#CreateCommentArea").show();
+    $("#CommentTextArea").keyup(function(e) {
+            //  the following will help the text expand as typing takes place
+            while($(this).outerHeight() < this.scrollHeight) {
+                $(this).height($(this).height()+1);
+            };
+        });
     } else {
         $("#SignInToCommentArea").show();
         $("#CreateCommentArea").hide();
     }
+
 }
 
 

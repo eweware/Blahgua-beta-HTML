@@ -6,15 +6,17 @@
 </head>
 <body>
 <div id="FullBlahCommentDiv">
-    <div id="CreateCommentArea">
+    <div id="CreateCommentArea" class="comment-detail-area">
         <table>
             <tbody>
             <tr >
-                <td >
-                    <textarea class="CommentTextArea" id="CommentTextArea"></textarea>
+                <td style="width:100%; padding-left:8px; padding-right:8px">
+                    <textarea class="comment-text-area" id="CommentTextArea"></textarea>
+                </td>
+                <td>
+                    <button class="add-comment-btn" onclick="DoAddComment(); return false;">Comment</button>
                 </td>
             </tr>
-            <tr><td><button class="AddCommentBtn" onclick="DoAddComment(); return false;">Add Comment</button></td></tr>
             </tbody>
         </table>
     </div>
@@ -27,7 +29,7 @@
             </tbody>
         </table>
     </div>
-    <table id="BlahCommentTable" class="FullBlahTable">
+    <table id="BlahCommentTable" class="blah-comment-table">
         <tr><td>Comments!</td></tr>
 
     </table>
