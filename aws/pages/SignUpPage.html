@@ -4,34 +4,48 @@
     <title></title>
 </head>
 <body>
-<div id="UserChannelDiv" class="UserChannelDiv">
-    <h2>Welcome to Blahgua!</h2>
-    <button class="profile-close-btn" onclick="ClosePage(); return false;">Close</button>
-    <div class="signin-message" id="SignInMessageDiv" style="display:none"></div>
-    <p>Existing user?  Sign back in:</p>
-    <fieldset>
-        <label for="userName2">Username:</label>
-        <input id="userName2"  type="text">    <br />
-        <label for="pwd2">Password:</label>
-        <input id="pwd2"  type="password">        <br />
-        <label for="rememberme2">remember me:</label>
-        <input type="checkbox" value="true" id="rememberme2">
-        <button onclick="SignInExistingUser(); return false;" >Sign In</button>
-    </fieldset>
-    <hr>
-
-    <p>new user?  Create an acount now:</p>
-    <fieldset>
-        <label for="userName">Username:</label>
-        <input  id="userName"  type="text">    <br />
-        <label for="pwd">Password:</label>
-        <input id="pwd"  type="password">        <br />
-        <label for="pwd3">again:</label>
-        <input id="pwd3"  type="password">        <br />
-        <label for="rememberme">remember me:</label>
-        <input type="checkbox" value="true" id="rememberme">
-        <button onclick="CreateNewUser(); return false;" >Create</button>
-    </fieldset>
+<div id="UserChannelDiv" class="UserChannelDiv" style="background:darkgrey;width:100%">
+     
+    <div style="position:relative;margin:20px auto;">
+    <div class="p1" id="p1" onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':''">
+    <div style="width:160px;height:50px;background-color:#d74d3e;border-color:transparent;border-radius:10px;color:white;font-size:16px;">  
+    <div style="padding-top:15px;padding-left:30px">NEW  USER</div>
+    </div>
+    </div>
+    <div class="p1" id="p2" onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
+    <div style="width:160px;height:50px;background-color:#878787;border-color:transparent;border-radius:10px;color:black;font-size:16px;position:relative;top:-50px;left:200px;">
+    <div style="padding-top:15px;padding-left:12px">EXSISTING USER</div>
+    </div>
+    </div>
+    </div>
+    
+    
+    <div id="c1">
+    <div style="border:none;background:darkgrey;width:400px;height:400px;position:relative;top:-30px">
+    	 <label for="userName" style="color:#3B393A;font-size:18px;margin:0 auto;">USERNAME</label>  <br />
+        <input  id="userName"  type="text" style="width:280px;height:35px;border-radius:10px">    <br />
+        <label for="pwd" style="font-size:18px;color:#3B393A">PASSWORD</label>  <br />
+        <input id="pwd"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <label for="pwd3" style="font-size:18px;color:#3B393A">CONFIRM</label>  <br />
+        <input id="pwd3"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <label for="rememberme" style="font-size:10px;color:#3B393A">REMEMBER ME:</label>
+        <input type="checkbox" value="true" id="rememberme"><br />
+        <button onclick="CreateNewUser(); return false;" style="width:160px;height:50px;background-color:#37b36e;border-radius:10px;font-size:16px;color:white">CREATE</button>
+       
+    </div>
+    </div>
+    
+    <div id="c2" style="display: none">
+    <div style="border:none;background:darkgrey;width:400px;height:400px;position:relative;top:-30px">
+       <label for="userName2" style="color:#3B393A;font-size:18px;margin:0 auto;">USERNAME</label> <br />
+        <input id="userName2"  type="text" style="width:280px;height:35px;border-radius:10px">    <br />
+        <label for="pwd2" style="font-size:18px;color:#3B393A">PASSWORD</label> <br />
+        <input id="pwd2"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <label for="rememberme2" style="font-size:10px;color:#3B393A">REMEMBER ME:</label> <br />
+        <input type="checkbox" value="true" id="rememberme2"><br />
+        <button onclick="SignInExistingUser(); return false;"style="background-color:#37be6e;border-radius:10px;font-size:16px;color:white;" >SIGN IN</button>
+    </div>
+    </div>
 </div>
 </body>
 </html>
