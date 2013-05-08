@@ -304,16 +304,6 @@ body {
 
 
 
-.FullBlahViewerCount {
-    position:relative;
-    top:-6px;
-    padding-right:0px;
-    font-size:14px;
-    font-family: 'Arimo', sans-serif;
-    padding-left:4px;
-    width:50px;
-}
-
 .FullBlahTable {
     width: 100%;
     border-spacing:0;
@@ -327,9 +317,14 @@ body {
 }
 .statsText
 {
+
 font-size:12px;
 font-weight:bold;
 margin-top:100px;
+
+	font-size:12px;
+    font-family: 'Arimo', sans-serif;
+
 }
 
 .statsText1
@@ -1096,7 +1091,12 @@ height:auto;
 }
 .BlahRowVote
 {
+
 height:70px;
+
+	height:70px;
+    width: 100%;
+
 }
 .shorttitle
 { font-family:'Arimo',sans-serif;
@@ -1142,7 +1142,12 @@ font-size:12pt;
 }
 #createcontent
 {
-background: url("white.jpg");
+
+
+
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+
+
 }
 
 
@@ -1417,6 +1422,7 @@ height:40px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 5px rgba(0,0,0,.3);
     z-index: 2;
+    width:100%;
 }
 
 .blah-body-divider {
@@ -1614,6 +1620,46 @@ height:40px;
 {
 
 }
+
+/* Comment Detail Area */
+
+.comment-detail-area {
+    background-color: #333333;
+
+}
+
+.comment-text-area {
+    background-color: #EEEEEE;
+    border-radius: 8px;
+    min-height: 80px;
+    width:100%;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    box-shadow: inset 5px 5px 4px rgba(0,0,0,0.2);
+    overflow-y: hidden;
+}
+
+.add-comment-btn {
+    background-color: #E1644E;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    height: 80px;
+    border-style: none;
+}
+
+
+.blah-comment-table {
+    background-color: #333333;
+}
+
+
+.add-comment-btn:hover {
+    background-color: #8d3020;
+    color: white;
+}
+
 
 /* media-specific styles */
 
