@@ -3182,7 +3182,6 @@ function OnCreateBlahOK(json) {
     if ($("#BlahImage").val() != "") {
         UploadBlahImage(CurrentBlah._id);
     } else {
-        //todo: insert the blah into the channel
         InsertNewBlahIntoChannel(CurrentBlah);
         DoCloseBlah(null);
 
