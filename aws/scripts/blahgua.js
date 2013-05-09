@@ -805,7 +805,7 @@ function OnAddImageOK(data) {
     var startStr = createDateString(StartDate);
     var endStr = createDateString(EndDate);
 
-    Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
+    Blahgua.GetBlahWithStats(blahId, startStr, endStr, function(theBlah) {
         CurrentBlah= theBlah;
         SetBlahDetailPage("Overview");
     }, OnFailure);
@@ -2362,34 +2362,39 @@ function createCommentElement(index, theComment) {
         newHTML += '</span> ';
 
         // vote down
-        newHTML += '<span class="comment-vote-wrapper">';
-        if (ownVote < 0)
-            newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_checked.png">';
-        else
-            newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_disabled.png">';
-
+        newHTML += '<span class="clickcard">';
+        newHTML += '<span class="button-icon-wrapper">';
+        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
+        newHTML += '</span>';
         newHTML += getSafeProperty(theComment, "D", 0);
-        newHTML += '</span> ';
+        if (ownVote < 0)
+            newHTML += "X"
+        newHTML += '</span>';
     } else {
         // vote up
-        newHTML += '<span class="comment-vote-wrapper">';
-        newHTML += '<img class="comment-vote" onclick="SetCommentVote(1, \'' + index + '\'); return false;" alt="" src="' + fragmentURL + '/img/black_promote.png">';
+        newHTML += '<span class="clickcard">';
+        newHTML += ' <button class="start-comment-action"onclick="PromoteComment(\'' +index + '\'); return false;" type="button" >';
+        newHTML += ' <span class="button-icon-wrapper">';
+        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
+        newHTML += ' </span>';
+        newHTML += '</button>';
         newHTML += getSafeProperty(theComment, "U", 0);
         newHTML += '</span> ';
 
-
         // vote down
-        newHTML += '<span class="comment-vote-wrapper">';
-        newHTML += '<img class="comment-vote" onclick="SetCommentVote(-1,\'' + index + '\'); return false;" alt="" src="' + fragmentURL + '/img/black_demote.png">';
+        newHTML += '<span class="clickcard">';
+        newHTML += '<button class="end comment-action" onclick="DemoteComment(' + index + ');return false;" type="button" >';
+        newHTML += '<span class="button-icon-wrapper">';
+        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
+        newHTML += '</span>';
+        newHTML += '</button>';
         newHTML += getSafeProperty(theComment, "D", 0);
-        newHTML += '</span> ';
+        newHTML += '</span>';
     }
-    newHTML += '</div></td>';
-    newHTML += '<td><span class="comment-date">' + ElapsedTimeString(new Date(theComment.c)) + '</span></td>';
-    newHTML += '</tr>'
+    newHTML += '</div>';
 
-
-    newHTML += '</table></td>';
+    newHTML += '</div>';
+    newHTML += '</td>';
 
 
     newEl.innerHTML = newHTML;
@@ -3033,7 +3038,23 @@ function DoCreateBlah() {
         $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
             PopulateBlahTypeOptions();
             $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
-            CheckPublishBtnDisable();
+            /*
+            var windowWidth = $(window).width();
+            var winowHeight = $(window).height();
+            var delta = Math.round((windowWidth - 512) / 2);
+            if (delta < 0) delta = 0;
+            delta = delta + "px";
+            var itemWidth = 512;
+            if (windowWidth < 512) {
+                itemWidth = windowWidth;
+            }
+            $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
+
+
+            $(".createblahscroll").css({'left': delta, 'right':delta});
+            $(".creatblahfooter").css({'width': itemWidth});
+            */
+
             $(BlahFullItem).fadeIn("fast");
         });
     } else {
@@ -3613,7 +3634,7 @@ function CreateDemoData(whichDemo) {
     var curData;
     var curIndexName;
     var o, p,c;
-    if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) {newEl.innerHTML
+    if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) 
         for(curIndex in ProfileSchema[whichDemo].DT) {
             curData = new Object();
             curIndexName = ProfileSchema[whichDemo].DT[curIndex];
