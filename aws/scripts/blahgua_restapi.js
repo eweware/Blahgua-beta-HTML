@@ -370,7 +370,12 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         var param = new Object();
-
+        /*
+        if (newVote == 1)
+            param["U"] =1;
+        else if (newVote == -1)
+            param["D"] = 1;
+            */
         param["C"] = newVote;
 
         var methodName = "comments/" + commentID;
@@ -617,7 +622,10 @@ function BlahguaObject() {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>a list of the comments, if any</returns>
-        var paramStr = 'blahId=' + blahId;
+        var paramStr = new Object();
+        paramStr["blahId"] = blahId;
+        //paramStr["userId"] = CurrentUser._id;
+
         var methodName = "comments";
         this.CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
