@@ -4,17 +4,65 @@
     <title></title>
 </head>
 <body>
-<div id="UserChannelDiv" class="UserChannelDiv" style="background:darkgrey;width:100%;height:100%">
+<div id="UserChannelDiv" class="UserChannelDiv">
+     <style>
+     .content_frame{
+     	position:relative;
+     	margin:0px auto;
+     	width:100%;
+     }
+     .button_select1{
+     	width:40%;
+     	padding-top:80px;
+     }
+     .button_select2{
+     	width:160px;
+     	height:50px;
+     	background-color:#d74d3e;
+     	border-color:transparent;
+     	border-radius:10px;
+     	color:white;
+     	font-size:18px;
+     }
+     .button_select3{
+        padding-top:15px;
+        padding-right:3px;
+        margin-left:-10px;
+        font-family:arial,sans-serif;
+     	
+     }
+     .button_select4{
+     	width:70%;
+     	margin:0px auto;
+     }
+     .button_select5{
+     	width:160px;
+     	height:50px;
+     	background-color:#878787;
+     	border-color:transparent;
+     	border-radius:10px;
+     	color:black;
+     	font-size:18px;
+     	position:relative;
+     	top:-50px;
+     	left:200px;
+     }
+     .button_select6{
+     	padding-top:15px;
+     	padding-left:12px;
+     	font-family:arial,sans-serif;
+     }
      
-    <div style="position:relative;margin:0px auto;width:100%">
-    <div class="p1" id="p1"  align="right" style="width:40%;padding-top:80px;" onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':'';document.getElementById('c2').style.display='none'">
-    <div style="width:160px;height:50px;background-color:#d74d3e;border-color:transparent;border-radius:10px;color:white;font-size:18px;">  
-    <div aliign="left" style="padding-top:15px;padding-right:33px;margin-left:-20px;font-family:arial,sans-serif">NEW  USER</div>
+     </style>
+    <div class="content_frame">
+    <div class="button_select1" id="p1"  align="right"  onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':'';document.getElementById('c2').style.display='none'">
+    <div class="button_select2" >  
+    <div align="center" class="button_select3">NEW  USER</div>
     </div>
     </div>
-    <div class="p1" id="p2" style="width:70%;margin:0px auto" onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
-    <div style="width:160px;height:50px;background-color:#878787;border-color:transparent;border-radius:10px;color:black;font-size:18px;position:relative;top:-50px;left:200px;">
-    <div style="padding-top:15px;padding-left:12px;font-family:arial,sans-serif">EXISTING USER</div>
+    <div class="button_select4" id="p2"  onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
+    <div class="button_select5">
+    <div class="button_select6">EXISTING USER</div>
     </div>
     </div>
     </div>
