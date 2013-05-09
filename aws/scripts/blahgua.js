@@ -1,4 +1,5 @@
-﻿
+﻿// master JavaScript File for app
+
 var BlahsMovingTimer = null;
 var BlahPreviewTimeout = null;
 var ViewerUpdateTimer = null;
@@ -3634,7 +3635,7 @@ function CreateDemoData(whichDemo) {
     var curData;
     var curIndexName;
     var o, p,c;
-    if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) 
+    if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) {
         for(curIndex in ProfileSchema[whichDemo].DT) {
             curData = new Object();
             curIndexName = ProfileSchema[whichDemo].DT[curIndex];

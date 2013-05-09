@@ -4,15 +4,15 @@
     <title></title>
 </head>
 <body>
-<div id="UserChannelDiv" class="UserChannelDiv" style="background:darkgrey;width:100%">
+<div id="UserChannelDiv" class="UserChannelDiv" style="background:darkgrey;width:100%;height:100%">
      
-    <div style="position:relative;margin:20px auto;">
-    <div class="p1" id="p1" onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':''">
+    <div style="position:relative;margin:0px auto;width:100%">
+    <div class="p1" id="p1"  align="right" style="width:40%;padding-top:80px;" onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':'';document.getElementById('c2').style.display='none'">
     <div style="width:160px;height:50px;background-color:#d74d3e;border-color:transparent;border-radius:10px;color:white;font-size:16px;">  
-    <div style="padding-top:15px;padding-left:30px">NEW  USER</div>
+    <div aliign="left" style="padding-top:15px;padding-right:33px;margin-left:-20px">NEW  USER</div>
     </div>
     </div>
-    <div class="p1" id="p2" onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
+    <div class="p1" id="p2" style="width:70%;margin:0px auto" onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
     <div style="width:160px;height:50px;background-color:#878787;border-color:transparent;border-radius:10px;color:black;font-size:16px;position:relative;top:-50px;left:200px;">
     <div style="padding-top:15px;padding-left:12px">EXSISTING USER</div>
     </div>
@@ -20,30 +20,30 @@
     </div>
     
     
-    <div id="c1">
-    <div style="border:none;background:darkgrey;width:400px;height:400px;position:relative;top:-30px">
+    <div id="c1" style="margin:0 auto; width:100%;">
+    <div style="border:none;background:darkgrey;width:400px;height:100%;position:relative;top:-30px;margin:0 auto;">
     	 <label for="userName" style="color:#3B393A;font-size:18px;margin:0 auto;">USERNAME</label>  <br />
-        <input  id="userName"  type="text" style="width:280px;height:35px;border-radius:10px">    <br />
+        <input  id="userName"  type="text" style="width:280px;height:35px;border-radius:10px">    <br /><br />
         <label for="pwd" style="font-size:18px;color:#3B393A">PASSWORD</label>  <br />
-        <input id="pwd"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <input id="pwd"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
         <label for="pwd3" style="font-size:18px;color:#3B393A">CONFIRM</label>  <br />
-        <input id="pwd3"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <input id="pwd3"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
         <label for="rememberme" style="font-size:10px;color:#3B393A">REMEMBER ME:</label>
         <input type="checkbox" value="true" id="rememberme"><br />
-        <button onclick="CreateNewUser(); return false;" style="width:160px;height:50px;background-color:#37b36e;border-radius:10px;font-size:16px;color:white">CREATE</button>
+        <button align="center" onclick="CreateNewUser(); return false;" style="width:160px;height:50px;background-color:#37b36e;border-radius:10px;font-size:16px;color:white;margin-top:15px;margin-left:40px">CREATE</button>
        
     </div>
     </div>
     
-    <div id="c2" style="display: none">
-    <div style="border:none;background:darkgrey;width:400px;height:400px;position:relative;top:-30px">
+    <div id="c2" style="display: none;margin:0 auto;width:100%">
+    <div style="border:none;background:darkgrey;width:400px;height:100%;position:relative;top:-30px;margin:0 auto;">
        <label for="userName2" style="color:#3B393A;font-size:18px;margin:0 auto;">USERNAME</label> <br />
-        <input id="userName2"  type="text" style="width:280px;height:35px;border-radius:10px">    <br />
+        <input id="userName2"  type="text" style="width:280px;height:35px;border-radius:10px">    <br /><br />
         <label for="pwd2" style="font-size:18px;color:#3B393A">PASSWORD</label> <br />
-        <input id="pwd2"  type="password" style="width:280px;height:35px;border-radius:10px">        <br />
+        <input id="pwd2"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
         <label for="rememberme2" style="font-size:10px;color:#3B393A">REMEMBER ME:</label> <br />
         <input type="checkbox" value="true" id="rememberme2"><br />
-        <button onclick="SignInExistingUser(); return false;"style="background-color:#37be6e;border-radius:10px;font-size:16px;color:white;" >SIGN IN</button>
+        <button onclick="SignInExistingUser(); return false;"style="width:160px;height:50px;background-color:#37be6e;border-radius:10px;font-size:16px;color:white;" >SIGN IN</button>
     </div>
     </div>
 </div>
