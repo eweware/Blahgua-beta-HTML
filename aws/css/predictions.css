@@ -1,0 +1,68 @@
+
+.PredictCheckBoxClass {
+    width:24px;
+    height: 24px;
+    display:none;
+}
+
+
+.elapsedTimeText {
+    font-family: 'Arimo', sans-serif;
+    font-size:18pt;
+}
+
+.elapsedTimePreview {
+    font-family: 'Arimo', sans-serif;
+    font-size:18pt;
+    font-weight: bold;
+}
+
+.predictionDatePreview {
+    font-family: 'Arimo', sans-serif;
+    font-size:12pt;
+    text-align: right;
+}
+
+.predictionVotePrompt {
+    font-family: 'Arimo', sans-serif;
+    font-size: 16pt;
+    text-align: center;
+}
+
+.PredictionChoiceTable {
+    width:95%;
+    border-collapse: collapse;
+    padding-left:20px;
+
+}
+
+.PredictionChoiceTable tr {
+    width:100%;
+
+}
+
+.BlahPredictTypeTable {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.PredictPreviewSpan {
+    background-color: red;
+    height:18px;
+    width:0%;
+}
+
+.PredictCheckBoxWrapper {
+    width:32px;
+    padding-left:32px;
+}
+
+.predictTimeDiv {
+    text-align: center;
+}
+
+.PredictPreviewAnswerText {
+    font-family: 'Arimo', sans-serif;
+    font-size:18pt;
+
+}

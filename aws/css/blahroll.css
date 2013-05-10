@@ -1,0 +1,137 @@
+/* styles related to the blah roll */
+
+.BlahTextDiv {
+    background-color: transparent;
+    font-family: 'Arimo', sans-serif;
+    overflow-x:hidden;
+    height:auto;
+    width:auto;
+    font-size:9px;
+    padding: 4px;
+    text-align: center;
+}
+
+
+.BlahAltTextDiv {
+    font-size:9px;
+    text-align:center;
+
+}
+
+.BlahExpandTextDiv {
+    text-align:center;
+    font-size:9px;
+}
+
+
+.SmallBlahFormat {
+
+}
+
+.XSmallBlahFormat {
+
+}
+
+.MediumBlahFormat {
+
+}
+
+
+.LargeBlahFormat {
+
+}
+
+.users-own-blah {
+    border-size:4px;
+    border-style:solid;
+    border-color: yellow;
+}
+
+.BlahTypeSays {
+    color: #ECEBBB;
+    background-color: #6C648D;
+    border-color: #00FF8C;
+}
+
+.BlahTypeLeaks {
+    color: #ECEBBB;
+    background-color: #3271B4;
+    border-color: #ea3556;
+}
+
+.BlahTypePolls {
+    color: #ECEBBB;
+    background-color: #2F9855;
+    border-color: #61d2d6;
+
+}
+
+.BlahTypePredicts {
+    color: #ECEBBB;
+    background-color: #BB564E;
+    border-color: #edde45;
+
+}
+
+.BlahTypeAd {
+    color: white;
+    background-color:blue;
+    border-color: blue;
+
+}
+
+.BlahTypeSaysImgText {
+    color: #6C648D;
+    background-color: rgba(236,235,187,0.75);
+}
+
+.BlahTypeLeaksImgText {
+    color: #3271B4;
+    background-color: rgba(236,235,187,0.75);
+}
+
+.BlahTypePollsImgText {
+    color: #2F9855;
+    background-color: rgba(236,235,187,0.75);
+}
+
+.BlahTypePredictsImgText {
+    color: #BB564E;
+    background-color: rgba(236,235,187,0.75);
+}
+
+.BlahTypeAddImgText {
+    color: white;
+    background-color: rgba(0,0,255,0.6);
+}
+
+
+
+.BlahImage {
+    position:absolute;
+    left:0px;
+    top:0px;
+    width:100%;
+    opacity:0.5;
+    z-index:5;
+}
+
+
+.no-blahs-in-channel-warning {
+    font-family: 'Arimo', sans-serif;
+    font-size: 20px;
+    background-color: orange;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+    margin-top: 65px;
+}
+
+.no-blahs-in-channel-warning a {
+    font-family: 'Arimo', sans-serif;
+    font-size: 18px;
+    background-color: white;
+    border-radius: 8px;
+    margin: 8px;
+    padding: 8px;
+}

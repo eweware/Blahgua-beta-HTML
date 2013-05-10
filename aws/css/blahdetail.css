@@ -1,0 +1,332 @@
+/* styles for the preview and detail pages */
+
+/* classes for the blah detail page */
+
+.full-blah-div {
+    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    top:0px;
+    bottom:0px;
+    position:absolute;
+    width:100%;
+}
+
+.BlahFullImage {
+    width:100%;
+}
+
+
+.BlahPageFooter {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    height:80px;
+    border-collapse: collapse;
+    background-color: #E4E4E4;
+
+}
+
+.author-image {
+    width:40px;
+    height:40px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:white;
+    margin: 10px;
+}
+
+.BlahButton {
+    width:100%;
+    height:60px;
+    border:none;
+    background-color: #999999;
+    color:black;
+    font-size:18px;
+}
+
+.BlahFullHeader {
+    border-spacing:0px;
+    border-collapse: collapse;
+    border:0px;
+    top:0px;
+    width:100%;
+
+}
+
+.fullBlahgerName {
+    font-size:30px;
+    font-weight: bold;
+    font-family: 'Arimo', sans-serif;
+    color:white;
+
+}
+
+.fullBlahSpeechAct {
+    font-size:26px;
+    font-family: 'Arimo', sans-serif;
+    color:#999999;
+}
+
+.CloseButton {
+    width:32px;
+    height:32px;
+    border:none;
+    background-color: white;
+    color:red;
+    font-size:18px;
+    border-radius: 6px;
+    margin:8px;
+}
+
+.CloseButton:hover {
+    background-color: red;
+    color:white;
+
+}
+
+.BlahFullHeadline {
+    font-size:36px;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    margin:16px 16px 16px 16px;
+    padding:10px 10px;
+    word-wrap: break-word;
+}
+
+
+
+.BlahButton span {
+
+}
+
+.BlahButton:hover {
+    background-color: #BBBBBB;
+
+}
+
+.BlahBtnSelected {
+    background-color: #E1644E;
+    color:white;
+
+}
+
+.BlahBtnSelected:hover{
+    background-color: #7a362a;
+    color:white;
+
+}
+
+.Button-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.Button-right {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+.blah-summary-bar {
+    background-color: rgba(0,0,0,.1);
+    width: 90%;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 20px;
+    margin: -1px auto;
+    padding-top: 4px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+
+.FullBlahProfileString {
+    padding-left:4px;
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    float:left;
+}
+
+.FullBlahDateStr {
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    padding-right:4px;
+    text-align: right;
+    float:right;
+
+}
+
+.fullBlahgerName1 {
+
+    font-size:12px;
+    font-family: 'Arimo', sans-serif;
+
+
+}
+
+/* classes for the full blah Summary page */
+
+.FullBlahTableFooter {
+    background-color: #d3d3d3;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    position: absolute;
+    bottom: 80px;
+    height: 70px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+    z-index: 2;
+    width:100%;
+}
+
+.blah-body-divider {
+    width: 100%;
+    background-color: #4A4A4A;
+    height: 2px;
+
+}
+
+.BlahFullBody {
+    font-size:20px;
+    color: #666666;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    word-wrap: break-word;
+    padding-left:16px;
+    padding-right:16px;
+    padding-top:4px;
+}
+
+
+/* Comments */
+
+.comment-detail-area {
+    background-color: #333333;
+
+}
+
+.comment-text-area {
+    background-color: #EEEEEE;
+    border-radius: 8px;
+    min-height: 80px;
+    width:100%;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    box-shadow: inset 5px 5px 4px rgba(0,0,0,0.2);
+    overflow-y: hidden;
+}
+
+.add-comment-btn {
+    background-color: #E1644E;
+    color: white;
+    border-radius: 8px;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    height: 80px;
+    border-style: none;
+}
+
+
+.add-comment-btn:hover {
+    background-color: #8d3020;
+    color: white;
+}
+
+
+.add-comment-btn:disabled {
+    background-color: #cdc9cc;
+}
+
+
+.blah-comment-table {
+    background-color: #333333;
+    width:100%;
+}
+
+.no-comment-row {
+    width: 100%;
+}
+
+.no-comment-row td {
+    width: 100%;
+}
+
+.no-comment-row span{
+    padding:16px;
+    border-radius: 8px;
+    border-style: none;
+    color: black;
+    background-color: orange;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+
+}
+
+.comment-item-table {
+    width:100%;
+    border-bottom-style:solid;
+    border-bottom-width: 1px;
+    margin-bottom:8px;
+    border-bottom-color: rgb(80,80,80);
+    padding-bottom: 8px;
+}
+.comment-table-row {
+    width:100%;
+}
+.comment-user-image {
+    width:48px;
+    height:48px;
+}
+
+.comment-user-name {
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    font-weight: bold;
+    color:white;
+}
+
+
+.comment-date {
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    color: #A0A0A0;
+    float:right;
+}
+
+.comment-text {
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    color: #CCCCCC;
+}
+
+.comment-user-description {
+    font-size: 12px;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    color: #A0A0A0;
+}
+
+.comment-vote-wrapper {
+    color:white;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+}
+
+.comment-vote {
+    width: 18px;
+    padding-right: 8px;
+    padding-left: 12px;
+}
+
+.comment-container {
+    position: absolute;
+    bottom: 80px;
+    top: 256px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
