@@ -439,8 +439,7 @@ a {
 
 
 .ChannelViewersSpan {
-    float:right;
-    margin-right:54px;
+
 }
 
 
@@ -456,6 +455,37 @@ a {
     text-align:center;
     vertical-align:middle;
 }
+
+.sign-in-button {
+    background: rgb(179, 95, 5);
+    color: white;
+    font-family: 'Arimo', sans-serif;
+    font-size: 18px;
+    border-style: none;
+    border-radius: 8px;
+    padding: 4px 20px;
+    float: right;
+    margin-right: 55px;
+    margin-top: 10px;
+
+}
+
+.sign-in-button:hover {
+    background: rgb(255, 136, 6);
+    color:  black;
+}
+
+.sign-in-button signed-in {
+    background: rgb(0, 141, 0);
+    color: white;
+}
+
+
+.sign-in-button signed-in:hover {
+    background: rgb(0, 236, 0);
+    color:  rgb(0, 141, 0);
+}
+
 
 
 .TopRightScreen {
@@ -568,63 +598,51 @@ a {
     padding:16px 0px 16px 0px;
     left:8px;
     top:56px;
-    width:400px;
+    width:90%;
     height:auto;
-    border-width: 4px;
     background-color: white;
     box-shadow:rgba(0,0,0,.4) 4px 4px;
     z-index: 12;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
-.ChannelDropMenu ul  {
-    list-style-type: none;
-    padding-left: 8px;
-    margin-left: 0;
-}
-.ChannelDropMenu ul a {
-    font-size:36px;
-    width:100%;
-    background-color:transparent;
-    color:black;
-}
 
-.channelimage {
-    width:32px;
-    height:32px;
+.channel-image {
+    width:64px;
+    height:64px;
     margin-right:8px;
-    margin-top:4px;
-
+    margin-top:4px
 }
 
-.removechannel {
-    width:16px;
-    height: 16px;
-    float:right;
-    padding-right:20px;
-    padding-top:18px;
+.channel-image-td {
+    vertical-align: top;
 }
 
-.ChannelDropMenu ul a:hover
-{
-    background-color: #369;
-    color: #FFF;
-}
-
-.ChannelDropMenu a {
+.channel-title {
+    font-family: 'Arimo', sans-serif;
     font-size:36px;
-    background-color: #add8e6;
-    color:black;
-    margin: 4px;
-    padding: 8px;
     width:100%;
-    border-radius: 8px;
+}
+
+.channel-description {
+    font-family: 'Arimo', sans-serif;
+    font-size:18px;
+    width:100%;
+    line-height:18px;
+}
+
+.channel-info-table:hover {
+
+    background-color: white;
 
 }
 
-.ChannelDropMenu a:hover {
 
-    background-color: #00008b;
-    color:white;
+.channel-info-table:hover {
+
+    background-color: #add8e6;
+
 }
 
 
@@ -781,7 +799,6 @@ a {
 .createblahheadline
 {
 	background-color:#545253;
-    width:100%;
     border-spacing:0;
     overflow-x:hidden;
     overflow-y:hidden;
@@ -790,8 +807,8 @@ a {
 .createblahheadlinephotoframe
 {
 	width:70px;
-	
 }
+
 .createblahheadlinephoto
 {
 	width:40px;
@@ -803,19 +820,16 @@ a {
 }
 .createblahheadlineoptionframe
 {   overflow: hidden;
-    width: 70px;   
-    background:#545253;
+    width: 70px;
 
 }
 .createblahheadlineoption
 {	
     font-family:'Arimo' sans-serif;
     border:none;
-    float:right;
     margin-right:16px;  
     border: 0 none;
-    color: #000000;
-    background: none;
+
     font-size: 22px;
     font-weight: bold;
 
@@ -1745,6 +1759,22 @@ a {
 
 
 /* media-specific styles */
+@media all and (max-width: 400px)  {
+    .BlahDiv {
+        border-radius: 0px;
+        box-shadow: none;
+
+    }
+}
+
+@media all and (max-width: 2000px) and (min-width: 401px)  {
+    .BlahDiv {
+        border-radius:8px;
+        box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
+
+    }
+}
+
 
 @media only screen and (max-device-width: 480px) {
     /* iphone specific fixes */
@@ -1752,9 +1782,18 @@ a {
 
         border-radius: 0px;
         box-shadow: none;
-
     }
 }
+
+/* iPad  */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .BlahDiv {
+
+        border-radius: 0px;
+        box-shadow: none;
+    }
+}
+
 
 @media (max-width: 400px) {
 @-ms-viewport {
@@ -1766,3 +1805,4 @@ a {
      }
 	}
 }
+

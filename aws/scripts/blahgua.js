@@ -6,6 +6,7 @@ var ViewerUpdateTimer = null;
 
 var BlahList;
 var NextBlahList;
+var kMinWidth = 300;
 var LargeTileWidth = 400;
 var MediumTileWidth = 200;
 var SmallTileWidth = 100;
@@ -15,7 +16,6 @@ var SmallTileHeight = 100;
 var ActiveBlahList;
 var TopRow = null;
 var BottomRow = null;
-var CurrentScrollSpeed = 1;
 var RowsOnScreen = 10;
 var BlahPreviewItem;
 var BlahFullItem;
@@ -50,7 +50,9 @@ var kBannerHighlightColor = "#FFFFFF";
 var kBannerColor = "#FF00FF";
 var numStatsDaysToShow = 7;
 var BlahOpenPage = "Overview";
-
+var kBlahRollPixelStep = 1;
+var kBlahRollScrollInterval = 50;
+var CurrentScrollSpeed = kBlahRollPixelStep;
 
 function GlobalReset() {
     // clear all timers
@@ -148,35 +150,44 @@ $(document).ready(function () {
 
 
 function SignIn() {
-    var savedID = $.cookie("userId");
-    var pwd = $.cookie("password");
+    Blahgua.isUserLoggedIn(function(json) {
+       if (json.loggedIn == "Y")
+          HandlePostSignIn();
+        else {
+           var savedID = $.cookie("userId");
+           var pwd = $.cookie("password");
 
-    if (savedID != null) {
-        if (pwd == null) {
-            pwd = prompt("Welcome back. enter password:")
-        }
+           if (savedID != null) {
+               if (pwd == null) {
+                   pwd = prompt("Welcome back. enter password:")
+               }
 
-        // sign in
-        Blahgua.loginUser(savedID, pwd, function () {
-            IsUserLoggedIn = true;
-            Blahgua.GetProfileSchema(function(theSchema) {
-                ProfileSchema = theSchema.fieldNameToSpecMap;
-            }, OnFailure) ;
-            Blahgua.getUserInfo(function (json) {
-                CurrentUser = json;
-                finalizeInitialLoad();
-            });
-        }, function() {
-            $.removeCookie("userId");
-            $.removeCookie("password");
-            IsUserLoggedIn = false;
-            finalizeInitialLoad();
-        });
-    } else {
-        IsUserLoggedIn = false;
-        // user is anonymous
+               // sign in
+               Blahgua.loginUser(savedID, pwd, HandlePostSignIn, function() {
+                   $.removeCookie("userId");
+                   $.removeCookie("password");
+                   IsUserLoggedIn = false;
+                   finalizeInitialLoad();
+               });
+           } else {
+               IsUserLoggedIn = false;
+               // user is anonymous
+               finalizeInitialLoad();
+           }
+       }
+    })
+
+}
+
+function HandlePostSignIn() {
+    IsUserLoggedIn = true;
+    Blahgua.GetProfileSchema(function(theSchema) {
+        ProfileSchema = theSchema.fieldNameToSpecMap;
+    }, OnFailure) ;
+    Blahgua.getUserInfo(function (json) {
+        CurrentUser = json;
         finalizeInitialLoad();
-    }
+    });
 }
 
 
@@ -226,6 +237,7 @@ function finalizeInitialLoad() {
     UpdateBlahTypes();
 
     ComputeSizes();
+    refreshSignInBtn();
 }
 
 
@@ -360,6 +372,8 @@ function ComputeSizes() {
     var desiredWidth = 640;
     if (windowWidth < desiredWidth)
         desiredWidth = windowWidth;
+    if (desiredWidth < kMinWidth)
+        desiredWidth = kMinWidth;
 
     if (windowWidth > windowHeight) {
         isVertical = false;
@@ -383,6 +397,8 @@ function ComputeSizes() {
     // now make the window the correct size
     var targetWidthWidth = (SmallTileWidth * 4) + totalGutter;
     var offset = Math.floor((windowWidth - targetWidthWidth) / 2);
+    if (offset < 0)
+        offset = 0;
     var blahContainer = document.getElementById("BlahContainer");
     blahContainer.style.left = offset + "px";
     blahContainer.style.width = LargeTileWidth + "px";
@@ -462,6 +478,12 @@ function CreateChannelBanner() {
     viewCount.appendChild(countText);
     countText.innerHTML = "";
 
+    var signin = document.createElement("button");
+    signin.className = "sign-in-button";
+    signin.onclick=function(event) {InstallUserChannel(); event.stopPropagation();};
+    signin.innerHTML = "sign in";
+    banner.appendChild(signin);
+
     var options = document.createElement("div");
     options.onclick = function(event) {DoCreateBlah(); event.stopPropagation();};
     options.className = "ChannelOptions";
@@ -469,11 +491,17 @@ function CreateChannelBanner() {
     banner.appendChild(options);
     banner.options = options;
 
-
-
-
+    refreshSignInBtn();
 }
 
+function refreshSignInBtn() {
+    if (IsUserLoggedIn) {
+        $(".sign-in-button").addClass("signed-in").text("profile");
+    } else {
+        $(".sign-in-button").addClass("signed-in").text("sign in");
+    }
+
+}
 function CreatePreviewBlah() {
     BlahPreviewItem = document.getElementById("BlahPreviewItem");
     $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
@@ -516,6 +544,7 @@ function DoBlahClick(theEvent) {
 
     // now do something
     FocusBlah(who);
+    //OpenBlah(who);
 }
 
 function DoCloseBlah(theEvent) {
@@ -1332,7 +1361,7 @@ function FocusBlah(who) {
     $("#BlahPreviewScrollContainer").css({ 'max-height': maxHeight + 'px'});
     BlahPreviewItem.style.display = "none";
     $(BlahPreviewItem).fadeIn("fast");
-    BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
+    //BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
 
 }
 
@@ -1383,7 +1412,8 @@ function UpdateBodyText(theFullBlah) {
     } else {
         $("#PreviewRowVote").hide();
         $("#PreviewRowSignIn").show();
-        Blahgua.AddBlahViewsOpens(theFullBlah._id, 1, 0, null, OnFailure);
+        //todo:  reenable if we can views and opens for anonymous users
+        //Blahgua.AddBlahViewsOpens(theFullBlah._id, 1, 0, null, OnFailure);
     }
 
     UpdatePreviewVoteBtns();
@@ -1658,7 +1688,7 @@ function DismissPreview() {
         BlahPreviewTimeout = null;
     }
     FocusedBlah = null;
-    CurrentBlah = null;
+    //CurrentBlah = null;
     $("#BlahPreviewItem").hide();
     document.getElementById("blahPreviewImage").style.display = "none";
     document.getElementById("blahPreviewImage").src = "";
@@ -1908,7 +1938,7 @@ function ResizeRowText(newRow) {
 
 function StartBlahsMoving() {
     if (BlahsMovingTimer == null) {
-        BlahsMovingTimer = setTimeout(MakeBlahsMove, 50);
+        BlahsMovingTimer = setTimeout(MakeBlahsMove, kBlahRollScrollInterval);
     }
 }
 
@@ -1923,7 +1953,7 @@ function MakeBlahsMove() {
             RowsOnScreen--;
 
         }
-        BlahsMovingTimer = setTimeout(MakeBlahsMove, 25);
+        BlahsMovingTimer = setTimeout(MakeBlahsMove, kBlahRollScrollInterval);
     } else {
         BlahsMovingTimer = null;
         DoAddBlahRow();
@@ -1940,11 +1970,11 @@ function MakeBlahsMove() {
             RowsOnScreen++;
         }
     }
-    else if (CurrentScrollSpeed > 1) {
+    else if (CurrentScrollSpeed > kBlahRollPixelStep) {
         // skipping ahead - slow down
         CurrentScrollSpeed *= 0.95;
-        if (CurrentScrollSpeed < 1) {
-            CurrentScrollSpeed = 1;
+        if (CurrentScrollSpeed < kBlahRollPixelStep) {
+            CurrentScrollSpeed = kBlahRollPixelStep;
         }
     }
 }
@@ -2248,7 +2278,7 @@ function AssignSizes(theBlahList) {
 // end
 
 function PrepareBlahList(theBlahList) {
-    $("#ChannelBannerLabel").html(CurrentChannel.N + " (" + theBlahList.length + ")");
+    $("#ChannelBannerLabel").html(CurrentChannel.N);
     if (theBlahList.length > 0) {
         NormalizeStrengths(theBlahList);
         AssignSizes(theBlahList);
@@ -2363,36 +2393,32 @@ function createCommentElement(index, theComment) {
         newHTML += '</span> ';
 
         // vote down
-        newHTML += '<span class="clickcard">';
-        newHTML += '<span class="button-icon-wrapper">';
-        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
-        newHTML += '</span>';
-        newHTML += getSafeProperty(theComment, "D", 0);
+        newHTML += '<span class="comment-vote-wrapper">';
         if (ownVote < 0)
-            newHTML += "X"
-        newHTML += '</span>';
+            newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_checked.png">';
+        else
+            newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_disabled.png">';
+
+        newHTML += getSafeProperty(theComment, "D", 0);
+        newHTML += '</span> ';
     } else {
         // vote up
-        newHTML += '<span class="clickcard">';
-        newHTML += ' <button class="start-comment-action"onclick="PromoteComment(\'' +index + '\'); return false;" type="button" >';
-        newHTML += ' <span class="button-icon-wrapper">';
-        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote.png">';
-        newHTML += ' </span>';
-        newHTML += '</button>';
+        newHTML += '<span class="comment-vote-wrapper">';
+        newHTML += '<img class="comment-vote" onclick="SetCommentVote(1, \'' + index + '\'); return false;" alt="" src="' + fragmentURL + '/img/black_promote.png">';
         newHTML += getSafeProperty(theComment, "U", 0);
         newHTML += '</span> ';
 
+
         // vote down
-        newHTML += '<span class="clickcard">';
-        newHTML += '<button class="end comment-action" onclick="DemoteComment(' + index + ');return false;" type="button" >';
-        newHTML += '<span class="button-icon-wrapper">';
-        newHTML += '<img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote.png">';
-        newHTML += '</span>';
-        newHTML += '</button>';
+        newHTML += '<span class="comment-vote-wrapper">';
+        newHTML += '<img class="comment-vote" onclick="SetCommentVote(-1,\'' + index + '\'); return false;" alt="" src="' + fragmentURL + '/img/black_demote.png">';
         newHTML += getSafeProperty(theComment, "D", 0);
-        newHTML += '</span>';
+        newHTML += '</span> ';
     }
-    newHTML += '</div>';
+
+    newHTML += '</div></td>';
+    newHTML += '<td><span class="comment-date">' + ElapsedTimeString(new Date(theComment.c)) + '</span></td>';
+    newHTML += '</tr>'
 
     newHTML += '</div>';
     newHTML += '</td>';
@@ -2553,7 +2579,7 @@ function PopulateChannelMenu( ) {
     var newHTML = "";
 
     $.each(ChannelList, function(index, element) {
-        newHTML += createChannelHTML(index, element.N);
+        newHTML += createChannelHTML(index, element);
     });
 
     document.getElementById("ChannelList").innerHTML = newHTML;
@@ -2579,17 +2605,20 @@ function imgError(theImage) {
 
 function createChannelHTML(index, curChannel) {
     var newHTML = "";
-    newHTML += "<li channelId='" + index + "' onclick='DoJumpToChannel(); return false;'><a>";
-
-    newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel + '.png"';
+    // todo:  set the actual desc from the channel obj
+    var channelDesc = "This is where a pleasant description of this channel will go, once Ben writes it for this channel and Ruben implements it."
+    newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
+    newHTML += "<tr>";
+    newHTML += "<td rowspan=2 class='channel-image-td'>";
+    newHTML += '<img class="channel-image" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png"';
     newHTML += 'onerror="imgError(this);">';
+    newHTML += "</td>";
 
-    newHTML += curChannel;
-    if (IsUserLoggedIn) {
-        newHTML += '<img class="removechannel" src="' + fragmentURL + '/img/delete.png" onclick="DoRemoveChannel(); event.stopPropagation();">';
-    }
-    newHTML += "</a>";
-    newHTML += "</li>"
+    newHTML += "<td><span class='channel-title'>" + curChannel.N + "</span></td>";
+    newHTML += "</tr>";
+    newHTML += "<tr><td><span class='channel-description'>" + channelDesc + "</span>";
+    newHTML += "</td></tr>";
+    newHTML += "</table></td></tr>";
     return newHTML;
 }
 
@@ -2609,9 +2638,8 @@ function OnRemoveChannelOK(deadItem) {
 
 function DoJumpToChannel() {
     var who = event.target || event.srcElement;
-    var what = who.parentElement;
 
-    var channelID = what.attributes["channelId"].nodeValue;
+    var channelID = $(who).parents("table")[0].attributes["channelId"].nodeValue;
     HideChannelList();
     SetCurrentChannel(channelID);
 }
@@ -3001,6 +3029,7 @@ function RefreshPageForNewUser(json) {
     // get the new channel list
     $("#BlahFullItem").hide();
     CurrentUser = json;
+    refreshSignInBtn();
     GetUserChannels();
 }
 
@@ -3366,6 +3395,7 @@ function LogoutUser() {
 function OnLogoutOK(json) {
     alert("you have been logged out.");
     IsUserLoggedIn = false;
+    refreshSignInBtn();
     CurrentUser = null;
     ClosePage();
     GetUserChannels();
@@ -3602,7 +3632,7 @@ function SignInToComment() {
 function DoAddComment() {
     //var commentText = escape($("#CommentTextArea").val());
     var commentText = $("#CommentTextArea").val();
-    Blahgua.AddBlahComment(commentText, CurrentBlah._id, function (newComment) {
+    Blahgua.AddBlahComment(CodifyText(commentText), CurrentBlah._id, function (newComment) {
         $("#CommentTextArea").val("");
         if (CurrentBlah.hasOwnProperty("C")) {
             CurrentBlah.C++;

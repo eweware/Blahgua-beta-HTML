@@ -436,6 +436,17 @@ function BlahguaObject() {
         this.CallPostMethod("users/login", paramStr, OnSuccess, OnFailure);
     };
 
+    this.isUserLoggedIn = function (OnSuccess, OnFailure) {
+        /// <summary>Creates a new user</summary>
+        /// <param name="userName">The internal name of the new user</param>
+        /// <param name="password">password of the user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>The ID of the user</returns>
+
+        this.CallGetMethod("users/login/check", "{}", OnSuccess, OnFailure);
+    };
+
     this.logoutUser = function (OnSuccess, OnFailure) {
         /// <summary>Logs out the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
