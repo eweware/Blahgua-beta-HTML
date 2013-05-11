@@ -18,11 +18,10 @@ requirejs.config({
 // Load the main app module to start the app
 requirejs(
     [
+        "GlobalFunctions",
         "blahgua_restapi",
         "blahgua-globals",
-        "blahgua",
-
-
+        "blahgua_base",
 
         "pagescripts/BlahRoll",
 
@@ -47,5 +46,7 @@ requirejs(
         "pagescripts/SelfPageHistory",
         "pagescripts/SelfPageStats"
 
-    ]
+    ], function(GlobalFunctions, blahgu_rest, blahgua_globals, blahgua_base) {
+        blahgua_base.InitializeBlahgua();
+    }
 );

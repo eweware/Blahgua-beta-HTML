@@ -20,7 +20,7 @@ define('blahgua_restapi', [], function () {
             url: baseURL + methodName,
             data: paramString,
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+
             success: function (theObj) {
                 if (OnSuccess != null) {
                     OnSuccess(theObj);

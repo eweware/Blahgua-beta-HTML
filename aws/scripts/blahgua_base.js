@@ -1,10 +1,44 @@
 ﻿// master JavaScript File for app
-require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
+define('blahgua_base',
+    [
+        'GlobalFunctions',
+        'blahgua_restapi',
+        'SignUpPage'
+    ],
+    function(Exports, Blahgua, SignUpPage) {
 
-    $(window).resize(function(){
-        resizeTimer && clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(HandleWindowResize, 100);
-    });
+
+        var InitializeBlahgua = function() {
+            if ((window.location.hostname == "") ||
+                (window.location.hostname == "localhost") ||
+                (window.location.hostname == "127.0.0.1")) {
+                // running local
+                fragmentURL = "./aws";
+            }
+
+            $(window).resize(function(){
+                resizeTimer && clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(HandleWindowResize, 100);
+            });
+
+            $(document).ready(function () {
+                $("#BlahContainer").disableSelection();
+                $("#ChannelBanner").disableSelection();
+                $("#ChannelDropMenu").disableSelection();
+                $("#BlahPreviewItem").disableSelection();
+                $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
+                $("#BlahContainer").on('swiperight', HandleSwipeRight);
+                $("#BlahContainer").on('swipeup', HandleSwipeUp);
+                $("#BlahContainer").on('swipedown', HandleSwipeDown);
+                $("#LightBox").click(function () {
+                    $("#ChannelDropMenu").hide();
+                    UnfocusBlah();
+                });
+
+                SignIn();
+            });
+        }
+
 
     function HandleWindowResize() {
         ComputeSizes();
@@ -25,29 +59,9 @@ require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
     }
 
 
-    if ((window.location.hostname == "") ||
-        (window.location.hostname == "localhost") ||
-        (window.location.hostname == "127.0.0.1")) {
-        // running local
-        fragmentURL = "./aws";
-    }
 
-    $(document).ready(function () {
-        $("#BlahContainer").disableSelection();
-        $("#ChannelBanner").disableSelection();
-        $("#ChannelDropMenu").disableSelection();
-        $("#BlahPreviewItem").disableSelection();
-        $("#BlahContainer").on('swipeleft', HandleSwipeLeft);
-        $("#BlahContainer").on('swiperight', HandleSwipeRight);
-        $("#BlahContainer").on('swipeup', HandleSwipeUp);
-        $("#BlahContainer").on('swipedown', HandleSwipeDown);
-        $("#LightBox").click(function () {
-            $("#ChannelDropMenu").hide();
-            UnfocusBlah();
-        });
 
-        SignIn();
-    });
+
 
 
     function GlobalReset() {
@@ -161,6 +175,14 @@ require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
         ComputeSizes();
         refreshSignInBtn();
     }
+
+    var RefreshPageForNewUser = function(json) {
+        // get the new channel list
+        ClosePage();
+        CurrentUser = json;
+        refreshSignInBtn();
+        GetUserChannels();
+    };
 
 
 // ********************************************************
@@ -2620,16 +2642,16 @@ require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
                 PopulateUserChannel("Profile");
             }
         } else {
-            $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv",
+            $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv",
                 function () {
-                    RefreshSignupContent();
+                    SignUpPage.RefreshSignupContent();
                 });
         }
     }
 
     function SuggestUserSignIn(message) {
-        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #UserChannelDiv", function() {
-            RefreshSignupContent(message);
+        $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv", function() {
+            SignUpPage.RefreshSignupContent(message);
         });
 
 
@@ -2884,18 +2906,8 @@ require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
 
     }
 
-    function RefreshSignupContent(message) {
-        $("#BlahFullItem").show();
-        if ((message != null) && (message != "")) {
-            $("#SignInMessageDiv").text(message);
-            $("#SignInMessageDiv").fadeIn();
-        } else {
-            $("#SignInMessageDiv").hide();
-        }
-    }
 
-
-    function ClosePage() {
+    var ClosePage = function() {
         $("#BlahFullItem").hide();
         StartAnimation();
     }
@@ -4074,9 +4086,14 @@ require(['blahgua_restapi', 'SignUpPage'], function(Blahgua, SignUpPage) {
     function DoAddCommentPreview() {
         BlahOpenPage = "Comments";
         OpenFocusedBlah();
-    }   
-    
-    
+    }
+
+        Exports.ClosePage = ClosePage;
+        Exports.RefreshPageForNewUser = RefreshPageForNewUser;
+    return {
+        InitializeBlahgua: InitializeBlahgua
+
+    }
 });
 
 

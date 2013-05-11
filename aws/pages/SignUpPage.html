@@ -1,46 +1,122 @@
 <!DOCTYPE html>
 <html>
+<head>
+    <link rel="stylesheet" href="../css/signup.css" />
+</head>
 <body>
-<div id="UserChannelDiv" class="UserChannelDiv">
+<div id="SignInInDiv" class="sign-in-page">
+    <div class="sign-in">
+        <h3 >Please sign in or create a new account.  It's free!</h3>
+    </div>
     <div class="content_frame">
-    <div class="button_select1" id="p1"  align="right"  onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':'';document.getElementById('c2').style.display='none'">
-    <div class="button_select2" >  
-    <div align="center" class="button_select3">NEW  USER</div>
-    </div>
-    </div>
-    <div class="button_select4" id="p2"  onClick="javascript:document.getElementById('c2').style.display=document.getElementById('c2').style.display==''?'none':'';document.getElementById('c1').style.display='none'">
-    <div class="button_select5">
-    <div class="button_select6">EXISTING USER</div>
-    </div>
-    </div>
-    </div>
-    
-    
-    <div id="c1" style="margin:0 auto; width:100%;">
-    <div style="border:none;background:darkgrey;width:400px;height:100%;position:relative;top:-30px;margin:0 auto;">
-    	 <label for="userName" style="color:#3B393A;font-size:18px;margin:0 auto;font-family:arial,sans-serif">USERNAME</label>  <br />
-        <input  id="userName"  type="text" style="width:280px;height:35px;border-radius:10px">    <br /><br />
-        <label for="pwd" style="font-size:18px;color:#3B393A;font-family:arial,sans-serif">PASSWORD</label>  <br />
-        <input id="pwd"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
-        <label for="pwd3" style="font-size:18px;color:#3B393A;font-family:arial,sans-serif">CONFIRM</label>  <br />
-        <input id="pwd3"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
-        <label for="rememberme" style="font-size:10px;color:#3B393A;font-family:arial,sans-serif">REMEMBER ME:</label>
-        <input type="checkbox" value="true" id="rememberme"><br />
-        <button align="center" onclick="SignUpPage.CreateNewUser(); return false;" style="font-family:arial,sans-serif;width:160px;height:50px;border:none;display:block;background:#37b36e;border-radius:10px;font-size:18px;color:white;margin-top:15px;margin-left:40px">CREATE</button>
-       
-    </div>
-    </div>
-    
-    <div id="c2" style="display: none;margin:0 auto;width:100%">
-    <div style="border:none;background:darkgrey;width:400px;height:100%;position:relative;top:-30px;margin:0 auto;">
-       <label for="userName2" style="color:#3B393A;font-size:18px;margin:0 auto;font-family:arial,sans-serif">USERNAME</label> <br />
-        <input id="userName2"  type="text" style="width:280px;height:35px;border-radius:10px">    <br /><br />
-        <label for="pwd2" style="font-size:18px;color:#3B393A;font-family:arial,sans-serif;">PASSWORD</label> <br />
-        <input id="pwd2"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
-        <label for="rememberme2" style="font-size:10px;color:#3B393A;font-family:arial,sans-serif">REMEMBER ME:</label> <br />
-        <input type="checkbox" value="true" id="rememberme2"><br />
-        <button onclick="SignUpPage.SignInExistingUser(); return false;"style="font-family:arial,sans-serif;width:160px;height:50px;background:#37be6e;border:none;display:block;border-radius:10px;font-size:18px;color:white;" >SIGN IN</button>
-    </div>
+        <div class="toggle-header">
+            <button class="toggle-btn btn-left toggle-active" data-toggle-set="login" data-toggle-value="existing">Existing User</button>
+            <button class="toggle-btn" data-toggle-set="login" data-toggle-value="new">New User</button>
+            <button class="toggle-btn btn-right" data-toggle-set="forgot" data-toggle-value="recover">Forgot Password</button>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle-content" data-toggle-set="login" data-toggle-value="existing">
+                <table>
+                    <thead>
+                    <th class="table-label-col"></th>
+                    <th class="table-input-col"></th>
+                    </thead>
+                    <tbody>
+                    <tr class="label-group">
+                        <td><label for="userName2">USERNAME</label></td>
+                        <td><input id="userName2"  type="text"></td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><label for="pwd2">PASSWORD</label></td>
+                        <td><input id="pwd2"  type="password"></td>
+                    </tr>
+                    <tr >
+                        <td colspan="2" class="item-container">
+                            <div class="checkbox-group">
+                                <input type="checkbox" value="true" id="rememberme2">
+                                <label for="rememberme2">REMEMBER ME</label>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="item-container">
+                                <button align="center" id="CancelSignIn" class="action-btn">cancel</button>
+                                <button align="center" id="SignInBtn" class="action-btn action-default">SIGN IN</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="toggle-content" data-toggle-set="login" data-toggle-value="new">
+                <table>
+                    <thead>
+                    <th class="table-label-col"></th>
+                    <th class="table-input-col"></th>
+                    </thead>
+                    <tbody>
+                    <tr class="label-group">
+                        <td> <label for="userName">USERNAME</label></td>
+                        <td><input  id="userName"  type="text"></td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><label for="pwd">PASSWORD</label></td>
+                        <td><input id="pwd"  type="password"></td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><label for="pwd3">CONFIRM</label></td>
+                        <td><input id="pwd3"  type="password"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="item-container">
+                            <div class="checkbox-group">
+                                <label for="rememberme">REMEMBER ME:</label>
+                                <input type="checkbox" value="true" id="rememberme">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="item-container">
+                                <button align="center" id="CancelNewUser" class="action-btn">cancel</button>
+                                <button align="center" id="NewUserBtn" class="action-btn action-default">CREATE</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="toggle-content" data-toggle-set="login" data-toggle-value="recover">
+                <table>
+                    <thead>
+                    <th class="table-label-col"></th>
+                    <th class="table-input-col"></th>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td colspan="2" class="item-container">
+                            <span class="recovery-instructions">Enter the recovery email address associated with your account.<br/>We will email reset instructions to you.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><label for="email">EMAIL</label></td>
+                        <td><input id="email"  type="password"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <div class="item-container">
+                                <button align="center" id="CancelForgot" class="action-btn">CANCEL</button>
+                                <button align="center" id="RecoverPasswordBtn" class="action-btn action-default">RECOVER PASSWORD</button>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 </body>

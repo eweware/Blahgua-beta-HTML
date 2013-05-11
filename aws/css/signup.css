@@ -1,56 +1,200 @@
 /* styles needed for the signup page */
 
+
+.sign-in-page {
+    border-style:none;
+    padding:8px;
+    border-radius: 16px;
+    box-shadow: 0px 5px 15px rgba(0,0,0,.3);
+    background-color:deepskyblue;
+    margin:24px;
+}
+
+
+.sign-in {
+    text-align:center;
+    font-family: 'Arimo', sans-serif;
+    color:white;
+    padding-left: 32px;
+    padding-right:32px;
+}
+
+.sign-in h2 {
+    font-size: 36px;
+}
+
+.sign-in h3 {
+    font-size: 18px;
+}
+
+.sign-in h4 {
+    font-size: 18px;
+    font-style:italic;
+}
+
+
+.sign-in img {
+
+}
+
 .content_frame{
-    position:relative;
-    margin:0px auto;
-    width:100%;
+    text-align: center;
 }
-.button_select1{
-    width:40%;
-    padding-top:80px;
-}
-.button_select2{
-    width:160px;
-    height:50px;
-    background-color:#d74d3e;
-    border-color:transparent;
-    border-radius:10px;
+
+.recovery-instructions {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
     color:white;
-    font-size:18px;
+}
+.toggle-container {
+    text-align: center;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+    padding-bottom: 16px;
+    margin:0px;
+    border-color: rgba(255,255,255,.5);
+    border-width: 4px;
+    border-style: solid;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    height: 200px;
+    background-color: rgba(255,255,255,.2);
+
 }
 
-.button_select2:hover{
-    background-color:red;
+.toggle-content table {
+    margin: 0 auto;
+}
+
+.item-container {
+    text-align: center;
+    width: 100%;
+}
+
+.toggle-header {
+    text-align: center;
+    font-size:0;
+    margin: 0 auto;
+}
+
+
+.label-group {
+    text-align:left;
+}
+
+.label-group label {
     color:white;
+    font-weight: bold;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: right;
+}
+
+.label-group input {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    padding: 8px;
+    border-size:0px;
+    background-color: #dedede;
+    border-width: 0px;
+    border-style: none;
+    border-radius: 8px;
+    box-shadow: inset 5px 5px 5px rgba(0,0,0,.3);
+}
+
+.checkbox-group {
 
 }
 
-
-.button_select3{
-    padding-top:15px;
-    padding-right:3px;
-    margin-left:-10px;
-    font-family:arial,sans-serif;
-
+.checkbox-group label {
+    color:white;
+    font-weight: bold;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
 }
-.button_select4{
-    width:70%;
-    margin:0px auto;
+
+.checkbox-group input[type='checkbox'] {
+    width:20px;
+    height:20px;
+    border-style:solid;
+    border-width: 4px;
+    padding:8px;
 }
-.button_select5{
-    width:160px;
-    height:50px;
-    background-color:#878787;
-    border-color:transparent;
-    border-radius:10px;
+
+.toggle-btn {
+    color:white;
+    background-color: gray;
+    border-style:none;
+    border-width: 0px;
+    border-radius: 0px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    height:48px;
+    padding-left:8px;
+    padding-right:8px;
+    margin:0px;
+    margin-left:1px;
+}
+
+.table-label-col {
+    text-align: right;
+}
+
+.table-input-col {
+    text-align:left;
+}
+
+.btn-left {
+    border-top-left-radius: 8px;
+}
+
+.btn-right {
+    border-top-right-radius: 8px;
+}
+
+
+.toggle-btn:hover {
     color:black;
-    font-size:18px;
-    position:relative;
-    top:-50px;
-    left:200px;
+    background-color: #AAAAAA;
 }
-.button_select6{
-    padding-top:15px;
-    padding-left:12px;
-    font-family:arial,sans-serif;
+
+.toggle-active {
+    background-color: #00c50d;
+    color:white;
+}
+
+.toggle-active:hover {
+    background-color: #00c50d;
+    color:white;
+}
+
+
+
+.action-btn {
+    color: #dedede;
+    background-color: #333333;
+    border-style:none;
+    border-width: 0px;
+    border-radius: 8px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 8px 16px;
+}
+
+.action-btn:hover {
+    color:black;
+    background-color: #AAAAAA;
+}
+
+.action-default {
+    background-color: #008409;
+    color: white
+}
+
+.action-default:hover {
+    background-color: #00c50d;
+    color:white;
 }
