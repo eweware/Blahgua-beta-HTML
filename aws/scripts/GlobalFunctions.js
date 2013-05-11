@@ -12,11 +12,18 @@ define('GlobalFunctions',
 
         var ClosePage = null;
         var RefreshPageForNewUser = null;
+        var OpenBlah = null;
+        var SuggestUserSignIn = null;
+        var OnFailure = null;
+        var GetBlahTypeStr = null;
 
         return {
-
             ClosePage: ClosePage,
-            RefreshPageForNewUser: RefreshPageForNewUser
+            RefreshPageForNewUser: RefreshPageForNewUser ,
+            OpenBlah: OpenBlah,
+            SuggestUserSignIn: SuggestUserSignIn,
+            OnFailure: OnFailure,
+            GetBlahTypeStr: GetBlahTypeStr
         }
     }
 );

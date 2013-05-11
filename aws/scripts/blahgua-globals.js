@@ -72,6 +72,40 @@ var resizeTimer = null;
 
  */
 
+function getSafeProperty(obj, prop, defVal) {
+    if(obj && obj.hasOwnProperty(prop)) {
+        return obj[prop];
+    } else {
+        return defVal;
+    }
+}
+
+function GetBlahImage(theBlah, size) {
+    var imagePathName = "";
+    if (theBlah.hasOwnProperty("M")) {
+        // fetch the correct image size
+        var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
+        var imageName = theBlah.M[0];
+        imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
+    }
+
+
+    return imagePathName;
+
+}
+
+function CodifyText(theText) {
+    var regX = /\r\n|\r|\n/g;
+    var replaceString = newlineToken;
+    return theText.replace(regX, replaceString);
+}
+
+function UnCodifyText(theText) {
+    var regX = new RegExp("\\" + newlineToken,"g");
+    var replaceString = "<br />";
+    return theText.replace(regX, replaceString);
+}
+
 
 function BlockMove(event) {
     // Tell Safari not to move the window.

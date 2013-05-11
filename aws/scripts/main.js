@@ -10,7 +10,8 @@ requirejs.config({
     "baseUrl": "./aws/scripts/",
     "paths": {
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
-        "SignUpPage": "pagescripts/SignUpPage"
+        "SignUpPage": "pagescripts/SignUpPage",
+        "BlahPreview": "pagescripts/BlahPreview"
     }
 });
 
@@ -21,32 +22,9 @@ requirejs(
         "GlobalFunctions",
         "blahgua_restapi",
         "blahgua-globals",
-        "blahgua_base",
+        "blahgua_base"
 
-        "pagescripts/BlahRoll",
-
-        "pagescripts/BlahPreview",
-        "pagescripts/BlahTypeAskPreview",
-        "pagescripts/BlahTypePredictPreview",
-
-        "pagescripts/BlahDetailPage",
-        "pagescripts/BlahTypeAskPage",
-        "pagescripts/BlahTypePredictPage",
-        "pagescripts/BlahBodyDetailPage",
-        "pagescripts/BlahCommentDetailPage",
-        "pagescripts/BlahStatsDetailPage",
-        "pagescripts/BlahAuthorPage",
-
-        "pagescripts/CreateBlahPage",
-        "pagescripts/BlahTypeAskAuthorPage",
-        "pagescripts/BlahTypePredictAuthorPage",
-
-        "pagescripts/SelfPage",
-        "pagescripts/SelfPageDetails",
-        "pagescripts/SelfPageHistory",
-        "pagescripts/SelfPageStats"
-
-    ], function(GlobalFunctions, blahgu_rest, blahgua_globals, blahgua_base) {
+    ], function(GlobalFunctions, blahgua_rest, blahgua_globals, blahgua_base) {
         blahgua_base.InitializeBlahgua();
     }
 );
