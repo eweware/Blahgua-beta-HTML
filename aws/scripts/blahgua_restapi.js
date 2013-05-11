@@ -664,6 +664,7 @@ define('blahgua_restapi', [], function () {
         AddBlahViewsOpens:  AddBlahViewsOpens ,
         GetChannelInfo:  GetChannelInfo ,
         GetUserChannelInfo:  GetUserChannelInfo ,
+        SetBlahVote: SetBlahVote,
         SetCommentVote:  SetCommentVote ,
         RemoveUserFromChannel:  RemoveUserFromChannel ,
         JoinUserToChannel:  JoinUserToChannel ,

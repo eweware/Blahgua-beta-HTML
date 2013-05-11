@@ -453,7 +453,30 @@ define('blahgua_base',
     function CreatePreviewBlah() {
         BlahPreviewItem = document.getElementById("BlahPreviewItem");
         $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
-            // do something when the preview page is opened...
+            // bind preview event handlers
+            $("#BlahPreview").click(function() {UnfocusBlah(true);});
+            $(".blah-opener").click(function(event) {
+                event.stopImmediatePropagation();
+                OpenFocusedBlah();
+            });
+            $("#PreviewPromoteBlah").click(function() {
+                event.stopImmediatePropagation();
+                SetBlahPreviewVote(1);
+            });
+            $("#PreviewDemoteBlah").click(function() {
+                event.stopImmediatePropagation();
+                SetBlahPreviewVote(-1);
+            });
+            $("#PreviewCommentBtn").click(function() {
+                event.stopImmediatePropagation();
+                DoAddCommentPreview();
+            })
+            $("#SuggestSignIn").click(function() {
+                event.stopImmediatePropagation();
+                SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');
+                DismissPreview();
+            })
+
         });
     }
 
@@ -2531,6 +2554,7 @@ define('blahgua_base',
         });
 
         document.getElementById("ChannelList").innerHTML = newHTML;
+        $("#ChannelList img").error(imgError);
         $("#ViewProfileBtn").text(getUserChannelName());
 
 
@@ -2544,7 +2568,8 @@ define('blahgua_base',
         }
     }
 
-    function imgError(theImage) {
+    function imgError(theEvent) {
+        var theImage = theEvent.target;
         theImage.onerror = "";
         theImage.src = fragmentURL + "/images/groups/default.png";
         return true;
@@ -2558,8 +2583,7 @@ define('blahgua_base',
         newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
         newHTML += "<tr>";
         newHTML += "<td rowspan=2 class='channel-image-td'>";
-        newHTML += '<img class="channel-image" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png"';
-        newHTML += 'onerror="imgError(this);">';
+        newHTML += '<img class="channel-image" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png">';
         newHTML += "</td>";
 
         newHTML += "<td><span class='channel-title'>" + curChannel.N + "</span></td>";

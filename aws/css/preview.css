@@ -1,0 +1,109 @@
+
+.BlahPreview {
+    display:none;
+    background-color: transparent;
+    position:absolute;
+    height:auto;
+    top:50px;
+    z-index:15;
+}
+
+.BlahPreviewHeadline {
+    font-size:24px;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    word-wrap: break-word;
+    background-color: white;
+    padding-top:8px;
+}
+
+.BlahPreviewTable {
+    border-spacing:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    width: 100%;
+}
+
+.viewer-count img {
+    width:36px;
+    text-align: right;
+}
+
+.preview-footer-button {
+    padding-top:8px;
+}
+
+.BlahPreviewFooter {
+    position:relative;
+    border-spacing:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    background-color:lightgrey;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    z-index: 2;
+    margin-top: -8px;
+    height:80px;
+    width:100%;
+
+}
+
+.BlahPreviewHeader {
+    background-color:transparent;
+}
+
+
+.BlahPreviewFooter td {
+    width:5%;
+}
+.preview-footer-button {
+    width:20%;
+    text-align: center;
+}
+.preview-footer-button img {
+    width:36px;
+}
+
+.previewBlahgerName {
+    padding-left:12px;
+    font-size:24px;
+    color:white;
+    font-family: 'Arimo', sans-serif;
+}
+
+.PreviewViewerCount {
+    position:relative;
+    top:-8px;
+    padding-right:12px;
+    font-size:24px;
+    color:white;
+    font-family: 'Arimo', sans-serif;
+    padding-left:4px;
+}
+
+.BlahPreviewImage {
+    margin: 0 auto;
+    padding-top:16px;
+    width:256px;
+    height:256px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 5px rgba(0,0,0,.3);
+
+}
+
+.BlahPreviewBody {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    width:100%;
+    padding:16px;
+
+}
+
+.preview-vote-row {
+    height:70px;
+    width:100%;
+ }
