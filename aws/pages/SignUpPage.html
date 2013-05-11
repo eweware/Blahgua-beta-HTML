@@ -2,7 +2,6 @@
 <html>
 <body>
 <div id="UserChannelDiv" class="UserChannelDiv">
-
     <div class="content_frame">
     <div class="button_select1" id="p1"  align="right"  onClick="javascript:document.getElementById('c1').style.display=document.getElementById('c1').style.display==''?'none':'';document.getElementById('c2').style.display='none'">
     <div class="button_select2" >  
@@ -27,7 +26,7 @@
         <input id="pwd3"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
         <label for="rememberme" style="font-size:10px;color:#3B393A;font-family:arial,sans-serif">REMEMBER ME:</label>
         <input type="checkbox" value="true" id="rememberme"><br />
-        <button align="center" onclick="CreateNewUser(); return false;" style="font-family:arial,sans-serif;width:160px;height:50px;border:none;display:block;background:#37b36e;border-radius:10px;font-size:18px;color:white;margin-top:15px;margin-left:40px">CREATE</button>
+        <button align="center" onclick="SignUpPage.CreateNewUser(); return false;" style="font-family:arial,sans-serif;width:160px;height:50px;border:none;display:block;background:#37b36e;border-radius:10px;font-size:18px;color:white;margin-top:15px;margin-left:40px">CREATE</button>
        
     </div>
     </div>
@@ -40,7 +39,7 @@
         <input id="pwd2"  type="password" style="width:280px;height:35px;border-radius:10px">        <br /><br />
         <label for="rememberme2" style="font-size:10px;color:#3B393A;font-family:arial,sans-serif">REMEMBER ME:</label> <br />
         <input type="checkbox" value="true" id="rememberme2"><br />
-        <button onclick="SignInExistingUser(); return false;"style="font-family:arial,sans-serif;width:160px;height:50px;background:#37be6e;border:none;display:block;border-radius:10px;font-size:18px;color:white;" >SIGN IN</button>
+        <button onclick="SignUpPage.SignInExistingUser(); return false;"style="font-family:arial,sans-serif;width:160px;height:50px;background:#37be6e;border:none;display:block;border-radius:10px;font-size:18px;color:white;" >SIGN IN</button>
     </div>
     </div>
 </div>
