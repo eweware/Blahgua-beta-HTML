@@ -104,7 +104,7 @@ define('BlahPreview',
 
         var InitPreviewPage = function() {
             // bind preview event handlers
-            $("#BlahPreview").click(function() {UnfocusBlah(true);});
+            $("#BlahPreview").click(function() {exports.UnfocusBlah(true);});
             $(".blah-opener").click(function(event) {
                 event.stopImmediatePropagation();
                 OpenFocusedBlah();
@@ -209,12 +209,16 @@ define('BlahPreview',
             // check if it is a special type
             switch (exports.GetBlahTypeStr()) {
                 case "predicts":
-                    $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePredictPreview.html #BlahTypePredictPreview",
-                        function() { UpdatePredictPreviewPage(); })
+                    require(['BlahTypePredict'], function(PredictModule) {
+                        $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredict",
+                            function() { PredictModule.InitPredictPage(); });
+                        });
                     break;
                 case "polls":
-                    $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypeAskPreview.html #BlahTypeAskPreview",
-                        function() { UpdateAskPreviewPage(); })
+                    require(['BlahTypePoll'], function(PollModule) {
+                        $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePollPage.html #BlahTypePoll",
+                            function() { PollModule.UpdatePollPage("BlahPreviewExtra"); });
+                    });
                     break;
                 default:
 

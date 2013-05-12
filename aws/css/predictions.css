@@ -1,4 +1,8 @@
 
+.BlahTypePredictPreview   {
+
+}
+
 .PredictCheckBoxClass {
     width:24px;
     height: 24px;
@@ -46,10 +50,10 @@
     padding-right: 16px;
 }
 
-.PredictPreviewSpan {
+.predict-indicator-span {
     background-color: red;
     height:18px;
-    width:0%;
+    width:0;
 }
 
 .PredictCheckBoxWrapper {
@@ -61,8 +65,20 @@
     text-align: center;
 }
 
-.PredictPreviewAnswerText {
+.PredictAnswerText {
     font-family: 'Arimo', sans-serif;
     font-size:18pt;
 
+}
+
+[data-predict-vote=y] predict-indicator-span {
+    background-color: green;
+}
+
+[data-predict-vote=n] predict-indicator-span {
+    background-color: red;
+}
+
+[data-predict-vote=u] predict-indicator-span {
+    background-color: blue;
 }

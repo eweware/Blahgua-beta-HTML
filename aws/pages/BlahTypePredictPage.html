@@ -1,38 +1,78 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title></title>
-</head>
 <body>
-<div id="BlahTypePredictPage" >
-        <hr>
-        <span>happening within </span><span class="elapsedTimePreview" id="elapsedTimeBlah">2 months</span><br/>
-        <span class="predictionDatePreview" id="predictionDateBlah">Jan 1, 2014</span> <br/>
-        <span class="predictionVotePrompt">Do you agree?</span>
-        <table>
-            <tr>
-                <td><input type="radio" name="BlahPredictVote" id="BlahPredictVoteYes"> </td>
-                <td>
-                    <div id="PredictBlahYesSpan" class="PredictPreviewYesSpan"></div>
-                    <span class="PredictPreviewAnswerText">Yes, it will happen</span>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="radio" name="BlahPredictVote" id="BlahPredictVoteNo"> </td>
-                <td>
-                    <div id="PredictPreviewNoSpan" class="PredictPreviewNoSpan"></div>
-                    <span class="PredictPreviewAnswerText">No, it won't</span>
-                </td>
-            </tr>
-            <tr>
-                <td><input type="radio" name="BlahPredictVote" id="BlahPredictVoteMaybe"> </td>
-                <td>
-                    <div id="PredictBlahMaybeSpan" class="PredictPreviewMaybeSpan"></div>
-                    <span class="PredictPreviewAnswerText">Unclear</span>
-                </td>
-            </tr>
-        </table>
-        <hr>
+<div id="BlahTypePredict" class="BlahTypePredict">
+    <hr>
+    <div class="predictTimeDiv">
+        <span  id="ElapsedTimeText" class="elapsedTimeText">happening within </span>
+        <span class="elapsedTimeText" id="elapsedTime">2 months</span>
     </div>
+    <div class="predictTimeDiv">
+        <span class="predictionDate" id="predictionDate">Jan 1, 2014</span>
+    </div>
+    <div class="predictionVotePrompt">
+        <span id="PredictVotePrompt">Do you agree?</span>
+    </div>
+    <table id="PredictVoteTable" class="PredictionChoiceTable current-choices">
+        <tr data-predict-vote="y">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass"  id="PredictYesImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">Yes, it will happen</span>
+                <div id="PredictYesSpan" class="predict-indicator-span"></div>
+            </td>
+        </tr>
+        <tr data-predict-vote="n">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass" id="PredictNoImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">No, it won't</span>
+                <div id="PredictNoSpan" class="predict-indicator-span"></div>
+            </td>
+        </tr>
+        <tr data-predict-vote="u">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass" id="PredictMaybeImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">Unclear</span>
+                <div id="PredictMaybeSpan" class="predict-indicator-span"></div>
+            </td>
+        </tr>
+    </table>
+    <table id="ExpPredictVoteTable" class="PredictionChoiceTable expired-choices">
+        <tr data-predict-vote="y">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass"  id="ExpPredictYesImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">Yes, it happened</span>
+                <div id="ExpPredictYesSpan" class="PredictSpan"></div>
+            </td>
+        </tr>
+        <tr data-predict-vote="n">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass" id="ExpPredictNoImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">No, it did not</span>
+                <div id="ExpPredictNoSpan" class="PredictSpan"></div>
+            </td>
+        </tr>
+        <tr data-predict-vote="u">
+            <td class="PredictCheckBoxWrapper">
+                <img class="PredictCheckBoxClass" id="ExpPredictMaybeImg" src="http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png">
+            </td>
+            <td>
+                <span class="PredictAnswerText">Unclear</span>
+                <div id="ExpPredictMaybeSpan" class="PredictSpan"></div>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</div>
 </body>
 </html>

@@ -665,7 +665,7 @@ define('blahgua_base',
                     function() { UpdatePredictPage(); })
                 break;
             case "polls":
-                $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypeAskPage.html #BlahTypeAskPage",
+                $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePollPage.html #BlahTypeAskPage",
                     function() { UpdateAskPage("PollAnswersArea"); })
                 break;
             default:
@@ -1052,86 +1052,7 @@ define('blahgua_base',
         }
     }
 
-    function UpdatePredictPage() {
-        // update the prediction divs
-        var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
-        var expDate = new Date(expDateVal);
-        var elapStr = ElapsedTimeString(expDate);
-        $("#elapsedTimeBlah").text(elapStr);
-        $("#predictionDateBlah").text(expDate.toLocaleDateString());
-    }
 
-    function UpdateAskPage(previewAreaName) {
-
-        if (CurrentBlah.hasOwnProperty("I")) {
-            var choices = CurrentBlah.I;
-            var votes = CurrentBlah.J;
-            var newChoice;
-            var maxVotes = 0, curVotes;
-            for (curIndex in votes) {
-                curVotes = votes[curIndex];
-                if (curVotes > maxVotes) {
-                    maxVotes = curVotes;
-                }
-            }
-
-            previewAreaName = "#" + previewAreaName;
-            for (curIndex in choices) {
-                newChoice = CreatePollChoiceElement(choices[curIndex],votes[curIndex], maxVotes, curIndex);
-                $(previewAreaName).append(newChoice);
-            }
-
-            if (IsUserLoggedIn)
-                Blahgua.GetUserPollVote(CurrentBlah._id, OnGetUserPollVoteOK);
-        }
-    }
-
-    function OnGetUserPollVoteOK(json) {
-        if (json.hasOwnProperty("W")) {
-            // disable all vote buttons
-            $(".PollVoteIcon").remove();
-            $(".PollVoteText")[Number(json.W)].style.color = "#FF0000";
-            $(".PollVoteText")[Number(json.W)].style.fontWeight = "bold";
-        }
-    }
-
-    function CreatePollChoiceElement(pollChoice, curVotes, maxVotes, choiceIndex) {
-        var maxWidth = $("body").width() - 280;
-        var ratio = curVotes/ maxVotes;
-        var curRatio = Math.floor(100 * ratio);
-        var newHTML = "";
-        newHTML += '<table class="PollChoiceWrapper"><tbody><tr style="width:100%">';
-        newHTML += '<td class="PollTitle"><span>' + pollChoice.G + '</span></td>';
-        newHTML += '<td class="PollDescription" style="width:' + maxWidth + 'px">';
-        newHTML += '<div class="PollChartDiv" style="width:' + curRatio + '%"></div></td>';
-        newHTML += '<td class="PollVotes">';
-        newHTML += '<img class="PollVoteIcon" src="' + fragmentURL + '/img/black_thumbsUp.png" id="' + choiceIndex + '" alt="vote up" onclick="DoPollVote(); return false;" />';
-        newHTML += '<span class="PollVoteText">' + curVotes + '</span>';
-        newHTML += '</td></tr>';
-        // add a row for the comment, if any
-        if (pollChoice.hasOwnProperty("T")) {
-            newHTML += '<tr><td></td><td colspan="2" class="PollComment">';
-            newHTML += '<span style="font-style:italic">' + pollChoice.T + '</span>';
-            newHTML += '</td></tr>';
-        }
-        newHTML += "</tbody></table>";
-
-        return newHTML;
-    }
-
-    function DoPollVote(theChoice) {
-        var who = event.target || event.srcElement;
-
-        Blahgua.SetUserPollVote(CurrentBlah._id, Number(who.id), OnSetUserPollVoteOk, OnPollVoteFail);
-    }
-
-    function OnSetUserPollVoteOk(json) {
-        alert("Poll vote recorded");
-    }
-
-    function OnPollVoteFail(json) {
-        alert("Poll vote failed!");
-    }
 
 
 
@@ -1205,71 +1126,7 @@ define('blahgua_base',
     }
 
 
-    /**
-     * @return {string}
-     */
-    function ElapsedTimeString(theDate) {
-        var now = new Date();
-        var timeSpan;
-        var tailStr;
 
-        if (theDate > now) {
-            timeSpan = Math.floor((theDate - now) / 1000);
-            tailStr = " from now";
-        } else {
-            timeSpan = Math.floor((now - theDate) / 1000);
-            tailStr = " ago";
-        }
-
-
-        var curYears = Math.floor(timeSpan / 31536000);
-        if (curYears > 0) {
-            if (curYears > 2) {
-                return curYears + " years" + tailStr;
-            } else {
-                return Math.floor(timeSpan / 2592000) + " months" + tailStr;
-            }
-        }
-
-        var curMonths = Math.floor(timeSpan / 2592000); // average 30 days
-        if (curMonths > 0) {
-            if (curMonths >= 2) {
-                return curMonths + " months" + tailStr;
-            } else {
-                return Math.floor(timeSpan / 604800) + " weeks" + tailStr;
-            }
-        }
-
-        var curDays = Math.floor(timeSpan / 86400);
-        if (curDays > 0) {
-            if (curDays >= 2) {
-                return curDays + " days" + tailStr;
-            } else {
-                return Math.floor(timeSpan / 3600) + " hours" + tailStr;
-            }
-        }
-
-        var curHours = Math.floor(timeSpan / 3600);
-        if (curHours > 0) {
-            if (curHours >= 2) {
-                return curHours + " hours" + tailStr;
-            } else {
-                return Math.floor(timeSpan / 60) + " minutes" + tailStr;
-            }
-        }
-
-        var curMinutes = Math.floor(timeSpan / 60);
-        if (curMinutes >= 2) {
-            return curMinutes + " minutes" + tailStr;
-        }
-
-        if (timeSpan <= 1) {
-            return "just now";
-        } else {
-            return timeSpan + " seconds" + tailStr;
-        }
-
-    }
 
 
     function UpdateBlahCommentDiv() {
@@ -1309,144 +1166,7 @@ define('blahgua_base',
 
 
 
-    function UpdateAskPreviewPage() {
-        // for now just use the full blah routine...
-        UpdateAskPage("PollAnswersAreaPreview");
-    }
 
-    function UpdatePredictPreviewPage() {
-        // update the prediction divs
-        var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
-        var expDate = new Date(expDateVal);
-        var elapStr = ElapsedTimeString(expDate);
-        var isPast = (expDate < new Date(Date.now()));
-
-        if (isPast) {
-            $("#previewElapsedTimeText").text("should have happened ");
-            $("#previewPredictVotePrompt").text("Did it happen?");
-            $("#PreviewPredictVoteTable").hide();
-            $("#PreviewExpPredictVoteTable").show();
-        } else {
-            $("#previewElapsedTimeText").text("happening within ");
-            $("#previewPredictVotePrompt").text("Do you agree?");
-            $("#PreviewPredictVoteTable").show();
-            $("#PreviewExpPredictVoteTable").hide();
-        }
-
-        $("#elapsedTimePreview").text(elapStr);
-        $("#predictionDatePreview").text(expDate.toLocaleDateString());
-
-        // update the bars
-        var yesVotes = getSafeProperty(CurrentBlah, "4", 0);
-        var noVotes = getSafeProperty(CurrentBlah, "5", 0);
-        var maybeVotes = getSafeProperty(CurrentBlah, "6", 0);
-        var totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
-        var yesRatio = 0;
-        var noRatio = 0;
-        var maybeRatio = 0;
-
-        if (totalVotes > 0) {
-            yesRatio = Math.floor((yesVotes / totalVotes) * 100);
-            noRatio = Math.floor((noVotes / totalVotes) * 100);
-            maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
-        }
-        $("#PredictPreviewYesSpan").animate({'width': yesRatio + "%"}, 250);
-        document.getElementById("PredictPreviewYesSpan").style.width = yesRatio + "%";
-        document.getElementById("PredictPreviewNoSpan").style.width = noRatio + "%";
-        document.getElementById("PredictPreviewMaybeSpan").style.width = maybeRatio + "%";
-
-        // expired ui
-        yesVotes = getSafeProperty(CurrentBlah, "1", 0);
-        noVotes = getSafeProperty(CurrentBlah, "2", 0);
-        maybeVotes = getSafeProperty(CurrentBlah, "3", 0);
-        totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
-        yesRatio = 0;
-        noRatio = 0;
-        maybeRatio = 0;
-
-        if (totalVotes > 0) {
-            yesRatio = Math.floor((yesVotes / totalVotes) * 100);
-            noRatio = Math.floor((noVotes / totalVotes) * 100);
-            maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
-        }
-        document.getElementById("ExpPredictPreviewYesSpan").style.width = yesRatio + "%";
-        document.getElementById("ExpPredictPreviewNoSpan").style.width = noRatio + "%";
-        document.getElementById("ExpPredictPreviewMaybeSpan").style.width = maybeRatio + "%";
-
-
-        if (IsUserLoggedIn) {
-            // update the user's vote
-            Blahgua.GetUserPredictionVote(CurrentBlah._id,
-                function(json) {
-                    // update the vote
-                    var userVote = getSafeProperty(json, "D", null);
-                    var expVote = getSafeProperty(json, "Z", null);
-                    if (userVote) {
-                        switch (userVote) {
-                            case "y":
-                                document.getElementById("PredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#PredictPreviewYesImg").show();
-                                $("#PredictPreviewNoImg").hide();
-                                $("#PredictPreviewMaybeImg").hide();
-                                break;
-                            case "n":
-                                document.getElementById("PredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#PredictPreviewNoImg").show();
-                                $("#PredictPreviewYesImg").hide();
-                                $("#PredictPreviewMaybeImg").hide();
-                                break;
-                            case "u":
-                                document.getElementById("PredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#PredictPreviewMaybeImg").show();
-                                $("#PredictPreviewNoImg").hide();
-                                $("#PredictPreviewYesImg").hide();
-                                break;
-                        }
-                    } else {
-                        // no vote yey
-                        $("#PredictPreviewYesImg").show();
-                        $("#PredictPreviewNoImg").show();
-                        $("#PredictPreviewMaybeImg").show();
-                    }
-
-                    if (expVote) {
-                        switch (expVote) {
-                            case "y":
-                                document.getElementById("ExpPredictPreviewYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#ExpPredictPreviewYesImg").show();
-                                $("#ExpPredictPreviewNoImg").hide();
-                                $("#ExpPredictPreviewMaybeImg").hide();
-                                break;
-                            case "n":
-                                document.getElementById("ExpPredictPreviewNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#ExpPredictPreviewNoImg").show();
-                                $("#ExpPredictPreviewYesImg").hide();
-                                $("#ExpPredictPreviewMaybeImg").hide();
-                                break;
-                            case "u":
-                                document.getElementById("ExpPredictPreviewMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
-                                $("#ExpPredictPreviewMaybeImg").show();
-                                $("#ExpPredictPreviewNoImg").hide();
-                                $("#ExpPredictPreviewYesImg").hide();
-                                break;
-                        }
-                    } else {
-                        // no vote yey
-                        $("#ExpPredictPreviewYesImg").show();
-                        $("#ExpPredictPreviewNoImg").show();
-                        $("#ExpPredictPreviewMaybeImg").show();
-                    }
-                }, function(theErr) {
-                    $("#PredictPreviewYesImg").show();
-                    $("#PredictPreviewNoImg").show();
-                    $("#PredictPreviewMaybeImg").show();
-                    $("#ExpPredictPreviewYesImg").show();
-                    $("#ExpPredictPreviewNoImg").show();
-                    $("#ExpPredictPreviewMaybeImg").show()
-                });
-        }
-
-    }
 
     function TimeOutBlahFocus() {
         if (BlahPreviewTimeout != null) {
@@ -3018,7 +2738,7 @@ define('blahgua_base',
                     function() { UpdatePredictAuthorPage(); })
                 break;
             case "polls":
-                $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypeAskAuthorPage.html #BlahTypeAskAuthorPage",
+                $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
                     function() { UpdateAskAuthorPage(); })
                 break;
             default:
@@ -3041,10 +2761,6 @@ define('blahgua_base',
     function UpdateAskAuthorPage() {
         var newItem = CreateAskAuthorItem();
         $("#PollAnswersArea").append(newItem);
-    }
-
-    function UpdatePredictAuthorPage() {
-        // nothing for now...
     }
 
 
@@ -3250,68 +2966,6 @@ define('blahgua_base',
         return (CurrentUser._id == CurrentBlah.A);
     }
 
-
-
-// Prediction Logic
-    function SetPredictResponse(val) {
-        if (IsUserLoggedIn) {
-            if (IsUsersOwnBlah()) {
-                alert("You can't vote on your own prediction");
-            } else {
-                // they can vote
-                Blahgua.SetUserPredictionVote(CurrentBlah._id, val,
-                    function(json) {
-                        Blahgua.GetBlah(CurrentBlah._id,
-                            function(theBlah) {
-                                CurrentBlah = theBlah;
-                                UpdatePredictPreviewPage();
-                            });
-                    },
-                    function (theErr) {
-                        alert("It failed!");
-                        OnFailure(theErr);
-                    });
-            }
-
-        } else {
-            // flash the vote prompt or something..
-            alert("You must be logged in to pile on to a prediction");
-        }
-    }
-
-    function SetExpPredictResponse(val) {
-        if (IsUserLoggedIn) {
-            if (IsUsersOwnBlah()) {
-                alert("You can't vote on your own prediction");
-            } else {
-                // they can vote
-                Blahgua.SetUserExpiredPredictionVote(CurrentBlah._id, val,
-                    function(json) {
-                        Blahgua.GetBlah(CurrentBlah._id,
-                            function(theBlah) {
-                                CurrentBlah = theBlah;
-                                UpdatePredictPreviewPage();
-                            });
-                    },
-                    function (theErr) {
-                        alert("It failed!");
-                        OnFailure(theErr);
-                    });
-            }
-
-        } else {
-            // flash the vote prompt or something..
-            alert("You must be logged in to pile on to a prediction");
-        }
-    }
-
-    function ta(obj){
-        var val=$(obj).val().length;
-        if(val>128){
-            alert("You should keep it in 128 character");
-            $(obj).val($(obj).val().substring(0,128))
-        }
-    }
 
 
 
@@ -3905,6 +3559,7 @@ define('blahgua_base',
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OnFailure = OnFailure;
         Exports.GetBlahTypeStr = GetBlahTypeStr;
+        Exports.UnfocusBlah = UnfocusBlah;
 
     return {
         InitializeBlahgua: InitializeBlahgua

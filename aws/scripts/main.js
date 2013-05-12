@@ -11,7 +11,9 @@ requirejs.config({
     "paths": {
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
         "SignUpPage": "pagescripts/SignUpPage",
-        "BlahPreview": "pagescripts/BlahPreview"
+        "BlahPreview": "pagescripts/BlahPreview",
+        "BlahTypePredict": "pagescripts/BlahTypePredictPage",
+        "BlahTypePoll": "pagescripts/BlahTypePollPage"
     }
 });
 

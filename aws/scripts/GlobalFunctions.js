@@ -16,6 +16,7 @@ define('GlobalFunctions',
         var SuggestUserSignIn = null;
         var OnFailure = null;
         var GetBlahTypeStr = null;
+        var UnfocusBlah = null;
 
         return {
             ClosePage: ClosePage,
@@ -23,6 +24,7 @@ define('GlobalFunctions',
             OpenBlah: OpenBlah,
             SuggestUserSignIn: SuggestUserSignIn,
             OnFailure: OnFailure,
+            UnfocusBlah: UnfocusBlah,
             GetBlahTypeStr: GetBlahTypeStr
         }
     }
