@@ -55,14 +55,14 @@ define('BlahTypePoll',
             var description = getSafeProperty(pollChoice, "T", "");
 
             var newHTML = "";
-            newHTML += "<tr data-poll-vote='" + choiceIndex + "'><table><tr>" +
-                "<td rowspan=2 class='PredictCheckBoxWrapper'>" +
-                "<img class='PredictCheckBoxClass' src='http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png'>" +
+            newHTML += "<tr class='poll-result-row' data-poll-vote='" + choiceIndex + "'><table><tr>" +
+                "<td rowspan=2 class='poll-checkbox-wrapper'>" +
+                "<img class='poll-checkbox' src='http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png'>" +
                 "</td>" +
                 '<td rowspan=2><span class="poll-title">' + pollChoice.G + '</span></td>' +
                 '<td class="poll-chart-holder">' +
-                '<div class="PollChartDiv" style="width:' + curRatio + '%"</div>' +
-                '<span class="PollVoteText">' + curVotes + '</span>' +
+                '<div class="poll-chart-div" style="width:' + curRatio + '%"</div>' +
+                '<span class="poll-vote-text">' + curVotes + '</span>' +
                 '</td>' +
                 '</tr>' +
                 '<tr><td><span class="poll-description">' + description + '</span></td></tr>' +

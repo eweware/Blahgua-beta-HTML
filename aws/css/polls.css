@@ -1,50 +1,60 @@
 /* styles related to polls */
 
-.PollChoiceWrapper {
-    font-size:smaller;
-    width:480px;
+.poll-answers-area {
+    width:100%;
 }
 
-.PollTitle {
+.poll-results-table {
+
+}
+
+.poll-result-row {
+
+}
+
+.poll-checkbox-wrapper {
+    width:32px;
+    padding-left:32px;
+}
+
+.poll-checkbox {
+    width:24px;
+    height: 24px;
+    display:none;
+}
+
+
+.poll-title {
+    font-family: 'Arimo', sans-serif;
+    font-size:18pt;
     width:15%;
     color:black;
-    font-size:16px;
     font-weight:bold;
     padding-left:8px;
 }
 
-.PollChartDiv {
+.poll-chart-holder {
+    width:100%;
+}
+
+.poll-chart-div {
     text-align: center ;
     background-color:red;
     height:1em
 }
 
-.PollDescription {
+.poll-description {
     text-align: left;
-    border-left: solid 1px black;
-    width:auto;
-    position:relative;
-    left:0px;
-
+    width:100%;
+    font-family: 'Arimo', sans-serif;
+    font-size:12pt;
+    font-style: italic;
 }
 
-.PollVotes {
+.poll-vote-text {
     width: 80px;
 
     font-weight:bold;
 
 }
-.PollVoteIcon {
-    width: 18px;
 
-}
-
-.PollVoteText {
-    font-size:small;
-}
-
-.PollComment {
-    font-size:small;
-    font-weight:normal;
-    font-style:italic;
-}
