@@ -17,6 +17,8 @@ define('GlobalFunctions',
         var OnFailure = null;
         var GetBlahTypeStr = null;
         var UnfocusBlah = null;
+        var GetChannelNameFromID = null;
+        var CloseBlah = null;
 
         return {
             ClosePage: ClosePage,
@@ -25,7 +27,9 @@ define('GlobalFunctions',
             SuggestUserSignIn: SuggestUserSignIn,
             OnFailure: OnFailure,
             UnfocusBlah: UnfocusBlah,
-            GetBlahTypeStr: GetBlahTypeStr
+            GetBlahTypeStr: GetBlahTypeStr,
+            CloseBlah: CloseBlah,
+            GetChannelNameFromID: GetChannelNameFromID
         }
     }
 );

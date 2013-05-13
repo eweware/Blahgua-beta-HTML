@@ -221,7 +221,6 @@ define('BlahPreview',
                     });
                     break;
                 default:
-
             }
         }
 

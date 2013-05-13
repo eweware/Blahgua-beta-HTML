@@ -146,7 +146,26 @@ function ElapsedTimeString(theDate) {
 
 }
 
-
+function createDateString(theDate, short) {
+    var newString = "";
+    var year = (theDate.getFullYear() - 2000).toString();
+    var month = theDate.getMonth() + 1;
+    if (month < 10)
+        month = "0" + month.toString();
+    else
+        month = month.toString();
+    if (short == true) {
+        newString = year + month;
+    } else {
+        var day = theDate.getDate();
+        if (day < 10)
+            day = "0" + day.toString();
+        else
+            day = day.toString();
+        newString = year + month + day;
+    }
+    return newString;
+}
 
 function GetBlahImage(theBlah, size) {
     var imagePathName = "";
@@ -174,12 +193,57 @@ function UnCodifyText(theText) {
     return theText.replace(regX, replaceString);
 }
 
+var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
+
+function GetURLsFromString(theText) {
+    return result = theText.match(URLRegEx);
+}
+
+function URLifyText(theText) {
+    theText = theText.replace(/&quot;/gi, "\"");
+    return theText.replace(URLRegEx, '<a href="$1" target="_blank">$1</a>');
+}
+
+function FakeURLifyText(theText) {
+    theText = theText.replace(/&quot;/gi, "\"");
+    return theText.replace(URLRegEx, '<span style="color:blue; text-decoration:underline">$1</span>');
+}
+
 
 function BlockMove(event) {
     // Tell Safari not to move the window.
     event.preventDefault() ;
 }
 
+function dynamicSort(property, subProp) {
+    return function (a, b) {
+        var aProp = 0;
+        var bProp = 0;
+
+        if (a.hasOwnProperty(property))
+            aProp = a[property];
+
+        if (b.hasOwnProperty(property))
+            bProp = b[property];
+
+        if ((aProp == bProp) && (subProp != null)) {
+            var asProp = 0;
+            var bsProp = 0;
+
+            if (a.hasOwnProperty(subProp))
+                asProp = a[subProp];
+
+            if (b.hasOwnProperty(subProp))
+                bsProp = b[subProp];
+
+            return (asProp < bsProp) ? -1 : (asProp > bsProp) ? 1 : 0;
+        }
+        else {
+            return (aProp < bProp) ? -1 : (aProp > bProp) ? 1 : 0;
+        }
+    }
+}
 
 (function ($) {
     $.fn.disableSelection = function () {

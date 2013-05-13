@@ -13,7 +13,18 @@ requirejs.config({
         "SignUpPage": "pagescripts/SignUpPage",
         "BlahPreview": "pagescripts/BlahPreview",
         "BlahTypePredict": "pagescripts/BlahTypePredictPage",
-        "BlahTypePoll": "pagescripts/BlahTypePollPage"
+        "BlahTypePoll": "pagescripts/BlahTypePollPage",
+        "BlahDetailPage": "pagescripts/BlahDetailPage",
+        "BlahBodyDetailPage": "pagescripts/BlahBodyDetailPage",
+        "BlahCommentDetailPage": "pagescripts/BlahCommentDetailPage",
+        "BlahStatsDetailPage": "pagescripts/BlahStatsDetailPage",
+        "CreateBlahPage": "pagescripts/CreateBlahPage",
+        "BlahTypePollAuthor": "pagescripts/BlahTypePollAuthor",
+        "BlahTypePredictAuthor": "pagescripts/BlahTypePredictAuthor",
+        "SelfPage": "pagescripts/SelfPage",
+        "SelfPageDetails": "pagescripts/SelfPageDetails",
+        "SelfPageStats": "pagescripts/SelfPageStats",
+        "SelfPageHistory": "pagescripts/SelfPageHistory"
     }
 });
 
