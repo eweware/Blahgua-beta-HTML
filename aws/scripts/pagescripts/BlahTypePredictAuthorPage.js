@@ -5,3 +5,29 @@
  * Time: 10:48 AM
  * To change this template use File | Settings | File Templates.
  */
+
+
+define('BlahTypePredictAuthorPage',
+    ["GlobalFunctions", "blahgua_restapi"],
+    function (exports, blahgua_rest) {
+
+        var  InitializePage = function() {
+
+        };
+
+        var PrepareCreateBlahJSON = function() {
+            var options = new Object();
+            var theDateStr = $("#PredictionEndDateInput").val();
+            var theTimeStr = $("#PredictionEndTimeInput").val();
+            var theDate = new Date(theDateStr + " " + theTimeStr);
+            options["E"] = theDate;
+
+            return options;
+        };
+
+        return {
+            InitializePage: InitializePage,
+            PrepareCreateBlahJSON: PrepareCreateBlahJSON
+        }
+    }
+);

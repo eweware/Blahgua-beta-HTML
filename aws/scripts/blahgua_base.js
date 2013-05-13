@@ -1874,27 +1874,10 @@ define('blahgua_base',
     function DoCreateBlah() {
         StopAnimation();
         if (IsUserLoggedIn) {
-            $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
-                PopulateBlahTypeOptions();
-                $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
-                /*
-                 var windowWidth = $(window).width();
-                 var winowHeight = $(window).height();
-                 var delta = Math.round((windowWidth - 512) / 2);
-                 if (delta < 0) delta = 0;
-                 delta = delta + "px";
-                 var itemWidth = 512;
-                 if (windowWidth < 512) {
-                 itemWidth = windowWidth;
-                 }
-                 $("#createcontent").css({ 'max-height':winowHeight-120 + 'px'});
-
-
-                 $(".createblahscroll").css({'left': delta, 'right':delta});
-                 $(".creatblahfooter").css({'width': itemWidth});
-                 */
-
-                $(BlahFullItem).fadeIn("fast");
+            require(["CreateBlahPage"], function(CreatePage) {
+                $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
+                    CreatePage.InitializePage();
+                });
             });
         } else {
             SuggestUserSignIn("you must sign in before you can create a new blah")
@@ -1914,237 +1897,9 @@ define('blahgua_base',
     }
 
 
-    function PopulateBlahTypeOptions() {
-        var curHTML = "";
-        var blahOrder = ["says", "leaks", "asks", "predicts", "polls"];
-        for (var curItem in blahOrder) {
-            curHTML += '<OPTION value="' + GetBlahTypeId(blahOrder[curItem]) + '"';
-            if (blahOrder[curItem] == "says")
-                curHTML += ' selected="selected" ';
-            curHTML += ' >';
-            curHTML +=blahOrder[curItem];
-            curHTML += '</OPTION>';
-        }
-        $("#BlahTypeList").html(curHTML);
-    }
-
-    function HandleHeadlineTextInput(target) {
-        if(target.scrollHeight > target.clientHeight)
-            target.style.height=target.scrollHeight+'px';
-        var numCharsRemaining = MaxTitleLength - target.value.length;
-        if (numCharsRemaining < 32) {
-            $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
-        } else {
-            $("#HeadlineCharCount").text("");
-        }
-
-        CheckPublishBtnDisable();
-
-
-    }
-
-    function CheckPublishBtnDisable() {
-        var minHeadlineLen = 3;
-        var headLineLen = document.getElementById("BlahHeadline").value.length;
-        var bodyLen = document.getElementById("BlahBody").value.length;
-        if ($("#BlahImage").val() != "")
-            minHeadlineLen = 0;
-        if ((headLineLen < minHeadlineLen) || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
-            document.getElementById("PublishBlahBtn").disabled = true;
-        else
-            document.getElementById("PublishBlahBtn").disabled = false;
-    }
-
-    function HandleBodyTextInput(target) {
-        if(target.scrollHeight > target.clientHeight)
-            target.style.height=target.scrollHeight+'px';
-        var numCharsRemaining = 4000 - target.value.length;
-        if (numCharsRemaining < 100) {
-            $("#BodyCharCount").text(numCharsRemaining + " chars left");
-        } else {
-            $("#BodyCharCount").text("");
-        }
-        CheckPublishBtnDisable();
-
-    }
-
-    function CancelCreate() { 3
-        CloseBlah();
-    }
 
 
 
-    function CreateBlah() {
-        // disable create button to prevent double-submit
-        document.getElementById("PublishBlahBtn").disabled = true;
-        var blahType = $("#BlahTypeList").val();
-
-        var blahHeadline = $("#BlahHeadline").val();
-        var blahBody = $("#BlahBody").val();
-        blahBody = CodifyText(blahBody);
-        var blahGroup = CurrentChannel._id;
-        var options = null;
-
-
-        // check for additional options
-        var blahTypeStr = GetBlahTypeNameFromId(blahType);
-        switch (blahTypeStr) {
-
-            case "predicts":
-                // update the prediction on create
-                options = new Object();
-                var theDateStr = $("#PredictionEndDateInput").val();
-                var theTimeStr = $("#PredictionEndTimeInput").val();
-                var theDate = new Date(theDateStr + " " + theTimeStr);
-                options["E"] = theDate;
-                break;
-            default:
-                break;
-
-            case "polls":
-                // add the poll items
-                var pollItems = [];
-                var curPollItem;
-                var pollDivs = document.getElementsByName("PollItem");
-                for (i = 0; i < pollDivs.length; i++) {
-                    curPollItem = new Object();
-                    curPollItem["G"] = pollDivs[i].childNodes[0].value;
-                    curPollItem["T"] = pollDivs[i].childNodes[2].value;
-                    pollItems.push(curPollItem);
-                }
-                options = new Object();
-                options["I"] = pollItems;
-                break;
-        }
-
-        Blahgua.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, OnFailure);
-    }
-
-
-
-
-
-    function OnCreateBlahOK(json) {
-        CurrentBlah = json;
-        CurrentBlahId = CurrentBlah._id;
-        // check for images
-        if ($("#BlahImage").val() != "") {
-            UploadBlahImage(CurrentBlah._id);
-        } else {
-            InsertNewBlahIntoChannel(CurrentBlah);
-            DoCloseBlah();
-
-            /*
-             var EndDate = new Date(Date.now());
-             var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
-             var startStr = createDateString(StartDate);
-             var endStr = createDateString(EndDate);
-
-             Blahgua.GetBlahWithStats(CurrentBlahId,  startStr, endStr, function(theBlah) {
-             CurrentBlah = theBlah;
-             BlahReturnPage = "BlahRoll";
-             OpenBlah(CurrentBlah);
-             RefreshCurrentChannel();
-             })
-             */;
-        }
-    }
-
-    function UploadBlahImage(blahId) {
-        $("#ProgressDiv").show();
-        $("#objectId").val(blahId);
-        //document.getElementById("ImageForm").submit();
-
-        var formData = new FormData($("#ImageForm")[0]);
-        $.ajax({
-            url: "http://beta.blahgua.com/v2/images/upload",
-
-            type: 'POST',
-            xhr: function() { // custom xhr
-                myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload){ // if upload property exists
-                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-                }
-                return myXhr;
-            },
-            //Ajax events
-            success: completeHandler = function(data) {
-                OnUploadImageOK(data);
-
-            },
-            error: errorHandler = function(theErr) {
-                alert("Error uploading");
-            },
-            // Form data
-            data: formData,
-            //Options to tell JQuery not to process data or worry about content-type
-            cache: false,
-            contentType: false,
-            processData: false
-        }, 'json');
-    }
-
-    function progressHandlingFunction(evt) {
-        var maxWidth = $("#ProgressBar").width();
-        var curWidth = 100;
-        var ratio = evt.loaded / evt.total;
-        var newWidth = Math.floor(maxWidth * ratio);
-        $("#Indicator").width(newWidth);
-    }
-
-    function OnUploadImageOK(result) {
-        InsertNewBlahIntoChannel(CurrentBlah);
-        DoCloseBlah();
-        /*
-         var EndDate = new Date(Date.now());
-         var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
-         var startStr = createDateString(StartDate);
-         var endStr = createDateString(EndDate);
-
-         Blahgua.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
-         CurrentBlah = theBlah;
-         BlahReturnPage = "BlahRoll";
-         OpenBlah(CurrentBlah);
-         RefreshCurrentChannel();
-         });
-         */
-    }
-
-    function InsertNewBlahIntoChannel(theBlah) {
-        // todo:  create a fake inbox item for this blah
-        // and insert it into the blah list...
-        var newItem = new Object();
-        newItem["N"] = theBlah.N;
-    }
-
-
-    function UpdateBlahInfoArea() {
-        var blahTypeStr = GetBlahTypeNameFromId($("#BlahTypeList").val());
-        switch (blahTypeStr) {
-            case "predicts":
-                $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
-                    function() { UpdatePredictAuthorPage(); })
-                break;
-            case "polls":
-                $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
-                    function() { UpdateAskAuthorPage(); })
-                break;
-            default:
-                $("#AdditionalInfoDiv").empty();
-        }
-    }
-
-    function HandleFilePreview() {
-        var theFile = $("#BlahImage").val();
-        $("#CreateBlahImageNameSpan").text(theFile);
-        if (theFile != "") {
-            $(".uploadimage").css({"background-image": theFile});
-
-        }
-        CheckPublishBtnDisable();
-
-
-    }
 
     function UpdateAskAuthorPage() {
         var newItem = CreateAskAuthorItem();
@@ -2875,6 +2630,9 @@ define('blahgua_base',
         Exports.UnfocusBlah = UnfocusBlah;
         Exports.GetChannelNameFromID = GetChannelNameFromID;
         Exports.CloseBlah = CloseBlah;
+        Exports.GetBlahTypeId = GetBlahTypeId;
+        Exports.GetBlahTypeNameFromId = GetBlahTypeNameFromId;
+        Exports.GetBlahTypeStr = GetBlahTypeStr;
 
     return {
         InitializeBlahgua: InitializeBlahgua
