@@ -6,26 +6,98 @@
 <body>
 <div id="FullBlahStatsDiv">
 
-    <p>Stats!</p>
-    <table class="BlahStatsTable">
-        <tbody>
-        <tr><td colspan="2">Strength</td></tr>
-        <tr><td colspan="2"><div id="BlahStrengthDiv"></div></td></tr>
+    <div class="accordion">
+        <h2>Overall Standing</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                How this blah compares to others
+            </div>
+            <div class="accordion-content">
+                <div id="BlahStandingDiv" style="height:200px">
 
-        <tr><td colspan="2">Views, Opens, and Comments</td></tr>
-        <tr><td colspan="2"><div id="ViewChartDiv"></div></td></tr>
+                </div>
+                <div id="BlahVoteMixDiv" style="height:200px">
 
-        <tr><td colspan="2">Demographics</td></tr>
-        <tr>
-            <td style="width:50%"><div id="BlahOpenChartDiv"></div></td>
-            <td style="width:50%"><div id="BlahCommentChartDiv"></div></td>
-        </tr>
-        <tr>
-            <td style="width:50%"><div id="BlahPromoteChartDiv"></div></td>
-            <td style="width:50%"><div id="BlahDemoteChartDiv"></div></td>
-        </tr>
-        </tbody>
-    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <h2>Audience Engagement</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                How others are viewing, opening, and commenting on this blah
+            </div>
+            <div class="accordion-content" style="display:none">
+                <div id="BlahActivityDiv">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion">
+        <h2>Viewer Demographics</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                Learn about who is opening this blah
+            </div>
+            <div class="accordion-content" style="display:none">
+                <table>
+                    <tr>
+                        <td width="50%">
+                            <div id="OverallGenderDiv">
+
+                            </div>
+                        </td>
+                        <td width="50%">
+                            <div id="OverallEthnicityDiv">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="50%">
+                            <div id="OverallIncomeDiv">
+
+                            </div>
+                        </td>
+                        <td width="50%">
+                            <div id="OverallCountryDiv">
+
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion">
+        <h2>Voter Demographics</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                See how different demographics vote on this blah
+            </div>
+            <div class="accordion-content"  style="display:none">
+                <div id="DemoGenderChartArea">
+
+                </div>
+                <div id="DemoEthnicityChartArea" style="margin-top: 8px;">
+
+                </div>
+                <div id="DemoAgeChartArea" style="margin-top: 8px;">
+
+                </div>
+                <div id="DemoCountryChartArea" style="margin-top: 8px;">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 </body>
 </html>

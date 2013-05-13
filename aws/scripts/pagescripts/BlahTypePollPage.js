@@ -84,7 +84,10 @@ define('BlahTypePoll',
                 var ratio = curVote/ maxVotes;
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
-                $(item).find(".poll-vote-text").text(curVote);
+                if (curVote > 0)
+                    $(item).find(".poll-vote-text").text(curVote).removeClass("no-votes");
+                else
+                    $(item).find(".poll-vote-text").html("no&nbsp;votes").addClass("no-votes");
                 $(item).find(".poll-chart-div").animate({width: newWidth}, 200);
             });
         };

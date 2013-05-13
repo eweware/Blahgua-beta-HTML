@@ -6,12 +6,14 @@
 
     <table class="BlahPreviewTable">
         <tr class="BlahPreviewHeader">
-            <td colspan="4">
+            <td style="width:100%">
                 <span id="PreviewBlahNickname" class="previewBlahgerName"></span>
             </td>
-            <td class="viewer-count">
-                <img alt="viewers" src="http://blahgua-webapp.s3.amazonaws.com/img/black_eye.png">
-                <span class="PreviewViewerCount" id="PreviewViewerCount"></span>
+            <td >
+                <button class="inline-button blah-opener" >more</button>
+            </td>
+            <td >
+                <button class="inline-button blah-closer" >close</button>
             </td>
         </tr>
     </table>
@@ -39,19 +41,13 @@
             <td></td>
             <td class="preview-footer-button">
                 <img id="PreviewPromoteBlah" alt="promotes" src="http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png"><br/>
-                <span id="PreviewUserPromoteSpan" class="statsText"></span>
             </td>
             <td class="preview-footer-button">
                 <img id="PreviewDemoteBlah" alt="demotes" src="http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png"> <br/>
-                <span id="PreviewUserDemoteSpan"  class="statsText"></span>
             </td>
+
             <td class="preview-footer-button">
-                <img id="PreviewOpenBlah"  class="blah-opener" alt="opens" src="http://blahgua-webapp.s3.amazonaws.com/img/black_open.png"><br/>
-                <span id="PreviewOpenBlahSpan" class="statsText"></span>
-            </td>
-            <td class="preview-footer-button">
-                <img alt="comments" id="PreviewCommentBtn" src="http://blahgua-webapp.s3.amazonaws.com/img/black_comment.png"><br/>
-                <span class="statsText" id="previewComments"></span>
+                <img id="PreviewFavoriteBlah" alt="favorite" src="http://blahgua-webapp.s3.amazonaws.com/img/black_favorite_unchecked.png"><br/>
             </td>
             <td ></td>
         </tr>

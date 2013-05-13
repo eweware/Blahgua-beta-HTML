@@ -54,9 +54,7 @@ define('BlahPreview',
 
 
         var UpdatePreviewVoteBtns = function() {
-            document.getElementById("PreviewUserPromoteSpan").innerHTML = getSafeProperty(CurrentBlah, "P", 0);
-            document.getElementById("PreviewUserDemoteSpan").innerHTML = getSafeProperty(CurrentBlah, "D", 0);
-            var promoBtn =  document.getElementById("PreviewPromoteBlah");
+             var promoBtn =  document.getElementById("PreviewPromoteBlah");
             var demoBtn = document.getElementById("PreviewDemoteBlah");
 
             if (IsUserLoggedIn) {
@@ -156,11 +154,7 @@ define('BlahPreview',
             if (isOwnBlah) {
                 nickNameStr += " (you)";
             }
-            // update the comment count while we are here
-            document.getElementById("PreviewOpenBlahSpan").innerHTML = getSafeProperty(theFullBlah, "O", 0);
-            document.getElementById("previewComments").innerHTML = getSafeProperty(theFullBlah, "C", 0);
-            document.getElementById("PreviewViewerCount").innerHTML = getSafeProperty(theFullBlah, "V", 0);
-            document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
+             document.getElementById("PreviewBlahNickname").innerHTML = nickNameStr + " " + blahTypeStr;
 
             // reformat the promote area if the user has already voted
             if (IsUserLoggedIn) {

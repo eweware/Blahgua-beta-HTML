@@ -6,19 +6,20 @@
     top: 8px;
     height: 48px;
     z-index:10;
-    background-color:magenta;
-    color:black;
+    background-color:white;
+    color:rgb(245,245,240);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
     box-shadow:rgba(0,0,0,.4) 0px 4px;
     line-height:2em;
+    background-image: url("https://s3-us-west-2.amazonaws.com/blahgua-webapp/img/channel_bkgnd.jpg");
 }
 
 .ChannelNameText {
     margin-left:8px;
-    text-shadow: 1px 1px rgba(255,255,255,.4);
+    text-shadow: 1px 1px rgba(0,0,0,.4);
 }
 
 .ChannelViewersImg {

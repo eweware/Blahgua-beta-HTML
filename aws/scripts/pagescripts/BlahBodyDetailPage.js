@@ -25,15 +25,12 @@ define('BlahBodyDetailPage',
                 event.stopImmediatePropagation();
                 SetBlahVote(-1);
             });
-            $("#AddCommentImage").click(function() {
+            $("#FavoriteBlahImage").click(function() {
                 event.stopImmediatePropagation();
-                exports.SetBlahDetailPage("Comments");
+                //todo: implement blah favorite
+                alert("not implemented");
             });
 
-            // update views, opens, comments
-            document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0);
-            document.getElementById("FullBlahOpenCount").innerHTML = getSafeProperty(CurrentBlah, "O", 0);
-            document.getElementById("fullBlahComments").innerHTML = getSafeProperty(CurrentBlah, "C", 0);
 
             var isOwnBlah;
 
@@ -108,18 +105,17 @@ define('BlahBodyDetailPage',
 
             // fix any sizing issues
             var winHeight = $(window).height();
-            var curTop = document.getElementById("FullBlahContent").clientTop;
-            var dif = 80 + 70 + curTop;
-            $("#FullBlahContent").css({ 'max-height': winHeight-dif + 'px'});
+            var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
+            var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
+            var maxSize = curBottom - curTop;
+            $("#FullBlahContent").css({ 'max-height': maxSize + 'px'});
         };
 
 
 
 
         var UpdateVoteBtns = function() {
-            document.getElementById("UserPromoteSpan").innerHTML = getSafeProperty(CurrentBlah, "P", 0);
-            document.getElementById("UserDemoteSpan").innerHTML = getSafeProperty(CurrentBlah, "D", 0);
-            var promoBtn =  document.getElementById("PromoteBlahImage");
+             var promoBtn =  document.getElementById("PromoteBlahImage");
             var demoBtn = document.getElementById("DemoteBlahImage");
 
             if (IsUserLoggedIn) {

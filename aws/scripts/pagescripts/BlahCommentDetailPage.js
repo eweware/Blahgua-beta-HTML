@@ -14,6 +14,10 @@ define('BlahCommentDetailPage',
             // bind events
             $("#AddCommentBtn").click(DoAddComment);
             UpdateBlahComments();
+            var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
+            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+            var maxSize = curBottom - curTop;
+            $("#FullBlahContent").css({ 'max-height': maxSize + 'px'});
         };
 
         var UpdateBlahComments = function() {

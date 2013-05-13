@@ -48,27 +48,27 @@
 }
 
 .BlahTypeSays {
-    color: #ECEBBB;
-    background-color: #6C648D;
+    color: rgba(117,154,180,1);
+    background-color: #fffff3;
     border-color: #00FF8C;
 }
 
 .BlahTypeLeaks {
-    color: #ECEBBB;
-    background-color: #3271B4;
+    color: #FFA810;
+    background-color: #FFFFBE;
     border-color: #ea3556;
 }
 
 .BlahTypePolls {
-    color: #ECEBBB;
-    background-color: #2F9855;
+    color: #30B705;
+    background-color: #ffffff;
     border-color: #61d2d6;
 
 }
 
 .BlahTypePredicts {
-    color: #ECEBBB;
-    background-color: #BB564E;
+    color: #D3350E;
+    background-color: #FFD5B0;
     border-color: #edde45;
 
 }
@@ -81,30 +81,29 @@
 }
 
 .BlahTypeSaysImgText {
-    color: #6C648D;
-    background-color: rgba(236,235,187,0.75);
+    color: #fffff3;
+    background-color: rgba(117,154,180,0.85);
 }
 
 .BlahTypeLeaksImgText {
-    color: #3271B4;
-    background-color: rgba(236,235,187,0.75);
+    color: #FFFFBE;
+    background-color: rgba(255,168,16,0.80);
 }
 
 .BlahTypePollsImgText {
-    color: #2F9855;
-    background-color: rgba(236,235,187,0.75);
+    color: #ffffff;
+    background-color: rgba(48,183,5,0.55);
 }
 
 .BlahTypePredictsImgText {
-    color: #BB564E;
-    background-color: rgba(236,235,187,0.75);
+    color: #FFD5B0;
+    background-color: rgba(211,53,14,0.55);
 }
 
 .BlahTypeAddImgText {
     color: white;
     background-color: rgba(0,0,255,0.6);
 }
-
 
 
 .BlahImage {

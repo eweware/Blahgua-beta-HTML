@@ -3,7 +3,7 @@
 /* classes for the blah detail page */
 
 .full-blah-div {
-    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    background-color: rgb(245,245,240);
     top:0px;
     bottom:0px;
     position:absolute;
@@ -163,8 +163,11 @@
 
     font-size:12px;
     font-family: 'Arimo', sans-serif;
+}
 
-
+.BlahRowVote {
+    height:55px;
+    width:100%;
 }
 
 /* classes for the full blah Summary page */
@@ -175,12 +178,21 @@
     overflow-y: hidden;
     position: absolute;
     bottom: 80px;
-    height: 70px;
+    height: 55px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 5px rgba(0,0,0,.3);
     z-index: 2;
     width:100%;
+}
+
+.FullBlahTableFooter td {
+    width:5%;
+}
+
+.footer-button {
+    width:20%;
+    text-align: center;
 }
 
 .blah-body-divider {
@@ -201,18 +213,28 @@
     padding-top:4px;
 }
 
+.FullBlahContent {
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-spacing:0px;
+    border:0px;
+    margin-top:-2px;
+}
+
+
+
 
 /* Comments */
 
 .comment-detail-area {
-    background-color: #333333;
+
 
 }
 
 .comment-text-area {
     background-color: #EEEEEE;
     border-radius: 8px;
-    min-height: 80px;
+    min-height: 40px;
     width:100%;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
@@ -221,29 +243,30 @@
 }
 
 .add-comment-btn {
-    background-color: #E1644E;
+    background-color: rgb(0, 179, 18);;
     color: white;
     border-radius: 8px;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
-    height: 80px;
     border-style: none;
+    margin: 4px;
+    padding: 4px 12px;
 }
 
 
 .add-comment-btn:hover {
-    background-color: #8d3020;
-    color: white;
+    background: rgb(0, 220, 22);
+    color:  black;
 }
 
 
 .add-comment-btn:disabled {
-    background-color: #cdc9cc;
+    background-color: #aeabad;
+    color: #606060;
 }
 
 
 .blah-comment-table {
-    background-color: #333333;
     width:100%;
 }
 
@@ -253,6 +276,7 @@
 
 .no-comment-row td {
     width: 100%;
+    text-align: center;
 }
 
 .no-comment-row span{
@@ -263,6 +287,7 @@
     background-color: orange;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
+    display:block;
 
 }
 
@@ -286,7 +311,7 @@
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     font-weight: bold;
-    color:white;
+    color:black;
 }
 
 
@@ -301,7 +326,7 @@
 .comment-text {
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
-    color: #CCCCCC;
+    color: #404040;
 }
 
 .comment-user-description {
@@ -312,7 +337,7 @@
 }
 
 .comment-vote-wrapper {
-    color:white;
+    color:#404040;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
 }
@@ -329,4 +354,5 @@
     top: 256px;
     overflow-x: hidden;
     overflow-y: auto;
+    width:100%;
 }

@@ -12,7 +12,7 @@ define('BlahDetailPage',
 
         var InitializePage = function(whichPage) {
             // bind events
-            $(".CloseButton").click(function(theEvent) {
+            $(".blah-closer").click(function(theEvent) {
                 $("#AdditionalInfoArea").empty();
                 exports.CloseBlah();
             });

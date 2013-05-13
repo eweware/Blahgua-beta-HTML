@@ -93,3 +93,12 @@
     margin-top: 6px;
 }
 
+.poll-vote-text.no-votes {
+    color:#a9a9a9;
+    font-style:italic;
+    margin-left: 8px;
+    margin-top:4px;
+    float:none;
+
+}
+

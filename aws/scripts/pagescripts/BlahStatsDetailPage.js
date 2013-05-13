@@ -12,149 +12,29 @@ define('BlahStatsDetailPage',
     function (exports, blahgua_rest) {
 
         function InitializePage() {
-            // blah popularity over time
-            $('#BlahStrengthDiv').highcharts({
-                chart: {
-                    type: 'area'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Popularity'
-                },
-                yAxis: {
-                    title: {
-                        text: 'strength'
-                    }
-                },
-                series: [{
-                    data: [1, 2,3,4,5,6,7,8,9,10]
-                }]
+
+            // bind the methods
+
+            // handle the sizing
+            var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
+            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+            var maxSize = curBottom - curTop;
+            $("#FullBlahContent").css({ 'max-height': maxSize + 'px'});
+
+            $('.accordion h2').click(function(theEvent) {
+                $(".accordion-content").hide();
+                $(this.parentElement).find(".accordion-content").show() ;
             });
 
-            // opens, views, comments
-            $('#ViewChartDiv').highcharts({
-                chart: {
-                    type: 'line'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Views, Opens, and Comments'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Count'
-                    }
-                },
-                series: [{
-                    name: 'views',
-                    data: [1, 0, 4]
-                }, {
-                    name: 'opens',
-                    data: [5, 7, 3]
-                }, {
-                    name: 'comments',
-                    data: [5, 7, 3]
-                }]
-            });
-
-            // demos
-            var BlahGenderData = CreateDemoData("B");
-            var BlahRaceData = CreateDemoData("D");
-            var BlahIncomeData = CreateDemoData("E");
-            var BlahAgeData = CreateDemoData("C");
+            UpdateBlahStats();
 
 
-            $('#BlahOpenChartDiv').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Gender'
-                },
-                xAxis: {
-                    categories: ['Open', 'Promote', 'Comment']
-                },
-                yAxis: {
-                    title: {
-                        text: 'count'
-                    }
-                },
-                series: BlahGenderData
-            });
-
-            // comments
-            $('#BlahCommentChartDiv').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Race'
-                },
-                xAxis: {
-                    categories: ['Open', 'Promote', 'Comment']
-                },
-                yAxis: {
-                    title: {
-                        text: 'count'
-                    }
-                },
-                series: BlahRaceData
-            });
-
-            // Promotes
-            $('#BlahPromoteChartDiv').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Age'
-                },
-                credits: {
-                    enabled: false
-                },
-                xAxis: {
-                    categories: ['Open', 'Promote', 'Comment']
-                },
-                yAxis: {
-                    title: {
-                        text: 'count'
-                    }
-                },
-                series: BlahAgeData
-            });
-
-            // demotes
-            $('#BlahDemoteChartDiv').highcharts({
-                chart: {
-                    type: 'bar'
-                },
-                credits: {
-                    enabled: false
-                },
-                title: {
-                    text: 'Income'
-                },
-                xAxis: {
-                    categories: ['Open', 'Promote', 'Comment']
-                },
-                yAxis: {
-                    title: {
-                        text: 'count'
-                    }
-                },
-                series: BlahIncomeData
-            });
         };
+
+        var UpdateBlahStats = function() {
+
+        };
+
 
         var CreateDemoData = function(whichDemo) {
             var curResult = [];

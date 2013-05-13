@@ -400,7 +400,6 @@ define('blahgua_base',
         var label = document.createElement("span");
         label.id = "ChannelBannerLabel";
         label.className = "ChannelNameText";
-        label.innerHTML = "Blahgua";
         banner.appendChild(label);
         banner.channelLabel = label;
 
