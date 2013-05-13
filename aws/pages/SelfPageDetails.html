@@ -11,16 +11,14 @@
     </div>
     <table style="width:90%">
         <tr><td>
-            <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" onclick="UpdateUserProfile(); return false;" >Update</button>
+            <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" >Update</button>
 
         </td>
             <td>
-                <button class="small-button" onclick="LogoutUser(); return false;">Logout</button><br/>
-
+                <button id="LogoutBtn" class="small-button">Logout</button><br/>
             </td>
             <td>
-                <button class="small-button" onclick="ForgetUser(); return false;">Forget Me</button>
-
+                <button id="ForgetBtn" class="small-button">Forget Me</button>
             </td></tr>
     </table>
     <div class="accordion">
@@ -137,7 +135,7 @@
         <h2>Permissions</h2>
         <div class="accordion-body">
             <div class="instruction-text">
-                set whether your profile details are private, visiable only to other members, or visible to the public
+                set whether your profile details are private to Blahgua or visible to the public
             </div>
     <table class="permission-table accordion-content" style="display:none">
         <thead>

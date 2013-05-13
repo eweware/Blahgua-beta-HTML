@@ -1700,7 +1700,16 @@ define('blahgua_base',
 
 
     function LogoutUser() {
-        Blahgua.logoutUser(OnLogoutOK);
+        Blahgua.logoutUser(OnLogoutOK, function(theErr){
+            switch (theErr.status) {
+                case 202:
+                    // this is not an error, just malformed JSON
+                    OnLogoutOK();
+                    break;
+                default:
+                    OnFailure(theErr);
+            }
+        });
 
     }
 
@@ -1886,6 +1895,8 @@ define('blahgua_base',
         Exports.GetBlahTypeId = GetBlahTypeId;
         Exports.GetBlahTypeNameFromId = GetBlahTypeNameFromId;
         Exports.GetBlahTypeStr = GetBlahTypeStr;
+        Exports.LogoutUser = LogoutUser;
+        Exports.ForgetUser = ForgetUser;
 
     return {
         InitializeBlahgua: InitializeBlahgua

@@ -12,11 +12,16 @@ define('SelfPageDetails',
     function (exports, blahgua_rest) {
 
         var  InitializePage = function() {
+            /*
             var winHeight = $(window).height();
             var curTop = document.getElementById("SelfPageDetailsDiv").clientTop;
             var dif = 80 + 70 + curTop;
             $("#SelfPageDetailsDiv").css({ 'max-height': winHeight-dif + 'px'});
             $("#SelfProfileBtn").addClass("BlahBtnSelected");
+            */
+            $("#SaveProfileBtn").click(UpdateUserProfile);
+            $("#LogoutBtn").click(exports.LogoutUser);
+            $("#ForgetBtn").click(exports.ForgetUser);
             UpdateSelfProfile();
         };
 
