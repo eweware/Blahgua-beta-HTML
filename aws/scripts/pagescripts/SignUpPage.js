@@ -39,14 +39,16 @@ define('SignUpPage',
             blahgua_rest.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
         };
 
-        var HandleCreateUserFail = function(json) {
+        var HandleCreateUserFail = function(theErr) {
             switch (theErr.status) {
                 case 202:
                     // this is not an error, just malformed JSON
                     HandleUserLoginOK();
                     break;
+                case 409:
+                    alert("sorry, that username already exists.");
                 default:
-                    alert("User account creation failed.");
+                    exports.OnFailure(theErr);
             }
         };
 
@@ -111,17 +113,23 @@ define('SignUpPage',
             $(".toggle-content").hide();
 
             $(".toggle-btn").click(function() {
-                if ($(this).hasClass) {
-                    var thisSet = this.attributes["data-toggle-set"].value;
-                    var thisVal = this.attributes["data-toggle-value"].value;
-                    var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
-                    $(".toggle-content").hide();
-                    $(".toggle-btn").removeClass("toggle-active");
-                    $(this).addClass("toggle-active");
-
-                    $(selector).show();
-                }
+                var thisSet = this.attributes["data-toggle-set"].value;
+                var thisVal = this.attributes["data-toggle-value"].value;
+                var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
+                $(".toggle-content").hide();
+                $(".toggle-btn").removeClass("toggle-active");
+                $(this).addClass("toggle-active");
+                $(selector).show();
+                $(selector).find("input:first").focus();
             })
+
+            $(".content_frame").keydown(function(theEvent) {
+                if (theEvent.which == 13) {
+                    var thisVal = $(".toggle-active").attr("data-toggle-value");
+                    var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
+                    $(selector).find(".action-default").click();
+                }
+            });
 
             $(".toggle-btn.toggle-active").click(); // init
 

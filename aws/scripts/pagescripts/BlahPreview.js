@@ -21,15 +21,15 @@ define('BlahPreview',
         };
 
         var HandleVoteFailure = function(theErr) {
-            Exports.OnFailure(theErr);
+            exports.OnFailure(theErr);
         };
 
         var HandleBlahLoadFailure = function(theErr) {
-            Exports.OnFailure(theErr);
+            exports.OnFailure(theErr);
         }
 
         var HandleAddViewFailure = function(theErr) {
-            Exports.OnFailure(theErr);
+            exports.OnFailure(theErr);
         }
 
         var SetBlahPreviewVote = function(theVote) {
@@ -217,7 +217,7 @@ define('BlahPreview',
                 case "polls":
                     require(['BlahTypePoll'], function(PollModule) {
                         $("#BlahPreviewExtra").load(fragmentURL + "/pages/BlahTypePollPage.html #BlahTypePoll",
-                            function() { PollModule.UpdatePollPage("BlahPreviewExtra"); });
+                            function() { PollModule.InitPollPage(); });
                     });
                     break;
                 default:

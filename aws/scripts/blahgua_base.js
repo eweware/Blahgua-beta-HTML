@@ -148,7 +148,7 @@ define('blahgua_base',
     }
 
     function OnGetChannelsOK(channelList) {
-        Blahgua.JoinUserToChannel(ChannelIDFromName("The Now Network", channelList),
+        Blahgua.JoinUserToChannel(ChannelIDFromName("The Melting Pot", channelList),
             function () {
                 Blahgua.JoinUserToChannel(ChannelIDFromName("Technology", channelList),
                     function () {

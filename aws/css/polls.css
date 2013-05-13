@@ -4,33 +4,63 @@
     width:100%;
 }
 
-.poll-results-table {
+.poll-prompt {
+    font-family: 'Arimo', sans-serif;
+    font-size:18pt;
+    color:black;
+    font-weight:bold;
+    text-align: center;
+}
 
+.poll-result-table {
+    width:100%;
 }
 
 .poll-result-row {
-
+    margin-left:8px;
+    margin-right:8px;
 }
 
+.poll-result-row table {
+    border-bottom-style: solid;
+    border-bottom-thickness: 1px;
+    border-bottom-color: #A0A0A0;
+}
+
+
+
+
 .poll-checkbox-wrapper {
-    width:32px;
-    padding-left:32px;
+    min-width:32px;
 }
 
 .poll-checkbox {
+    display:none;
     width:24px;
     height: 24px;
-    display:none;
+    content:url("http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png");
 }
 
+.poll-checkbox:hover {
+
+}
+
+.poll-checkbox.checked {
+    content:url("http://blahgua-webapp.s3.amazonaws.com/img/checked.png");
+}
+
+.poll-title-holder {
+
+}
 
 .poll-title {
     font-family: 'Arimo', sans-serif;
     font-size:18pt;
-    width:15%;
     color:black;
     font-weight:bold;
     padding-left:8px;
+    padding-right:8px;
+    max-width:200px;
 }
 
 .poll-chart-holder {
@@ -39,8 +69,9 @@
 
 .poll-chart-div {
     text-align: center ;
-    background-color:red;
-    height:1em
+    background-color: #01c00a;
+    height:30px;
+    display:none;
 }
 
 .poll-description {
@@ -52,9 +83,13 @@
 }
 
 .poll-vote-text {
-    width: 80px;
-
-    font-weight:bold;
-
+    font-family: 'Arimo', sans-serif;
+    font-size:12pt;
+    float:right;
+    margin-right:0px;
+    height:30px;
+    color:white;
+    margin-right: 4px;
+    margin-top: 6px;
 }
 
