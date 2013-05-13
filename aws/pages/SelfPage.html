@@ -9,7 +9,7 @@
         <tr style="background-color: rgba(25,25,25,.9)" >
             <td rowspan="2"><div id="BlahAuthorImage" class="author-image"></div></td>
             <td style="width:100%"><span class="fullBlahgerName" id="FullBlahNickName"></span></td>
-            <td rowspan="2"><button class="CloseButton" onclick="DoCloseBlah(); return false"><span>X</span></button></td>
+            <td rowspan="2"><button id="CloseProfileBtn" class="CloseButton"><span>X</span></button></td>
         </tr>
         <tr  style="background-color: rgba(25,25,25,.9)">
             <td><span id="DescriptionSpan" class="user-profile-description">an anonymous blahger</span></td>
@@ -21,9 +21,9 @@
     <table class="BlahPageFooter">
         <tr>
             <td  width="5%"></td>
-            <td width="30%"><button id="SelfProfileBtn" onclick="SetSelfDetailPage('Profile'); return false;" class="BlahButton Button-left BlahBtnSelected"><span>PROFILE</span></button></td>
-            <td width="30%"><button id="SelfHistoryBtn" onclick="SetSelfDetailPage('History'); return false;" class="BlahButton"><span>HISTORY</span></button></td>
-            <td width="30%"><button id="SelfStatsBtn" onclick="SetSelfDetailPage('Stats'); return false;" class="BlahButton Button-right"><span>STATS</span></button> </td>
+            <td width="30%"><button id="SelfProfileBtn" class="BlahButton Button-left BlahBtnSelected"><span>PROFILE</span></button></td>
+            <td width="30%"><button id="SelfHistoryBtn" class="BlahButton"><span>HISTORY</span></button></td>
+            <td width="30%"><button id="SelfStatsBtn" class="BlahButton Button-right"><span>STATS</span></button> </td>
             <td width="5%"></td>
         </tr>
     </table>
