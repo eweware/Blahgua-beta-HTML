@@ -21,9 +21,9 @@ define('blahgua_restapi', [], function () {
             data: paramString,
             contentType: "application/json; charset=utf-8",
 
-            success: function (theObj) {
+            success: function (theObj, didIt, status) {
                 if (OnSuccess != null) {
-                    OnSuccess(theObj);
+                    OnSuccess(theObj, didIt, status);
                 }
             },
             error: function (theErr) {

@@ -54,10 +54,12 @@ define('SignUpPage',
 
 
 
-        var HandleUserLoginOK = function(json) {
+        var HandleUserLoginOK = function(json, successOk, status) {
             IsUserLoggedIn = true;
             blahgua_rest.GetProfileSchema(function(theSchema) {
                 ProfileSchema = theSchema.fieldNameToSpecMap;
+            }, function(theErr){
+                exports.OnFailure(theErr);
             }) ;
             var userName = $("#userName2").val();
             var pwd = $("#pwd2").val();
@@ -70,7 +72,9 @@ define('SignUpPage',
                 $.removeCookie("password");
                 $.removeCookie('isTemp');
             }
-            blahgua_rest.getUserInfo(RefreshPageForNewUser);
+            blahgua_rest.getUserInfo(RefreshPageForNewUser, function(theErr) {
+                exports.OnFailure(theErr);
+            });
         };
 
         var HandleUserLoginFail = function (theErr) {
