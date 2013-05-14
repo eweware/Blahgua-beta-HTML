@@ -8,13 +8,12 @@
 
 
 define('SelfPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["GlobalFunctions"],
+    function (exports) {
 
         var  InitializePage = function(whichPage) {
-            var windowHeight = $(window).height();
             $(BlahFullItem).disableSelection();
-            $("#CloseProfileBtn").click(function(theEvent) {
+            $(".blah-closer").click(function(theEvent) {
                 exports.CloseBlah();
             });
             $("#SelfProfileBtn").click(function(theEvent){

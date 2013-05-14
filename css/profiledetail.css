@@ -7,22 +7,14 @@
     bottom: 80px;
     overflow-x: hidden;
     overflow-y: auto;
-    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    background-color:  rgb(245,245,240);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
     z-index: 2;
 }
 
-.SelfPageDiv h2 {
-    background-color:#add8e6;
-    font-family: 'Arimo', sans-serif;
-    margin-top: 0px;
-    padding-left: 10px;
-    margin-bottom: 0px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-}
+
 
 .user-profile-description {
     font-size:20px;
@@ -143,6 +135,16 @@
     padding-bottom: 1px;
     box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
 
+}
+
+.accordion h2 {
+    background-color:#add8e6;
+    font-family: 'Arimo', sans-serif;
+    margin-top: 0px;
+    padding-left: 10px;
+    margin-bottom: 0px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .request-demographic {

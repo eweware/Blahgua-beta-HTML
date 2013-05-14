@@ -8,8 +8,12 @@
 
 
 define('SelfPageStats',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    [
+        "GlobalFunctions",
+        "blahgua_restapi",
+        "stats"
+    ],
+    function (exports, blahgua_rest, stats) {
 
         var  InitializePage = function() {
             UpdateSelfStats();
@@ -56,11 +60,11 @@ define('SelfPageStats',
 
 
                 // Your Activity
-                var viewData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["v", "V"]);
-                var openData = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["o", "O"]);
-                var blahsMade = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "X");
-                var commentsMade  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
-                var catAxis = makeDateRangeAxis(startDate, endDate);
+                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["v", "V"]);
+                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["o", "O"]);
+                var blahsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "X");
+                var commentsMade  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
+                var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
                 $('#UserActivityDiv').highcharts({
                     title: {
@@ -113,11 +117,11 @@ define('SelfPageStats',
                 });
 
                 // Your Blahs and Comments
-                var otherUpVotes = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
-                var otherDownVotes = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj,"DT");
-                var otherViews = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
-                var otherOpens  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "O");
-                var otherComments  = GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "C");
+                var otherUpVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
+                var otherDownVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj,"DT");
+                var otherViews = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "V");
+                var otherOpens  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "O");
+                var otherComments  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "C");
 
                 var reverseDown = [];
                 for (var curIndex in otherDownVotes) {
@@ -205,26 +209,26 @@ define('SelfPageStats',
 
                 // Your Audience Demographics
                 if (UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
-                    $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions("Gender", "B"));
+                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Gender", "B"));
                 else
-                    $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Gender", "B"));
+                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
                 if (UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
-                    $("#DemoEthnicityChartArea").highcharts(MakeDemoChartOptions("Ethnicity", "D"));
+                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Ethnicity", "D"));
                 else
-                    $("#DemoEthnicityChartArea").html(GenerateShareDemoHTML("Ethnicity", "D"));
+                    $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
                 /*
                  if (UserProfile.hasOwnProperty("C") && (UserProfile["C"] != -1))
-                 $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions("Age", "C"));
+                 $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions(CurrentUser, "Age", "C"));
                  else
                  $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
                  */
 
                 if (UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
-                    $("#DemoCountryChartArea").highcharts(MakeDemoChartOptions("Country", "J"));
+                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Country", "J"));
                 else
-                    $("#DemoCountryChartArea").html(GenerateShareDemoHTML("Country", "J"));
+                    $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
 
 
 
@@ -248,142 +252,14 @@ define('SelfPageStats',
             });
         };
 
-        var GenerateShareDemoHTML = function(demoString, demoName) {
-            var newHTML = "";
-
-            newHTML += "<div class='request-demographic'>";
-            newHTML += "You need to set your own " + demoString + " on the user profile page in order to see the " + demoString + " of other users.";
-            newHTML += "</div>";
-            return newHTML;
-        };
-
-        var MakeDemoChartOptions = function(demoString, demoName) {
-            var demoSeries = MakeDemoSeries(demoName);
-            var demoCat = MakeDemoCategories(demoName);
-            var chartHeight = 125 + (25 * demoCat.length);
-
-            var newDemos = {
-                colors: ["#FF0000", "#00FF00"],
-                chart: {
-                    type: "bar",
-                    height:chartHeight
-                },
-                title: {
-                    text:demoString
-                },
-                xAxis: {
-                    categories:demoCat
-                },
-                plotOptions: {
-                    series: {
-                        stacking: 'normal',
-                        marker: {
-                            enabled: false
-                        }
-                    },
-                    bar : {
-                        pointPadding:0,
-                        groupPadding:0
-                    }
-                },
-                credits: {
-                    enabled:false
-                },
-
-                yAxis: [{
-                    title: { text: "votes"}
-                }],
-                series: demoSeries
-            };
-
-            return newDemos
-        };
 
 
-        var MakeDemoCategories = function(whichDemo) {
-            var catArray = [];
-            $.each(ProfileSchema[whichDemo].DT, function(index, item){
-                catArray.push(item);
-            });
-
-            return catArray;
-        };
-
-        var MakeDemoSeries = function(whichDemo) {
-            // one series for upVote and downVote
-            // one data point for each unique value of the demo
-            var newSeries;
-            if (CurrentUser.hasOwnProperty("_d")) {
-                var upVoteSet = getSafeProperty(CurrentUser._d._u, whichDemo, null);
-                var downVoteSet = getSafeProperty(CurrentUser._d._d, whichDemo, null);
-                var upData = [], downData = [];
-
-                $.each(ProfileSchema[whichDemo].DT, function(index, item){
-                    upData.push(getSafeProperty(upVoteSet, index, 0));
-                    downData.push(-getSafeProperty(downVoteSet, index, 0));
-                });
-
-                newSeries = [
-                    {"data":downData,"name":"demotes"},
-                    {"data":upData,"name":"promotes"}];
-            } else {
-                newSeries = [];
-            }
-
-            return newSeries;
-        };
 
 
-        var GetDailyStatValuesForTimeRange = function(startTime, endTime, statsObj, statName) {
-            var startMonth, startDay, newVal;
-            var results = [];
-
-            startMonth = startTime.getMonth();
-            startDay = startTime.getDate();
-            statName = [].concat(statName); // ensure array
-
-            while (startTime <= endTime) {
-                newVal = 0;
-                for (var curStat in statName) {
-                    newVal += GetStatValue(statsObj, startTime, statName[curStat]);
-                }
-
-                results.push(newVal);
-
-                startTime = new Date(startTime.getTime() + 3600 * 24 * 1000); // add one day
-                startMonth = startTime.getMonth();
-                startDay = startTime.getDate();
-            }
-
-            return results;
-        };
-
-        var makeDateRangeAxis = function(startDate, endDate) {
-            var newCat = [];
 
 
-            while (startDate <= endDate) {
-                newStr = startDate.getMonth() + 1 + "/" + startDate.getDate();
-                newCat.push(newStr);
-                startDate = new Date(startDate.getTime() + (24 * 3600 * 1000));
-            }
 
-            return newCat;
-        };
 
-        var GetStatValue = function(statsObj, date, stat) {
-            var statVal = 0, item = 0;
-            var statStr = createDateString(date, true);
-            for (var index in statsObj.L) {
-                item = statsObj.L[index];
-                if (item._id.substring(item._id.length - 4) == statStr) {
-                    // found the month
-                    statVal = item.dy[date.getDate() - 1][stat];
-                    break;
-                }
-            }
-            return statVal;
-        };
 
         return {
             InitializePage: InitializePage

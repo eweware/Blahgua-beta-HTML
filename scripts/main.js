@@ -7,7 +7,7 @@
  */
 
 requirejs.config({
-    "baseUrl": "./aws/scripts/",
+    "baseUrl": "./scripts/",
     "paths": {
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
         "SignUpPage": "pagescripts/SignUpPage",
@@ -24,7 +24,8 @@ requirejs.config({
         "SelfPage": "pagescripts/SelfPage",
         "SelfPageDetails": "pagescripts/SelfPageDetails",
         "SelfPageStats": "pagescripts/SelfPageStats",
-        "SelfPageHistory": "pagescripts/SelfPageHistory"
+        "SelfPageHistory": "pagescripts/SelfPageHistory",
+        "stats": "stats"
     }
 });
 

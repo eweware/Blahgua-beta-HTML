@@ -2,7 +2,7 @@
 
 define('blahgua_restapi', [], function () {
     // properties
-    var baseURL = "http://beta.blahgua.com/v2/";
+    var baseURL = "http://api.blahgua.com/v2/";
     var currentChannel = "";
     //this.baseURL = "../v2/";
 
