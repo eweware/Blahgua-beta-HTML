@@ -20,14 +20,42 @@ define('BlahTypePredict',
             $('.current-choices img').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
                 var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserPredictionVote(CurrentBlahId, myVote, UpdatePredictPage, HandleVoteFailed);
+                blahgua_rest.SetUserPredictionVote(CurrentBlahId, myVote, function() {
+                    var theProp;
+                    switch(myVote) {
+                        case "y":
+                            theProp = "4";
+                            break;
+                        case "n":
+                            theProp = "5";
+                            break;
+                        default:
+                            theProp = "6";
+                    }
+                    CurrentBlah[theProp] = getSafeProperty(CurrentBlah, theProp, 0) + 1;
+                    UpdatePredictPage();
+                }, HandleVoteFailed);
             });
 
             $('.expired-choices img').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
                 var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserPredictionVote(CurrentBlahId, myVote, UpdatePredictPage, HandleVoteFailed);
-            })
+                blahgua_rest.SetUserExpiredPredictionVote(CurrentBlahId, myVote, function() {
+                    var theProp;
+                    switch(myVote) {
+                        case "y":
+                            theProp = "1";
+                            break;
+                        case "n":
+                            theProp = "2";
+                            break;
+                        default:
+                            theProp = "3";
+                    }
+                    CurrentBlah[theProp] = getSafeProperty(CurrentBlah, theProp, 0) + 1;
+                    UpdatePredictPage();
+                }, HandleVoteFailed);
+            });
             UpdatePredictPage();
         }
         var UpdatePredictPage = function() {
@@ -69,9 +97,11 @@ define('BlahTypePredict',
                 maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
             }
             $("#PredictYesSpan").animate({'width': yesRatio + "%"}, 250);
-            document.getElementById("PredictYesSpan").style.width = yesRatio + "%";
-            document.getElementById("PredictNoSpan").style.width = noRatio + "%";
-            document.getElementById("PredictMaybeSpan").style.width = maybeRatio + "%";
+            $("#PredictNoSpan").animate({'width': noRatio + "%"}, 250);
+            $("#PredictMaybeSpan").animate({'width': maybeRatio + "%"}, 250);
+            //document.getElementById("PredictYesSpan").style.width = yesRatio + "%";
+            //document.getElementById("PredictNoSpan").style.width = noRatio + "%";
+            //document.getElementById("PredictMaybeSpan").style.width = maybeRatio + "%";
 
             // expired ui
             yesVotes = getSafeProperty(CurrentBlah, "1", 0);
@@ -103,19 +133,19 @@ define('BlahTypePredict',
                             $('.current-choices img').unbind('click');
                             switch (userVote) {
                                 case "y":
-                                    document.getElementById("PredictYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictYesImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#PredictYesImg").show();
                                     $("#PredictNoImg").hide();
                                     $("#PredictMaybeImg").hide();
                                     break;
                                 case "n":
-                                    document.getElementById("PredictNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictNoImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#PredictNoImg").show();
                                     $("#PredictYesImg").hide();
                                     $("#PredictMaybeImg").hide();
                                     break;
                                 case "u":
-                                    document.getElementById("PredictMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictMaybeImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#PredictMaybeImg").show();
                                     $("#PredictNoImg").hide();
                                     $("#PredictYesImg").hide();
@@ -132,19 +162,19 @@ define('BlahTypePredict',
                             $('.expired-choices img').unbind('click');
                             switch (expVote) {
                                 case "y":
-                                    document.getElementById("ExpPredictYesImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictYesImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#ExpPredictYesImg").show();
                                     $("#ExpPredictNoImg").hide();
                                     $("#ExpPredictMaybeImg").hide();
                                     break;
                                 case "n":
-                                    document.getElementById("ExpPredictNoImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictNoImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#ExpPredictNoImg").show();
                                     $("#ExpPredictYesImg").hide();
                                     $("#ExpPredictMaybeImg").hide();
                                     break;
                                 case "u":
-                                    document.getElementById("ExpPredictMaybeImg").src = "http://blahgua-webapp.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictMaybeImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
                                     $("#ExpPredictMaybeImg").show();
                                     $("#ExpPredictNoImg").hide();
                                     $("#ExpPredictYesImg").hide();
