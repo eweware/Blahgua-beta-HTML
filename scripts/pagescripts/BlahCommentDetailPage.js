@@ -14,7 +14,11 @@ define('BlahCommentDetailPage',
             // bind events
             $("#AddCommentBtn").click(DoAddComment);
             UpdateBlahComments();
-            var curTop = document.getElementById("CommentContainer").getBoundingClientRect().top;
+            var curTop;
+            if (IsUserLoggedIn)
+                curTop = document.getElementById("CommentContainer").getBoundingClientRect().top;
+            else
+                curTop = document.getElementById("SignInToCommentArea").getBoundingClientRect().top;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
             var maxSize = curBottom - curTop;
             $("#CommentContainer").css({ 'max-height': maxSize + 'px'});
@@ -49,15 +53,16 @@ define('BlahCommentDetailPage',
                     while($(this).outerHeight() < this.scrollHeight) {
                         $(this).height($(this).height()+1);
                     };
+                    // handle the sizing
+                    var titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
+                    $(".comment-container").css({ 'top': titleBottom + 'px'});
                 });
             } else {
                 $("#SignInToCommentArea").show();
                 $("#CreateCommentArea").hide();
             }
 
-            // handle the sizing
-            var titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-            $(".comment-container").css({ 'top': titleBottom + 'px'});
+
 
         };
 
@@ -154,13 +159,13 @@ define('BlahCommentDetailPage',
             }
 
             var isOwnComment = false;
-            if (theComment.A == CurrentUser._id) {
+            if (IsUserLoggedIn &&  (theComment.A == CurrentUser._id)) {
                 isOwnComment = true;
                 blahgerName += " (you)"
             }
 
             var isOwnBlah = false;
-            if (CurrentBlah.A == CurrentUser._id) {
+            if (IsUserLoggedIn && (CurrentBlah.A == CurrentUser._id)) {
                 isOwnBlah = true;
             }
 
