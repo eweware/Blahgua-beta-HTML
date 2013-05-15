@@ -147,6 +147,23 @@
     padding-bottom: 4px;
 }
 
+.accordion.active h2 {
+    background-color: #0108b9;
+    color:white;
+}
+
+.accordion .accordion-content {
+    display: none;
+}
+
+.accordion.active .accordion-content {
+    display: block;
+}
+
+
+
+
+
 .request-demographic {
     font-size: 18px;
     font-family: 'Arimo', sans-serif;

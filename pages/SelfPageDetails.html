@@ -21,7 +21,8 @@
             <button id="ForgetBtn" class="small-button">Forget Me</button>
         </td></tr>
 </table>
-<div class="accordion">
+
+<div class="accordion active">
     <h2>Account</h2>
     <div class="accordion-body">
         <div class="instruction-text">
@@ -38,7 +39,7 @@
             <tbody>
             <tr>
                 <td class="attribute-col">username</td>
-                <td> <input disabled="true" id="userName" type="text" class="userName"></td>
+                <td> <input disabled="disabled" id="userName" type="text" class="userName"></td>
             </tr>
             <tr>
                 <td class="attribute-col" >Nickname</td>
@@ -56,7 +57,6 @@
     </div>
 </div>
 
-
 <div class="accordion">
     <h2>Location</h2>
     <div class="accordion-body">
@@ -64,7 +64,7 @@
             share your location information to get better targeted blahs!
         </div>
 
-        <table class="attribute-table accordion-content" style="display:none">
+        <table class="attribute-table accordion-content">
             <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -100,7 +100,7 @@
             share your demographics and you can see the demographics of others as well!
         </div>
 
-        <table class="attribute-table accordion-content" style="display:none">
+        <table class="attribute-table accordion-content" >
             <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -135,7 +135,7 @@
         <div class="instruction-text">
             set whether your profile details are private to Blahgua or visible to the public
         </div>
-        <table class="permission-table accordion-content" style="display:none">
+        <table class="permission-table accordion-content">
             <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
@@ -199,47 +199,37 @@
     </div>
 </div>
 
-
 <div class="accordion">
-    <h2>Badges</h2>
+    <h2>Badges and Badging</h2>
     <div class="accordion-body">
         <div class="instruction-text">
-            badges let you share verified facts about yourself without sharing your identity
-        </div>
-        <table class="attribute-table accordion-content" style="display:none">
-
-            <tbody id="BadgesDiv">
-
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-<div class="accordion">
-    <h2>Badging Authorities</h2>
-    <div class="accordion-body">
-        <div class="instruction-text">
+            badges let you share verified facts about yourself without sharing your identity<br/>
             need badges? get them from these badge authorities.
         </div>
-        <table class="attribute-table accordion-content" style="display:none">
-            <thead>
-            <tr>
-                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Authority Name</th>
-                <th scope="col">Description</th>
-                <th scope="col" style="border-top-right-radius: 8px;"></th>
-            </tr>
-            </thead>
-            <tbody id="BadgeAuthorityArea">
+        <div class="accordion-content">
+            <table class="attribute-table">
 
-            </tbody>
-        </table>
+                <tbody id="BadgesDiv">
+
+                </tbody>
+            </table>
+
+            <table class="attribute-table" >
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Authority Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col" style="border-top-right-radius: 8px;"></th>
+                </tr>
+                </thead>
+                <tbody id="BadgeAuthorityArea">
+
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-
-
-</div>
 </div>
 </body>
 </html>

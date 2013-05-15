@@ -246,9 +246,16 @@ define('SelfPageStats',
             });
             // headers
             $('.accordion h2').click(function(theEvent) {
-                $(".accordion-content").hide();
-                $(this.parentElement).find(".accordion-content").show() ;
-
+                var parent = $(this).parent('.accordion');
+                if (parent.hasClass("active")) {
+                    // close it
+                    parent.removeClass("active");
+                } else {
+                    // open it and close others
+                    $(".active").removeClass("active");
+                    parent.addClass("active");
+                    this.scrollIntoView(true);
+                }
             });
         };
 

@@ -26,14 +26,20 @@ define('BlahStatsDetailPage',
             $("#FullBlahStatsContainer").css({ 'max-height': maxSize + 'px'});
 
             $('.accordion h2').click(function(theEvent) {
-                $(".accordion-content").hide();
-                $(this.parentElement).find(".accordion-content").show();
-                // scroll
-                $(".stats-container").scrollTop($(this).top());
+                var parent = $(this).parent('.accordion');
+                if (parent.hasClass("active")) {
+                    // close it
+                    parent.removeClass("active");
+                } else {
+                    // open it and close others
+                    $(".active").removeClass("active");
+                    parent.addClass("active");
+                    this.scrollIntoView(true);
+                }
             });
 
 
-            if (UserProfile == null) {
+            if (IsUserLoggedIn && (UserProfile == null)) {
                 blahgua_rest.GetUserProfile(CurrentUser._id, function(json) {
                     UserProfile = json;
                     RefreshUserStats();
@@ -174,24 +180,24 @@ define('BlahStatsDetailPage',
             }
 
             // Voter Demographics
-            if (UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
+            if (IsUserLoggedIn && UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
                 $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Gender", "B"));
             else
                 $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
-            if (UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
+            if (IsUserLoggedIn && UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
                 $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Ethnicity", "D"));
             else
                 $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
             /*
-             if (UserProfile.hasOwnProperty("C") && (UserProfile["C"] != -1))
+             if (IsUserLoggedIn && UserProfile.hasOwnProperty("C") && (UserProfile["C"] != -1))
              $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions(CurrentBlah, "Age", "C"));
              else
              $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
              */
 
-            if (UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
+            if (IsUserLoggedIn && UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
                 $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Country", "J"));
             else
                 $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
