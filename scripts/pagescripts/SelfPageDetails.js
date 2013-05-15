@@ -12,16 +12,11 @@ define('SelfPageDetails',
     function (exports, blahgua_rest) {
 
         var  InitializePage = function() {
-            /*
-            var winHeight = $(window).height();
-            var curTop = document.getElementById("SelfPageDetailsDiv").clientTop;
-            var dif = 80 + 70 + curTop;
-            $("#SelfPageDetailsDiv").css({ 'max-height': winHeight-dif + 'px'});
-            $("#SelfProfileBtn").addClass("BlahBtnSelected");
-            */
+
             $("#SaveProfileBtn").click(UpdateUserProfile);
             $("#LogoutBtn").click(exports.LogoutUser);
             $("#ForgetBtn").click(exports.ForgetUser);
+            $('input[type=radio]').change(HandlePermAll);
             UpdateSelfProfile();
         };
 
@@ -135,9 +130,28 @@ define('SelfPageDetails',
             if(validated) $("#SaveProfileBtn").removeAttr("disabled");
         };
 
-        var HandlePermAll = function() {
-            var setAllTo = Number($('input:radio[name=all]:checked').val());
-            $('input:radio').val([setAllTo]);
+        var HandlePermAll = function(theEvent) {
+            if ($(theEvent.target).attr("name") == "all") {
+                var setAllTo = Number($('input:radio[name=all]:checked').val());
+                $('input:radio').val([setAllTo]);
+            } else {
+                var setAll = true;
+                var allVal = false;
+
+                $("input:radio:checked").each(function(index, item) {
+                    if (setAll && $(item).attr("name") != "all") {
+                        if (!allVal)
+                            allVal = item.value;
+                        else if (allVal != item.value)
+                            setAll = false;
+                    }
+                });
+                if (!setAll)
+                    allVal = false;
+                $('input[name=all]').val([allVal]);
+
+            }
+
         };
 
         var ShowBadgeSelection = function() {
@@ -176,7 +190,7 @@ define('SelfPageDetails',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = "http://blahgua-webapp.s3.amazonaws.com/img/generic-badge.png";
+                var imagePath = "http://beta.blahgua.com.s3.amazonaws.com/img/generic-badge.png";
                 newHTML += "<tr><td><div class='badgeholder'>";
                 newHTML += "<div class='badgename'>";
                 if (fullBadge.hasOwnProperty("K")) {
@@ -184,8 +198,8 @@ define('SelfPageDetails',
                 }
                 newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
                 newHTML += fullBadge.N + "</div>";
-                newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>"
-                newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>"
+                newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>";
+                newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>";
                 newHTML += "</div></td>";
 
                 newHTML += "</tr>";

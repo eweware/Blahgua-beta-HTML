@@ -27,7 +27,9 @@ define('BlahStatsDetailPage',
 
             $('.accordion h2').click(function(theEvent) {
                 $(".accordion-content").hide();
-                $(this.parentElement).find(".accordion-content").show() ;
+                $(this.parentElement).find(".accordion-content").show();
+                // scroll
+                $(".stats-container").scrollTop($(this).top());
             });
 
 
@@ -120,12 +122,12 @@ define('BlahStatsDetailPage',
             if (curStats && curStats.length > 0) {
                 var endDate = new Date(Date.now());
                 var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
-                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, curStats, ["v", "V"]);
-                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, curStats, ["o", "O"]);
-                var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, curStats, "XX");
+                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "V");
+                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "O");
+                var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "C");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#BlahActivityDiv').highcharts({
+                $('#BlahActivityDiv').empty().highcharts({
                     title: {
                         text:"Audience Activity"
                     },
@@ -221,7 +223,7 @@ define('BlahStatsDetailPage',
             }
 
             return curResult;
-        }
+        };
 
         return {
             InitializePage: InitializePage

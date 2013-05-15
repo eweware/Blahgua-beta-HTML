@@ -80,6 +80,19 @@
 
 }
 
+.BlahTypeAsks {
+    color: rgba(102,102,102,1);
+    background-color: #ADADAD;
+    border-color: #00FF8C;
+}
+
+
+.BlahTypeAsksImgText {
+    color: #ADADAD;
+    background-color: rgba(102,102,102,0.8);
+}
+
+
 .BlahTypeSaysImgText {
     color: #fffff3;
     background-color: rgba(117,154,180,0.85);

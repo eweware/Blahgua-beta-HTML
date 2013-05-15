@@ -32,7 +32,7 @@ textarea {
     position: absolute;
     height:100%;
     background-color: #d4d4d4;
-    background-image: url(http://blahgua-webapp.s3.amazonaws.com/images/groups/bkgnds/tealrock.jpg);
+    background-image: url(http://beta.blahgua.com.s3.amazonaws.com/images/groups/bkgnds/tealrock.jpg);
     overflow:hidden;
 
 }
@@ -236,7 +236,6 @@ a {
 .shorttitle
 {   font-family:'Arimo',sans-serif;
     font-size:17px;
-    font-weight:strong;
     color:#545253;
     margin-left:20px;
 
@@ -244,7 +243,6 @@ a {
 .shorttitle1
 {   font-family:'Arimo',sans-serif;
     font-size:17px;
-    font-weight:strong;
     margin-left:20px;
     color:#545253;
     border-top:1px solid grey;
@@ -271,13 +269,12 @@ a {
     border-color:transparent;
     color:white;
     font-size:16px;
-    font-weight:strong;
     font-family:'Arimo',sans-serif;
 
 }
 #createcontent
 {
-    background: url(http://blahgua-webapp.s3.amazonaws.com/img/placeholder_texture.jpg);
+    background: url(http://beta.blahgua.com.s3.amazonaws.com/img/placeholder_texture.jpg);
 
 }
 
@@ -310,7 +307,6 @@ a {
     width:88px;
     height:40px;
     font-size:18px;
-    font-weight:strong;
     font-family:Arial, Helvetica, sans-serif;
     color:lightgrey;
 }
@@ -351,7 +347,6 @@ a {
     background:#FC7A56;
     color:white;
     font-size:16px;
-    font-weight:strong;
     font-family:'Arimo',sans-serif;
     border-radius:10px;
     border-color:transparent;

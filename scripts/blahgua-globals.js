@@ -40,7 +40,7 @@ var ChannelList = [];
 var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var ChannelDropMenu = null;
-var fragmentURL = "http://blahgua-webapp.s3.amazonaws.com";
+var fragmentURL = "http://beta.blahgua.com.s3.amazonaws.com";
 var ProfileSchema = null;
 var UserProfile = null;
 var CurrentBlahNickname = "";
@@ -146,7 +146,7 @@ function ElapsedTimeString(theDate) {
 
 }
 
-function createDateString(theDate, short) {
+function createDateString(theDate, omitDay) {
     var newString = "";
     var year = (theDate.getFullYear() - 2000).toString();
     var month = theDate.getMonth() + 1;
@@ -154,7 +154,7 @@ function createDateString(theDate, short) {
         month = "0" + month.toString();
     else
         month = month.toString();
-    if (short == true) {
+    if (omitDay == true) {
         newString = year + month;
     } else {
         var day = theDate.getDate();

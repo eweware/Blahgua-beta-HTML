@@ -5,111 +5,109 @@
 </head>
 <body>
 <div id="SelfPageDetailsDiv" >
-    <div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
-        <div class="BadgeTitleBar"></div>
-        <div id="badgedialog" class="BadgeDialog"></div>
-    </div>
-    <table style="width:90%">
-        <tr><td>
-            <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" >Update</button>
+<div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
+    <div class="BadgeTitleBar"></div>
+    <div id="badgedialog" class="BadgeDialog"></div>
+</div>
+<table style="width:90%">
+    <tr><td>
+        <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" >Update</button>
 
+    </td>
+        <td>
+            <button id="LogoutBtn" class="small-button">Logout</button><br/>
         </td>
-            <td>
-                <button id="LogoutBtn" class="small-button">Logout</button><br/>
-            </td>
-            <td>
-                <button id="ForgetBtn" class="small-button">Forget Me</button>
-            </td></tr>
-    </table>
-    <div class="accordion">
+        <td>
+            <button id="ForgetBtn" class="small-button">Forget Me</button>
+        </td></tr>
+</table>
+<div class="accordion">
     <h2>Account</h2>
-        <div class="accordion-body">
-            <div class="instruction-text">
-                set up your nickname and user image
-            </div>
-    <table class="attribute-table accordion-content">
-        <thead>
-        <tr>
-            <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-            <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr>
-            <td class="attribute-col">username</td>
-            <td> <input disabled="true" id="userName" type="text" class="userName"></td>
-        </tr>
-        <tr>
-            <td class="attribute-col" >Nickname</td>
-
-            <td><input id="NicknameInput" type="text" class="userName"></td>
-
-            <td><input id="NicknameInput"  type="text" class="userName"></td>
-
-        </tr>
-        <tr>
-            <td class="attribute-col" >Image</td>
-            <td><div id="uploadimage" class="uploadimage"></div></td>
-        </tr>
-        </tbody>
-    </table>
-
-            </div>
-    </div>
-
-
-    <div class="accordion">
-        <h2>Location</h2>
-        <div class="accordion-body">
-            <div class="instruction-text">
-                share your location information to get better targeted blahs!
-            </div>
-
-    <table class="attribute-table accordion-content" style="display:none">
-        <thead>
-        <tr>
-            <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-            <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td class="attribute-col">City</td>
-            <td><input id="CityInput" type="text"></td>
-        </tr>
-        <tr>
-            <td class="attribute-col">State</td>
-            <td> <input id="StateInput" type="text"></td>
-        </tr>
-        <tr>
-            <td class="attribute-col">Zipcode</td>
-            <td><input id="ZipcodeInput" type="text"></select></td>
-        </tr>
-        <tr>
-            <td class="attribute-col">Country</td>
-            <td><select id="CountryInput"> </select> </select></td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-    </div>
-
-    <div class="accordion">
-        <h2>Demographics</h2>
-        <div class="accordion-body">
-            <div class="instruction-text">
-                share your demographics and you can see the demographics of others as well!
-            </div>
-
-    <table class="attribute-table accordion-content" style="display:none">
-        <thead>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            set up your nickname and user image
+        </div>
+        <table class="attribute-table accordion-content">
+            <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
                 <th scope="col" style="border-top-right-radius: 8px;">Value</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td class="attribute-col">username</td>
+                <td> <input disabled="true" id="userName" type="text" class="userName"></td>
+            </tr>
+            <tr>
+                <td class="attribute-col" >Nickname</td>
+
+                <td><input id="NicknameInput" type="text" class="userName"></td>
+
+            </tr>
+            <tr>
+                <td class="attribute-col" >Image</td>
+                <td><div id="uploadimage" class="uploadimage"></div></td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<div class="accordion">
+    <h2>Location</h2>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            share your location information to get better targeted blahs!
+        </div>
+
+        <table class="attribute-table accordion-content" style="display:none">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
+                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="attribute-col">City</td>
+                <td><input id="CityInput" type="text"></td>
+            </tr>
+            <tr>
+                <td class="attribute-col">State</td>
+                <td> <input id="StateInput" type="text"></td>
+            </tr>
+            <tr>
+                <td class="attribute-col">Zipcode</td>
+                <td><input id="ZipcodeInput" type="text"></td>
+            </tr>
+            <tr>
+                <td class="attribute-col">Country</td>
+                <td><select id="CountryInput"> </select></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="accordion">
+    <h2>Demographics</h2>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            share your demographics and you can see the demographics of others as well!
+        </div>
+
+        <table class="attribute-table accordion-content" style="display:none">
+            <thead>
+            <tr>
+                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
+                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td class="attribute-col">Date of Birth</td>
                 <td> <input id="DOBInput" type="date"></td>
@@ -126,30 +124,30 @@
                 <td class="attribute-col">Income</td>
                 <td><select id="IncomeInput"> </select></td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
-    </div>
+</div>
 
-    <div class="accordion">
-        <h2>Permissions</h2>
-        <div class="accordion-body">
-            <div class="instruction-text">
-                set whether your profile details are private to Blahgua or visible to the public
-            </div>
-    <table class="permission-table accordion-content" style="display:none">
-        <thead>
+<div class="accordion">
+    <h2>Permissions</h2>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            set whether your profile details are private to Blahgua or visible to the public
+        </div>
+        <table class="permission-table accordion-content" style="display:none">
+            <thead>
             <tr>
                 <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
                 <th scope="col">Private</th>
                 <th scope="col" style="border-top-right-radius: 8px;">Public</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr>
                 <td class="attribute-col">All</td>
-                <td><input type="radio" name="all" value="0" onchange="HandlePermAll(); return false;"></td>
-                <td><input type="radio" name="all" value="2" onchange="HandlePermAll(); return false;"></td>
+                <td><input type="radio" name="all" value="0"></td>
+                <td><input type="radio" name="all" value="2"></td>
             </tr>
             <tr>
                 <td class="attribute-col">Nickname</td>
@@ -196,36 +194,34 @@
                 <td><input type="radio" name="race" value="0"></td>
                 <td><input type="radio" name="race" value="2"></td>
             </tr>
-        </tbody>
-        </tr>
-    </table>
-        </div>
+            </tbody>
+        </table>
     </div>
+</div>
 
 
-        <div class="accordion">
+<div class="accordion">
     <h2>Badges</h2>
-            <div class="accordion-body">
-                <div class="instruction-text">
-                    badges let you share verified facts about yourself without sharing your identity
-                </div>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            badges let you share verified facts about yourself without sharing your identity
+        </div>
         <table class="attribute-table accordion-content" style="display:none">
 
-            </thead>
             <tbody id="BadgesDiv">
 
             </tbody>
         </table>
-            </div>
+    </div>
+</div>
+
+
+<div class="accordion">
+    <h2>Badging Authorities</h2>
+    <div class="accordion-body">
+        <div class="instruction-text">
+            need badges? get them from these badge authorities.
         </div>
-
-
-    <div class="accordion">
-        <h2>Badging Authorities</h2>
-        <div class="accordion-body">
-            <div class="instruction-text">
-                need badges? get them from these badge authorities.
-            </div>
         <table class="attribute-table accordion-content" style="display:none">
             <thead>
             <tr>
@@ -239,11 +235,11 @@
             </tbody>
         </table>
     </div>
-    </div>
+</div>
 
 
 
-    </div>
+</div>
 </div>
 </body>
 </html>

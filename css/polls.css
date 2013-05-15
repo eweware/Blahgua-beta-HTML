@@ -38,7 +38,7 @@
     display:none;
     width:24px;
     height: 24px;
-    content:url("http://blahgua-webapp.s3.amazonaws.com/img/unchecked.png");
+    content:url("http://beta.blahgua.com.s3.amazonaws.com/img/unchecked.png");
 }
 
 .poll-checkbox:hover {
@@ -46,7 +46,7 @@
 }
 
 .poll-checkbox.checked {
-    content:url("http://blahgua-webapp.s3.amazonaws.com/img/checked.png");
+    content:url("http://beta.blahgua.com.s3.amazonaws.com/img/checked.png");
 }
 
 .poll-title-holder {

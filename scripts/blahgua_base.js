@@ -36,7 +36,7 @@ define('blahgua_base',
 
                 SignIn();
             });
-        }
+        };
 
 
     function HandleWindowResize() {
@@ -405,7 +405,7 @@ define('blahgua_base',
 
         $("#ChannelBanner").click(function () {
             ShowHideChannelList();
-        })
+        });
 
 
         var viewCount = document.createElement("span");
@@ -586,7 +586,7 @@ define('blahgua_base',
             CurrentBlah= theBlah;
             SetBlahDetailPage("Overview");
         }, OnFailure);
-        return;
+
     }
 
 
@@ -764,6 +764,9 @@ define('blahgua_base',
                 case kBlahTypePredicts:
                     $(textDiv).addClass("BlahTypePredictsImgText");
                     break;
+                case kBlahTypeAsks:
+                    $(textDiv).addClass("BlahTypeAskImgText");
+                    break;
                 case kBlahTypeAd:
                     $(textDiv).addClass("BlahTypeAddImgText");
                     break;
@@ -806,6 +809,9 @@ define('blahgua_base',
                 break;
             case kBlahTypePredicts:
                 $(newEl).addClass("BlahTypePredicts");
+                break;
+            case kBlahTypeAsks:
+                $(newEl).addClass("BlahTypeAsks");
                 break;
             case kBlahTypeAd:
                 $(newEl).addClass("BlahTypeAd");
@@ -1232,7 +1238,7 @@ define('blahgua_base',
             StartAnimation();
         }
         GetNextBlahList();
-    };
+    }
 
 
 
@@ -1463,6 +1469,7 @@ define('blahgua_base',
 
         document.getElementById("ChannelList").innerHTML = newHTML;
         $("#ChannelList img").error(imgError);
+        $(".channel-info-table").click(DoJumpToChannel);
         $("#ViewProfileBtn").text(getUserChannelName());
 
 
@@ -1487,8 +1494,8 @@ define('blahgua_base',
     function createChannelHTML(index, curChannel) {
         var newHTML = "";
         // todo:  set the actual desc from the channel obj
-        var channelDesc = "This is where a pleasant description of this channel will go, once Ben writes it for this channel and Ruben implements it."
-        newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "' onclick='DoJumpToChannel(); return false;'>";
+        var channelDesc = "This is where a pleasant description of this channel will go, once Ben writes it for this channel and Ruben implements it.";
+        newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "'>";
         newHTML += "<tr>";
         newHTML += "<td rowspan=2 class='channel-image-td'>";
         newHTML += '<img class="channel-image" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png">';
@@ -1506,7 +1513,7 @@ define('blahgua_base',
         var who = event.target || event.srcElement;
         var what = who.parentElement.parentElement;
 
-        var channelIndex = what.attributes["channelId"].nodeValue
+        var channelIndex = what.attributes["channelId"].nodeValue;
         var channelId = ChannelList[channelIndex]._id;
         Blahgua.removeUserFromChannel(channelId, OnRemoveChannelOK(what), OnFailure);
     }
@@ -1516,10 +1523,10 @@ define('blahgua_base',
     }
 
 
-    function DoJumpToChannel() {
-        var who = event.target || event.srcElement;
+    function DoJumpToChannel(theEvent) {
+        var who = theEvent.target;
 
-        var channelID = $(who).parents("table")[0].attributes["channelId"].nodeValue;
+        var channelID = $(who).parents(".channel-info-table").attr("channelId");
         HideChannelList();
         SetCurrentChannel(channelID);
     }
@@ -1607,7 +1614,7 @@ define('blahgua_base',
     var ClosePage = function() {
         $("#BlahFullItem").hide();
         StartAnimation();
-    }
+    };
 
 
     function UpdateChannelViewers() {
@@ -1756,7 +1763,7 @@ define('blahgua_base',
         var newHTML= "";
         newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
         newHTML += "<a class='channelBrowserGroupItem'>" + channelType.N + "</a>";
-        newHTML += "</li>"
+        newHTML += "</li>";
         return newHTML;
     }
 
@@ -1768,7 +1775,7 @@ define('blahgua_base',
         newHTML += 'onerror="imgError(this);">';
         newHTML += curChannel.N;
         newHTML += "</a>";
-        newHTML += "</li>"
+        newHTML += "</li>";
         return newHTML;
     }
 
@@ -1896,6 +1903,7 @@ define('blahgua_base',
         Exports.GetBlahTypeStr = GetBlahTypeStr;
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;
+        Exports.DismissPreview = DismissPreview;
 
     return {
         InitializeBlahgua: InitializeBlahgua

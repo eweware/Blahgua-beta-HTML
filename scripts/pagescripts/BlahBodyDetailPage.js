@@ -10,7 +10,7 @@ define('BlahBodyDetailPage',
     ["GlobalFunctions", "blahgua_restapi"],
     function (exports, blahgua_rest) {
 
-        function InitializePage() {
+        var InitializePage = function() {
             if (CurrentBlah == null) {
                 alert("Error:  No Blah!");
                 return;
@@ -121,9 +121,9 @@ define('BlahBodyDetailPage',
             if (IsUserLoggedIn) {
                 if (CurrentBlah.A == CurrentUser._id) {
                     // own blah - can't vote
-                    promoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_promote_disabled.png";
+                    promoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_promote_disabled.png";
                     promoBtn.disabled = true;
-                    demoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_demote_disabled.png";
+                    demoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_demote_disabled.png";
                     demoBtn.disabled = true;
                 } else {
                     // not own blah - can vote.  Did they?
@@ -132,28 +132,28 @@ define('BlahBodyDetailPage',
                         demoBtn.disabled = true;
                         promoBtn.disabled = true;
                         if (userVote == 1) {
-                            promoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_promote_checked.png";
-                            demoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_demote_disabled.png";
+                            promoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_promote_checked.png";
+                            demoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_demote_disabled.png";
                         } else {
-                            promoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_promote_disabled.png";
-                            demoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_demote_checked.png";
+                            promoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_promote_disabled.png";
+                            demoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_demote_checked.png";
                         }
                     } else {
                         // user can vote
-                        promoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_promote.png";
+                        promoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_promote.png";
                         promoBtn.disabled = false;
-                        demoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_demote.png";
+                        demoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_demote.png";
                         demoBtn.disabled =false;
                     }
                 }
             } else {
                 // not logged in - can't vote
-                promoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_promote_disabled.png";
+                promoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_promote_disabled.png";
                 promoBtn.disabled = true;
-                demoBtn.src = "http://blahgua-webapp.s3.amazonaws.com/img/black_demote_disabled.png";
+                demoBtn.src = "http://beta.blahgua.com.s3.amazonaws.com/img/black_demote_disabled.png";
                 demoBtn.disabled = true;
             }
-        }
+        };
 
         var SetBlahVote = function(theVote) {
             if (!window.event.srcElement.disabled) {
@@ -173,7 +173,7 @@ define('BlahBodyDetailPage',
 
                 }, exports.OnFailure);
             }
-        }
+        };
 
         return {
             InitializePage: InitializePage

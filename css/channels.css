@@ -14,7 +14,7 @@
     font-stretch:condensed;
     box-shadow:rgba(0,0,0,.4) 0px 4px;
     line-height:2em;
-    background-image: url("https://s3-us-west-2.amazonaws.com/blahgua-webapp/img/channel_bkgnd.jpg");
+    background-image: url("http://beta.blahgua.com.s3.amazonaws.com/img/channel_bkgnd.jpg");
 }
 
 .ChannelNameText {

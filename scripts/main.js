@@ -7,7 +7,7 @@
  */
 
 requirejs.config({
-    "baseUrl": "./scripts/",
+    "baseUrl": "./scripts", // http://beta.blahgua.com.s3.amazonaws.com/scripts/",
     "paths": {
         "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
         "SignUpPage": "pagescripts/SignUpPage",

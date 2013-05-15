@@ -50,15 +50,33 @@ define('stats',
 
         var GetStatValue = function(statsObj, date, stat) {
             var statVal = 0, item = 0;
-            var statStr = createDateString(date, true);
-            for (var index in statsObj.L) {
-                item = statsObj.L[index];
-                if (item._id.substring(item._id.length - 4) == statStr) {
-                    // found the month
-                    statVal = item.dy[date.getDate() - 1][stat];
-                    break;
+            var statStr;
+
+            if (statsObj.L.hasOwnProperty("dy")) {
+                // monthly stat
+                statStr = createDateString(date, true);
+                for (var index in statsObj.L) {
+                    item = statsObj.L[index];
+                    if (item._id.substring(item._id.length - 4) == statStr) {
+                        // found the month
+                        statVal = item.dy[date.getDate() - 1][stat];
+                        break;
+                    }
+                }
+            } else {
+                // daily stat
+                statStr = createDateString(date);
+                for (var index in statsObj.L) {
+                    item = statsObj.L[index];
+                    if (item._id.substring(item._id.length - 6) == statStr) {
+                        // found the day
+                        statVal = item[stat];
+                        break;
+                    }
                 }
             }
+
+
             return statVal;
         };
 

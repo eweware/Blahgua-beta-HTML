@@ -2,7 +2,7 @@
 
 define('blahgua_restapi', [], function () {
     // properties
-    var baseURL = "http://api.blahgua.com/v2/";
+    var baseURL = "http://beta.blahgua.com/v2/";
     var currentChannel = "";
     //this.baseURL = "../v2/";
 
@@ -156,7 +156,7 @@ define('blahgua_restapi', [], function () {
         var paramStr =  "{}";
         CallGetMethod("badges/authorities", paramStr, OnSuccess, OnFailure);
 
-    }
+    };
 
     var createBadgeForUser = function (authId, badgeId, OnSuccess, OnFailure) {
         var param = new Object();
@@ -185,13 +185,13 @@ define('blahgua_restapi', [], function () {
                 }
             }
         });
-    }
+    };
 
     var getBadgeById = function (badgeId, OnSuccess, OnFailure) {
         var paramStr =  "{}";
         CallGetMethod("badges/" + badgeId, paramStr, OnSuccess, OnFailure);
 
-    }
+    };
 
 
     var CreateUserProfile = function (profileObj, OnSuccess, OnFailure) {
@@ -255,7 +255,7 @@ define('blahgua_restapi', [], function () {
         var paramObj = new Object();
         paramObj["t"] = "pre";
         paramObj["v"] = theVote;
-        var method = "blahs/" + blahID + "/predicts"
+        var method = "blahs/" + blahID + "/predicts";
         CallPutMethod(method, JSON.stringify(paramObj), OnSuccess, OnFailure);
     };
 
@@ -270,7 +270,7 @@ define('blahgua_restapi', [], function () {
         var paramObj = new Object();
         paramObj["t"] = "post";
         paramObj["v"] = theVote;
-        var method = "blahs/" + blahID + "/predicts"
+        var method = "blahs/" + blahID + "/predicts";
         CallPutMethod(method, JSON.stringify(paramObj), OnSuccess, OnFailure);
     };
 
@@ -443,7 +443,7 @@ define('blahgua_restapi', [], function () {
         var paramStr = '{"U":"' + theName + '"}';
         CallPostMethod("users/check/username", paramStr, OnSuccess, OnFailure);
 
-    }
+    };
 
 
     var CreateUser = function (userName, password, OnSuccess, OnFailure) {
