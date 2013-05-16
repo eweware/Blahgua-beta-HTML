@@ -765,7 +765,7 @@ define('blahgua_base',
                     $(textDiv).addClass("BlahTypePredictsImgText");
                     break;
                 case kBlahTypeAsks:
-                    $(textDiv).addClass("BlahTypeAskImgText");
+                    $(textDiv).addClass("BlahTypeAsksImgText");
                     break;
                 case kBlahTypeAd:
                     $(textDiv).addClass("BlahTypeAddImgText");
