@@ -25,6 +25,7 @@ requirejs.config({
         "SelfPageDetails": "pagescripts/SelfPageDetails",
         "SelfPageStats": "pagescripts/SelfPageStats",
         "SelfPageHistory": "pagescripts/SelfPageHistory",
+        "comments": "pagescripts/Comments",
         "stats": "stats"
     }
 });

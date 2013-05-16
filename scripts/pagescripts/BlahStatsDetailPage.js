@@ -45,7 +45,7 @@ define('BlahStatsDetailPage',
                     RefreshUserStats();
                 }, function(theErr) {
                     // todo: be more robuts with profile load failure
-                    exports.OnFailure();
+                    exports.OnFailure(theErr);
                 });
             } else {
                 RefreshUserStats();

@@ -1904,6 +1904,7 @@ define('blahgua_base',
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;
         Exports.DismissPreview = DismissPreview;
+        Exports.SuggestUserSignIn = SuggestUserSignIn;
 
     return {
         InitializeBlahgua: InitializeBlahgua

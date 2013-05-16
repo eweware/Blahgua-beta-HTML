@@ -349,6 +349,10 @@
 }
 
 .comment-container {
+    width:100%;
+}
+
+.comment-container.scrolling {
     position: absolute;
     bottom: 80px;
     top: 256px;
