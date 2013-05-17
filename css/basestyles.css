@@ -32,7 +32,6 @@ textarea {
     position: absolute;
     height:100%;
     background-color: #d4d4d4;
-    background-image: url(http://beta.blahgua.com.s3.amazonaws.com/images/groups/bkgnds/tealrock.jpg);
     overflow:hidden;
 
 }
@@ -79,6 +78,37 @@ textarea {
     border-spacing:0px;
     border-collapse: collapse;
     border:0px;
+}
+
+.feedback-div {
+    position:fixed;
+    bottom:0px;
+    right: 0px;
+    background-color: rgba(255,255,255,.5);
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.network-status {
+    position:fixed;
+    bottom:0px;
+    left:0px;
+    height:32px;
+}
+
+.spinner-container {
+    width:32px;
+    height:32px;
+    display:inline-block;
+}
+
+.spin-text {
+    font-family: 'Arimo', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,.8);
+    display: inline-block;
+    position: relative;
+    bottom: 10px;
 }
 
 

@@ -1,6 +1,6 @@
 ﻿// rest call wrappers for blahgua
 
-define('blahgua_restapi', [], function () {
+define('blahgua_restapi', ['spin'], function (spin) {
     // properties
     var baseURL = "http://beta.blahgua.com/v2/";
     var currentChannel = "";
@@ -41,7 +41,8 @@ define('blahgua_restapi', [], function () {
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
         /// <param name="OnFailure">method to call on the event of a failure</param>
 
-
+        SpinElement.spin(SpinTarget);
+        $(".spin-text").text("GET " + methodName);
         $.ajax({
             type: "GET",
             url: baseURL + methodName,
@@ -49,11 +50,16 @@ define('blahgua_restapi', [], function () {
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (result) {
+                SpinElement.stop();
+                $("#spin-div").empty();
+                $(".spin-text").empty();
                 if (OnSuccess != null) {
                     OnSuccess(result);
                 }
             },
             error: function (theErr) {
+                SpinElement.stop();
+                $(".spin-text").text("ERROR: GET " + methodName);
                 if (OnFailure != null) {
                     OnFailure(theErr);
     }

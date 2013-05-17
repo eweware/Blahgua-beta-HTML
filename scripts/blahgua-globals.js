@@ -65,6 +65,8 @@ var kBlahRollPixelStep = 1;
 var kBlahRollScrollInterval = 50;
 var CurrentScrollSpeed = kBlahRollPixelStep;
 var resizeTimer = null;
+var SpinElement = null;
+var SpinTarget = null;
 
 /*
  Global functions

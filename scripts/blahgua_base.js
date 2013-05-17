@@ -2,7 +2,8 @@
 define('blahgua_base',
     [
         'GlobalFunctions',
-        'blahgua_restapi'
+        'blahgua_restapi',
+        'spin'
     ],
     function(Exports, Blahgua) {
 
@@ -19,6 +20,21 @@ define('blahgua_base',
                 resizeTimer && clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(HandleWindowResize, 100);
             });
+
+            var opts = {
+                lines: 12, // The number of lines to draw
+                length: 4, // The length of each line
+                width: 2, // The line thickness
+                radius: 2, // The radius of the inner circle
+                color: '#808080', // #rbg or #rrggbb
+                speed: 1, // Rounds per second
+                trail: 100, // Afterglow percentage
+                shadow: false // Whether to render a shadow
+            };
+
+            SpinElement = new Spinner(opts);
+
+            SpinTarget = document.getElementById("spin-div");
 
             $(document).ready(function () {
                 $("#BlahContainer").disableSelection();
