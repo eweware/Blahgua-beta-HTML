@@ -19,6 +19,7 @@ define('GlobalFunctions',
         var UnfocusBlah = null;
         var GetChannelNameFromID = null;
         var CloseBlah = null;
+        var SuggestUserSignIn = null;
 
         return {
             ClosePage: ClosePage,
@@ -28,6 +29,7 @@ define('GlobalFunctions',
             OnFailure: OnFailure,
             UnfocusBlah: UnfocusBlah,
             GetBlahTypeStr: GetBlahTypeStr,
+            SuggestUserSignIn: SuggestUserSignIn,
             CloseBlah: CloseBlah,
             GetChannelNameFromID: GetChannelNameFromID
         }

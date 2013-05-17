@@ -35,7 +35,7 @@ define('SelfPageDetails',
                 // profile doesn't exist - add one!
                 UserProfile = new Object();
                 UserProfile["A"] = "a blahger";
-                blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, OnFailure);
+                blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, exports.OnFailure);
             }
         };
 

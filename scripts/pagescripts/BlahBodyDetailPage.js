@@ -7,8 +7,8 @@
  */
 
 define('BlahBodyDetailPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["GlobalFunctions", "blahgua_restapi", "comments"],
+    function (exports, blahgua_rest, comments) {
 
         var InitializePage = function() {
             if (CurrentBlah == null) {
@@ -32,13 +32,16 @@ define('BlahBodyDetailPage',
             });
 
 
+
             var isOwnBlah;
 
 
             if (IsUserLoggedIn) {
                 isOwnBlah = (CurrentBlah.A == CurrentUser._id);
+
             } else {
                 isOwnBlah = false;
+
             }
             var image = GetBlahImage(CurrentBlah, "D");
 
@@ -49,6 +52,7 @@ define('BlahBodyDetailPage',
                 $("#BlahRowVote").show();
                 $("#BlahRowSignIn").hide();
                 $("#UploadImageTable").show();
+                $("#AddCommentBtn").click(comments.DoAddComment(comments.InsertNewComment));
 
                 if (isOwnBlah) {
                     if (image != "") {
@@ -61,6 +65,7 @@ define('BlahBodyDetailPage',
                 $("#BlahRowVote").hide();
                 $("#BlahRowSignIn").show();
                 $("#UploadImageTable").hide();
+                $("#CreateCommentArea").hide();
             }
 
             UpdateVoteBtns();
@@ -109,13 +114,34 @@ define('BlahBodyDetailPage',
             var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
             var maxSize = curBottom - curTop;
             $("#FullBlahContent").css({ 'max-height': maxSize + 'px'});
+
+            // handle the top comments
+            comments.UpdateTopComments();
+            document.getElementById("AddCommentBtn").disabled = true;
+            if (IsUserLoggedIn) {
+                $("#AddCommentBtn").disabled;
+                $("#CreateCommentArea").show();
+                $("#CommentTextArea").keyup(function(e) {
+                    // disable button if there is not enough text
+                    document.getElementById("AddCommentBtn").disabled = (this.value.length < 3);
+
+                    //  the following will help the text expand as typing takes place
+                    while($(this).outerHeight() < this.scrollHeight) {
+                        $(this).height($(this).height()+1);
+                    };
+
+                });
+                $("#AddCommentBtn").click(function(theEvent) {
+                    comments.DoAddComment(comments.InsertNewComment);
+                });
+            } else {
+                $("#CreateCommentArea").hide();
+            }
         };
 
 
-
-
         var UpdateVoteBtns = function() {
-             var promoBtn =  document.getElementById("PromoteBlahImage");
+            var promoBtn =  document.getElementById("PromoteBlahImage");
             var demoBtn = document.getElementById("DemoteBlahImage");
 
             if (IsUserLoggedIn) {
@@ -174,6 +200,7 @@ define('BlahBodyDetailPage',
                 }, exports.OnFailure);
             }
         };
+
 
         return {
             InitializePage: InitializePage

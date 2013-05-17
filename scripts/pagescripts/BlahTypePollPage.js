@@ -106,16 +106,18 @@ define('BlahTypePoll',
                         $(".poll-chart-div").show();
                         UpdatePollChart();
                     } else if (CurrentBlah.A == CurrentUser._id) {
-                        $(".poll-prompt").text("your poll results so far")
+                        $(".poll-prompt").text("your poll results so far");
                         // user's own blah - can't vote
                         $(".poll-checkbox").hide();
                         $(".poll-chart-div").show();
                         UpdatePollChart();
                     } else {
                         // user did not vote - they can vote!
-                        $(".poll-prompt").text("vote to see the results!")
+                        $(".poll-chart-div").css({width: "50%"});
+                        $(".poll-vote-text").text("?");
+                        $(".poll-prompt").text("vote to see the results!");
                         $(".poll-checkbox").show();
-                        $(".poll-chart-div").hide();
+                        $(".poll-chart-div").show();
                     }
                 });
             } else {
