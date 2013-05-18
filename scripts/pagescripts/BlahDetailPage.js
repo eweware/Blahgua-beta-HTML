@@ -74,6 +74,9 @@ define('BlahDetailPage',
             // see if we were supposed to go elsewhere
             if (BlahOpenPage == "")
                 BlahOpenPage = "Overview";
+            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
+
+            $("#BlahPageDiv").css({ 'top': curTop + "px"});
 
             SetBlahDetailPage(BlahOpenPage);
             BlahOpenPage = "Overview";

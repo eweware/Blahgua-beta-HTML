@@ -13,25 +13,32 @@ define('BlahCommentDetailPage',
         var InitializePage = function() {
             // bind events
 
-            var curTop;
+
             if (IsUserLoggedIn)  {
                 $("#AddCommentBtn").click(function(theEvent) {
-                    comments.DoAddComment(comments.UpdateBlahComments);
+                    document.getElementById("AddCommentBtn").disabled = true;
+                    document.getElementById("CommentTextArea").disabled = true;
+                    comments.DoAddComment(function(newComment) {
+                        comments.UpdateBlahComments(newComment);
+                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                    });
                 });
-                curTop = document.getElementById("CommentContainer").getBoundingClientRect().top;
-            } else
-                curTop = document.getElementById("SignInToCommentArea").getBoundingClientRect().top;
+            }
 
+            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop;
-            $("#CommentContainer").css({ 'max-height': maxSize + 'px'});
+            var maxSize = curBottom - curTop + "px";
+            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
             $("#CommentTextArea").focus();
+
+            var titleBottom;
 
             // update the input area
             if (IsUserLoggedIn) {
                 document.getElementById("AddCommentBtn").disabled = true;
                 $("#SignInToCommentArea").hide();
                 $("#CreateCommentArea").show();
+                titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
                 $("#CommentTextArea").keyup(function(e) {
                     // disable button if there is not enough text
                     document.getElementById("AddCommentBtn").disabled = (this.value.length < 3);
@@ -41,17 +48,19 @@ define('BlahCommentDetailPage',
                         $(this).height($(this).height()+1);
                     };
                     // handle the sizing
-                    var titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-                    $(".comment-container").css({ 'top': titleBottom + 'px'});
+                    var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
+                    var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+                    var maxSize = curBottom - curTop + "px";
+                    $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
                 });
             } else {
                 $("#SignInToCommentArea").show();
                 $(".sign-in-button").click(SignInToComment);
                 $("#CreateCommentArea").hide();
+                titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
 
-            var titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-            $(".comment-container").css({ 'top': titleBottom + 'px'});
+            //$(".comment-container").css({ 'top': titleBottom + 'px'});
             comments.UpdateBlahComments();
 
         };

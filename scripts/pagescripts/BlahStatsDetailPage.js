@@ -22,8 +22,8 @@ define('BlahStatsDetailPage',
             // handle the sizing
             var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop;
-            $("#FullBlahStatsContainer").css({ 'max-height': maxSize + 'px'});
+            var maxSize = curBottom - curTop + "px";
+            $("#FullBlahStatsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
 
             $('.accordion h2').click(function(theEvent) {
                 var parent = $(this).parent('.accordion');
@@ -79,7 +79,7 @@ define('BlahStatsDetailPage',
 
             $("#BlahStandingDiv").highcharts({
                 title: {
-                    text:"Blah Strength"
+                    text:"Blah Strength (100%)"
                 },
                 legend: {
                     enabled:false
@@ -108,16 +108,23 @@ define('BlahStatsDetailPage',
                         text:"Promotes & Demotes"
                     },
                     legend: {
-                        enabled:true
+                        enabled:false
                     },
                     credits: {
                         enabled:false
                     },
+                    xAxis: {
+                        categories: ['promotes', 'demotes']
+                    },
+                    yAxis: {
+                        minRange:10,
+                        minorTickInterval:1
+                    },
 
                     series: [{
-                        type: 'pie',
-                        data: [['promotes', uv],
-                            ['demotes', dv]]
+                        type: 'bar',
+                        data: [{color: '#00FF00', y: uv},
+                            {color: '#FF0000', y: dv}]
 
                     }]
                 });

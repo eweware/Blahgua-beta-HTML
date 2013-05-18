@@ -9,7 +9,14 @@
 
         <div class="FullBlahContent" id="FullBlahContent">
                 <table class="FullBlahTable" width="100%">
-                        <tr><td align="center"><img alt="Blah Image" class="BlahFullImage" id="blahFullImage"></td></tr>
+                    <tr>
+                        <td>
+                            <div class="fill-center-container">
+                                <img src="" alt="Blah Image" class="BlahPreviewImage" id="blahFullImage">
+                            </div>
+                        </td>
+                    </tr>
+
 
                         <tr><td><div class="blah-body-divider"></div></td></tr>
                         <tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>
@@ -59,7 +66,7 @@
         </tr>
         <tr id="BlahRowSignIn">
             <td colspan="5" style="text-align: center">
-                <div class="SuggestSignIn" onclick="SuggestUserSignIn('sign in to blahgua to promote, demote, or comment on things!');  return false;">
+                <div id="SuggestSignInDiv" class="SuggestSignIn" >
                     sign in to promote, demote, or comment
                 </div>
             </td>

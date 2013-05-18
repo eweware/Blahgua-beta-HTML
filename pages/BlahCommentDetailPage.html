@@ -6,10 +6,10 @@
 </head>
 <body>
 <div id="FullBlahCommentDiv">
-    <div id="CreateCommentArea" class="comment-detail-area">
-        <table>
-            <tbody>
-            <tr >
+    <table id="CommentHeaderArea">
+        <tbody>
+        <tr><td><table>
+            <tr id="CreateCommentArea" class="comment-detail-area" >
                 <td style="width:100%; padding-left:8px; padding-right:8px">
                     <textarea class="comment-text-area" id="CommentTextArea"></textarea>
                 </td>
@@ -17,18 +17,33 @@
                     <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
                 </td>
             </tr>
-            </tbody>
-        </table>
-    </div>
-    <div id="SignInToCommentArea">
-        <table>
-            <tbody>
-            <tr >
+        </table></td></tr>
+        <tr><td><table>
+            <tr colspan=5 id="SignInToCommentArea" >
                 <td><button class="sign-in-button">Sign in to comment</button> </td>
             </tr>
-            </tbody>
-        </table>
-    </div>
+        </table></td></tr>
+        <tr><td><table>
+
+            </tr>
+            <tr class="comment-sort-area">
+                <td></td>
+                <td><select id="SortBySelect">
+                    <option value="bydate" selected>by date</option>
+                    <option value="bypromotes" >by promotes</option>
+                    <option value="bydemotes" >by demotes</option>
+                </select> </td>
+                <td></td>
+                <td><select id="SortOrderSelect">
+                    <option value="desc" selected>descending</option>
+                    <option value="asc">ascending</option>
+                </select> </td>
+                <td></td>
+            </tr>
+        </table></td></tr>
+        </tbody>
+    </table>
+
     <div id="CommentContainer" class="comment-container scrolling">
         <table id="BlahCommentTable" class="blah-comment-table">
 

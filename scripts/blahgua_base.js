@@ -45,10 +45,6 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
-                $("#LightBox").click(function () {
-                    $("#ChannelDropMenu").hide();
-                    UnfocusBlah();
-                });
 
                 SignIn();
             });
@@ -366,13 +362,11 @@ define('blahgua_base',
         var blahContainer = document.getElementById("BlahContainer");
         blahContainer.style.left = offset + "px";
         blahContainer.style.width = LargeTileWidth + "px";
+        var blahMargin = 8;
 
         $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
-        $("#BlahPreviewItem").css({ 'left': offset + 16 + 'px', 'width': targetWidthWidth - 32 + 'px', 'maxHeight': windowHeight-100+'px' });
-
-        $("#BlahFullItem").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
-
+        $("#BlahFullItem").css({ 'left': offset + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
 
     }
 
@@ -502,28 +496,29 @@ define('blahgua_base',
         }
 
         // now do something
-        FocusBlah(who);
-        //OpenBlah(who);
+        //FocusBlah(who);
+        OpenBlah(who);
     }
 
     function DoCloseBlah() {
-        $("#AdditionalInfoArea").empty();
+
         CloseBlah();
     }
 
     function CloseBlah() {
 
 
-        UnfocusBlah();
+        $("#AdditionalInfoArea").empty();
         switch (BlahReturnPage) {
             case "UserBlahList":
                 PopulateUserChannel("History");
                 break;
 
             default:
+                StartAnimation();
                 $(BlahFullItem).fadeOut("fast", function() {
+                    $("#LightBox").hide();
                     $(BlahFullItem).empty();
-
                 });
 
         }
@@ -543,18 +538,27 @@ define('blahgua_base',
     }
 
     function OpenBlah(whichBlah) {
+        $("#LightBox").show();
+        CurrentBlah = null;
+        FocusedBlah = whichBlah.blah;
         StopAnimation();
-        $("#BlahPreviewExtra").empty();
-        $("#LightBox").hide();
-        require(["BlahDetailPage"], function(BlahDetailPage) {
-            $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
-                var windowHeight = $(window).height();
-                $(BlahFullItem).disableSelection();
-                $(BlahFullItem).fadeIn("fast", function() {
-                    BlahDetailPage.InitializePage();
+        CurrentBlahId = FocusedBlah.I;
+        Blahgua.GetBlah(CurrentBlahId, function(theFullBlah) {
+            CurrentBlah = theFullBlah;
+            if (FocusedBlah.hasOwnProperty("K"))
+                CurrentBlah.K = FocusedBlah.K;
+            CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "a blahger");
+            $("#BlahPreviewExtra").empty();
+            require(["BlahDetailPage"], function(BlahDetailPage) {
+                $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
+                    var windowHeight = $(window).height();
+                    $(BlahFullItem).disableSelection();
+                    $(BlahFullItem).fadeIn("fast", function() {
+                        BlahDetailPage.InitializePage();
+                    });
                 });
             });
-        });
+        }, OnFailure);
     }
 
 
@@ -695,24 +699,7 @@ define('blahgua_base',
 
     }
 
-    function UnfocusBlah(animate) {
-        DismissPreview();
-        StartAnimation();
-    }
 
-    function DismissPreview() {
-        if (BlahPreviewTimeout != null) {
-            clearTimeout(BlahPreviewTimeout);
-            BlahPreviewTimeout = null;
-        }
-        FocusedBlah = null;
-        //CurrentBlah = null;
-        $("#BlahPreviewItem").hide();
-        document.getElementById("blahPreviewImage").style.display = "none";
-        document.getElementById("blahPreviewImage").src = "";
-        $("#BlahPreviewExtra").empty();
-        $("#LightBox").hide();
-    }
 
 
 
@@ -1585,6 +1572,7 @@ define('blahgua_base',
     function InstallUserChannel() {
         // empty whatever is in there now
         StopAnimation();
+        $("#LightBox").show();
         $("#BlahFullItem").empty();
         if (IsUserLoggedIn) {
             if (CurrentUser == null) {
@@ -1629,6 +1617,7 @@ define('blahgua_base',
 
     var ClosePage = function() {
         $("#BlahFullItem").hide();
+        $("#LightBox").hide();
         StartAnimation();
     };
 
@@ -1911,7 +1900,6 @@ define('blahgua_base',
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OnFailure = OnFailure;
         Exports.GetBlahTypeStr = GetBlahTypeStr;
-        Exports.UnfocusBlah = UnfocusBlah;
         Exports.GetChannelNameFromID = GetChannelNameFromID;
         Exports.CloseBlah = CloseBlah;
         Exports.GetBlahTypeId = GetBlahTypeId;
@@ -1919,7 +1907,6 @@ define('blahgua_base',
         Exports.GetBlahTypeStr = GetBlahTypeStr;
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;
-        Exports.DismissPreview = DismissPreview;
         Exports.SuggestUserSignIn = SuggestUserSignIn;
 
     return {

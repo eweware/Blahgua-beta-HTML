@@ -31,6 +31,11 @@ define('BlahBodyDetailPage',
                 alert("not implemented");
             });
 
+            $("#SuggestSignInDiv").click(function() {
+                event.stopImmediatePropagation();
+                //todo: implement blah favorite
+               exports.SuggestUserSignIn("Sign in to promote, demote, and comment!")
+            });
 
 
             var isOwnBlah;
@@ -43,7 +48,7 @@ define('BlahBodyDetailPage',
                 isOwnBlah = false;
 
             }
-            var image = GetBlahImage(CurrentBlah, "D");
+            var image = GetBlahImage(CurrentBlah, "B");
 
 
 
@@ -52,7 +57,7 @@ define('BlahBodyDetailPage',
                 $("#BlahRowVote").show();
                 $("#BlahRowSignIn").hide();
                 $("#UploadImageTable").show();
-                $("#AddCommentBtn").click(comments.DoAddComment(comments.InsertNewComment));
+
 
                 if (isOwnBlah) {
                     if (image != "") {
@@ -109,11 +114,13 @@ define('BlahBodyDetailPage',
             }
 
             // fix any sizing issues
-            var winHeight = $(window).height();
+            var winHeight = $(window).height() - 16;
             var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
             var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop;
-            $("#FullBlahContent").css({ 'max-height': maxSize + 'px'});
+            var maxSize = curBottom - curTop + "px";
+            $("#FullBlahContent").css({
+                'max-height': maxSize,
+                'min-height': maxSize });
 
             // handle the top comments
             comments.UpdateTopComments();
@@ -121,6 +128,7 @@ define('BlahBodyDetailPage',
             if (IsUserLoggedIn) {
                 $("#AddCommentBtn").disabled;
                 $("#CreateCommentArea").show();
+                $("#CommentTextArea").focus();
                 $("#CommentTextArea").keyup(function(e) {
                     // disable button if there is not enough text
                     document.getElementById("AddCommentBtn").disabled = (this.value.length < 3);
