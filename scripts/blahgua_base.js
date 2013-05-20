@@ -742,7 +742,7 @@ define('blahgua_base',
         }
 
 
-        var imagePath = GetBlahImage(theBlah, blahImageSize);
+        var imagePath = GetItemImage(theBlah, blahImageSize);
         if (imagePath != "") {
             newDiv.style.backgroundImage = "url('" + imagePath + "')";
 

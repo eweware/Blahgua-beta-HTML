@@ -103,7 +103,7 @@ define('BlahStatsDetailPage',
             });
 
             if ((uv > 0) || (dv > 0)) {
-                $("#BlahVoteMixDiv").empty().highcharts({
+                $("#BlahVoteMixDiv").empty().height("200px").highcharts({
                     title: {
                         text:"Promotes & Demotes"
                     },
@@ -118,7 +118,8 @@ define('BlahStatsDetailPage',
                     },
                     yAxis: {
                         minRange:10,
-                        minorTickInterval:1
+                        minorTickInterval:1,
+                        min:0
                     },
 
                     series: [{

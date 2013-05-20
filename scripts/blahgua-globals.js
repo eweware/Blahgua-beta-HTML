@@ -169,15 +169,29 @@ function createDateString(theDate, omitDay) {
     return newString;
 }
 
-function GetBlahImage(theBlah, size) {
+function GetItemImage(theItem, size) {
     var imagePathName = "";
-    if (theBlah.hasOwnProperty("M")) {
+    if (theItem.hasOwnProperty("M")) {
         // fetch the correct image size
         var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
-        var imageName = theBlah.M[0];
+        var imageName = theItem.M[0];
         imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
     }
 
+    return imagePathName;
+}
+
+function GetUserImage(theItem, size) {
+    var imagePathName = GetItemImage(theItem, size);
+    if (imagePathName == "")
+        imagePathName = fragmentURL + "/images/unknown-user.png";
+
+    return imagePathName;
+
+}
+
+function GetGenericUserImage(theItem, size) {
+    var imagePathName = fragmentURL + "/images/unknown-user.png";
 
     return imagePathName;
 

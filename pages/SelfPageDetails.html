@@ -42,14 +42,39 @@
                 <td> <input disabled="disabled" id="userName" type="text" class="userName"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Nickname</td>
+                <td class="attribute-col" >Display Name</td>
 
                 <td><input id="NicknameInput" type="text" class="userName"></td>
 
             </tr>
             <tr>
                 <td class="attribute-col" >Image</td>
-                <td><div id="uploadimage" class="uploadimage"></div></td>
+                <td>
+                    <div id="uploadimage" class="user-image"></div>
+                    <button id="UserImageBtn" class="user-image-upload-btn">ADD</button><br/>
+                    <span class="UserImageImageNameSpan" id="UserImageImageNameSpan">click to set image</span>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+                        <div style="display:none">
+                            <input id="UserFormImage" name="file" type="file" >
+                            <input type="text" name="objectType" hidden="true" value="U"/>
+                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                            <input type="text" name="primary" hidden="true" value="true"/>
+                        </div>
+                    </form>
+                </td>
+            </tr>
+            <tr><td colspan="2">
+                <div id="ProgressDiv" style="display:none">
+                    <div id="ProgressBar" style="width:400px; border-style: solid; height:16px; border-width: 2;">
+                        <div id="Indicator" style="background-color: red; width:1px; height:16px;"></div>
+                    </div>
+                </div>
+            </td>
             </tr>
             </tbody>
         </table>

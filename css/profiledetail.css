@@ -14,8 +14,34 @@
     z-index: 2;
 }
 
+.UserImageImageNameSpan {
+    font-size:20px;
+    font-family: 'Arimo', sans-serif;
+}
 
+.user-image {
+    width:64px;
+    height:64px;
+    display: inline-block;
+    border-width:1px;
+    border-color:black;
+    border-style:solid;
+    background-color:white;
+    background-size: cover;
+    color:grey;
+}
 
+.user-image-upload-btn
+{
+    background: #14a3fc;
+    color:white;
+    font-size:16px;
+    font-family: 'Arimo',sans-serif;
+    border-radius:8px;
+    padding: 8px 16px;
+    border-style:none;
+
+}
 .user-profile-description {
     font-size:20px;
     font-family: 'Arimo', sans-serif;
@@ -173,5 +199,5 @@
     padding-left: 8px;
     padding: 8px;
     border-radius: 8px;
-    background-color: orangered;
+    background-color: #dedede;
 }

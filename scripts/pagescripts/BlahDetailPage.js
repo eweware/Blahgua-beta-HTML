@@ -65,7 +65,21 @@ define('BlahDetailPage',
                 $("#FullBlahProfileString").text(theString.d);
             }, function (theErr) {
                 $("#FullBlahProfileString").text("an anonymous blahger");
-            })
+            });
+
+            // fetch the user image
+            blahgua_rest.GetBlahAuthor(CurrentBlah._id, function(theAuthor) {
+                var newImage = GetUserImage(theAuthor, "A");
+                if (newImage == "")
+                    newImage = GetGenericUserImage();
+
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+
+            }, function (theErr) {
+                newImage = GetGenericUserImage();
+
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+            });
 
             var curDate = new Date(getSafeProperty(CurrentBlah, "c", Date.now()));
             var dateString = ElapsedTimeString(curDate);

@@ -11,6 +11,7 @@ define('BlahBodyDetailPage',
     function (exports, blahgua_rest, comments) {
 
         var InitializePage = function() {
+            CurrentComments = null;
             if (CurrentBlah == null) {
                 alert("Error:  No Blah!");
                 return;
@@ -48,7 +49,7 @@ define('BlahBodyDetailPage',
                 isOwnBlah = false;
 
             }
-            var image = GetBlahImage(CurrentBlah, "B");
+            var image = GetItemImage(CurrentBlah, "B");
 
 
 

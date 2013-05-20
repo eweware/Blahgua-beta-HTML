@@ -39,6 +39,7 @@ define('comments',
                 blahgua_rest.GetBlahComments(CurrentBlah._id, DrawTopComments, exports.OnFailure);
             } else {
                 // no comments GetBlahTypeStr()
+                CurrentComments = null;
                 var newHTML = "";
                 newHTML += '<tr class="no-comment-row"><td><span>No Comments yet. Perhaps you can add the first!</span></td></tr>';
                 $("#BlahCommentTable").append(newHTML);

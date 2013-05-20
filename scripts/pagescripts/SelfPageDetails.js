@@ -17,8 +17,20 @@ define('SelfPageDetails',
             $("#LogoutBtn").click(exports.LogoutUser);
             $("#ForgetBtn").click(exports.ForgetUser);
             $('input[type=radio]').change(HandlePermAll);
+            $("#UserImageBtn").click(function(theEvent) {
+                document.getElementById('UserFormImage').click();
+            } );
+            $("#UserFormImage").change(HandleFilePreview);
             UpdateSelfProfile();
         };
+
+        var HandleFilePreview = function() {
+            var theFile = $("#UserFormImage").val();
+            $("#UserImageImageNameSpan").text(theFile);
+
+            MaybeEnableProfileSaveBtn();
+        };
+
 
         var UpdateSelfProfile = function() {
             RefreshUserChannelContent();
@@ -46,6 +58,14 @@ define('SelfPageDetails',
             var nickName = getSafeProperty(theStats, "A", "A Blahger");
             $("#NicknameInput").val(nickName);
             $("#FullBlahNickName").text(nickName);
+            //image
+            var newImage = GetUserImage(CurrentUser, "A");
+            if (newImage != "")
+            {
+                $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+            }
+
             blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
                 $("#DescriptionSpan").text(theString.d);
             });
@@ -272,7 +292,9 @@ define('SelfPageDetails',
             UserProfile["3"] = Number($('input:radio[name=race]:checked').val());
 
             // commit
-            blahgua_rest.UpdateUserProfile(UserProfile, function(theBlah) {
+            blahgua_rest.UpdateUserProfile(UserProfile, function() {
+                var nickName = $("#NicknameInput").val();
+                $("#FullBlahNickName").text(nickName);
                 document.getElementById("SaveProfileBtn").disabled = true;
                 blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
@@ -281,6 +303,62 @@ define('SelfPageDetails',
                 });
             });
 
+            if ($("#UserFormImage").val() != "")
+                UploadUserImage();
+        };
+
+        var UploadUserImage = function() {
+            $("#ProgressDiv").show();
+            $("#objectId").val(CurrentUser._id);
+
+            var formData = new FormData($("#ImageForm")[0]);
+            $.ajax({
+                url: "http://beta.blahgua.com/v2/images/upload",
+
+                type: 'POST',
+                xhr: function() { // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // if upload property exists
+                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+                    }
+                    return myXhr;
+                },
+                //Ajax events
+                success: completeHandler = function(data) {
+                    DoUploadComplete();
+
+                },
+                error: errorHandler = function(theErr) {
+                    alert("Error uploading");
+                },
+                // Form data
+                data: formData,
+                //Options to tell JQuery not to process data or worry about content-type
+                cache: false,
+                contentType: false,
+                processData: false
+            }, 'json');
+        };
+
+        var DoUploadComplete = function() {
+           $("ProgressDiv").hide();
+           $("UserFormImage").val("");
+            blahgua_rest.getUserInfo(function (json) {
+                CurrentUser = json;
+                var newImage = GetUserImage(CurrentUser, "A");
+                $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+
+
+            });
+        };
+
+        var progressHandlingFunction = function(evt) {
+            var maxWidth = $("#ProgressBar").width();
+            var curWidth = 100;
+            var ratio = evt.loaded / evt.total;
+            var newWidth = Math.floor(maxWidth * ratio);
+            $("#Indicator").width(newWidth);
         };
 
 

@@ -230,6 +230,16 @@ define('blahgua_restapi', ['spin'], function (spin) {
         CallGetMethod("users/profile/info", paramStr, OnSuccess, OnFailure);
     };
 
+    var GetBlahAuthor = function (blahId, OnSuccess, OnFailure) {
+        /// <summary>Returns the profile for the session user</summary>
+        /// <param name="userID">The id of the user, or "" for the session user</param>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the user's profile object</returns>
+        var paramStr = '{"I":"' + blahId + '"}';
+        CallPostMethod("blahs/author", paramStr, OnSuccess, OnFailure);
+    };
+
     var GetProfileSchema = function (OnSuccess, OnFailure) {
         /// <summary>Returns the profile schema object</summary>
         /// <param name="OnSuccess">Success callback</param>
@@ -696,6 +706,7 @@ define('blahgua_restapi', ['spin'], function (spin) {
         GetNextBlahs:  GetNextBlahs ,
         GetBlahComments:  GetBlahComments ,
         GetBlah:  GetBlah ,
+        GetBlahAuthor:  GetBlahAuthor ,
         GetBlahWithStats: GetBlahWithStats
     }
 });

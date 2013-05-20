@@ -156,6 +156,8 @@ define('stats',
                 },
 
                 yAxis: [{
+                    minRange:10,
+                    minorTickInterval:1,
                     title: { text: "votes"}
                 }],
                 series: demoSeries
