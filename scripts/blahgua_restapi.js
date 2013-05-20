@@ -21,6 +21,7 @@ define('blahgua_restapi', ['spin'], function (spin) {
             data: paramString,
             contentType: "application/json; charset=utf-8",
 
+
             success: function (theObj, didIt, status) {
                 if (OnSuccess != null) {
                     OnSuccess(theObj, didIt, status);
@@ -34,12 +35,15 @@ define('blahgua_restapi', ['spin'], function (spin) {
         });
     };
 
-    var CallGetMethod = function (methodName, paramString, OnSuccess, OnFailure) {
+    var CallGetMethod = function (methodName, paramString, OnSuccess, OnFailure, timeOut) {
         /// <summary>Calls the specified method on the page with the specified parameters</summary>
         /// <param name="methodName">the name of the method to call</param>
         /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
         /// <param name="OnFailure">method to call on the event of a failure</param>
+
+        if (timeOut == null)
+            timeOut = 3000;
 
         SpinElement.spin(SpinTarget);
         $(".spin-text").text("GET " + methodName);
@@ -49,6 +53,7 @@ define('blahgua_restapi', ['spin'], function (spin) {
             data: paramString,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            timeout: timeOut,
             success: function (result) {
                 SpinElement.stop();
                 $("#spin-div").empty();
