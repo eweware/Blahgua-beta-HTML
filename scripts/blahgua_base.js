@@ -396,7 +396,9 @@ define('blahgua_base',
 
     function ShowChannelList() {
         var menu = document.getElementById("ChannelDropMenu");
-        menu.style.left = document.getElementById("ChannelBanner").style.left;
+        var banner = $("#ChannelBanner");
+        menu.style.left = banner[0].style.left;
+        menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
             $("#LightBox").show();
             if (IsUserLoggedIn)
