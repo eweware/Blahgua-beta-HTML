@@ -17,8 +17,6 @@
 define('comments',
     ["GlobalFunctions", "blahgua_restapi"],
     function (exports, blahgua_rest) {
-
-
         var UpdateBlahComments = function() {
             $("#BlahCommentTable").empty();
             if (CurrentBlah.hasOwnProperty("C") && CurrentBlah.C > 0) {
@@ -48,13 +46,14 @@ define('comments',
 
 
         var InsertNewComment = function(theComment) {
+            // add the comment
             if (CurrentComments == null) {
                 CurrentComments = [theComment];
 
             } else
                 CurrentComments = [theComment].concat(CurrentComments); //CurrentComments.push(theComment);
 
-            UpdateBlahCommentDiv();
+            DrawTopComments(CurrentComments);
         };
 
         var DrawTopComments = function(theComments) {
@@ -67,32 +66,68 @@ define('comments',
                 more = true;
             }
 
+            var authorIds = GetCommentAuthorIDs();
+            blahgua_rest.GetUserDescriptors(authorIds, function(authorData) {
+                for (var curIndex in authorData) {
+                    if (authorData[curIndex].hasOwnProperty('n'))
+                        CurrentComments[curIndex]["n"] = authorData[curIndex].n;
+                    if (authorData[curIndex].hasOwnProperty('d'))
+                        CurrentComments[curIndex]["d"] = authorData[curIndex].d;
+                    if (authorData[curIndex].hasOwnProperty('m'))
+                        CurrentComments[curIndex]["M"] = [authorData[curIndex].m];
+                }
+                UpdateBlahCommentDiv();
+                if (more)
+                    AddMoreLink();
+            }, function (theErr) {
+                UpdateBlahCommentDiv();
+                if (more)
+                    AddMoreLink();
+            });
 
-            UpdateBlahCommentDiv();
-
-            // add the more
-            if (more) {
-                var commentDiv = document.getElementById("BlahCommentTable");
-                var newEl = document.createElement("tr");
-                newEl.className = "more-comments-row";
-                var newHTML = "";
-                newHTML += "<td><a>see all " + CurrentBlah["C"] + " comments</a></td>";
-                newEl.innerHTML = newHTML;
-                commentDiv.appendChild(newEl);
-                $(".more-comments-row").click(function(theEvent) {
-                    exports.SetBlahDetailPage("comments");
-                });
-            }
         };
 
+        var AddMoreLink = function() {
+            var commentDiv = document.getElementById("BlahCommentTable");
+            var newEl = document.createElement("tr");
+            newEl.className = "more-comments-row";
+            var newHTML = "";
+            newHTML += "<td><a>see all " + CurrentBlah["C"] + " comments</a></td>";
+            newEl.innerHTML = newHTML;
+            commentDiv.appendChild(newEl);
+            $(".more-comments-row").click(function(theEvent) {
+                exports.SetBlahDetailPage("comments");
+            });
+        }
 
+
+        var GetCommentAuthorIDs = function() {
+            var idList = [];
+            for (var curIndex in CurrentComments) {
+                idList.push(CurrentComments[curIndex].A);
+            }
+
+            return idList;
+        }
 
         var SortAndRedrawComments = function(theComments) {
             CurrentComments = theComments;
             CurrentBlah["C"] = CurrentComments.length;
             SortComments();
-
-            UpdateBlahCommentDiv();
+            var authorIds = GetCommentAuthorIDs();
+            blahgua_rest.GetUserDescriptors(authorIds, function(authorData) {
+                for (var curIndex in authorData) {
+                    if (authorData[curIndex].hasOwnProperty('n'))
+                        CurrentComments[curIndex]["n"] = authorData[curIndex].n;
+                    if (authorData[curIndex].hasOwnProperty('d'))
+                        CurrentComments[curIndex]["d"] = authorData[curIndex].d;
+                    if (authorData[curIndex].hasOwnProperty('m'))
+                        CurrentComments[curIndex]["M"] = [authorData[curIndex].m];
+                }
+                UpdateBlahCommentDiv();
+            }, function (theErr) {
+                UpdateBlahCommentDiv();
+            });
         };
 
         var SortComments = function(SortBy) {
@@ -180,8 +215,11 @@ define('comments',
             var blahgerName = "a blahger";
             var authorDesc = "an anonymous blahger";
 
-            if (theComment.hasOwnProperty("K")) {
-                blahgerName = theComment.K;
+            if (theComment.hasOwnProperty("n")) {
+                blahgerName = theComment.n;
+            }
+            if (theComment.hasOwnProperty("d")) {
+                authorDesc = theComment.d;
             }
 
             var isOwnComment = false;
@@ -195,6 +233,8 @@ define('comments',
                 isOwnBlah = true;
             }
 
+            var authorImageURL = GetUserImage(theComment, "A");
+
 
             var ownVote = getSafeProperty(theComment, "C", 0);
 
@@ -202,7 +242,7 @@ define('comments',
 
             // comment author
             newHTML += '<tr>';
-            newHTML += '<td rowspan=3 style="width:48px"><img class="comment-user-image" alt="Username" src="' + fragmentURL + '/images/unknown-user.png"></td>';
+            newHTML += '<td rowspan=3 style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
             newHTML += '<td colspan=2 style="width:100%"><span class="comment-user-name">' + blahgerName + '</span>,&nbsp;';
             newHTML += '<span class="comment-user-description">' + authorDesc + '</span></td>';
 

@@ -428,6 +428,17 @@ define('blahgua_restapi', ['spin'], function (spin) {
         CallGetMethod(method, paramStr, OnSuccess, OnFailure);
     };
 
+    var GetUserDescriptors = function (theIds, OnSuccess, OnFailure) {
+        /// <summary>returns a user record on the logged in user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var params = new Object();
+        params["IDS"] = theIds;
+        var method = "users/descriptors";
+        CallPostMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
+    };
+
 
     var loginUser = function (userName, password, OnSuccess, OnFailure) {
         /// <summary>Creates a new user</summary>
@@ -712,6 +723,7 @@ define('blahgua_restapi', ['spin'], function (spin) {
         GetBlahComments:  GetBlahComments ,
         GetBlah:  GetBlah ,
         GetBlahAuthor:  GetBlahAuthor ,
-        GetBlahWithStats: GetBlahWithStats
+        GetBlahWithStats: GetBlahWithStats,
+        GetUserDescriptors: GetUserDescriptors
     }
 });
