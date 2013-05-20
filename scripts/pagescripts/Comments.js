@@ -170,11 +170,11 @@ define('comments',
             //bind vote btns
             $(".up-vote").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
-                SetCommentVote(1, theIndex);
+                SetCommentVote(theEvent, 1, theIndex);
             });
             $(".down-vote").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
-                SetCommentVote(-1, theIndex);
+                SetCommentVote(theEvent, -1, theIndex);
             });
         };
 
@@ -192,9 +192,9 @@ define('comments',
             }, OnFailure);
         };
 
-        var SetCommentVote = function(vote, commentIndex) {
+        var SetCommentVote = function(theEvent, vote, commentIndex) {
             var theID = CurrentComments[commentIndex]._id;
-            var targetDiv = $(event.target).parents('tr')[1];
+            var targetDiv = $(theEvent.target).parents('tr')[1];
             blahgua_rest.SetCommentVote(theID, vote, function(json) {
                 if (vote == 1)
                     CurrentComments[commentIndex]["U"] = getSafeProperty(CurrentComments[commentIndex], "U", 0) + 1;
