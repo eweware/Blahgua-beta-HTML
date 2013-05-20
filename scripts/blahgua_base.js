@@ -214,11 +214,15 @@ define('blahgua_base',
 
     function HandleSwipeUp(theEvent) {
         CurrentScrollSpeed *= 50;
+        if (CurrentScrollSpeed > 50)
+        CurrentScrollSpeed = 50;
     }
 
 
     function HandleSwipeDown(theEvent) {
         CurrentScrollSpeed *= -50;
+        if (CurrentScrollSpeed < -50)
+            CurrentScrollSpeed = -50;
     }
 
 
