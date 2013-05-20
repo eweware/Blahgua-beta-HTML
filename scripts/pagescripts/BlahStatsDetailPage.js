@@ -103,7 +103,7 @@ define('BlahStatsDetailPage',
             });
 
             if ((uv > 0) || (dv > 0)) {
-                $("#BlahVoteMixDiv").empty().highcharts({
+                $("#BlahVoteMixDiv").empty().height("200px").highcharts({
                     title: {
                         text:"Promotes & Demotes"
                     },
@@ -117,6 +117,7 @@ define('BlahStatsDetailPage',
                         categories: ['promotes', 'demotes']
                     },
                     yAxis: {
+                        min: 0,
                         minRange:10,
                         minorTickInterval:1
                     },
@@ -185,6 +186,7 @@ define('BlahStatsDetailPage',
                         }]
                 });
             }
+
 
             // Voter Demographics
             if (IsUserLoggedIn && UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
