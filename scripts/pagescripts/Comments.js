@@ -216,25 +216,32 @@ define('comments',
             newHTML += '<tr>';
             newHTML += '<td><div class="comment-vote-div">';
             if (isOwnComment || isOwnBlah || (ownVote != 0)) {
-                // vote up
-                newHTML += '<span class="comment-vote-wrapper">';
-                if (ownVote > 0)
-                    newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote_checked.png">';
-                else
-                    newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote_disabled.png">';
+                var uv = getSafeProperty(theComment, "U", 0);
+                var dv = getSafeProperty(theComment, "D", 0)
+                if ((isOwnComment || isOwnBlah) && (uv == 0) && (dv == 0)) {
+                    // it is their own blah or comment
+                    newHTML += '<span class="comment-vote-wrapper no-vote">no votes yet</span>';
+                } else {
+                    // vote up
+                    newHTML += '<span class="comment-vote-wrapper">';
+                    if (ownVote > 0)
+                        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote_checked.png">';
+                    else
+                        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_promote_disabled.png">';
 
-                newHTML += getSafeProperty(theComment, "U", 0);
-                newHTML += '</span> ';
+                    newHTML += uv;
+                    newHTML += '</span> ';
 
-                // vote down
-                newHTML += '<span class="comment-vote-wrapper">';
-                if (ownVote < 0)
-                    newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_checked.png">';
-                else
-                    newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_disabled.png">';
+                    // vote down
+                    newHTML += '<span class="comment-vote-wrapper">';
+                    if (ownVote < 0)
+                        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_checked.png">';
+                    else
+                        newHTML += ' <img class="comment-vote" alt="" src="' + fragmentURL + '/img/black_demote_disabled.png">';
 
-                newHTML += getSafeProperty(theComment, "D", 0);
-                newHTML += '</span> ';
+                    newHTML += dv;
+                    newHTML += '</span> ';
+                }
             } else {
                 // vote up
                 newHTML += '<span class="comment-vote-wrapper">';
