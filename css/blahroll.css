@@ -8,18 +8,18 @@
     width:auto;
     font-size:9px;
     padding: 4px;
-    text-align: center;
+    text-align:left;
 }
 
 
 .BlahAltTextDiv {
     font-size:9px;
-    text-align:center;
+    text-align:left;
 
 }
 
 .BlahExpandTextDiv {
-    text-align:center;
+    text-align:left;
     font-size:9px;
 }
 
@@ -42,34 +42,54 @@
 }
 
 .users-own-blah {
-    border-size:4px;
+    border-size:5px;
     border-style:solid;
-    border-color: yellow;
 }
 
 .BlahTypeSays {
-    color: rgba(117,154,180,1);
-    background-color: #fffff3;
-    border-color: #00FF8C;
+    color: rgba(40,40,40,1);
+    background-color: rgba(244,245,240,1);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(125,181,227,1);
+}
+
+.BlahTypeAsks {
+    color: rgba(40,40,40,1);
+    background-color: rgba(244,245,240,1);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(122,208,0,1)
 }
 
 .BlahTypeLeaks {
-    color: #FFA810;
-    background-color: #FFFFBE;
-    border-color: #ea3556;
+    color: rgba(40,40,40,1);
+    background-color: rgba(244,245,240,1);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,120,88,1)
 }
 
 .BlahTypePolls {
-    color: #30B705;
-    background-color: #ffffff;
-    border-color: #61d2d6;
+    color: rgba(40,40,40,1);
+    background-color: rgba(244,245,240,1);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,184,0,1)
 
 }
 
 .BlahTypePredicts {
-    color: #D3350E;
-    background-color: #FFD5B0;
-    border-color: #edde45;
+    color: rgba(40,40,40,1);
+    background-color: rgba(244,245,240,1);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,120,248,1)  
 
 }
 
@@ -80,37 +100,52 @@
 
 }
 
-.BlahTypeAsks {
-    color: rgba(102,102,102,1);
-    background-color: #ADADAD;
-    border-color: #00FF8C;
+
+.BlahTypeSaysImgText {
+    color: rgba(32,32,32,1);
+    background-color: rgba(244,245,240,0.62);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(125,181,227,1)
 }
 
 
 .BlahTypeAsksImgText {
-    color: #ADADAD;
-    background-color: rgba(102,102,102,0.8);
+    color: rgba(32,32,32,1);
+    background-color: rgba(244,245,240,0.62);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(122,208,0,1)
 }
 
-
-.BlahTypeSaysImgText {
-    color: #fffff3;
-    background-color: rgba(117,154,180,0.85);
-}
 
 .BlahTypeLeaksImgText {
-    color: #FFFFBE;
-    background-color: rgba(255,168,16,0.80);
+    color: rgba(32,32,32,1);
+    background-color: rgba(244,245,240,0.62);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,120,88,1)
 }
 
 .BlahTypePollsImgText {
-    color: #ffffff;
-    background-color: rgba(48,183,5,0.55);
+    color: rgba(32,32,32,1);
+    background-color: rgba(244,245,240,0.62);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,184,0,1)
 }
 
 .BlahTypePredictsImgText {
-    color: #FFD5B0;
-    background-color: rgba(211,53,14,0.55);
+    color: rgba(32,32,32,1);
+    background-color: rgba(244,245,240,0.62);
+    border-top-style:solid;
+    border-bottom-style:solid;
+    border-width:5px;
+    border-color:rgba(248,120,248,1) 
 }
 
 .BlahTypeAddImgText {
