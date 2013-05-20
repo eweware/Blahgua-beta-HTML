@@ -23,32 +23,26 @@
 </table>
 
 <div class="accordion active">
-    <h2>Account</h2>
+    <h2>Account Info</h2>
     <div class="accordion-body">
         <div class="instruction-text">
-            set up your nickname and user image
+            Screen Name and User Image
         </div>
         <table class="attribute-table accordion-content">
-            <thead>
-            <tr>
-                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-            </tr>
-            </thead>
-
+           
             <tbody>
             <tr>
-                <td class="attribute-col">username</td>
+                <td class="attribute-col">Username</td>
                 <td> <input disabled="disabled" id="userName" type="text" class="userName"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Display Name</td>
+                <td class="attribute-col" >Screen Name</td>
 
                 <td><input id="NicknameInput" type="text" class="userName"></td>
 
             </tr>
             <tr>
-                <td class="attribute-col" >Image</td>
+                <td class="attribute-col" >User Image</td>
                 <td>
                     <div id="uploadimage" class="user-image"></div>
                     <button id="UserImageBtn" class="user-image-upload-btn">ADD</button><br/>
@@ -87,8 +81,8 @@
     <h2>Badges</h2>
     <div class="accordion-body">
         <div class="instruction-text">
-            badges let you share verified facts about yourself without sharing your identity<br/>
-            need badges? get them from these badge authorities.
+            Badges add credibility to your content.  Use badges to share verified attributes about yourself.
+
         </div>
         <div class="accordion-content">
             <table class="attribute-table">
@@ -101,7 +95,7 @@
             <table class="attribute-table" >
                 <thead>
                 <tr>
-                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Authority Name</th>
+                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Badge Type</th>
                     <th scope="col">Description</th>
                     <th scope="col" style="border-top-right-radius: 8px;"></th>
                 </tr>
@@ -116,20 +110,29 @@
 
 
 <div class="accordion">
-    <h2>Location</h2>
+    <h2>About You</h2>
     <div class="accordion-body">
         <div class="instruction-text">
-            share your location information to get better targeted blahs!
+            Provide details about yourself to receive more personalized streams.  You can decide what is made public under the Permissions tab.
+
         </div>
 
         <table class="attribute-table accordion-content">
-            <thead>
-            <tr>
-                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-            </tr>
-            </thead>
+           
             <tbody>
+
+            <tr>
+                <td class="attribute-col">Gender</td>
+                <td> <select id="GenderInput"> </select></td>
+            </tr>
+            <tr>
+                <td class="attribute-col">Date of Birth</td>
+                <td> <input id="DOBInput" type="date"></td>
+            </tr>	                
+            <tr>
+                <td class="attribute-col">Ethnicity</td>
+                <td><select id="EthnicityInput"> </select></td>
+            </tr>
             <tr>
                 <td class="attribute-col">City</td>
                 <td><input id="CityInput" type="text"></td>
@@ -139,44 +142,12 @@
                 <td> <input id="StateInput" type="text"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Zipcode</td>
+                <td class="attribute-col">Zip</td>
                 <td><input id="ZipcodeInput" type="text"></td>
             </tr>
             <tr>
                 <td class="attribute-col">Country</td>
                 <td><select id="CountryInput"> </select></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<div class="accordion">
-    <h2>Demographics</h2>
-    <div class="accordion-body">
-        <div class="instruction-text">
-            share your demographics and you can see the demographics of others as well!
-        </div>
-
-        <table class="attribute-table accordion-content" >
-            <thead>
-            <tr>
-                <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col" style="border-top-right-radius: 8px;">Value</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="attribute-col">Date of Birth</td>
-                <td> <input id="DOBInput" type="date"></td>
-            </tr>
-            <tr>
-                <td class="attribute-col">Gender</td>
-                <td> <select id="GenderInput"> </select></td>
-            </tr>
-            <tr>
-                <td class="attribute-col">Ethnicity</td>
-                <td><select id="EthnicityInput"> </select></td>
             </tr>
             <tr>
                 <td class="attribute-col">Income</td>
@@ -191,7 +162,7 @@
     <h2>Permissions</h2>
     <div class="accordion-body">
         <div class="instruction-text">
-            set whether your profile details are private to Blahgua or visible to the public
+            Set your profile details to public or private.
         </div>
         <table class="permission-table accordion-content">
             <thead>
@@ -202,15 +173,30 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
+           <tr>
                 <td class="attribute-col">All</td>
                 <td><input type="radio" name="all" value="0"></td>
                 <td><input type="radio" name="all" value="2"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Nickname</td>
+                <td class="attribute-col">Screen Name</td>
                 <td><input type="radio" name="nickname" value="0"></td>
                 <td><input type="radio" name="nickname" value="2"></td>
+            </tr>
+            <tr>
+                <td class="attribute-col">Gender</td>
+                <td><input type="radio" name="gender" value="0"></td>
+                <td><input type="radio" name="gender" value="2"></td>
+            </tr>            
+            <tr>
+                <td class="attribute-col">Age</td>
+                <td><input type="radio" name="age" value="0"></td>
+                <td><input type="radio" name="age" value="2"></td>
+            </tr>            
+            <tr>
+                <td class="attribute-col">Ethnicity</td>
+                <td><input type="radio" name="race" value="0"></td>
+                <td><input type="radio" name="race" value="2"></td>
             </tr>
             <tr>
                 <td class="attribute-col">City</td>
@@ -223,7 +209,7 @@
                 <td><input type="radio" name="state" value="2"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Zipcode</td>
+                <td class="attribute-col">Zip</td>
                 <td><input type="radio" name="zipcode" value="0"></td>
                 <td><input type="radio" name="zipcode" value="2"></td>
             </tr>
@@ -233,24 +219,9 @@
                 <td><input type="radio" name="country" value="2"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Age</td>
-                <td><input type="radio" name="age" value="0"></td>
-                <td><input type="radio" name="age" value="2"></td>
-            </tr>
-            <tr>
-                <td class="attribute-col">Gender</td>
-                <td><input type="radio" name="gender" value="0"></td>
-                <td><input type="radio" name="gender" value="2"></td>
-            </tr>
-            <tr>
                 <td class="attribute-col">Income</td>
                 <td><input type="radio" name="income" value="0"></td>
                 <td><input type="radio" name="income" value="2"></td>
-            </tr>
-            <tr>
-                <td class="attribute-col">Ethnicity</td>
-                <td><input type="radio" name="race" value="0"></td>
-                <td><input type="radio" name="race" value="2"></td>
             </tr>
             </tbody>
         </table>
