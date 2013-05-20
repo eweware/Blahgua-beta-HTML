@@ -117,6 +117,7 @@ define('BlahStatsDetailPage',
                         categories: ['promotes', 'demotes']
                     },
                     yAxis: {
+                        min: 0,
                         minRange:10,
                         minorTickInterval:1,
                         min:0
@@ -186,6 +187,7 @@ define('BlahStatsDetailPage',
                         }]
                 });
             }
+
 
             // Voter Demographics
             if (IsUserLoggedIn && UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))

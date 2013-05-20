@@ -140,8 +140,13 @@ define('BlahBodyDetailPage',
                     };
 
                 });
+
                 $("#AddCommentBtn").click(function(theEvent) {
-                    comments.DoAddComment(comments.InsertNewComment);
+                    comments.DoAddComment(function(newComment) {
+                        comments.InsertNewComment(newComment);
+                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                    });
+
                 });
             } else {
                 $("#CreateCommentArea").hide();

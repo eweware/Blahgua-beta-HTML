@@ -478,15 +478,7 @@ define('blahgua_base',
     }
 
 
-    function DoBlahDoubleClick(theEvent) {
-        theEvent = window.event || theEvent;
-        var who = theEvent.target || theEvent.srcElement;
-        while (who.hasOwnProperty("blah") == false) {
-            who = who.parentElement;
-        }
-        BlahReturnPage = "BlahRoll";
-        OpenBlah(who.blah);
-    }
+
 
     function DoBlahClick(theEvent) {
         theEvent = window.event || theEvent;
@@ -506,8 +498,6 @@ define('blahgua_base',
     }
 
     function CloseBlah() {
-
-
         $("#AdditionalInfoArea").empty();
         switch (BlahReturnPage) {
             case "UserBlahList":
@@ -545,6 +535,12 @@ define('blahgua_base',
         CurrentBlahId = FocusedBlah.I;
         Blahgua.GetBlah(CurrentBlahId, function(theFullBlah) {
             CurrentBlah = theFullBlah;
+            CurrentComments = null;
+            $(document).keydown(function(theEvent) {
+                if (theEvent.which == 27) {
+                    CloseBlah();
+                }
+            }).focus();
             if (FocusedBlah.hasOwnProperty("K"))
                 CurrentBlah.K = FocusedBlah.K;
             CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "a blahger");
@@ -715,7 +711,6 @@ define('blahgua_base',
         newDiv.style.top = "0px";
         newDiv.style.position = "absolute";
         newDiv.onclick = DoBlahClick;
-        newDiv.ondblclick = DoBlahDoubleClick;
         newDiv.topBlah = [];
         newDiv.bottomBlah = [];
 
