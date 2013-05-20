@@ -1,4 +1,4 @@
 Blahgua-beta-HTML
 =================
 
-Beta HTML web site.  Cool.
+Beta HTML web site.
