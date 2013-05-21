@@ -2,7 +2,7 @@
 
 
 body {
-    margin: 0px;
+    margin: 0;
     color: black;
 }
 
@@ -17,7 +17,7 @@ textarea {
 
 .PageBody {
     position:absolute;
-    margin:0px;
+    margin:0;
     width:100%;
     height:100%;
     z-index:0;
@@ -32,8 +32,7 @@ textarea {
     position: absolute;
     height:100%;
     background-color: #d4d4d4;
-    border-style:solid;
-    border-width:1px;         
+    border: 1px solid;
     overflow:hidden;
 
 }
@@ -50,9 +49,7 @@ textarea {
     border-radius: 8px;
     box-shadow: 5px 5px 4px rgba(0,0,0,0.2);
     border-top-style:solid;
-    border-bottom-style:none;
-    border-width:6px;
-
+    border-width:7px;
 }
 
 
@@ -74,22 +71,22 @@ textarea {
     width:100%;
     height:100%;
     z-index:20;
-    margin: 0px 8px;
+    margin: 0 8;
 }
 
 
 
 
 .BlahFullTable {
-    border-spacing:0px;
+    border-spacing:0;
     border-collapse: collapse;
-    border:0px;
+    border:0;
 }
 
 .feedback-div {
     position:fixed;
-    bottom:0px;
-    right: 0px;
+    bottom:0;
+    right: 0;
     background-color: rgba(255,255,255,.5);
     padding-left: 8px;
     padding-right: 8px;
@@ -97,8 +94,8 @@ textarea {
 
 .network-status {
     position:fixed;
-    bottom:0px;
-    left:0px;
+    bottom:0;
+    left:0;
     height:32px;
 }
 
@@ -147,8 +144,8 @@ textarea {
     width:100%;
     min-width:100%;
     word-wrap: break-word;
-    padding-left:0px;
-    padding-right:0px;
+    padding-left:0;
+    padding-right:0;
 }
 
 .NoCommentSpan {
@@ -157,9 +154,7 @@ textarea {
 
 
 .comment {
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+    list-style: none outside none;
     margin-bottom: 24px;
 }
 
