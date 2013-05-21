@@ -286,15 +286,15 @@ define('SelfPageDetails',
             UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            UserProfile["0"] = Number($('input:radio[name=nickname]:checked').val());
-            UserProfile["6"] = Number($('input:radio[name=city]:checked').val());
-            UserProfile["7"] = Number($('input:radio[name=state]:checked').val());
-            UserProfile["8"] = Number($('input:radio[name=zipcode]:checked').val());
-            UserProfile["9"] = Number($('input:radio[name=country]:checked').val());
-            UserProfile["2"] = Number($('input:radio[name=age]:checked').val());
-            UserProfile["4"] = Number($('input:radio[name=income]:checked').val());
-            UserProfile["1"] = Number($('input:radio[name=gender]:checked').val());
-            UserProfile["3"] = Number($('input:radio[name=race]:checked').val());
+            UserProfile["0"] = Number($('input:checkbox[name=nickname]:checked').val());
+            UserProfile["6"] = Number($('input:checkbox[name=city]:checked').val());
+            UserProfile["7"] = Number($('input:checkbox[name=state]:checked').val());
+            UserProfile["8"] = Number($('input:checkbox[name=zipcode]:checked').val());
+            UserProfile["9"] = Number($('input:checkbox[name=country]:checked').val());
+            UserProfile["2"] = Number($('input:checkbox[name=age]:checked').val());
+            UserProfile["4"] = Number($('input:checkbox[name=income]:checked').val());
+            UserProfile["1"] = Number($('input:checkbox[name=gender]:checked').val());
+            UserProfile["3"] = Number($('input:checkbox[name=race]:checked').val());
 
             // commit
             blahgua_rest.UpdateUserProfile(UserProfile, function() {
