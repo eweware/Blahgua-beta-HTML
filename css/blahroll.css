@@ -42,8 +42,8 @@
 }
 
 .users-own-blah {
-    border-size:5px;
-    border-style:solid;
+    border-size:7px;
+    border-top-style:dotted;
 }
 
 .BlahTypeSays {
