@@ -1,46 +1,83 @@
 <html>
 <body>
 <div id="CreateBlahPage">
-    <table class="createblahheadline">
-        <tr>
-            <td class="createblahheadlinephotoframe">
-                <div class="createblahheadlinephoto"></div></td>
-            <td id="CreateBlahNicknameDiv" class="BlahgerNickName"></td>
 
+    <table class="BlahFullHeader" id="CreateBlahHeader">
+        <tr  class="blah-headline-row">
+            <td rowspan="2">
+                <button class="inline-button blah-closer" >back</button>
+            </td>
+            <td rowspan="2">
+                <div id="BlahAuthorImage" class="create-author-image"></div>
+            </td>
+            <td colspan="1" style="width:100%">
+                <span class="fullBlahgerName" id="FullBlahNickName">UltraDad</span>
+            </td>
+        </tr>
+
+        <tr>
             <td class="createblahheadlineoptionframe">
 
                 <select id="BlahTypeList" class="createblahheadlineoption"></select>
+                <span class="fullBlahSpeechAct">to Entertainment</span>
 
             </td>
-
-
         </tr>
-    </table>
-    <div style="overflow-y:auto;" id="createcontent" >
-        <table class="createblahscrolltable">
-            <tr height="10px"></tr>
-            <tr>
-                <td class="shorttitle">Headline</td>
-            </tr>
-            <tr>
-                <td colspan="2" >
-                    <textarea prompt="enter a short headline" type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
-                </td>
 
-            </tr>
-            <tr><td><span id="HeadlineCharCount" class="charcounter"></span></td></tr>
-            <tr height="20px"></tr>
-            <tr>
-                <td prompt="Enter additional information here" class="shorttitle">Body</td>
-            </tr>
-            <tr>
-                <td colspan="2"  >
-                    <textarea class="inputbodyframe" id="BlahBody"></textarea>
+        <tr class="show-blah-bkgnd">
+            <td  colspan="3">
+                <div class="blah-summary-bar">
+                    <span class="FullBlahProfileString" id="FullBlahProfileString">a very scary blogger from New Mexico</span>
+                </div>
+            </td>
+        </tr>
+
+        <tr  class="show-blah-bkgnd">
+            <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" >
+                <textarea prompt="enter a short headline" type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
+            </td>
+        </tr>
+        <tr><td><span id="HeadlineCharCount" class="charcounter"></span></td></tr>
+
+    </table>
+
+    <div class="create-content-div" id="createcontent" >
+        <table class="createblahscrolltable show-blah-bkgnd">
+            <tr width="100%">
+                <td  id="AdditionalInfoDiv"  class="createblahadditional">
+
                 </td>
             </tr>
-            <tr><td><span id="BodyCharCount" class="charcounter"></span></td></tr>
-            <tr height="20px"></tr>
             <tr>
+                <td colspan="3" prompt="Enter additional information here" class="shorttitle">Body</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <textarea prompt="Type here" class="inputbodyframe" id="BlahBody"></textarea>
+                </td>
+            </tr>
+            <tr><td colspan="3"><span id="BodyCharCount" class="charcounter"></span></td></tr>
+            <tr style="text-align: center">
+                <td >
+                    <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="create-page-button">Add Image</button>
+                 </td>
+
+                <td>
+                    <button class="create-page-button" >Add Badge</button>
+                </td>
+                <td >
+                    <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Create</button>
+                </td>
+            </tr>
+            <tr>
+                <div id="ProgressDiv" style="display:none">
+                    <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+                        <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+                    </div>
+                </div>
+            </tr>
+
+            <tr style="display:none">
                 <td>
                     <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
                         <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="uploadimagebutton">Attach Image</button>
@@ -54,49 +91,8 @@
                     </form>
                 </td>
             </tr>
-            <tr>
-                <div id="ProgressDiv" style="display:none">
-                    <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
-                        <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
-                    </div>
-                </div>
-            </tr>
-            <tr>
-                <td class="shorttitle1"><p style="margin-top:10px">About You<p></td>
-            </tr>
-            <tr>
-                <td colspan="2"  >
-                    <textarea class="aboutyouframe" id="AboutYouArea">
-                    </textarea>
-                </td>
-            </tr>
-            <tr><td><button class="aboutbutton" >Attach Badge</button></td></tr>
-            <tr height="10px"></tr>
-            <tr><td style="border-bottom:1px solid grey;"></td></tr>
-
-            <tr width="100%">
-                <td  id="AdditionalInfoDiv"  class="createblahadditional">
-
-                </td>
-            </tr>
         </table>
     </div>
-
-
-
-    <table class="creatblahfooter" >
-        <tr>
-            <td style="width:10%"></td>
-            <td tyle="width:30%"><button id="CancelCreateBtn" class="cancel-blah-btn" style="margin-left:10px;">cancel</button></td>
-            <td style="width:20%"></td>
-            <td style="width:30%"><button disabled="disabled" id="PublishBlahBtn" class="create-blah-btn">Post</button></td>
-            <td style="width:10%"></td>
-        </tr>
-
-    </table>
-
-
-
 </div>
 </body>
 </html>

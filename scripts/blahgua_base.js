@@ -45,7 +45,6 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
-
                 SignIn();
             });
         };
@@ -1648,6 +1647,7 @@ define('blahgua_base',
 
     function DoCreateBlah() {
         StopAnimation();
+        $("#LightBox").show();
         if (IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
                 $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {

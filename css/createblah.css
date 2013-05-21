@@ -1,6 +1,24 @@
 /* styles for the blah creation page */
 
 
+.create-blah-channel-span {
+    font-family: 'Arimo', sans-serif;
+    font-size: 18px;
+    color:white;
+}
+
+.create-author-image {
+    width:56px;
+    height:56px;
+    background-color:white;
+    background-size:cover;
+    border-style: solid;
+    border-width: 1px;
+    border-color:black;
+    margin: 4px 8px 2px 2px;
+
+}
+
 .createblahheadline
 {
     background-color:#545253;
@@ -49,15 +67,19 @@
     position: fixed;
     top: 55px;
     bottom:45px;
-
 }
+
+.create-content-div {
+    overflow-y:auto;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+}
+
 .createblahscrolltable
 {   width:100%;
     height:auto;
     overflow-y:scroll;
     overflow-x:hidden;
-
-    border:2px solid white;
 }
 .tr100
 {
@@ -110,18 +132,16 @@
     background:grey;
 
 }
-.uploadimagebutton
+.create-page-button
 {
     position:relative;
     background:#FC7A56;
-    width:180px;
-    height:50px;
     color:white;
     font-size:16px;
-    font-weight:strong;
     font-family: 'Arimo',sans-serif;
-    border-radius:10px;
-    border-color:transparent;
+    border-radius:8px;
+    border-style:none;
+    padding:8px 16px;
 
 }
 .createblahadditional
@@ -133,41 +153,14 @@
     width:100%;
     height:15px;
 }
-.creatblahfooter
-{
-    height:70px;
-    position:absolute;
-    bottom:0px;
-    width:100%;
-}
-.cancel-blah-btn
-{
-    width:100%;
-    height:50px;
-    border-radius:10px;
-    border-style: none;
-    background:grey;
-    color:white;
-    font-size:16px;
-    font-family:'Arimo',sans-serif;
-}
 
-.cancel-blah-btn:hover
-{
-    background:#404040;
-}
 
-.create-blah-btn
+.create-page-button.default
 {
-    width:100%;
-    width:180px;
-    height:50px;
-    border-radius:10px;
-    border-style: none;
+
     background:green;
     color:white;
-    font-size:16px;
-    font-family:'Arimo',sans-serif;
+
 }
 
 .create-blah-btn:hover
@@ -179,6 +172,7 @@
 .create-blah-btn[disabled]
 {
     background: #d6edd7;
+    color:#a9a9a9;
 }
 
 .progressbar
