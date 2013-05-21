@@ -188,6 +188,11 @@ define('SelfPageDetails',
                 });
                 newHTML += "</tbody></table>";
                 $("#BadgeAuthorityArea").html(newHTML);
+                // bind event
+                $("#BadgeAuthorityArea button").click(function(theEvent) {
+                    var ID = $(theEvent.target).attr("data-authority-id");
+                    DoAddBadge(ID);
+                });
             }, exports.OnFailure);
         };
 
@@ -195,7 +200,7 @@ define('SelfPageDetails',
             var newHTML = "<tr>";
             newHTML += "<td><span>" + theAuth.N + "</span></td>";
             newHTML += "<td><span>" + theAuth.D + "</span></td>";
-            newHTML += "<td><button onclick='DoAddBadge(\"" + theAuth._id + "\"); return false;'>Add</button></td>";
+            newHTML += '<td><button data-authority-id="' + theAuth._id + '">Add</button></td>';
             newHTML += "</tr>";
 
             return newHTML;
@@ -238,7 +243,7 @@ define('SelfPageDetails',
         };
 
         var DoAddBadge = function(badgeID) {
-            Blahgua.createBadgeForUser(badgeID, null, function(data) {
+            blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 var dialogHTML = data;
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;

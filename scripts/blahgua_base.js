@@ -482,9 +482,6 @@ define('blahgua_base',
         BlahFullItem = document.getElementById("BlahFullItem");
     }
 
-
-
-
     function DoBlahClick(theEvent) {
         theEvent = window.event || theEvent;
         var who = theEvent.target || theEvent.srcElement;
@@ -497,12 +494,9 @@ define('blahgua_base',
         OpenBlah(who);
     }
 
-    function DoCloseBlah() {
 
-        CloseBlah();
-    }
 
-    function CloseBlah() {
+        function CloseBlah() {
         $("#AdditionalInfoArea").empty();
         switch (BlahReturnPage) {
             case "UserBlahList":
@@ -532,97 +526,36 @@ define('blahgua_base',
         StartBlahsMoving();
     }
 
-    function OpenBlah(whichBlah) {
+    var OpenLoadedBlah = function(whichBlah) {
         $("#LightBox").show();
-        CurrentBlah = null;
-        FocusedBlah = whichBlah.blah;
-        StopAnimation();
-        CurrentBlahId = FocusedBlah.I;
-        Blahgua.GetBlah(CurrentBlahId, function(theFullBlah) {
-            CurrentBlah = theFullBlah;
-            CurrentComments = null;
-            $(document).keydown(function(theEvent) {
-                if (theEvent.which == 27) {
-                    CloseBlah();
-                }
-            }).focus();
-            if (FocusedBlah.hasOwnProperty("K"))
-                CurrentBlah.K = FocusedBlah.K;
-            CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "a blahger");
-            $("#BlahPreviewExtra").empty();
-            require(["BlahDetailPage"], function(BlahDetailPage) {
-                $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
-                    var windowHeight = $(window).height();
-                    $(BlahFullItem).disableSelection();
-                    $(BlahFullItem).fadeIn("fast", function() {
-                        BlahDetailPage.InitializePage();
-                    });
+        CurrentBlah = whichBlah;
+        CurrentComments = null;
+        $(document).keydown(function(theEvent) {
+            if (theEvent.which == 27) {
+                CloseBlah();
+            }
+        }).focus();
+
+        CurrentBlahNickname = getSafeProperty(whichBlah, "K", "a blahger");
+        $("#BlahPreviewExtra").empty();
+        require(["BlahDetailPage"], function(BlahDetailPage) {
+            $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
+                var windowHeight = $(window).height();
+                $(BlahFullItem).disableSelection();
+                $(BlahFullItem).fadeIn("fast", function() {
+                    BlahDetailPage.InitializePage();
                 });
             });
-        }, OnFailure);
+        });
+    };
+
+    var OpenBlah = function(whichBlah) {
+        $("#LightBox").show();
+        CurrentBlah = null;
+        StopAnimation();
+        CurrentBlahId = whichBlah.blah.I;
+        Blahgua.GetBlah(CurrentBlahId, OpenLoadedBlah, OnFailure);
     }
-
-
-    function DoAddImageToBlah() {
-        var blahId = CurrentBlah._id;
-        $("#ProgressDiv").show();
-        $("#objectId").val(blahId);
-
-        var formData = new FormData($("#ImageForm")[0]);
-        $.ajax({
-            url: "http://beta.blahgua.com/v2/images/upload",
-
-            type: 'POST',
-            xhr: function() { // custom xhr
-                myXhr = $.ajaxSettings.xhr();
-                if(myXhr.upload){ // if upload property exists
-                    myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-                }
-                return myXhr;
-            },
-            //Ajax events
-            success: completeHandler = function(data) {
-                OnAddImageOK(data);
-
-            },
-            error: errorHandler = function(theErr) {
-                alert("Error uploading");
-            },
-            // Form data
-            data: formData,
-            //Options to tell JQuery not to process data or worry about content-type
-            cache: false,
-            contentType: false,
-            processData: false
-        }, 'json');
-    }
-
-    function OnAddImageOK(data) {
-        var EndDate = new Date(Date.now());
-        var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
-        var startStr = createDateString(StartDate);
-        var endStr = createDateString(EndDate);
-
-        Blahgua.GetBlahWithStats(blahId, startStr, endStr, function(theBlah) {
-            CurrentBlah= theBlah;
-            SetBlahDetailPage("Overview");
-        }, OnFailure);
-
-    }
-
-
-
-
-
-
-
-
-
-
-    function UpdateBlahAuthor() {
-
-    }
-
 
 
 
@@ -660,26 +593,6 @@ define('blahgua_base',
 
 
 
-    function FocusBlah(who) {
-        CurrentBlah = null;
-        StopAnimation();
-        $("#LightBox").show();
-        BlahPreviewItem.style.display = "block";
-        FocusedBlah = who.blah;
-        CurrentBlahId = who.blah.I;
-        require(['BlahPreview'], function(BlahPreview) {
-            BlahPreview.PopulateBlahPreview(who.blah);
-            var winHeight = $(window).height();
-            var staticHeight = $("#BlahPreviewHeadline").height() + 250;
-            var maxHeight = (winHeight - staticHeight);
-            $("#BlahPreviewScrollContainer").css({ 'max-height': maxHeight + 'px'});
-            BlahPreviewItem.style.display = "none";
-            $(BlahPreviewItem).fadeIn("fast");
-            //BlahPreviewTimeout = setTimeout(TimeOutBlahFocus, 5000);
-        })
-
-
-    }
 
 
 
@@ -687,18 +600,6 @@ define('blahgua_base',
 
 
 
-    function TimeOutBlahFocus() {
-        if (BlahPreviewTimeout != null) {
-            clearTimeout(BlahPreviewTimeout);
-            BlahPreviewTimeout = null;
-        }
-        FocusedBlah = null;
-        CurrentBlah = null;
-        $("#BlahPreviewItem").fadeOut();
-        $("#LightBox").fadeOut();
-        StartAnimation();
-
-    }
 
 
 
@@ -823,6 +724,13 @@ define('blahgua_base',
 
         if (CurrentUser && (theBlah.A == CurrentUser._id))
             $(newEl).addClass("users-own-blah");
+
+        if (theBlah.hasOwnProperty("B") && (theBlah.B.length > 0)) {
+            // add a badge
+            var badgeDiv = document.createElement("div");
+            $(badgeDiv).addClass("badge-div");
+            $(newEl).append(badgeDiv);
+        }
 
         return newEl;
     }
@@ -1909,6 +1817,7 @@ define('blahgua_base',
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;
         Exports.SuggestUserSignIn = SuggestUserSignIn;
+        Exports.OpenLoadedBlah = OpenLoadedBlah;
 
     return {
         InitializeBlahgua: InitializeBlahgua

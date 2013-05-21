@@ -30,7 +30,6 @@ var BottomRow = null;
 var RowsOnScreen = 10;
 var BlahPreviewItem;
 var BlahFullItem;
-var FocusedBlah = null;
 var CurrentBlah = null;
 var CurrentBlahId = null;
 var CurrentComments = null;

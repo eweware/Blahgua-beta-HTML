@@ -16,13 +16,26 @@ define('CreateBlahPage',
         var  InitializePage = function() {
             blahTypeModule = null;
             PopulateBlahTypeOptions();
-            $("#CreateBlahNicknameDiv").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
+            var blahChannelStr = CurrentChannel.N;
+            blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
+                $("#FullBlahProfileString").text(theString.d);
+            }, function (theErr) {
+                $("#FullBlahProfileString").text("an anonymous blahger");
+            });
+
+            $("#FullBlahNickName").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
+            var newImage = GetUserImage(CurrentUser, "A");
+            $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
 
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(HandleFilePreview);
-            $("#CancelCreateBtn").click(CancelCreate);
+            $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
+            $(".create-page-button").click(function(theEvent) {
+                $("#BadgeChoiceRow").toggle();
+                $('input[type=checkbox]').click(RefreshBadgePreview);
+            });
             $("#BlahHeadline").keyup(function (theEvent) {
                 HandleHeadlineTextInput(theEvent.target);
             });
@@ -36,6 +49,7 @@ define('CreateBlahPage',
                 HandleBodyTextInput(theEvent.target);
             });
             $(BlahFullItem).fadeIn("fast");
+            UpdateBadgeArea();
         };
 
         var PopulateBlahTypeOptions = function() {
@@ -121,6 +135,61 @@ define('CreateBlahPage',
             exports.CloseBlah();
         }
 
+        var UpdateBadgeArea = function() {
+            if (CurrentUser.hasOwnProperty("B")) {
+                // add badges
+                $("#BadgesDiv").empty();
+                $.each(CurrentUser.B, function(index, curBadge) {
+                    CreateAndAppendBadgeHTML(curBadge);
+                });
+
+            } else {
+                $("#BadgesDiv").html("<tr><td>You do not have any badges.  Go to the 'badges' section your profile to acquire some.</tr></td>");
+            }
+        };
+
+        var RefreshBadgePreview = function() {
+            $("tr.badge-info-row").remove();
+            $("#BadgesDiv input:checkbox:checked").each(function(index, item) {
+                $("#BlahFacetTable").append(CreateBadgeDescription(item));
+            });
+        };
+
+        var CreateBadgeDescription = function(theBadge) {
+            var badgeName = $(theBadge).closest("tr").find(".badgename").text();
+            var newHTML = "<tr class='badge-info-row'>";
+            newHTML += "<td><img style='width:16px; height:16px;' src='" + fragmentURL + "/img/black_badge.png'</td>";
+            newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
+            return newHTML;
+        }
+
+
+        var CreateAndAppendBadgeHTML = function(theBadge) {
+            blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
+                var newHTML = "";
+                var imagePath = "http://beta.blahgua.com.s3.amazonaws.com/img/generic-badge.png";
+                newHTML += "<tr data-badge-id='" + theBadge + "'>";
+                newHTML += "<td><input type=checkbox></td>";
+                newHTML += "<td><div class='badgeholder'>";
+                newHTML += "<div class='badgename'>";
+                if (fullBadge.hasOwnProperty("K")) {
+                    imagePath = fullBadge.K;
+                }
+                newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
+                newHTML += fullBadge.N + "</div>";
+                newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>";
+                newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>";
+                newHTML += "</div></td>";
+
+                newHTML += "</tr>";
+                $("#BadgesDiv").append(newHTML);
+            }, function (theErr) {
+                var newHTML = "";
+                newHTML += "<tr><td><div>Error loading Badge id=" + theBadge + "</div></td></tr>";
+                $("#BadgesDiv").append(newHTML);
+            });
+        };
+
 
 
         function CreateBlah() {
@@ -140,6 +209,17 @@ define('CreateBlahPage',
                 options = blahTypeModule.PrepareCreateBlahJSON();
             }
 
+            var badges = $("#BadgesDiv input:checkbox:checked");
+            if (badges.length > 0) {
+                if (options == null)
+                    options = new Object();
+                var badgeArray = [];
+                badges.each(function(index, item) {
+                   var theID =  $(item).closest("tr").attr("data-badge-id");
+                    badgeArray.push(theID);
+                });
+                options["B"] = badgeArray;
+            }
 
             blahgua_rest.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, exports.OnFailure);
         };
@@ -216,10 +296,11 @@ define('CreateBlahPage',
         var HandleFilePreview = function() {
             var theFile = $("#BlahImage").val();
             $("#CreateBlahImageNameSpan").text(theFile);
-            if (theFile != "") {
-                $(".uploadimage").css({"background-image": theFile});
-
-            }
+            $(".uploadimage").text(theFile);
+            if (theFile == "")
+                $("#ImagePreviewRow").hide();
+            else
+                $("#ImagePreviewRow").show();
             CheckPublishBtnDisable();
         };
 

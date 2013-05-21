@@ -20,6 +20,7 @@ define('GlobalFunctions',
         var GetChannelNameFromID = null;
         var CloseBlah = null;
         var SuggestUserSignIn = null;
+        var OpenLoadedBlah = null;
 
         return {
             ClosePage: ClosePage,
@@ -31,7 +32,8 @@ define('GlobalFunctions',
             GetBlahTypeStr: GetBlahTypeStr,
             SuggestUserSignIn: SuggestUserSignIn,
             CloseBlah: CloseBlah,
-            GetChannelNameFromID: GetChannelNameFromID
+            GetChannelNameFromID: GetChannelNameFromID ,
+            OpenLoadedBlah: OpenLoadedBlah
         }
     }
 );

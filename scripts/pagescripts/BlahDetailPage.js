@@ -85,6 +85,10 @@ define('BlahDetailPage',
             var dateString = ElapsedTimeString(curDate);
             $("#FullBlahDateStr").text(dateString);
 
+            // update badges, if any
+            if (CurrentBlah.hasOwnProperty("B"))
+                UpdateBlahBadges();
+
             // see if we were supposed to go elsewhere
             if (BlahOpenPage == "")
                 BlahOpenPage = "Overview";
@@ -94,6 +98,26 @@ define('BlahDetailPage',
 
             SetBlahDetailPage(BlahOpenPage);
             BlahOpenPage = "Overview";
+        };
+
+        var UpdateBlahBadges = function() {
+            var badgeList = CurrentBlah.B;
+            for (var curIndex in badgeList) {
+                CreateAndAppendBadgeDescription(badgeList[curIndex]);
+            }
+        };
+
+        var CreateAndAppendBadgeDescription = function(theBadge) {
+            blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
+                var badgeName = getSafeProperty(fullBadge, "N", "unnamed badge");
+                var newHTML = "<tr class='badge-info-row'>";
+                newHTML += "<td><img style='width:16px; height:16px;' src='" + fragmentURL + "/img/black_badge.png'</td>";
+                newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
+
+                $("#BlahFacetTable").append(newHTML);
+            }, function (theErr) {
+                // TODO:  handle badge load error
+            });
         };
 
         var SetBlahDetailPage = function(whichPage) {
