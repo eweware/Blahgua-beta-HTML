@@ -66,7 +66,7 @@ define('BlahCommentDetailPage',
         };
 
         var SignInToComment = function() {
-            exports.SuggestUserSignIn("Sign in to comment on a blah!");
+            exports.SuggestUserSignIn("Log in to comment on a blah!");
         };
 
         return {

@@ -122,7 +122,7 @@ define('BlahTypePoll',
                 });
             } else {
                 // user isnot logged in - can't vote or see results
-                $(".poll-prompt").text("sign in to vote and see results")
+                $(".poll-prompt").text("log in to vote and see results")
                 $(".poll-checkbox").hide();
                 $(".poll-chart-div").hide();
             }
