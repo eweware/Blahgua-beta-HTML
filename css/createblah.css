@@ -55,10 +55,10 @@
 
     font-size: 22px;
     font-weight: bold;
+}
 
-
-
-
+.login-btn {
+    float:left;
 }
 .createblahscroll
 {

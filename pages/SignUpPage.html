@@ -6,14 +6,13 @@
 <body>
 <div id="SignInInDiv" class="sign-in-page">
     <div class="sign-in">
-        <h3 >Log In or Create an account.</h3>
+        <h3 ><button align="center" id="CancelSignIn" class="inline-button blah-closer login-btn">close</button>Log In or Create an account.</h3>
     </div>
     <div class="content_frame">
         <div class="toggle-header">
             <button class="toggle-btn btn-left toggle-active" data-toggle-set="login" data-toggle-value="existing">Existing User</button>
-            <button class="toggle-btn" data-toggle-set="login" data-toggle-value="new">New User</button>
-            <button class="toggle-btn btn-right" data-toggle-set="forgot" data-toggle-value="recover">Forgot Password</button>
-        </div>
+            <button class="toggle-btn btn-right" data-toggle-set="login" data-toggle-value="new">New User</button>
+         </div>
         <div class="toggle-container">
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="existing">
                 <table>
@@ -41,10 +40,20 @@
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button align="center" id="CancelSignIn" class="action-btn">cancel</button>
+                                <button align="center" id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
                                 <button align="center" id="SignInBtn" class="action-btn action-default">Log In</button>
                             </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="item-container">
+                            <span class="recovery-instructions">Submit your email address to recover your password.
+                            </span>
+                        </td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><label for="email">Email</label></td>
+                        <td><input id="email"  type="email"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -80,7 +89,6 @@
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button align="center" id="CancelNewUser" class="action-btn">cancel</button>
                                 <button align="center" id="NewUserBtn" class="action-btn action-default">Create</button>
                             </div>
                         </td>
@@ -88,6 +96,7 @@
                     </tbody>
                 </table>
             </div>
+
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="recover">
                 <table>
                     <thead>
@@ -103,13 +112,12 @@
                     </tr>
                     <tr class="label-group">
                         <td><label for="email">Email</label></td>
-                        <td><input id="email"  type="password"></td>
+                        <td><input id="email"  type="email"></td>
                     </tr>
 
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button align="center" id="CancelForgot" class="action-btn">cancel</button>
                                 <button align="center" id="RecoverPasswordBtn" class="action-btn action-default">Submit</button>
                             </div>
                         </td>
