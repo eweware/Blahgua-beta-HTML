@@ -215,6 +215,7 @@ a {
 
 .SuggestSignIn {
     text-align: center;
+    font-family: 'Arimo', sans-serif;    
     font-size:18px;
     background-color: orange;
     color:black;
