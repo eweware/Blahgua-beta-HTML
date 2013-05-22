@@ -30,30 +30,38 @@
                         <td><input id="pwd2"  type="password"></td>
                     </tr>
                     <tr >
-                        <td colspan="2" class="item-container">
-                            <div class="checkbox-group">
-
-                                <label for="rememberme2">Remember me</label>
-                                <input type="checkbox" value="true" id="rememberme2">                            </div>
+                        <td>
+                            <div class="item-container">
+                                <button align="center" id="SignInBtn" class="action-btn action-default">Log In</button>
+                            </div>
                         </td>
+                        <td class="item-container">
+                            <div class="checkbox-group">
+                                <label for="rememberme2">Remember me</label>
+                                <input type="checkbox" value="true" id="rememberme2">
+                            </div>
+                        </td>
+
                     </tr>
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
                                 <button align="center" id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
-                                <button align="center" id="SignInBtn" class="action-btn action-default">Log In</button>
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="recover-password" style="display:none">
                         <td colspan="2" class="item-container">
                             <span class="recovery-instructions">Submit your email address to recover your password.
                             </span>
                         </td>
                     </tr>
-                    <tr class="label-group">
+                    <tr class="recover-password label-group"  style="display:none">
                         <td><label for="email">Email</label></td>
                         <td><input id="email"  type="email"></td>
+                    </tr>
+                    <tr colspan="2" class="recover-password label-group" style="display:none">
+                        <td><button align="center" id="RecoverPasswordBtn" class="action-btn">Recover</button></td>
                     </tr>
                     </tbody>
                 </table>

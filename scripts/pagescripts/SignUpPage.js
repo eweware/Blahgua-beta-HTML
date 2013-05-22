@@ -100,11 +100,11 @@ define('SignUpPage',
 
         var CancelSignIn = function() {
             exports.ClosePage();
-        }
+        };
 
         var RecoverPassword = function() {
             alert("Not Implemented!");
-        }
+        };
 
         var RefreshSignupContent = function(message) {
             $("#BlahFullItem").show();
@@ -142,8 +142,15 @@ define('SignUpPage',
             $("#CancelForgot").click(CancelSignIn);
             $("#NewUserBtn").click(CreateNewUser);
             $("#SignInBtn").click(SignInExistingUser);
+            $("#ShowAccountRecoveryBtn").click(ShowRecoveryInfo)
             $("#RecoverPasswordBtn").click(RecoverPassword);
-        }
+        };
+
+        var ShowRecoveryInfo = function(theEvent) {
+            var table =  $(theEvent.target).closest("table");
+            table.find("tr").hide();
+            table.find("tr.recover-password").show();
+        };
 
         return {
 

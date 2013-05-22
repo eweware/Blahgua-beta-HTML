@@ -7,9 +7,8 @@
  */
 
 requirejs.config({
-    "baseUrl": "./scripts", // http://beta.blahgua.com.s3.amazonaws.com/scripts/",
+    "baseUrl": "./scripts", // https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/",
     "paths": {
-        "jquery": "//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min",
         "SignUpPage": "pagescripts/SignUpPage",
         "BlahPreview": "pagescripts/BlahPreview",
         "BlahTypePredict": "pagescripts/BlahTypePredictPage",

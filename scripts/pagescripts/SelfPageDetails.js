@@ -221,7 +221,7 @@ define('SelfPageDetails',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = "http://beta.blahgua.com.s3.amazonaws.com/img/generic-badge.png";
+                var imagePath = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/generic-badge.png";
                 newHTML += "<tr><td><div class='badgeholder'>";
                 newHTML += "<div class='badgename'>";
                 if (fullBadge.hasOwnProperty("K")) {
@@ -318,7 +318,7 @@ define('SelfPageDetails',
 
             var formData = new FormData($("#ImageForm")[0]);
             $.ajax({
-                url: "http://beta.blahgua.com/v2/images/upload",
+                url: "https://beta.blahgua.com/v2/images/upload",
 
                 type: 'POST',
                 xhr: function() { // custom xhr
