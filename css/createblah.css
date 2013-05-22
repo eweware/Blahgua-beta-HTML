@@ -81,10 +81,7 @@
     overflow-y:scroll;
     overflow-x:hidden;
 }
-.tr100
-{
-    width:512px;
-}
+
 .inputheadlineframe
 {
     width:98%;
@@ -174,6 +171,49 @@
     background: #d6edd7;
     color:#a9a9a9;
 }
+
+.image-preview-row {
+    width:100%;
+    text-align: center;
+}
+
+.image-preview-row td {
+    text-align:center;
+}
+
+.create-preview-image {
+    width: 128px;
+    height: 128px;
+    border-width: 1px;
+    border-style: solid;
+    border-color:black;
+    background-color:white;
+    color: darkgray;
+    display:inline-block;
+}
+
+
+.badge-info-row {
+
+}
+
+.badge-info-row td {
+    font-family: 'Arimo',sans-serif;
+    font-size:14px;
+}
+
+.badge-name-class {
+    font-weight: bold;
+
+}
+
+
+
+.charcounter {
+    font-size:9pt;
+    float: right;
+}
+
 
 .progressbar
 {

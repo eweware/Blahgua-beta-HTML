@@ -11,13 +11,12 @@
                 <div id="BlahAuthorImage" class="create-author-image"></div>
             </td>
             <td colspan="1" style="width:100%">
-                <span class="fullBlahgerName" id="FullBlahNickName">UltraDad</span>
+                <span class="fullBlahgerName" id="FullBlahNickName"></span>
             </td>
         </tr>
 
         <tr>
             <td class="createblahheadlineoptionframe">
-
                 <select id="BlahTypeList" class="createblahheadlineoption"></select>
                 <span class="fullBlahSpeechAct">to Entertainment</span>
 
@@ -27,27 +26,44 @@
         <tr class="show-blah-bkgnd">
             <td  colspan="3">
                 <div class="blah-summary-bar">
-                    <span class="FullBlahProfileString" id="FullBlahProfileString">a very scary blogger from New Mexico</span>
+                    <table id="BlahFacetTable" style="width:100%">
+                        <tr>
+                            <td colspan="2  ">
+                                <span class="FullBlahProfileString" id="FullBlahProfileString"></span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </td>
         </tr>
 
-        <tr  class="show-blah-bkgnd">
+        <tr class="show-blah-bkgnd">
             <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" >
                 <textarea prompt="enter a short headline" type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
             </td>
         </tr>
-        <tr><td><span id="HeadlineCharCount" class="charcounter"></span></td></tr>
 
+        <tr class="show-blah-bkgnd">
+            <td colspan="3"><span id="HeadlineCharCount" class="charcounter"></span></td>
+        </tr>
     </table>
 
     <div class="create-content-div" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
-            <tr width="100%">
-                <td  id="AdditionalInfoDiv"  class="createblahadditional">
-
+            <tr id="ImagePreviewRow" class="image-preview-row" style="display:none">
+                <td colspan="3">
+                    <div class="create-preview-image">click to remove</div><br/>
+                    <span class="CreateBlahImageNameSpan" id="CreateBlahImageNameSpan"></span>
                 </td>
             </tr>
+            <tr>
+                <div id="ProgressDiv" style="display:none">
+                    <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
+                        <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
+                    </div>
+                </div>
+            </tr>
+
             <tr>
                 <td colspan="3" prompt="Enter additional information here" class="shorttitle">Body</td>
             </tr>
@@ -57,6 +73,11 @@
                 </td>
             </tr>
             <tr><td colspan="3"><span id="BodyCharCount" class="charcounter"></span></td></tr>
+            <tr width="100%">
+                <td  id="AdditionalInfoDiv"  class="createblahadditional">
+
+                </td>
+            </tr>
             <tr style="text-align: center">
                 <td >
                     <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="create-page-button">Add Image</button>
@@ -69,19 +90,21 @@
                     <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Create</button>
                 </td>
             </tr>
-            <tr>
-                <div id="ProgressDiv" style="display:none">
-                    <div id="ProgressBar" style="width:400px; border-style: solid; height:32px; border-width: 2;">
-                        <div id="Indicator" style="background-color: red; width:1px; height:32px;"></div>
-                    </div>
-                </div>
+
+            <tr id="BadgeChoiceRow" style="display:none">
+                <td colspan="3">
+                    <table class="attribute-table">
+                        <tbody id="BadgesDiv">
+
+                        </tbody>
+                    </table>
+                </td>
             </tr>
 
             <tr style="display:none">
                 <td>
                     <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-                        <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="uploadimagebutton">Attach Image</button>
-                        <span class="CreateBlahImageNameSpan" id="CreateBlahImageNameSpan"></span>
+
                         <div style="display:none">
                             <input id="BlahImage" name="file" type="file" >
                             <input type="text" name="objectType" hidden="true" value="B"/>

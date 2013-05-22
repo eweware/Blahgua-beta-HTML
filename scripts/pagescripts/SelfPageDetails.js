@@ -188,6 +188,11 @@ define('SelfPageDetails',
                 });
                 newHTML += "</tbody></table>";
                 $("#BadgeAuthorityArea").html(newHTML);
+                // bind event
+                $("#BadgeAuthorityArea button").click(function(theEvent) {
+                    var ID = $(theEvent.target).attr("data-authority-id");
+                    DoAddBadge(ID);
+                });
             }, exports.OnFailure);
         };
 
@@ -195,7 +200,7 @@ define('SelfPageDetails',
             var newHTML = "<tr>";
             newHTML += "<td><span>" + theAuth.N + "</span></td>";
             newHTML += "<td><span>" + theAuth.D + "</span></td>";
-            newHTML += "<td><button onclick='DoAddBadge(\"" + theAuth._id + "\"); return false;'>Add</button></td>";
+            newHTML += '<td><button data-authority-id="' + theAuth._id + '">Add</button></td>';
             newHTML += "</tr>";
 
             return newHTML;
@@ -238,7 +243,7 @@ define('SelfPageDetails',
         };
 
         var DoAddBadge = function(badgeID) {
-            Blahgua.createBadgeForUser(badgeID, null, function(data) {
+            blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 var dialogHTML = data;
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;
@@ -281,15 +286,15 @@ define('SelfPageDetails',
             UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            UserProfile["0"] = Number($('input:radio[name=nickname]:checked').val());
-            UserProfile["6"] = Number($('input:radio[name=city]:checked').val());
-            UserProfile["7"] = Number($('input:radio[name=state]:checked').val());
-            UserProfile["8"] = Number($('input:radio[name=zipcode]:checked').val());
-            UserProfile["9"] = Number($('input:radio[name=country]:checked').val());
-            UserProfile["2"] = Number($('input:radio[name=age]:checked').val());
-            UserProfile["4"] = Number($('input:radio[name=income]:checked').val());
-            UserProfile["1"] = Number($('input:radio[name=gender]:checked').val());
-            UserProfile["3"] = Number($('input:radio[name=race]:checked').val());
+            UserProfile["0"] = Number($('input:checkbox[name=nickname]:checked').val());
+            UserProfile["6"] = Number($('input:checkbox[name=city]:checked').val());
+            UserProfile["7"] = Number($('input:checkbox[name=state]:checked').val());
+            UserProfile["8"] = Number($('input:checkbox[name=zipcode]:checked').val());
+            UserProfile["9"] = Number($('input:checkbox[name=country]:checked').val());
+            UserProfile["2"] = Number($('input:checkbox[name=age]:checked').val());
+            UserProfile["4"] = Number($('input:checkbox[name=income]:checked').val());
+            UserProfile["1"] = Number($('input:checkbox[name=gender]:checked').val());
+            UserProfile["3"] = Number($('input:checkbox[name=race]:checked').val());
 
             // commit
             blahgua_rest.UpdateUserProfile(UserProfile, function() {

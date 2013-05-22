@@ -27,7 +27,12 @@ define('SelfPageHistory',
                     $.each(blahList, function (index, item) {
                         newHTML = CreateUserBlahHTML(item);
                         blahsDiv.append(newHTML);
-                    })
+                    });
+                    // bind events
+                    $("#UserBlahList a").click(function(theEvent){
+                        theID = $(theEvent.target).attr("data-blah-id");
+                        DoOpenUserBlah(theID);
+                    });
                 } else {
                     newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
                     blahsDiv.append(newHTML);
@@ -40,7 +45,12 @@ define('SelfPageHistory',
                     $.each(commentList, function (index, item) {
                         newHTML = CreateUserCommentHTML(item);
                         commentDiv.append(newHTML);
-                    })
+                    });
+                    // bind events
+                    $("#UserCommentList a").click(function(theEvent){
+                        theID = $(theEvent.target).attr("data-blah-id");
+                        DoOpenUserComment(theID);
+                    });
                 } else {
                     newHTML = "<tr><td colspan='2'>You have not created any comments yet.</td></tr>";
                     commentDiv.append(newHTML);
@@ -65,8 +75,7 @@ define('SelfPageHistory',
         var CreateUserBlahHTML = function(theBlah) {
             var newHTML = "";
             newHTML += "<tr>";
-            newHTML += "<td style='width:100%'><a href='javascript:void(null)' onclick=\"";
-            newHTML += "DoOpenUserBlah('" + theBlah._id + "'); return false;\">";
+            newHTML += "<td style='width:100%'><a href='javascript:void(null)' data-blah-id='" + theBlah._id + "'>";
             newHTML += theBlah.T;
             newHTML += "</a></td>";
             newHTML += "<td>" + ElapsedTimeString(new Date(theBlah.c)) + "</td>";
@@ -77,8 +86,7 @@ define('SelfPageHistory',
         var CreateUserCommentHTML = function(theComment) {
             var newHTML = "";
             newHTML += "<tr>"
-            newHTML += "<td style='width:100%'><a href='javascript:void(null)' onclick=\"";
-            newHTML += "DoOpenUserComment('" + theComment.B + "'); return false;\">";
+            newHTML += "<td style='width:100%'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
             newHTML += theComment.T;
             newHTML += "</a></td>";
             newHTML += "<td>" + ElapsedTimeString(new Date(theComment.c)) + "</td>"
@@ -96,7 +104,7 @@ define('SelfPageHistory',
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 CurrentBlah = theBlah;
                 BlahReturnPage = "UserBlahList";
-                OpenBlah(blahId);
+                exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };
 
@@ -109,7 +117,7 @@ define('SelfPageHistory',
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 CurrentBlah = theBlah;
                 BlahReturnPage = "UserBlahList";
-                OpenBlah(blahId);
+                exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };
 

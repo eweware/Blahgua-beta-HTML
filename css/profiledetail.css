@@ -128,7 +128,7 @@
 }
 
 .attribute-table .attribute-col {
-    text-align: right;
+    text-align: left;
 }
 
 .attribute-table td {
@@ -137,7 +137,7 @@
 }
 
 .attribute-table th {
-    text-align: center;
+    text-align: left;
     padding: 8px;
 }
 
