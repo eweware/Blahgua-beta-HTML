@@ -26,12 +26,14 @@ define('SignUpPage',
             var userName = $("#userName").val();
             var pwd = $("#pwd").val();
             if ($('#rememberme2').is(':checked')) {
-                $.cookie("userId", userName, { expires: 30, path: '/'});
-                $.cookie("password", pwd, { expires: 30, path: '/'});
+                var userObject = {};
+                userObject['userId'] = userName;
+                userObject['pwd'] = pwd;
+
+                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 30, path: '/'});
                 $.removeCookie('isTemp');
             } else {
-                $.removeCookie("userId");
-                $.removeCookie("password");
+                $.removeCookie("loginkey");
                 $.removeCookie('isTemp');
             }
             $("#userName2").val(userName);
@@ -64,12 +66,14 @@ define('SignUpPage',
             var userName = $("#userName2").val();
             var pwd = $("#pwd2").val();
             if ($('#rememberme2').is(':checked')) {
-                $.cookie("userId", userName, { expires: 30, path: '/'});
-                $.cookie("password", pwd, { expires: 30, path: '/'});
+                var userObject = {};
+                userObject['userId'] = userName;
+                userObject['pwd'] = pwd;
+
+                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 30, path: '/'});
                 $.removeCookie('isTemp');
             } else {
-                $.removeCookie("userId");
-                $.removeCookie("password");
+                $.removeCookie("loginkey");
                 $.removeCookie('isTemp');
             }
             blahgua_rest.getUserInfo(RefreshPageForNewUser, function(theErr) {

@@ -261,6 +261,17 @@ function dynamicSort(property, subProp) {
     }
 }
 
+function cryptify(key, value) {
+    var result="";
+    for(var i=0;i<value.length;++i)
+    {
+        result+=String.fromCharCode(key.charCodeAt(i % key.length)^value.charCodeAt(i));
+    }
+    return result;
+}
+
+
+
 (function ($) {
     $.fn.disableSelection = function () {
         return this.each(function () {

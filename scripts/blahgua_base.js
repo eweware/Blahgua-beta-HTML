@@ -83,8 +83,7 @@ define('blahgua_base',
         clearInterval(BlahPreviewTimeout);
         clearInterval(ViewerUpdateTimer);
         if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
-            $.removeCookie("userId");
-            $.removeCookie("password");
+            $.removeCookie("loginkey");
         }
         Blahgua.logoutUser();
         location.reload();
@@ -103,18 +102,25 @@ define('blahgua_base',
             if (json.loggedIn == "Y")
                 HandlePostSignIn();
             else {
-                var savedID =$.cookie("userId");
-                var pwd = $.cookie("password");
+                var savedID = $.cookie("loginkey");
+                var userName, pwd;
 
-                if (savedID != null) {
+                if (savedID) {
+                    savedID = JSON.parse(cryptify("Sheep", savedID));
+                    userName = savedID.userId;
+                    pwd = savedID.pwd;
+                }
+
+
+
+                if (userName != null) {
                     if (pwd == null) {
                         pwd = prompt("Welcome back. enter password:")
                     }
 
                     // sign in
-                    Blahgua.loginUser(savedID, pwd, HandlePostSignIn, function() {
-                        $.removeCookie("userId");
-                        $.removeCookie("password");
+                    Blahgua.loginUser(userName, pwd, HandlePostSignIn, function() {
+                        $.removeCookie("loginkey");
                         IsUserLoggedIn = false;
                         finalizeInitialLoad();
                     });
@@ -1647,8 +1653,7 @@ define('blahgua_base',
     }
 
     function ForgetUser() {
-        $.removeCookie("userId");
-        $.removeCookie("password");
+        $.removeCookie("loginkey");
         Blahgua.logoutUser(OnLogoutOK);
     }
 
