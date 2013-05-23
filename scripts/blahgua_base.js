@@ -510,6 +510,7 @@ define('blahgua_base',
                 });
 
         }
+        $(document).focus();
         BlahReturnPage = null;
 
     }
