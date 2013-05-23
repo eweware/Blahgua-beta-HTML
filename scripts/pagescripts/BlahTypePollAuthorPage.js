@@ -12,11 +12,19 @@ define('BlahTypePollAuthorPage',
     function (exports, blahgua_rest) {
 
         var  InitializePage = function() {
+
+
             $(".add-poll-choice-btn").click(function(theEvent) {
                 var newHTML = CreatePollChoiceElement();
                 $(".poll-result-table").append(newHTML);
                 UpdatePollChoiceBtn();
-            })
+                $('.delete-poll-vote').click(function(theEvent) {
+                    $(theEvent.target).closest(".poll-result-row").remove();
+                    $('.poll-title').each(function (index, item) {
+                        $(item).attr("placeholder", "option " + (index + 1));
+                    });
+                });
+            });
         };
 
         var UpdatePollChoiceBtn = function() {
@@ -39,6 +47,7 @@ define('BlahTypePollAuthorPage',
             options = new Object();
             options["I"] = pollItems;
 
+
             return options;
         };
 
@@ -53,22 +62,18 @@ define('BlahTypePollAuthorPage',
         }
 
         var CreatePollChoiceElement = function() {
+            var numItems = $(".poll-result-row").length + 1;
             var newHTML = "";
             newHTML += "<tr class='poll-result-row'>" +
                 "<td> " +
                 "<table> "+
                     "<tr>  " +
-                        '<td><input type="text" class="poll-title" placeholder="option 1"></td>' +
-                            '<td class="poll-chart-holder">' +
-                                '<div class="poll-chart-div" style="width:20%"> ' +
-                                    '<span class="poll-vote-text">no votes</span> ' +
-                                '</div> ' +
-                            '</td> ' +
-                            '<td><button class="delete-poll-vote"></button></td> ' +
+                        '<td><input type="text" class="poll-title" placeholder="option ' + numItems + '"></td>' +
+                            '<td style="width:16px"></td>' +
+                            '<td style="width:100px"><button class="delete-poll-vote inline-button">remove</button></td> ' +
                         '</tr> ' +
                         '<tr>' +
-                            '<td></td>' +
-                            '<td><input type="text" class="poll-description" placeholder="optional descriptive text"></td>' +
+                            '<td colspan="2"><input type="text" class="poll-description" placeholder="optional descriptive text"></td>' +
                             '</tr> ' +
                         '</table> ' +
                     '</td>' +
