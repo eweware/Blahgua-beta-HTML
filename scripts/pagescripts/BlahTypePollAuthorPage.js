@@ -8,8 +8,8 @@
 
 
 define('BlahTypePollAuthorPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    [],
+    function () {
 
         var  InitializePage = function() {
 

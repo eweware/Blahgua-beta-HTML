@@ -60,12 +60,6 @@ define('BlahDetailPage',
             // update the opens
             blahgua_rest.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
-            // update the badges & date
-            blahgua_rest.getUserDescriptorString(CurrentBlah.A, function(theString) {
-                $("#FullBlahProfileString").text(theString.d);
-            }, function (theErr) {
-                $("#FullBlahProfileString").text("an anonymous blahger");
-            });
 
             // fetch the user image
             blahgua_rest.GetBlahAuthor(CurrentBlah._id, function(theAuthor) {
@@ -88,16 +82,31 @@ define('BlahDetailPage',
             // update badges, if any
             if (CurrentBlah.hasOwnProperty("B"))
                 UpdateBlahBadges();
+            else
+                UpdateDescriptionString();
+        };
 
+        var LoadOpenPage = function() {
+            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
+            $("#BlahPageDiv").css({ 'top': curTop + "px"});
             // see if we were supposed to go elsewhere
             if (BlahOpenPage == "")
                 BlahOpenPage = "Overview";
-            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
-
-            $("#BlahPageDiv").css({ 'top': curTop + "px"});
 
             SetBlahDetailPage(BlahOpenPage);
             BlahOpenPage = "Overview";
+        };
+
+        var UpdateDescriptionString = function() {
+            // update the badges & date
+            blahgua_rest.getUserDescriptorString(CurrentBlah.A, function(theString) {
+                $("#FullBlahProfileString").text(theString.d);
+                LoadOpenPage();
+            }, function (theErr) {
+                $("#FullBlahProfileString").text("an anonymous blahger");
+                LoadOpenPage();
+            });
+
         };
 
         var UpdateBlahBadges = function() {
@@ -105,6 +114,7 @@ define('BlahDetailPage',
             for (var curIndex in badgeList) {
                 CreateAndAppendBadgeDescription(badgeList[curIndex]);
             }
+            UpdateDescriptionString();
         };
 
         var CreateAndAppendBadgeDescription = function(theBadge) {
@@ -115,6 +125,8 @@ define('BlahDetailPage',
                 newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
 
                 $("#BlahFacetTable").append(newHTML);
+                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
+                $("#BlahPageDiv").css({ 'top': curTop + "px"});
             }, function (theErr) {
                 // TODO:  handle badge load error
             });

@@ -183,7 +183,6 @@ define('blahgua_base',
     function finalizeInitialLoad() {
         StartLoginTimer();
         CreateChannelBanner();
-        CreatePreviewBlah();
         CreateFullBlah();
         GetUserChannels();
         UpdateBlahTypes();
@@ -351,6 +350,9 @@ define('blahgua_base',
             isVertical = true;
         }
 
+        var blahBottom = 25;
+
+
         var totalGutter = edgeGutter * 2 + interBlahGutter * 3;
 
         SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 4);
@@ -372,11 +374,11 @@ define('blahgua_base',
         var blahContainer = document.getElementById("BlahContainer");
         blahContainer.style.left = offset + "px";
         blahContainer.style.width = LargeTileWidth + "px";
-        var blahMargin = 8;
+        var blahMargin = 16;
 
         $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
-        $("#BlahFullItem").css({ 'left': offset + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
+        $("#BlahFullItem").css({ 'top': '25px','left': (offset + blahMargin) + 'px', 'bottom': blahBottom + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
 
     }
 
@@ -470,16 +472,7 @@ define('blahgua_base',
         }
 
     }
-    function CreatePreviewBlah() {
-        BlahPreviewItem = document.getElementById("BlahPreviewItem");
-        require(['BlahPreview'], function(BlahPreview) {
-            $(BlahPreviewItem).load(fragmentURL + "/pages/BlahPreview.html #BlahPreview", function () {
-                BlahPreview.InitPreviewPage();
 
-            });
-        })
-
-    }
 
 
 
@@ -532,28 +525,36 @@ define('blahgua_base',
         StartBlahsMoving();
     }
 
-    function StartLoginTimer() {
-        LoginCheckTimer = setTimeout(CheckLogin, 30000);
-    }
+    var StartLoginTimer = function() {
+        if (LoginCheckTimer)
+            clearTimeout(LoginCheckTimer);
 
-    function CheckLogin() {
+        LoginCheckTimer = setTimeout(CheckLogin, 30000);
+    };
+
+    var CheckLogin = function() {
         LoginCheckTimer = null;
         if (IsUserLoggedIn) {
             Blahgua.isUserLoggedIn(function(json) {
+                if (json.M == 0)
+                    alert("log out in " + json.S + " seconds!");
+
                 if (json.loggedIn == "Y")
                     StartLoginTimer();
-                else
+                else {
+                    alert("session ended for lack of activity!");
                     OnLogoutOK();
-            })
+                }
+            });
         }
-    }
+    };
 
     var DismissAll = function() {
         if (document.getElementById("BlahFullItem").style.display != "none")
             CloseBlah();
         else if (document.getElementById("ChannelDropMenu").style.display != "none")
             HideChannelList();
-    }
+    };
 
     var OpenLoadedBlah = function(whichBlah) {
         $("#LightBox").show();
