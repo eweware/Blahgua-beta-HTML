@@ -48,7 +48,7 @@
         </tr>
     </table>
 
-    <div class="create-content-div" id="createcontent" >
+    <div class="create-content-div show-blah-bkgnd" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
             <tr id="ImagePreviewRow" class="image-preview-row" style="display:none">
                 <td colspan="3">
@@ -78,20 +78,9 @@
 
                 </td>
             </tr>
-            <tr style="text-align: center">
-                <td >
-                    <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="create-page-button">Add Image</button>
-                 </td>
 
-                <td>
-                    <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
-                </td>
-                <td >
-                    <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Create</button>
-                </td>
-            </tr>
 
-            <tr id="BadgeChoiceRow" style="display:none">
+            <tr id="BadgeChoiceRow" name="BadgeRow" style="display:none">
                 <td colspan="3">
                     <table class="attribute-table">
                         <tbody id="BadgesDiv">
@@ -116,6 +105,21 @@
             </tr>
         </table>
     </div>
+        <table id="CreateFooterDiv" class="create-blah-footer">
+        <tr style="text-align: center">
+            <td >
+                <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="create-page-button">Add Image</button>
+            </td>
+
+            <td>
+                <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
+            </td>
+            <td >
+                <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Create</button>
+            </td>
+        </tr>
+        </table>
+
 </div>
 </body>
 </html>

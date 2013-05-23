@@ -19,6 +19,12 @@
 
 }
 
+#CreateBlahPage {
+    bottom: 25px;
+    position: absolute;
+    top: 0px;
+}
+
 .createblahheadline
 {
     background-color:#545253;
@@ -70,9 +76,19 @@
 }
 
 .create-content-div {
-    overflow-y:auto;
+    overflow-y: auto;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
+    position: absolute;
+    width: 100%;
+    bottom: 60px;
+    top: 244px;
+}
+
+.create-blah-footer {
+    width:100%;
+    position:absolute;
+    bottom:0px;
 }
 
 .createblahscrolltable

@@ -35,7 +35,17 @@ define('CreateBlahPage',
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
             $("#ShowBadgeAreaBtn").click(function(theEvent) {
-                $("#BadgeChoiceRow").toggle();
+                var theRow = document.getElementById("BadgeChoiceRow");
+                if (theRow.style.display == "none")   {
+                    theRow.style.display = "block";
+                    $("#ShowBadgeAreaBtn").text("Hide Badge Area");
+                    theRow.scrollIntoView();
+                }
+                else {
+                    theRow.style.display = "none";
+                    $("#ShowBadgeAreaBtn").text("Add Badge");
+                }
+
                 $('input[type=checkbox]').click(RefreshBadgePreview);
             });
             $("#BlahHeadline").keyup(function (theEvent) {
@@ -50,8 +60,17 @@ define('CreateBlahPage',
             $("#BlahBody").change(function (theEvent) {
                 HandleBodyTextInput(theEvent.target);
             });
-            $(BlahFullItem).fadeIn("fast");
+
+            $(BlahFullItem).fadeIn("fast", function() {
+                UpdateLayout();
+            });
+
             UpdateBadgeArea();
+        };
+
+        var UpdateLayout = function() {
+            var top = document.getElementById("CreateBlahHeader").getBoundingClientRect().bottom - 25;
+            $("#createcontent").css({"top": top + "px"});
         };
 
         var PopulateBlahTypeOptions = function() {
@@ -94,8 +113,10 @@ define('CreateBlahPage',
 
 
         function HandleHeadlineTextInput(target) {
-            if(target.scrollHeight > target.clientHeight)
+            if(target.scrollHeight > target.clientHeight)  {
                 target.style.height=target.scrollHeight+'px';
+                UpdateLayout();
+            }
             var numCharsRemaining = MaxTitleLength - target.value.length;
             if (numCharsRemaining < 32) {
                 $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
@@ -148,6 +169,7 @@ define('CreateBlahPage',
             } else {
                 $("#BadgesDiv").html("<tr><td>You do not have any badges.  Go to the 'badges' section your profile to acquire some.</tr></td>");
             }
+            UpdateLayout();
         };
 
         var RefreshBadgePreview = function() {
@@ -155,6 +177,7 @@ define('CreateBlahPage',
             $("#BadgesDiv input:checkbox:checked").each(function(index, item) {
                 $("#BlahFacetTable").append(CreateBadgeDescription(item));
             });
+            UpdateLayout();
         };
 
         var CreateBadgeDescription = function(theBadge) {
