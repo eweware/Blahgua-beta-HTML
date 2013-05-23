@@ -181,7 +181,6 @@ define('blahgua_base',
 // Initial Load
 
     function finalizeInitialLoad() {
-        StartLoginTimer();
         CreateChannelBanner();
         CreateFullBlah();
         GetUserChannels();
@@ -193,7 +192,6 @@ define('blahgua_base',
 
     var RefreshPageForNewUser = function(json) {
         // get the new channel list
-        StartLoginTimer();
         ClosePage();
         CurrentUser = json;
         refreshSignInBtn();
@@ -526,29 +524,6 @@ define('blahgua_base',
         StartBlahsMoving();
     }
 
-    var StartLoginTimer = function() {
-        if (LoginCheckTimer)
-            clearTimeout(LoginCheckTimer);
-
-        LoginCheckTimer = setTimeout(CheckLogin, 30000);
-    };
-
-    var CheckLogin = function() {
-        LoginCheckTimer = null;
-        if (IsUserLoggedIn) {
-            Blahgua.isUserLoggedIn(function(json) {
-                if (json.M == 0)
-                    alert("log out in " + json.S + " seconds!");
-
-                if (json.loggedIn == "Y")
-                    StartLoginTimer();
-                else {
-                    alert("session ended for lack of activity!");
-                    OnLogoutOK();
-                }
-            });
-        }
-    };
 
     var DismissAll = function() {
         if (document.getElementById("BlahFullItem").style.display != "none")
