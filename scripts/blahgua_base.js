@@ -566,7 +566,7 @@ define('blahgua_base',
         CurrentBlah = null;
         StopAnimation();
         CurrentBlahId = whichBlah.blah.I;
-        CurrentBlahNickname = getSafeProperty(whichBlah.blah, "K", "a blahger");
+        CurrentBlahNickname = getSafeProperty(whichBlah.blah, "K", "someone");
         Blahgua.GetBlah(CurrentBlahId, OpenLoadedBlah, OnFailure);
     }
 

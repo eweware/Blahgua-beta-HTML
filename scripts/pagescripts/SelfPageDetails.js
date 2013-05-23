@@ -34,7 +34,7 @@ define('SelfPageDetails',
 
         var RefreshPage = function(theStats) {
             $("#userName").val(CurrentUser.N);
-            var nickName = getSafeProperty(theStats, "A", "A Blahger");
+            var nickName = getSafeProperty(theStats, "A", "someone");
             $("#NicknameInput").val(nickName);
             //image
             var newImage = GetUserImage(CurrentUser, "A");
@@ -275,7 +275,7 @@ define('SelfPageDetails',
                 blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
                 }, function(theErr) {
-                    $("#DescriptionSpan").text("an anonymous blahger");
+                    $("#DescriptionSpan").text("someone");
                 });
             });
 

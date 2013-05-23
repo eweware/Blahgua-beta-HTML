@@ -103,7 +103,7 @@ define('BlahDetailPage',
                 $("#FullBlahProfileString").text(theString.d);
                 LoadOpenPage();
             }, function (theErr) {
-                $("#FullBlahProfileString").text("an anonymous blahger");
+                $("#FullBlahProfileString").text("someone");
                 LoadOpenPage();
             });
 

@@ -140,7 +140,7 @@ define('BlahPreview',
             if (FocusedBlah.hasOwnProperty("K"))
                 CurrentBlah.K = FocusedBlah.K;
             var headlineText = document.getElementById("BlahPreviewHeadline");
-            CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "a blahger");
+            CurrentBlahNickname = getSafeProperty(theFullBlah, "K", "someone");
             var nickNameStr = CurrentBlahNickname;
             var blahTypeStr = exports.GetBlahTypeStr();
             var isOwnBlah;

@@ -20,10 +20,10 @@ define('CreateBlahPage',
             blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
                 $("#FullBlahProfileString").text(theString.d);
             }, function (theErr) {
-                $("#FullBlahProfileString").text("an anonymous blahger");
+                $("#FullBlahProfileString").text("someone");
             });
 
-            $("#FullBlahNickName").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
+            $("#FullBlahNickName").text(getSafeProperty(CurrentUser, "N", "someone" ));
             var newImage = GetUserImage(CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
             var channelName = CurrentChannel.N;

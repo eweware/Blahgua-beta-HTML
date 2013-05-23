@@ -39,7 +39,7 @@ define('SelfPage',
             if (theErr.status == 404) {
                 // profile doesn't exist - add one!
                 UserProfile = new Object();
-                UserProfile["A"] = "a blahger";
+                UserProfile["A"] = "someone";
                 blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, exports.OnFailure);
             }
         };
@@ -47,7 +47,7 @@ define('SelfPage',
 
         var OnGetOwnProfileOK = function(theStats) {
             UserProfile = theStats;
-            var nickName = getSafeProperty(theStats, "A", "A Blahger");
+            var nickName = getSafeProperty(theStats, "A", "someone");
             $("#FullBlahNickName").text(nickName);
             //image
             var newImage = GetUserImage(CurrentUser, "A");

@@ -212,8 +212,8 @@ define('comments',
             newEl.className = "comment-table-row";
 
             var newHTML = "";
-            var blahgerName = "a blahger";
-            var authorDesc = "an anonymous blahger";
+            var blahgerName = "someone";
+            var authorDesc = "someone";
 
             if (theComment.hasOwnProperty("n")) {
                 blahgerName = theComment.n;
