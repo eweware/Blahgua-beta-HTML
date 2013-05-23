@@ -26,6 +26,8 @@ define('CreateBlahPage',
             $("#FullBlahNickName").text(getSafeProperty(CurrentUser, "N", "a blahger" ));
             var newImage = GetUserImage(CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+            var channelName = CurrentChannel.N;
+            $(".fullBlahSpeechAct").text("to " + channelName);
 
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);

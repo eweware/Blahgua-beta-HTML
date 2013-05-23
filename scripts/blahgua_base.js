@@ -103,8 +103,8 @@ define('blahgua_base',
             if (json.loggedIn == "Y")
                 HandlePostSignIn();
             else {
-                var savedID = null;// $.cookie("userId");
-                var pwd = null; //$.cookie("password");
+                var savedID =$.cookie("userId");
+                var pwd = $.cookie("password");
 
                 if (savedID != null) {
                     if (pwd == null) {
