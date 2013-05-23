@@ -121,7 +121,7 @@ define('BlahPreview',
             });
             $("#SuggestSignIn").click(function() {
                 event.stopImmediatePropagation();
-                exports.SuggestUserSignIn('log in to blahgua to promote, demote, or comment on things!');
+                exports.SuggestUserSignIn('Sign in to promote, demote and comment');
                 exports.DismissPreview();
             });
         };

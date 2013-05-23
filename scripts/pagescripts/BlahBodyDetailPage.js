@@ -35,7 +35,7 @@ define('BlahBodyDetailPage',
             $("#SuggestSignInDiv").click(function() {
                 event.stopImmediatePropagation();
                 //todo: implement blah favorite
-               exports.SuggestUserSignIn("Log in to promote, demote, and comment!")
+               exports.SuggestUserSignIn("Sign in to promote, demote and comment")
             });
 
 

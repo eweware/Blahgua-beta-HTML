@@ -455,7 +455,7 @@ define('blahgua_base',
         var signin = document.createElement("button");
         signin.className = "sign-in-button";
         signin.onclick=function(event) {InstallUserChannel(); event.stopPropagation();};
-        signin.innerHTML = "log in";
+        signin.innerHTML = "sign in";
         banner.appendChild(signin);
 
         var options = document.createElement("div");
@@ -472,7 +472,7 @@ define('blahgua_base',
         if (IsUserLoggedIn) {
             $(".sign-in-button").addClass("logged-in").text("profile");
         } else {
-            $(".sign-in-button").addClass("logged-in").text("log in");
+            $(".sign-in-button").addClass("logged-in").text("sign in");
         }
 
     }
@@ -782,8 +782,8 @@ define('blahgua_base',
                 newHTML += "Click below to add the first!<br/>" +
                     "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
             } else {
-                newHTML += "Click below to log in. Then you can make the first!<br/>";
-                newHTML += "<a onclick='InstallUserChannel(); return false;'>Log in</a>";
+                newHTML += "Click below to sign in. Then you can make the first!<br/>";
+                newHTML += "<a onclick='InstallUserChannel(); return false;'>Sign in</a>";
             }
 
             newDiv.innerHTML = newHTML;
@@ -1430,7 +1430,7 @@ define('blahgua_base',
         if (IsUserLoggedIn) {
             return "view your profile";
         } else {
-            return "Log in to blahgua";
+            return "Sign in";
         }
     }
 
@@ -1603,7 +1603,7 @@ define('blahgua_base',
                 });
             });
         } else {
-            SuggestUserSignIn("you must log in before you can create a new blah")
+            SuggestUserSignIn("You must sign in before you can create")
         }
     }
 
