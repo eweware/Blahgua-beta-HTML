@@ -103,13 +103,15 @@ define('BlahTypePoll',
                         $(".poll-prompt").text("check out your vote:");
                         $(".poll-checkbox").hide();
                         img.addClass("checked").show();
-                        $(".poll-chart-div").show();
+                        $(".poll-chart-div").show()
+                        $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
                     } else if (CurrentBlah.A == CurrentUser._id) {
                         $(".poll-prompt").text("your poll results so far");
                         // user's own blah - can't vote
                         $(".poll-checkbox").hide();
                         $(".poll-chart-div").show();
+                        $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
                     } else {
                         // user did not vote - they can vote!

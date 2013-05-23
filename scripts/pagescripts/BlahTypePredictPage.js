@@ -59,6 +59,7 @@ define('BlahTypePredict',
             UpdatePredictPage();
         }
         var UpdatePredictPage = function() {
+            $("#PredictCheckBoxClass").hide();
             // update the prediction divs
             var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
             var expDate = new Date(expDateVal);
@@ -96,12 +97,23 @@ define('BlahTypePredict',
                 noRatio = Math.floor((noVotes / totalVotes) * 100);
                 maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
             }
-            $("#PredictYesSpan").animate({'width': yesRatio + "%"}, 250);
-            $("#PredictNoSpan").animate({'width': noRatio + "%"}, 250);
-            $("#PredictMaybeSpan").animate({'width': maybeRatio + "%"}, 250);
-            //document.getElementById("PredictYesSpan").style.width = yesRatio + "%";
-            //document.getElementById("PredictNoSpan").style.width = noRatio + "%";
-            //document.getElementById("PredictMaybeSpan").style.width = maybeRatio + "%";
+
+            if (yesVotes > 0)
+                $("#PredictYesSpan").empty().animate({'width': yesRatio + "%"}, 250);
+            else
+                $("#PredictYesSpan").html("no&nbsp;votes&nbsp;yet");
+
+            if (noVotes > 0)
+                $("#PredictNoSpan").empty().animate({'width': noRatio + "%"}, 250);
+            else
+                $("#PredictNoSpan").html("no&nbsp;votes&nbsp;yet");
+
+            if (maybeVotes > 0)
+                $("#PredictMaybeSpan").empty().animate({'width': maybeRatio + "%"}, 250);
+            else
+                $("#PredictMaybeSpan").html("no&nbsp;votes&nbsp;yet");
+
+
 
             // expired ui
             yesVotes = getSafeProperty(CurrentBlah, "1", 0);
@@ -117,9 +129,20 @@ define('BlahTypePredict',
                 noRatio = Math.floor((noVotes / totalVotes) * 100);
                 maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
             }
-            document.getElementById("ExpPredictYesSpan").style.width = yesRatio + "%";
-            document.getElementById("ExpPredictNoSpan").style.width = noRatio + "%";
-            document.getElementById("ExpPredictMaybeSpan").style.width = maybeRatio + "%";
+            if (yesVotes > 0)
+                $("#ExpPredictYesSpan").empty().animate({'width': yesRatio + "%"}, 250);
+            else
+                $("#ExpPredictYesSpan").html("no&nbsp;votes&nbsp;yet");
+
+            if (noVotes > 0)
+                $("#ExpPredictNoSpan").empty().animate({'width': noRatio + "%"}, 250);
+            else
+                $("#ExpPredictNoSpan").html("no&nbsp;votes&nbsp;yet");
+
+            if (maybeVotes > 0)
+                $("#ExpPredictMaybeSpan").empty().animate({'width': maybeRatio + "%"}, 250);
+            else
+                $("#ExpPredictMaybeSpan").html("no&nbsp;votes&nbsp;yet");
 
 
             if (IsUserLoggedIn) {
@@ -133,25 +156,24 @@ define('BlahTypePredict',
                             $('.current-choices img').unbind('click');
                             switch (userVote) {
                                 case "y":
-                                    document.getElementById("PredictYesImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictYesImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#PredictYesImg").show();
-                                    $("#PredictNoImg").hide();
-                                    $("#PredictMaybeImg").hide();
+
                                     break;
                                 case "n":
-                                    document.getElementById("PredictNoImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictNoImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#PredictNoImg").show();
-                                    $("#PredictYesImg").hide();
-                                    $("#PredictMaybeImg").hide();
                                     break;
                                 case "u":
-                                    document.getElementById("PredictMaybeImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("PredictMaybeImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#PredictMaybeImg").show();
-                                    $("#PredictNoImg").hide();
-                                    $("#PredictYesImg").hide();
                                     break;
                             }
-                        } else {
+                        } else if (CurrentBlah.A == CurrentUser._id) {
+                            $('.current-choices img').unbind('click');
+                            $("#PredictVotePrompt").text("The result so far:");
+                        }
+                        else {
                             // no vote yey
                             $("#PredictYesImg").show();
                             $("#PredictNoImg").show();
@@ -162,37 +184,34 @@ define('BlahTypePredict',
                             $('.expired-choices img').unbind('click');
                             switch (expVote) {
                                 case "y":
-                                    document.getElementById("ExpPredictYesImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictYesImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#ExpPredictYesImg").show();
-                                    $("#ExpPredictNoImg").hide();
-                                    $("#ExpPredictMaybeImg").hide();
                                     break;
                                 case "n":
-                                    document.getElementById("ExpPredictNoImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictNoImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#ExpPredictNoImg").show();
-                                    $("#ExpPredictYesImg").hide();
-                                    $("#ExpPredictMaybeImg").hide();
                                     break;
                                 case "u":
-                                    document.getElementById("ExpPredictMaybeImg").src = "http://beta.blahgua.com.s3.amazonaws.com/img/checked.png";
+                                    document.getElementById("ExpPredictMaybeImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
                                     $("#ExpPredictMaybeImg").show();
-                                    $("#ExpPredictNoImg").hide();
-                                    $("#ExpPredictYesImg").hide();
                                     break;
                             }
-                        } else {
+                        } else if (CurrentBlah.A == CurrentUser._id) {
+                            $('.current-choices img').unbind('click');
+                            $("#PredictVotePrompt").text("The result so far:");
+                        } else  {
                             // no vote yey
                             $("#ExpPredictYesImg").show();
                             $("#ExpPredictNoImg").show();
                             $("#ExpPredictMaybeImg").show();
                         }
                     }, function(theErr) {
-                        $("#PredictYesImg").show();
-                        $("#PredictNoImg").show();
-                        $("#PredictMaybeImg").show();
-                        $("#ExpPredictYesImg").show();
-                        $("#ExpPredictNoImg").show();
-                        $("#ExpPredictMaybeImg").show()
+                        $("#PredictYesImg").hide();
+                        $("#PredictNoImg").hide();
+                        $("#PredictMaybeImg").hide();
+                        $("#ExpPredictYesImg").hide();
+                        $("#ExpPredictNoImg").hide();
+                        $("#ExpPredictMaybeImg").hide()
                     });
             }
 

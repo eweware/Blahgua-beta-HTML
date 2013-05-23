@@ -2,7 +2,7 @@
 
 define('blahgua_restapi', ['spin'], function (spin) {
     // properties
-    var baseURL = "http://beta.blahgua.com/v2/";
+    var baseURL = "https://beta.blahgua.com/v2/";
     var currentChannel = "";
     //this.baseURL = "../v2/";
 
@@ -428,6 +428,38 @@ define('blahgua_restapi', ['spin'], function (spin) {
         CallGetMethod(method, paramStr, OnSuccess, OnFailure);
     };
 
+    var recoverUser = function (userName, email, OnSuccess, OnFailure) {
+        /// <summary>sends a recovery email to the user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var params = new Object();
+        params["U"] = userName;
+        params["E"] = email;
+        var method = "users/recover/user";
+        CallPostMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
+    };
+
+    var setRecoveryInfo = function (email, OnSuccess, OnFailure) {
+        /// <summary>sets the recovery email for the user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var params = new Object();
+        params["E"] = email;
+        var method = "users/account";
+        CallPostMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
+    };
+
+    var getRecoveryInfo = function (OnSuccess, OnFailure) {
+        /// <summary>sets the recovery email for the user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var method = "users/account";
+        CallGetMethod(method, "{}", OnSuccess, OnFailure);
+    };
+
     var GetUserDescriptors = function (theIds, OnSuccess, OnFailure) {
         /// <summary>returns a user record on the logged in user</summary>
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
@@ -724,6 +756,9 @@ define('blahgua_restapi', ['spin'], function (spin) {
         GetBlah:  GetBlah ,
         GetBlahAuthor:  GetBlahAuthor ,
         GetBlahWithStats: GetBlahWithStats,
-        GetUserDescriptors: GetUserDescriptors
+        GetUserDescriptors: GetUserDescriptors,
+        recoverUser: recoverUser,
+        setRecoveryInfo: setRecoveryInfo,
+        getRecoveryInfo: getRecoveryInfo
     }
 });

@@ -54,6 +54,9 @@
     background-color: red;
     height:18px;
     width:0;
+    font-family: 'Arimo', sans-serif;
+    font-style: italic;
+    font-size: 12px;
 }
 
 .PredictCheckBoxWrapper {
@@ -81,4 +84,14 @@
 
 [data-predict-vote=u] predict-indicator-span {
     background-color: blue;
+}
+
+.predict-input {
+
+}
+
+.prediction-label {
+    font-family:'Arimo',sans-serif;
+    font-size:17px;
+    color:#545253;
 }

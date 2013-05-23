@@ -39,7 +39,7 @@ var ChannelList = [];
 var BlahTypeList = null;
 var IsUserLoggedIn = false;
 var ChannelDropMenu = null;
-var fragmentURL = "http://beta.blahgua.com.s3.amazonaws.com";
+var fragmentURL = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com";
 var ProfileSchema = null;
 var UserProfile = null;
 var CurrentBlahNickname = "";
@@ -66,6 +66,7 @@ var CurrentScrollSpeed = kBlahRollPixelStep;
 var resizeTimer = null;
 var SpinElement = null;
 var SpinTarget = null;
+var LoginCheckTimer = null;
 
 /*
  Global functions
@@ -172,9 +173,9 @@ function GetItemImage(theItem, size) {
     var imagePathName = "";
     if (theItem.hasOwnProperty("M")) {
         // fetch the correct image size
-        var hostName = "blahguaimages.s3-website-us-west-2.amazonaws.com/image/";
+        var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
         var imageName = theItem.M[0];
-        imagePathName = "http://" + hostName + imageName + "-" + size + ".jpg";
+        imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
     }
 
     return imagePathName;

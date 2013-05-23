@@ -8,8 +8,10 @@
 
 
 define('SelfPage',
-    ["GlobalFunctions"],
-    function (exports) {
+    ["GlobalFunctions", "blahgua_restapi"],
+    function (exports, blahgua_rest) {
+
+        var curStatPage = null;
 
         var  InitializePage = function(whichPage) {
             $(BlahFullItem).disableSelection();
@@ -25,10 +27,41 @@ define('SelfPage',
             $("#SelfStatsBtn").click(function(theEvent){
                 SetSelfDetailPage('Stats');
             });
-            $(BlahFullItem).fadeIn("fast", function() {
-                SetSelfDetailPage(whichPage);
-            });
+
+            curStatPage = whichPage;
+
+            blahgua_rest.GetUserProfile(CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
         };
+
+
+
+        var OnGetOwnProfileFailed = function(theErr) {
+            if (theErr.status == 404) {
+                // profile doesn't exist - add one!
+                UserProfile = new Object();
+                UserProfile["A"] = "a blahger";
+                blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, exports.OnFailure);
+            }
+        };
+
+
+        var OnGetOwnProfileOK = function(theStats) {
+            UserProfile = theStats;
+            var nickName = getSafeProperty(theStats, "A", "A Blahger");
+            $("#FullBlahNickName").text(nickName);
+            //image
+            var newImage = GetUserImage(CurrentUser, "A");
+            if (newImage != "")
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+
+            blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
+                $("#DescriptionSpan").text(theString.d);
+            });
+
+            $(BlahFullItem).fadeIn("fast", function() {
+                SetSelfDetailPage(curStatPage);
+            });
+        }
 
         var SetSelfDetailPage = function(whichPage) {
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");

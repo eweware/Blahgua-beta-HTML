@@ -100,11 +100,17 @@ define('SignUpPage',
 
         var CancelSignIn = function() {
             exports.ClosePage();
-        }
+        };
 
         var RecoverPassword = function() {
-            alert("Not Implemented!");
-        }
+            var userName = $("#uname2").val();
+            var email = $("#email").val();
+            blahgua_rest.recoverUser(userName, email, function(theResult) {
+                alert("reset instructions will be sent to the email account on file.");
+            }, function (theErr) {
+                alert("reset instructions will be sent to the email account on file. ");
+            })
+        };
 
         var RefreshSignupContent = function(message) {
             $("#BlahFullItem").show();
@@ -142,8 +148,15 @@ define('SignUpPage',
             $("#CancelForgot").click(CancelSignIn);
             $("#NewUserBtn").click(CreateNewUser);
             $("#SignInBtn").click(SignInExistingUser);
+            $("#ShowAccountRecoveryBtn").click(ShowRecoveryInfo)
             $("#RecoverPasswordBtn").click(RecoverPassword);
-        }
+        };
+
+        var ShowRecoveryInfo = function(theEvent) {
+            var table =  $(theEvent.target).closest("table");
+            table.find("tr").hide();
+            table.find("tr.recover-password").show();
+        };
 
         return {
 

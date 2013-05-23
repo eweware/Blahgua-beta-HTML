@@ -104,6 +104,7 @@ define('SelfPageHistory',
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 CurrentBlah = theBlah;
                 BlahReturnPage = "UserBlahList";
+                CurrentBlahNickname = getSafeProperty(UserProfile, "A", "a blahger");
                 exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };

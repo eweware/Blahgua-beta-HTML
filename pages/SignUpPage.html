@@ -29,31 +29,42 @@
                         <td><label for="pwd2">Password</label></td>
                         <td><input id="pwd2"  type="password"></td>
                     </tr>
-                    <tr >
+                    <tr  class="label-group" >
+                        <td colspan="2" class="item-container">
+                            <button align="center" id="SignInBtn" class="action-btn action-default">Log In</button>
+                        </td>
+                        </tr>
+                    <tr>
                         <td colspan="2" class="item-container">
                             <div class="checkbox-group">
-
                                 <label for="rememberme2">Remember me</label>
-                                <input type="checkbox" value="true" id="rememberme2">                            </div>
+                                <input type="checkbox" value="true" id="rememberme2">
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
                                 <button align="center" id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
-                                <button align="center" id="SignInBtn" class="action-btn action-default">Log In</button>
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="recover-password" style="display:none">
                         <td colspan="2" class="item-container">
                             <span class="recovery-instructions">Submit your email address to recover your password.
                             </span>
                         </td>
                     </tr>
-                    <tr class="label-group">
+                    <tr class="recover-password label-group"  style="display:none">
+                        <td><label for="uname2">Username</label></td>
+                        <td><input id="uname2"  type="text"></td>
+                    </tr>
+                    <tr class="recover-password label-group"  style="display:none">
                         <td><label for="email">Email</label></td>
                         <td><input id="email"  type="email"></td>
+                    </tr>
+                    <tr class="recover-password" style="display:none">
+                        <td  colspan="2" ><button id="RecoverPasswordBtn" class="action-btn">Recover</button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -90,35 +101,6 @@
                         <td colspan="2">
                             <div class="item-container">
                                 <button align="center" id="NewUserBtn" class="action-btn action-default">Create</button>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="toggle-content" data-toggle-set="login" data-toggle-value="recover">
-                <table>
-                    <thead>
-                    <th class="table-label-col"></th>
-                    <th class="table-input-col"></th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td colspan="2" class="item-container">
-                            <span class="recovery-instructions">Submit your email address to recover your password.
-                            </span>
-                        </td>
-                    </tr>
-                    <tr class="label-group">
-                        <td><label for="email">Email</label></td>
-                        <td><input id="email"  type="email"></td>
-                    </tr>
-
-                    <tr>
-                        <td colspan="2">
-                            <div class="item-container">
-                                <button align="center" id="RecoverPasswordBtn" class="action-btn action-default">Submit</button>
                             </div>
                         </td>
                     </tr>

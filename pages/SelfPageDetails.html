@@ -22,8 +22,8 @@
         </td></tr>
 </table>
 
-<div class="accordion active">
-    <h2>Account Info</h2>
+<div class="accordion">
+    <h2>Account Info<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Screen Name and User Image
@@ -42,6 +42,13 @@
 
             </tr>
             <tr>
+                <td class="attribute-col" >recovery email</td>
+
+                <td>
+                    <input id="RecoveryEmail" type="text" class="email">
+                </td>
+            </tr>
+            <tr>
                 <td class="attribute-col" >User Image</td>
                 <td>
                     <div id="uploadimage" class="user-image"></div>
@@ -50,10 +57,10 @@
 
                 </td>
             </tr>
-            <tr>
+            <tr style="display:none">
                 <td colspan="2">
-                    <form id="ImageForm" action="http://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-                        <div style="display:none">
+                    <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+                        <div >
                             <input id="UserFormImage" name="file" type="file" >
                             <input type="text" name="objectType" hidden="true" value="U"/>
                             <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -78,7 +85,7 @@
 
 
 <div class="accordion">
-    <h2>Badges</h2>
+    <h2>Badges<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Badges add credibility to your content.  Use badges to share verified attributes about yourself, seperate from your identity.
@@ -110,7 +117,7 @@
 
 
 <div class="accordion">
-    <h2>About You</h2>
+    <h2>About You<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Provide details about yourself to receive more personalized streams.  You can decide what is made public by clicking the checkboxes.
