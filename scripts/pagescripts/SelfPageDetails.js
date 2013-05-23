@@ -185,7 +185,7 @@ define('SelfPageDetails',
                     CreateAndAppendBadgeHTML(curBadge);
                 });
             } else {
-                $("#BadgesDiv").html("<tr><td>You don't have no stinkin' badges!</tr></td>");
+                $("#BadgesDiv").html("<tr><td>No current badges.  Add them below.</tr></td>");
             }
         };
 
