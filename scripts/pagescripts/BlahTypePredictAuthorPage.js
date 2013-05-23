@@ -18,15 +18,28 @@ define('BlahTypePredictAuthorPage',
         var PrepareCreateBlahJSON = function() {
             var options = new Object();
             var theDateStr = $("#PredictionEndDateInput").val();
-            var theTimeStr = $("#PredictionEndTimeInput").val();
-            var theDate = new Date(theDateStr + " " + theTimeStr);
+            var theDate = new Date(theDateStr);
             options["E"] = theDate;
 
             return options;
         };
 
+        var ValidateCreate = function() {
+            var msg = "";
+            var theDateStr = $("#PredictionEndDateInput").val();
+            var theDate = new Date(theDateStr);
+
+            if (theDate < Date.now())
+                msg = "prediction must be for a time in the future."
+
+
+            return msg;
+        }
+
+
         return {
             InitializePage: InitializePage,
+            ValidateCreate: ValidateCreate,
             PrepareCreateBlahJSON: PrepareCreateBlahJSON
         }
     }

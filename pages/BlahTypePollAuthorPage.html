@@ -1,12 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-    </head>
-    <body>
-        <div id="BlahTypeAskAuthorPage" >
-            <div id="PollAnswersArea" style="font-family:'Arimo',sans-serif;font-size:17px;font-weight:strong;color:#545253;">Response</div>
-            <button onclick="AddPollAnswer(); return false;" style="position:relative;top:5px;">Add Choice</button>
-        </div>
-    </body>
+<head>
+    <title></title>
+</head>
+<body>
+<div id="BlahTypeAskAuthorPage" >
+    <div class="poll-prompt">poll responses:</div>
+    <table class="poll-result-table">
+        <tr class='poll-result-row'>
+            <td>
+                <table>
+                    <tr>
+                        <td><input type="text" class="poll-title" placeholder="option 1"></td>
+                        <td class="poll-chart-holder">
+                            <div class="poll-chart-div" style="width:20%">
+                                <span class="poll-vote-text">no votes</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" class="poll-description" placeholder="optional descriptive text"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class='poll-result-row'>
+            <td>
+                <table>
+                    <tr>
+                        <td><input type="text" class="poll-title" placeholder="option 1"></td>
+                        <td class="poll-chart-holder">
+                            <div class="poll-chart-div" style="width:20%">
+                                <span class="poll-vote-text">no votes</span>
+                            </div>
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="text" class="poll-description" placeholder="optional descriptive text"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <button class="add-poll-choice-btn">Add Response</button>
+</div>
+</body>
 </html>
