@@ -66,6 +66,7 @@ var CurrentScrollSpeed = kBlahRollPixelStep;
 var resizeTimer = null;
 var SpinElement = null;
 var SpinTarget = null;
+var LoginCheckTimer = null;
 
 /*
  Global functions

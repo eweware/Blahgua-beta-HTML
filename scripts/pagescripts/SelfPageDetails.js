@@ -21,7 +21,7 @@ define('SelfPageDetails',
                 document.getElementById('UserFormImage').click();
             } );
             $("#UserFormImage").change(HandleFilePreview);
-            UpdateSelfProfile();
+            RefreshPage();
         };
 
         var HandleFilePreview = function() {
@@ -32,43 +32,14 @@ define('SelfPageDetails',
         };
 
 
-        var UpdateSelfProfile = function() {
-            RefreshUserChannelContent();
-
-        };
-
-        var RefreshUserChannelContent = function() {
-            $("#BlahFullItem").show();
-            blahgua_rest.GetUserProfile(CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
-        };
-
-        var OnGetOwnProfileFailed = function(theErr) {
-            if (theErr.status == 404) {
-                // profile doesn't exist - add one!
-                UserProfile = new Object();
-                UserProfile["A"] = "a blahger";
-                blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, exports.OnFailure);
-            }
-        };
-
-
-        var OnGetOwnProfileOK = function(theStats) {
-            UserProfile = theStats;
+        var RefreshPage = function(theStats) {
             $("#userName").val(CurrentUser.N);
             var nickName = getSafeProperty(theStats, "A", "A Blahger");
             $("#NicknameInput").val(nickName);
-            $("#FullBlahNickName").text(nickName);
             //image
             var newImage = GetUserImage(CurrentUser, "A");
             if (newImage != "")
-            {
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
-                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-            }
-
-            blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
-                $("#DescriptionSpan").text(theString.d);
-            });
 
             // location
             $("#CityInput").val(getSafeProperty(theStats, "G", ""));
@@ -286,15 +257,15 @@ define('SelfPageDetails',
             UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            UserProfile["0"] = Number($('input:checkbox[name=nickname]:checked').val());
-            UserProfile["6"] = Number($('input:checkbox[name=city]:checked').val());
-            UserProfile["7"] = Number($('input:checkbox[name=state]:checked').val());
-            UserProfile["8"] = Number($('input:checkbox[name=zipcode]:checked').val());
-            UserProfile["9"] = Number($('input:checkbox[name=country]:checked').val());
-            UserProfile["2"] = Number($('input:checkbox[name=age]:checked').val());
-            UserProfile["4"] = Number($('input:checkbox[name=income]:checked').val());
-            UserProfile["1"] = Number($('input:checkbox[name=gender]:checked').val());
-            UserProfile["3"] = Number($('input:checkbox[name=race]:checked').val());
+            UserProfile["0"] = 2; // TODO: review - nickname is always public
+            UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
+            UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
+            UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
+            UserProfile["9"] = $('input:checkbox[name=country]:checked').val() ? 2 : 0;
+            UserProfile["2"] = $('input:checkbox[name=age]:checked').val() ? 2 : 0;
+            UserProfile["4"] = $('input:checkbox[name=income]:checked').val() ? 2 : 0;
+            UserProfile["1"] = $('input:checkbox[name=gender]:checked').val() ? 2 : 0;
+            UserProfile["3"] = $('input:checkbox[name=race]:checked').val() ? 2 : 0;
 
             // commit
             blahgua_rest.UpdateUserProfile(UserProfile, function() {

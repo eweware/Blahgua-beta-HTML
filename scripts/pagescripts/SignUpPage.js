@@ -103,7 +103,13 @@ define('SignUpPage',
         };
 
         var RecoverPassword = function() {
-            alert("Not Implemented!");
+            var userName = $("#uname2").val();
+            var email = $("#email").val();
+            blahgua_rest.recoverUser(userName, email, function(theResult) {
+                alert("reset instructions will be sent to the email account on file.");
+            }, function (theErr) {
+                alert("reset instructions will be sent to the email account on file. ");
+            })
         };
 
         var RefreshSignupContent = function(message) {

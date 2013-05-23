@@ -198,3 +198,13 @@
     background-color: #00c50d;
     color:white;
 }
+
+.inline-button.login-btn {
+    background: white;
+    color: black;
+}
+
+.inline-button.login-btn:hover {
+    background: #00c50d;
+    color:  white;
+}

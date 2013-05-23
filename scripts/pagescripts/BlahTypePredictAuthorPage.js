@@ -18,8 +18,7 @@ define('BlahTypePredictAuthorPage',
         var PrepareCreateBlahJSON = function() {
             var options = new Object();
             var theDateStr = $("#PredictionEndDateInput").val();
-            var theTimeStr = $("#PredictionEndTimeInput").val();
-            var theDate = new Date(theDateStr + " " + theTimeStr);
+            var theDate = new Date(theDateStr);
             options["E"] = theDate;
 
             return options;

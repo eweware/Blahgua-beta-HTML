@@ -7,6 +7,8 @@ define('blahgua_base',
     ],
     function(Exports, Blahgua) {
 
+        var rowSequence = [1,4,2,3,4,4,3];
+        var curRowSequence = 0;
 
         var InitializeBlahgua = function() {
             if ((window.location.hostname == "") ||
@@ -45,6 +47,7 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
+                $("#LightBox").click(DismissAll);
                 SignIn();
             });
         };
@@ -159,23 +162,26 @@ define('blahgua_base',
     }
 
     function OnGetChannelsOK(channelList) {
-        Blahgua.JoinUserToChannel(ChannelIDFromName("The Melting Pot", channelList),
-            function () {
-                Blahgua.JoinUserToChannel(ChannelIDFromName("Technology", channelList),
-                    function () {
-                        Blahgua.JoinUserToChannel(ChannelIDFromName("Entertainment", channelList),
-                            GetUserChannels
-                        );
-                    }
-                );
-            }
-        );
+        var ChannelList = [].concat(channelList);
+
+        var JoinUserToNextChannel = function(theList) {
+            var curChannel = theList.pop();
+            Blahgua.JoinUserToChannel(curChannel._id, function() {
+                if (theList.length > 0)
+                    JoinUserToNextChannel(theList);
+                else
+                    GetUserChannels();
+            });
+        };
+
+        JoinUserToNextChannel(ChannelList);
     }
 
 // *************************************************
 // Initial Load
 
     function finalizeInitialLoad() {
+        StartLoginTimer();
         CreateChannelBanner();
         CreatePreviewBlah();
         CreateFullBlah();
@@ -188,6 +194,7 @@ define('blahgua_base',
 
     var RefreshPageForNewUser = function(json) {
         // get the new channel list
+        StartLoginTimer();
         ClosePage();
         CurrentUser = json;
         refreshSignInBtn();
@@ -385,7 +392,6 @@ define('blahgua_base',
 
     function HideChannelList() {
         var menu = document.getElementById("ChannelDropMenu");
-        menu.style.left = document.getElementById("ChannelBanner").style.left;
         if (menu.style.display != "none") {
             $("#LightBox").hide();
             $(menu).fadeOut("fast");
@@ -526,17 +532,40 @@ define('blahgua_base',
         StartBlahsMoving();
     }
 
+    function StartLoginTimer() {
+        LoginCheckTimer = setTimeout(CheckLogin, 30000);
+    }
+
+    function CheckLogin() {
+        LoginCheckTimer = null;
+        if (IsUserLoggedIn) {
+            Blahgua.isUserLoggedIn(function(json) {
+                if (json.loggedIn == "Y")
+                    StartLoginTimer();
+                else
+                    OnLogoutOK();
+            })
+        }
+    }
+
+    var DismissAll = function() {
+        if (document.getElementById("BlahFullItem").style.display != "none")
+            CloseBlah();
+        else if (document.getElementById("ChannelDropMenu").style.display != "none")
+            HideChannelList();
+    }
+
     var OpenLoadedBlah = function(whichBlah) {
         $("#LightBox").show();
         CurrentBlah = whichBlah;
         CurrentComments = null;
         $(document).keydown(function(theEvent) {
             if (theEvent.which == 27) {
-                CloseBlah();
+                DismissAll();
             }
         }).focus();
 
-        CurrentBlahNickname = getSafeProperty(whichBlah, "K", "a blahger");
+        CurrentBlahNickname = getSafeProperty(whichBlah, "K", CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
             $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
@@ -554,6 +583,7 @@ define('blahgua_base',
         CurrentBlah = null;
         StopAnimation();
         CurrentBlahId = whichBlah.blah.I;
+        CurrentBlahNickname = getSafeProperty(whichBlah.blah, "K", "a blahger");
         Blahgua.GetBlah(CurrentBlahId, OpenLoadedBlah, OnFailure);
     }
 
@@ -951,53 +981,50 @@ define('blahgua_base',
 // Creating the next row of content and adding it
 
     function BuildNextRow(rowHint) {
-        var nextBlah = GetNextBlah();
 
-        var size = nextBlah.displaySize;
         var newRowEl = document.createElement("div");
         newRowEl.style.position = "absolute";
         newRowEl.style.left = "0px";
         newRowEl.rowAbove = null;
         newRowEl.rowBelow = null;
 
-        if (size == 1) {
-            // only one choice
-            newRowEl.rowHeight = LargeTileHeight;
-            CreateLRow(nextBlah, newRowEl);
+        switch (rowSequence[curRowSequence]) {
+            case 1:
+                newRowEl.rowHeight = LargeTileHeight;
+                CreateLRow(newRowEl);
+                break;
+            case 2:
+                newRowEl.rowHeight = MediumTileHeight;
+                CreateMMRow(newRowEl);
+                break;
+            case 3:
+                newRowEl.rowHeight = MediumTileHeight;
+                CreateSMSRow(newRowEl);
+                break;
+            case 4:
+                newRowEl.rowHeight = SmallTileHeight;
+                CreateSSSSRow(newRowEl);
+                break;
         }
-        else if (size == 2) {
-            newRowEl.rowHeight = MediumTileHeight;
 
-            // four choices
-            var which = Math.floor(Math.random() * 4);
-            if (which == 0) {
-                CreateMMRow(nextBlah, newRowEl);
-            } else if (which == 1) {
-                CreateMSSRow(nextBlah, newRowEl);
-            } else if (which == 2) {
-                CreateSMSRow(nextBlah, newRowEl);
-            } else if (which == 3) {
-                CreateSSMRow(nextBlah, newRowEl);
-            }
-        }
-        else if (size == 3) {
-            newRowEl.rowHeight = SmallTileHeight;
-            // only one choice
-            CreateSSSSRow(nextBlah, newRowEl);
-        }
+        curRowSequence++;
+        if (curRowSequence >= rowSequence.length)
+            curRowSequence = 0;
 
         return newRowEl;
 
     }
 
 
-    function CreateLRow(theBlah, newRowEl) {
+    function CreateLRow(newRowEl) {
+        var theBlah = GetNextMatchingBlah(1);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = edgeGutter + "px";
         newRowEl.appendChild(newBlahEl);
     }
 
-    function CreateMMRow(theBlah, newRowEl) {
+    function CreateMMRow(newRowEl) {
+        var theBlah = GetNextMatchingBlah(2);
         var curLeft = edgeGutter;
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
@@ -1010,8 +1037,9 @@ define('blahgua_base',
         newRowEl.appendChild(newBlahEl);
     }
 
-    function CreateSSSSRow(theBlah, newRowEl) {
+    function CreateSSSSRow(newRowEl) {
         var curLeft = edgeGutter;
+        theBlah = GetNextMatchingBlah(3);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
@@ -1035,8 +1063,9 @@ define('blahgua_base',
         newRowEl.appendChild(newBlahEl);
     }
 
-    function CreateMSSRow(theBlah, newRowEl) {
+    function CreateMSSRow(newRowEl) {
         var curLeft = edgeGutter;
+        var theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
@@ -1066,8 +1095,9 @@ define('blahgua_base',
         newRowEl.appendChild(newBlahEl);
     }
 
-    function CreateSMSRow(theBlah, newRowEl) {
+    function CreateSMSRow(newRowEl) {
         var curLeft = edgeGutter + SmallTileWidth + interBlahGutter;
+        theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
@@ -1097,7 +1127,8 @@ define('blahgua_base',
         newRowEl.appendChild(newBlahEl);
     }
 
-    function CreateSSMRow(theBlah, newRowEl) {
+    function CreateSSMRow(newRowEl) {
+        var theBlah = GetNextMatchingBlah(2);
         var curLeft = edgeGutter + (SmallTileWidth + interBlahGutter) * 2;
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
@@ -1155,7 +1186,7 @@ define('blahgua_base',
 
     function NormalizeStrengths(theBlahList) {
         // ensure 100 blahs
-        if (theBlahList.length < 20) {
+        if (theBlahList.length < 100) {
             var curLoc = 0;
             while (theBlahList.length < 100) {
                 theBlahList.push(theBlahList[curLoc++]);
@@ -1167,29 +1198,55 @@ define('blahgua_base',
 
     function AssignSizes(theBlahList) {
         // makes sure that there are a good ration of large, medium, small
-        var largeBlahThreshold = .8;
-        var mediumBlahThreshold = .3;
+        var numLarge = 4;
+        var numMedium = 16;
         // the rest are small - presumably 40, since we get 100 blahs
 
-        for (var curIndex in theBlahList) {
-            if (theBlahList[curIndex].S > kLargeBlahStrength)
-                theBlahList[curIndex].displaySize = 1;
-            else if (theBlahList[curIndex].S > kSmallBlahStrength)
-                theBlahList[curIndex].displaySize = 2;
-            else
-                theBlahList[curIndex].displaySize = 3;
+        // first, sort the blahs by their size
+        theBlahList.sort(function (a, b) {
+            return b.s - a.s;
+        });
+
+        var i = 0;
+        while (i < numLarge) {
+            theBlahList[i++].displaySize = 1;
         }
+
+        MaxMedium = theBlahList[i].s;
+
+        while (i < (numMedium + numLarge)) {
+            theBlahList[i++].displaySize = 2;
+        }
+
+        MaxSmall = theBlahList[i].s;
+
+        while (i < theBlahList.length) {
+            theBlahList[i++].displaySize = 3;
+        }
+
     }
 
 
-// end
-
     function PrepareBlahList(theBlahList) {
-        $("#ChannelBannerLabel").html(CurrentChannel.N);
-        if (theBlahList.length > 0) {
-            NormalizeStrengths(theBlahList);
-            AssignSizes(theBlahList);
+
+        // ensure 100 blahs
+        if (theBlahList.length < 100) {
+            var curLoc = 0;
+            while (theBlahList.length < 100) {
+                theBlahList.push(jQuery.extend({}, theBlahList[curLoc++]));
+            }
         }
+
+        // shuffle
+        fisherYates(theBlahList);
+
+
+        // sort by strength
+        AssignSizes(theBlahList);
+
+
+
+
 
     }
 
@@ -1634,7 +1691,6 @@ define('blahgua_base',
     }
 
     function OnLogoutOK(json) {
-        alert("you have been logged out.");
         IsUserLoggedIn = false;
         refreshSignInBtn();
         CurrentUser = null;

@@ -32,7 +32,7 @@ define('CreateBlahPage',
             $("#BlahImage").change(HandleFilePreview);
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
-            $(".create-page-button").click(function(theEvent) {
+            $("#ShowBadgeAreaBtn").click(function(theEvent) {
                 $("#BadgeChoiceRow").toggle();
                 $('input[type=checkbox]').click(RefreshBadgePreview);
             });
