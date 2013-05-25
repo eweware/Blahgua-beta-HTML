@@ -10,6 +10,20 @@ textarea {
     resize: none;
 }
 
+input {
+    outline:none;
+    transition: all 0.25s ease-in-out;
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+}
+
+input:focus {
+    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+}
+
+
 .fill-center-container {
     width: 100%;
     text-align: center;
@@ -300,6 +314,14 @@ a {
     font-size:16px;
     font-family:'Arimo',sans-serif;
 
+}
+
+.back-button {
+    display:inline-block;
+    width:32px;
+    height:32px;
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/back.png");
+    background-size: cover;
 }
 
 

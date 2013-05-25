@@ -174,10 +174,20 @@
     padding-bottom: 4px;
 }
 
-.accordion.active h2 {
-    background-color: #0108b9;
-    color:white;
+.accordion h2 img {
+    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/closed.png");
 }
+
+
+
+.accordion.active h2 {
+
+}
+
+.accordion.active h2 img {
+    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/opened.png");
+}
+
 
 .accordion .accordion-content {
     display: none;

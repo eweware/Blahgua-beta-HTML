@@ -6,7 +6,7 @@
 <body>
 <div id="SignInInDiv" class="sign-in-page">
     <div class="sign-in">
-        <h3 ><button align="center" id="CancelSignIn" class="inline-button blah-closer login-btn">close</button>Sign In or Create an account.</h3>
+        <h3 ><div id="CancelSignIn" class="back-button blah-closer"></div>Sign In or Create an account.</h3>
     </div>
     <div class="content_frame">
         <div class="toggle-header">
@@ -17,8 +17,8 @@
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="existing">
                 <table>
                     <thead>
-                    <th class="table-label-col"></th>
-                    <th class="table-input-col"></th>
+                    <tr class="table-label-col"></tr>
+                    <tr class="table-input-col"></tr>
                     </thead>
                     <tbody>
                     <tr class="label-group">
@@ -39,13 +39,13 @@
                     </tr>
                     <tr  class="label-group" >
                         <td colspan="2" class="item-container">
-                            <button align="center" id="SignInBtn" class="action-btn action-default">Sign In</button>
+                            <button id="SignInBtn" class="action-btn action-default">Sign In</button>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button align="center" id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
+                                <button id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
                             </div>
                         </td>
                     </tr>
@@ -72,8 +72,8 @@
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="new">
                 <table>
                     <thead>
-                    <th class="table-label-col"></th>
-                    <th class="table-input-col"></th>
+                    <tr class="table-label-col"></tr>
+                    <tr class="table-input-col"></tr>
                     </thead>
                     <tbody>
                     <tr class="label-group">
@@ -100,7 +100,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button align="center" id="NewUserBtn" class="action-btn action-default">Create</button>
+                                <button id="NewUserBtn" class="action-btn action-default">Create</button>
                             </div>
                         </td>
                     </tr>

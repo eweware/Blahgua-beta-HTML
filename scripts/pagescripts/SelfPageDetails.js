@@ -13,10 +13,10 @@ define('SelfPageDetails',
 
         var  InitializePage = function() {
 
-            $("#SaveProfileBtn").click(UpdateUserProfile);
+            $("#SaveAccountInfoBtn").click(UpdateUserAccountInfo);
+            $("#SaveDemographicsBtn").click(UpdateUserAccountInfo);
             $("#LogoutBtn").click(exports.LogoutUser);
             $("#ForgetBtn").click(exports.ForgetUser);
-            $('input[type=radio]').change(HandlePermAll);
             $("#UserImageBtn").click(function(theEvent) {
                 document.getElementById('UserFormImage').click();
             } );
@@ -26,15 +26,15 @@ define('SelfPageDetails',
 
         var HandleFilePreview = function() {
             var theFile = $("#UserFormImage").val();
-            $("#UserImageImageNameSpan").text(theFile);
-
-            MaybeEnableProfileSaveBtn();
+            if (theFile) {
+                UploadUserImage();
+            }
         };
 
 
-        var RefreshPage = function(theStats) {
+        var RefreshPage = function() {
             $("#userName").val(CurrentUser.N);
-            var nickName = getSafeProperty(theStats, "A", "someone");
+            var nickName = getSafeProperty(UserProfile, "A", "someone");
             $("#NicknameInput").val(nickName);
             //image
             var newImage = GetUserImage(CurrentUser, "A");
@@ -42,9 +42,9 @@ define('SelfPageDetails',
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
 
             // location
-            $("#CityInput").val(getSafeProperty(theStats, "G", ""));
-            $("#StateInput").val(getSafeProperty(theStats, "H", ""));
-            $("#ZipcodeInput").val(getSafeProperty(theStats, "I", ""));
+            $("#CityInput").val(getSafeProperty(UserProfile, "G", ""));
+            $("#StateInput").val(getSafeProperty(UserProfile, "H", ""));
+            $("#ZipcodeInput").val(getSafeProperty(UserProfile, "I", ""));
 
             // populate country codes
             var newEl;
@@ -52,19 +52,19 @@ define('SelfPageDetails',
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(theStats, "J", -1))
+                if (index == getSafeProperty(UserProfile, "J", -1))
                     newEl.selected = "selected";
                 $("#CountryInput").append(newEl);
             });
 
             // demographics
-            $("#DOBInput").val(getSafeProperty(theStats, "C", ""));
+            $("#DOBInput").val(getSafeProperty(UserProfile, "C", ""));
 
             $.each(ProfileSchema.B.DT, function(index, item){
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(theStats, "B", -1))
+                if (index == getSafeProperty(UserProfile, "B", -1))
                     newEl.selected = "selected";
                 $("#GenderInput").append(newEl);
             });
@@ -72,7 +72,7 @@ define('SelfPageDetails',
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(theStats, "D", -1))
+                if (index == getSafeProperty(UserProfile, "D", -1))
                     newEl.selected = "selected";
                 $("#EthnicityInput").append(newEl);
             });
@@ -80,30 +80,33 @@ define('SelfPageDetails',
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(theStats, "E", -1))
+                if (index == getSafeProperty(UserProfile, "E", -1))
                     newEl.selected = "selected";
                 $("#IncomeInput").append(newEl);
             });
 
             // permissions
-            $('input[name=nickname]').val([getSafeProperty(theStats, "0", 0)]);
+            $('input:checkbox[name=city]').val([getSafeProperty(UserProfile, "6", 0)]);
+            $('input:checkbox[name=state]').val([getSafeProperty(UserProfile, "7", 0)]);
+            $('input:checkbox[name=zipcode]').val([getSafeProperty(UserProfile, "8", 0)]);
+            $('input:checkbox[name=country]').val([getSafeProperty(UserProfile, "9", 0)]);
 
-            $('input[name=city]').val([getSafeProperty(theStats, "6", 0)]);
-            $('input[name=state]').val([getSafeProperty(theStats, "7", 0)]);
-            $('input[name=zipcode]').val([getSafeProperty(theStats, "8", 0)]);
-            $('input[name=country]').val([getSafeProperty(theStats, "9", 0)]);
+            $('input:checkbox[name=age]').val([getSafeProperty(UserProfile, "2", 0)]);
+            $('input:checkbox[name=income]').val([getSafeProperty(UserProfile, "4", 0)]);
+            $('input:checkbox[name=gender]').val([getSafeProperty(UserProfile, "1", 0)]);
+            $('input:checkbox[name=race]').val([getSafeProperty(UserProfile, "3", 0)]);
 
-            $('input[name=age]').val([getSafeProperty(theStats, "2", 0)]);
-            $('input[name=income]').val([getSafeProperty(theStats, "4", 0)]);
-            $('input[name=gender]').val([getSafeProperty(theStats, "1", 0)]);
-            $('input[name=race]').val([getSafeProperty(theStats, "3", 0)]);
 
             // badges
             UpdateBadgeArea();
             ShowBadgeSelection();
-            $("#SaveProfileBtn").attr("disabled", "disabled");
-            $('input').change(MaybeEnableProfileSaveBtn);
-            $('select').change(MaybeEnableProfileSaveBtn);
+            $("#SaveAccountInfoBtn").attr("disabled", "disabled");
+            $('#AccountArea input').change(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input:text').keydown(MaybeEnableProfileSaveBtn);
+
+            $("#SaveDemographicsBtn").attr("disabled", "disabled");
+            $('#DemoArea input').keydown(MaybeEnableDemoSaveBtn);
+            $('#DemoArea select').change(MaybeEnableDemoSaveBtn);
 
 
             // headers
@@ -124,32 +127,14 @@ define('SelfPageDetails',
 
         var MaybeEnableProfileSaveBtn = function() {
             var validated = true;
-            if(validated) $("#SaveProfileBtn").removeAttr("disabled");
+            if(validated) $("#SaveAccountInfoBtn").removeAttr("disabled");
         };
 
-        var HandlePermAll = function(theEvent) {
-            if ($(theEvent.target).attr("name") == "all") {
-                var setAllTo = Number($('input:radio[name=all]:checked').val());
-                $('input:radio').val([setAllTo]);
-            } else {
-                var setAll = true;
-                var allVal = false;
-
-                $("input:radio:checked").each(function(index, item) {
-                    if (setAll && $(item).attr("name") != "all") {
-                        if (!allVal)
-                            allVal = item.value;
-                        else if (allVal != item.value)
-                            setAll = false;
-                    }
-                });
-                if (!setAll)
-                    allVal = false;
-                $('input[name=all]').val([allVal]);
-
-            }
-
+        var MaybeEnableDemoSaveBtn = function() {
+            var validated = true;
+            if(validated) $("#SaveDemographicsBtn").removeAttr("disabled");
         };
+
 
         var ShowBadgeSelection = function() {
             blahgua_rest.getAuthorities(function (authList) {
@@ -241,9 +226,21 @@ define('SelfPageDetails',
             } );
         };
 
-        var UpdateUserProfile = function() {
+        var UpdateUserAccountInfo = function() {
             UserProfile["A"] = $("#NicknameInput").val();
+            UserProfile["0"] = 2; // TODO: review - nickname is always public
 
+            // TODO:  email address
+            // TODO:  password
+            // commit
+            blahgua_rest.UpdateUserProfile(UserProfile, function() {
+                var nickName = $("#NicknameInput").val();
+                $("#FullBlahNickName").text(nickName);
+                $("#SaveAccountInfoBtn").attr("disabled", "disabled");
+            });
+        };
+
+        var UpdateUserDemographics = function() {
             // location
             UserProfile["G"] = $("#CityInput").val();
             UserProfile["H"] = $("#StateInput").val();
@@ -257,7 +254,6 @@ define('SelfPageDetails',
             UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            UserProfile["0"] = 2; // TODO: review - nickname is always public
             UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
             UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
             UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
@@ -269,18 +265,13 @@ define('SelfPageDetails',
 
             // commit
             blahgua_rest.UpdateUserProfile(UserProfile, function() {
-                var nickName = $("#NicknameInput").val();
-                $("#FullBlahNickName").text(nickName);
-                document.getElementById("SaveProfileBtn").disabled = true;
+                $("#SaveDemographicsBtn").attr("disabled", "disabled");
                 blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
                 }, function(theErr) {
                     $("#DescriptionSpan").text("someone");
                 });
             });
-
-            if ($("#UserFormImage").val() != "")
-                UploadUserImage();
         };
 
         var UploadUserImage = function() {
@@ -317,13 +308,14 @@ define('SelfPageDetails',
         };
 
         var DoUploadComplete = function() {
-           $("ProgressDiv").hide();
-           $("UserFormImage").val("");
+           $("#ProgressDiv").hide();
+           $("#UserFormImage").val("");
             blahgua_rest.getUserInfo(function (json) {
                 CurrentUser = json;
                 var newImage = GetUserImage(CurrentUser, "A");
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+
 
 
             });

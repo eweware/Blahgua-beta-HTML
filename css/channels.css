@@ -12,7 +12,7 @@
     font-size:26px;
     font-weight:bold;
     font-stretch:condensed;
-    box-shadow:rgba(0,0,0,.4) 0px 4px;
+    box-shadow: rgba(0,0,0,.4) 0px 5px 8px;
     line-height:2em;
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/channel_bkgnd.jpg");
 }
@@ -48,6 +48,13 @@
     border-left-style:solid;
     text-align:center;
     vertical-align:middle;
+}
+
+.profile-button {
+    width:48px;
+    height:48px;
+    background-size: cover;
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/unknown-user.png");
 }
 
 .sign-in-button {
@@ -203,3 +210,6 @@
     background-color: #369;
     color: #a9a9a9;
 }
+
+
+

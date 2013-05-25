@@ -434,23 +434,11 @@ define('blahgua_base',
             ShowHideChannelList();
         });
 
-
-        var viewCount = document.createElement("span");
-        viewCount.className = "ChannelViewersSpan";
-        banner.appendChild(viewCount);
-        banner.viewCount = viewCount;
-        var eyeImage = document.createElement("img");
-        eyeImage.src = fragmentURL + "/img/black_eye.png";
-        eyeImage.className = "ChannelViewersImg";
-        eyeImage.alt = "viewer count";
-        viewCount.appendChild(eyeImage);
-        eyeImage.width = "24";
-        eyeImage.height = "24";
-        var countText = document.createElement("span");
-        countText.className = "ChannelViewersCountText";
-        countText.id = "ChannelViewersCountText";
-        viewCount.appendChild(countText);
-        countText.innerHTML = "";
+        var profile = document.createElement("div");
+        profile.className = "profile-button";
+        profile.onclick=function(event) {InstallUserChannel(); event.stopPropagation();};
+        profile.innerHTML = "sign in";
+        banner.appendChild(profile);
 
         var signin = document.createElement("button");
         signin.className = "sign-in-button";
@@ -1517,8 +1505,7 @@ define('blahgua_base',
 // *****************************************
 // User Channel
 
-    function InstallUserChannel() {
-        // empty whatever is in there now
+    function ShowUserProfile() {
         StopAnimation();
         $("#LightBox").show();
         $("#BlahFullItem").empty();
@@ -1540,6 +1527,20 @@ define('blahgua_base',
                     });
             });
         }
+    }
+
+    function ShowSignInUI() {
+        // empty whatever is in there now
+        StopAnimation();
+        $("#LightBox").show();
+        $("#BlahFullItem").empty();
+        require(['SignUpPage'], function(SignUpPage) {
+                $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv",
+                    function () {
+                        SignUpPage.RefreshSignupContent();
+                    });
+            }
+        );
     }
 
     function SuggestUserSignIn(message) {

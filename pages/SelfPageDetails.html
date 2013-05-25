@@ -9,42 +9,41 @@
     <div class="BadgeTitleBar"></div>
     <div id="badgedialog" class="BadgeDialog"></div>
 </div>
-<table style="width:90%">
-    <tr><td>
-        <button id="SaveProfileBtn" disabled="disabled" class="small-button default-button" >Update</button>
-
-    </td>
-        <td>
-            <button id="LogoutBtn" class="small-button">Logout</button><br/>
-        </td>
-        <td>
-            <button id="ForgetBtn" class="small-button">Forget Me</button>
-        </td></tr>
-</table>
 
 <div class="accordion">
-    <h2>Account Info<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
+    <h2><img>Account Info</h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Screen name and user image
         </div>
-        <table class="attribute-table accordion-content">
+        <div class="accordion-content">
+        <table id="AccountArea" class="attribute-table">
            
             <tbody>
             <tr>
                 <td class="attribute-col">Username</td>
-                <td> <input disabled="disabled" id="userName" type="text" class="userName"></td>
+                <td colspan="2"> <input disabled="disabled" id="userName" type="text" class="userName"></td>
             </tr>
             <tr>
                 <td class="attribute-col" >Screen name</td>
 
-                <td><input id="NicknameInput" type="text" class="userName"><input type="hidden" value="0" name="nickname"/></td>
+                <td colspan="2"><input id="NicknameInput" type="text" class="userName"><input type="hidden" value="0" name="nickname"/></td>
 
+            </tr>
+            <tr>
+                <td class="attribute-col" >password</td>
+
+                <td >
+                    <input id="Password" type="password">
+                </td>
+                <td >
+                    <input id="PasswordConfirm" type="password">
+                </td>
             </tr>
             <tr>
                 <td class="attribute-col" >Recovery email</td>
 
-                <td>
+                <td colspan="2">
                     <input id="RecoveryEmail" type="text" class="email">
                 </td>
             </tr>
@@ -52,13 +51,13 @@
                 <td class="attribute-col" >User image</td>
                 <td>
                     <div id="uploadimage" class="user-image"></div>
+                    </td>
+                <td>
                     <button id="UserImageBtn" class="user-image-upload-btn">ADD</button><br/>
-                    <span class="UserImageImageNameSpan" id="UserImageImageNameSpan">click to set image</span>
-
                 </td>
             </tr>
             <tr style="display:none">
-                <td colspan="2">
+                <td colspan="3">
                     <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
                         <div >
                             <input id="UserFormImage" name="file" type="file" >
@@ -69,7 +68,7 @@
                     </form>
                 </td>
             </tr>
-            <tr><td colspan="2">
+            <tr><td colspan="3">
                 <div id="ProgressDiv" style="display:none">
                     <div id="ProgressBar" style="width:400px; border-style: solid; height:16px; border-width: 2;">
                         <div id="Indicator" style="background-color: red; width:1px; height:16px;"></div>
@@ -77,15 +76,22 @@
                 </div>
             </td>
             </tr>
+            <tr>
+                <td> </td>
+                <td> </td>
+                <td>
+                    <button disabled="disabled" id="SaveAccountInfoBtn" class="small-button default-button" >Update</button>
+                </td>
+            </tr>
             </tbody>
         </table>
-
+        </div>
     </div>
 </div>
 
 
 <div class="accordion">
-    <h2>Badges<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
+    <h2><img>Badges</h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Badges add credibility to your content.  Use badges to share verified attributes about yourself, seperate from your identity.
@@ -117,19 +123,18 @@
 
 
 <div class="accordion">
-    <h2>About You<img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/expcol.png" align="right"></h2>
+    <h2><img>About You</h2>
     <div class="accordion-body">
         <div class="instruction-text">
             Provide details about yourself to receive more personalized streams.  You can decide what is made public by clicking the checkboxes.
-
         </div>
-
-        <table class="attribute-table accordion-content">
+        <div class="accordion-content">
+        <table id="DemoArea" class="attribute-table">
             <thead>
             <tr>
                 <th scope="col" style="width: 75px; border-top-left-radius: 8px;">Attribute</th>
                 <th scope="col">Input</th>
-                <th scope="col" style="border-top-right-radius: 8px;"><center>Public</center></th>
+                <th scope="col" style="border-top-right-radius: 8px;">Public</th>
 
             </tr>
             </thead>
@@ -138,46 +143,56 @@
             <tr>
                 <td class="attribute-col">Gender</td>
                 <td> <select id="GenderInput"> </select></td>
-                <td><center><input type="checkbox" value="2" name="gender"></center></td>
+                <td><input type="checkbox" value="2" name="gender"></td>
                   </tr>
             <tr>
                 <td class="attribute-col">Date of Birth</td>
                 <td> <input id="DOBInput" type="age"></td>
-                <td><center><input type="checkbox" value="2" name="age"></center></td>        
+                <td><input type="checkbox" value="2" name="age"></td>
             </tr>	                
             <tr>
                 <td class="attribute-col">Ethnicity</td>
                 <td><select id="EthnicityInput"> </select></td>
-                <td><center><input type="checkbox" value="2" name="race"></center></td>
+                <td><input type="checkbox" value="2" name="race"></td>
                     </tr>
             <tr>
                 <td class="attribute-col">City</td>
                 <td><input id="CityInput" type="text"></td>
-                <td><center><input type="checkbox" value="2" name="city"></center></td>
+                <td><input type="checkbox" value="2" name="city"></td>
             </tr>
             <tr>
                 <td class="attribute-col">State</td>
                 <td> <input id="StateInput" type="text"></td>
-                <td><center><input type="checkbox" value="2" name="state"></center></td>      
+                <td><input type="checkbox" value="2" name="state"></td>
             </tr>
             <tr>
                 <td class="attribute-col">Zip</td>
                 <td><input id="ZipcodeInput" type="text"></td>
-                <td><center><input type="checkbox" value="2" name="zipcode"></center></td>    
+                <td><input type="checkbox" value="2" name="zipcode"></td>
             </tr>
             <tr>
                 <td class="attribute-col">Country</td>
                 <td><select id="CountryInput"> </select></td>
-                <td><center><input type="hidden" value="0" name="country" />
-                <input type="checkbox" value="2" name="country"></center></td>    
+                <td><input type="checkbox" value="2" name="country"></td>
             </tr>
             <tr>
                 <td class="attribute-col">Income</td>
                 <td><select id="IncomeInput"> </select></td>
-                <td><center><input type="checkbox" value="2" name="income"></center></td>     
+                <td><input type="checkbox" value="2" name="income"></td>
+            </tr>
+            <tr><td>
+
+            </td>
+                <td>
+
+                </td>
+                <td>
+                    <button disabled="disabled" id="SaveDemographicsBtn" class="small-button default-button" >Update</button>
+                </td>
             </tr>
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 
