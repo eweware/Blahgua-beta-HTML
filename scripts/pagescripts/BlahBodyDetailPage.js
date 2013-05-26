@@ -142,6 +142,8 @@ define('BlahBodyDetailPage',
                 });
 
                 $("#AddCommentBtn").click(function(theEvent) {
+                    document.getElementById("AddCommentBtn").disabled = true;
+                    document.getElementById("CommentTextArea").disabled = true;
                     comments.DoAddComment(function(newComment) {
                         comments.InsertNewComment(newComment);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();

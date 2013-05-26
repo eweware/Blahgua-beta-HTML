@@ -29,8 +29,8 @@ define('SelfPageHistory',
                         blahsDiv.append(newHTML);
                     });
                     // bind events
-                    $("#UserBlahList a").click(function(theEvent){
-                        theID = $(theEvent.target).attr("data-blah-id");
+                    $("#UserBlahList tr").click(function(theEvent){
+                        theID = $(theEvent.target).closest("tr").attr("data-blah-id");
                         DoOpenUserBlah(theID);
                     });
                 } else {
@@ -74,8 +74,15 @@ define('SelfPageHistory',
 
         var CreateUserBlahHTML = function(theBlah) {
             var newHTML = "";
-            newHTML += "<tr>";
-            newHTML += "<td style='width:100%'><a href='javascript:void(null)' data-blah-id='" + theBlah._id + "'>";
+            var img = GetItemImage(theBlah, "A");
+
+            newHTML += "<tr data-blah-id='" + theBlah._id + "'>";
+            newHTML += "<td>";
+            if (img != "") {
+                newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
+            }
+            newHTML += "</td>"
+            newHTML += "<td style='width:100%'><a href='javascript:void(null)' >";
             newHTML += theBlah.T;
             newHTML += "</a></td>";
             newHTML += "<td>" + ElapsedTimeString(new Date(theBlah.c)) + "</td>";

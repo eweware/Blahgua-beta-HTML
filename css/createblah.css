@@ -16,7 +16,16 @@
     border-width: 1px;
     border-color:black;
     margin: 4px 8px 2px 2px;
+}
 
+.create-footer-div {
+    background-color: rgb(187, 187, 187);
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    padding: 10px 0px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 #CreateBlahPage {
@@ -87,8 +96,7 @@
 
 .create-blah-footer {
     width:100%;
-    position:absolute;
-    bottom:0px;
+
 }
 
 .createblahscrolltable
@@ -155,8 +163,8 @@
     border-radius:8px;
     border-style:none;
     padding:8px 16px;
-
 }
+
 .createblahadditional{
     text-align: center;
 }
@@ -177,16 +185,31 @@
 
 }
 
-.create-blah-btn:hover
+.create-page-button:hover
 {
     background: #004800;
 }
 
 
-.create-blah-btn[disabled]
+.create-page-button[disabled]
 {
     background: #d6edd7;
     color:#a9a9a9;
+}
+
+.create-validation-row {
+    text-align: right;
+    height: 32px;
+}
+
+.create-err-msg {
+    padding: 4px 8px;
+    background-color: yellow;
+    color:black;
+    font-size: 16px;
+    border-radius: 4px;
+    font-family: 'Arimo', sans-serif;
+    margin-right: 16px;
 }
 
 .image-preview-row {
@@ -232,33 +255,18 @@
 }
 
 
-.progressbar
+.progress-bar
 {
-    width:400px;
+    width:100%;
     border-style: solid;
-    height:32px;
-    border-width: 2;
+    height:16px;
+    border-width: 1px;
 }
-.indicator
+
+.progress-bar-indicator
 {
     background-color: red;
     width:1px;
-    height:32px;
+    height:16px
 }
 
-.uploadimage {
-
-}
-.userName
-{
-
-}
-.DescriptionInput
-{
-
-
-}
-#description
-{
-
-}

@@ -164,9 +164,8 @@
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     margin: -1px auto;
-    padding-top: 4px;
-    padding-right: 4px;
-    padding-left: 4px;
+    padding: 4px;
+    margin-bottom: 5px;
 }
 
 
@@ -250,6 +249,15 @@
 }
 
 
+.blah-preview-image {
+    width:48px;
+    height:48px;
+    background-color:white;
+    border-width:1px;
+    border-style:solid;
+    border-color:#000000;
+    background-size: cover;
+}
 
 
 /* Comments */
@@ -264,7 +272,7 @@
 }
 
 .comment-sort-area td {
-
+    min-width: 25px;
 }
 
 .comment-sort-area select {

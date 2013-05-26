@@ -11,8 +11,11 @@ define('BlahTypePollAuthorPage',
     [],
     function () {
 
-        var  InitializePage = function() {
+        var validateCallback = null;
 
+        var  InitializePage = function(callback) {
+
+            validateCallback = callback;
 
             $(".add-poll-choice-btn").click(function(theEvent) {
                 var newHTML = CreatePollChoiceElement();
@@ -24,6 +27,8 @@ define('BlahTypePollAuthorPage',
                         $(item).attr("placeholder", "option " + (index + 1));
                     });
                 });
+                $(".poll-title").change(validateCallback).keydown(validateCallback);
+
             });
         };
 
@@ -54,8 +59,8 @@ define('BlahTypePollAuthorPage',
         var ValidateCreate = function() {
             var msg = "";
             $(".poll-title").each(function(index, item) {
-                if (item.val() == "")
-                msg = "each poll response must have a title";
+                if (item.value == "")
+                msg = "Each poll response must have a title.  ";
             });
 
             return msg;

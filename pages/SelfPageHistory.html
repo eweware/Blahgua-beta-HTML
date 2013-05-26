@@ -12,8 +12,31 @@
             <table class="attribute-table accordion-content">
                 <thead>
                 <tr>
-                    <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Blah</th>
+                    <th style="width:48px; border-top-left-radius: 8px;"></th>
+                    <th scope="col" style="width: 10px;">Blah</th>
                     <th scope="col" style="border-top-right-radius: 8px;">Date</th>
+
+                </tr>
+                <tr>
+                    <td colspan="3" >
+                        <table>
+                            <tr class="comment-sort-area">
+                                <td>filter:<input text="text" id="FilterBox"></td>
+
+                                <td><select id="SortBySelect">
+                                    <option value="bydate" selected>by date</option>
+                                    <option value="bypromotes" >by promotes</option>
+                                    <option value="bydemotes" >by demotes</option>
+                                </select> </td>
+
+                                <td><select id="SortOrderSelect">
+                                    <option value="desc" selected>descending</option>
+                                    <option value="asc">ascending</option>
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
                 </thead>
                 <tbody id="UserBlahList">
@@ -36,6 +59,26 @@
                     <th scope="col" style="border-top-right-radius: 8px;">Date</th>
                 </tr>
                 </thead>
+                <tr>
+                    <td colspan="2">
+                        <table>
+                            <tr class="comment-sort-area">
+                                <td>filter:<input text="text" id="FilterBox"></td>
+                                <td><select id="SortBySelect">
+                                    <option value="bydate" selected>by date</option>
+                                    <option value="bypromotes" >by promotes</option>
+                                    <option value="bydemotes" >by demotes</option>
+                                </select>
+                                </td>
+                                <td><select id="SortOrderSelect">
+                                    <option value="desc" selected>descending</option>
+                                    <option value="asc">ascending</option>
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 <tbody id="UserCommentList">
 
                 </tbody>

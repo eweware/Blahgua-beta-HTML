@@ -66,6 +66,9 @@
     border-bottom-right-radius: 16px;
     height: 200px;
     background-color:deepskyblue;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: #00c50d;
 
 }
 

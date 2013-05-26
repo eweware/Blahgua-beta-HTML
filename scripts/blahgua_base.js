@@ -772,11 +772,9 @@ define('blahgua_base',
             var newHTML = "<b>" + CurrentChannel.N + "</b> currently has no blahs in it.</br> ";
 
             if (IsUserLoggedIn) {
-                newHTML += "Click below to add the first!<br/>" +
-                    "<a onclick='DoCreateBlah(); return false;'>Add a blah</a>";
+                newHTML += "Perhaps you can add the first!<br/>";
             } else {
-                newHTML += "Click below to sign in. Then you can make the first!<br/>";
-                newHTML += "<a onclick='InstallUserChannel(); return false;'>Sign in</a>";
+                newHTML += "Sign in, and then you can create the first!<br/>";
             }
 
             newDiv.innerHTML = newHTML;
@@ -950,6 +948,8 @@ define('blahgua_base',
             nextBlah = GetNextMatchingBlah(blahSize);
         }
 
+        if (nextBlah != null)
+            Blahgua.AddBlahViewsOpens(nextBlah.I, 1, 0, null, null);
         return nextBlah;
     }
 
@@ -1605,7 +1605,7 @@ define('blahgua_base',
                 });
             });
         } else {
-            SuggestUserSignIn("You must sign in before you can create")
+            SuggestUserSignIn("You must sign in before you can create a blah")
         }
     }
 

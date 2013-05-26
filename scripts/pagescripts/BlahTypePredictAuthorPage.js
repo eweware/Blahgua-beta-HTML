@@ -11,7 +11,11 @@ define('BlahTypePredictAuthorPage',
     ["GlobalFunctions", "blahgua_restapi"],
     function (exports, blahgua_rest) {
 
-        var  InitializePage = function() {
+        var validateCallback = null;
+
+        var  InitializePage = function(callback) {
+            validateCallback = callback;
+            $("#PredictionEndDateInput").change(validateCallback);
 
         };
 
@@ -27,11 +31,14 @@ define('BlahTypePredictAuthorPage',
         var ValidateCreate = function() {
             var msg = "";
             var theDateStr = $("#PredictionEndDateInput").val();
-            var theDate = new Date(theDateStr);
+            if (theDateStr == "")
+                msg = "Predictions must have a date.  ";
+            else {
+                var theDate = new Date(theDateStr);
 
-            if (theDate < Date.now())
-                msg = "prediction must be for a time in the future."
-
+                if (theDate <= Date.now())
+                    msg = "Predictions must be in the future."
+            }
 
             return msg;
         }

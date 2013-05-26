@@ -61,11 +61,14 @@ define('CreateBlahPage',
                 HandleBodyTextInput(theEvent.target);
             });
 
+            //noinspection JSUnresolvedFunction
             $(BlahFullItem).fadeIn("fast", function() {
                 UpdateLayout();
+                $("#BlahHeadline").focus();
             });
 
             UpdateBadgeArea();
+            CheckPublishBtnDisable();
         };
 
         var UpdateLayout = function() {
@@ -94,7 +97,10 @@ define('CreateBlahPage',
                     require(["BlahTypePredictAuthorPage"], function(PredictPage){
                         blahTypeModule = PredictPage;
                         $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
-                            function() { PredictPage.InitializePage(); })
+                            function() {
+                                PredictPage.InitializePage(CheckPublishBtnDisable);
+                                CheckPublishBtnDisable();
+                            });
                     });
 
                     break;
@@ -102,7 +108,10 @@ define('CreateBlahPage',
                     require(["BlahTypePollAuthorPage"], function(PollPage){
                         blahTypeModule = PollPage;
                         $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
-                            function() { PollPage.InitializePage(); })
+                            function() {
+                                PollPage.InitializePage(CheckPublishBtnDisable);
+                                CheckPublishBtnDisable();
+                            });
                     });
 
                     break;
@@ -135,10 +144,32 @@ define('CreateBlahPage',
             var bodyLen = document.getElementById("BlahBody").value.length;
             if ($("#BlahImage").val() != "")
                 minHeadlineLen = 0;
-            if ((headLineLen < minHeadlineLen) || (headLineLen > MaxTitleLength) || (bodyLen > 4000))
-                document.getElementById("PublishBlahBtn").disabled = true;
-            else
+            var errMsg = "";
+
+            if (headLineLen < minHeadlineLen)
+
+
+            if (headLineLen < minHeadlineLen)
+                errMsg += "Headline too short.  ";
+            if (headLineLen > MaxTitleLength)
+                errMsg += "Headline too long.  ";
+            if (bodyLen > 4000)
+                errMsg += "Body text too long.  ";
+
+
+            if (blahTypeModule)
+                errMsg += blahTypeModule.ValidateCreate();
+
+            if (errMsg == "") {
+                $("#ValidationRow").hide();
                 document.getElementById("PublishBlahBtn").disabled = false;
+                $("#ErrMsgSpan").empty();
+            }
+            else {
+                document.getElementById("PublishBlahBtn").disabled = true;
+                $("#ErrMsgSpan").text(errMsg);
+                $("#ValidationRow").show();
+            }
         }
 
         function HandleBodyTextInput(target) {
@@ -220,6 +251,7 @@ define('CreateBlahPage',
         function CreateBlah() {
             // disable create button to prevent double-submit
             document.getElementById("PublishBlahBtn").disabled = true;
+
             var blahType = $("#BlahTypeList").val();
 
             var blahHeadline = $("#BlahHeadline").val();
