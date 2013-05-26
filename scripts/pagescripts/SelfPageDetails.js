@@ -14,7 +14,7 @@ define('SelfPageDetails',
         var  InitializePage = function() {
 
             $("#SaveAccountInfoBtn").click(UpdateUserAccountInfo);
-            $("#SaveDemographicsBtn").click(UpdateUserAccountInfo);
+            $("#SaveDemographicsBtn").click(UpdateUserDemographics);
             $("#LogoutBtn").click(exports.LogoutUser);
             $("#ForgetBtn").click(exports.ForgetUser);
             $("#UserImageBtn").click(function(theEvent) {
@@ -107,6 +107,7 @@ define('SelfPageDetails',
             $("#SaveDemographicsBtn").attr("disabled", "disabled");
             $('#DemoArea input').keydown(MaybeEnableDemoSaveBtn);
             $('#DemoArea select').change(MaybeEnableDemoSaveBtn);
+            $('#DemoArea input:checkbox').click(MaybeEnableDemoSaveBtn);
 
 
             // headers

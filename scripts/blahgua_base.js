@@ -434,24 +434,23 @@ define('blahgua_base',
             ShowHideChannelList();
         });
 
-        var profile = document.createElement("div");
-        profile.className = "profile-button";
-        profile.onclick=function(event) {InstallUserChannel(); event.stopPropagation();};
-        profile.innerHTML = "sign in";
-        banner.appendChild(profile);
-
-        var signin = document.createElement("button");
-        signin.className = "sign-in-button";
-        signin.onclick=function(event) {InstallUserChannel(); event.stopPropagation();};
-        signin.innerHTML = "sign in";
-        banner.appendChild(signin);
-
         var options = document.createElement("div");
         options.onclick = function(event) {DoCreateBlah(); event.stopPropagation();};
         options.className = "ChannelOptions";
         options.innerHTML = "+";
         banner.appendChild(options);
         banner.options = options;
+
+        var profile = document.createElement("div");
+        profile.className = "profile-button";
+        profile.onclick=function(event) {ShowUserProfile(); event.stopPropagation();};
+        banner.appendChild(profile);
+
+        var signin = document.createElement("button");
+        signin.className = "sign-in-button";
+        signin.onclick=function(event) {ShowSignInUI(); event.stopPropagation();};
+        signin.innerHTML = "sign in";
+        banner.appendChild(signin);
 
         refreshSignInBtn();
     }
@@ -1142,7 +1141,8 @@ define('blahgua_base',
     function OnGetBlahsOK(theResult) {
         BlahList = theResult;
         NextBlahList = [];
-        PrepareBlahList(BlahList);
+        if (theResult.length > 0)
+            PrepareBlahList(BlahList);
         ActiveBlahList = [];
         RefreshActiveBlahList();
         DrawInitialBlahs();
@@ -1409,16 +1409,20 @@ define('blahgua_base',
         document.getElementById("ChannelList").innerHTML = newHTML;
         $("#ChannelList img").error(imgError);
         $(".channel-info-table").click(DoJumpToChannel);
-        $("#ViewProfileBtn").text(getUserChannelName());
+        UpdateChannelButtons();
 
 
     }
 
-    function getUserChannelName() {
+    function UpdateChannelButtons() {
         if (IsUserLoggedIn) {
-            return "view your profile";
+            var img = GetUserImage(CurrentUser, "A");
+            var url = "url(" + img + ")";
+            $(".profile-button").css("background-image", url).show();
+            $(".sign-in-button").hide();
         } else {
-            return "Sign in";
+            $(".profile-button").hide();
+            $(".sign-in-button").show();
         }
     }
 
