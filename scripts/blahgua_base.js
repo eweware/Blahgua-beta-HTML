@@ -457,12 +457,18 @@ define('blahgua_base',
 
     function refreshSignInBtn() {
         if (IsUserLoggedIn) {
-            $(".sign-in-button").addClass("logged-in").text("profile");
+            var img = GetUserImage(CurrentUser, "A");
+            var url = "url(" + img + ")";
+            $(".profile-button").css("background-image", url).show();
+            $(".sign-in-button").hide();
+            $(".ChannelOptions").show();
         } else {
-            $(".sign-in-button").addClass("logged-in").text("sign in");
+            $(".profile-button").hide();
+            $(".sign-in-button").show();
+            $(".ChannelOptions").hide();
         }
-
     }
+
 
 
 
@@ -783,7 +789,8 @@ define('blahgua_base',
 
         var nextRow = BuildNextRow();
         nextRow.rowAbove = BottomRow;
-        BottomRow.rowBelow = nextRow;
+        if(BottomRow)
+            BottomRow.rowBelow = nextRow;
         BottomRow = nextRow;
         nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop() + interBlahGutter) + "px";
         $("#BlahContainer").append(nextRow);
@@ -1409,22 +1416,12 @@ define('blahgua_base',
         document.getElementById("ChannelList").innerHTML = newHTML;
         $("#ChannelList img").error(imgError);
         $(".channel-info-table").click(DoJumpToChannel);
-        UpdateChannelButtons();
+        refreshSignInBtn();
 
 
     }
 
-    function UpdateChannelButtons() {
-        if (IsUserLoggedIn) {
-            var img = GetUserImage(CurrentUser, "A");
-            var url = "url(" + img + ")";
-            $(".profile-button").css("background-image", url).show();
-            $(".sign-in-button").hide();
-        } else {
-            $(".profile-button").hide();
-            $(".sign-in-button").show();
-        }
-    }
+
 
     function imgError(theEvent) {
         var theImage = theEvent.target;

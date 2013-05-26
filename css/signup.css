@@ -6,17 +6,19 @@
     padding:8px;
     border-radius: 16px;
     box-shadow: 0px 5px 15px rgba(0,0,0,.3);
-    background-color:deepskyblue;
+    background-color:white;
     margin:24px;
 }
 
 
 .sign-in {
-    text-align:center;
+    text-align: center;
     font-family: 'Arimo', sans-serif;
-    color:white;
-    padding-left: 32px;
-    padding-right:32px;
+    padding-left: 8px;
+    padding-top: 8px;
+    background-color: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 }
 
 .sign-in h2 {
@@ -24,7 +26,7 @@
 }
 
 .sign-in h3 {
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .sign-in h4 {
@@ -32,9 +34,16 @@
     font-style:italic;
 }
 
-
 .sign-in img {
+    width:128px;
+    height:128px;
+    margin: 0 auto;
+}
 
+
+
+.sign-in .back-button {
+    float:left;
 }
 
 .content_frame{
@@ -53,13 +62,10 @@
     padding-top: 8px;
     padding-bottom: 16px;
     margin:0px;
-    border-color: rgba(255,255,255,.5);
-    border-width: 4px;
-    border-style: solid;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     height: 200px;
-    background-color: rgba(255,255,255,.2);
+    background-color:deepskyblue;
 
 }
 
@@ -117,11 +123,13 @@
 }
 
 .checkbox-group input[type='checkbox'] {
-    width:20px;
-    height:20px;
-    border-style:solid;
-    border-width: 4px;
+
     padding:8px;
+}
+
+.toggle-content td {
+    padding-top: 10px;
+    padding-left: 10px;
 }
 
 .toggle-btn {
