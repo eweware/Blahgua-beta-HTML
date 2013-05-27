@@ -34,12 +34,9 @@ requirejs.config({
 // Load the main app module to start the app
 requirejs(
     [
-        "GlobalFunctions",
-        "blahgua_restapi",
-        "blahgua-globals",
         "blahgua_base"
 
-    ], function(GlobalFunctions, blahgua_rest, blahgua_globals, blahgua_base) {
+    ], function(blahgua_base) {
         blahgua_base.InitializeBlahgua();
     }
 );

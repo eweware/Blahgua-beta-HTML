@@ -8,25 +8,25 @@
 
 
 define('CreateBlahPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["constants", "globals", "ExportFunctions", "blahgua_restapi"],
+    function (K, G, exports, blahgua_rest) {
 
         var blahTypeModule = null;
 
         var  InitializePage = function() {
             blahTypeModule = null;
             PopulateBlahTypeOptions();
-            var blahChannelStr = CurrentChannel.N;
-            blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
+            var blahChannelStr = G.CurrentChannel.N;
+            blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                 $("#FullBlahProfileString").text(theString.d);
             }, function (theErr) {
                 $("#FullBlahProfileString").text("someone");
             });
 
-            $("#FullBlahNickName").text(getSafeProperty(CurrentUser, "N", "someone" ));
-            var newImage = GetUserImage(CurrentUser, "A");
+            $("#FullBlahNickName").text(G.GetSafeProperty(G.CurrentUser, "N", "someone" ));
+            var newImage = G.GetUserImage(G.CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-            var channelName = CurrentChannel.N;
+            var channelName = G.CurrentChannel.N;
             $(".fullBlahSpeechAct").text("to " + channelName);
 
             // bind events
@@ -96,7 +96,7 @@ define('CreateBlahPage',
                 case "predicts":
                     require(["BlahTypePredictAuthorPage"], function(PredictPage){
                         blahTypeModule = PredictPage;
-                        $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
+                        $("#AdditionalInfoDiv").load(G.FragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
                             function() {
                                 PredictPage.InitializePage(CheckPublishBtnDisable);
                                 CheckPublishBtnDisable();
@@ -107,7 +107,7 @@ define('CreateBlahPage',
                 case "polls":
                     require(["BlahTypePollAuthorPage"], function(PollPage){
                         blahTypeModule = PollPage;
-                        $("#AdditionalInfoDiv").load(fragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
+                        $("#AdditionalInfoDiv").load(G.FragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
                             function() {
                                 PollPage.InitializePage(CheckPublishBtnDisable);
                                 CheckPublishBtnDisable();
@@ -121,12 +121,12 @@ define('CreateBlahPage',
         };
 
 
-        function HandleHeadlineTextInput(target) {
+        var HandleHeadlineTextInput = function(target) {
             if(target.scrollHeight > target.clientHeight)  {
                 target.style.height=target.scrollHeight+'px';
                 UpdateLayout();
             }
-            var numCharsRemaining = MaxTitleLength - target.value.length;
+            var numCharsRemaining = K.MaxTitleLength - target.value.length;
             if (numCharsRemaining < 32) {
                 $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
             } else {
@@ -134,11 +134,9 @@ define('CreateBlahPage',
             }
 
             CheckPublishBtnDisable();
+        };
 
-
-        }
-
-        function CheckPublishBtnDisable() {
+        var CheckPublishBtnDisable = function() {
             var minHeadlineLen = 3;
             var headLineLen = document.getElementById("BlahHeadline").value.length;
             var bodyLen = document.getElementById("BlahBody").value.length;
@@ -147,15 +145,11 @@ define('CreateBlahPage',
             var errMsg = "";
 
             if (headLineLen < minHeadlineLen)
-
-
-            if (headLineLen < minHeadlineLen)
                 errMsg += "Headline too short.  ";
-            if (headLineLen > MaxTitleLength)
+            if (headLineLen > K.MaxTitleLength)
                 errMsg += "Headline too long.  ";
             if (bodyLen > 4000)
                 errMsg += "Body text too long.  ";
-
 
             if (blahTypeModule)
                 errMsg += blahTypeModule.ValidateCreate();
@@ -170,9 +164,9 @@ define('CreateBlahPage',
                 $("#ErrMsgSpan").text(errMsg);
                 $("#ValidationRow").show();
             }
-        }
+        };
 
-        function HandleBodyTextInput(target) {
+        var HandleBodyTextInput = function(target) {
             if(target.scrollHeight > target.clientHeight)
                 target.style.height=target.scrollHeight+'px';
             var numCharsRemaining = 4000 - target.value.length;
@@ -182,18 +176,17 @@ define('CreateBlahPage',
                 $("#BodyCharCount").text("");
             }
             CheckPublishBtnDisable();
+        };
 
-        }
-
-        function CancelCreate() {
+        var CancelCreate = function() {
             exports.CloseBlah();
-        }
+        };
 
         var UpdateBadgeArea = function() {
-            if (CurrentUser.hasOwnProperty("B")) {
+            if (G.CurrentUser.hasOwnProperty("B")) {
                 // add badges
                 $("#BadgesDiv").empty();
-                $.each(CurrentUser.B, function(index, curBadge) {
+                $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
 
@@ -214,7 +207,7 @@ define('CreateBlahPage',
         var CreateBadgeDescription = function(theBadge) {
             var badgeName = $(theBadge).closest("tr").find(".badgename").text();
             var newHTML = "<tr class='badge-info-row'>";
-            newHTML += "<td><img style='width:16px; height:16px;' src='" + fragmentURL + "/img/black_badge.png'</td>";
+            newHTML += "<td><img style='width:16px; height:16px;' src='" + G.FragmentURL + "/img/black_badge.png'</td>";
             newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
             return newHTML;
         }
@@ -248,7 +241,7 @@ define('CreateBlahPage',
 
 
 
-        function CreateBlah() {
+        var CreateBlah = function() {
             // disable create button to prevent double-submit
             document.getElementById("PublishBlahBtn").disabled = true;
 
@@ -256,8 +249,8 @@ define('CreateBlahPage',
 
             var blahHeadline = $("#BlahHeadline").val();
             var blahBody = $("#BlahBody").val();
-            blahBody = CodifyText(blahBody);
-            var blahGroup = CurrentChannel._id;
+            blahBody = G.CodifyText(blahBody);
+            var blahGroup = G.CurrentChannel._id;
             var options = null;
 
 
@@ -282,18 +275,18 @@ define('CreateBlahPage',
         };
 
         var OnCreateBlahOK = function(json) {
-            CurrentBlah = json;
-            CurrentBlahId = CurrentBlah._id;
+            G.CurrentBlah = json;
+            G.CurrentBlahId = G.CurrentBlah._id;
             // check for images
             if ($("#BlahImage").val() != "") {
-                UploadBlahImage(CurrentBlah._id);
+                UploadBlahImage(G.CurrentBlah._id);
             } else {
                 DoCloseBlah();
             }
         };
 
         var DoCloseBlah = function(){
-            InsertNewBlahIntoChannel(CurrentBlah);
+            InsertNewBlahIntoChannel(G.CurrentBlah);
             $("#AdditionalInfoDiv").empty();
             exports.CloseBlah();
         }
@@ -347,9 +340,6 @@ define('CreateBlahPage',
             newItem["N"] = theBlah.N;
         };
 
-
-
-
         var HandleFilePreview = function() {
             var theFile = $("#BlahImage").val();
             $("#CreateBlahImageNameSpan").text(theFile);
@@ -360,8 +350,6 @@ define('CreateBlahPage',
                 $("#ImagePreviewRow").show();
             CheckPublishBtnDisable();
         };
-
-
 
 
         return {

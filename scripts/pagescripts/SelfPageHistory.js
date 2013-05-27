@@ -8,11 +8,222 @@
 
 
 define('SelfPageHistory',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals","ExportFunctions", "blahgua_restapi", "comments"],
+    function (G, exports, blahgua_rest) {
+
+        var commentSortType = "bydate";
+        var commentSortDir = "desc";
+        var commentFilter = "";
+        var blahSortType = "bydate";
+        var blahSortDir = "desc";
+        var blahFilter = "";
+
+        var CommentList = [];
+        var BlahList = [];
 
         var  InitializePage = function() {
+            // bind events
+            $("#BlahSortBySelect").change(function(theEvent) {
+                UpdateBlahSort();
+            });
+
+            $("#BlahSortOrderSelect").change(function(theEvent) {
+                UpdateBlahSort();
+            });
+
+            $("#BlahFilterBox").keyup(function(theEvent) {
+                SetBlahFilter($("#FilterBox").val());
+            });
+
+            $("#SortBySelect").change(function(theEvent) {
+                UpdateCommentSort();
+            });
+
+            $("#SortOrderSelect").change(function(theEvent) {
+                UpdateCommentSort();
+            });
+
+            $("#FilterBox").keyup(function(theEvent) {
+                SetCommentFilter($("#FilterBox").val());
+            });
+
+
+            // update
             UpdateSelfHistory();
+        };
+
+        var UpdateCommentSort = function() {
+            SetCommentSort($("#SortBySelect").val(), $("#SortOrderSelect").val());
+        };
+
+        var UpdateBlahSort = function() {
+            SetBlahSort($("#BlahSortBySelect").val(), $("#BlahSortOrderSelect").val());
+        };
+
+        var SetBlahFilter = function(newFilter) {
+            if (newFilter != blahFilter) {
+                blahFilter = newFilter;
+                FilterBlahs();
+            }
+        };
+
+        var FilterBlahs = function() {
+            if (blahFilter == "") {
+                $(".user-blah-row").show();
+            } else {
+                $(".user-blah-row").each(function(index, item) {
+                    if ($(item).find(".title-text").text().indexOf(blahFilter) != -1)
+                        $(item).show();
+                    else
+                        $(item).hide();
+                });
+            }
+        };
+
+        var FilterComments = function() {
+            if (commentFilter == "") {
+                $(".user-comment-row").show();
+            } else {
+                $(".user-comment-row").each(function(index, item) {
+                    if ($(item).find(".title-text").text().indexOf(commentFilter) != -1)
+                        $(item).show();
+                    else
+                        $(item).hide();
+                });
+            }
+        };
+
+        var SetCommentFilter = function(newFilter) {
+            if (newFilter != commentFilter) {
+                commentFilter = newFilter;
+                FilterComments();
+            }
+        };
+
+        var SetCommentSort = function(newSort, newDir) {
+            var changed = false;
+
+            if (newSort != commentSortType) {
+                commentSortType = true;
+                changed = true;
+            }
+
+            if (newDir != commentSortDir) {
+                commentSortDir = newDir;
+                changed = true;
+            }
+
+            if (changed) {
+                SortAndRedrawComments(CommentList);
+            }
+        };
+
+        var SetBlahSort = function(newSort, newDir) {
+            var changed = false;
+
+            if (newSort != blahSortType) {
+                blahSortType = true;
+                changed = true;
+            }
+
+            if (newDir != blahSortDir) {
+                blahSortDir = newDir;
+                changed = true;
+            }
+
+            if (changed) {
+                SortAndRedrawBlahs(BlahList);
+            }
+        };
+
+
+        var SortAndRedrawBlahs = function(theBlahs) {
+            BlahList = theBlahs;
+            SortBlahs();
+            var newHTML = "";
+            var blahsDiv = $("#UserBlahList");
+            if (BlahList.length > 0) {
+                $.each(BlahList, function (index, item) {
+                    newHTML = CreateUserBlahHTML(item);
+                    blahsDiv.append(newHTML);
+                });
+                // bind events
+                $("#UserBlahList tr").click(function(theEvent){
+                    theID = $(theEvent.target).closest("tr").attr("data-blah-id");
+                    DoOpenUserBlah(theID);
+                });
+                FilterBlahs();
+            } else {
+                newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
+                blahsDiv.append(newHTML);
+            }
+        };
+
+        var SortAndRedrawComments = function(theComments) {
+            CommentList = theComments;
+            SortComments();
+            var newHTML = "";
+            var commentDiv = $("#UserCommentList");
+            if (CommentList.length > 0) {
+                $.each(CommentList, function (index, item) {
+                    newHTML = CreateUserCommentHTML(item);
+                    commentDiv.append(newHTML);
+                });
+                // bind events
+                $("#UserCommentList a").click(function(theEvent){
+                    theID = $(theEvent.target).attr("data-blah-id");
+                    DoOpenUserComment(theID);
+                });
+                FilterComments();
+            } else {
+                newHTML = "<tr><td colspan='2'>You have not created any comments yet.</td></tr>";
+                commentDiv.append(newHTML);
+
+            }
+        };
+
+        var SortComments = function() {
+            var filterProp = "";
+            var forward = false;
+            switch(commentSortType) {
+                case "bydate":
+                    filterProp = "c";
+                    break;
+                case "bypromotes":
+                    filterProp = "U";
+                    break;
+                case "bydemotes":
+                    filterProp = "D";
+                    break;
+            }
+
+            if (filterProp != "") {
+                CommentList.sort(G.DynamicSort(filterProp));
+                if (commentSortDir == "desc")
+                    CommentList.reverse();
+            }
+        };
+
+        var SortBlahs = function() {
+            var filterProp = "";
+            var forward = false;
+            switch(commentSortType) {
+                case "bydate":
+                    filterProp = "c";
+                    break;
+                case "bypromotes":
+                    filterProp = "U";
+                    break;
+                case "bydemotes":
+                    filterProp = "D";
+                    break;
+            }
+
+            if (filterProp != "") {
+                BlahList.sort(G.DynamicSort(filterProp));
+                if (commentSortDir == "desc")
+                    BlahList.reverse();
+            }
         };
 
         function UpdateSelfHistory() {
@@ -21,41 +232,9 @@ define('SelfPageHistory',
             blahsDiv.empty();
             commentDiv.empty();
 
-            blahgua_rest.GetUserBlahs(function (blahList) {
-                var newHTML = "";
-                if (blahList.length > 0) {
-                    $.each(blahList, function (index, item) {
-                        newHTML = CreateUserBlahHTML(item);
-                        blahsDiv.append(newHTML);
-                    });
-                    // bind events
-                    $("#UserBlahList tr").click(function(theEvent){
-                        theID = $(theEvent.target).closest("tr").attr("data-blah-id");
-                        DoOpenUserBlah(theID);
-                    });
-                } else {
-                    newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
-                    blahsDiv.append(newHTML);
-                }
-            }, exports.OnFailure);
+            blahgua_rest.GetUserBlahs(SortAndRedrawBlahs, exports.OnFailure);
 
-            blahgua_rest.GetUserComments(function(commentList) {
-                var newHTML = "";
-                if (commentList.length > 0) {
-                    $.each(commentList, function (index, item) {
-                        newHTML = CreateUserCommentHTML(item);
-                        commentDiv.append(newHTML);
-                    });
-                    // bind events
-                    $("#UserCommentList a").click(function(theEvent){
-                        theID = $(theEvent.target).attr("data-blah-id");
-                        DoOpenUserComment(theID);
-                    });
-                } else {
-                    newHTML = "<tr><td colspan='2'>You have not created any comments yet.</td></tr>";
-                    commentDiv.append(newHTML);
-                }
-            }, exports.OnFailure);
+            blahgua_rest.GetUserComments(SortAndRedrawComments, exports.OnFailure);
 
             // headers
             $('.accordion h2').click(function(theEvent) {
@@ -74,29 +253,29 @@ define('SelfPageHistory',
 
         var CreateUserBlahHTML = function(theBlah) {
             var newHTML = "";
-            var img = GetItemImage(theBlah, "A");
+            var img = G.GetItemImage(theBlah, "A");
 
-            newHTML += "<tr data-blah-id='" + theBlah._id + "'>";
+            newHTML += "<tr class='user-blah-row' data-blah-id='" + theBlah._id + "'>";
             newHTML += "<td>";
             if (img != "") {
                 newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
             }
             newHTML += "</td>"
-            newHTML += "<td style='width:100%'><a href='javascript:void(null)' >";
+            newHTML += "<td class='title-text'>";
             newHTML += theBlah.T;
             newHTML += "</a></td>";
-            newHTML += "<td>" + ElapsedTimeString(new Date(theBlah.c)) + "</td>";
+            newHTML += "<td>" + G.ElapsedTimeString(new Date(theBlah.c)) + "</td>";
             newHTML += "</tr>";
             return newHTML;
         };
 
         var CreateUserCommentHTML = function(theComment) {
             var newHTML = "";
-            newHTML += "<tr>"
-            newHTML += "<td style='width:100%'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+            newHTML += "<tr class='user-comment-row'>"
+            newHTML += "<td class='title-text'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
             newHTML += theComment.T;
             newHTML += "</a></td>";
-            newHTML += "<td>" + ElapsedTimeString(new Date(theComment.c)) + "</td>"
+            newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>"
             newHTML += "</tr>";
             return newHTML;
         };
@@ -104,27 +283,27 @@ define('SelfPageHistory',
 
         var DoOpenUserBlah = function(blahId) {
             var EndDate = new Date(Date.now());
-            var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
+            var StartDate = new Date(Date.now() - (G.NumStatsDaysToShow * 24 * 3600 * 1000 ));
             var startStr = createDateString(StartDate);
             var endStr = createDateString(EndDate);
 
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
-                CurrentBlah = theBlah;
-                BlahReturnPage = "UserBlahList";
-                CurrentBlahNickname = getSafeProperty(UserProfile, "A", "someone");
+                G.CurrentBlah = theBlah;
+                G.BlahReturnPage = "UserBlahList";
+                G.CurrentBlahNickname = G.GetSafeProperty(UserProfile, "A", "someone");
                 exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };
 
         var DoOpenUserComment = function(blahId) {
             var EndDate = new Date(Date.now());
-            var StartDate = new Date(Date.now() - (numStatsDaysToShow * 24 * 3600 * 1000 ));
-            var startStr = createDateString(StartDate);
-            var endStr = createDateString(EndDate);
+            var StartDate = new Date(Date.now() - (G.NumStatsDaysToShow * 24 * 3600 * 1000 ));
+            var startStr = G.CreateDateString(StartDate);
+            var endStr = G.CreateDateString(EndDate);
 
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
-                CurrentBlah = theBlah;
-                BlahReturnPage = "UserBlahList";
+                G.CurrentBlah = theBlah;
+                G.BlahReturnPage = "UserBlahList";
                 exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };

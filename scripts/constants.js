@@ -10,12 +10,41 @@ define('constants',
     [],
     function () {
 
+        var kMinWidth = 300;
+        var kBlahType = {
+            "says":null,
+            "leaks":null,
+            "polls":null,
+            "predicts":null,
+            "ad":null,
+            "asks":null
+            };
+
+        var MaxTitleLength = 64;
+        var kBannerHighlightColor = "#FFFFFF";
+        var kBannerColor = "rgb(245,244,0)"; //#FF00FF";
+        var kEdgeGutter = 12;
+        var kInterBlahGutter = 12;
+        var kNewlineToken = "[_r;";
+        var kBlahRollPixelStep = 1;
+        var kBlahRollScrollInterval = 50;
+
         var Initialize = function() {
             // placeholder
         };
 
         return {
-            Initialize :   Initialize
+            Initialize :   Initialize,
+            MinWidth: kMinWidth,
+            BlahType: kBlahType,
+            MaxTitleLength: MaxTitleLength,
+            BannerHighlightColor: kBannerHighlightColor,
+            BannerColor: kBannerColor,
+            EdgeGutter: kEdgeGutter,
+            InterBlahGutter: kInterBlahGutter,
+            NewlineToken: kNewlineToken,
+            BlahRollPixelStep: kBlahRollPixelStep,
+            BlahRollScrollInterval: kBlahRollScrollInterval
         }
     }
 );

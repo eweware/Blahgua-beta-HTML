@@ -1,26 +1,30 @@
 ﻿// master JavaScript File for app
 define('blahgua_base',
     [
-        'GlobalFunctions',
+        'constants',
+        'globals',
+        'ExportFunctions',
         'blahgua_restapi',
         'spin'
     ],
-    function(Exports, Blahgua) {
+    function(K, G, Exports, Blahgua) {
 
         var rowSequence = [1,4,2,3,4,4,3];
         var curRowSequence = 0;
+        var SpinElement = null;
+        var SpinTarget = null;
 
         var InitializeBlahgua = function() {
             if ((window.location.hostname == "") ||
                 (window.location.hostname == "localhost") ||
                 (window.location.hostname == "127.0.0.1")) {
                 // running local
-                fragmentURL = "./";
+                K.FragmentURL = "./";
             }
 
             $(window).resize(function(){
-                resizeTimer && clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(HandleWindowResize, 100);
+                G.ResizeTimer && clearTimeout(G.ResizeTimer);
+                G.ResizeTimer = setTimeout(HandleWindowResize, 100);
             });
 
             var opts = {
@@ -53,13 +57,13 @@ define('blahgua_base',
         };
 
 
-    function HandleWindowResize() {
+    var HandleWindowResize = function() {
         ComputeSizes();
-        SetCurrentChannel(ChannelList.indexOf(CurrentChannel));
-    }
+        SetCurrentChannel(G.ChannelList.indexOf(G.CurrentChannel));
+    };
 
 
-    function getQueryVariable(variable) {
+    var getQueryVariable = function(variable) {
         var query = window.location.search.substring(1);
         var vars = query.split('&');
         for (var i = 0; i < vars.length; i++) {
@@ -69,25 +73,18 @@ define('blahgua_base',
             }
         }
         return null;
-    }
+    };
 
-
-
-
-
-
-
-    function GlobalReset() {
+    var GlobalReset = function () {
         // clear all timers
-        clearInterval(BlahsMovingTimer);
-        clearInterval(BlahPreviewTimeout);
-        clearInterval(ViewerUpdateTimer);
+        clearInterval(G.BlahsMovingTimer);
+        clearInterval(G.ViewerUpdateTimer);
         if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
             $.removeCookie("loginkey");
         }
         Blahgua.logoutUser();
         location.reload();
-    }
+    };
 
 
 
@@ -97,7 +94,7 @@ define('blahgua_base',
 // Sign-in
 
 
-    function SignIn() {
+    var SignIn = function() {
         Blahgua.isUserLoggedIn(function(json) {
             if (json.loggedIn == "Y")
                 HandlePostSignIn();
@@ -106,12 +103,10 @@ define('blahgua_base',
                 var userName, pwd;
 
                 if (savedID) {
-                    savedID = JSON.parse(cryptify("Sheep", savedID));
+                    savedID = JSON.parse(G.Cryptify("Sheep", savedID));
                     userName = savedID.userId;
                     pwd = savedID.pwd;
                 }
-
-
 
                 if (userName != null) {
                     if (pwd == null) {
@@ -121,29 +116,28 @@ define('blahgua_base',
                     // sign in
                     Blahgua.loginUser(userName, pwd, HandlePostSignIn, function() {
                         $.removeCookie("loginkey");
-                        IsUserLoggedIn = false;
+                        G.IsUserLoggedIn = false;
                         finalizeInitialLoad();
                     });
                 } else {
-                    IsUserLoggedIn = false;
+                    G.IsUserLoggedIn = false;
                     // user is anonymous
                     finalizeInitialLoad();
                 }
             }
         })
+    };
 
-    }
-
-    function HandlePostSignIn() {
-        IsUserLoggedIn = true;
+    var HandlePostSignIn = function() {
+        G.IsUserLoggedIn = true;
         Blahgua.GetProfileSchema(function(theSchema) {
-            ProfileSchema = theSchema.fieldNameToSpecMap;
+            G.ProfileSchema = theSchema.fieldNameToSpecMap;
         }, OnFailure) ;
         Blahgua.getUserInfo(function (json) {
-            CurrentUser = json;
+            G.CurrentUser = json;
             finalizeInitialLoad();
         });
-    }
+    };
 
 
 
@@ -151,23 +145,23 @@ define('blahgua_base',
 // *************************************************
 // Channels
 
-    function ChannelIDFromName(Channel, ChannelList) {
+    var ChannelIDFromName = function(Channel, ChannelList) {
         var curChannel;
-        for (curIndex in ChannelList) {
-            curChannel = ChannelList[curIndex];
+        for (curIndex in G.ChannelList) {
+            curChannel = G.ChannelList[curIndex];
             if (curChannel.N == Channel) {
                 return curChannel._id;
             }
         }
         return null;
-    }
+    };
 
 
-    function AddDefaultChannelsToNewUser() {
+    var AddDefaultChannelsToNewUser = function() {
         Blahgua.GetFeaturedChannels(OnGetChannelsOK);
-    }
+    };
 
-    function OnGetChannelsOK(channelList) {
+    var OnGetChannelsOK = function(channelList) {
         var ChannelList = [].concat(channelList);
 
         var JoinUserToNextChannel = function(theList) {
@@ -181,12 +175,12 @@ define('blahgua_base',
         };
 
         JoinUserToNextChannel(ChannelList);
-    }
+    };
 
 // *************************************************
 // Initial Load
 
-    function finalizeInitialLoad() {
+    var finalizeInitialLoad = function() {
         CreateChannelBanner();
         CreateFullBlah();
         GetUserChannels();
@@ -194,12 +188,12 @@ define('blahgua_base',
 
         ComputeSizes();
         refreshSignInBtn();
-    }
+    };
 
     var RefreshPageForNewUser = function(json) {
         // get the new channel list
         ClosePage();
-        CurrentUser = json;
+        G.CurrentUser = json;
         refreshSignInBtn();
         GetUserChannels();
     };
@@ -209,30 +203,27 @@ define('blahgua_base',
 // Create the elements for blahs and rows
 
 
-    function HandleSwipeLeft(theEvent) {
-
+    var HandleSwipeLeft = function(theEvent) {
         GoNextChannel();
+    };
 
-
-    }
-
-    function HandleSwipeRight(theEvent) {
+    var HandleSwipeRight = function(theEvent) {
         GoPrevChannel();
-    }
+    };
 
 
-    function HandleSwipeUp(theEvent) {
-        CurrentScrollSpeed *= 50;
-        if (CurrentScrollSpeed > 50)
-        CurrentScrollSpeed = 50;
-    }
+    var HandleSwipeUp = function(theEvent) {
+        G.CurrentScrollSpeed *= 50;
+        if (G.CurrentScrollSpeed > 50)
+            G.CurrentScrollSpeed = 50;
+    };
 
 
-    function HandleSwipeDown(theEvent) {
-        CurrentScrollSpeed *= -50;
-        if (CurrentScrollSpeed < -50)
-            CurrentScrollSpeed = -50;
-    }
+    var HandleSwipeDown = function(theEvent) {
+        G.CurrentScrollSpeed *= -50;
+        if (G.CurrentScrollSpeed < -50)
+            G.CurrentScrollSpeed = -50;
+    };
 
 
 
@@ -240,23 +231,17 @@ define('blahgua_base',
 // ********************************************************
 // stubs for error callbacks
 
-
-    function OnSuccess(theArg) {
-        $("#DivToShowHide").html(theArg);
-    }
-
-
-    function OnFailure(theErr) {
+    var OnFailure = function(theErr) {
         if (theErr.status >= 500) {
             GlobalReset();
         } else {
             var errString = "An error occured. Soz!";
-            var responseText = getSafeProperty(theErr, "responseText", null);
+            var responseText = G.GetSafeProperty(theErr, "responseText", null);
             if (responseText) {
                 try {
                     var responseObj = JSON.parse(responseText);
-                    var message = getSafeProperty(responseObj, "message", "An error occured");
-                    var code = getSafeProperty(responseObj, "errorCode", "<no id>");
+                    var message = G.GetSafeProperty(responseObj, "message", "An error occured");
+                    var code = G.GetSafeProperty(responseObj, "errorCode", "<no id>");
                     errString = "Error: (" + code + "): " + message;
                 } catch (exp) {
 
@@ -265,7 +250,7 @@ define('blahgua_base',
             }
             alert(errString);
         }
-    }
+    };
 
 
 
@@ -273,26 +258,26 @@ define('blahgua_base',
 // Alt fading
 
 
-    function AltFade(theElement) {
+    var AltFade = function(theElement) {
         FadeRandomElement();
-    }
+    };
 
     var LastFadeElement;
 
-    function SelectRandomElement() {
+    var SelectRandomElement = function() {
         var randRow;
         var pickedEl = LastFadeElement;
         var curRow, numChildren;
-        var firstRow = TopRow;
+        var firstRow = G.TopRow;
         var attempts = 0;
 
         while ((pickedEl == LastFadeElement) && (attempts < 10)) {
             attempts++;
-            curRow = TopRow;
-            randRow = Math.floor(Math.random() * RowsOnScreen);
+            curRow = G.TopRow;
+            randRow = Math.floor(Math.random() * G.RowsOnScreen);
             while (randRow > 0) {
                 curRow = curRow.rowBelow;
-                if (curRow == BottomRow) {
+                if (curRow == G.BottomRow) {
                     break;
                 }
                 randRow--;
@@ -303,30 +288,17 @@ define('blahgua_base',
         }
 
         return pickedEl;
-    }
+    };
 
-    function FadeRandomElement() {
+    var FadeRandomElement = function() {
         var theEl = SelectRandomElement();
         if (theEl.style.backgroundImage != "") {
             $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
         } else {
             setTimeout(FadeRandomElement, 1000);
-            /*
-             //theEl.blahTextDiv.style.backgroundColor = "red";
-             $(theEl).flippy({
-             content: $(theEl.blahTextDiv),
-             direction:"LEFT",
-             duration:"750",
-             onFinish:function(){
-             theEl.style.backgroundColor = "red";
-             FadeRandomElement();
-             }
-
-             });
-             */
         }
         LastFadeElement = theEl;
-    }
+    };
 
 
 
@@ -339,14 +311,15 @@ define('blahgua_base',
 
 
 
-    function ComputeSizes() {
+    var ComputeSizes = function() {
         var windowWidth = $(window).width();
         var windowHeight = $(window).height();
         var desiredWidth = 640;
+        var isVertical;
         if (windowWidth < desiredWidth)
             desiredWidth = windowWidth;
-        if (desiredWidth < kMinWidth)
-            desiredWidth = kMinWidth;
+        if (desiredWidth < K.MinWidth)
+            desiredWidth = K.MinWidth;
 
         if (windowWidth > windowHeight) {
             isVertical = false;
@@ -357,36 +330,36 @@ define('blahgua_base',
         var blahBottom = 25;
 
 
-        var totalGutter = edgeGutter * 2 + interBlahGutter * 3;
+        var totalGutter = K.EdgeGutter * 2 + K.InterBlahGutter * 3;
 
-        SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 4);
+        G.SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 4);
 
-        MediumTileWidth = (SmallTileWidth * 2) + interBlahGutter;
-        LargeTileWidth = (MediumTileWidth * 2) + interBlahGutter;
-        //LargeTileWidth = (SmallTileWidth * 3) + (interBlahGutter * 2);
+        G.MediumTileWidth = (G.SmallTileWidth * 2) + K.InterBlahGutter;
+        G.LargeTileWidth = (G.MediumTileWidth * 2) + K.InterBlahGutter;
+        //LargeTileWidth = (SmallTileWidth * 3) + (K.InterBlahGutter * 2);
 
-        SmallTileHeight = SmallTileWidth;
-        MediumTileHeight = MediumTileWidth ;
+        G.SmallTileHeight = G.SmallTileWidth;
+        G.MediumTileHeight = G.MediumTileWidth ;
         //LargeTileHeight = LargeTileWidth;
-        LargeTileHeight = MediumTileHeight;
+        G.LargeTileHeight = G.MediumTileHeight;
 
         // now make the window the correct size
-        var targetWidthWidth = (SmallTileWidth * 4) + totalGutter;
+        var targetWidthWidth = (G.SmallTileWidth * 4) + totalGutter;
         var offset = Math.floor((windowWidth - targetWidthWidth) / 2);
         if (offset < 0)
             offset = 0;
         var blahContainer = document.getElementById("BlahContainer");
         blahContainer.style.left = offset + "px";
-        blahContainer.style.width = LargeTileWidth + "px";
+        blahContainer.style.width = G.LargeTileWidth + "px";
         var blahMargin = 16;
 
         $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#BlahFullItem").css({ 'top': '25px','left': (offset + blahMargin) + 'px', 'bottom': blahBottom + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
 
-    }
+    };
 
-    function ShowHideChannelList() {
+    var ShowHideChannelList = function() {
         var menu = document.getElementById("ChannelDropMenu");
         menu.style.left = document.getElementById("ChannelBanner").style.left;
         if (menu.style.display == "none") {
@@ -394,18 +367,18 @@ define('blahgua_base',
         } else {
             HideChannelList();
         }
-    }
+    };
 
-    function HideChannelList() {
+    var HideChannelList = function() {
         var menu = document.getElementById("ChannelDropMenu");
         if (menu.style.display != "none") {
             $("#LightBox").hide();
             $(menu).fadeOut("fast");
             StartAnimation();
         }
-    }
+    };
 
-    function ShowChannelList() {
+    var ShowChannelList = function() {
         var menu = document.getElementById("ChannelDropMenu");
         var banner = $("#ChannelBanner");
         menu.style.left = banner[0].style.left;
@@ -419,10 +392,10 @@ define('blahgua_base',
             StopAnimation();
             menu.style.display = "block";
         }
-    }
+    };
 
 
-    function CreateChannelBanner() {
+    var CreateChannelBanner = function() {
         var banner = document.getElementById("ChannelBanner");
         var label = document.createElement("span");
         label.id = "ChannelBannerLabel";
@@ -453,11 +426,11 @@ define('blahgua_base',
         banner.appendChild(signin);
 
         refreshSignInBtn();
-    }
+    };
 
-    function refreshSignInBtn() {
-        if (IsUserLoggedIn) {
-            var img = GetUserImage(CurrentUser, "A");
+    var refreshSignInBtn = function() {
+        if (G.IsUserLoggedIn) {
+            var img = G.GetUserImage(G.CurrentUser, "A");
             var url = "url(" + img + ")";
             $(".profile-button").css("background-image", url).show();
             $(".sign-in-button").hide();
@@ -467,61 +440,53 @@ define('blahgua_base',
             $(".sign-in-button").show();
             $(".ChannelOptions").hide();
         }
-    }
+    };
 
 
+    var CreateFullBlah = function() {
+        G.BlahFullItem = document.getElementById("BlahFullItem");
+    };
 
-
-
-
-    function CreateFullBlah() {
-        BlahFullItem = document.getElementById("BlahFullItem");
-    }
-
-    function DoBlahClick(theEvent) {
+    var DoBlahClick = function(theEvent) {
         theEvent = window.event || theEvent;
         var who = theEvent.target || theEvent.srcElement;
         while (who.hasOwnProperty("blah") == false) {
             who = who.parentElement;
         }
-
-        // now do something
-        //FocusBlah(who);
         OpenBlah(who);
-    }
+    };
 
 
 
-        function CloseBlah() {
+    var CloseBlah = function() {
         $("#AdditionalInfoArea").empty();
-        switch (BlahReturnPage) {
+        switch (G.BlahReturnPage) {
             case "UserBlahList":
                 PopulateUserChannel("History");
                 break;
 
             default:
                 StartAnimation();
-                $(BlahFullItem).fadeOut("fast", function() {
+                $(G.BlahFullItem).fadeOut("fast", function() {
                     $("#LightBox").hide();
-                    $(BlahFullItem).empty();
+                    $(G.BlahFullItem).empty();
                 });
 
         }
         $(document).focus();
-        BlahReturnPage = null;
+        G.BlahReturnPage = null;
+    };
 
-    }
-
-    function StopAnimation() {
-        if (BlahsMovingTimer != null) {
-            clearTimeout(BlahsMovingTimer);
-            BlahsMovingTimer = null;
+    var StopAnimation = function() {
+        if (G.BlahsMovingTimer != null) {
+            clearTimeout(G.BlahsMovingTimer);
+            G.BlahsMovingTimer = null;
         }
-    }
+    };
 
-    function StartAnimation() {
+    var StartAnimation = function() {
         StartBlahsMoving();
-    }
+    };
 
 
     var DismissAll = function() {
@@ -533,18 +498,18 @@ define('blahgua_base',
 
     var OpenLoadedBlah = function(whichBlah) {
         $("#LightBox").show();
-        CurrentBlah = whichBlah;
-        CurrentComments = null;
+        G.CurrentBlah = whichBlah;
+        G. CurrentComments = null;
         $(document).keydown(function(theEvent) {
             if (theEvent.which == 27) {
                 DismissAll();
             }
         }).focus();
 
-        CurrentBlahNickname = getSafeProperty(whichBlah, "K", CurrentBlahNickname);
+        G.CurrentBlahNickname = G.GetSafeProperty(whichBlah, "K", G.CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
-            $(BlahFullItem).load(fragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
+            $(BlahFullItem).load(G.FragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
                 var windowHeight = $(window).height();
                 $(BlahFullItem).disableSelection();
                 $(BlahFullItem).fadeIn("fast", function() {
@@ -556,56 +521,36 @@ define('blahgua_base',
 
     var OpenBlah = function(whichBlah) {
         $("#LightBox").show();
-        CurrentBlah = null;
+        G.CurrentBlah = null;
         StopAnimation();
-        CurrentBlahId = whichBlah.blah.I;
-        CurrentBlahNickname = getSafeProperty(whichBlah.blah, "K", "someone");
-        Blahgua.GetBlah(CurrentBlahId, OpenLoadedBlah, OnFailure);
-    }
+        G.CurrentBlahId = whichBlah.blah.I;
+        G.CurrentBlahNickname = G.GetSafeProperty(whichBlah.blah, "K", "someone");
+        Blahgua.GetBlah(G.CurrentBlahId, OpenLoadedBlah, OnFailure);
+    };
 
+    var GetBlahTypeStr = function() {
+        return GetBlahTypeNameFromId(G.CurrentBlah.Y);
+    };
 
-
-
-
-    function GetBlahTypeStr() {
-        return GetBlahTypeNameFromId(CurrentBlah.Y);
-    }
-
-    function GetBlahTypeId(theType) {
-        for (var curType in BlahTypeList) {
-            if (BlahTypeList[curType].N == theType) {
-                return BlahTypeList[curType]._id;
+    var GetBlahTypeId = function(theType) {
+        for (var curType in G.BlahTypeList) {
+            if (G.BlahTypeList[curType].N == theType) {
+                return G.BlahTypeList[curType]._id;
             }
         }
 
         return "";
-    }
+    };
 
-    function GetBlahTypeNameFromId(theId) {
-        for (var curType in BlahTypeList) {
-            if (BlahTypeList[curType]._id == theId) {
-                return BlahTypeList[curType].N;
+    var GetBlahTypeNameFromId = function(theId) {
+        for (var curType in G.BlahTypeList) {
+            if (G.BlahTypeList[curType]._id == theId) {
+                return G.BlahTypeList[curType].N;
             }
         }
 
         return "";
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    };
 
 
 
@@ -616,7 +561,7 @@ define('blahgua_base',
 
 
 
-    function CreateBaseDiv(theBlah) {
+    var CreateBaseDiv = function(theBlah) {
         var newDiv = document.createElement("div");
         newDiv.blah = theBlah;
         newDiv.className = "BlahDiv";
@@ -631,8 +576,7 @@ define('blahgua_base',
         textDiv.className = "BlahTextDiv";
         newDiv.appendChild(textDiv);
         newDiv.blahTextDiv = textDiv;
-        //$(textDiv).text(unescape(theBlah.T));
-        $(textDiv).text(theBlah.T);
+        $(textDiv).text(G.UnCodifyText(theBlah.T));
         switch (theBlah.displaySize) {
             case 1:
                 blahImageSize = "C";
@@ -649,7 +593,7 @@ define('blahgua_base',
         }
 
 
-        var imagePath = GetItemImage(theBlah, blahImageSize);
+        var imagePath = G.GetItemImage(theBlah, blahImageSize);
         if (imagePath != "") {
             newDiv.style.backgroundImage = "url('" + imagePath + "')";
 
@@ -662,22 +606,22 @@ define('blahgua_base',
             }
 
             switch (theBlah.Y) {
-                case kBlahTypeSays:
+                case K.BlahType.says:
                     $(textDiv).addClass("BlahTypeSaysImgText");
                     break;
-                case kBlahTypeLeaks:
+                case K.BlahType.leaks:
                     $(textDiv).addClass("BlahTypeLeaksImgText");
                     break;
-                case kBlahTypePolls:
+                case K.BlahType.polls:
                     $(textDiv).addClass("BlahTypePollsImgText");
                     break;
-                case kBlahTypePredicts:
+                case K.BlahType.predicts:
                     $(textDiv).addClass("BlahTypePredictsImgText");
                     break;
-                case kBlahTypeAsks:
+                case K.BlahType.asks:
                     $(textDiv).addClass("BlahTypeAsksImgText");
                     break;
-                case kBlahTypeAd:
+                case K.BlahType.ad:
                     $(textDiv).addClass("BlahTypeAddImgText");
                     break;
                 default:
@@ -687,48 +631,48 @@ define('blahgua_base',
 
         return newDiv;
 
-    }
+    };
 
 
 
-    function CreateElementForBlah(theBlah) {
+    var CreateElementForBlah = function(theBlah) {
         var newEl = CreateBaseDiv(theBlah);
         var paddingOffset = 0;//8 * 2;
 
         if (theBlah.displaySize == 1) {
-            newEl.style.width = LargeTileWidth - paddingOffset + "px";
-            newEl.style.height = LargeTileHeight - paddingOffset + "px";
+            newEl.style.width = G.LargeTileWidth - paddingOffset + "px";
+            newEl.style.height = G.LargeTileHeight - paddingOffset + "px";
 
         } else if (theBlah.displaySize == 2) {
-            newEl.style.width = MediumTileWidth - paddingOffset + "px";
-            newEl.style.height = MediumTileHeight - paddingOffset + "px";
+            newEl.style.width = G.MediumTileWidth - paddingOffset + "px";
+            newEl.style.height = G.MediumTileHeight - paddingOffset + "px";
         } else {
-            newEl.style.width = SmallTileWidth - paddingOffset + "px";
-            newEl.style.height = SmallTileHeight - paddingOffset + "px";
+            newEl.style.width = G.SmallTileWidth - paddingOffset + "px";
+            newEl.style.height = G.SmallTileHeight - paddingOffset + "px";
         }
 
         switch (theBlah.Y) {
-            case kBlahTypeSays:
+            case K.BlahType.says:
                 $(newEl).addClass("BlahTypeSays");
                 break;
-            case kBlahTypeLeaks:
+            case K.BlahType.leaks:
                 $(newEl).addClass("BlahTypeLeaks");
                 break;
-            case kBlahTypePolls:
+            case K.BlahType.polls:
                 $(newEl).addClass("BlahTypePolls");
                 break;
-            case kBlahTypePredicts:
+            case K.BlahType.predicts:
                 $(newEl).addClass("BlahTypePredicts");
                 break;
-            case kBlahTypeAsks:
+            case K.BlahType.asks:
                 $(newEl).addClass("BlahTypeAsks");
                 break;
-            case kBlahTypeAd:
+            case K.BlahType.ad:
                 $(newEl).addClass("BlahTypeAd");
                 break;
         }
 
-        if (CurrentUser && (theBlah.A == CurrentUser._id))
+        if (G.CurrentUser && (theBlah.A == G.CurrentUser._id))
             $(newEl).addClass("users-own-blah");
 
         if (theBlah.hasOwnProperty("B") && (theBlah.B.length > 0)) {
@@ -739,39 +683,39 @@ define('blahgua_base',
         }
 
         return newEl;
-    }
+    };
 
-    function DrawInitialBlahs() {
-        if (ActiveBlahList.length > 0) {
+    var DrawInitialBlahs = function() {
+        if (G.ActiveBlahList.length > 0) {
             var curRow = BuildNextRow();
             $("#BlahContainer").append(curRow);
             ResizeRowText(curRow);
-            TopRow = curRow;
-            var curTop = curRow.rowHeight + interBlahGutter;
+            G.TopRow = curRow;
+            var curTop = curRow.rowHeight + K.InterBlahGutter;
             var bottom = $("#BlahContainer").height();
             var lastRow = curRow;
-            RowsOnScreen = 1;
+            G.RowsOnScreen = 1;
 
             while (curTop <= bottom) {
                 curRow = BuildNextRow();
                 curRow.style.top = curTop + "px";
                 $("#BlahContainer").append(curRow);
                 ResizeRowText(curRow);
-                curTop += curRow.rowHeight + interBlahGutter;
+                curTop += curRow.rowHeight + K.InterBlahGutter;
                 lastRow.rowBelow = curRow;
                 curRow.rowAbove = lastRow;
-                BottomRow = curRow;
+                G.BottomRow = curRow;
                 lastRow = curRow;
-                RowsOnScreen++;
+                G.RowsOnScreen++;
             }
 
             FadeRandomElement();
         }
         else {
             var newDiv = document.createElement("div");
-            var newHTML = "<b>" + CurrentChannel.N + "</b> currently has no blahs in it.</br> ";
+            var newHTML = "<b>" + G.CurrentChannel.N + "</b> currently has no blahs in it.</br> ";
 
-            if (IsUserLoggedIn) {
+            if (G.IsUserLoggedIn) {
                 newHTML += "Perhaps you can add the first!<br/>";
             } else {
                 newHTML += "Sign in, and then you can create the first!<br/>";
@@ -781,25 +725,23 @@ define('blahgua_base',
             newDiv.className = "no-blahs-in-channel-warning";
             $("#BlahContainer").append(newDiv);
         }
-    }
+    };
 
-    function DoAddBlahRow() {
-
+    var DoAddBlahRow = function() {
         var nextRow = BuildNextRow();
-        nextRow.rowAbove = BottomRow;
-        if(BottomRow)
-            BottomRow.rowBelow = nextRow;
-        BottomRow = nextRow;
-        nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop() + interBlahGutter) + "px";
+        nextRow.rowAbove = G.BottomRow;
+        if(G.BottomRow)
+            G.BottomRow.rowBelow = nextRow;
+        G.BottomRow = nextRow;
+        nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop() + K.InterBlahGutter) + "px";
         $("#BlahContainer").append(nextRow);
         ResizeRowText(nextRow);
-        RowsOnScreen++;
+        G.RowsOnScreen++;
         // to do - add blah specific animation
         StartBlahsMoving();
+    };
 
-    }
-
-    function ResizeRowText(newRow) {
+    var ResizeRowText = function(newRow) {
         //return;
         var curTile;
         var textHeight;
@@ -841,102 +783,96 @@ define('blahgua_base',
             }
             curTile.blahTextDiv.style.height = "100%";
         }
-    }
+    };
 
 
 // ********************************************************
 // Handle the blah scroll
 
 
-    function StartBlahsMoving() {
-        if (BlahsMovingTimer == null) {
-            BlahsMovingTimer = setTimeout(MakeBlahsMove, kBlahRollScrollInterval);
+    var StartBlahsMoving = function() {
+        if (G.BlahsMovingTimer == null) {
+            G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
         }
-    }
+    };
 
-    function MakeBlahsMove() {
+    var MakeBlahsMove = function() {
         var curScroll = $("#BlahContainer").scrollTop();
-        $("#BlahContainer").scrollTop(curScroll + CurrentScrollSpeed);
+        $("#BlahContainer").scrollTop(curScroll + G.CurrentScrollSpeed);
         var newScroll = $("#BlahContainer").scrollTop();
         if (newScroll != curScroll) {
             // we scrolled a pixel or so
-            if (TopRow.getBoundingClientRect().bottom < 0) {
-                TopRow = TopRow.rowBelow;
-                RowsOnScreen--;
+            if (G.TopRow.getBoundingClientRect().bottom < 0) {
+                G.TopRow = G.TopRow.rowBelow;
+                G.RowsOnScreen--;
 
             }
-            BlahsMovingTimer = setTimeout(MakeBlahsMove, kBlahRollScrollInterval);
+            G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
         } else {
-            BlahsMovingTimer = null;
+            G.BlahsMovingTimer = null;
             DoAddBlahRow();
         }
-        if (CurrentScrollSpeed < 1) {
+        if (G.CurrentScrollSpeed < 1) {
             // scrolling backwards, slow down
-            CurrentScrollSpeed *= .95;
-            if (CurrentScrollSpeed > -1) {
-                CurrentScrollSpeed = 1;
+            G.CurrentScrollSpeed *= .95;
+            if (G.CurrentScrollSpeed > -1) {
+                G.CurrentScrollSpeed = 1;
             }
             // see if a new top row is on the screen...
-            if ((TopRow != null) && TopRow.hasOwnProperty("rowAbove") && (TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
-                TopRow = TopRow.rowAbove;
-                RowsOnScreen++;
+            if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
+                G.TopRow = G.TopRow.rowAbove;
+                G.RowsOnScreen++;
             }
         }
-        else if (CurrentScrollSpeed > kBlahRollPixelStep) {
+        else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
             // skipping ahead - slow down
-            CurrentScrollSpeed *= 0.95;
-            if (CurrentScrollSpeed < kBlahRollPixelStep) {
-                CurrentScrollSpeed = kBlahRollPixelStep;
+            G.CurrentScrollSpeed *= 0.95;
+            if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
+                G.CurrentScrollSpeed = K.BlahRollPixelStep;
             }
         }
-    }
+    };
 
 
 // ********************************************************
 // Manage the active blah list
 
-    function PeekNextBlah() {
-        return ActiveBlahList[ActiveBlahList.length - 1];
-    }
-
-    function RefreshActiveBlahList() {
+    var RefreshActiveBlahList = function() {
         // when the list is empty, we refill it. For now, we just use the same list
-        $("#ChannelBanner").css("background-color", kBannerHighlightColor);
+        $("#ChannelBanner").css("background-color", K.BannerHighlightColor);
         var nextBlahSet = [];
 
-        if (NextBlahList.length > 0) {
-            nextBlahSet = nextBlahSet.concat(NextBlahList);
+        if (G.NextBlahList.length > 0) {
+            nextBlahSet = nextBlahSet.concat(G.NextBlahList);
         } else {
-            nextBlahSet = nextBlahSet.concat(BlahList);
+            nextBlahSet = nextBlahSet.concat(G.BlahList);
         }
-
 
         fisherYates(nextBlahSet);
 
-        ActiveBlahList = ActiveBlahList.concat(nextBlahSet);
+        G.ActiveBlahList = G.ActiveBlahList.concat(nextBlahSet);
         GetNextBlahList();
+    };
 
-    }
-
-    function GetNextBlah() {
-        var nextBlah = ActiveBlahList.pop();
-        if (ActiveBlahList.length == 0) {
+    var GetNextBlah = function() {
+        var nextBlah = G.ActiveBlahList.pop();
+        if (G.ActiveBlahList.length == 0) {
             RefreshActiveBlahList();
         }
 
         return nextBlah;
-    }
+    };
 
-    function GetNextMatchingBlah(blahSize) {
+    var GetNextMatchingBlah = function(blahSize) {
         var curBlah;
         var nextBlah = null;
 
-        for (curIndex in ActiveBlahList) {
-            curBlah = ActiveBlahList[curIndex];
+        for (var curIndex in G.ActiveBlahList) {
+            curBlah = G.ActiveBlahList[curIndex];
             if (curBlah.displaySize == blahSize) {
                 nextBlah = curBlah;
-                ActiveBlahList.splice(curIndex, 1);
-                if (ActiveBlahList.length == 0) {
+                G.ActiveBlahList.splice(curIndex, 1);
+                if (G.ActiveBlahList.length == 0) {
                     RefreshActiveBlahList();
                 }
                 break;
@@ -951,14 +887,13 @@ define('blahgua_base',
         if (nextBlah != null)
             Blahgua.AddBlahViewsOpens(nextBlah.I, 1, 0, null, null);
         return nextBlah;
-    }
+    };
 
 
 // ********************************************************
 // Creating the next row of content and adding it
 
-    function BuildNextRow(rowHint) {
-
+    var BuildNextRow = function(rowHint) {
         var newRowEl = document.createElement("div");
         newRowEl.style.position = "absolute";
         newRowEl.style.left = "0px";
@@ -967,19 +902,19 @@ define('blahgua_base',
 
         switch (rowSequence[curRowSequence]) {
             case 1:
-                newRowEl.rowHeight = LargeTileHeight;
+                newRowEl.rowHeight = G.LargeTileHeight;
                 CreateLRow(newRowEl);
                 break;
             case 2:
-                newRowEl.rowHeight = MediumTileHeight;
+                newRowEl.rowHeight = G.MediumTileHeight;
                 CreateMMRow(newRowEl);
                 break;
             case 3:
-                newRowEl.rowHeight = MediumTileHeight;
+                newRowEl.rowHeight = G.MediumTileHeight;
                 CreateSMSRow(newRowEl);
                 break;
             case 4:
-                newRowEl.rowHeight = SmallTileHeight;
+                newRowEl.rowHeight = G.SmallTileHeight;
                 CreateSSSSRow(newRowEl);
                 break;
         }
@@ -989,33 +924,32 @@ define('blahgua_base',
             curRowSequence = 0;
 
         return newRowEl;
+    };
 
-    }
 
-
-    function CreateLRow(newRowEl) {
+    var CreateLRow = function(newRowEl) {
         var theBlah = GetNextMatchingBlah(1);
         var newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = edgeGutter + "px";
+        newBlahEl.style.left = K.EdgeGutter + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
-    function CreateMMRow(newRowEl) {
+    var CreateMMRow = function(newRowEl) {
         var theBlah = GetNextMatchingBlah(2);
-        var curLeft = edgeGutter;
+        var curLeft = K.EdgeGutter;
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(2);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += MediumTileWidth + interBlahGutter;
+        curLeft += G.MediumTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
-    function CreateSSSSRow(newRowEl) {
-        var curLeft = edgeGutter;
+    var CreateSSSSRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter;
         theBlah = GetNextMatchingBlah(3);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
@@ -1023,25 +957,25 @@ define('blahgua_base',
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += SmallTileWidth + interBlahGutter;
+        curLeft += G.SmallTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += SmallTileWidth + interBlahGutter;
+        curLeft += G.SmallTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += SmallTileWidth + interBlahGutter;
+        curLeft += G.SmallTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
-    function CreateMSSRow(newRowEl) {
-        var curLeft = edgeGutter;
+    var CreateMSSRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter;
         var theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
@@ -1049,31 +983,31 @@ define('blahgua_base',
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (MediumTileWidth + interBlahGutter);
+        curLeft += (MediumTileWidth + K.InterBlahGutter);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (SmallTileWidth + interBlahGutter);
+        curLeft += (G.SmallTileWidth + K.InterBlahGutter);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
-    function CreateSMSRow(newRowEl) {
-        var curLeft = edgeGutter + SmallTileWidth + interBlahGutter;
+    var CreateSMSRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
         theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
@@ -1081,88 +1015,87 @@ define('blahgua_base',
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft = edgeGutter;
+        curLeft = K.EdgeGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (MediumTileWidth + interBlahGutter + interBlahGutter + SmallTileWidth);
+        curLeft += (G.MediumTileWidth + K.InterBlahGutter + K.InterBlahGutter + G.SmallTileWidth);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
-    function CreateSSMRow(newRowEl) {
+    var CreateSSMRow = function(newRowEl) {
         var theBlah = GetNextMatchingBlah(2);
-        var curLeft = edgeGutter + (SmallTileWidth + interBlahGutter) * 2;
+        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft = edgeGutter;
+        curLeft = K.EdgeGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (SmallTileWidth + interBlahGutter);
+        curLeft += (G.SmallTileWidth + K.InterBlahGutter);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.top = (SmallTileHeight + interBlahGutter) + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
-    }
+    };
 
 // ********************************************************
 // Getting the current inbox for the current user
 
-    function GetUserBlahs() {
+    var GetUserBlahs = function() {
         $("#BlahContainer").empty();
         Blahgua.GetNextBlahs(OnGetBlahsOK, OnFailure);
+    };
 
-    }
-
-    function OnGetBlahsOK(theResult) {
-        BlahList = theResult;
-        NextBlahList = [];
+    var OnGetBlahsOK = function(theResult) {
+        G.BlahList = theResult;
+        G.NextBlahList = [];
         if (theResult.length > 0)
-            PrepareBlahList(BlahList);
-        ActiveBlahList = [];
+            PrepareBlahList(G.BlahList);
+        G.ActiveBlahList = [];
         RefreshActiveBlahList();
         DrawInitialBlahs();
-        if (BlahList.length > 0)
+        if (G.BlahList.length > 0)
         {
             StartAnimation();
         }
         GetNextBlahList();
-    }
+    };
 
 
 
-    function NormalizeStrengths(theBlahList) {
+    var NormalizeStrengths = function(theBlahList) {
         // ensure 100 blahs
         if (theBlahList.length < 100) {
             var curLoc = 0;
@@ -1170,11 +1103,9 @@ define('blahgua_base',
                 theBlahList.push(theBlahList[curLoc++]);
             }
         }
+    };
 
-
-    }
-
-    function AssignSizes(theBlahList) {
+    var AssignSizes = function(theBlahList) {
         // makes sure that there are a good ration of large, medium, small
         var numLarge = 4;
         var numMedium = 16;
@@ -1190,22 +1121,17 @@ define('blahgua_base',
             theBlahList[i++].displaySize = 1;
         }
 
-        MaxMedium = theBlahList[i].s;
-
         while (i < (numMedium + numLarge)) {
             theBlahList[i++].displaySize = 2;
         }
 
-        MaxSmall = theBlahList[i].s;
-
         while (i < theBlahList.length) {
             theBlahList[i++].displaySize = 3;
         }
+    };
 
-    }
 
-
-    function PrepareBlahList(theBlahList) {
+    var PrepareBlahList = function(theBlahList) {
 
         // ensure 100 blahs
         if (theBlahList.length < 100) {
@@ -1221,14 +1147,9 @@ define('blahgua_base',
 
         // sort by strength
         AssignSizes(theBlahList);
+    };
 
-
-
-
-
-    }
-
-    function fisherYates(myArray) {
+    var fisherYates = function(myArray) {
         var i = myArray.length;
         if (i == 0) return false;
         while (--i) {
@@ -1238,84 +1159,40 @@ define('blahgua_base',
             myArray[i] = tempj;
             myArray[j] = tempi;
         }
-    }
-
-// ********************************************************
-/// some photo handling stuff
-
-    function beforeSendHandler(theArg) {
-
-    }
-
-    function completeHandler(theArg) {
-        var newFile = theArg.childNodes[0].textContent;
-        var bgImage = "none";
-        if (newFile != "") {
-            bgImage = "url('" + newFile + "')";
-        }
-        document.getElementById("BlahContainer").style.backgroundImage = bgImage;
-        $('#ProgressDiv').hide();
-    }
-
-    function errorHandler(theArg) {
-        $("#DivToShowHide").html(theArg);
-        $('#ProgressDiv').hide();
-    }
-
-    function progressHandlingFunction(e) {
-        if (e.lengthComputable) {
-            $('progress').attr({ value: e.loaded, max: e.total });
-        }
-    }
-
-    $(':file').change(function () {
-        var file = this.files[0];
-        name = file.name;
-        size = file.size;
-        type = file.type;
-        //your validation
-    });
-
-
-
+    };
 
 // *****************************************
 // Channels
 
-    function GoPrevChannel() {
+    var GoPrevChannel = function() {
         var curLoc;
 
-        if (CurrentChannel == null) {
-            curLoc = ChannelList.length - 1;
+        if (G.CurrentChannel == null) {
+            curLoc = G.ChannelList.length - 1;
         } else {
-            curLoc = ChannelList.indexOf(CurrentChannel);
+            curLoc = G.ChannelList.indexOf(G.CurrentChannel);
             curLoc--;
-            if (curLoc < 0) curLoc = ChannelList.length - 1;
+            if (curLoc < 0) curLoc = G.ChannelList.length - 1;
         }
-
-
         SetCurrentChannel(curLoc);
-    }
+    };
 
-    function GoNextChannel() {
+    var GoNextChannel = function() {
         var curLoc;
 
-        if (CurrentChannel == null) {
+        if (G.CurrentChannel == null) {
             curLoc = 0;
         } else {
-            curLoc = ChannelList.indexOf(CurrentChannel);
+            curLoc = G.ChannelList.indexOf(G.CurrentChannel);
             curLoc++;
-            if (curLoc >= ChannelList.length) {
+            if (curLoc >= G.ChannelList.length) {
                 curLoc = 0;
             }
         }
-
-
-
         SetCurrentChannel(curLoc);
-    }
+    };
 
-    function GetChannelByName(theName, theList) {
+    var GetChannelByName = function(theName, theList) {
         var theEl = null;
         for (curIndex in theList) {
             if (theList[curIndex].N.toLowerCase() == theName.toLowerCase()) {
@@ -1323,25 +1200,23 @@ define('blahgua_base',
                 break;
             }
         }
-
-
         return theEl;
-    }
+    };
 
-    function GetChannelNameFromID(channelID) {
+    var GetChannelNameFromID = function(channelID) {
         var theName = "";
-        for (curIndex in ChannelList) {
-            if (ChannelList[curIndex]._id == channelID) {
-                theName = ChannelList[curIndex].N;
+        for (curIndex in G.ChannelList) {
+            if (G.ChannelList[curIndex]._id == channelID) {
+                theName = G.ChannelList[curIndex].N;
                 break;
             }
         }
 
         return theName;
-    }
+    };
 
-    function GetUserChannels() {
-        if (IsUserLoggedIn) {
+    var GetUserChannels = function() {
+        if (G.IsUserLoggedIn) {
             Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
         } else {
             Blahgua.GetFeaturedChannels(function (channelList) {
@@ -1357,11 +1232,11 @@ define('blahgua_base',
                 },
                 OnFailure);
         }
-    }
+    };
 
 
-    function GetChannelsOK(theChannels) {
-        ChannelList = theChannels;
+    var GetChannelsOK = function(theChannels) {
+        G.ChannelList = theChannels;
 
         if (theChannels.length == 0) {
             AddDefaultChannelsToNewUser();
@@ -1369,8 +1244,8 @@ define('blahgua_base',
             // fetch URL parameter Channel
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
-                for (curIndex in ChannelList) {
-                    if (ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
+                for (curIndex in G.ChannelList) {
+                    if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                     {
                         PopulateChannelMenu();
                         SetCurrentChannel(curIndex);
@@ -1379,13 +1254,13 @@ define('blahgua_base',
                     }
                 }
                 // user does not have this channel - add it!
-                if (IsUserLoggedIn) {
+                if (G.IsUserLoggedIn) {
                     Blahgua.GetAllChannels(function (allChannels) {
                         for (curIndex in allChannels) {
                             if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                             {
                                 Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
-                                    ChannelList.splice(0,0,allChannels[curIndex]);
+                                    G.ChannelList.splice(0,0,allChannels[curIndex]);
                                     PopulateChannelMenu();
                                     SetCurrentChannel(0);
                                 }, OnFailure);
@@ -1404,12 +1279,12 @@ define('blahgua_base',
                 SetCurrentChannel(0);
             }
         }
-    }
+    };
 
-    function PopulateChannelMenu( ) {
+    var PopulateChannelMenu = function( ) {
         var newHTML = "";
 
-        $.each(ChannelList, function(index, element) {
+        $.each(G.ChannelList, function(index, element) {
             newHTML += createChannelHTML(index, element);
         });
 
@@ -1417,28 +1292,24 @@ define('blahgua_base',
         $("#ChannelList img").error(imgError);
         $(".channel-info-table").click(DoJumpToChannel);
         refreshSignInBtn();
+    };
 
-
-    }
-
-
-
-    function imgError(theEvent) {
+    var imgError = function(theEvent) {
         var theImage = theEvent.target;
         theImage.onerror = "";
-        theImage.src = fragmentURL + "/images/groups/default.png";
+        theImage.src = G.FragmentURL + "/images/groups/default.png";
         return true;
-    }
+    };
 
 
-    function createChannelHTML(index, curChannel) {
+    var createChannelHTML = function(index, curChannel) {
         var newHTML = "";
         // todo:  set the actual desc from the channel obj
         var channelDesc = "This is where a pleasant description of this channel will go, once Ben writes it for this channel and Ruben implements it.";
         newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "'>";
         newHTML += "<tr>";
         newHTML += "<td rowspan=2 class='channel-image-td'>";
-        newHTML += '<img class="channel-image" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png">';
+        newHTML += '<img class="channel-image" src="' + G.FragmentURL + '/images/groups/' + curChannel.N + '.png">';
         newHTML += "</td>";
 
         newHTML += "<td><span class='channel-title'>" + curChannel.N + "</span></td>";
@@ -1447,73 +1318,54 @@ define('blahgua_base',
         newHTML += "</td></tr>";
         newHTML += "</table></td></tr>";
         return newHTML;
-    }
-
-    function DoRemoveChannel() {
-        var who = event.target || event.srcElement;
-        var what = who.parentElement.parentElement;
-
-        var channelIndex = what.attributes["channelId"].nodeValue;
-        var channelId = ChannelList[channelIndex]._id;
-        Blahgua.removeUserFromChannel(channelId, OnRemoveChannelOK(what), OnFailure);
-    }
-
-    function OnRemoveChannelOK(deadItem) {
-        $(deadItem).remove();
-    }
+    };
 
 
-    function DoJumpToChannel(theEvent) {
+
+    var DoJumpToChannel = function(theEvent) {
         var who = theEvent.target;
 
         var channelID = $(who).parents(".channel-info-table").attr("channelId");
         HideChannelList();
         SetCurrentChannel(channelID);
-    }
+    };
 
-    function RefreshCurrentChannel() {
-        $("#ChannelBanner").css("background-color", kBannerHighlightColor);
-        GetUserBlahs();
-
-    }
-
-    function SetCurrentChannel(whichChannel) {
-        $("#ChannelBanner").css("background-color", kBannerHighlightColor);
+    var SetCurrentChannel = function(whichChannel) {
+        $("#ChannelBanner").css("background-color", K.BannerHighlightColor);
         StopAnimation();
-        CurrentChannel = ChannelList[whichChannel];
-        Blahgua.currentChannel = CurrentChannel._id;
+        G.CurrentChannel = G.ChannelList[whichChannel];
+        Blahgua.currentChannel = G.CurrentChannel._id;
         var labelDiv = document.getElementById("ChannelBannerLabel");
-        labelDiv.innerHTML = CurrentChannel.N;
-        var imageURL = "url('" + fragmentURL + "/images/groups/bkgnds/";
-        imageURL += CurrentChannel.N + ".jpg')";
+        labelDiv.innerHTML = G.CurrentChannel.N;
+        var imageURL = "url('" + G.FragmentURL + "/images/groups/bkgnds/";
+        imageURL += G.CurrentChannel.N + ".jpg')";
         document.getElementById("BlahContainer").style.backgroundImage = imageURL;
         GetUserBlahs();
         UpdateChannelViewers();
-    }
+    };
 
-    function GetNextBlahList() {
+    var GetNextBlahList = function() {
         Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
-    }
+    };
 
-    function OnGetNextBlahsOK(theResult) {
-        NextBlahList = theResult;
-        PrepareBlahList(NextBlahList);
-        $("#ChannelBanner").animate({"background-color": kBannerColor }, 'slow');
-
-    }
+    var OnGetNextBlahsOK = function(theResult) {
+        G.NextBlahList = theResult;
+        PrepareBlahList(G.NextBlahList);
+        $("#ChannelBanner").animate({"background-color": K.BannerColor }, 'slow');
+    };
 
 
 // *****************************************
 // User Channel
 
-    function ShowUserProfile() {
+    var ShowUserProfile = function() {
         StopAnimation();
         $("#LightBox").show();
         $("#BlahFullItem").empty();
-        if (IsUserLoggedIn) {
-            if (CurrentUser == null) {
+        if (G.IsUserLoggedIn) {
+            if (G.CurrentUser == null) {
                 Blahgua.GetCurrentUser(function (theResult) {
-                    CurrentUser = theResult;
+                    G.CurrentUser = theResult;
                     PopulateUserChannel("Profile");
                 }, OnFailure);
             }
@@ -1522,47 +1374,44 @@ define('blahgua_base',
             }
         } else {
             require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
             });
         }
-    }
+    };
 
-    function ShowSignInUI() {
+    var ShowSignInUI = function() {
         // empty whatever is in there now
         StopAnimation();
         $("#LightBox").show();
         $("#BlahFullItem").empty();
         require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
             }
         );
-    }
+    };
 
-    function SuggestUserSignIn(message) {
+    var SuggestUserSignIn = function(message) {
         require(['SignUpPage'], function(SignUpPage) {
-            $("#BlahFullItem").load(fragmentURL + "/pages/SignUpPage.html #SignInInDiv", function() {
+            $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv", function() {
                 SignUpPage.RefreshSignupContent(message);
             });
         });
-    }
+    };
 
 
-    function PopulateUserChannel(whichPage) {
+    var PopulateUserChannel = function(whichPage) {
         require(["SelfPage"], function(SelfPage){
-            $("#BlahFullItem").load(fragmentURL + "/pages/SelfPage.html #UserChannelDiv", function() {
+            $("#BlahFullItem").load(G.FragmentURL + "/pages/SelfPage.html #UserChannelDiv", function() {
                 SelfPage.InitializePage(whichPage);
             });
         });
-
-    }
-
-
+    };
 
 
     var ClosePage = function() {
@@ -1572,95 +1421,53 @@ define('blahgua_base',
     };
 
 
-    function UpdateChannelViewers() {
-        if (ViewerUpdateTimer != null) {
-            clearTimeout(ViewerUpdateTimer);
-            ViewerUpdateTimer = null;
+    var UpdateChannelViewers = function() {
+        if (G.ViewerUpdateTimer != null) {
+            clearTimeout(G.ViewerUpdateTimer);
+            G.ViewerUpdateTimer = null;
         }
-        Blahgua.GetViewersOfChannel(CurrentChannel._id, OnChannelViewersOK);
+        Blahgua.GetViewersOfChannel(G.CurrentChannel._id, OnChannelViewersOK);
 
-        ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
-    }
+        G.ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
+    };
 
-    function getProp(obj, propName, defVal) {
-        if (obj.hasOwnProperty(propName) && (obj[propName] != null)) {
-            return obj[propName];
-        } else {
-            return defVal;
-        }
-    }
+    var OnChannelViewersOK = function(numViewers) {
+        $("#ChannelViewersCountText").html(G.GetSafeProperty(numViewers, "V", 0));
+    };
 
-    function OnChannelViewersOK(numViewers) {
-        $("#ChannelViewersCountText").html(getProp(numViewers, "V", 0));
-
-    }
-
-    function DoCreateBlah() {
+    var DoCreateBlah = function() {
         StopAnimation();
         $("#LightBox").show();
-        if (IsUserLoggedIn) {
+        if (G.IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
-                $(BlahFullItem).load(fragmentURL + "/pages/CreateBlahPage.html", function() {
+                $(BlahFullItem).load(G.FragmentURL + "/pages/CreateBlahPage.html", function() {
                     CreatePage.InitializePage();
                 });
             });
         } else {
             SuggestUserSignIn("You must sign in before you can create a blah")
         }
-    }
+    };
 
-    function UpdateBlahTypes() {
+    var UpdateBlahTypes = function() {
         Blahgua.GetBlahTypes(function (json) {
-            BlahTypeList = json;
-            kBlahTypeLeaks = GetBlahTypeId("leaks");
-            kBlahTypePolls = GetBlahTypeId("polls");
-            kBlahTypePredicts = GetBlahTypeId("predicts");
-            kBlahTypeSays = GetBlahTypeId("says");
-            kBlahTypeAd = GetBlahTypeId("ad");
-            kBlahTypeAsks = GetBlahTypeId("asks");
+            G.BlahTypeList = json;
+            K.BlahType.leaks = GetBlahTypeId("leaks");
+            K.BlahType.polls = GetBlahTypeId("polls");
+            K.BlahType.predicts = GetBlahTypeId("predicts");
+            K.BlahType.says = GetBlahTypeId("says");
+            K.BlahType.ad = GetBlahTypeId("ad");
+            K.BlahType.asks = GetBlahTypeId("asks");
         });
-    }
+    };
 
-
-
-
-
-
-    function UpdateAskAuthorPage() {
-        var newItem = CreateAskAuthorItem();
-        $("#PollAnswersArea").append(newItem);
-    }
-
-
-    function AddPollAnswer() {
-        var newItem = CreateAskAuthorItem();
-        $("#PollAnswersArea").append(newItem);
-    }
-
-    function CreateAskAuthorItem() {
-        var newHTML = "";
-        newHTML += '<div name="PollItem" width="350px">';
-        newHTML += '<input name="PollChoice" type="text" style="width:390px;height:30px;background:lightgrey;border:none;border-radius:3px;position:relative;top:-5px;">';
-        newHTML += '<button onclick="DoDeleteAskChoice(); return false;" style="position:relative;right:-5px;top:5px;width:40px;height:40px;background:#fff;border:none;font-size:30px;color:red;font-weight:bold">X</button>';
-        newHTML += '<input name="PollDescription" type="text" style="width:440px;height:50px;background:lightgrey;border:none;border-radius:3px;position:relative;top:10px;">';
-        newHTML += '</div>';
-
-        return newHTML;
-    }
-
-    function DoDeleteAskChoice(theEvent) {
-        var who = event.target || event.srcElement;
-        var deadDiv = who.parentElement;
-        $("#PollAnswersArea").removeChild(deadDiv);
-    }
-
-    function ForgetUser() {
+    var ForgetUser = function() {
         $.removeCookie("loginkey");
         Blahgua.logoutUser(OnLogoutOK);
-    }
+    };
 
 
-    function LogoutUser() {
+    var LogoutUser = function() {
         Blahgua.logoutUser(OnLogoutOK, function(theErr){
             switch (theErr.status) {
                 case 202:
@@ -1671,175 +1478,15 @@ define('blahgua_base',
                     OnFailure(theErr);
             }
         });
+    };
 
-    }
-
-    function OnLogoutOK(json) {
-        IsUserLoggedIn = false;
+    var OnLogoutOK = function(json) {
+        G.IsUserLoggedIn = false;
         refreshSignInBtn();
-        CurrentUser = null;
+        G.CurrentUser = null;
         ClosePage();
         GetUserChannels();
-
-    }
-
-    function AddBadge() {
-        alert("Adding a badge!");
-    }
-
-// *****************************************
-// Channel Browser
-
-    function DoBrowseChannels() {
-        StopAnimation();
-        HideChannelList();
-        $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
-            PopulateChannelBrowser();
-            $(BlahFullItem).fadeIn("fast");
-        });
-    }
-
-    function PopulateChannelBrowser() {
-        Blahgua.GetChannelTypes(OnGetChannelTypesOK);
-    }
-
-    function OnGetChannelTypesOK(typeList) {
-        var newHTML = "";
-        $.each(typeList, function (index, element) {
-            newHTML += GenerateHTMLForChannelType(element);
-        });
-        document.getElementById("ChannelTypeList").innerHTML = newHTML;
-
-
-    }
-
-    function GenerateHTMLForChannelType(channelType) {
-        var newHTML= "";
-        newHTML += '<li id="' + channelType._id + '" onclick="DoExpandItem();return false;">';
-        newHTML += "<a class='channelBrowserGroupItem'>" + channelType.N + "</a>";
-        newHTML += "</li>";
-        return newHTML;
-    }
-
-    function GenerateHTMLForChannelBrowser(curChannel) {
-        var newHTML = "";
-        newHTML += "<li class='channelBrowserChannelItem' channelId='" + curChannel._id + "' onclick='DoOpenChannelPage(); return false;'><a >";
-
-        newHTML += '<img class="channelimage" src="' + fragmentURL + '/images/groups/' + curChannel.N + '.png"';
-        newHTML += 'onerror="imgError(this);">';
-        newHTML += curChannel.N;
-        newHTML += "</a>";
-        newHTML += "</li>";
-        return newHTML;
-    }
-
-    function DoExpandItem() {
-        var mainItem = event.srcElement.parentElement;
-        var itemID = mainItem.id;
-
-        var channelSubList = $(mainItem).find(".channelSubItems");
-
-        if (channelSubList.length == 0) {
-            // fetch a new channel list
-            Blahgua.GetChannelsForType(itemID, GetSubChannelsOK);
-        } else {
-            channelSubList.toggle();
-        }
-
-    }
-
-    function GetSubChannelsOK(newChannelList) {
-        var newHTML = "";
-        newHTML += '<ul class="channelSubItems">';
-        if (newChannelList.length > 0) {
-            $.each(newChannelList, function (index, element) {
-                newHTML += GenerateHTMLForChannelBrowser(element);
-            });
-            document.getElementById(newChannelList[0].Y).innerHTML += newHTML;
-        } else {
-            //to do - add some text about how there are no channels...
-            var who = event | window.event;
-            var what = who.target | who.srcElement;
-        }
-
-        newHTML += "</ul>";
-
-
-    }
-
-    function DoOpenChannelPage() {
-        var who = event || window.event;
-        var what = who.target || who.srcElement;
-
-        while (what.attributes["channelid"] == null) {
-            what = what.parentElement;
-        }
-
-        var itemID = what.attributes["channelid"].value;
-
-        $(BlahFullItem).load(fragmentURL + "/pages/ChannelDetailPage.html #ChannelDetailPage", function() {
-            PopulateChannelDetailPage(itemID);
-        });
-    }
-
-    function PopulateChannelDetailPage(channelId) {
-        Blahgua.GetChannelInfo(channelId, function(theChannel) {
-            document.getElementById("ChannelDetailPage").setAttribute("channelObj", channelId);
-            $("#ChannelTitleDiv").text(theChannel.N);
-            $("#ChannelDescriptionArea").text(getSafeProperty(theChannel, "D", "a channel"));
-            RefreshChannelDetailPage(theChannel._id);
-        })
-    }
-
-    function RefreshChannelDetailPage(theChannelId) {
-        if (UserIsOnChannel(theChannelId)) {
-            $("#JoinChannelBtn").hide();
-            $("#LeaveChannelBtn").show();
-        } else {
-            $("#JoinChannelBtn").show();
-            $("#LeaveChannelBtn").hide();
-        }
-    }
-
-    function UserIsOnChannel(channelId) {
-        for (curIndex in ChannelList) {
-            if (ChannelList[curIndex]._id == channelId)
-                return true;
-        }
-
-        return false;
-    }
-
-    function DoJoinChannel() {
-        var channelId = document.getElementById("ChannelDetailPage").getAttribute("channelObj");
-        Blahgua.JoinUserToChannel(channelId, function() {
-            Blahgua.GetUserChannels(function(theList) {
-                ChannelList = theList;
-                RefreshChannelDetailPage();
-            });
-        });
-    }
-
-    function DoLeaveChannel() {
-        var channelId = document.getElementById("ChannelDetailPage").getAttribute("channelObj");
-        Blahgua.RemoveUserFromChannel(channelId, function() {
-            Blahgua.GetUserChannels(function(theList) {
-                ChannelList = theList;
-                RefreshChannelDetailPage();
-            });
-        });
-    }
-
-    function DoChannelBrowserReturn() {
-        $(BlahFullItem).load(fragmentURL + "/pages/ChannelBrowser.html #ChannelBrowserDiv", function() {
-            PopulateChannelBrowser();
-            $(BlahFullItem).fadeIn("fast");
-        });
-    }
-
-    function IsUsersOwnBlah() {
-        return (CurrentUser._id == CurrentBlah.A);
-    }
+    };
 
 
         // EXPORTS
@@ -1858,6 +1505,8 @@ define('blahgua_base',
         Exports.ForgetUser = ForgetUser;
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OpenLoadedBlah = OpenLoadedBlah;
+        Exports.SpinTarget = SpinTarget;
+        Exports.SpinElement = SpinElement;
 
     return {
         InitializeBlahgua: InitializeBlahgua

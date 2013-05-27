@@ -1,38 +1,19 @@
 ﻿// rest call wrappers for blahgua
 
-define('blahgua_restapi', ['spin'], function (spin) {
+define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, exports, spin) {
     // properties
     var baseURL = "https://beta.blahgua.com/v2/";
     var currentChannel = "";
-    //this.baseURL = "../v2/";
 
     // methods
-    var CallPostMethod = function (methodName, paramString, OnSuccess, OnFailure) {
+    var CallPostMethod = function (methodName, paramString, OnSuccess, OnFailure, timeOut) {
         /// <summary>Calls the specified method on the page with the specified parameters</summary>
         /// <param name="methodName">the name of the method to call</param>
         /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
         /// <param name="OnFailure">method to call on the event of a failure</param>
 
-
-        $.ajax({
-            type: "POST",
-            url: baseURL + methodName,
-            data: paramString,
-            contentType: "application/json; charset=utf-8",
-
-
-            success: function (theObj, didIt, status) {
-                if (OnSuccess != null) {
-                    OnSuccess(theObj, didIt, status);
-                }
-            },
-            error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
-                }
-            }
-        });
+        CallAjaxMethod("POST", methodName, paramString, OnSuccess, OnFailure, timeOut);
     };
 
     var CallGetMethod = function (methodName, paramString, OnSuccess, OnFailure, timeOut) {
@@ -42,93 +23,62 @@ define('blahgua_restapi', ['spin'], function (spin) {
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
         /// <param name="OnFailure">method to call on the event of a failure</param>
 
+        CallAjaxMethod("GET", methodName, paramString, OnSuccess, OnFailure, timeOut);
+    };
+
+    var CallPutMethod = function (methodName, paramString, OnSuccess, OnFailure, timeOut) {
+        /// <summary>Calls the specified method on the page with the specified parameters</summary>
+        /// <param name="methodName">the name of the method to call</param>
+        /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+
+        CallAjaxMethod("PUT", methodName, paramString, OnSuccess, OnFailure, timeOut);
+    };
+
+    var CallDeleteMethod = function (methodName, paramString, OnSuccess, OnFailure, timeOut) {
+        /// <summary>Calls the specified method on the page with the specified parameters</summary>
+        /// <param name="methodName">the name of the method to call</param>
+        /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+
+        CallAjaxMethod("DELETE", methodName, paramString, OnSuccess, OnFailure, timeOut);
+    };
+
+    var CallAjaxMethod = function(restType, methodName, paramString, OnSuccess, OnFailure, timeOut) {
         if (timeOut == null)
             timeOut = 3000;
 
-        SpinElement.spin(SpinTarget);
-        $(".spin-text").text("GET " + methodName);
+        if (exports.SpinElement)
+            exports.SpinElement.spin(exports.SpinTarget);
+        $(".spin-text").text(restType + " " + methodName);
         $.ajax({
-            type: "GET",
+            type: restType,
             url: baseURL + methodName,
             data: paramString,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             timeout: timeOut,
-            success: function (result) {
-                SpinElement.stop();
+            success: function (result, didIt, status) {
+                if (exports.SpinElement)
+                    exports.SpinElement.stop();
                 $("#spin-div").empty();
                 $(".spin-text").empty();
                 if (OnSuccess != null) {
-                    OnSuccess(result);
+                    OnSuccess(result, didIt, status);
                 }
             },
             error: function (theErr) {
-                SpinElement.stop();
-                $(".spin-text").text("ERROR: GET " + methodName);
-                if (OnFailure != null) {
-                    OnFailure(theErr);
-    }
-}
-        });
-    };
-
-    var CallPutMethod = function (methodName, paramString, OnSuccess, OnFailure) {
-        /// <summary>Calls the specified method on the page with the specified parameters</summary>
-        /// <param name="methodName">the name of the method to call</param>
-        /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
-        /// <param name="OnSuccess">method to call when the function returns successfully</param>
-        /// <param name="OnFailure">method to call on the event of a failure</param>
-
-
-        $.ajax({
-            type: "PUT",
-            url: baseURL + methodName,
-            data: paramString,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                if (OnSuccess != null) {
-                    OnSuccess(result);
-                }
-            },
-            error: function (theErr) {
+                if (exports.SpinElement)
+                    exports.SpinElement.stop();
+                $(".spin-text").text("ERROR: " + restType + " " + methodName);
                 if (OnFailure != null) {
                     OnFailure(theErr);
                 }
             }
         });
     };
-
-    var CallDeleteMethod = function (methodName, paramString, OnSuccess, OnFailure) {
-        /// <summary>Calls the specified method on the page with the specified parameters</summary>
-        /// <param name="methodName">the name of the method to call</param>
-        /// <param name="paramString">the parameter string.  Use "{}" for an empty string</param>
-        /// <param name="OnSuccess">method to call when the function returns successfully</param>
-        /// <param name="OnFailure">method to call on the event of a failure</param>
-
-
-        $.ajax({
-            type: "DELETE",
-            url: baseURL + methodName,
-            data: paramString,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (result) {
-                if (OnSuccess != null) {
-                    OnSuccess(result);
-                }
-            },
-            error: function (theErr) {
-                if (OnFailure != null) {
-                    OnFailure(theErr);
-                }
-            }
-        });
-    };
-
-
-
-
 
 
     //  ACTUAL WORKING FUNCTIONS
@@ -634,7 +584,7 @@ define('blahgua_restapi', ['spin'], function (spin) {
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         /// <returns>A list of the user's groups</returns>
-        var paramStr = 'authorId=' + CurrentUser._id;
+        var paramStr = 'authorId=' + G.CurrentUser._id;
         var methodName = "comments";
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
@@ -759,6 +709,6 @@ define('blahgua_restapi', ['spin'], function (spin) {
         GetUserDescriptors: GetUserDescriptors,
         recoverUser: recoverUser,
         setRecoveryInfo: setRecoveryInfo,
-        getRecoveryInfo: getRecoveryInfo
+        getRecoveryInfo: getRecoveryInfo ,
     }
 });

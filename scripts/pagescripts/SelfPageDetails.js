@@ -8,8 +8,8 @@
 
 
 define('SelfPageDetails',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals", "ExportFunctions", "blahgua_restapi"],
+    function (G, exports, blahgua_rest) {
 
         var  InitializePage = function() {
 
@@ -33,68 +33,68 @@ define('SelfPageDetails',
 
 
         var RefreshPage = function() {
-            $("#userName").val(CurrentUser.N);
-            var nickName = getSafeProperty(UserProfile, "A", "someone");
+            $("#userName").val(G.CurrentUser.N);
+            var nickName = G.GetSafeProperty(G.UserProfile, "A", "someone");
             $("#NicknameInput").val(nickName);
             //image
-            var newImage = GetUserImage(CurrentUser, "A");
+            var newImage = G.GetUserImage(G.CurrentUser, "A");
             if (newImage != "")
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
 
             // location
-            $("#CityInput").val(getSafeProperty(UserProfile, "G", ""));
-            $("#StateInput").val(getSafeProperty(UserProfile, "H", ""));
-            $("#ZipcodeInput").val(getSafeProperty(UserProfile, "I", ""));
+            $("#CityInput").val(G.GetSafeProperty(G.UserProfile, "G", ""));
+            $("#StateInput").val(G.GetSafeProperty(G.UserProfile, "H", ""));
+            $("#ZipcodeInput").val(G.GetSafeProperty(G.UserProfile, "I", ""));
 
             // populate country codes
             var newEl;
-            $.each(ProfileSchema.J.DT, function(index, item){
+            $.each(G.ProfileSchema.J.DT, function(index, item){
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(UserProfile, "J", -1))
+                if (index == G.GetSafeProperty(G.UserProfile, "J", -1))
                     newEl.selected = "selected";
                 $("#CountryInput").append(newEl);
             });
 
             // demographics
-            $("#DOBInput").val(getSafeProperty(UserProfile, "C", ""));
+            $("#DOBInput").val(G.GetSafeProperty(G.UserProfile, "C", ""));
 
-            $.each(ProfileSchema.B.DT, function(index, item){
+            $.each(G.ProfileSchema.B.DT, function(index, item){
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(UserProfile, "B", -1))
+                if (index == G.GetSafeProperty(G.UserProfile, "B", -1))
                     newEl.selected = "selected";
                 $("#GenderInput").append(newEl);
             });
-            $.each(ProfileSchema.D.DT, function(index, item){
+            $.each(G.ProfileSchema.D.DT, function(index, item){
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(UserProfile, "D", -1))
+                if (index == G.GetSafeProperty(G.UserProfile, "D", -1))
                     newEl.selected = "selected";
                 $("#EthnicityInput").append(newEl);
             });
-            $.each(ProfileSchema.E.DT, function(index, item){
+            $.each(G.ProfileSchema.E.DT, function(index, item){
                 newEl = document.createElement("option");
                 newEl.value = index;
                 newEl.innerHTML = item;
-                if (index == getSafeProperty(UserProfile, "E", -1))
+                if (index == G.GetSafeProperty(G.UserProfile, "E", -1))
                     newEl.selected = "selected";
                 $("#IncomeInput").append(newEl);
             });
 
             // permissions
-            $('input:checkbox[name=city]').val([getSafeProperty(UserProfile, "6", 0)]);
-            $('input:checkbox[name=state]').val([getSafeProperty(UserProfile, "7", 0)]);
-            $('input:checkbox[name=zipcode]').val([getSafeProperty(UserProfile, "8", 0)]);
-            $('input:checkbox[name=country]').val([getSafeProperty(UserProfile, "9", 0)]);
+            $('input:checkbox[name=city]').val([G.GetSafeProperty(G.UserProfile, "6", 0)]);
+            $('input:checkbox[name=state]').val([G.GetSafeProperty(G.UserProfile, "7", 0)]);
+            $('input:checkbox[name=zipcode]').val([G.GetSafeProperty(G.UserProfile, "8", 0)]);
+            $('input:checkbox[name=country]').val([G.GetSafeProperty(G.UserProfile, "9", 0)]);
 
-            $('input:checkbox[name=age]').val([getSafeProperty(UserProfile, "2", 0)]);
-            $('input:checkbox[name=income]').val([getSafeProperty(UserProfile, "4", 0)]);
-            $('input:checkbox[name=gender]').val([getSafeProperty(UserProfile, "1", 0)]);
-            $('input:checkbox[name=race]').val([getSafeProperty(UserProfile, "3", 0)]);
+            $('input:checkbox[name=age]').val([G.GetSafeProperty(G.UserProfile, "2", 0)]);
+            $('input:checkbox[name=income]').val([G.GetSafeProperty(G.UserProfile, "4", 0)]);
+            $('input:checkbox[name=gender]').val([G.GetSafeProperty(G.UserProfile, "1", 0)]);
+            $('input:checkbox[name=race]').val([G.GetSafeProperty(G.UserProfile, "3", 0)]);
 
 
             // badges
@@ -111,7 +111,6 @@ define('SelfPageDetails',
 
 
             // headers
-
             $('.accordion h2').click(function(theEvent) {
                 var parent = $(this).parent('.accordion');
                 if (parent.hasClass("active")) {
@@ -164,10 +163,10 @@ define('SelfPageDetails',
         };
 
         var UpdateBadgeArea = function() {
-            if (CurrentUser.hasOwnProperty("B")) {
+            if (G.CurrentUser.hasOwnProperty("B")) {
                 // add badges
                 $("#BadgesDiv").empty();
-                $.each(CurrentUser.B, function(index, curBadge) {
+                $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
             } else {
@@ -220,7 +219,7 @@ define('SelfPageDetails',
                 $("#badgedialog").empty();
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
-                    CurrentUser = json;
+                    G.CurrentUser = json;
                     UpdateBadgeArea();
                 });
 
@@ -228,13 +227,13 @@ define('SelfPageDetails',
         };
 
         var UpdateUserAccountInfo = function() {
-            UserProfile["A"] = $("#NicknameInput").val();
-            UserProfile["0"] = 2; // TODO: review - nickname is always public
+            G.UserProfile["A"] = $("#NicknameInput").val();
+            G.UserProfile["0"] = 2; // TODO: review - nickname is always public
 
             // TODO:  email address
             // TODO:  password
             // commit
-            blahgua_rest.UpdateUserProfile(UserProfile, function() {
+            blahgua_rest.UpdateUserProfile(G.UserProfile, function() {
                 var nickName = $("#NicknameInput").val();
                 $("#FullBlahNickName").text(nickName);
                 $("#SaveAccountInfoBtn").attr("disabled", "disabled");
@@ -243,31 +242,31 @@ define('SelfPageDetails',
 
         var UpdateUserDemographics = function() {
             // location
-            UserProfile["G"] = $("#CityInput").val();
-            UserProfile["H"] = $("#StateInput").val();
-            UserProfile["I"] = $("#ZipcodeInput").val();
-            UserProfile["J"] = $("#CountryInput").val();
+            G.UserProfile["G"] = $("#CityInput").val();
+            G.UserProfile["H"] = $("#StateInput").val();
+            G.UserProfile["I"] = $("#ZipcodeInput").val();
+            G.UserProfile["J"] = $("#CountryInput").val();
 
             // demographics
-            UserProfile["C"] = $("#DOBInput").val();
-            UserProfile["E"] = $("#IncomeInput").val();
-            UserProfile["B"] = $("#GenderInput").val();
-            UserProfile["D"] = $("#EthnicityInput").val();
+            G.UserProfile["C"] = $("#DOBInput").val();
+            G.UserProfile["E"] = $("#IncomeInput").val();
+            G.UserProfile["B"] = $("#GenderInput").val();
+            G.UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
-            UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
-            UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
-            UserProfile["9"] = $('input:checkbox[name=country]:checked').val() ? 2 : 0;
-            UserProfile["2"] = $('input:checkbox[name=age]:checked').val() ? 2 : 0;
-            UserProfile["4"] = $('input:checkbox[name=income]:checked').val() ? 2 : 0;
-            UserProfile["1"] = $('input:checkbox[name=gender]:checked').val() ? 2 : 0;
-            UserProfile["3"] = $('input:checkbox[name=race]:checked').val() ? 2 : 0;
+            G.UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
+            G.UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
+            G.UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
+            G.UserProfile["9"] = $('input:checkbox[name=country]:checked').val() ? 2 : 0;
+            G.UserProfile["2"] = $('input:checkbox[name=age]:checked').val() ? 2 : 0;
+            G.UserProfile["4"] = $('input:checkbox[name=income]:checked').val() ? 2 : 0;
+            G.UserProfile["1"] = $('input:checkbox[name=gender]:checked').val() ? 2 : 0;
+            G.UserProfile["3"] = $('input:checkbox[name=race]:checked').val() ? 2 : 0;
 
             // commit
-            blahgua_rest.UpdateUserProfile(UserProfile, function() {
+            blahgua_rest.UpdateUserProfile(G.UserProfile, function() {
                 $("#SaveDemographicsBtn").attr("disabled", "disabled");
-                blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
+                blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
                 }, function(theErr) {
                     $("#DescriptionSpan").text("someone");
@@ -277,7 +276,7 @@ define('SelfPageDetails',
 
         var UploadUserImage = function() {
             $("#ProgressDiv").show();
-            $("#objectId").val(CurrentUser._id);
+            $("#objectId").val(G.CurrentUser._id);
 
             var formData = new FormData($("#ImageForm")[0]);
             $.ajax({
@@ -312,8 +311,8 @@ define('SelfPageDetails',
            $("#ProgressDiv").hide();
            $("#UserFormImage").val("");
             blahgua_rest.getUserInfo(function (json) {
-                CurrentUser = json;
-                var newImage = GetUserImage(CurrentUser, "A");
+                G.CurrentUser = json;
+                var newImage = G.GetUserImage(G.CurrentUser, "A");
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
 

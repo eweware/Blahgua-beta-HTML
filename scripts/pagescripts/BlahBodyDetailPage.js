@@ -7,12 +7,12 @@
  */
 
 define('BlahBodyDetailPage',
-    ["GlobalFunctions", "blahgua_restapi", "comments"],
-    function (exports, blahgua_rest, comments) {
+    ["globals", "ExportFunctions", "blahgua_restapi", "comments"],
+    function (G, exports, blahgua_rest, comments) {
 
         var InitializePage = function() {
-            CurrentComments = null;
-            if (CurrentBlah == null) {
+            G.CurrentComments = null;
+            if (G.CurrentBlah == null) {
                 alert("Error:  No Blah!");
                 return;
             }
@@ -42,18 +42,18 @@ define('BlahBodyDetailPage',
             var isOwnBlah;
 
 
-            if (IsUserLoggedIn) {
-                isOwnBlah = (CurrentBlah.A == CurrentUser._id);
+            if (G.IsUserLoggedIn) {
+                isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
 
             } else {
                 isOwnBlah = false;
 
             }
-            var image = GetItemImage(CurrentBlah, "B");
+            var image = G.GetItemImage(G.CurrentBlah, "B");
 
 
 
-            if (IsUserLoggedIn) {
+            if (G.IsUserLoggedIn) {
 
                 $("#BlahRowVote").show();
                 $("#BlahRowSignIn").hide();
@@ -87,10 +87,10 @@ define('BlahBodyDetailPage',
             }
 
             var bodyTextDiv = document.getElementById("BlahFullBody");
-            if (CurrentBlah.hasOwnProperty("F")) {
-                var bodyText = CurrentBlah.F;
+            if (G.CurrentBlah.hasOwnProperty("F")) {
+                var bodyText = G.CurrentBlah.F;
                 if (bodyText && (bodyText != "")) {
-                     bodyText = UnCodifyText(bodyText);
+                     bodyText = G.UnCodifyText(bodyText);
                 }
                 bodyTextDiv.innerHTML = bodyText;
             } else {
@@ -101,13 +101,13 @@ define('BlahBodyDetailPage',
             switch (exports.GetBlahTypeStr()) {
                 case "predicts":
                     require(['BlahTypePredict'], function(PredictModule) {
-                        $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredict",
+                        $("#AdditionalInfoArea").load(G.FragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredict",
                             function() { PredictModule.InitPredictPage(); });
                     });
                     break;
                 case "polls":
                     require(['BlahTypePoll'], function(PollModule) {
-                        $("#AdditionalInfoArea").load(fragmentURL + "/pages/BlahTypePollPage.html #BlahTypePoll",
+                        $("#AdditionalInfoArea").load(G.FragmentURL + "/pages/BlahTypePollPage.html #BlahTypePoll",
                             function() { PollModule.InitPollPage(); });
                     });
                     break;
@@ -126,7 +126,7 @@ define('BlahBodyDetailPage',
             // handle the top comments
             comments.UpdateTopComments();
             document.getElementById("AddCommentBtn").disabled = true;
-            if (IsUserLoggedIn) {
+            if (G.IsUserLoggedIn) {
                 $("#AddCommentBtn").disabled;
                 $("#CreateCommentArea").show();
                 $("#CommentTextArea").focus();
@@ -160,8 +160,8 @@ define('BlahBodyDetailPage',
             var promoBtn =  document.getElementById("PromoteBlahImage");
             var demoBtn = document.getElementById("DemoteBlahImage");
 
-            if (IsUserLoggedIn) {
-                if (CurrentBlah.A == CurrentUser._id) {
+            if (G.IsUserLoggedIn) {
+                if (G.CurrentBlah.A == G.CurrentUser._id) {
                     // own blah - can't vote
                     promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png";
                     promoBtn.disabled = true;
@@ -169,7 +169,7 @@ define('BlahBodyDetailPage',
                     demoBtn.disabled = true;
                 } else {
                     // not own blah - can vote.  Did they?
-                    var userVote = getSafeProperty(CurrentBlah, "uv", 0);
+                    var userVote = G.GetSafeProperty(G.CurrentBlah, "uv", 0);
                     if (userVote && (userVote != 0)) {
                         demoBtn.disabled = true;
                         promoBtn.disabled = true;
@@ -199,17 +199,17 @@ define('BlahBodyDetailPage',
 
         var SetBlahVote = function(theVote) {
             if (!window.event.srcElement.disabled) {
-                blahgua_rest.SetBlahVote(CurrentBlah._id, theVote, function(json) {
+                blahgua_rest.SetBlahVote(G.CurrentBlah._id, theVote, function(json) {
                     var oldVote;
-                    CurrentBlah["uv"] = theVote;
+                    G.CurrentBlah["uv"] = theVote;
                     if (theVote == 1) {
-                        oldVote = getSafeProperty(CurrentBlah, "P", 0);
+                        oldVote = G.GetSafeProperty(CurrentBlah, "P", 0);
                         oldVote++;
-                        CurrentBlah["P"] = oldVote;
+                        G.CurrentBlah["P"] = oldVote;
                     } else {
-                        oldVote = getSafeProperty(CurrentBlah, "D", 0);
+                        oldVote = G.GetSafeProperty(CurrentBlah, "D", 0);
                         oldVote++;
-                        CurrentBlah["D"] = oldVote;
+                        G.CurrentBlah["D"] = oldVote;
                     }
                     UpdateVoteBtns();
 

@@ -9,11 +9,13 @@
 
 define('BlahStatsDetailPage',
     [
-        "GlobalFunctions",
+        "constants",
+        "globals",
+        "ExportFunctions",
         "blahgua_restapi",
         "stats"
     ],
-    function (exports, blahgua_rest, stats) {
+    function (K, G, exports, blahgua_rest, stats) {
 
         var InitializePage = function (){
 
@@ -38,10 +40,9 @@ define('BlahStatsDetailPage',
                 }
             });
 
-
-            if (IsUserLoggedIn && (UserProfile == null)) {
-                blahgua_rest.GetUserProfile(CurrentUser._id, function(json) {
-                    UserProfile = json;
+            if (G.IsUserLoggedIn && (G.UserProfile == null)) {
+                blahgua_rest.GetUserProfile(G.CurrentUser._id, function(json) {
+                    G.UserProfile = json;
                     RefreshUserStats();
                 }, function(theErr) {
                     // todo: be more robuts with profile load failure
@@ -56,12 +57,12 @@ define('BlahStatsDetailPage',
 
         var RefreshUserStats = function() {
             var endDate = new Date(Date.now());
-            var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
+            var startDate = new Date(Date.now() - (G.NumStatsDaysToShow * (24 * 3600 * 1000)));
 
-            var startDateStr = createDateString(startDate);
-            var endDateStr = createDateString(endDate);
-            blahgua_rest.GetBlahWithStats(CurrentBlah._id, startDateStr, endDateStr, function(json) {
-                CurrentBlah = json;
+            var startDateStr = G.CreateDateString(startDate);
+            var endDateStr = G.CreateDateString(endDate);
+            blahgua_rest.GetBlahWithStats(G.CurrentBlah._id, startDateStr, endDateStr, function(json) {
+                G.CurrentBlah = json;
                 UpdateBlahStats();
             }, function(theErr) {
                 // can't actually show stats...
@@ -71,11 +72,11 @@ define('BlahStatsDetailPage',
 
         var UpdateBlahStats = function() {
             // Overall Standing
-            var curStats = getSafeProperty(CurrentBlah,"L", null);
-            var curStr = getSafeProperty(CurrentBlah, "S", 0);
-            var recentStr = getSafeProperty(CurrentBlah, "R", 0);
-            var uv = getSafeProperty(CurrentBlah, "P", 0);
-            var dv = getSafeProperty(CurrentBlah, "D", 0);
+            var curStats = G.GetSafeProperty(G.CurrentBlah,"L", null);
+            var curStr = G.GetSafeProperty(G.CurrentBlah, "S", 0);
+            var recentStr = G.GetSafeProperty(G.CurrentBlah, "R", 0);
+            var uv = G.GetSafeProperty(G.CurrentBlah, "P", 0);
+            var dv = G.GetSafeProperty(G.CurrentBlah, "D", 0);
 
             $("#BlahStandingDiv").highcharts({
                 title: {
@@ -134,12 +135,18 @@ define('BlahStatsDetailPage',
 
 
             // Audience Engagement
+            var views = G.GetSafeProperty(G.CurrentBlah,"V", 0);
+            var opens = G.GetSafeProperty(G.CurrentBlah, "O", 0);
+            var ratio = Math.round((opens / views) * 10000) / 100;
+            $(".conversion-percent").text(ratio + "%");
+            $(".conversion-desc").text("Opened " + opens + " times out of " + views + " impressions");
+
             if (curStats && curStats.length > 0) {
                 var endDate = new Date(Date.now());
-                var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
-                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "V");
-                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "O");
-                var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "C");
+                var startDate = new Date(Date.now() - (G.numStatsDaysToShow * (24 * 3600 * 1000)));
+                //var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "V");
+                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "O");
+                var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "C");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
                 $('#BlahActivityDiv').empty().highcharts({
@@ -161,19 +168,9 @@ define('BlahStatsDetailPage',
                     },
                     yAxis: [{
                         min:0,
-                        title: { text: "views & opens"}
-                    },  {
-                        min:0,
-                        opposite: true,
-                        endOnTick: true,
-                        title: { text: "creation"}
+                        title: { text: "count"}
                     }],
                     series: [{
-                        type: 'areaspline',
-                        data: viewData,
-                        name: "#blahs viewed"
-                    },
-                        {
                             type: 'areaspline',
                             data: openData,
                             name: "#blahs opened"
@@ -183,20 +180,19 @@ define('BlahStatsDetailPage',
                             type: 'column',
                             data: commentsMade,
                             name: "#comments",
-                            yAxis: 1
                         }]
                 });
             }
 
 
             // Voter Demographics
-            if (IsUserLoggedIn && UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
-                $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Gender", "B"));
+            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
+                $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Gender", "B"));
             else
                 $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
-            if (IsUserLoggedIn && UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
-                $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Ethnicity", "D"));
+            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
+                $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Ethnicity", "D"));
             else
                 $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
@@ -207,8 +203,8 @@ define('BlahStatsDetailPage',
              $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
              */
 
-            if (IsUserLoggedIn && UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
-                $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(CurrentBlah, "Country", "J"));
+            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
+                $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
             else
                 $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
 
@@ -220,15 +216,15 @@ define('BlahStatsDetailPage',
             var curData;
             var curIndexName;
             var o, p,c;
-            if (CurrentBlah.hasOwnProperty('_d') && (ProfileSchema != null)) {
-                for(curIndex in ProfileSchema[whichDemo].DT) {
+            if (G.CurrentBlah.hasOwnProperty('_d') && (G.ProfileSchema != null)) {
+                for(curIndex in G.ProfileSchema[whichDemo].DT) {
                     curData = new Object();
-                    curIndexName = ProfileSchema[whichDemo].DT[curIndex];
+                    curIndexName = G.ProfileSchema[whichDemo].DT[curIndex];
                     curData.name = curIndexName;
                     curData.data = [];
-                    o = getSafeProperty(CurrentBlah._d._o[whichDemo], curIndex,0);
-                    p = getSafeProperty(CurrentBlah._d._u[whichDemo], curIndex,0);
-                    c = getSafeProperty(CurrentBlah._d._c[whichDemo], curIndex,0);
+                    o = G.GetSafeProperty(G.CurrentBlah._d._o[whichDemo], curIndex,0);
+                    p = G.GetSafeProperty(G.CurrentBlah._d._u[whichDemo], curIndex,0);
+                    c = G.GetSafeProperty(G.CurrentBlah._d._c[whichDemo], curIndex,0);
                     if ((o > 0) || (p > 0) || (c > 0)) {
                         curData.data.push(o);
                         curData.data.push(p);

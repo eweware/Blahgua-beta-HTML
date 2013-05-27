@@ -7,14 +7,24 @@
  */
 
 define('BlahCommentDetailPage',
-    ["GlobalFunctions", "comments"],
-    function (exports, comments) {
+    ["globals", "ExportFunctions", "comments"],
+    function (G, exports, comments) {
 
         var InitializePage = function() {
             // bind events
+            $("#SortBySelect").change(function(theEvent) {
+                UpdateCommentSort();
+            });
 
+            $("#SortOrderSelect").change(function(theEvent) {
+                UpdateCommentSort();
+            });
 
-            if (IsUserLoggedIn)  {
+            $("#FilterBox").keyup(function(theEvent) {
+                comments.SetCommentFilter($("#FilterBox").val());
+            });
+
+         if (G.IsUserLoggedIn)  {
                 $("#AddCommentBtn").click(function(theEvent) {
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
@@ -34,7 +44,7 @@ define('BlahCommentDetailPage',
             var titleBottom;
 
             // update the input area
-            if (IsUserLoggedIn) {
+            if (G.IsUserLoggedIn) {
                 document.getElementById("AddCommentBtn").disabled = true;
                 $("#SignInToCommentArea").hide();
                 $("#CreateCommentArea").show();
@@ -46,7 +56,7 @@ define('BlahCommentDetailPage',
                     //  the following will help the text expand as typing takes place
                     while($(this).outerHeight() < this.scrollHeight) {
                         $(this).height($(this).height()+1);
-                    };
+                    }
                     // handle the sizing
                     var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
                     var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
@@ -64,6 +74,12 @@ define('BlahCommentDetailPage',
             comments.UpdateBlahComments();
 
         };
+
+        var UpdateCommentSort = function() {
+            comments.SetCommentSort($("#SortBySelect").val(), $("#SortOrderSelect").val());
+        };
+
+
 
         var SignInToComment = function() {
             exports.SuggestUserSignIn("Sign in to comment");

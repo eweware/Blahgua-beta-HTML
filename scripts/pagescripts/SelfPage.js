@@ -8,8 +8,8 @@
 
 
 define('SelfPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals", "ExportFunctions", "blahgua_restapi"],
+    function (G, exports, blahgua_rest) {
 
         var curStatPage = null;
 
@@ -30,7 +30,7 @@ define('SelfPage',
 
             curStatPage = whichPage;
 
-            blahgua_rest.GetUserProfile(CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
+            blahgua_rest.GetUserProfile(G.CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
         };
 
 
@@ -38,23 +38,23 @@ define('SelfPage',
         var OnGetOwnProfileFailed = function(theErr) {
             if (theErr.status == 404) {
                 // profile doesn't exist - add one!
-                UserProfile = new Object();
-                UserProfile["A"] = "someone";
-                blahgua_rest.CreateUserProfile(UserProfile, OnGetOwnProfileOK, exports.OnFailure);
+                G.UserProfile = new Object();
+                G.UserProfile["A"] = "someone";
+                blahgua_rest.CreateUserProfile(G.UserProfile, OnGetOwnProfileOK, exports.OnFailure);
             }
         };
 
 
         var OnGetOwnProfileOK = function(theStats) {
-            UserProfile = theStats;
-            var nickName = getSafeProperty(theStats, "A", "someone");
+            G.UserProfile = theStats;
+            var nickName = G.GetSafeProperty(theStats, "A", "someone");
             $("#FullBlahNickName").text(nickName);
             //image
-            var newImage = GetUserImage(CurrentUser, "A");
+            var newImage = G.GetUserImage(G.CurrentUser, "A");
             if (newImage != "")
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
 
-            blahgua_rest.getUserDescriptorString(CurrentUser._id, function(theString) {
+            blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                 $("#DescriptionSpan").text(theString.d);
             });
 
@@ -67,9 +67,9 @@ define('SelfPage',
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
             switch (whichPage) {
                 case "Profile":
-                    BlahFullItem.curPage = "Profile";
+                    G.BlahFullItem.curPage = "Profile";
                     require(["SelfPageDetails"], function(DetailsPage){
-                        $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
                             $("#SelfProfileBtn").addClass("BlahBtnSelected");
                             DetailsPage.InitializePage();
                         });
@@ -77,9 +77,9 @@ define('SelfPage',
 
                     break;
                 case "History":
-                    BlahFullItem.curPage = "History";
+                    G.BlahFullItem.curPage = "History";
                     require(["SelfPageHistory"], function(HistoryPage){
-                        $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
                             $("#SelfHistoryBtn").addClass("BlahBtnSelected");
                             HistoryPage.InitializePage();
                         });
@@ -87,9 +87,9 @@ define('SelfPage',
 
                     break;
                 case "Stats":
-                    BlahFullItem.curPage = "Stats";
+                    G.BlahFullItem.curPage = "Stats";
                     require(["SelfPageStats"], function(StatsPage){
-                        $("#SelfPageDiv").load(fragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
                             $("#SelfStatsBtn").addClass("BlahBtnSelected");
                             StatsPage.InitializePage();
                         });

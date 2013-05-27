@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-define('GlobalFunctions',
+define('ExportFunctions',
     [],
     function () {
 
@@ -19,10 +19,17 @@ define('GlobalFunctions',
         var UnfocusBlah = null;
         var GetChannelNameFromID = null;
         var CloseBlah = null;
-        var SuggestUserSignIn = null;
         var OpenLoadedBlah = null;
+        var GetBlahTypeId = null;
+        var GetBlahTypeNameFromId = null;
+        var LogoutUser = null;
+        var ForgetUser = null;
 
         return {
+            ForgetUser: ForgetUser,
+            LogoutUser: LogoutUser,
+            GetBlahTypeNameFromId: GetBlahTypeNameFromId,
+            GetBlahTypeId: GetBlahTypeId,
             ClosePage: ClosePage,
             RefreshPageForNewUser: RefreshPageForNewUser ,
             OpenBlah: OpenBlah,
@@ -30,7 +37,6 @@ define('GlobalFunctions',
             OnFailure: OnFailure,
             UnfocusBlah: UnfocusBlah,
             GetBlahTypeStr: GetBlahTypeStr,
-            SuggestUserSignIn: SuggestUserSignIn,
             CloseBlah: CloseBlah,
             GetChannelNameFromID: GetChannelNameFromID ,
             OpenLoadedBlah: OpenLoadedBlah

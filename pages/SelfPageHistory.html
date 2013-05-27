@@ -4,7 +4,7 @@
 <body>
 <div id="SelfPageHistoryDiv" >
     <div class="accordion">
-        <h2><img alt="blahs" src="../../img/closed.png">Your Creations</h2>
+        <h2><div class="collapser"></div>Your Creations</h2>
         <div class="accordion-body">
             <div class="instruction-text">
                 Here is what you have sent into the network.
@@ -21,15 +21,18 @@
                     <td colspan="3" >
                         <table>
                             <tr class="comment-sort-area">
-                                <td>filter:<input text="text" id="FilterBox"></td>
+                                <td>
+                                    <label for="FilterBox">filter:</label>
+                                    <input text="text" id="BlahFilterBox">
+                                </td>
 
-                                <td><select id="SortBySelect">
+                                <td><select id="BlahSortBySelect">
                                     <option value="bydate" selected>by date</option>
                                     <option value="bypromotes" >by promotes</option>
                                     <option value="bydemotes" >by demotes</option>
                                 </select> </td>
 
-                                <td><select id="SortOrderSelect">
+                                <td><select id="BlahSortOrderSelect">
                                     <option value="desc" selected>descending</option>
                                     <option value="asc">ascending</option>
                                 </select>
@@ -47,7 +50,7 @@
     </div>
 
     <div class="accordion">
-        <h2><img alt="comments" src="../../img/closed.png">Your Comments</h2>
+        <h2><div class="collapser"></div>Your Comments</h2>
         <div class="accordion-body">
             <div class="instruction-text">
                 Here are the comments that you have made.
@@ -58,12 +61,14 @@
                     <th scope="col" style="width: 10px; border-top-left-radius: 8px;">Comment</th>
                     <th scope="col" style="border-top-right-radius: 8px;">Date</th>
                 </tr>
-                </thead>
                 <tr>
                     <td colspan="2">
                         <table>
                             <tr class="comment-sort-area">
-                                <td>filter:<input text="text" id="FilterBox"></td>
+                                <td>
+                                    <label for="FilterBox">filter:</label>
+                                    <input text="text" id="FilterBox">
+                                </td>
                                 <td><select id="SortBySelect">
                                     <option value="bydate" selected>by date</option>
                                     <option value="bypromotes" >by promotes</option>
@@ -79,6 +84,8 @@
                         </table>
                     </td>
                 </tr>
+                </thead>
+
                 <tbody id="UserCommentList">
 
                 </tbody>

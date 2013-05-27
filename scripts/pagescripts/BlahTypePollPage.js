@@ -8,16 +8,16 @@
 
 
 define('BlahTypePoll',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["constants", "globals", "ExportFunctions", "blahgua_restapi"],
+    function (K, G, exports, blahgua_rest) {
 
         var totalVotes = 0;
 
         var InitPollPage = function() {
-            if (CurrentBlah.hasOwnProperty("I")) {
+            if (G.CurrentBlah.hasOwnProperty("I")) {
                 totalVotes = 0;
-                var choices = CurrentBlah.I;
-                var votes = CurrentBlah.J;
+                var choices = G.CurrentBlah.I;
+                var votes = G.CurrentBlah.J;
                 var newChoice;
                 var maxVotes = 0, curVotes;
                 for (var curIndex in votes) {
@@ -48,10 +48,10 @@ define('BlahTypePoll',
                     theEvent.stopImmediatePropagation();
                     var theVote = $(theEvent.target).parents("tr.poll-result-row").attr("data-poll-vote");
 
-                    blahgua_rest.SetUserPollVote(CurrentBlah._id, theVote,
+                    blahgua_rest.SetUserPollVote(G.CurrentBlah._id, theVote,
                         function(json) {
-                            blahgua_rest.GetBlah(CurrentBlahId, function(theBlah) {
-                                CurrentBlah = theBlah;
+                            blahgua_rest.GetBlah(G.CurrentBlahId, function(theBlah) {
+                                G. CurrentBlah = theBlah;
                                 UpdatePollPage();
                             }, function(theErr) {
                                 //todo: handle this error
@@ -68,7 +68,7 @@ define('BlahTypePoll',
         }
 
         var UpdatePollChart = function() {
-            var votes = CurrentBlah.J;
+            var votes = G.CurrentBlah.J;
             var newChoice;
             var maxVotes = 0, curVotes;
             for (var curIndex in votes) {
@@ -80,7 +80,7 @@ define('BlahTypePoll',
 
             $(".poll-result-row").each(function(index, item) {
                 var myIndex = Number(item.getAttribute("data-poll-vote"));
-                var curVote = CurrentBlah.J[myIndex];
+                var curVote = G.CurrentBlah.J[myIndex];
                 var ratio = curVote/ maxVotes;
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
@@ -93,8 +93,8 @@ define('BlahTypePoll',
         };
 
         var UpdatePollPage = function() {
-            if (IsUserLoggedIn) {
-                blahgua_rest.GetUserPollVote(CurrentBlah._id, function (json) {
+            if (G.IsUserLoggedIn) {
+                blahgua_rest.GetUserPollVote(G.CurrentBlah._id, function (json) {
                     if (json.hasOwnProperty("W")) {
                         // user voted - show their vote icon, disable
                         // all others, show chart
@@ -106,7 +106,7 @@ define('BlahTypePoll',
                         $(".poll-chart-div").show()
                         $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
-                    } else if (CurrentBlah.A == CurrentUser._id) {
+                    } else if (G.CurrentBlah.A == G.CurrentUser._id) {
                         $(".poll-prompt").text("your poll results so far");
                         // user's own blah - can't vote
                         $(".poll-checkbox").hide();
@@ -131,7 +131,7 @@ define('BlahTypePoll',
         };
 
         var CreatePollChoiceElement = function(pollChoice, curVotes, maxVotes, choiceIndex) {
-            var description = getSafeProperty(pollChoice, "T", "");
+            var description = G.GetSafeProperty(pollChoice, "T", "");
             var newHTML = "";
             newHTML += "<tr class='poll-result-row' data-poll-vote='" + choiceIndex + "'>" +
                 "<td><table>" +

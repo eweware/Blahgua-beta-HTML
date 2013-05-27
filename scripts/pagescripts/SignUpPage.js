@@ -7,8 +7,8 @@
  */
 
 define('SignUpPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals", "ExportFunctions", "blahgua_restapi"],
+    function (G, exports, blahgua_rest) {
 
         var CreateNewUser = function() {
             var userName = $("#userName").val();
@@ -57,9 +57,9 @@ define('SignUpPage',
 
 
         var HandleUserLoginOK = function(json, successOk, status) {
-            IsUserLoggedIn = true;
+            G.IsUserLoggedIn = true;
             blahgua_rest.GetProfileSchema(function(theSchema) {
-                ProfileSchema = theSchema.fieldNameToSpecMap;
+                G.ProfileSchema = theSchema.fieldNameToSpecMap;
             }, function(theErr){
                 exports.OnFailure(theErr);
             }) ;
@@ -70,7 +70,7 @@ define('SignUpPage',
                 userObject['userId'] = userName;
                 userObject['pwd'] = pwd;
 
-                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 30, path: '/'});
+                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 30, path: '/'});
                 $.removeCookie('isTemp');
             } else {
                 $.removeCookie("loginkey");

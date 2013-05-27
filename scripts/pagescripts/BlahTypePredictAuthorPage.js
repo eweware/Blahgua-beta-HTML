@@ -8,7 +8,7 @@
 
 
 define('BlahTypePredictAuthorPage',
-    ["GlobalFunctions", "blahgua_restapi"],
+    ["ExportFunctions", "blahgua_restapi"],
     function (exports, blahgua_rest) {
 
         var validateCallback = null;

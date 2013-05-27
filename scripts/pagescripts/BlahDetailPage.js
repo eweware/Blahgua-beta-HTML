@@ -7,8 +7,8 @@
  */
 
 define('BlahDetailPage',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals", "ExportFunctions", "blahgua_restapi"],
+    function (G, exports, blahgua_rest) {
 
         var InitializePage = function(whichPage) {
             // bind events
@@ -35,15 +35,15 @@ define('BlahDetailPage',
 
         var UpdateBlahPage = function() {
             var headlineText = document.getElementById("BlahFullHeadline");
-            headlineText.innerHTML = CurrentBlah.T;
-            var nickNameStr = CurrentBlahNickname;
+            headlineText.innerHTML = G.CurrentBlah.T;
+            var nickNameStr = G.CurrentBlahNickname;
             var blahTypeStr = exports.GetBlahTypeStr();
             var isOwnBlah;
-            var blahChannelStr = exports.GetChannelNameFromID(CurrentBlah.G);
+            var blahChannelStr = exports.GetChannelNameFromID(G.CurrentBlah.G);
 
 
-            if (IsUserLoggedIn) {
-                isOwnBlah = (CurrentBlah.A == CurrentUser._id);
+            if (G.IsUserLoggedIn) {
+                isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
             } else {
                 isOwnBlah = false;
             }
@@ -53,34 +53,34 @@ define('BlahDetailPage',
             }
 
             // stats
-            //document.getElementById("FullBlahViewerCount").innerHTML = getSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
+            //document.getElementById("FullBlahViewerCount").innerHTML = G.GetSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
             document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
             document.getElementById("BlahSpeechAct").innerHTML = blahTypeStr + " in " + blahChannelStr;
 
             // update the opens
-            blahgua_rest.AddBlahViewsOpens(CurrentBlah._id, 0, 1, null, null);// to do - check for errors
+            blahgua_rest.AddBlahViewsOpens(G.CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
 
             // fetch the user image
-            blahgua_rest.GetBlahAuthor(CurrentBlah._id, function(theAuthor) {
-                var newImage = GetUserImage(theAuthor, "A");
+            blahgua_rest.GetBlahAuthor(G.CurrentBlah._id, function(theAuthor) {
+                var newImage = G.GetUserImage(theAuthor, "A");
                 if (newImage == "")
-                    newImage = GetGenericUserImage();
+                    newImage = G.GetGenericUserImage();
 
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
 
             }, function (theErr) {
-                newImage = GetGenericUserImage();
+                newImage = G.GetGenericUserImage();
 
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
             });
 
-            var curDate = new Date(getSafeProperty(CurrentBlah, "c", Date.now()));
-            var dateString = ElapsedTimeString(curDate);
+            var curDate = new Date(G.GetSafeProperty(G.CurrentBlah, "c", Date.now()));
+            var dateString = G.ElapsedTimeString(curDate);
             $("#FullBlahDateStr").text(dateString);
 
             // update badges, if any
-            if (CurrentBlah.hasOwnProperty("B"))
+            if (G.CurrentBlah.hasOwnProperty("B"))
                 UpdateBlahBadges();
             else
                 UpdateDescriptionString();
@@ -90,16 +90,16 @@ define('BlahDetailPage',
             var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
             $("#BlahPageDiv").css({ 'top': curTop + "px"});
             // see if we were supposed to go elsewhere
-            if (BlahOpenPage == "")
-                BlahOpenPage = "Overview";
+            if (G.BlahOpenPage == "")
+                G.BlahOpenPage = "Overview";
 
-            SetBlahDetailPage(BlahOpenPage);
-            BlahOpenPage = "Overview";
+            SetBlahDetailPage(G.BlahOpenPage);
+            G.BlahOpenPage = "Overview";
         };
 
         var UpdateDescriptionString = function() {
             // update the badges & date
-            blahgua_rest.getUserDescriptorString(CurrentBlah.A, function(theString) {
+            blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
                 $("#FullBlahProfileString").text(theString.d);
                 LoadOpenPage();
             }, function (theErr) {
@@ -110,7 +110,7 @@ define('BlahDetailPage',
         };
 
         var UpdateBlahBadges = function() {
-            var badgeList = CurrentBlah.B;
+            var badgeList = G.CurrentBlah.B;
             for (var curIndex in badgeList) {
                 CreateAndAppendBadgeDescription(badgeList[curIndex]);
             }
@@ -119,9 +119,9 @@ define('BlahDetailPage',
 
         var CreateAndAppendBadgeDescription = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
-                var badgeName = getSafeProperty(fullBadge, "N", "unnamed badge");
+                var badgeName = G.GetSafeProperty(fullBadge, "N", "unnamed badge");
                 var newHTML = "<tr class='badge-info-row'>";
-                newHTML += "<td><img style='width:16px; height:16px;' src='" + fragmentURL + "/img/black_badge.png'</td>";
+                newHTML += "<td><img style='width:16px; height:16px;' src='" + G.FragmentURL + "/img/black_badge.png'</td>";
                 newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
 
                 $("#BlahFacetTable").append(newHTML);
@@ -136,34 +136,33 @@ define('BlahDetailPage',
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
             switch (whichPage) {
                 case "Overview":
-                    BlahFullItem.curPage = "Overview";
+                    G.BlahFullItem.curPage = "Overview";
                     require(["BlahBodyDetailPage"], function(BodyDetails) {
-                        $("#BlahPageDiv").load(fragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
                             $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
                             BodyDetails.InitializePage();
                         });
                     })
-
                     break;
+
                 case "Comments":
-                    BlahFullItem.curPage = "Comments";
+                    G.BlahFullItem.curPage = "Comments";
                     require(["BlahCommentDetailPage"], function(CommentDetails){
-                        $("#BlahPageDiv").load(fragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
                             $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                             CommentDetails.InitializePage();
                         });
                     });
-
                     break;
+
                 case "Stats":
-                    BlahFullItem.curPage = "Stats";
+                    G.BlahFullItem.curPage = "Stats";
                     require(["BlahStatsDetailPage"], function(StatsDetails){
-                        $("#BlahPageDiv").load(fragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
                             $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                             StatsDetails.InitializePage();
                         });
                     });
-
                     break;
             }
         };

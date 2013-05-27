@@ -9,11 +9,12 @@
 
 define('SelfPageStats',
     [
-        "GlobalFunctions",
+        "globals",
+        "ExportFunctions",
         "blahgua_restapi",
         "stats"
     ],
-    function (exports, blahgua_rest, stats) {
+    function (G, exports, blahgua_rest, stats) {
 
         var  InitializePage = function() {
             UpdateSelfStats();
@@ -22,16 +23,16 @@ define('SelfPageStats',
         var UpdateSelfStats = function() {
             // load the stats
             var endDate = new Date(Date.now());
-            var startDate = new Date(Date.now() - (numStatsDaysToShow * (24 * 3600 * 1000)));
+            var startDate = new Date(Date.now() - (G.NumStatsDaysToShow * (24 * 3600 * 1000)));
 
-            var start = createDateString(startDate);
-            var end = createDateString(endDate);
+            var start = G.CreateDateString(startDate);
+            var end = G.CreateDateString(endDate);
             blahgua_rest.GetUserStats(start, end, function(statsObj) {
                 // refresh all of the stat markets and charts
 
                 // Overall standings
-                var userStrength = getSafeProperty(statsObj, 'S', 0);
-                var userContro = getSafeProperty(statsObj, 'K', 0);
+                var userStrength = G.GetSafeProperty(statsObj, 'S', 0);
+                var userContro = G.GetSafeProperty(statsObj, 'K', 0);
 
                 $('#UserStandingDiv').highcharts({
                     title: {
@@ -208,13 +209,13 @@ define('SelfPageStats',
                 });
 
                 // Your Audience Demographics
-                if (UserProfile.hasOwnProperty("B") && (UserProfile["B"] != -1))
-                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Gender", "B"));
+                if (G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
+                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Gender", "B"));
                 else
                     $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
-                if (UserProfile.hasOwnProperty("D") && (UserProfile["D"] != -1))
-                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Ethnicity", "D"));
+                if (G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
+                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Ethnicity", "D"));
                 else
                     $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
@@ -225,8 +226,8 @@ define('SelfPageStats',
                  $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
                  */
 
-                if (UserProfile.hasOwnProperty("J") && (UserProfile["J"] != -1))
-                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(CurrentUser, "Country", "J"));
+                if (G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
+                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Country", "J"));
                 else
                     $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
 
@@ -258,15 +259,6 @@ define('SelfPageStats',
                 }
             });
         };
-
-
-
-
-
-
-
-
-
 
         return {
             InitializePage: InitializePage

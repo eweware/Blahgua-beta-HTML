@@ -8,8 +8,8 @@
 
 
 define('stats',
-    [ ],
-    function () {
+    ["globals" ],
+    function (G) {
 
         var GetDailyStatValuesForTimeRange = function(startTime, endTime, statsObj, statName) {
             var startMonth, startDay, newVal;
@@ -54,7 +54,7 @@ define('stats',
 
             if (statsObj.L.hasOwnProperty("dy")) {
                 // monthly stat
-                statStr = createDateString(date, true);
+                statStr = G.CreateDateString(date, true);
                 for (var index in statsObj.L) {
                     item = statsObj.L[index];
                     if (item._id.substring(item._id.length - 4) == statStr) {
@@ -65,7 +65,7 @@ define('stats',
                 }
             } else {
                 // daily stat
-                statStr = createDateString(date);
+                statStr = G.CreateDateString(date);
                 for (var index in statsObj.L) {
                     item = statsObj.L[index];
                     if (item._id.substring(item._id.length - 6) == statStr) {
@@ -85,13 +85,13 @@ define('stats',
             // one data point for each unique value of the demo
             var newSeries;
             if (whichObject.hasOwnProperty("_d")) {
-                var upVoteSet = getSafeProperty(whichObject._d._u, whichDemo, null);
-                var downVoteSet = getSafeProperty(whichObject._d._d, whichDemo, null);
+                var upVoteSet = G.GetSafeProperty(whichObject._d._u, whichDemo, null);
+                var downVoteSet = G.GetSafeProperty(whichObject._d._d, whichDemo, null);
                 var upData = [], downData = [];
 
-                $.each(ProfileSchema[whichDemo].DT, function(index, item){
-                    upData.push(getSafeProperty(upVoteSet, index, 0));
-                    downData.push(-getSafeProperty(downVoteSet, index, 0));
+                $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
+                    upData.push(G.GetSafeProperty(upVoteSet, index, 0));
+                    downData.push(-G.GetSafeProperty(downVoteSet, index, 0));
                 });
 
                 newSeries = [
@@ -106,7 +106,7 @@ define('stats',
 
         var MakeDemoCategories = function(whichDemo) {
             var catArray = [];
-            $.each(ProfileSchema[whichDemo].DT, function(index, item){
+            $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
                 catArray.push(item);
             });
 

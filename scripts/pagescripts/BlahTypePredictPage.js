@@ -8,19 +8,20 @@
 
 
 define('BlahTypePredict',
-    ["GlobalFunctions", "blahgua_restapi"],
-    function (exports, blahgua_rest) {
+    ["globals", "ExportFunctions", "blahgua_restapi"],
+    function (G, exports, blahgua_rest) {
 
         var HandleVoteFailed = function(theErr) {
             // todo:  check for the failure...
             exports.OnFailure(theErr);
-        }
+        };
+
         var InitPredictPage = function() {
             // add the event handlers
             $('.current-choices img').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
                 var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserPredictionVote(CurrentBlahId, myVote, function() {
+                blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
                     var theProp;
                     switch(myVote) {
                         case "y":
@@ -32,7 +33,7 @@ define('BlahTypePredict',
                         default:
                             theProp = "6";
                     }
-                    CurrentBlah[theProp] = getSafeProperty(CurrentBlah, theProp, 0) + 1;
+                    G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
                     UpdatePredictPage();
                 }, HandleVoteFailed);
             });
@@ -40,7 +41,7 @@ define('BlahTypePredict',
             $('.expired-choices img').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
                 var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserExpiredPredictionVote(CurrentBlahId, myVote, function() {
+                blahgua_rest.SetUserExpiredPredictionVote(G.CurrentBlahId, myVote, function() {
                     var theProp;
                     switch(myVote) {
                         case "y":
@@ -52,18 +53,19 @@ define('BlahTypePredict',
                         default:
                             theProp = "3";
                     }
-                    CurrentBlah[theProp] = getSafeProperty(CurrentBlah, theProp, 0) + 1;
+                    G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
                     UpdatePredictPage();
                 }, HandleVoteFailed);
             });
             UpdatePredictPage();
-        }
+        };
+
         var UpdatePredictPage = function() {
             $("#PredictCheckBoxClass").hide();
             // update the prediction divs
-            var expDateVal = getSafeProperty(CurrentBlah, "E", Date.now());
+            var expDateVal = G.GetSafeProperty(G.CurrentBlah, "E", Date.now());
             var expDate = new Date(expDateVal);
-            var elapStr = ElapsedTimeString(expDate);
+            var elapStr = G.ElapsedTimeString(expDate);
             var isPast = (expDate < new Date(Date.now()));
 
             if (isPast) {
@@ -84,9 +86,9 @@ define('BlahTypePredict',
             $("#predictionDate").text(expDate.toLocaleDateString());
 
             // update the bars
-            var yesVotes = getSafeProperty(CurrentBlah, "4", 0);
-            var noVotes = getSafeProperty(CurrentBlah, "5", 0);
-            var maybeVotes = getSafeProperty(CurrentBlah, "6", 0);
+            var yesVotes = G.GetSafeProperty(G.CurrentBlah, "4", 0);
+            var noVotes = G.GetSafeProperty(G.CurrentBlah, "5", 0);
+            var maybeVotes = G.GetSafeProperty(G.CurrentBlah, "6", 0);
             var totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
             var yesRatio = 0;
             var noRatio = 0;
@@ -116,9 +118,9 @@ define('BlahTypePredict',
 
 
             // expired ui
-            yesVotes = getSafeProperty(CurrentBlah, "1", 0);
-            noVotes = getSafeProperty(CurrentBlah, "2", 0);
-            maybeVotes = getSafeProperty(CurrentBlah, "3", 0);
+            yesVotes = G.GetSafeProperty(G.CurrentBlah, "1", 0);
+            noVotes = G.GetSafeProperty(G.CurrentBlah, "2", 0);
+            maybeVotes = G.GetSafeProperty(G.CurrentBlah, "3", 0);
             totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
             yesRatio = 0;
             noRatio = 0;
@@ -145,13 +147,13 @@ define('BlahTypePredict',
                 $("#ExpPredictMaybeSpan").html("no&nbsp;votes&nbsp;yet");
 
 
-            if (IsUserLoggedIn) {
+            if (G.IsUserLoggedIn) {
                 // update the user's vote
-                blahgua_rest.GetUserPredictionVote(CurrentBlah._id,
+                blahgua_rest.GetUserPredictionVote(G.CurrentBlah._id,
                     function(json) {
                         // update the vote
-                        var userVote = getSafeProperty(json, "D", null);
-                        var expVote = getSafeProperty(json, "Z", null);
+                        var userVote = G.GetSafeProperty(json, "D", null);
+                        var expVote = G.GetSafeProperty(json, "Z", null);
                         if (userVote) {
                             $('.current-choices img').unbind('click');
                             switch (userVote) {
@@ -169,7 +171,7 @@ define('BlahTypePredict',
                                     $("#PredictMaybeImg").show();
                                     break;
                             }
-                        } else if (CurrentBlah.A == CurrentUser._id) {
+                        } else if (G.CurrentBlah.A == G.CurrentUser._id) {
                             $('.current-choices img').unbind('click');
                             $("#PredictVotePrompt").text("The result so far:");
                         }
@@ -196,7 +198,7 @@ define('BlahTypePredict',
                                     $("#ExpPredictMaybeImg").show();
                                     break;
                             }
-                        } else if (CurrentBlah.A == CurrentUser._id) {
+                        } else if (G.CurrentBlah.A == G.CurrentUser._id) {
                             $('.current-choices img').unbind('click');
                             $("#PredictVotePrompt").text("The result so far:");
                         } else  {
@@ -214,9 +216,7 @@ define('BlahTypePredict',
                         $("#ExpPredictMaybeImg").hide()
                     });
             }
-
-        }
-
+        };
 
         return {
             InitPredictPage: InitPredictPage

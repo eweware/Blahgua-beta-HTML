@@ -174,8 +174,15 @@
     padding-bottom: 4px;
 }
 
-.accordion h2 img {
-    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/closed.png");
+.collapser {
+    display: inline-block;
+    width:26px;
+    height:22px;
+}
+
+
+.accordion h2 .collapser {
+    background-image:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/closed.png");
 }
 
 
@@ -184,8 +191,8 @@
 
 }
 
-.accordion.active h2 img {
-    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/opened.png");
+.accordion.active h2 .collapser {
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/opened.png");
 }
 
 
@@ -211,4 +218,21 @@
     padding: 8px;
     border-radius: 8px;
     background-color: #dedede;
+}
+
+.user-comment-row {
+
+}
+
+.user-comment-row .title-text {
+
+}
+
+
+.user-blah-row {
+
+}
+
+.user-blah-row .title-text {
+
 }
