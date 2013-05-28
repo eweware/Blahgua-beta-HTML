@@ -32,7 +32,7 @@ define('SelfPageHistory',
             });
 
             $("#BlahFilterBox").keyup(function(theEvent) {
-                SetBlahFilter($("#FilterBox").val());
+                SetBlahFilter($("#BlahFilterBox").val());
             });
 
             $("#SortBySelect").change(function(theEvent) {
@@ -122,7 +122,7 @@ define('SelfPageHistory',
             var changed = false;
 
             if (newSort != blahSortType) {
-                blahSortType = true;
+                blahSortType = newSort;
                 changed = true;
             }
 
@@ -142,6 +142,7 @@ define('SelfPageHistory',
             SortBlahs();
             var newHTML = "";
             var blahsDiv = $("#UserBlahList");
+            blahsDiv.empty();
             if (BlahList.length > 0) {
                 $.each(BlahList, function (index, item) {
                     newHTML = CreateUserBlahHTML(item);
@@ -164,6 +165,7 @@ define('SelfPageHistory',
             SortComments();
             var newHTML = "";
             var commentDiv = $("#UserCommentList");
+            commentDiv.empty();
             if (CommentList.length > 0) {
                 $.each(CommentList, function (index, item) {
                     newHTML = CreateUserCommentHTML(item);
@@ -207,7 +209,7 @@ define('SelfPageHistory',
         var SortBlahs = function() {
             var filterProp = "";
             var forward = false;
-            switch(commentSortType) {
+            switch(blahSortType) {
                 case "bydate":
                     filterProp = "c";
                     break;
@@ -221,12 +223,12 @@ define('SelfPageHistory',
 
             if (filterProp != "") {
                 BlahList.sort(G.DynamicSort(filterProp));
-                if (commentSortDir == "desc")
+                if (blahSortDir == "desc")
                     BlahList.reverse();
             }
         };
 
-        function UpdateSelfHistory() {
+        var UpdateSelfHistory = function() {
             var blahsDiv = $("#UserBlahList");
             var commentDiv = $("#UserCommentList");
             blahsDiv.empty();

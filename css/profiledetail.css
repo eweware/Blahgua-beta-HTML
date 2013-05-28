@@ -225,7 +225,7 @@
 }
 
 .user-comment-row .title-text {
-
+    width: 100%;
 }
 
 
@@ -234,5 +234,5 @@
 }
 
 .user-blah-row .title-text {
-
+    width: 100%;
 }

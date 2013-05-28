@@ -3,6 +3,7 @@
  * User: davev_000
  * Date: 5/10/13
  * Time: 10:46 AM
+ * Time: 10:46 AM
  * To change this template use File | Settings | File Templates.
  */
 
@@ -18,22 +19,22 @@ define('BlahBodyDetailPage',
             }
 
             // bind methods
-            $("#PromoteBlahImage").click(function() {
-                event.stopImmediatePropagation();
+            $("#PromoteBlahImage").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
                 SetBlahVote(1);
             });
-            $("#DemoteBlahImage").click(function() {
-                event.stopImmediatePropagation();
+            $("#DemoteBlahImage").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
                 SetBlahVote(-1);
             });
-            $("#FavoriteBlahImage").click(function() {
-                event.stopImmediatePropagation();
+            $("#FavoriteBlahImage").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
                 //todo: implement blah favorite
                 alert("not implemented");
             });
 
-            $("#SuggestSignInDiv").click(function() {
-                event.stopImmediatePropagation();
+            $("#SuggestSignInDiv").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
                 //todo: implement blah favorite
                exports.SuggestUserSignIn("Sign in to promote, demote and comment")
             });

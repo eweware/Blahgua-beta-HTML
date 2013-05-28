@@ -19,7 +19,7 @@ define('blahgua_base',
                 (window.location.hostname == "localhost") ||
                 (window.location.hostname == "127.0.0.1")) {
                 // running local
-                K.FragmentURL = "./";
+                G.FragmentURL = "./";
             }
 
             $(window).resize(function(){
