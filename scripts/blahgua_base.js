@@ -910,8 +910,17 @@ define('blahgua_base',
                 CreateMMRow(newRowEl);
                 break;
             case 3:
+            case 32:
                 newRowEl.rowHeight = G.MediumTileHeight;
                 CreateSMSRow(newRowEl);
+                break;
+            case 31:
+                newRowEl.rowHeight = G.MediumTileHeight;
+                CreateMSSRow(newRowEl);
+                break;
+            case 33:
+                newRowEl.rowHeight = G.MediumTileHeight;
+                CreateSSMRow(newRowEl);
                 break;
             case 4:
                 newRowEl.rowHeight = G.SmallTileHeight;
@@ -950,7 +959,7 @@ define('blahgua_base',
 
     var CreateSSSSRow = function(newRowEl) {
         var curLeft = K.EdgeGutter;
-        theBlah = GetNextMatchingBlah(3);
+        var theBlah = GetNextMatchingBlah(3);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
@@ -983,7 +992,7 @@ define('blahgua_base',
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (MediumTileWidth + K.InterBlahGutter);
+        curLeft += (G.MediumTileWidth + K.InterBlahGutter);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
@@ -1008,7 +1017,7 @@ define('blahgua_base',
 
     var CreateSMSRow = function(newRowEl) {
         var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
-        theBlah = GetNextMatchingBlah(2);
+        var theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
