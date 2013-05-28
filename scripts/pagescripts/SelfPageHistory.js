@@ -264,7 +264,7 @@ define('SelfPageHistory',
             }
             newHTML += "</td>"
             newHTML += "<td class='title-text'>";
-            newHTML += theBlah.T;
+            newHTML += G.UnCodifyText(theBlah.T);
             newHTML += "</a></td>";
             newHTML += "<td>" + G.ElapsedTimeString(new Date(theBlah.c)) + "</td>";
             newHTML += "</tr>";
@@ -275,7 +275,7 @@ define('SelfPageHistory',
             var newHTML = "";
             newHTML += "<tr class='user-comment-row'>"
             newHTML += "<td class='title-text'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
-            newHTML += theComment.T;
+            newHTML += G.UnCodifyText(theComment.T);
             newHTML += "</a></td>";
             newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>"
             newHTML += "</tr>";
@@ -286,13 +286,13 @@ define('SelfPageHistory',
         var DoOpenUserBlah = function(blahId) {
             var EndDate = new Date(Date.now());
             var StartDate = new Date(Date.now() - (G.NumStatsDaysToShow * 24 * 3600 * 1000 ));
-            var startStr = createDateString(StartDate);
-            var endStr = createDateString(EndDate);
+            var startStr = G.CreateDateString(StartDate);
+            var endStr = G.CreateDateString(EndDate);
 
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 G.CurrentBlah = theBlah;
                 G.BlahReturnPage = "UserBlahList";
-                G.CurrentBlahNickname = G.GetSafeProperty(UserProfile, "A", "someone");
+                G.CurrentBlahNickname = G.GetSafeProperty(G.UserProfile, "A", "someone");
                 exports.OpenLoadedBlah(theBlah);
             }, exports.OnFailure);
         };
