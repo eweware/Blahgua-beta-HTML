@@ -385,7 +385,7 @@ define('blahgua_base',
         menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
             $("#LightBox").show();
-            if (IsUserLoggedIn)
+            if (G.IsUserLoggedIn)
                 $("#BrowseChannelBtn").show();
             else
                 $("#BrowseChannelBtn").hide();

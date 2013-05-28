@@ -24,6 +24,7 @@ define('ExportFunctions',
         var GetBlahTypeNameFromId = null;
         var LogoutUser = null;
         var ForgetUser = null;
+        var CurrentCommentText = "";
 
         return {
             ForgetUser: ForgetUser,
@@ -39,7 +40,8 @@ define('ExportFunctions',
             GetBlahTypeStr: GetBlahTypeStr,
             CloseBlah: CloseBlah,
             GetChannelNameFromID: GetChannelNameFromID ,
-            OpenLoadedBlah: OpenLoadedBlah
+            OpenLoadedBlah: OpenLoadedBlah ,
+            CurrentCommentText: CurrentCommentText
         }
     }
 );

@@ -48,12 +48,21 @@ define('SignUpPage',
                     HandleUserLoginOK();
                     break;
                 case 409:
-                    alert("sorry, that username already exists.");
+                    ShowErrorMessage("Username already exists");
+                    break;
                 default:
                     exports.OnFailure(theErr);
             }
         };
 
+        var ClearErrorMessage = function(){
+            $(".error-msg-div").hide();
+        };
+
+        var ShowErrorMessage = function(theText) {
+            $(".error-msg-span").text(theText);
+            $(".error-msg-div").show();
+        };
 
 
         var HandleUserLoginOK = function(json, successOk, status) {
@@ -89,10 +98,14 @@ define('SignUpPage',
                     break;
                 case 404:
                     // username not found
+                    ShowErrorMessage("No user of that name");
+                    break;
                 case 401:
                     // incorrect password
+                    ShowErrorMessage("Cannot login. Check password.");
+                    break;
                 default:
-                    alert("Login Failed. Check username and password.");
+                    ShowErrorMessage("Login Failed. Check username and password.");
             }
 
         };
@@ -110,9 +123,9 @@ define('SignUpPage',
             var userName = $("#uname2").val();
             var email = $("#email").val();
             blahgua_rest.recoverUser(userName, email, function(theResult) {
-                alert("reset instructions will be sent to the email account on file.");
+                ShowErrorMessage("reset instructions will be sent to the email account on file.");
             }, function (theErr) {
-                alert("reset instructions will be sent to the email account on file. ");
+                ShowErrorMessage("reset instructions will be sent to the email account on file. ");
             })
         };
 
@@ -127,6 +140,7 @@ define('SignUpPage',
             $(".toggle-content").hide();
 
             $(".toggle-btn").click(function() {
+                ClearErrorMessage();
                 var thisSet = this.attributes["data-toggle-set"].value;
                 var thisVal = this.attributes["data-toggle-value"].value;
                 var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
@@ -138,11 +152,15 @@ define('SignUpPage',
             })
 
             $(".content_frame").keydown(function(theEvent) {
+                ClearErrorMessage();
                 if (theEvent.which == 13) {
                     var thisVal = $(".toggle-active").attr("data-toggle-value");
                     var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
                     $(selector).find(".action-default").click();
                 }
+            });
+            $(".content_frame").keyup(function(theEvent) {
+                MaybeEnableButton();
             });
 
             $(".toggle-btn.toggle-active").click(); // init
@@ -154,6 +172,43 @@ define('SignUpPage',
             $("#SignInBtn").click(SignInExistingUser);
             $("#ShowAccountRecoveryBtn").click(ShowRecoveryInfo)
             $("#RecoverPasswordBtn").click(RecoverPassword);
+            MaybeEnableButton();
+        };
+
+        var isValidEmailAddress = function(emailAddress) {
+            var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+            return pattern.test(emailAddress);
+        };
+
+        var MaybeEnableButton = function() {
+            // signin
+            if (($("#userName2").val() == "")  ||
+                ($("#pwd2").val() == ""))
+                $("#SignInBtn").attr("disabled", true);
+            else
+                $("#SignInBtn").removeAttr("disabled");
+
+            // new user
+            if ($("#pwd").val() != $("#pwd3").val()) {
+                // passwords do not match
+                $("#SignInBtn").attr("disabled", true);
+                ShowErrorMessage("Passwords must match");
+            } else {
+                ClearErrorMessage();
+                if (($("#userName").val() == "")  ||
+                    ($("#pwd").val() == "") ||
+                    ($("#pwd3").val() == ""))
+                    $("#NewUserBtn").attr("disabled", true);
+                else
+                    $("#NewUserBtn").removeAttr("disabled");
+            }
+
+            // recover
+            if (($("#uname2").val() == "")  ||
+                !isValidEmailAddress($("#email").val()))
+                $("#RecoverPasswordBtn").attr("disabled", true);
+            else
+                $("#RecoverPasswordBtn").removeAttr("disabled");
         };
 
         var ShowRecoveryInfo = function(theEvent) {

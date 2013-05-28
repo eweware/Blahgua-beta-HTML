@@ -26,6 +26,7 @@ define('BlahCommentDetailPage',
 
          if (G.IsUserLoggedIn)  {
                 $("#AddCommentBtn").click(function(theEvent) {
+                    exports.CurrentCommentText = "";
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
                     comments.DoAddComment(function(newComment) {
@@ -49,20 +50,14 @@ define('BlahCommentDetailPage',
                 $("#SignInToCommentArea").hide();
                 $("#CreateCommentArea").show();
                 titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-                $("#CommentTextArea").keyup(function(e) {
-                    // disable button if there is not enough text
-                    document.getElementById("AddCommentBtn").disabled = (this.value.length < 3);
-
-                    //  the following will help the text expand as typing takes place
-                    while($(this).outerHeight() < this.scrollHeight) {
-                        $(this).height($(this).height()+1);
+                $("#CommentTextArea").keyup(RefreshForCommentText);
+                $("#CommentTextArea").keydown(function(theEvent) {
+                    if (theEvent.ctrlKey && theEvent.keyCode == 13) {
+                        $("#AddCommentBtn").click();
                     }
-                    // handle the sizing
-                    var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
-                    var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-                    var maxSize = curBottom - curTop + "px";
-                    $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
                 });
+                $("#CommentTextArea").val(exports.CurrentCommentText);
+                RefreshForCommentText()
             } else {
                 $("#SignInToCommentArea").show();
                 $(".sign-in-button").click(SignInToComment);
@@ -73,6 +68,23 @@ define('BlahCommentDetailPage',
             //$(".comment-container").css({ 'top': titleBottom + 'px'});
             comments.UpdateBlahComments();
 
+        };
+
+        var RefreshForCommentText = function() {
+            // disable button if there is not enough text
+            var textField =  document.getElementById("CommentTextArea");
+            document.getElementById("AddCommentBtn").disabled = (textField.value.length < 3);
+
+            //  the following will help the text expand as typing takes place
+            while($(textField).outerHeight() < textField.scrollHeight) {
+                $(textField).height($(textField).height()+1);
+            }
+            exports.CurrentCommentText = textField.value;
+            // handle the sizing
+            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
+            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+            var maxSize = curBottom - curTop + "px";
+            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
         };
 
         var UpdateCommentSort = function() {

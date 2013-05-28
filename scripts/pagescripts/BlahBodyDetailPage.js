@@ -131,29 +131,38 @@ define('BlahBodyDetailPage',
                 $("#AddCommentBtn").disabled;
                 $("#CreateCommentArea").show();
                 $("#CommentTextArea").focus();
-                $("#CommentTextArea").keyup(function(e) {
-                    // disable button if there is not enough text
-                    document.getElementById("AddCommentBtn").disabled = (this.value.length < 3);
-
-                    //  the following will help the text expand as typing takes place
-                    while($(this).outerHeight() < this.scrollHeight) {
-                        $(this).height($(this).height()+1);
-                    };
-
+                $("#CommentTextArea").keydown(function(theEvent) {
+                   if (theEvent.ctrlKey && theEvent.keyCode == 13) {
+                       $("#AddCommentBtn").click();
+                   }
                 });
+                $("#CommentTextArea").keyup(RefreshForCommentText);
+                $("#CommentTextArea").val(exports.CurrentCommentText);
 
                 $("#AddCommentBtn").click(function(theEvent) {
+                    exports.CurrentCommentText = "";
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
                     comments.DoAddComment(function(newComment) {
                         comments.InsertNewComment(newComment);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
                     });
-
                 });
+                RefreshForCommentText();
             } else {
                 $("#CreateCommentArea").hide();
             }
+        };
+
+        var RefreshForCommentText = function() {
+            var textField =  document.getElementById("CommentTextArea");
+            document.getElementById("AddCommentBtn").disabled = (textField.value.length < 3);
+
+            //  the following will help the text expand as typing takes place
+            while($(textField).outerHeight() < textField.scrollHeight) {
+                $(textField).height($(textField).height()+1);
+            };
+            exports.CurrentCommentText = textField.value;
         };
 
 

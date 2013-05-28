@@ -10,10 +10,12 @@ define('BlahDetailPage',
     ["globals", "ExportFunctions", "blahgua_restapi"],
     function (G, exports, blahgua_rest) {
 
+
         var InitializePage = function(whichPage) {
             // bind events
             $(".blah-closer").click(function(theEvent) {
                 $("#AdditionalInfoArea").empty();
+                exports.CurrentCommentText = "";
                 exports.CloseBlah();
             });
 

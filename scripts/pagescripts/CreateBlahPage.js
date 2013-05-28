@@ -48,6 +48,11 @@ define('CreateBlahPage',
 
                 $('input[type=checkbox]').click(RefreshBadgePreview);
             });
+            $("#BlahHeadline").keydown(function (theEvent) {
+                if(theEvent.keyCode == 13) {
+                    theEvent.preventDefault();
+                }
+            });
             $("#BlahHeadline").keyup(function (theEvent) {
                 HandleHeadlineTextInput(theEvent.target);
             });

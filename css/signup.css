@@ -200,6 +200,12 @@
     background-color: #AAAAAA;
 }
 
+.action-btn:disabled {
+    color: #c6c6c6;
+    background-color: #AAAAAA;
+}
+
+
 .action-default {
     background-color: #008409;
     color: white
@@ -210,6 +216,13 @@
     color:white;
 }
 
+.action-default:disabled {
+    background-color: #a8c5ac;
+    color:white;
+}
+
+
+
 .inline-button.login-btn {
     background: white;
     color: black;
@@ -218,4 +231,21 @@
 .inline-button.login-btn:hover {
     background: #00c50d;
     color:  white;
+}
+
+.error-msg-div {
+    width:100%;
+    text-align: center;
+    display:none;
+    margin-top:5px;
+}
+
+.error-msg-span {
+    border-radius: 8px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    color:black;
+    background-color: #ffa602;
+    padding: 4px 16px;
+
 }
