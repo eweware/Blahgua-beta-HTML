@@ -9,7 +9,7 @@ define('blahgua_base',
     ],
     function(K, G, Exports, Blahgua) {
 
-        var rowSequence = [1,4,2,3,4,4,3];
+        var rowSequence = [4,32,4,1,33,4,2,4,31,4,33,1,4,2,4,4,2,32,4,33,1,31,33,4,1,4,2,4];
         var curRowSequence = 0;
         var SpinElement = null;
         var SpinTarget = null;
