@@ -29,7 +29,16 @@ define('globals',
                         })
                         .each(function () {
                             $(this).attr('unselectable', 'on')
-                                .bind('selectstart', function () { return false; });
+                                .bind('selectstart', function (theEvent)
+                                {
+                                    switch (theEvent.targetElement.nodeName){
+                                        case "TEXTAREA":
+                                        case "INPUT":
+                                            break;
+                                        default:
+                                            return false;
+                                    }
+                                });
                         });
                 });
             };
