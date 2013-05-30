@@ -56,12 +56,12 @@ define('SignUpPage',
         };
 
         var ClearErrorMessage = function(){
-            $(".error-msg-div").hide();
+            $(".error-msg-div").css({"opacity":"0"});
         };
 
         var ShowErrorMessage = function(theText) {
             $(".error-msg-span").text(theText);
-            $(".error-msg-div").show();
+            $(".error-msg-div").css({"opacity":"1"});
         };
 
 
@@ -152,7 +152,6 @@ define('SignUpPage',
             })
 
             $(".content_frame").keydown(function(theEvent) {
-                ClearErrorMessage();
                 if (theEvent.which == 13) {
                     var thisVal = $(".toggle-active").attr("data-toggle-value");
                     var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";

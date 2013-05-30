@@ -279,6 +279,9 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         /// <param name="OnFailure">Failure callback</param>
         var paramStr = '{"V":' + numViews + ', "O":' + numOpens + '}';
         var methodname = "blahs/" + blahID;
+        if (typeof blahID === "undefined") {
+            alert("undefined blah id!");
+        }
         CallPutMethod(methodname, paramStr, OnSuccess, OnFailure);
     };
 

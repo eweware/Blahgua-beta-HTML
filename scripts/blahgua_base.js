@@ -492,11 +492,13 @@ define('blahgua_base',
     var DismissAll = function() {
         if (document.getElementById("BlahFullItem").style.display != "none")
             CloseBlah();
-        else if (document.getElementById("ChannelDropMenu").style.display != "none")
+        if (document.getElementById("ChannelDropMenu").style.display != "none")
             HideChannelList();
     };
 
     var OpenLoadedBlah = function(whichBlah) {
+        if (!whichBlah)
+            alert("Null or missing blah in OpenLoadedBlah");
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
         G. CurrentComments = null;
@@ -520,6 +522,8 @@ define('blahgua_base',
     };
 
     var OpenBlah = function(whichBlah) {
+        if (!whichBlah)
+            alert("Null or missing blah in OpenBlah");
         $("#LightBox").show();
         G.CurrentBlah = null;
         StopAnimation();
