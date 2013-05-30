@@ -482,3 +482,9 @@
     font-size: 18px;
     font-style: italic;
 }
+
+.more-comments-row a {
+    color:blue;
+    text-decoration: underline;
+    cursor: pointer;
+}

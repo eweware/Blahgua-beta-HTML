@@ -182,6 +182,9 @@ define('globals',
             return newString;
         };
 
+        /**
+         * @return {string}
+         */
         var GetItemImage = function(theItem, size) {
             var imagePathName = "";
             if (theItem.hasOwnProperty("M")) {
@@ -232,7 +235,7 @@ define('globals',
 
 
         var GetURLsFromString = function(theText) {
-            return result = theText.match(URLRegEx);
+            return theText.match(URLRegEx);
         };
 
         var URLifyText = function(theText) {

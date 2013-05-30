@@ -121,11 +121,11 @@ define('comments',
             var newEl = document.createElement("tr");
             newEl.className = "more-comments-row";
             var newHTML = "";
-            newHTML += "<td><a>see all " + CurrentBlah["C"] + " comments</a></td>";
+            newHTML += "<td><a>see all " + G.CurrentBlah["C"] + " comments</a></td>";
             newEl.innerHTML = newHTML;
             commentDiv.appendChild(newEl);
             $(".more-comments-row").click(function(theEvent) {
-                exports.SetBlahDetailPage("comments");
+                exports.SetBlahDetailPage("Comments");
             });
         };
 
