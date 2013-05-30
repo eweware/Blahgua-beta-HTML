@@ -185,7 +185,7 @@ define('SelfPageDetails',
                 }
                 newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
                 newHTML += fullBadge.N + "</div>";
-                newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>";
+                newHTML += "<div class='badgesource'>granted by: " + fullBadge.D + "</div>";
                 newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>";
                 newHTML += "</div></td>";
 

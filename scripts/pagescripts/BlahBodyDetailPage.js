@@ -213,11 +213,11 @@ define('BlahBodyDetailPage',
                     var oldVote;
                     G.CurrentBlah["uv"] = theVote;
                     if (theVote == 1) {
-                        oldVote = G.GetSafeProperty(CurrentBlah, "P", 0);
+                        oldVote = G.GetSafeProperty(G.CurrentBlah, "P", 0);
                         oldVote++;
                         G.CurrentBlah["P"] = oldVote;
                     } else {
-                        oldVote = G.GetSafeProperty(CurrentBlah, "D", 0);
+                        oldVote = G.GetSafeProperty(G.CurrentBlah, "D", 0);
                         oldVote++;
                         G.CurrentBlah["D"] = oldVote;
                     }

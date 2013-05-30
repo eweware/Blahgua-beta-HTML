@@ -268,8 +268,9 @@
 }
 
 .comment-sort-area {
-
+    border-bottom: none;
 }
+
 
 .comment-sort-area td {
     min-width: 25px;
