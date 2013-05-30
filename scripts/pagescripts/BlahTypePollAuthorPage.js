@@ -20,16 +20,21 @@ define('BlahTypePollAuthorPage',
             $(".add-poll-choice-btn").click(function(theEvent) {
                 var newHTML = CreatePollChoiceElement();
                 $(".poll-result-table").append(newHTML);
-                UpdatePollChoiceBtn();
-                $('.delete-poll-vote').click(function(theEvent) {
-                    $(theEvent.target).closest(".poll-result-row").remove();
-                    $('.poll-title').each(function (index, item) {
-                        $(item).attr("placeholder", "option " + (index + 1));
-                    });
-                });
-                $(".poll-title").change(validateCallback).keydown(validateCallback);
+               RefreshPollEvents();
 
             });
+            RefreshPollEvents();
+        };
+
+        var RefreshPollEvents = function() {
+            UpdatePollChoiceBtn();
+            $('.delete-poll-vote').click(function(theEvent) {
+                $(theEvent.target).closest(".poll-result-row").remove();
+                $('.poll-title').each(function (index, item) {
+                    $(item).attr("placeholder", "option " + (index + 1));
+                });
+            });
+            $(".poll-title").change(validateCallback).keydown(validateCallback);
         };
 
         var UpdatePollChoiceBtn = function() {
@@ -58,10 +63,15 @@ define('BlahTypePollAuthorPage',
 
         var ValidateCreate = function() {
             var msg = "";
-            $(".poll-title").each(function(index, item) {
-                if (item.value == "")
-                msg = "Each poll response must have a title.  ";
-            });
+            var $polls = $(".poll-title");
+            if ($polls.length < 2) {
+                msg = "A poll must have at least two responses."
+            } else {
+                $polls.each(function(index, item) {
+                    if (item.value == "")
+                        msg = "Each poll response must have a title.  ";
+                });
+            }
 
             return msg;
         }

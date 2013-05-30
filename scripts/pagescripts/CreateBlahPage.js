@@ -248,7 +248,9 @@ define('CreateBlahPage',
 
         var CreateBlah = function() {
             // disable create button to prevent double-submit
-            document.getElementById("PublishBlahBtn").disabled = true;
+            var btn =  document.getElementById("PublishBlahBtn");
+            btn.disabled = true;
+            exports.SpinElement.spin(btn);
 
             var blahType = $("#BlahTypeList").val();
 
@@ -297,7 +299,7 @@ define('CreateBlahPage',
         }
 
         var UploadBlahImage  = function(blahId) {
-            $("#ProgressDiv").show();
+            $("#ProgressBar").show();
             $("#objectId").val(blahId);
             //document.getElementById("ImageForm").submit();
 

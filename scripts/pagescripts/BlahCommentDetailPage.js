@@ -65,7 +65,10 @@ define('BlahCommentDetailPage',
                 titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
 
-            //$(".comment-container").css({ 'top': titleBottom + 'px'});
+            if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
+                $(".comment-sort-area").show();
+            else
+                $(".comment-sort-area").hide();
             comments.UpdateBlahComments();
 
         };

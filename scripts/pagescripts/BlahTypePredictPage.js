@@ -20,22 +20,25 @@ define('BlahTypePredict',
             // add the event handlers
             $('.current-choices img').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
-                var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
-                    var theProp;
-                    switch(myVote) {
-                        case "y":
-                            theProp = "4";
-                            break;
-                        case "n":
-                            theProp = "5";
-                            break;
-                        default:
-                            theProp = "6";
-                    }
-                    G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
-                    UpdatePredictPage();
-                }, HandleVoteFailed);
+                if($(theEvent.target).attr("disabled") != "disabled") {
+                    $('.current-choices img').attr('disabled', 'disabled');
+                    var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
+                    blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
+                        var theProp;
+                        switch(myVote) {
+                            case "y":
+                                theProp = "4";
+                                break;
+                            case "n":
+                                theProp = "5";
+                                break;
+                            default:
+                                theProp = "6";
+                        }
+                        G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
+                        UpdatePredictPage();
+                    }, HandleVoteFailed);
+                }
             });
 
             $('.expired-choices img').click(function(theEvent) {

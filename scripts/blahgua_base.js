@@ -11,8 +11,6 @@ define('blahgua_base',
 
         var rowSequence = [4,32,4,1,33,4,2,4,31,4,33,1,4,2,4,4,2,32,4,33,1,31,33,4,1,4,2,4];
         var curRowSequence = 0;
-        var SpinElement = null;
-        var SpinTarget = null;
 
         var InitializeBlahgua = function() {
             if ((window.location.hostname == "") ||
@@ -38,9 +36,9 @@ define('blahgua_base',
                 shadow: false // Whether to render a shadow
             };
 
-            SpinElement = new Spinner(opts);
+            Exports.SpinElement = new Spinner(opts);
 
-            SpinTarget = document.getElementById("spin-div");
+            Exports.SpinTarget = document.getElementById("spin-div");
 
             $(document).ready(function () {
                 $("#BlahContainer").disableSelection();
@@ -1518,8 +1516,7 @@ define('blahgua_base',
         Exports.ForgetUser = ForgetUser;
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OpenLoadedBlah = OpenLoadedBlah;
-        Exports.SpinTarget = SpinTarget;
-        Exports.SpinElement = SpinElement;
+
 
     return {
         InitializeBlahgua: InitializeBlahgua

@@ -207,11 +207,11 @@ define('comments',
                 commentDiv.appendChild(commentEl);
             }
             //bind vote btns
-            $(".up-vote").click(function(theEvent) {
+            $(".up-vote[data-votable]").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
                 SetCommentVote(theEvent, 1, theIndex);
             });
-            $(".down-vote").click(function(theEvent) {
+            $(".down-vote[data-votable]").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
                 SetCommentVote(theEvent, -1, theIndex);
             });
@@ -321,17 +321,25 @@ define('comments',
                     newHTML += dv;
                     newHTML += '</span> ';
                 }
-            } else {
+            } else  {
                 // vote up
                 newHTML += '<span class="comment-vote-wrapper">';
-                newHTML += '<img class="comment-vote up-vote" alt="" src="' + G.FragmentURL + '/img/black_promote.png">';
+                newHTML += '<img class="comment-vote up-vote" alt="" src="' + G.FragmentURL;
+                if (G.IsUserLoggedIn)
+                    newHTML += '/img/black_promote.png" data-votable>';
+                else
+                    newHTML += '/img/black_promote_disabled.png">';
                 newHTML += G.GetSafeProperty(theComment, "U", 0);
                 newHTML += '</span> ';
 
-
                 // vote down
                 newHTML += '<span class="comment-vote-wrapper">';
-                newHTML += '<img class="comment-vote down-vote" alt="" src="' + G.FragmentURL + '/img/black_demote.png">';
+                newHTML += '<img class="comment-vote down-vote" alt="" src="' + G.FragmentURL;
+                if (G.IsUserLoggedIn)
+                    newHTML += '/img/black_demote.png" data-votable>';
+                else
+                    newHTML += '/img/black_demote_disabled.png">';
+
                 newHTML += G.GetSafeProperty(theComment, "D", 0);
                 newHTML += '</span> ';
             }

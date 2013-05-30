@@ -46,21 +46,27 @@ define('BlahTypePoll',
                 // add methods
                 $(".poll-checkbox").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
-                    var theVote = $(theEvent.target).parents("tr.poll-result-row").attr("data-poll-vote");
+                    if($(theEvent.target).attr("disabled") != "disabled") {
+                        $('.poll-checkbox').attr('disabled', 'disabled');
 
-                    blahgua_rest.SetUserPollVote(G.CurrentBlah._id, theVote,
-                        function(json) {
-                            blahgua_rest.GetBlah(G.CurrentBlahId, function(theBlah) {
-                                G. CurrentBlah = theBlah;
-                                UpdatePollPage();
-                            }, function(theErr) {
-                                //todo: handle this error
-                                UpdatePollPage();
-                            });
-                        }, function (theErr) {
-                            //todo:  poll specific errors
-                            exports.OnFailure(theErr);
-                        });
+                        var theVote = $(theEvent.target).parents("tr.poll-result-row").attr("data-poll-vote");
+
+                        blahgua_rest.SetUserPollVote(G.CurrentBlah._id, theVote,
+                            function(json) {
+                                blahgua_rest.GetBlah(G.CurrentBlahId, function(theBlah) {
+                                    G. CurrentBlah = theBlah;
+                                    UpdatePollPage();
+                                }, function(theErr) {
+                                    //todo: handle this error
+                                    UpdatePollPage();
+                                });
+                            }, function (theErr) {
+                                //todo:  poll specific errors
+                                exports.OnFailure(theErr);
+                            }
+                        );
+                    }
+
                 });
 
                 UpdatePollPage();
