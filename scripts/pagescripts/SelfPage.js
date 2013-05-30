@@ -18,7 +18,7 @@ define('SelfPage',
             $(".blah-closer").click(function(theEvent) {
                 exports.CloseBlah();
             });
-            $(".sign-in-button").click(function(theEvent) {
+            $("#SignOutBtn").click(function(theEvent) {
                 exports.LogoutUser();
             });
             $("#SelfProfileBtn").click(function(theEvent){

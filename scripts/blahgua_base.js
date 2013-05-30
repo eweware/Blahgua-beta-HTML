@@ -409,7 +409,7 @@ define('blahgua_base',
         });
 
         var options = document.createElement("div");
-        options.onclick = function(event) {DoCreateBlah(); event.stopPropagation();};
+        options.onclick = function(event) { event.stopPropagation();DoCreateBlah();};
         options.className = "ChannelOptions";
         options.innerHTML = "+";
         banner.appendChild(options);
@@ -417,12 +417,12 @@ define('blahgua_base',
 
         var profile = document.createElement("div");
         profile.className = "profile-button";
-        profile.onclick=function(event) {ShowUserProfile(); event.stopPropagation();};
+        profile.onclick=function(event) { event.stopPropagation();ShowUserProfile();};
         banner.appendChild(profile);
 
         var signin = document.createElement("button");
         signin.className = "sign-in-button";
-        signin.onclick=function(event) {ShowSignInUI(); event.stopPropagation();};
+        signin.onclick=function(event) { event.stopPropagation(); ShowSignInUI();};
         signin.innerHTML = "sign in";
         banner.appendChild(signin);
 
@@ -1446,6 +1446,7 @@ define('blahgua_base',
     };
 
     var ShowSignInUI = function() {
+
         // empty whatever is in there now
         StopAnimation();
         $("#LightBox").show();
