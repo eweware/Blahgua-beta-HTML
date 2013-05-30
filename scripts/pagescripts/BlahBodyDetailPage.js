@@ -27,15 +27,26 @@ define('BlahBodyDetailPage',
                 theEvent.stopImmediatePropagation();
                 SetBlahVote(-1);
             });
-            $("#FavoriteBlahImage").click(function(theEvent) {
-                theEvent.stopImmediatePropagation();
-                //todo: implement blah favorite
-                alert("not implemented");
-            });
+
+            // add share this button
+            var shareURL;
+            shareURL = G.GetItemImage(G.CurrentBlah, "D");
+            if (shareURL == "") {
+                shareURL = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua+logo.PNG";
+            }
+            stWidget.addEntry({
+                "service":"sharethis",
+                "element":document.getElementById('ShareBlah'),
+                "url":"https://beta.blahgua.com?blahId=" + G.CurrentBlah._id,
+                "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A Blah from Blahgua")),
+                "type":"large",
+                "text": "Share this blah" ,
+                "image":shareURL,
+                "summary":G.GetSafeProperty(G.CurrentBlah, "F","") });
+
 
             $("#SuggestSignInDiv").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
-                //todo: implement blah favorite
                exports.SuggestUserSignIn("Sign in to promote, demote and comment")
             });
 

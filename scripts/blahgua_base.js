@@ -11,6 +11,7 @@ define('blahgua_base',
 
         var rowSequence = [4,32,4,1,33,4,2,4,31,4,33,1,4,2,4,4,2,32,4,33,1,31,33,4,1,4,2,4];
         var curRowSequence = 0;
+        var initialBlah =  null;
 
         var InitializeBlahgua = function() {
             if ((window.location.hostname == "") ||
@@ -50,6 +51,7 @@ define('blahgua_base',
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
                 $("#LightBox").click(DismissAll);
+                initialBlah = getQueryVariable("blahId");
                 SignIn();
             });
         };
@@ -186,6 +188,7 @@ define('blahgua_base',
 
         ComputeSizes();
         refreshSignInBtn();
+
     };
 
     var RefreshPageForNewUser = function(json) {
@@ -495,11 +498,12 @@ define('blahgua_base',
     };
 
     var OpenLoadedBlah = function(whichBlah) {
+        StopAnimation();
         if (!whichBlah)
             alert("Null or missing blah in OpenLoadedBlah");
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
-        G. CurrentComments = null;
+        G.CurrentComments = null;
         $(document).keydown(function(theEvent) {
             if (theEvent.which == 27) {
                 DismissAll();
@@ -514,6 +518,7 @@ define('blahgua_base',
                 $(BlahFullItem).disableSelection();
                 $(BlahFullItem).fadeIn("fast", function() {
                     BlahDetailPage.InitializePage();
+                    StopAnimation();
                 });
             });
         });
@@ -791,10 +796,57 @@ define('blahgua_base',
 // ********************************************************
 // Handle the blah scroll
 
+    var UserHasChannel = function(channelID) {
+        for (var index in G.ChannelList) {
+            if(G.ChannelList[index]._id == channelID)
+                return true;
+
+        }
+
+        return false;
+    };
+
+    var AddUserToChannel = function(channelID) {
+        Blahgua.JoinUserToChannel(channelID, function(theResult) {
+            var newChannel = theResult;
+
+        }, function(theErr) {
+            //todo:  handle failure to join...  for now, fail silently
+
+        });
+    };
+
+    var SetCurrentChannelbyID = function(theID) {
+        for (var index in G.ChannelList) {
+            if(G.ChannelList[index]._id == theID) {
+                SetCurrentChannel(index);
+                break;
+            }
+        }
+    };
 
     var StartBlahsMoving = function() {
         if (G.BlahsMovingTimer == null) {
             G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+        }
+
+        if (initialBlah) {
+            Blahgua.GetBlah(initialBlah, function(theBlah) {
+
+                if (G.IsUserLoggedIn) {
+                    if (!UserHasChannel(theBlah.G))
+                        AddUserToChannel(theBlah.G);
+
+                } else {
+                    // if anonymous, this channel must be public
+                }
+                SetCurrentChannelbyID(theBlah.G);
+                OpenLoadedBlah(theBlah);
+
+            }, function (theErr) {
+                // todo: handle the missing blah.  For now we fail silently.
+            });
+            initialBlah = null;
         }
     };
 

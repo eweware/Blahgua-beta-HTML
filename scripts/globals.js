@@ -31,12 +31,16 @@ define('globals',
                             $(this).attr('unselectable', 'on')
                                 .bind('selectstart', function (theEvent)
                                 {
-                                    switch (theEvent.targetElement.nodeName){
-                                        case "TEXTAREA":
-                                        case "INPUT":
-                                            break;
-                                        default:
-                                            return false;
+                                    if (theEvent.targetElement) {
+                                        switch (theEvent.targetElement.nodeName){
+                                            case "TEXTAREA":
+                                            case "INPUT":
+                                                break;
+                                            default:
+                                                return false;
+                                        }
+                                    } else {
+                                        return false;
                                     }
                                 });
                         });
