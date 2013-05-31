@@ -31,7 +31,7 @@ define('CreateBlahPage',
 
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);
-            $("#BlahImage").change(HandleFilePreview);
+            $("#BlahImage").change(CheckPublishBtnDisable);
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
             $("#ShowBadgeAreaBtn").click(function(theEvent) {
@@ -347,16 +347,6 @@ define('CreateBlahPage',
             newItem["N"] = theBlah.N;
         };
 
-        var HandleFilePreview = function() {
-            var theFile = $("#BlahImage").val();
-            $("#CreateBlahImageNameSpan").text(theFile);
-            $(".uploadimage").text(theFile);
-            if (theFile == "")
-                $("#ImagePreviewRow").hide();
-            else
-                $("#ImagePreviewRow").show();
-            CheckPublishBtnDisable();
-        };
 
 
         return {

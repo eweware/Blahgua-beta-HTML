@@ -50,11 +50,18 @@
 
     <div class="create-content-div show-blah-bkgnd" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
-            <tr id="ImagePreviewRow" class="image-preview-row" style="display:none">
-                <td colspan="3">
-                    <div class="create-preview-image">click to remove</div><br/>
-                    <span class="CreateBlahImageNameSpan" id="CreateBlahImageNameSpan"></span>
-                </td>
+            <tr>
+                <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+                    <td><span class="image-label">add image:</span></td>
+                    <td colspan="2">
+                        <div>
+                            <input id="BlahImage" name="file" type="file" >
+                            <input type="text" name="objectType" hidden="true" value="B"/>
+                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                            <input type="text" name="primary" hidden="true" value="true"/>
+                        </div>
+                    </td>
+                </form>
             </tr>
             <tr><td colspan="3">
                     <div id="ProgressBar" class="progress-bar" style="display:none">
@@ -90,28 +97,11 @@
                 </td>
             </tr>
 
-            <tr style="display:none">
-                <td>
-                    <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-
-                        <div style="display:none">
-                            <input id="BlahImage" name="file" type="file" >
-                            <input type="text" name="objectType" hidden="true" value="B"/>
-                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                            <input type="text" name="primary" hidden="true" value="true"/>
-                        </div>
-                    </form>
-                </td>
-            </tr>
         </table>
     </div>
     <div class="create-footer-div">
         <table id="CreateFooterDiv" class="create-blah-footer">
         <tr style="text-align: center">
-            <td >
-                <button id="BlahImageBtn" onclick="document.getElementById('BlahImage').click(); return false;" class="create-page-button">Add Image</button>
-            </td>
-
             <td>
                 <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
             </td>

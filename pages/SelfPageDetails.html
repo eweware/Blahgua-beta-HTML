@@ -51,20 +51,19 @@
                     <input id="RecoveryEmail" type="text" class="email">
                 </td>
             </tr>
-            <tr>
+            <tr style="border-bottom: none;">
                 <td class="attribute-col" >User&nbsp;image</td>
                 <td>
                     <div id="uploadimage" class="user-image"></div>
                     </td>
-                <td>
-                    <button id="UserImageBtn" class="user-image-upload-btn">ADD</button><br/>
-                </td>
+
             </tr>
-            <tr style="display:none">
-                <td colspan="3">
+            <tr>
+                <td></td>
+                <td>
                     <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
                         <div >
-                            <input id="UserFormImage" name="file" type="file" >
+                            <input id="UserFormImage" name="file" type="file" no-validate >
                             <input type="text" name="objectType" hidden="true" value="U"/>
                             <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                             <input type="text" name="primary" hidden="true" value="true"/>
@@ -72,7 +71,7 @@
                     </form>
                 </td>
             </tr>
-            <tr id="ProgressDiv" style="display:none"><td colspan="3">
+            <tr id="ProgressDiv" style="display:none"><td colspan="2">
                 <div >
                     <div id="ProgressBar" style="width:400px; border-style: solid; height:16px; border-width: 2;">
                         <div id="Indicator" style="background-color: red; width:1px; height:16px;"></div>
@@ -82,9 +81,8 @@
             </tr>
             <tr>
                 <td> </td>
-                <td> </td>
                 <td>
-                    <button disabled="disabled" id="SaveAccountInfoBtn" class="small-button default-button" >Update</button>
+                    <button disabled="disabled" id="SaveAccountInfoBtn" class="float-right small-button default-button" >Update</button>
                 </td>
             </tr>
             </tbody>

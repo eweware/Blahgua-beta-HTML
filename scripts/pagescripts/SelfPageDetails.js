@@ -101,7 +101,7 @@ define('SelfPageDetails',
             UpdateBadgeArea();
             ShowBadgeSelection();
             $("#SaveAccountInfoBtn").attr("disabled", "disabled");
-            $('#AccountArea input').change(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input:not([no-validate])').change(MaybeEnableProfileSaveBtn);
             $('#AccountArea input:text').keydown(MaybeEnableProfileSaveBtn);
 
             $("#SaveDemographicsBtn").attr("disabled", "disabled");
