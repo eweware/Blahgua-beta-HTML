@@ -35,13 +35,14 @@ define('BlahBodyDetailPage',
                 shareURL = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua+logo.PNG";
             }
             stWidget.addEntry({
-                "service":"sharethis",
+                "service":"twitter",
                 "element":document.getElementById('ShareBlah'),
                 "url":"https://beta.blahgua.com?blahId=" + G.CurrentBlah._id,
                 "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A Blah from Blahgua")),
                 "type":"large",
                 "text": "Share this blah" ,
                 "image":shareURL,
+                "onhover": false,
                 "summary":G.GetSafeProperty(G.CurrentBlah, "F","") });
 
 
