@@ -206,7 +206,7 @@ define('SelfPageDetails',
                 if (offset < 0)
                     offset = 0;
                 $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-                $(".BadgeTitleBar").text("talking to " + badgeID);
+                $(".BadgeTitleBar").text("" + badgeID);
                 $("#badgedialog").html(dialogHTML);
                 $("#BadgeOverlay").fadeIn();
                 window.ba_dialog_closed = HandleBadgeDismiss;
