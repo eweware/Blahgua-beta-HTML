@@ -240,7 +240,7 @@ define('comments',
                 else
                     G.CurrentComments[commentIndex]["D"] = G.GetSafeProperty(G.CurrentComments[commentIndex], "D", 0) + 1;
 
-                G.CurrentComments[commentIndex]["C"] = vote;
+                G.CurrentComments[commentIndex]["uv"] = vote;
                 var newEl = createCommentElement(commentIndex, G.CurrentComments[commentIndex]);
                 targetDiv.innerHTML = newEl.innerHTML;
             }, exports.OnFailure);
@@ -275,7 +275,7 @@ define('comments',
             var authorImageURL = G.GetUserImage(theComment, "A");
 
 
-            var ownVote = G.GetSafeProperty(theComment, "C", 0);
+            var ownVote = G.GetSafeProperty(theComment, "uv", 0);
 
             newHTML += '<td><table class="comment-item-table" data-comment-index="' + index + '"">';
 
