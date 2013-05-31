@@ -31,8 +31,8 @@ define('globals',
                             $(this).attr('unselectable', 'on')
                                 .bind('selectstart', function (theEvent)
                                 {
-                                    if (theEvent.targetElement) {
-                                        switch (theEvent.targetElement.nodeName){
+                                    if (theEvent.target) {
+                                        switch (theEvent.target.nodeName){
                                             case "TEXTAREA":
                                             case "INPUT":
                                                 break;
