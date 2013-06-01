@@ -9,6 +9,7 @@ body {
 
 textarea {
     resize: none;
+    padding:4px;
 }
 
 input {

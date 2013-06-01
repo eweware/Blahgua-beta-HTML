@@ -62,7 +62,7 @@ define('BlahBodyDetailPage',
                 isOwnBlah = false;
 
             }
-            var image = G.GetItemImage(G.CurrentBlah, "B");
+            var image = G.GetItemImage(G.CurrentBlah, "D");
 
 
 
@@ -137,6 +137,8 @@ define('BlahBodyDetailPage',
                 'min-height': maxSize });
 
             // handle the top comments
+            if (G.GetSafeProperty(G.CurrentBlah, "C", 0) == 0)
+                $(".top-comments-header").hide();
             comments.UpdateTopComments();
             document.getElementById("AddCommentBtn").disabled = true;
             if (G.IsUserLoggedIn) {
@@ -157,6 +159,7 @@ define('BlahBodyDetailPage',
                     document.getElementById("CommentTextArea").disabled = true;
                     comments.DoAddComment(function(newComment) {
                         comments.InsertNewComment(newComment);
+                        $(".top-comments-header").show();
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
                     });
                 });

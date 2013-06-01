@@ -287,7 +287,7 @@ define('comments',
 
             // comment text
             newHTML += '<tr>';
-            newHTML += '<td colspan=2 style="width:100%"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
+            newHTML += '<td colspan=2 class="comment-body-row"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
             newHTML += '</tr>';
 
 
