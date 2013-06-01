@@ -1,5 +1,9 @@
 
-.BlahTypePredictPreview   {
+.BlahTypePredict   {
+    margin: 8px auto;
+    border: 1px solid lightgrey;
+    padding: 8px;
+    border-radius: 8px;
 
 }
 
@@ -12,7 +16,7 @@
 
 .elapsedTimeText {
     font-family: 'Arimo', sans-serif;
-    font-size:18pt;
+    font-size:14pt;
 }
 
 .elapsedTimePreview {

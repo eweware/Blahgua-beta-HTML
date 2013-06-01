@@ -364,7 +364,7 @@
 }
 
 .comment-user-name {
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'Arimo', sans-serif;
     font-weight: bold;
     color:black;
@@ -400,17 +400,17 @@
 
 .comment-vote-wrapper {
     color:#404040;
-    font-size: 18px;
+    font-size: 12px;
     font-family: 'Arimo', sans-serif;
 }
 
 .no-vote {
     font-style: italic;
-    font-size:14px;
+    font-size:12px;
 }
 
 .comment-vote {
-    width: 18px;
+    width: 12px;
     padding-right: 8px;
     padding-left: 12px;
 }
@@ -515,4 +515,8 @@
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
     color: white;
+}
+
+.ExtraInfoArea {
+    padding: 8px 16px;
 }

@@ -1,5 +1,12 @@
 /* styles related to polls */
 
+.poll-container {
+    margin: 8px auto;
+    border: 1px solid lightgrey;
+    padding: 8px;
+    border-radius: 8px;
+}
+
 .poll-answers-area {
     width:100%;
 }
@@ -14,6 +21,7 @@
 
 .poll-result-table {
     width:100%;
+
 }
 
 .poll-result-table.create {
@@ -28,8 +36,9 @@
 
 .poll-result-row table {
     border-bottom-style: solid;
-    border-bottom-thickness: 1px;
-    border-bottom-color: #A0A0A0;
+    border-bottom-width: 1px;
+    border-bottom-color: #d1d1d1;
+    margin: 4px 8px;
 }
 
 
@@ -60,7 +69,7 @@
 
 .poll-title {
     font-family: 'Arimo', sans-serif;
-    font-size:18pt;
+    font-size:14px;
     color:black;
     font-weight:bold;
     padding-left:8px;
@@ -73,10 +82,12 @@
 }
 
 .poll-chart-div {
-    text-align: center ;
+    text-align: center;
     background-color: #01c00a;
-    height:30px;
-    display:none;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
 }
 
 .poll-description {
@@ -89,13 +100,12 @@
 
 .poll-vote-text {
     font-family: 'Arimo', sans-serif;
-    font-size:12pt;
-    float:right;
-    margin-right:0px;
-    height:30px;
-    color:white;
-    margin-right: 4px;
-    margin-top: 6px;
+    font-size: 12px;
+    margin-right: 0px;
+    height: 30px;
+    color: white;
+
+    margin-left: 6px;
 }
 
 .poll-vote-text.no-votes {

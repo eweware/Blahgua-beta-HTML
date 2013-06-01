@@ -147,8 +147,8 @@ define('BlahTypePoll',
                 "    </td>" +
                 '    <td><div class="poll-title">' + pollChoice.G + '</div></td>' +
                 '    <td class="poll-chart-holder">' +
-                '      <div class="poll-chart-div" style="width:0%">' +
-                '      <span class="poll-vote-text">' + curVotes + '</span></div>' +
+                '      <div class="poll-chart-div" style="width:0%"></div>' +
+                '      </td><td><span class="poll-vote-text">' + curVotes + '</span>' +
                 '    </td>' +
                 '  </tr>' +
                 '  <tr>' +
