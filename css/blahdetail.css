@@ -389,6 +389,9 @@
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
     color: #404040;
+    word-break: break-word;
+    word-wrap: break-word ;
+    overflow-wrap: break-word;
 }
 
 .comment-user-description {

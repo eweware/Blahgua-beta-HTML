@@ -91,7 +91,7 @@ define('BlahTypePoll',
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
                 if (curVote > 0)
-                    $(item).find(".poll-vote-text").text(curVote).removeClass("no-votes");
+                    $(item).find(".poll-vote-text").text(newWidth).removeClass("no-votes");
                 else
                     $(item).find(".poll-vote-text").html("no&nbsp;votes").addClass("no-votes");
                 $(item).find(".poll-chart-div").animate({width: newWidth}, 200);
