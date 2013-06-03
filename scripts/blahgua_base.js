@@ -59,7 +59,7 @@ define('blahgua_base',
 
     var HandleWindowResize = function() {
         ComputeSizes();
-        SetCurrentChannel(G.ChannelList.indexOf(G.CurrentChannel));
+        //SetCurrentChannel(G.ChannelList.indexOf(G.CurrentChannel));
     };
 
 
