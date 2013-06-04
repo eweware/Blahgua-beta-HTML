@@ -70,6 +70,7 @@
     float: right;
     margin-top: 10px;
     margin-right:10px;
+    line-height: 1em;
 }
 
 .sign-in-button:hover {
@@ -214,3 +215,10 @@
 
 
 
+.channel-menu-title {
+    background-color:rgba(255,255,255,0.8);
+    color: black;
+    font-family: 'Arimo', sans-serif;
+    font-size:36px;
+
+}

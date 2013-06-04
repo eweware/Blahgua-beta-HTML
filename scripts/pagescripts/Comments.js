@@ -104,7 +104,7 @@ define('comments',
                     if (authorData[curIndex].hasOwnProperty('d'))
                         G.CurrentComments[curIndex]["d"] = authorData[curIndex].d;
                     if (authorData[curIndex].hasOwnProperty('m'))
-                        G.CurrentComments[curIndex]["M"] = [authorData[curIndex].m];
+                        G.CurrentComments[curIndex]["_m"] = [authorData[curIndex].m];
                 }
                 UpdateBlahCommentDiv();
                 if (more)
@@ -152,7 +152,7 @@ define('comments',
                     if (authorData[curIndex].hasOwnProperty('d'))
                         G.CurrentComments[curIndex]["d"] = authorData[curIndex].d;
                     if (authorData[curIndex].hasOwnProperty('m'))
-                        G.CurrentComments[curIndex]["M"] = [authorData[curIndex].m];
+                        G.CurrentComments[curIndex]["_m"] = [authorData[curIndex].m];
                 }
                 UpdateBlahCommentDiv();
                 FilterComments();
@@ -227,7 +227,21 @@ define('comments',
                 } else {
                     G.CurrentBlah["C"] = 1;
                 }
-                OnSuccess(newComment);
+                // check for image
+                if ($("#CommentImage").val() != "") {
+                    UploadCommentImage(newComment._id, function(data) {
+                        $("#CommentImage").val(null);
+                        $("#ProgressBar").hide();
+                        var imageData = [];
+                        imageData.push(data);
+                        newComment["M"] = imageData;
+
+                        OnSuccess(newComment);
+                    });
+                } else {
+                    OnSuccess(newComment);
+                }
+
             }, OnFailure);
         };
 
@@ -249,7 +263,7 @@ define('comments',
         var createCommentElement = function(index, theComment) {
             var newEl = document.createElement("tr");
             newEl.className = "comment-table-row";
-
+            var image = G.GetItemImage(theComment, "D");
             var newHTML = "";
             var blahgerName = "someone";
             var authorDesc = "someone";
@@ -272,7 +286,7 @@ define('comments',
                 isOwnBlah = true;
             }
 
-            var authorImageURL = G.GetUserImage(theComment, "A");
+            var authorImageURL = G.GetCommentUserImage(theComment, "A");
 
 
             var ownVote = G.GetSafeProperty(theComment, "uv", 0);
@@ -281,7 +295,7 @@ define('comments',
 
             // comment author
             newHTML += '<tr>';
-            newHTML += '<td rowspan=3 style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
+            newHTML += '<td rowspan=4 style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
             newHTML += '<td colspan=2 style="width:100%"><span class="comment-user-name">' + blahgerName + '</span>,&nbsp;';
             newHTML += '<span class="comment-user-description">' + authorDesc + '</span></td>';
 
@@ -289,6 +303,15 @@ define('comments',
             newHTML += '<tr>';
             newHTML += '<td colspan=2 class="comment-body-row"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
             newHTML += '</tr>';
+
+            // comment image
+            if (image != "") {
+                newHTML += '<tr>';
+                newHTML += '<td colspan=2 class="comment-image-row">' +
+                    '<img src="' + image + '" alt="Comment Image" class="comment-image">';
+                newHTML += '</td></tr>';
+            }
+
 
 
             // coontrols
@@ -356,6 +379,48 @@ define('comments',
 
             return newEl;
         };
+
+        var UploadCommentImage  = function(commentID, successFunction) {
+            $("#ProgressBar").show();
+            $("#objectId").val(commentID);
+            //document.getElementById("ImageForm").submit();
+
+            var formData = new FormData($("#ImageForm")[0]);
+            $.ajax({
+                url: "https://beta.blahgua.com/v2/images/upload",
+
+                type: 'POST',
+                xhr: function() { // custom xhr
+                    myXhr = $.ajaxSettings.xhr();
+                    if(myXhr.upload){ // if upload property exists
+                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
+                    }
+                    return myXhr;
+                },
+                //Ajax events
+                success: completeHandler = function(data) {
+                    successFunction(data);
+
+                },
+                error: errorHandler = function(theErr) {
+                    alert("Error uploading");
+                },
+                // Form data
+                data: formData,
+                //Options to tell JQuery not to process data or worry about content-type
+                cache: false,
+                contentType: false,
+                processData: false
+            }, 'json');
+        };
+
+        var progressHandlingFunction = function(evt) {
+            var maxWidth = $("#ProgressBar").width();
+            var curWidth = 100;
+            var ratio = evt.loaded / evt.total;
+            var newWidth = Math.floor(maxWidth * ratio);
+            $("#Indicator").width(newWidth);
+        }
 
         return {
             UpdateBlahComments: UpdateBlahComments,

@@ -1413,7 +1413,8 @@ define('blahgua_base',
 
     var OnGetNextBlahsOK = function(theResult) {
         G.NextBlahList = theResult;
-        PrepareBlahList(G.NextBlahList);
+        if (theResult.length > 0)
+            PrepareBlahList(G.NextBlahList);
         $("#ChannelBanner").animate({"background-color": K.BannerColor }, 'slow');
     };
 

@@ -9,14 +9,38 @@
     <table id="CommentHeaderArea" style="width:100%">
         <tbody>
         <tr><td><table style="width:100%">
-            <tr id="CreateCommentArea" class="comment-detail-area" >
-                <td style="width:100%; padding-left:8px; padding-right:8px">
+            <tbody>
+
+            <tr id="CreateCommentArea" class="comment-body-row">
+                <td>
+
                     <textarea class="comment-text-area" id="CommentTextArea"></textarea>
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
                 </td>
+
             </tr>
+            <tr  class="comment-image-upload-row">
+                <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
+                    <td colspan="2">
+                        <span class="image-label">add image:</span>
+                        <input id="CommentImage" name="file" type="file" >
+                        <input type="text" name="objectType" hidden="true" value="C"/>
+                        <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                        <input type="text" name="primary" hidden="true" value="true"/>
+                    </td>
+                </form>
+            </tr>
+            <tr><td colspan="3">
+                <div id="ProgressBar" class="progress-bar" style="display:none">
+                    <div id="Indicator" class="progress-bar-indicator" style=";"></div>
+                </div>
+
+            </td>
+            </tr>
+            </tbody>
+
         </table></td></tr>
         <tr><td><table>
             <tr colspan=5 id="SignInToCommentArea" >
@@ -25,7 +49,7 @@
         </table></td></tr>
         <tr>
             <td>
-                <table>
+                <table style="width:100$">
             <tr class="comment-sort-area">
                 <td></td>
                 <td>filter:<input text="text" id="FilterBox"></td>

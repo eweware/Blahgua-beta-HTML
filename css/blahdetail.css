@@ -269,6 +269,12 @@
 
 .comment-sort-area {
     border-bottom: none;
+    padding: 4px 0px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: rgb(200,200,200);
+    line-height: 3em;
+    background-color: rgb(240,240,240);
 }
 
 
@@ -283,10 +289,10 @@
 }
 
 
+
 .comment-text-area {
-    background-color: #EEEEEE;
     border-radius: 8px;
-    min-height: 40px;
+    min-height: 3em;
     width:100%;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
@@ -301,8 +307,19 @@
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     border-style: none;
-    margin: 4px;
+    margin: 0px auto;
     padding: 4px 12px;
+}
+
+.comment-image-row {
+    text-align: center;
+}
+
+.comment-image {
+    max-width: 90%;
+    border-radius: 8px;
+    border: 1px solid lightgray;
+    box-shadow: 0px 4px 5px 0px rgba(0,0,0,.2);
 }
 
 
@@ -384,6 +401,24 @@
     width:100%;
     padding-right:8px;
 }
+
+.comment-body-row td {
+    width:70%;
+    padding-left:8px;
+    padding-right:8px
+}
+
+.comment-image-upload-row {
+    width:100%;
+    padding: 5px 0px 16px 0px;
+
+}
+
+.comment-image-upload-row td {
+    text-align:center;
+    padding: 4px 0px 8px 0px;
+}
+
 
 .comment-text {
     font-size: 14px;
@@ -522,4 +557,8 @@
 
 .ExtraInfoArea {
     padding: 8px 16px;
+}
+
+.image-label {
+
 }

@@ -43,6 +43,7 @@ define('BlahBodyDetailPage',
                 "text": "Share this blah" ,
                 "image":shareURL,
                 "onhover": false,
+
                 "summary":G.GetSafeProperty(G.CurrentBlah, "F","") });
 
 

@@ -76,9 +76,10 @@ define('BlahTypePoll',
         var UpdatePollChart = function() {
             var votes = G.CurrentBlah.J;
             var newChoice;
-            var maxVotes = 0, curVotes;
+            var maxVotes = 0, curVotes, totalVotes = 0;
             for (var curIndex in votes) {
                 curVotes = votes[curIndex];
+                totalVotes += curVotes;
                 if (curVotes > maxVotes) {
                     maxVotes = curVotes;
                 }
@@ -90,8 +91,9 @@ define('BlahTypePoll',
                 var ratio = curVote/ maxVotes;
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
+                var votePercent = Math.floor(curVote / totalVotes) + "%";
                 if (curVote > 0)
-                    $(item).find(".poll-vote-text").text(newWidth).removeClass("no-votes");
+                    $(item).find(".poll-vote-text").text(votePercent).removeClass("no-votes");
                 else
                     $(item).find(".poll-vote-text").html("no&nbsp;votes").addClass("no-votes");
                 $(item).find(".poll-chart-div").animate({width: newWidth}, 200);

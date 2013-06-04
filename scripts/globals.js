@@ -210,6 +210,21 @@ define('globals',
 
         };
 
+        var GetCommentUserImage = function(theItem, size) {
+            var imagePathName = "";
+            if (theItem.hasOwnProperty("_m")) {
+                // fetch the correct image size
+                var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
+                var imageName = theItem._m[0];
+                imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
+            }
+            if (imagePathName == "")
+                imagePathName = fragmentURL + "/images/unknown-user.png";
+
+            return imagePathName;
+
+        };
+
         var GetGenericUserImage = function(theItem, size) {
             var imagePathName = fragmentURL + "/images/unknown-user.png";
 
@@ -341,6 +356,7 @@ define('globals',
             URLifyText: URLifyText,
             FakeURLifyText: FakeURLifyText,
             DynamicSort: dynamicSort,
+            GetCommentUserImage: GetCommentUserImage,
             Cryptify: cryptify
         }
 
