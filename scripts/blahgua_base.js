@@ -851,38 +851,40 @@ define('blahgua_base',
     };
 
     var MakeBlahsMove = function() {
-        var curScroll = $("#BlahContainer").scrollTop();
-        $("#BlahContainer").scrollTop(curScroll + G.CurrentScrollSpeed);
-        var newScroll = $("#BlahContainer").scrollTop();
-        if (newScroll != curScroll) {
-            // we scrolled a pixel or so
-            if (G.TopRow.getBoundingClientRect().bottom < 0) {
-                G.TopRow = G.TopRow.rowBelow;
-                G.RowsOnScreen--;
+        if (G.ActiveBlahList.length > 0) {
+            var curScroll = $("#BlahContainer").scrollTop();
+            $("#BlahContainer").scrollTop(curScroll + G.CurrentScrollSpeed);
+            var newScroll = $("#BlahContainer").scrollTop();
+            if (newScroll != curScroll) {
+                // we scrolled a pixel or so
+                if (G.TopRow.getBoundingClientRect().bottom < 0) {
+                    G.TopRow = G.TopRow.rowBelow;
+                    G.RowsOnScreen--;
 
+                }
+                G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+            } else {
+                G.BlahsMovingTimer = null;
+                DoAddBlahRow();
             }
-            G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
-        } else {
-            G.BlahsMovingTimer = null;
-            DoAddBlahRow();
-        }
-        if (G.CurrentScrollSpeed < 1) {
-            // scrolling backwards, slow down
-            G.CurrentScrollSpeed *= .95;
-            if (G.CurrentScrollSpeed > -1) {
-                G.CurrentScrollSpeed = 1;
+            if (G.CurrentScrollSpeed < 1) {
+                // scrolling backwards, slow down
+                G.CurrentScrollSpeed *= .95;
+                if (G.CurrentScrollSpeed > -1) {
+                    G.CurrentScrollSpeed = 1;
+                }
+                // see if a new top row is on the screen...
+                if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
+                    G.TopRow = G.TopRow.rowAbove;
+                    G.RowsOnScreen++;
+                }
             }
-            // see if a new top row is on the screen...
-            if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
-                G.TopRow = G.TopRow.rowAbove;
-                G.RowsOnScreen++;
-            }
-        }
-        else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
-            // skipping ahead - slow down
-            G.CurrentScrollSpeed *= 0.95;
-            if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
-                G.CurrentScrollSpeed = K.BlahRollPixelStep;
+            else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
+                // skipping ahead - slow down
+                G.CurrentScrollSpeed *= 0.95;
+                if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
+                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                }
             }
         }
     };
