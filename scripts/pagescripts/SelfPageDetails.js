@@ -170,7 +170,7 @@ define('SelfPageDetails',
                     CreateAndAppendBadgeHTML(curBadge);
                 });
             } else {
-                $("#BadgesDiv").html("<tr><td>No current badges.  Add them below.</tr></td>");
+                $("#BadgesDiv").html("<tr><td>No current badges.  Add them above.</tr></td>");
             }
         };
 
