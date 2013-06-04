@@ -938,8 +938,10 @@ define('blahgua_base',
             nextBlah = GetNextMatchingBlah(blahSize);
         }
 
+        /* todo: add in view count
         if (nextBlah != null)
             Blahgua.AddBlahViewsOpens(nextBlah.I, 1, 0, null, null);
+            */
         return nextBlah;
     };
 
@@ -1487,6 +1489,10 @@ define('blahgua_base',
 
 
     var UpdateChannelViewers = function() {
+        /*
+
+        //todo:  reenable channel viewers
+
         if (G.ViewerUpdateTimer != null) {
             clearTimeout(G.ViewerUpdateTimer);
             G.ViewerUpdateTimer = null;
@@ -1494,6 +1500,7 @@ define('blahgua_base',
         Blahgua.GetViewersOfChannel(G.CurrentChannel._id, OnChannelViewersOK);
 
         G.ViewerUpdateTimer = setTimeout(UpdateChannelViewers, 15000);
+         */
     };
 
     var OnChannelViewersOK = function(numViewers) {
