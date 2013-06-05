@@ -404,12 +404,8 @@ define('blahgua_base',
         banner.appendChild(label);
         banner.channelLabel = label;
 
-        $("#ChannelBanner").click(function () {
-            ShowHideChannelList();
-        });
 
         var options = document.createElement("div");
-        options.onclick = function(event) { event.stopPropagation();DoCreateBlah();};
         options.className = "ChannelOptions";
         options.innerHTML = "+";
         banner.appendChild(options);
@@ -417,15 +413,34 @@ define('blahgua_base',
 
         var profile = document.createElement("div");
         profile.className = "profile-button";
-        profile.onclick=function(event) { event.stopPropagation();ShowUserProfile();};
         banner.appendChild(profile);
 
         var signin = document.createElement("button");
         signin.className = "sign-in-button";
-        signin.onclick=function(event) { event.stopPropagation(); ShowSignInUI();};
         signin.innerHTML = "sign in";
         banner.appendChild(signin);
 
+        // bind events
+
+        $("#ChannelBanner").click(function (theEvent) {
+            theEvent.stopPropagation();
+            ShowHideChannelList();
+        });
+
+        $("#ChannelBanner .sign-in-button").click(function(theEvent) {
+            theEvent.stopPropagation();
+            ShowSignInUI();
+        });
+
+        $("#ChannelBanner .profile-button").click(function(theEvent) {
+            theEvent.stopPropagation();
+            ShowUserProfile();
+        });
+
+        $("#ChannelBanner .ChannelOptions").click(function(theEvent) {
+            theEvent.stopPropagation();
+            DoCreateBlah();
+        });
         refreshSignInBtn();
     };
 
@@ -1355,7 +1370,7 @@ define('blahgua_base',
             newHTML += createChannelHTML(index, element);
         });
 
-        document.getElementById("ChannelList").innerHTML = newHTML;
+        $("#ChannelList").html(newHTML);
         $("#ChannelList img").error(imgError);
         $(".channel-info-table").click(DoJumpToChannel);
         refreshSignInBtn();

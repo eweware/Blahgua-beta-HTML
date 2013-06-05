@@ -51,17 +51,20 @@
     <div class="create-content-div show-blah-bkgnd" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
             <tr>
+                <td><span class="image-label">add image:</span></td>
+                <td colspan="2">
                 <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-                    <td><span class="image-label">add image:</span></td>
-                    <td colspan="2">
                         <div>
-                            <input id="BlahImage" name="file" type="file" >
+                            <input id="BlahImage" name="file" type="file" no-validate>
+                            <div style="display:none">
                             <input type="text" name="objectType" hidden="true" value="B"/>
                             <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                             <input type="text" name="primary" hidden="true" value="true"/>
+                            </div>
                         </div>
-                    </td>
                 </form>
+                    </td>
+
             </tr>
             <tr><td colspan="3">
                     <div id="ProgressBar" class="progress-bar" style="display:none">

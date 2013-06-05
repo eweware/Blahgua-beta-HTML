@@ -22,15 +22,17 @@
 
             </tr>
             <tr  class="comment-image-upload-row">
-                <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
-                    <td colspan="2">
-                        <span class="image-label">add image:</span>
+                <td colspan="2">
+                    <span class="image-label">add image:</span>
+                    <form id="ImageForm" action="https://beta.blahgua.com/v2/images/upload" method="post" enctype="multipart/form-data">
                         <input id="CommentImage" name="file" type="file" >
-                        <input type="text" name="objectType" hidden="true" value="C"/>
-                        <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                        <input type="text" name="primary" hidden="true" value="true"/>
-                    </td>
-                </form>
+                        <div style="display: none">
+                            <input type="text" name="objectType" hidden="true" value="C"/>
+                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                            <input type="text" name="primary" hidden="true" value="true"/>
+                        </div>
+                    </form>
+                </td>
             </tr>
             <tr><td colspan="3">
                 <div id="ProgressBar" class="progress-bar" style="display:none">
@@ -49,7 +51,7 @@
         </table></td></tr>
         <tr>
             <td>
-                <table style="width:100$">
+                <table style="width:100%">
             <tr class="comment-sort-area">
                 <td></td>
                 <td>filter:<input text="text" id="FilterBox"></td>
@@ -65,7 +67,6 @@
                     <option value="asc">ascending</option>
                 </select> </td>
                 <td></td>
-<br>
             </tr>
         </table>
         </td>
