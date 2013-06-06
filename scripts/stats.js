@@ -117,7 +117,7 @@ define('stats',
             var newHTML = "";
 
             newHTML += "<div class='request-demographic'>";
-            newHTML += "Set your profile " + demoString + " to see that of your audience";
+            newHTML += "Set your profile " + demoString + " to see that of the audience";
             newHTML += "</div>";
             return newHTML;
         };
