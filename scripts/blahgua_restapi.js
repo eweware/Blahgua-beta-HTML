@@ -53,6 +53,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         if (exports.SpinElement)
             exports.SpinElement.spin(exports.SpinTarget);
         $(".spin-text").text(restType + " " + methodName);
+        G.RefreshSessionTimer();
         $.ajax({
             type: restType,
             url: baseURL + methodName,
@@ -106,6 +107,10 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
             }
         });
+    };
+
+    var RefreshSession = function() {
+        GetUserProfile();
     };
 
 
@@ -741,5 +746,6 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         recoverUser: recoverUser,
         setRecoveryInfo: setRecoveryInfo,
         getRecoveryInfo: getRecoveryInfo ,
+        RefreshSession:RefreshSession
     }
 });

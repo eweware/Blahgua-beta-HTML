@@ -84,6 +84,9 @@ define('globals',
         var resizeTimer = null;
         var SpinElement = null;
         var SpinTarget = null;
+        var SessionTimer = null;
+        var TimeoutFunction = null;
+        var numMinutes = 1;
 
         var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
@@ -232,6 +235,30 @@ define('globals',
 
         };
 
+        var StartSessionTimer = function(timeoutCallback) {
+
+            TimeoutFunction = timeoutCallback;
+            if (SessionTimer)
+                clearTimeout(SessionTimer);
+            SessionTimer = setTimeout(TimeoutFunction, numMinutes * 60 * 1000);
+        };
+
+        var RefreshSessionTimer = function() {
+            if (SessionTimer)
+                clearTimeout(SessionTimer);
+            if (TimeoutFunction)
+                SessionTimer = setTimeout(TimeoutFunction, numMinutes * 60 * 1000);
+        };
+
+        var ClearSessionTimer = function() {
+            if (SessionTimer)
+                clearTimeout(SessionTimer);
+            SessionTimer = null;
+            TimeoutFunction = null;
+        };
+
+
+
         var CodifyText = function(theText) {
             if (theText) {
                 var regX = /\r\n|\r|\n/g;
@@ -305,6 +332,44 @@ define('globals',
             return result;
         };
 
+        var ClearPrompt = function() {
+            $('.click-shield').remove();
+        }
+
+        var PromptUser = function(promptString, yesString, noString, yesCallback, noCallback) {
+            var newHTML = "";
+            newHTML += "<div class='click-shield'>" +
+            "<div class='dialog-box'  style='display: none'>" +
+                "<table>" +
+                "<tr><td class='dialog-prompt-container'><span class='dialog-prompt'></span></td></tr>"  +
+                "<tr><td class='dialog-btn-container'><button class='dialog-button dialog-no'></button><button class='dialog-button dialog-yes'></button></td></tr>"  +
+                "</table>" +
+            "</div>"  +
+            "</div>";
+
+            $(document.body).append(newHTML);
+            $(".dialog-prompt").text(promptString);
+            if ((!noString) || (noString == "")) {
+                $(".dialog-no").hide();
+            } else {
+                $(".dialog-no").text(noString).click(function(theEvent) {
+                    $(".dialog-box").hide();
+                    if (noCallback)
+                        noCallback();
+                    $('.click-shield').remove();
+                });
+            }
+
+            $(".dialog-yes").text(yesString).click(function(theEvent) {
+                $(".dialog-box").hide();
+                if (yesCallback)
+                    yesCallback();
+                $('.click-shield').remove();
+            });
+            $(".dialog-box").show();
+
+        }
+        document.body
 
         return {
             Initialize :   Initialize,
@@ -357,6 +422,11 @@ define('globals',
             FakeURLifyText: FakeURLifyText,
             DynamicSort: dynamicSort,
             GetCommentUserImage: GetCommentUserImage,
+            PromptUser:  PromptUser,
+            StartSessionTimer: StartSessionTimer,
+            RefreshSessionTimer: RefreshSessionTimer,
+            ClearSessionTimer: ClearSessionTimer,
+            ClearPrompt: ClearPrompt,
             Cryptify: cryptify
         }
 

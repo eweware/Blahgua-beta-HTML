@@ -91,7 +91,7 @@ define('BlahTypePoll',
                 var ratio = curVote/ maxVotes;
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
-                var votePercent = Math.floor(curVote / totalVotes) + "%";
+                var votePercent = Math.floor(curVote / totalVotes) * 100 + "%";
                 if (curVote > 0)
                     $(item).find(".poll-vote-text").text(votePercent).removeClass("no-votes");
                 else

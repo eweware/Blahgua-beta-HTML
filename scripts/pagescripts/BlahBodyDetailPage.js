@@ -216,10 +216,12 @@ define('BlahBodyDetailPage',
                 }
             } else {
                 // not logged in - can't vote
+                /*
                 promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png";
                 promoBtn.disabled = true;
                 demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png";
                 demoBtn.disabled = true;
+                */
             }
         };
 

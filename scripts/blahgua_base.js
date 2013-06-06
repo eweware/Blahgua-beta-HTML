@@ -130,6 +130,7 @@ define('blahgua_base',
 
     var HandlePostSignIn = function() {
         G.IsUserLoggedIn = true;
+        G.StartSessionTimer(HandleSessionTimeout);
         Blahgua.GetProfileSchema(function(theSchema) {
             G.ProfileSchema = theSchema.fieldNameToSpecMap;
         }, OnFailure) ;
@@ -140,6 +141,20 @@ define('blahgua_base',
     };
 
 
+
+    var HandleSessionTimeout = function() {
+        // start a final timer
+        var sessionTimeOut = setTimeout(function() {
+            G.ClearPrompt();
+           LogoutUser();
+        }, 15 * 1000);
+        G.PromptUser("We haven't heard from you in a while.  Do you want to keep watching?",
+            "Keep watching", null, function() {
+                clearTimeout(sessionTimeOut);
+                // touch the server...
+                Blahgua.RefreshSession();
+            }, null);
+    };
 
 
 // *************************************************
@@ -192,6 +207,7 @@ define('blahgua_base',
     };
 
     var RefreshPageForNewUser = function(json) {
+        G.StartSessionTimer(HandleSessionTimeout);
         // get the new channel list
         ClosePage();
         G.CurrentUser = json;
@@ -1570,6 +1586,7 @@ define('blahgua_base',
     };
 
     var OnLogoutOK = function(json) {
+        G.ClearSessionTimer();
         G.IsUserLoggedIn = false;
         refreshSignInBtn();
         G.CurrentUser = null;
