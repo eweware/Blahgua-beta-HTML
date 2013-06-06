@@ -73,9 +73,37 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
                 if (exports.SpinElement)
                     exports.SpinElement.stop();
                 $(".spin-text").text("ERROR: " + restType + " " + methodName);
-                if (OnFailure != null) {
-                    OnFailure(theErr);
+                if (theErr.status == 401) {
+                    // track this down once and for all
+                    if (G.IsUserLoggedIn) {
+                        isUserLoggedIn(function(json) {
+                            if (json.loggedIn == "Y")
+                            {
+                                // system is consistent
+                                if (OnFailure != null) {
+                                    OnFailure(theErr);
+                                }
+                            } else {
+                                // system is inconsistent - we have been logged out.
+                                if (confirm("You are no longer signed in.  Reset?")) {
+                                    location.reload();
+                                }
+                            }}, function(theErr) {
+                                alert("Blahgua is down.  Try to refresh the page or wait a while.");
+                        });
+                    } else {
+                        // system is consistent, thinking no one is signed in.
+                        if (OnFailure != null) {
+                            OnFailure(theErr);
+                        }
+                    }
+
+                } else {
+                    if (OnFailure != null) {
+                        OnFailure(theErr);
+                    }
                 }
+
             }
         });
     };
