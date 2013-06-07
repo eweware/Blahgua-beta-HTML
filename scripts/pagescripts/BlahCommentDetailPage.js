@@ -29,7 +29,9 @@ define('BlahCommentDetailPage',
                     exports.CurrentCommentText = "";
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
+                    G.Spi
                     comments.DoAddComment(function(newComment) {
+                        $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
                     });
@@ -53,7 +55,9 @@ define('BlahCommentDetailPage',
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").keydown(function(theEvent) {
                     if (theEvent.ctrlKey && theEvent.keyCode == 13) {
-                        $("#AddCommentBtn").click();
+                        if (!document.getElementById("AddCommentBtn").disabled) {
+                            $("#AddCommentBtn").click();
+                        }
                     }
                 });
                 $("#CommentTextArea").val(exports.CurrentCommentText);
@@ -74,20 +78,15 @@ define('BlahCommentDetailPage',
         };
 
         var RefreshForCommentText = function() {
-            // disable button if there is not enough text
             var textField =  document.getElementById("CommentTextArea");
-            document.getElementById("AddCommentBtn").disabled = (textField.value.length < 3);
-
-            //  the following will help the text expand as typing takes place
-            while($(textField).outerHeight() < textField.scrollHeight) {
-                $(textField).height($(textField).height()+1);
-            }
+            var charCount =  textField.value.length;
+            var tooManyOrFew = ((charCount < 3) || (charCount > 4000));
+            document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
+            var color = "#000000";
+            if (tooManyOrFew)
+                color = "#FF0000";
+            $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
-            // handle the sizing
-            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
-            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop + "px";
-            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
         };
 
         var UpdateCommentSort = function() {

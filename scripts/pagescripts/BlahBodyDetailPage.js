@@ -148,7 +148,9 @@ define('BlahBodyDetailPage',
                 $("#CommentTextArea").focus();
                 $("#CommentTextArea").keydown(function(theEvent) {
                    if (theEvent.ctrlKey && theEvent.keyCode == 13) {
-                       $("#AddCommentBtn").click();
+                       if (!document.getElementById("AddCommentBtn").disabled) {
+                           $("#AddCommentBtn").click();
+                       }
                    }
                 });
                 $("#CommentTextArea").keyup(RefreshForCommentText);
@@ -161,6 +163,7 @@ define('BlahBodyDetailPage',
                     comments.DoAddComment(function(newComment) {
                         comments.InsertNewComment(newComment);
                         $(".top-comments-header").show();
+                        $("#CharCountDiv").text(4000);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
                     });
                 });
@@ -172,12 +175,13 @@ define('BlahBodyDetailPage',
 
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
-            document.getElementById("AddCommentBtn").disabled = (textField.value.length < 3);
-
-            //  the following will help the text expand as typing takes place
-            while($(textField).outerHeight() < textField.scrollHeight) {
-                $(textField).height($(textField).height()+1);
-            };
+            var charCount =  textField.value.length;
+            var tooManyOrFew = ((charCount < 3) || (charCount > 4000));
+            document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
+            var color = "#000000";
+            if (tooManyOrFew)
+                color = "#FF0000";
+            $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
         };
 
