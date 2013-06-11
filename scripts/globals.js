@@ -86,7 +86,7 @@ define('globals',
         var SpinTarget = null;
         var SessionTimer = null;
         var TimeoutFunction = null;
-        var numMinutes = 1;
+        var numMinutes = 4;
 
         var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 

@@ -11,29 +11,30 @@ define('BlahCommentDetailPage',
     function (G, exports, comments) {
 
         var InitializePage = function() {
-            // bind events
-            $("#SortBySelect").change(function(theEvent) {
-                UpdateCommentSort();
-            });
+        // bind events
+        $("#SortBySelect").change(function(theEvent) {
+            UpdateCommentSort();
+        });
 
-            $("#SortOrderSelect").change(function(theEvent) {
-                UpdateCommentSort();
-            });
+        $("#SortOrderSelect").change(function(theEvent) {
+            UpdateCommentSort();
+        });
 
-            $("#FilterBox").keyup(function(theEvent) {
-                comments.SetCommentFilter($("#FilterBox").val());
-            });
+        $("#FilterBox").keyup(function(theEvent) {
+            comments.SetCommentFilter($("#FilterBox").val());
+        });
 
          if (G.IsUserLoggedIn)  {
+                $("#CommentImage").change(comments.UploadCommentImage);
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
-                    G.Spi
                     comments.DoAddComment(function(newComment) {
                         $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $("#CommentImage").val("").change();
                     });
                 });
             }

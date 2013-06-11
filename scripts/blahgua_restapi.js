@@ -237,14 +237,19 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("users/profile/schema", paramStr, OnSuccess, OnFailure);
     };
 
-    var AddBlahComment = function (commentText, blahId, OnSuccess, OnFailure) {
+    var AddBlahComment = function (commentText, blahId, imageId, OnSuccess, OnFailure) {
         /// <summary>Adds the specified comment to the current session blah</summary>
         /// <param name="commentText">the text to add</param>
         /// <param name="commentVote">The comment vote (should be 0)</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var paramStr = '{"T":"' + commentText + '", "B":"' + blahId + '"}';
-        CallPostMethod("comments", paramStr, OnSuccess, OnFailure);
+        var param = new Object();
+        param["T"] = commentText;
+        param["B"] = blahId;
+        if (imageId && imageId != "")
+            param["M"] = [imageId];
+
+        CallPostMethod("comments", JSON.stringify(param), OnSuccess, OnFailure);
     };
 
 

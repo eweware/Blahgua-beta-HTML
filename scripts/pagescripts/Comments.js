@@ -220,27 +220,16 @@ define('comments',
 
         var DoAddComment = function(OnSuccess, OnFailure) {
             var commentText = $("#CommentTextArea").val();
-            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, function (newComment) {
+            var imageId = $("#objectId").val();
+            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, function (newComment) {
                 $("#CommentTextArea").val("");
                 if (G.CurrentBlah.hasOwnProperty("C")) {
                     G.CurrentBlah.C++;
                 } else {
                     G.CurrentBlah["C"] = 1;
                 }
-                // check for image
-                if ($("#CommentImage").val() != "") {
-                    UploadCommentImage(newComment._id, function(data) {
-                        $("#CommentImage").val(null);
-                        $("#ProgressBar").hide();
-                        var imageData = [];
-                        imageData.push(data);
-                        newComment["M"] = imageData;
 
-                        OnSuccess(newComment);
-                    });
-                } else {
-                    OnSuccess(newComment);
-                }
+                OnSuccess(newComment);
 
             }, OnFailure);
         };
@@ -294,8 +283,14 @@ define('comments',
             newHTML += '<td><table class="comment-item-table" data-comment-index="' + index + '"">';
 
             // comment author
+
             newHTML += '<tr>';
-            newHTML += '<td rowspan=4 style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
+            newHTML += '<td rowspan=';
+            if (image == "")
+                newHTML += "3";
+            else
+                newHTML += "4";
+            newHTML += ' style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
             newHTML += '<td colspan=2 style="width:100%"><span class="comment-user-name">' + blahgerName + '</span>,&nbsp;';
             newHTML += '<span class="comment-user-description">' + authorDesc + '</span></td>';
 
@@ -380,47 +375,44 @@ define('comments',
             return newEl;
         };
 
-        var UploadCommentImage  = function(commentID, successFunction) {
-            $("#ProgressBar").show();
-            $("#objectId").val(commentID);
-            //document.getElementById("ImageForm").submit();
+        var UploadCommentImage  = function() {
+            $("#objectId").val("");
+            if ($("#CommentImage").val() == "" ) {
+                // clear the image
+                $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
+            } else {
+                $(".image-preview").addClass("no-image").css({"background-image":'url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/ajax-loader.gif")'}).text("loading");
 
-            var formData = new FormData($("#ImageForm")[0]);
-            $.ajax({
-                url: "https://beta.blahgua.com/v2/images/upload",
 
-                type: 'POST',
-                xhr: function() { // custom xhr
-                    myXhr = $.ajaxSettings.xhr();
-                    if(myXhr.upload){ // if upload property exists
-                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-                    }
-                    return myXhr;
-                },
-                //Ajax events
-                success: completeHandler = function(data) {
-                    successFunction(data);
+                var formData = new FormData($("#ImageForm")[0]);
+                $.ajax({
+                    url: "https://beta.blahgua.com/v2/images/upload",
 
-                },
-                error: errorHandler = function(theErr) {
-                    alert("Error uploading");
-                },
-                // Form data
-                data: formData,
-                //Options to tell JQuery not to process data or worry about content-type
-                cache: false,
-                contentType: false,
-                processData: false
-            }, 'json');
+                    type: 'POST',
+
+                    //Ajax events
+                    success: completeHandler = function(data) {
+                        $("#objectId").val(data);
+                        // to do - update the image...
+                        var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
+                        var imagePathName = "https://" + hostName + data + "-A" + ".jpg";
+                        var theUrl = 'url("' + imagePathName + '")';
+                        $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
+                    },
+                    error: errorHandler = function(theErr) {
+                        $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
+
+                    },
+                    // Form data
+                    data: formData,
+                    //Options to tell JQuery not to process data or worry about content-type
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }, 'json');
+            }
         };
 
-        var progressHandlingFunction = function(evt) {
-            var maxWidth = $("#ProgressBar").width();
-            var curWidth = 100;
-            var ratio = evt.loaded / evt.total;
-            var newWidth = Math.floor(maxWidth * ratio);
-            $("#Indicator").width(newWidth);
-        }
 
         return {
             UpdateBlahComments: UpdateBlahComments,
@@ -428,6 +420,7 @@ define('comments',
             UpdateTopComments: UpdateTopComments,
             DoAddComment: DoAddComment,
             SetCommentSort: SetCommentSort,
+            UploadCommentImage: UploadCommentImage,
             SetCommentFilter: SetCommentFilter
         }
     }

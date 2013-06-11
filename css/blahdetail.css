@@ -422,12 +422,19 @@
 
 .comment-image-upload-row td {
     text-align:center;
-    padding: 4px 0px 8px 0px;
+    margin: 0px 4px 2px 8px;
+    padding-top:24px;
 }
 
 .comment-image-upload-row image {
     margin-top: 5px;
 }
+
+.image-preview.comment-preview {
+    margin: -20px 4px 2px -64px;
+
+}
+
 
 
 

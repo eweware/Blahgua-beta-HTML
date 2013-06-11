@@ -155,6 +155,7 @@ define('BlahBodyDetailPage',
                 });
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").val(exports.CurrentCommentText);
+                $("#CommentImage").change(comments.UploadCommentImage);
 
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
@@ -165,6 +166,7 @@ define('BlahBodyDetailPage',
                         $(".top-comments-header").show();
                         $("#CharCountDiv").text(4000);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $("#CommentImage").val("").change();
                     });
                 });
                 RefreshForCommentText();

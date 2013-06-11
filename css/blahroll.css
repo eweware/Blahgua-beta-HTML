@@ -1,25 +1,25 @@
 /* styles related to the blah roll */
 
 .BlahTextDiv {
-    background-color: rgb(245, 244, 240);
+
     font-family: 'Arimo', sans-serif;
     overflow-x:hidden;
     height:auto;
     width:auto;
     font-size:9px;
     padding: 4px;
-    text-align:left;
+    text-align:center;
 }
 
 
 .BlahAltTextDiv {
     font-size:9px;
-    text-align:left;
+    text-align:center;
 
 }
 
 .BlahExpandTextDiv {
-    text-align:left;
+    text-align:center;
     font-size:9px;
 }
 
@@ -47,34 +47,34 @@
 }
 
 .BlahTypeSays {
-    color: rgba(40,40,40,1);
-    background-color: rgba(244,245,240,0.425);
+    color: rgba(125,181,227,1);
+    background-color: rgba(244,245,240,0.0);
     border-color:rgba(125,181,227,1);
 }
 
 .BlahTypeAsks {
-    color: rgba(40,40,40,1);
-    background-color: rgba(244,245,240,0.425);
+    color: rgba(122,208,0,1);
+    background-color: rgba(244,245,240,0.0);
     border-color:rgba(122,208,0,1)
 }
 
 .BlahTypeLeaks {
-    color: rgba(40,40,40,1);
-    background-color: rgba(244,245,240,0.45);
+    color: rgba(248,120,88,1);
+    background-color: rgba(244,245,240,0.0);
     border-color:rgba(248,120,88,1)
 }
 
 .BlahTypePolls {
-    color: rgba(40,40,40,1);
-    background-color: rgba(244,245,240,0.425);
+    color: rgba(248,184,0,1);
+    background-color: rgba(244,245,240,0.0);
     border-color:rgba(248,184,0,1)
 
 }
 
 .BlahTypePredicts {
-    color: rgba(40,40,40,1);
-    background-color: rgba(244,245,240,0.425);
-    border-color:rgba(248,120,248,1)  
+    color: rgba(248,120,248,1);
+    background-color: rgba(244,245,240,0.0);
+    border-color:rgba(248,120,248,1)
 
 }
 
@@ -87,35 +87,35 @@
 
 
 .BlahTypeSaysImgText {
-    color: rgba(32,32,32,1);
-    background-color: rgba(244,245,240,0.475);
+    color: rgba(125,181,227,1);
+    background-color: rgba(32,32,32,0.475);
     border-color:rgba(125,181,227,1)
 }
 
 
 .BlahTypeAsksImgText {
-    color: rgba(32,32,32,1);
-    background-color: rgba(244,245,240,0.475);
+    color: rgba(122,208,0,1);
+    background-color: rgba(32,32,32,0.475);
     border-color:rgba(122,208,0,1)
 }
 
 
 .BlahTypeLeaksImgText {
-    color: rgba(32,32,32,1);
-    background-color: rgba(244,245,240,0.475);
+    color: rgba(248,120,88,1);
+    background-color: rgba(32,32,32,0.475);
     border-color:rgba(248,120,88,1)
 }
 
 .BlahTypePollsImgText {
-    color: rgba(32,32,32,1);
-    background-color: rgba(244,245,240,0.475);
+    color: rgba(248,184,0,1);
+    background-color: rgba(32,32,32,0.475);
     border-color:rgba(248,184,0,1)
 }
 
 .BlahTypePredictsImgText {
-    color: rgba(32,32,32,1);
-    background-color: rgba(244,245,240,0.475);
-    border-color:rgba(248,120,248,1) 
+    color: rgba(248,120,248,1);
+    background-color: rgba(32,32,32,0.475);
+    border-color:rgba(248,120,248,1)
 }
 
 .BlahTypeAddImgText {

@@ -31,7 +31,7 @@ define('CreateBlahPage',
 
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);
-            $("#BlahImage").change(CheckPublishBtnDisable);
+            $("#BlahImage").change(UploadBlahImage);
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
             $("#ShowBadgeAreaBtn").click(function(theEvent) {
@@ -258,7 +258,7 @@ define('CreateBlahPage',
             var blahBody = $("#BlahBody").val();
             blahBody = G.CodifyText(blahBody);
             var blahGroup = G.CurrentChannel._id;
-            var options = null;
+            var options = new Object();
 
 
             // check for additional options
@@ -268,14 +268,16 @@ define('CreateBlahPage',
 
             var badges = $("#BadgesDiv input:checkbox:checked");
             if (badges.length > 0) {
-                if (options == null)
-                    options = new Object();
                 var badgeArray = [];
                 badges.each(function(index, item) {
                    var theID =  $(item).closest("tr").attr("data-badge-id");
                     badgeArray.push(theID);
                 });
                 options["B"] = badgeArray;
+            }
+
+            if ($("#objectId").val() != "") {
+                options["M"] = [$("#objectId").val()];
             }
 
             blahgua_rest.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, exports.OnFailure);
@@ -285,11 +287,7 @@ define('CreateBlahPage',
             G.CurrentBlah = json;
             G.CurrentBlahId = G.CurrentBlah._id;
             // check for images
-            if ($("#BlahImage").val() != "") {
-                UploadBlahImage(G.CurrentBlah._id);
-            } else {
-                DoCloseBlah();
-            }
+            DoCloseBlah();
         };
 
         var DoCloseBlah = function(){
@@ -298,53 +296,78 @@ define('CreateBlahPage',
             exports.CloseBlah();
         }
 
-        var UploadBlahImage  = function(blahId) {
-            $("#ProgressBar").show();
-            $("#objectId").val(blahId);
-            //document.getElementById("ImageForm").submit();
+        var UploadBlahImage  = function() {
+            if ($("#BlahImage").val() == "" ) {
+                // clear the image
+                $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
+            } else {
+                $(".image-preview").addClass("no-image").css({"background-image":'url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/ajax-loader.gif")'}).text("loading");
 
-            var formData = new FormData($("#ImageForm")[0]);
-            $.ajax({
-                url: "https://beta.blahgua.com/v2/images/upload",
+                var formData = new FormData($("#ImageForm")[0]);
+                $.ajax({
+                    url: "https://beta.blahgua.com/v2/images/upload",
 
-                type: 'POST',
-                xhr: function() { // custom xhr
-                    myXhr = $.ajaxSettings.xhr();
-                    if(myXhr.upload){ // if upload property exists
-                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-                    }
-                    return myXhr;
-                },
-                //Ajax events
-                success: completeHandler = function(data) {
-                    DoCloseBlah();
-
-                },
-                error: errorHandler = function(theErr) {
-                    alert("Error uploading");
-                },
-                // Form data
-                data: formData,
-                //Options to tell JQuery not to process data or worry about content-type
-                cache: false,
-                contentType: false,
-                processData: false
-            }, 'json');
+                    type: 'POST',
+                    //Ajax events
+                    success: completeHandler = function(data) {
+                        $("#objectId").val(data);
+                        // to do - update the image...
+                        var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
+                        var imagePathName = "https://" + hostName + data + "-A" + ".jpg";
+                        var theUrl = 'url("' + imagePathName + '")';
+                        $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
+                        CheckPublishBtnDisable();
+                    },
+                    error: errorHandler = function(theErr) {
+                        $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
+                    },
+                    // Form data
+                    data: formData,
+                    //Options to tell JQuery not to process data or worry about content-type
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }, 'json');
+            }
         };
 
-        var progressHandlingFunction = function(evt) {
-            var maxWidth = $("#ProgressBar").width();
-            var curWidth = 100;
-            var ratio = evt.loaded / evt.total;
-            var newWidth = Math.floor(maxWidth * ratio);
-            $("#Indicator").width(newWidth);
-        };
 
         var InsertNewBlahIntoChannel = function(theBlah) {
             // todo:  create a fake inbox item for this blah
             // and insert it into the blah list...
             var newItem = new Object();
-            newItem["N"] = theBlah.N;
+            newItem["T"] = theBlah.N;
+            newItem["I"] = theBlah._id;
+            newItem["A"] = theBlah.A;
+            newItem["c"] = theBlah.c;
+            newItem["G"] = theBlah.G;
+            newItem["N"] = 0;
+            newItem["Y"] = theBlah.Y;
+            newItem.S = 0;
+            newItem.R = 0;
+            newItem.V = 0;
+            newItem.displaySize = 2;
+            if (theBlah.hasOwnProperty("M"))
+                newItem["M"] = theBlah.M;
+
+            // insert it on top of an existing blah so as not to disturb
+            // the world order
+            var didIt = false;
+            for (var curIndex in G.ActiveBlahList) {
+                if (G.ActiveBlahList[curIndex].displaySize == 2) {
+                    G.ActiveBlahList[curIndex] = newItem;
+                    didIt = true;
+                    break;
+                }
+            }
+
+            if (!didIt) {
+                // if there are no more twos, go ahead and replace the last item
+                var size = G.ActiveBlahList.length;
+                newItem.displaySize = G.ActiveBlahList[size-1].displaySize;
+                G.ActiveBlahList[size-1] = newItem;
+            }
+
         };
 
 

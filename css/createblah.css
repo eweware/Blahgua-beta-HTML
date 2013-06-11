@@ -42,10 +42,23 @@
     overflow-y:hidden;
 
 }
-.createblahheadlinephotoframe
-{
-    width:70px;
+.image-preview {
+    display: inline-block;
+    width:64px;
+    height:64px;
+    background-size:cover;
+    background-color:white;
+    font-size:9pt;
+    text-align: center;
+    vertical-align: middle;
+    margin: 0px 10px 8px 16px;
+    border: 1px black solid;
 }
+
+.image-preview.no-image {
+
+}
+
 
 .createblahheadlinephoto
 {
