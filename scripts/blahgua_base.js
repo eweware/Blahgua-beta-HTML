@@ -1550,7 +1550,7 @@ define('blahgua_base',
                 });
             });
         } else {
-            SuggestUserSignIn("You must sign in before you can create a blah")
+            SuggestUserSignIn("Sign in to create.")
         }
     };
 

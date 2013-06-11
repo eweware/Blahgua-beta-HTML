@@ -97,7 +97,7 @@ define('BlahCommentDetailPage',
 
 
         var SignInToComment = function() {
-            exports.SuggestUserSignIn("Sign in to comment");
+            exports.SuggestUserSignIn("Sign in to comment.");
         };
 
         return {

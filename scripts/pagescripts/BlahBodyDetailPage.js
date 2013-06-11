@@ -49,7 +49,7 @@ define('BlahBodyDetailPage',
 
             $("#SuggestSignInDiv").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
-               exports.SuggestUserSignIn("Sign in to promote, demote and comment")
+               exports.SuggestUserSignIn("Sign in to participate.")
             });
 
 
