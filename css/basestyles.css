@@ -38,7 +38,7 @@ input:focus {
     width:100%;
     height:100%;
     z-index:0;
-    background-image: -webkit-linear-gradient(top, rgb(31,33,51) 5%, rgb(190,192,192) 97%, rgb(244, 245, 240) 100%);
+    background: linear-gradient(to bottom, rgb(31,33,51) 5%, rgb(190,192,192) 97.5%, rgb(244, 245, 240) 100%);
 }
 
 .Overlay {
@@ -48,7 +48,7 @@ input:focus {
 .BlahContainer {
     position: absolute;
     height:100%;
-    background-image: -webkit-linear-gradient(top, rgb(31,33,51) 5%, rgb(190,192,192) 97%, rgb(244, 245, 240) 100%);
+    background: linear-gradient(to bottom, rgb(31,33,51) 5%, rgb(190,192,192) 97.5%, rgb(244, 245, 240) 100%);
     overflow:hidden;
 }
 
