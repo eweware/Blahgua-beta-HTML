@@ -4,7 +4,7 @@
     position: absolute;
     width:100%;
     top: 8px;
-    height: 48px;
+    height:48px;
     z-index:10;
     background-color:white;
     color:rgb(245,245,240);
@@ -222,3 +222,18 @@
     font-size:36px;
 
 }
+
+@media all and (max-width: 400px)  {
+	.ChannelBanner
+	{
+	  height: 38px;
+	  font-size: 16px;
+	  line-height: 3em;
+	}
+	.sign-in-button
+	{
+	   font-size: 12px;
+	   
+	}
+}
+
