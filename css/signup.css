@@ -5,18 +5,17 @@
     border-style:none;
     padding:8px;
     border-radius: 16px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,.3);
-    background-color:white;
     margin:24px;
 }
 
 
 .sign-in {
+    color:  rgb(244,245,240);
     text-align: center;
     font-family: 'Arimo', sans-serif;
     padding-left: 8px;
     padding-top: 8px;
-    background-color: white;
+    background-color: rgb(125, 181, 227);
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }
@@ -35,9 +34,9 @@
 }
 
 .sign-in img {
-    width:128px;
-    height:128px;
-    margin: 0 auto;
+    width: 80%;
+   max-width: 341px;
+
 }
 
 
@@ -65,10 +64,8 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     height: 200px;
-    background-color:deepskyblue;
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-top-color: #00c50d;
+    background-color:RGB(122, 208, 0);
+
 
 }
 
@@ -85,6 +82,8 @@
     text-align: center;
     font-size:0;
     margin: 0 auto;
+    background-color: rgb(125, 181, 227);
+    padding-top:10px;
 }
 
 
@@ -143,7 +142,7 @@
     border-radius: 0px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
-    height:48px;
+    height:36px;
     padding-left:8px;
     padding-right:8px;
     margin:0px;
@@ -169,17 +168,17 @@
 
 .toggle-btn:hover {
     color:black;
-    background-color: #AAAAAA;
+    background-color: #00c50d;;
 }
 
 .toggle-active {
-    background-color: #00c50d;
-    color:white;
+    background-color: RGB(122, 208, 0);
+    color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
     background-color: #00c50d;
-    color:white;
+    color:rgb(244,245,240);
 }
 
 
