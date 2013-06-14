@@ -89,7 +89,7 @@ define('BlahDetailPage',
         };
 
         var LoadOpenPage = function() {
-            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
+            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
             $("#BlahPageDiv").css({ 'top': curTop + "px"});
             // see if we were supposed to go elsewhere
             if (G.BlahOpenPage == "")
@@ -127,7 +127,7 @@ define('BlahDetailPage',
                 newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
 
                 $("#BlahFacetTable").append(newHTML);
-                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
+                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
                 $("#BlahPageDiv").css({ 'top': curTop + "px"});
             }, function (theErr) {
                 // TODO:  handle badge load error
