@@ -150,11 +150,11 @@ define('CreateBlahPage',
             var errMsg = "";
 
             if (headLineLen < minHeadlineLen)
-                errMsg += "Headline too short.  ";
+                errMsg += "Headline too short  ";
             if (headLineLen > K.MaxTitleLength)
-                errMsg += "Headline too long.  ";
+                errMsg += "Headline too long  ";
             if (bodyLen > 4000)
-                errMsg += "Body text too long.  ";
+                errMsg += "Body text too long  ";
 
             if (blahTypeModule)
                 errMsg += blahTypeModule.ValidateCreate();

@@ -40,9 +40,12 @@
 .ChannelOptions {
     width:48px;
     height:48px;
-    border-left-color:rgba(0,0,0,.4);
+    border-left-color:rgba(32,32,32,.4);
     border-left-width:1px;
     border-left-style:solid;
+    color:rgb(245,245,240);
+    background-color: rgb(122,208,0);
+    font-weight:bold;
     text-align:center;
     vertical-align:middle;
     float:right;

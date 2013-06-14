@@ -303,8 +303,8 @@
 }
 
 .add-comment-btn {
-    background-color: rgb(0, 179, 18);;
-    color: white;
+    background-color: rgb(125, 181, 227);
+    color: rgb(244,245,240);
     border-radius: 8px;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
@@ -328,8 +328,8 @@
 
 
 .add-comment-btn:hover {
-    background: rgb(0, 220, 22);
-    color:  black;
+    background: rgb(34, 150, 227);
+    color:  rgb(244,245,240);
 }
 
 
