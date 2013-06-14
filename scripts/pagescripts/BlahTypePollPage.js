@@ -108,14 +108,13 @@ define('BlahTypePoll',
                         // all others, show chart
                         var selector = "[data-poll-vote=" + json.W + "] img";
                         var img = $(selector);
-                        $(".poll-prompt").text("check out your vote:");
+
                         $(".poll-checkbox").hide();
                         img.addClass("checked").show();
                         $(".poll-chart-div").show()
                         $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
                     } else if (G.CurrentBlah.A == G.CurrentUser._id) {
-                        $(".poll-prompt").text("your poll results so far");
                         // user's own blah - can't vote
                         $(".poll-checkbox").hide();
                         $(".poll-chart-div").show();
@@ -125,7 +124,6 @@ define('BlahTypePoll',
                         // user did not vote - they can vote!
                         $(".poll-chart-div").css({width: "50%"});
                         $(".poll-vote-text").text("?");
-                        $(".poll-prompt").text("vote to see the results!");
                         $(".poll-checkbox").show();
                         $(".poll-chart-div").show();
                     }
