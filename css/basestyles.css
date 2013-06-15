@@ -403,6 +403,35 @@ a {
     color: white;
 }
 
+.promote-btn {
+    width:36px;
+    height:36px;
+    display: inline-block;
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote.png');
+}
+
+.demote-btn {
+    width:36px;
+    height:36px;
+    display: inline-block;
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote.png');
+}
+
+.logo {
+    width:36px;
+    height:36px;
+    display: inline-block;
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Blahgua+logo.PNG');
+}
+
+.splash-image {
+    text-align: center;
+    width:36px;
+    height:36px;
+    display: inline-block;
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Blahgua+logo.png');
+}
+
 /* media-specific styles */
 @media all and (max-width: 400px)  {
     .BlahDiv {

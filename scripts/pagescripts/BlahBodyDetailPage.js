@@ -32,7 +32,7 @@ define('BlahBodyDetailPage',
             var shareURL;
             shareURL = G.GetItemImage(G.CurrentBlah, "D");
             if (shareURL == "") {
-                shareURL = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua+logo.PNG";
+                shareURL = BlahguaConfig.fragmentURL + "images/Blahgua+logo.PNG";
             }
             stWidget.addEntry({
                 "service":"sharethis",
@@ -195,9 +195,9 @@ define('BlahBodyDetailPage',
             if (G.IsUserLoggedIn) {
                 if (G.CurrentBlah.A == G.CurrentUser._id) {
                     // own blah - can't vote
-                    promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png";
+                    promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_disabled.png";
                     promoBtn.disabled = true;
-                    demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png";
+                    demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_disabled.png";
                     demoBtn.disabled = true;
                 } else {
                     // not own blah - can vote.  Did they?
@@ -206,26 +206,26 @@ define('BlahBodyDetailPage',
                         demoBtn.disabled = true;
                         promoBtn.disabled = true;
                         if (userVote == 1) {
-                            promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_checked.png";
-                            demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png";
+                            promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_checked.png";
+                            demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_disabled.png";
                         } else {
-                            promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png";
-                            demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_checked.png";
+                            promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_disabled.png";
+                            demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_checked.png";
                         }
                     } else {
                         // user can vote
-                        promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote.png";
+                        promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote.png";
                         promoBtn.disabled = false;
-                        demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote.png";
+                        demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote.png";
                         demoBtn.disabled =false;
                     }
                 }
             } else {
                 // not logged in - can't vote
                 /*
-                promoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png";
+                promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_disabled.png";
                 promoBtn.disabled = true;
-                demoBtn.src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png";
+                demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_disabled.png";
                 demoBtn.disabled = true;
                 */
             }

@@ -161,16 +161,16 @@ define('BlahTypePredict',
                             $('.current-choices img').unbind('click');
                             switch (userVote) {
                                 case "y":
-                                    document.getElementById("PredictYesImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("PredictYesImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#PredictYesImg").show();
 
                                     break;
                                 case "n":
-                                    document.getElementById("PredictNoImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("PredictNoImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#PredictNoImg").show();
                                     break;
                                 case "u":
-                                    document.getElementById("PredictMaybeImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("PredictMaybeImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#PredictMaybeImg").show();
                                     break;
                             }
@@ -189,15 +189,15 @@ define('BlahTypePredict',
                             $('.expired-choices img').unbind('click');
                             switch (expVote) {
                                 case "y":
-                                    document.getElementById("ExpPredictYesImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("ExpPredictYesImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#ExpPredictYesImg").show();
                                     break;
                                 case "n":
-                                    document.getElementById("ExpPredictNoImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("ExpPredictNoImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#ExpPredictNoImg").show();
                                     break;
                                 case "u":
-                                    document.getElementById("ExpPredictMaybeImg").src = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png";
+                                    document.getElementById("ExpPredictMaybeImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
                                     $("#ExpPredictMaybeImg").show();
                                     break;
                             }

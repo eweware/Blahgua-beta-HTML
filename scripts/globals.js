@@ -73,7 +73,6 @@ define('globals',
         var BlahTypeList = null;
         var IsUserLoggedIn = false;
         var ChannelDropMenu = null;
-        var fragmentURL = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com";
         var ProfileSchema = null;
         var UserProfile = null;
         var CurrentBlahNickname = "";
@@ -87,8 +86,6 @@ define('globals',
         var SessionTimer = null;
         var TimeoutFunction = null;
         var numMinutes = 4;
-
-        var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
 
         /*
          Global functions
@@ -207,7 +204,7 @@ define('globals',
         var GetUserImage = function(theItem, size) {
             var imagePathName = GetItemImage(theItem, size);
             if (imagePathName == "")
-                imagePathName = fragmentURL + "/images/unknown-user.png";
+                imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
 
             return imagePathName;
 
@@ -222,14 +219,14 @@ define('globals',
                 imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
             }
             if (imagePathName == "")
-                imagePathName = fragmentURL + "/images/unknown-user.png";
+                imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
 
             return imagePathName;
 
         };
 
         var GetGenericUserImage = function(theItem, size) {
-            var imagePathName = fragmentURL + "/images/unknown-user.png";
+            var imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
 
             return imagePathName;
 
@@ -280,6 +277,11 @@ define('globals',
         };
 
 
+        /*
+        // Code to handle URL detection in text
+
+        var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+
         var GetURLsFromString = function(theText) {
             return theText.match(URLRegEx);
         };
@@ -293,6 +295,7 @@ define('globals',
             theText = theText.replace(/&quot;/gi, "\"");
             return theText.replace(URLRegEx, '<span style="color:blue; text-decoration:underline">$1</span>');
         };
+         */
 
         var dynamicSort = function(property, subProp) {
             return function (a, b) {
@@ -398,7 +401,6 @@ define('globals',
             BlahTypeList: BlahTypeList,
             IsUserLoggedIn: IsUserLoggedIn,
             ChannelDropMenu: ChannelDropMenu,
-            FragmentURL: fragmentURL,
             ProfileSchema: ProfileSchema,
             UserProfile: UserProfile,
             CurrentBlahNickname: CurrentBlahNickname,

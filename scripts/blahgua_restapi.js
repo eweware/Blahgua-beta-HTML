@@ -2,7 +2,7 @@
 
 define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, exports, spin) {
     // properties
-    var baseURL = "https://beta.blahgua.com/v2/";
+    var baseURL = BlahguaConfig.apiURL;
     var currentChannel = "";
 
     // methods

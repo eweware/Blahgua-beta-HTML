@@ -221,7 +221,7 @@ define('CreateBlahPage',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/generic-badge.png";
+                var imagePath = BlahguaConfig.fragmentURL + "img/generic-badge.png";
                 newHTML += "<tr data-badge-id='" + theBadge + "'>";
                 newHTML += "<td><input type=checkbox></td>";
                 newHTML += "<td><div class='badgeholder'>";
@@ -301,11 +301,12 @@ define('CreateBlahPage',
                 // clear the image
                 $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
             } else {
-                $(".image-preview").addClass("no-image").css({"background-image":'url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/ajax-loader.gif")'}).text("loading");
+                var imageURL = "url('" + BlahguaConfig.fragmentURL + "img/ajax-loader.gif')";
+                $(".image-preview").addClass("no-image").css({"background-image":imageURL}).text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
                 $.ajax({
-                    url: "https://beta.blahgua.com/v2/images/upload",
+                    url: BlahguaConfig.apiURL +  "images/upload",
 
                     type: 'POST',
                     //Ajax events
