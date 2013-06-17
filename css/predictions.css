@@ -11,10 +11,15 @@
     width:24px;
     height: 24px;
     display:none;
+    background-size:cover;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/unchecked.png');
 
 }
 
+.PredictCheckBoxClass.checked {
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png');
+
+}
 
 .elapsedTimeText {
     font-family: 'Arimo', sans-serif;

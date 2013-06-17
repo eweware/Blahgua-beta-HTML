@@ -89,7 +89,7 @@ define('BlahDetailPage',
         };
 
         var LoadOpenPage = function() {
-            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
+            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
             $("#BlahPageDiv").css({ 'top': curTop + "px"});
             // see if we were supposed to go elsewhere
             if (G.BlahOpenPage == "")
@@ -123,11 +123,11 @@ define('BlahDetailPage',
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var badgeName = G.GetSafeProperty(fullBadge, "N", "unnamed badge");
                 var newHTML = "<tr class='badge-info-row'>";
-                newHTML += "<td><img style='width:16px; height:16px;' src='" + G.FragmentURL + "/img/black_badge.png'</td>";
+                newHTML += "<td><img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'</td>";
                 newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
 
                 $("#BlahFacetTable").append(newHTML);
-                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom;
+                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
                 $("#BlahPageDiv").css({ 'top': curTop + "px"});
             }, function (theErr) {
                 // TODO:  handle badge load error
@@ -140,7 +140,7 @@ define('BlahDetailPage',
                 case "Overview":
                     G.BlahFullItem.curPage = "Overview";
                     require(["BlahBodyDetailPage"], function(BodyDetails) {
-                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
                             $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
                             BodyDetails.InitializePage();
                         });
@@ -150,7 +150,7 @@ define('BlahDetailPage',
                 case "Comments":
                     G.BlahFullItem.curPage = "Comments";
                     require(["BlahCommentDetailPage"], function(CommentDetails){
-                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
                             $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                             CommentDetails.InitializePage();
                         });
@@ -160,7 +160,7 @@ define('BlahDetailPage',
                 case "Stats":
                     G.BlahFullItem.curPage = "Stats";
                     require(["BlahStatsDetailPage"], function(StatsDetails){
-                        $("#BlahPageDiv").load(G.FragmentURL + "/pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
                             $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                             StatsDetails.InitializePage();
                         });

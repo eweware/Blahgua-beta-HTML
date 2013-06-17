@@ -72,7 +72,7 @@ define('SelfPage',
                 case "Profile":
                     G.BlahFullItem.curPage = "Profile";
                     require(["SelfPageDetails"], function(DetailsPage){
-                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
                             $("#SelfProfileBtn").addClass("BlahBtnSelected");
                             DetailsPage.InitializePage();
                         });
@@ -82,7 +82,7 @@ define('SelfPage',
                 case "History":
                     G.BlahFullItem.curPage = "History";
                     require(["SelfPageHistory"], function(HistoryPage){
-                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
                             $("#SelfHistoryBtn").addClass("BlahBtnSelected");
                             HistoryPage.InitializePage();
                         });
@@ -92,7 +92,7 @@ define('SelfPage',
                 case "Stats":
                     G.BlahFullItem.curPage = "Stats";
                     require(["SelfPageStats"], function(StatsPage){
-                        $("#SelfPageDiv").load(G.FragmentURL + "/pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageStats.html #SelfPageStatsDiv", function() {
                             $("#SelfStatsBtn").addClass("BlahBtnSelected");
                             StatsPage.InitializePage();
                         });

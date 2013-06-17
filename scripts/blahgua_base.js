@@ -14,12 +14,6 @@ define('blahgua_base',
         var initialBlah =  null;
 
         var InitializeBlahgua = function() {
-            if ((window.location.hostname == "") ||
-                (window.location.hostname == "localhost") ||
-                (window.location.hostname == "127.0.0.1")) {
-                // running local
-                G.FragmentURL = "./";
-            }
 
             $(window).resize(function(){
                 G.ResizeTimer && clearTimeout(G.ResizeTimer);
@@ -544,7 +538,7 @@ define('blahgua_base',
         G.CurrentBlahNickname = G.GetSafeProperty(whichBlah, "K", G.CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
-            $(BlahFullItem).load(G.FragmentURL + "/pages/BlahDetailPage.html #FullBlahDiv", function() {
+            $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/BlahDetailPage.html #FullBlahDiv", function() {
                 var windowHeight = $(window).height();
                 $(BlahFullItem).disableSelection();
                 $(BlahFullItem).fadeIn("fast", function() {
@@ -1395,7 +1389,7 @@ define('blahgua_base',
     var imgError = function(theEvent) {
         var theImage = theEvent.target;
         theImage.onerror = "";
-        theImage.src = G.FragmentURL + "/images/groups/default.png";
+        theImage.src = BlahguaConfig.fragmentURL + "images/groups/default.png";
         return true;
     };
 
@@ -1407,7 +1401,7 @@ define('blahgua_base',
         newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "'>";
         newHTML += "<tr>";
         newHTML += "<td rowspan=2 class='channel-image-td'>";
-        newHTML += '<img class="channel-image" src="' + G.FragmentURL + '/images/groups/' + curChannel.N + '.png">';
+        newHTML += '<img class="channel-image" src="' + BlahguaConfig.fragmentURL + 'images/groups/' + curChannel.N + '.png">';
         newHTML += "</td>";
 
         newHTML += "<td><span class='channel-title'>" + curChannel.N + "</span></td>";
@@ -1435,7 +1429,7 @@ define('blahgua_base',
         Blahgua.currentChannel = G.CurrentChannel._id;
         var labelDiv = document.getElementById("ChannelBannerLabel");
         labelDiv.innerHTML = G.CurrentChannel.N;
-        var imageURL = "url('" + G.FragmentURL + "/images/groups/bkgnds/";
+        var imageURL = "url('" + BlahguaConfig.fragmentURL + "images/groups/bkgnds/";
         imageURL += G.CurrentChannel.N + ".jpg')";
         document.getElementById("BlahContainer").style.backgroundImage = imageURL;
         GetUserBlahs();
@@ -1473,7 +1467,7 @@ define('blahgua_base',
             }
         } else {
             require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
@@ -1488,7 +1482,7 @@ define('blahgua_base',
         $("#LightBox").show();
         $("#BlahFullItem").empty();
         require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
@@ -1498,7 +1492,7 @@ define('blahgua_base',
 
     var SuggestUserSignIn = function(message) {
         require(['SignUpPage'], function(SignUpPage) {
-            $("#BlahFullItem").load(G.FragmentURL + "/pages/SignUpPage.html #SignInInDiv", function() {
+            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv", function() {
                 SignUpPage.RefreshSignupContent(message);
             });
         });
@@ -1507,7 +1501,7 @@ define('blahgua_base',
 
     var PopulateUserChannel = function(whichPage) {
         require(["SelfPage"], function(SelfPage){
-            $("#BlahFullItem").load(G.FragmentURL + "/pages/SelfPage.html #UserChannelDiv", function() {
+            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SelfPage.html #UserChannelDiv", function() {
                 SelfPage.InitializePage(whichPage);
             });
         });
@@ -1545,7 +1539,7 @@ define('blahgua_base',
         $("#LightBox").show();
         if (G.IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
-                $(BlahFullItem).load(G.FragmentURL + "/pages/CreateBlahPage.html", function() {
+                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/CreateBlahPage.html", function() {
                     CreatePage.InitializePage();
                 });
             });

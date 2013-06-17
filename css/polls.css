@@ -49,10 +49,11 @@
 }
 
 .poll-checkbox {
-    display:none;
+    display:inline-block;
     width:24px;
     height: 24px;
-    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/unchecked.png");
+    background-size: cover;
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/unchecked.png");
 }
 
 .poll-checkbox:hover {
@@ -60,7 +61,7 @@
 }
 
 .poll-checkbox.checked {
-    content:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png");
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/checked.png");
 }
 
 .poll-title-holder {

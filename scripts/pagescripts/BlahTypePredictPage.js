@@ -161,17 +161,14 @@ define('BlahTypePredict',
                             $('.current-choices img').unbind('click');
                             switch (userVote) {
                                 case "y":
-                                    document.getElementById("PredictYesImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#PredictYesImg").show();
+                                     $("#PredictYesImg").addClass("checked").show();
 
                                     break;
                                 case "n":
-                                    document.getElementById("PredictNoImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#PredictNoImg").show();
+                                    $("#PredictNoImg").addClass("checked").show();
                                     break;
                                 case "u":
-                                    document.getElementById("PredictMaybeImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#PredictMaybeImg").show();
+                                    $("#PredictMaybeImg").addClass("checked").show();
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {
@@ -189,16 +186,13 @@ define('BlahTypePredict',
                             $('.expired-choices img').unbind('click');
                             switch (expVote) {
                                 case "y":
-                                    document.getElementById("ExpPredictYesImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#ExpPredictYesImg").show();
+                                    $("#ExpPredictYesImg").addClass("checked").show();
                                     break;
                                 case "n":
-                                    document.getElementById("ExpPredictNoImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#ExpPredictNoImg").show();
+                                    $("#ExpPredictNoImg").addClass("checked").show();
                                     break;
                                 case "u":
-                                    document.getElementById("ExpPredictMaybeImg").src = BlahguaConfig.fragmentURL + "img/checked.png";
-                                    $("#ExpPredictMaybeImg").show();
+                                    $("#ExpPredictMaybeImg").addClass("checked").show();
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {

@@ -322,9 +322,9 @@ define('comments',
                     // vote up
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote > 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + G.FragmentURL + '/img/black_promote_checked.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote_checked.png">';
                     else
-                        newHTML += ' <img class="comment-vote" alt="" src="' + G.FragmentURL + '/img/black_promote_disabled.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote_disabled.png">';
 
                     newHTML += uv;
                     newHTML += '</span> ';
@@ -332,9 +332,9 @@ define('comments',
                     // vote down
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote < 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + G.FragmentURL + '/img/black_demote_checked.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote_checked.png">';
                     else
-                        newHTML += ' <img class="comment-vote" alt="" src="' + G.FragmentURL + '/img/black_demote_disabled.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote_disabled.png">';
 
                     newHTML += dv;
                     newHTML += '</span> ';
@@ -342,7 +342,7 @@ define('comments',
             } else  {
                 // vote up
                 newHTML += '<span class="comment-vote-wrapper">';
-                newHTML += '<img class="comment-vote up-vote" alt="" src="' + G.FragmentURL;
+                newHTML += '<img class="comment-vote up-vote" alt="" src="' + BlahguaConfig.fragmentURL;
                 if (G.IsUserLoggedIn)
                     newHTML += '/img/black_promote.png" data-votable>';
                 else
@@ -352,7 +352,7 @@ define('comments',
 
                 // vote down
                 newHTML += '<span class="comment-vote-wrapper">';
-                newHTML += '<img class="comment-vote down-vote" alt="" src="' + G.FragmentURL;
+                newHTML += '<img class="comment-vote down-vote" alt="" src="' + BlahguaConfig.fragmentURL;
                 if (G.IsUserLoggedIn)
                     newHTML += '/img/black_demote.png" data-votable>';
                 else

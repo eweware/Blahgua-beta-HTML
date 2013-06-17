@@ -115,13 +115,13 @@ define('BlahBodyDetailPage',
             switch (exports.GetBlahTypeStr()) {
                 case "predicts":
                     require(['BlahTypePredict'], function(PredictModule) {
-                        $("#AdditionalInfoArea").load(G.FragmentURL + "/pages/BlahTypePredictPage.html #BlahTypePredict",
+                        $("#AdditionalInfoArea").load(BlahguaConfig.fragmentURL + "pages/BlahTypePredictPage.html #BlahTypePredict",
                             function() { PredictModule.InitPredictPage(); });
                     });
                     break;
                 case "polls":
                     require(['BlahTypePoll'], function(PollModule) {
-                        $("#AdditionalInfoArea").load(G.FragmentURL + "/pages/BlahTypePollPage.html #BlahTypePoll",
+                        $("#AdditionalInfoArea").load(BlahguaConfig.fragmentURL + "pages/BlahTypePollPage.html #BlahTypePoll",
                             function() { PollModule.InitPollPage(); });
                     });
                     break;
@@ -189,35 +189,31 @@ define('BlahBodyDetailPage',
 
 
         var UpdateVoteBtns = function() {
-            var promoBtn =  document.getElementById("PromoteBlahImage");
-            var demoBtn = document.getElementById("DemoteBlahImage");
+            var $promoBtn =  $("#PromoteBlahImage");
+            var $demoBtn = $("#DemoteBlahImage");
 
             if (G.IsUserLoggedIn) {
                 if (G.CurrentBlah.A == G.CurrentUser._id) {
                     // own blah - can't vote
-                    promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_disabled.png";
-                    promoBtn.disabled = true;
-                    demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_disabled.png";
-                    demoBtn.disabled = true;
+                    $promoBtn.addClass("disabled");
+                    $demoBtn.addClass("disabled");
                 } else {
                     // not own blah - can vote.  Did they?
                     var userVote = G.GetSafeProperty(G.CurrentBlah, "uv", 0);
                     if (userVote && (userVote != 0)) {
-                        demoBtn.disabled = true;
-                        promoBtn.disabled = true;
+                        $promoBtn.addClass("disabled");
+                        $demoBtn.addClass("disabled");
                         if (userVote == 1) {
-                            promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_checked.png";
-                            demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_disabled.png";
+                            $promoBtn.addClass("checked");
+                            $demoBtn.addClass("disabled");
                         } else {
-                            promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote_disabled.png";
-                            demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote_checked.png";
+                            $promoBtn.addClass("disabled");
+                            $demoBtn.addClass("checked");
                         }
                     } else {
                         // user can vote
-                        promoBtn.src = BlahguaConfig.fragmentURL + "img/black_promote.png";
-                        promoBtn.disabled = false;
-                        demoBtn.src = BlahguaConfig.fragmentURL + "img/black_demote.png";
-                        demoBtn.disabled =false;
+                        $promoBtn.removeClass("disabled");
+                        $demoBtn.removeClass("disabled");
                     }
                 }
             } else {
@@ -232,7 +228,7 @@ define('BlahBodyDetailPage',
         };
 
         var SetBlahVote = function(theVote) {
-            if (!window.event.srcElement.disabled) {
+            if (!$(window.event.srcElement).hasClass("disabled")) {
                 blahgua_rest.SetBlahVote(G.CurrentBlah._id, theVote, function(json) {
                     var oldVote;
                     G.CurrentBlah["uv"] = theVote;

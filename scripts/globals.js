@@ -204,7 +204,7 @@ define('globals',
         var GetUserImage = function(theItem, size) {
             var imagePathName = GetItemImage(theItem, size);
             if (imagePathName == "")
-                imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
+                imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 
             return imagePathName;
 
@@ -219,14 +219,14 @@ define('globals',
                 imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
             }
             if (imagePathName == "")
-                imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
+                imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 
             return imagePathName;
 
         };
 
         var GetGenericUserImage = function(theItem, size) {
-            var imagePathName = BlahguaConfig.fragmentURL + "/images/unknown-user.png";
+            var imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 
             return imagePathName;
 
@@ -419,9 +419,9 @@ define('globals',
             GetGenericUserImage: GetGenericUserImage,
             CodifyText: CodifyText,
             UnCodifyText: UnCodifyText,
-            GetURLsFromString: GetURLsFromString,
-            URLifyText: URLifyText,
-            FakeURLifyText: FakeURLifyText,
+            //GetURLsFromString: GetURLsFromString,
+            //URLifyText: URLifyText,
+            //FakeURLifyText: FakeURLifyText,
             DynamicSort: dynamicSort,
             GetCommentUserImage: GetCommentUserImage,
             PromptUser:  PromptUser,

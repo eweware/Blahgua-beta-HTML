@@ -101,7 +101,7 @@ define('CreateBlahPage',
                 case "predicts":
                     require(["BlahTypePredictAuthorPage"], function(PredictPage){
                         blahTypeModule = PredictPage;
-                        $("#AdditionalInfoDiv").load(G.FragmentURL + "/pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
+                        $("#AdditionalInfoDiv").load(BlahguaConfig.fragmentURL + "pages/BlahTypePredictAuthorPage.html #BlahTypePredictAuthorPage",
                             function() {
                                 PredictPage.InitializePage(CheckPublishBtnDisable);
                                 CheckPublishBtnDisable();
@@ -112,7 +112,7 @@ define('CreateBlahPage',
                 case "polls":
                     require(["BlahTypePollAuthorPage"], function(PollPage){
                         blahTypeModule = PollPage;
-                        $("#AdditionalInfoDiv").load(G.FragmentURL + "/pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
+                        $("#AdditionalInfoDiv").load(BlahguaConfig.fragmentURL + "pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
                             function() {
                                 PollPage.InitializePage(CheckPublishBtnDisable);
                                 CheckPublishBtnDisable();
@@ -212,7 +212,7 @@ define('CreateBlahPage',
         var CreateBadgeDescription = function(theBadge) {
             var badgeName = $(theBadge).closest("tr").find(".badgename").text();
             var newHTML = "<tr class='badge-info-row'>";
-            newHTML += "<td><img style='width:16px; height:16px;' src='" + G.FragmentURL + "/img/black_badge.png'</td>";
+            newHTML += "<td><img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'</td>";
             newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
             return newHTML;
         }
@@ -337,7 +337,7 @@ define('CreateBlahPage',
             // todo:  create a fake inbox item for this blah
             // and insert it into the blah list...
             var newItem = new Object();
-            newItem["T"] = theBlah.N;
+            newItem["T"] = theBlah.T;
             newItem["I"] = theBlah._id;
             newItem["A"] = theBlah.A;
             newItem["c"] = theBlah.c;

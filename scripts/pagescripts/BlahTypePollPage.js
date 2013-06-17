@@ -91,7 +91,7 @@ define('BlahTypePoll',
                 var ratio = curVote/ maxVotes;
                 var curRatio = Math.floor(100 * ratio);
                 var newWidth = curRatio + "%";
-                var votePercent = Math.floor(curVote / totalVotes) * 100 + "%";
+                var votePercent = Math.floor((curVote / totalVotes) * 100) + "%";
                 if (curVote > 0)
                     $(item).find(".poll-vote-text").text(votePercent).removeClass("no-votes");
                 else
@@ -106,18 +106,12 @@ define('BlahTypePoll',
                     if (json.hasOwnProperty("W")) {
                         // user voted - show their vote icon, disable
                         // all others, show chart
-                        var selector = "[data-poll-vote=" + json.W + "] img";
+                        var selector = "[data-poll-vote=" + json.W + "] .poll-checkbox";
                         var img = $(selector);
 
                         $(".poll-checkbox").hide();
                         img.addClass("checked").show();
                         $(".poll-chart-div").show()
-                        $('.poll-checkbox').unbind('click');
-                        UpdatePollChart();
-                    } else if (G.CurrentBlah.A == G.CurrentUser._id) {
-                        // user's own blah - can't vote
-                        $(".poll-checkbox").hide();
-                        $(".poll-chart-div").show();
                         $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
                     } else {
@@ -143,7 +137,7 @@ define('BlahTypePoll',
                 "<td><table>" +
                 "  <tr>" +
                 "    <td class='poll-checkbox-wrapper'>" +
-                "      <img class='poll-checkbox'>" +
+                "      <div class='poll-checkbox'></div>" +
                 "    </td>" +
                 '    <td><div class="poll-title">' + pollChoice.G + '</div></td>' +
                 '    <td class="poll-chart-holder">' +

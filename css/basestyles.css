@@ -406,15 +406,33 @@ a {
 .promote-btn {
     width:36px;
     height:36px;
+    background-size:cover;
     display: inline-block;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote.png');
+}
+
+.promote-btn.disabled {
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png');
+}
+
+.promote-btn.checked {
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_checked.png');
 }
 
 .demote-btn {
     width:36px;
     height:36px;
+    background-size:cover;
     display: inline-block;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote.png');
+}
+
+.demote-btn.disabled {
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png');
+}
+
+.demote-btn.checked {
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_checked.png');
 }
 
 .logo {
