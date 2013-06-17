@@ -65,11 +65,11 @@
 }
 
 .default-button {
-    background-color: #3FC681;
+    background-color: RGB(122,208,0);
 }
 
 .default-button:hover {
-    background-color: #51FFA5;
+    background-color: #00b800;
 }
 
 .default-button:disabled {

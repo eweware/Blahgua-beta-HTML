@@ -38,15 +38,6 @@
     margin: 2px;
 }
 
-.BlahButton {
-    width:100%;
-    height:40px;
-    border:none;
-    background-color: #999999;
-    color:black;
-    font-size:18px;
-}
-
 .BlahFullHeader {
     border-spacing:0px;
     border-collapse: collapse;
@@ -97,7 +88,7 @@
     height:32px;
     border:none;
     background-color: white;
-    color:red;
+    color:rgb(248,120,88);
     font-size:18px;
     border-radius: 6px;
     margin:8px;
@@ -125,14 +116,23 @@
 .BlahButton span {
 
 }
+.BlahButton {
+    width:100%;
+    height:40px;
+    border:none;
+    background-color: rgb(244,245,240);
+    color: rgb(32,32,32);
+    font-size:18px;
+}
 
 .BlahButton:hover {
-    background-color: #BBBBBB;
+    background-color: rgb(125,191,227);
+    color: rgb(244,245,240);
 
 }
 
 .BlahBtnSelected {
-    background-color: rgb(125, 181, 227);
+    background-color: rgb(0,120,248);
     color: rgb(244,245,240);
     position:relative;
     z-index:1;
@@ -140,7 +140,8 @@
 }
 
 .BlahBtnSelected:hover{
-    background-color: rgb(34, 150, 227);
+    background-color: rgb(0,120,248);
+    color: rgb(244,245,240);
     border: none;
 
 }
@@ -292,7 +293,7 @@
 .comment-text-area {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    min-height: 4em;
+    min-height: 3em;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     padding: 8px;
@@ -303,7 +304,7 @@
 }
 
 .add-comment-btn {
-    background-color: rgb(125, 181, 227);
+    background-color: rgb(122,208,0);
     color: rgb(244,245,240);
     border-radius: 8px;
     font-size: 18px;
@@ -328,7 +329,7 @@
 
 
 .add-comment-btn:hover {
-    background: rgb(34, 150, 227);
+    background: #00b800;
     color:  rgb(244,245,240);
 }
 
@@ -505,12 +506,12 @@
 }
 
 .inline-button.blah-closer {
-    background: rgb(0, 184, 244);
+    background: rgb(125,181,227);
     color: #ffffff;
 }
 
 .inline-button.blah-closer:hover {
-    background: rgba(0, 194, 255, 0.52);
+    background: rgba(0, 120,248, 0.52);
     color:  black;
 }
 
@@ -555,19 +556,19 @@
     font-family: 'Arimo' sans-serif;
     width: 100%;
     margin: 8px 0px;
-    border-bottom: 1px rgb(0, 144, 255) solid;
+    border-bottom: 1px rgb(0,120,248) solid;
 
 }
 
 .top-comments-header div {
-    background: rgb(0, 144,255);
+    background: rgb(0,120,248);
     width: 50%;
     margin-left: 25%;
     padding: 8px;
     font-weight: bold;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    color: white;
+    color: rgb(244,245,240);
 }
 
 .ExtraInfoArea {
