@@ -52,11 +52,11 @@
     text-align: center;
     vertical-align: middle;
     margin: 0px 10px 8px 16px;
-    border: 1px black rgb(32,32,32);
+    border: 1px black rgb(124,124,124));
 }
 
 .image-preview.no-image {
-
+border: 1px black rgb(124,124,124)
 }
 
 
@@ -124,7 +124,7 @@
     width:98%;
     min-height:60px;
 
-    border:2px solid darkgrey;
+    border:2px solid rgb(124,124,124);
     border-radius:8px;
 
     color: rgb(32,32,32);
@@ -154,7 +154,7 @@
     overflow-y: hidden;
 }
 .inputbody
-{
+{       width:512px;
     overflow-y:hidden;
     border-radius:5px;
     border:2px solid grey;
