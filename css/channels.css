@@ -7,7 +7,7 @@
     height:48px;
     z-index:10;
     background-color:white;
-    color:rgb(245,245,240);
+    color:rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
@@ -43,7 +43,7 @@
     border-left-color:rgba(32,32,32,.4);
     border-left-width:1px;
     border-left-style:solid;
-    color:rgb(245,245,240);
+    color:rgb(244,245,240);
     background-color: rgb(122,208,0);
     font-weight:bold;
     text-align:center;
@@ -58,7 +58,7 @@
     float:right;
     border-width: 1px;
     border-style: solid;
-    border-color: black;
+    border-color: rgb(32,32,32);
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/unknown-user.png");
 }
 

@@ -4,17 +4,17 @@
 .create-blah-channel-span {
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
-    color:white;
+    color:rgb(244,245,240);
 }
 
 .create-author-image {
     width:56px;
     height:56px;
-    background-color:white;
+    color:rgb(244,245,240);
     background-size:cover;
     border-style: solid;
     border-width: 1px;
-    border-color:black;
+    border-color:rgb(32,32,32);
     margin: 4px 8px 2px 2px;
 }
 
@@ -169,8 +169,8 @@
 .create-page-button
 {
     position:relative;
-    background-color: rgb(122,208,0);
-    color: rgb(244,245,240);
+    background-color: rgb(125,191,227);
+    color: rgb(32,32,32);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
@@ -193,22 +193,24 @@
 .create-page-button.default
 {
 
-    background-color: rgb(122,208,0);
-    color: rgb(244,245,240);
+    background-color: rgb(125,191,227);
+    color: rgb(32,32,32);
 
 
 }
 
 .create-page-button:hover
 {
-    background-color: #00b800;
+    background-color: rgb(0,120,248);
+    color: rgb(244,245,240);
+
 }
 
 
 .create-page-button[disabled]
 {
-    background: #d6edd7;
-    color:#a9a9a9;
+    color: rgb(244,245,240);
+    background-color: #C4C4C4;
 }
 
 .create-validation-row {
@@ -240,8 +242,8 @@
     height: 128px;
     border-width: 1px;
     border-style: solid;
-    border-color:black;
-    background-color:white;
+    border-color:rgb(32,32,32)
+    background-color:Rgb(244,245,240)
     color: darkgray;
     display:inline-block;
 }

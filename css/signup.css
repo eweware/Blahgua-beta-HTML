@@ -199,8 +199,8 @@
 }
 
 .action-btn:disabled {
-    color: #c6c6c6;
-    background-color: #AAAAAA;
+    color: rgb(244,245,240);
+    background-color: #C4C4C4;
 }
 
 .recover-btn {
@@ -221,8 +221,8 @@
 }
 
 .recover-btn:disabled {
-    color: #c6c6c6;
-    background-color: #AAAAAA;
+    color: rgb(244,245,240);
+    background-color: #C4C4C4;
 }
 
 .action-default {
@@ -236,8 +236,8 @@
 }
 
 .action-default:disabled {
-    background-color: #a8c5ac;
-    color:white;
+    color: rgb(244,245,240);
+    background-color: #C4C4C4;
 }
 
 
