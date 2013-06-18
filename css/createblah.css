@@ -36,7 +36,7 @@
 
 .createblahheadline
 {
-    background-color:#545253;
+    background-color:rgb(124,124,124);
     border-spacing:0;
     overflow-x:hidden;
     overflow-y:hidden;
@@ -47,12 +47,12 @@
     width:64px;
     height:64px;
     background-size:cover;
-    background-color:white;
+    background-color:rgb(244,245,240);
     font-size:9pt;
     text-align: center;
     vertical-align: middle;
     margin: 0px 10px 8px 16px;
-    border: 1px black solid;
+    border: 1px black rgb(32,32,32);
 }
 
 .image-preview.no-image {
@@ -127,8 +127,8 @@
     border:2px solid darkgrey;
     border-radius:8px;
 
-    color: black;
-    background-color: #F0F0F0;
+    color: rgb(32,32,32);
+    background-color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 30pt;
     overflow-y: hidden;
@@ -147,9 +147,9 @@
     min-height:60px;
     font-size:12pt;
     font-family: 'Arimo', sans-serif;
-    background-color: #F0F0F0;
-    color:black;
-    border:2px solid darkgrey;
+    background-color: rgb(244,245,240);
+    color: rgb(32,32,32);
+    border:2px solid rgb(124,124,124);
     border-radius:8px;
     overflow-y: hidden;
 }
@@ -210,7 +210,7 @@
 .create-page-button[disabled]
 {
     color: rgb(244,245,240);
-    background-color: #C4C4C4;
+    background-color: rgb(188,188,188);
 }
 
 .create-validation-row {
@@ -243,8 +243,8 @@
     border-width: 1px;
     border-style: solid;
     border-color:rgb(32,32,32)
-    background-color:Rgb(244,245,240)
-    color: darkgray;
+    background-color:Rgb(244,245,240);
+    color: rgb(124,124,124);
     display:inline-block;
 }
 

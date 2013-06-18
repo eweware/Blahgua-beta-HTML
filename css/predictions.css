@@ -1,7 +1,7 @@
 
 .BlahTypePredict   {
     margin: 8px auto;
-    border: 1px solid lightgrey;
+    border: 1px solid rgb(124,124,124);
     padding: 8px;
     border-radius: 8px;
 
@@ -105,5 +105,5 @@
 .prediction-label {
     font-family:'Arimo',sans-serif;
     font-size:17px;
-    color:#545253;
+    color:rgb(124,124,124);
 }

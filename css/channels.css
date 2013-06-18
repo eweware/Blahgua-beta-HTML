@@ -63,8 +63,8 @@
 }
 
 .sign-in-button {
-    background: rgb(179, 95, 5);
-    color: white;
+    background: rgb(122, 208, 0);
+    color: rgb(32,32,32);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     border-style: none;
@@ -74,8 +74,8 @@
 }
 
 .sign-in-button:hover {
-    background: rgb(255, 136, 6);
-    color:  black;
+    background: #00b800;
+    color:  rgb(32,32,32);
 }
 
 .sign-in-button signed-in {

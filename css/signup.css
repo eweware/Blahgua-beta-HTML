@@ -134,8 +134,8 @@
 }
 
 .toggle-btn {
-    color:white;
-    background-color: gray;
+    color:rgb(244,245,240);
+    background-color: #00b800;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
@@ -167,16 +167,16 @@
 
 .toggle-btn:hover {
     color:rgb(244,245,240);
-    background-color: #00b800;
+    background-color: #00a800;
 }
 
 .toggle-active {
-    background-color: RGB(122, 208, 0);
+    background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-color: #00b800;
+    background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
 
@@ -200,7 +200,7 @@
 
 .action-btn:disabled {
     color: rgb(244,245,240);
-    background-color: #C4C4C4;
+    background-color: rgb(188,188,188);
 }
 
 .recover-btn {
@@ -222,7 +222,7 @@
 
 .recover-btn:disabled {
     color: rgb(244,245,240);
-    background-color: #C4C4C4;
+    background-color: rgb(188,188,188);
 }
 
 .action-default {
@@ -237,7 +237,7 @@
 
 .action-default:disabled {
     color: rgb(244,245,240);
-    background-color: #C4C4C4;
+    background-color: rgb(188,188,188);
 }
 
 

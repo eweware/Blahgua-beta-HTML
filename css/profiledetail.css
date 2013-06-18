@@ -34,8 +34,8 @@
 
 .user-image-upload-btn
 {
-    background: #14a3fc;
-    color:white;
+    background: rgb( 125, 181, 227);
+    color:rgb(32,32,32);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
@@ -76,7 +76,7 @@
 
 .default-button:disabled {
     color: rgb(244,245,240);
-    background-color: #C4C4C4;
+    background-color: rgb(188,188,188);
 }
 
 
@@ -174,7 +174,7 @@
 
 .accordion h2 {
     color: rgb(244,245,240);
-    background-color:#bcbcbc;
+    background-color:rgb(124,124,124);
     font-family: 'Arimo', sans-serif;
     margin-top: 0px;
     padding-left: 10px;
@@ -228,7 +228,7 @@
     padding-left: 8px;
     padding: 8px;
     border-radius: 8px;
-    background-color: #dedede;
+    background-color: rgb(244,245,240);
 }
 
 .user-comment-row {
