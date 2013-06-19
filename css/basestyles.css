@@ -248,8 +248,8 @@ a {
     text-align: center;
     font-family: 'Arimo', sans-serif;    
     font-size:18px;
-    background-color: rgb(122,208,0);
-    color:rgb(32,32,32);
+    background-color: #555555;
+    color: #f4f5f0;
     margin: 4px;
     padding-right: 8px;
     padding-left:8px;
@@ -261,8 +261,8 @@ a {
 }
 
 .SuggestSignIn:hover {
-    background-color: #00b800;
-color:rgb(32,32,32);
+    background-color: #444444;
+color:#f4f5f0;
 }
 
 .BlahgerNickName {

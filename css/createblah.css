@@ -169,8 +169,8 @@ border: 1px black rgb(124,124,124)
 .create-page-button
 {
     position:relative;
-    background-color: rgb(125,191,227);
-    color: rgb(32,32,32);
+    background-color: #555555;
+    color: #f4f5f0;
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
@@ -193,24 +193,24 @@ border: 1px black rgb(124,124,124)
 .create-page-button.default
 {
 
-    background-color: rgb(125,191,227);
-    color: rgb(32,32,32);
+    background-color: #555555;
+    color: #f4f5f0;
 
 
 }
 
 .create-page-button:hover
 {
-    background-color: rgb(0,120,248);
-    color: rgb(244,245,240);
+    background: #444444;
+    color: #f4f5f0;
 
 }
 
 
 .create-page-button[disabled]
 {
-    color: rgb(244,245,240);
-    background-color: rgb(188,188,188);
+    color: #CCCCCC;
+    background-color: #999999;
 }
 
 .create-validation-row {

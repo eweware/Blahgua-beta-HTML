@@ -54,7 +54,7 @@ define('comments',
             } else {
                 // no comments GetBlahTypeStr()
                 var newHTML = "";
-                newHTML += '<tr class="no-comment-row"><td><span>Add your thoughts.</span></td></tr>';
+                newHTML += '<tr class="no-comment-row"><td><span>Add comments and images.</span></td></tr>';
                 $("#BlahCommentTable").append(newHTML);
             }
         };
@@ -69,7 +69,7 @@ define('comments',
                 // no comments GetBlahTypeStr()
                 G.CurrentComments = null;
                 var newHTML = "";
-                newHTML += '<tr class="no-comment-row"><td><span>Add your thoughts.</span></td></tr>';
+                newHTML += '<tr class="no-comment-row"><td><span>Add comments and images.</span></td></tr>';
                 $("#BlahCommentTable").append(newHTML);
             }
         };

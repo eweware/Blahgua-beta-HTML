@@ -6,26 +6,23 @@
     overflow-x:hidden;
     height:auto;
     width:auto;
-    font-size:9px;
-    padding: 4px;
+    padding: 12px;
     text-align:left;
 }
 
 
 .BlahAltTextDiv {
-    font-size:9px;
     text-align:left;
 
 }
 
 .BlahExpandTextDiv {
     text-align:left;
-    font-size:9px;
 }
 
 
 .SmallBlahFormat {
-
+   font-size: 12px;
 }
 
 .XSmallBlahFormat {
@@ -33,12 +30,12 @@
 }
 
 .MediumBlahFormat {
-
+    font-size: 18px;
 }
 
 
 .LargeBlahFormat {
-
+    font-size: 30px;
 }
 
 .users-own-blah {

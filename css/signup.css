@@ -187,8 +187,8 @@
 
 
 .action-btn {
-    color: #dedede;
-    background-color: #333333;
+    color: #f4f5f0;
+    background-color: #444444;
     border-style:none;
     border-width: 0px;
     border-radius: 8px;
@@ -198,13 +198,13 @@
 }
 
 .action-btn:hover {
-    color:black;
-    background-color: #AAAAAA;
+    color:#f4f5f0;
+    background-color: #444444;
 }
 
 .action-btn:disabled {
-    color: rgb(244,245,240);
-    background-color: rgb(188,188,188);
+    color: #CCCCCC;
+    background-color: #999999;
 }
 
 .recover-btn {
@@ -225,23 +225,23 @@
 }
 
 .recover-btn:disabled {
-    color: rgb(244,245,240);
-    background-color: rgb(188,188,188);
+    color: #CCCCCC;
+    background-color: #999999;
 }
 
 .action-default {
-    background-color: #00b800;
-    color: white
+    background-color: #555555;
+    color: #f4f5f0;
 }
 
 .action-default:hover {
-    background-color: #00A800;
-    color:white;
+    background-color: #444444;
+    color:#f4f5f0;
 }
 
 .action-default:disabled {
-    color: rgb(244,245,240);
-    background-color: rgb(188,188,188);
+    color: #CCCCCC;
+    background-color: #999999;
 }
 
 
