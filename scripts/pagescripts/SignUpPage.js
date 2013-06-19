@@ -120,6 +120,7 @@ define('SignUpPage',
         };
 
         var RecoverPassword = function() {
+            $(this).attr("disabled", true);
             var userName = $("#uname2").val();
             var email = $("#email").val();
             blahgua_rest.recoverUser(userName, email, function(theResult) {
