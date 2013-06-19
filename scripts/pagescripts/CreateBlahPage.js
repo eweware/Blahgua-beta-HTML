@@ -313,8 +313,7 @@ define('CreateBlahPage',
                     success: completeHandler = function(data) {
                         $("#objectId").val(data);
                         // to do - update the image...
-                        var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
-                        var imagePathName = "https://" + hostName + data + "-A" + ".jpg";
+                        var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
                         var theUrl = 'url("' + imagePathName + '")';
                         $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
                         CheckPublishBtnDisable();

@@ -193,9 +193,8 @@ define('globals',
             var imagePathName = "";
             if (theItem.hasOwnProperty("M")) {
                 // fetch the correct image size
-                var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
                 var imageName = theItem.M[0];
-                imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
+                imagePathName = BlahguaConfig.imageURL + imageName + "-" + size + ".jpg";
             }
 
             return imagePathName;
@@ -214,9 +213,8 @@ define('globals',
             var imagePathName = "";
             if (theItem.hasOwnProperty("_m")) {
                 // fetch the correct image size
-                var hostName = "s3-us-west-2.amazonaws.com/blahguaimages/image/";
                 var imageName = theItem._m[0];
-                imagePathName = "https://" + hostName + imageName + "-" + size + ".jpg";
+                imagePathName = BlahguaConfig.imageURL + imageName + "-" + size + ".jpg";
             }
             if (imagePathName == "")
                 imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";

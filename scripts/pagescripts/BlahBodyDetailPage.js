@@ -37,7 +37,7 @@ define('BlahBodyDetailPage',
             stWidget.addEntry({
                 "service":"sharethis",
                 "element":document.getElementById('ShareBlah'),
-                "url":"https://beta.blahgua.com?blahId=" + G.CurrentBlah._id,
+                "url": BlahguaConfig.shareURL + "?blahId=" + G.CurrentBlah._id,
                 "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A Blah from Blahgua")),
                 "type":"large",
                 "text": "Share this blah" ,

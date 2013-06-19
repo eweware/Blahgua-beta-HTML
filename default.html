@@ -14,9 +14,12 @@
     <script type="text/javascript">
         // set the blahgua globals
         var BlahguaConfig = new Object();
-        BlahguaConfig["fragmentURL"] = "./"; //https://s3-us-west-2.amazonaws.com/beta.blahgua.com/";
+        BlahguaConfig["fragmentURL"] = "./"; // https://s3-us-west-2.amazonaws.com/beta.blahgua.com/";  // "./";  //
         BlahguaConfig["apiURL"] = "https://beta.blahgua.com/v2/";
+        BlahguaConfig["imageURL"] = "https://s3-us-west-2.amazonaws.com/blahguaimages/image/";
+        BlahguaConfig["shareURL"] = "https://beta.blahgua.com/";
     </script>
+
     <script type="text/javascript">
     (function() {
         if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
@@ -38,7 +41,9 @@
 
 <!-- this is the stylesheet.  Point it to amazon or to the local aws directory -->
 
-     <!--<link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/css/blahgua.css" />-->
+<!--
+     <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/css/blahgua.css" />
+-->
 
     <link rel="stylesheet" href="./css/blahgua.css" />
 
@@ -64,7 +69,8 @@
 <!-- these are the script files.  Point them either to amazon or to your local aws directory -->
 
 
- <!--    <script data-main="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/main" src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/require.js"></script>
+<!--
+     <script data-main="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/main" src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/require.js"></script>
 -->
      <script data-main="./scripts/main" src="./scripts/require.js"></script>
 
