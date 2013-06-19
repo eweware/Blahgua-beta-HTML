@@ -586,3 +586,41 @@
 .image-label {
 
 }
+/* media-specific styles */
+@media all and (max-width: 400px)  {
+    .BlahDiv {
+        border-radius: 0px;
+        box-shadow: none;
+
+    }
+	.BlahFullHeadline
+	{
+	 font-size: 12px;
+	 padding: 15px 10px;
+	 
+	}
+	.fill-center-container
+	{
+	width: 230px;
+	}
+	.BlahFullBody
+	{
+	font-size: 14px;
+	
+	}
+	.comment-container
+	{
+	width: 230px;
+	}
+	.SuggestSignIn
+	{
+	font-size: 12px;
+	width:200px;
+	margin-left: 10px;
+	}
+	.ExtraInfoArea
+	{
+	width:230px;
+	}
+
+}
