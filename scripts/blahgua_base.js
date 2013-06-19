@@ -14,6 +14,14 @@ define('blahgua_base',
         var initialBlah =  null;
 
         var InitializeBlahgua = function() {
+            if ((window.location.hostname == "") ||
+                (window.location.hostname == "localhost") ||
+                (window.location.hostname == "127.0.0.1"))
+				{
+                // running local
+                G.FragmentURL = "./";
+            }
+			G.FragmentURL = "./";
 
             $(window).resize(function(){
                 G.ResizeTimer && clearTimeout(G.ResizeTimer);
@@ -1431,7 +1439,7 @@ define('blahgua_base',
         labelDiv.innerHTML = G.CurrentChannel.N;
         var imageURL = "url('" + BlahguaConfig.fragmentURL + "images/groups/bkgnds/";
         imageURL += G.CurrentChannel.N + ".jpg')";
-        document.getElementById("BlahContainer").style.backgroundImage = imageURL;
+        //document.getElementById("BlahContainer").style.backgroundImage = imageURL;
         GetUserBlahs();
         UpdateChannelViewers();
     };

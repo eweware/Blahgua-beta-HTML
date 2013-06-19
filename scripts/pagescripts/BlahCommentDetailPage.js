@@ -10,6 +10,7 @@ define('BlahCommentDetailPage',
     ["globals", "ExportFunctions", "comments"],
     function (G, exports, comments) {
 
+
         var InitializePage = function() {
         // bind events
         $("#SortBySelect").change(function(theEvent) {
@@ -25,11 +26,13 @@ define('BlahCommentDetailPage',
         });
 
          if (G.IsUserLoggedIn)  {
+                var commentTextArea = document.getElementById("CommentTextArea");
+                commentTextArea.empty();
                 $("#CommentImage").change(comments.UploadCommentImage);
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
                     document.getElementById("AddCommentBtn").disabled = true;
-                    document.getElementById("CommentTextArea").disabled = true;
+                    commentTextArea.disabled = true;
                     comments.DoAddComment(function(newComment) {
                         $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);

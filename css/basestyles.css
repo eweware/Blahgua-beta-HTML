@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    color: black;
+    color: rgb(32,32,32);
 }
 
 textarea {
@@ -39,6 +39,14 @@ input:focus {
     height:100%;
     z-index:0;
  background: linear-gradient(to bottom, rgb(58,60,75) 7%, rgb(148,150,155) 100%);
+background-image: -webkit-gradient(linear, left top, left bottom, from (#3A3C4B), to(#94969B));
+  background-image: -webkit-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -moz-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -ms-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -o-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3A3C4B', EndColorStr='#94969B'); )
+
 }
 
 .Overlay {
@@ -49,12 +57,19 @@ input:focus {
     position: absolute;
     height:100%;
  background: linear-gradient(to bottom, rgb(58,60,75) 7%, rgb(148,150,155) 100%);
-    overflow:hidden;
+background-image: -webkit-gradient(linear, left top, left bottom, from (#3A3C4B), to(#94969B));
+  background-image: -webkit-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -moz-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -ms-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: -o-linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  background-image: linear-gradient(top, rgb(58,60,75), rgb(148,150,155));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3A3C4B', EndColorStr='#94969B'); 
+overflow:hidden;
 }
 
 
 .BlahDiv {
-    background-color:#000000;
+    background-color:rgb(32,32,32);
     font-family: 'Arimo', sans-serif;
 
     overflow:hidden;
@@ -120,7 +135,7 @@ input:focus {
 .spin-text {
     font-family: 'Arimo', sans-serif;
     font-size: 12px;
-    color: rgba(255,255,255,.8);
+    color: rgba(244,245,240,.8);
     display: inline-block;
     position: relative;
     bottom: 10px;
@@ -204,12 +219,12 @@ input:focus {
     font-weight: bold;
     line-height: 17px;
     padding-right: 9px;
-    color: #438bc5
+    color: RGB(125,181,227)
 }
 
 .CommentDate {
     font-size:9px;
-    color: #999;
+    color: rgb(188,188,188);
 }
 
 a {
@@ -233,8 +248,8 @@ a {
     text-align: center;
     font-family: 'Arimo', sans-serif;    
     font-size:18px;
-    background-color: rgb(179, 95, 5);
-    color:white;
+    background-color: rgb(122,208,0);
+    color:rgb(32,32,32);
     margin: 4px;
     padding-right: 8px;
     padding-left:8px;
@@ -245,11 +260,15 @@ a {
     margin-left:200px;
 }
 
+.SuggestSignIn:hover {
+    background-color: #00b800;
+color:rgb(32,32,32);
+}
 
 .BlahgerNickName {
     font-family:'Arimo', sans-serif;
     font-size:20pt;
-    color:white;
+    color:rgb(244,245,240)
 }
 
 .BlahStatsTable {
@@ -282,7 +301,7 @@ a {
 .shorttitle
 {   font-family:'Arimo',sans-serif;
     font-size:17px;
-    color:#545253;
+    color:rgb(124,124,124);
     margin-left:20px;
 
 }
@@ -290,8 +309,8 @@ a {
 {   font-family:'Arimo',sans-serif;
     font-size:17px;
     margin-left:20px;
-    color:#545253;
-    border-top:1px solid grey;
+    color:rgb(124,124,124);
+    border-top:1px solid rgb(188,188,188);
 }
 .aboutyouframe
 {
@@ -300,7 +319,7 @@ a {
     font-size:12pt;
     font-family: 'Arimo', sans-serif;
     background-color:transparent;
-    color:black;
+    color:rgb(32,32,32)
     border:none;
 
 
@@ -310,7 +329,7 @@ a {
 {
     width:180px;
     height:50px;
-    background-color:#FC7A56;
+    background-color:rgb(248,120,88);
     border-radius:10px;
     border-color:transparent;
     color:white;
@@ -393,7 +412,7 @@ a {
     margin: 8px;
     font-family: 'Arimo' sans-serif;
     font-size: 16px;
-    color: rgb(0, 0, 0);
+    color: rgb(32, 32, 32);
     background-color: rgb(245,244,240);
 }
 
@@ -457,7 +476,6 @@ a {
         box-shadow: none;
 
     }
-
 }
 
 @media all and (max-width: 2000px) and (min-width: 401px)  {

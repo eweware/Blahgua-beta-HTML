@@ -40,3 +40,11 @@ requirejs(
         blahgua_base.InitializeBlahgua();
     }
 );
+// Hide address bar & handling events when the scroll bar appears to prevent;
+window.addEventListener("load", function() { 
+	setTimeout(hideURLbar, 0); 
+}, 100); 
+
+function hideURLbar(){ 
+     window.scrollTo(0,1); 
+}

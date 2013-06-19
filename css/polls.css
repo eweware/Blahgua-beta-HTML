@@ -2,7 +2,7 @@
 
 .poll-container {
     margin: 8px auto;
-    border: 1px solid lightgrey;
+    border: 1px solid rgb(124,124,124);
     padding: 8px;
     border-radius: 8px;
 }
@@ -14,7 +14,7 @@
 .poll-prompt {
     font-family: 'Arimo', sans-serif;
     font-size:18pt;
-    color:black;
+    color:rgb(32,32,32);
     font-weight:bold;
     text-align: center;
 }
@@ -37,7 +37,7 @@
 .poll-result-row table {
     border-bottom-style: solid;
     border-bottom-width: 1px;
-    border-bottom-color: #d1d1d1;
+    border-bottom-color: rgb(188,188,188);
     margin: 4px 8px;
 }
 
@@ -71,7 +71,7 @@
 .poll-title {
     font-family: 'Arimo', sans-serif;
     font-size:14px;
-    color:black;
+    color:rgb(32,32,32);
     font-weight:bold;
     padding-left:8px;
     padding-right:8px;
@@ -84,7 +84,7 @@
 
 .poll-chart-div {
     text-align: center;
-    background-color: #01c00a;
+    background-color: RGB(122, 208, 0);
     height: 16px;
     display: inline-block;
     position: relative;
@@ -104,13 +104,12 @@
     font-size: 12px;
     margin-right: 0px;
     height: 30px;
-    color: black;
-
+    color: rgb(32,32,32);
     margin-left: 6px;
 }
 
 .poll-vote-text.no-votes {
-    color:#a9a9a9;
+    color:rgb(124,124,124);
     font-style:italic;
     margin-left: 8px;
     margin-top:4px;

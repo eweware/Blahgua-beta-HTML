@@ -56,8 +56,7 @@
 }
 .toggle-container {
     text-align: center;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding-left: 2px;
     padding-top: 8px;
     padding-bottom: 16px;
     margin:0px;
@@ -105,11 +104,15 @@
     text-align: left;
     padding: 8px;
     border-size:0px;
-    background-color: #dedede;
+    background-color: rgb(244,245,240);
     border-width: 0px;
     border-style: none;
     border-radius: 8px;
     box-shadow: inset 5px 5px 5px rgba(0,0,0,.3);
+}
+
+.recover-password {
+    text-align:center;
 }
 
 .checkbox-group {
@@ -131,12 +134,12 @@
 
 .toggle-content td {
     padding-top: 10px;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
 .toggle-btn {
-    color:white;
-    background-color: gray;
+    color:rgb(244,245,240);
+    background-color: #00b800;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
@@ -167,17 +170,17 @@
 
 
 .toggle-btn:hover {
-    color:black;
-    background-color: #00c50d;;
+    color:rgb(244,245,240);
+    background-color: #00a800;
 }
 
 .toggle-active {
-    background-color: RGB(122, 208, 0);
+    background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-color: #00c50d;
+    background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
 
@@ -200,24 +203,45 @@
 }
 
 .action-btn:disabled {
-    color: #c6c6c6;
-    background-color: #AAAAAA;
+    color: rgb(244,245,240);
+    background-color: rgb(188,188,188);
 }
 
+.recover-btn {
+    color: rgb(244,245,240);
+    background-color: rgb(122,208,0);
+    border-style:none;
+    border-width: 0px;
+    border-radius: 0px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 0px 0px;
+}
+
+.recover-btn:hover {
+    color: rgb(244,245,240);
+    background-color: rgb(122,208,0);
+    text-decoration: underline;
+}
+
+.recover-btn:disabled {
+    color: rgb(244,245,240);
+    background-color: rgb(188,188,188);
+}
 
 .action-default {
-    background-color: #008409;
+    background-color: #00b800;
     color: white
 }
 
 .action-default:hover {
-    background-color: #00c50d;
+    background-color: #00A800;
     color:white;
 }
 
 .action-default:disabled {
-    background-color: #a8c5ac;
-    color:white;
+    color: rgb(244,245,240);
+    background-color: rgb(188,188,188);
 }
 
 
@@ -228,7 +252,7 @@
 }
 
 .inline-button.login-btn:hover {
-    background: #00c50d;
+    background: #00b800;
     color:  white;
 }
 

@@ -1,7 +1,7 @@
 
 .BlahTypePredict   {
     margin: 8px auto;
-    border: 1px solid lightgrey;
+    border: 1px solid rgb(124,124,124);
     padding: 8px;
     border-radius: 8px;
 
@@ -62,7 +62,7 @@
 }
 
 .predict-indicator-span {
-    background-color: red;
+    background-color: rgb(248,120,88);
     height:18px;
     width:0;
     font-family: 'Arimo', sans-serif;
@@ -87,15 +87,15 @@
 }
 
 [data-predict-vote=y] predict-indicator-span {
-    background-color: green;
+    background-color: rgb(122, 208, 0);
 }
 
 [data-predict-vote=n] predict-indicator-span {
-    background-color: red;
+    background-color: rgb(248,120,88);
 }
 
 [data-predict-vote=u] predict-indicator-span {
-    background-color: blue;
+    background-color: rgb(125,181,227);
 }
 
 .predict-input {
@@ -105,5 +105,5 @@
 .prediction-label {
     font-family:'Arimo',sans-serif;
     font-size:17px;
-    color:#545253;
+    color:rgb(124,124,124);
 }

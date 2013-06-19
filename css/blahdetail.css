@@ -30,21 +30,12 @@
 .author-image {
     width:56px;
     height:56px;
-    background-color:white;
+    background-color:rgb(245,244,240);
     background-size:cover;
     border-style: solid;
     border-width: 1px;
-    border-color:black;
+    border-color:rgb(32,32,32);
     margin: 2px;
-}
-
-.BlahButton {
-    width:100%;
-    height:40px;
-    border:none;
-    background-color: #999999;
-    color:black;
-    font-size:18px;
 }
 
 .BlahFullHeader {
@@ -57,7 +48,7 @@
 }
 
 .show-blah-bkgnd {
-    background-color: rgb(245,245,240);
+    background-color: rgb(244,245,240);
 }
 
 .blah-headline-row {
@@ -66,7 +57,7 @@
 }
 
 .blah-page {
-    background-color: rgb(245,245,240);
+    background-color: rgb(244,245,240);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     position: absolute;
@@ -82,14 +73,14 @@
     font-size:30px;
     font-weight: bold;
     font-family: 'Arimo', sans-serif;
-    color:white;
+    color:rgb(245,244,240);
 
 }
 
 .fullBlahSpeechAct {
     font-size:26px;
     font-family: 'Arimo', sans-serif;
-    color:#999999;
+    color:rgb(188,188,188);
 }
 
 .CloseButton {
@@ -97,7 +88,7 @@
     height:32px;
     border:none;
     background-color: white;
-    color:red;
+    color:rgb(248,120,88);
     font-size:18px;
     border-radius: 6px;
     margin:8px;
@@ -125,14 +116,23 @@
 .BlahButton span {
 
 }
+.BlahButton {
+    width:100%;
+    height:40px;
+    border:none;
+    background-color: rgb(244,245,240);
+    color: rgb(32,32,32);
+    font-size:18px;
+}
 
 .BlahButton:hover {
-    background-color: #BBBBBB;
+    background-color: rgb(125,191,227);
+    color: rgb(32,32,32);
 
 }
 
 .BlahBtnSelected {
-    background-color: rgb(125, 181, 227);
+    background-color: rgb(0,120,248);
     color: rgb(244,245,240);
     position:relative;
     z-index:1;
@@ -140,7 +140,8 @@
 }
 
 .BlahBtnSelected:hover{
-    background-color: rgb(34, 150, 227);
+    background-color: rgb(0,120,248);
+    color: rgb(244,245,240);
     border: none;
 
 }
@@ -156,17 +157,18 @@
 
 
 .blah-summary-bar {
-    background-color: rgba(0,0,0,.1);
+    background-color: rgb(188,188,188);
     width: 90%;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
-    margin: -1px auto;
+    margin: 0px auto;
     padding: 4px;
     margin-bottom: 5px;
 }
 
 
 .FullBlahProfileString {
+    color:  rgb(32,32,32);
     padding-left:4px;
     font-size:12px;
     font-family: 'Arimo', sans-serif;
@@ -175,6 +177,7 @@
 }
 
 .FullBlahDateStr {
+    color:  rgb(32,32,32);
     font-size:12px;
     font-family: 'Arimo', sans-serif;
     font-style: italic;
@@ -198,7 +201,7 @@
 /* classes for the full blah Summary page */
 
 .FullBlahTableFooter {
-    background-color: #d3d3d3;
+    background-color: rgb(188,188,188);
     overflow-x: hidden;
     overflow-y: hidden;
     position: absolute;
@@ -221,14 +224,14 @@
 
 .blah-body-divider {
     width: 100%;
-    background-color: #4A4A4A;
+    background-color: rgb(124,124,124);
     height: 2px;
 
 }
 
 .BlahFullBody {
     font-size:20px;
-    color: #666666;
+    color: rgb(245,244,240);
     font-family: 'Arimo', sans-serif;
     width:100%;
     word-wrap: break-word;
@@ -252,7 +255,7 @@
     background-color:white;
     border-width:1px;
     border-style:solid;
-    border-color:#000000;
+    border-color:rgb(32,32,32);
     background-size: cover;
 }
 
@@ -260,20 +263,23 @@
 /* Comments */
 
 .comment-detail-area {
-    border: 1px solid lightgray;
+    border: 1px solid rgb(124,124,124);
     margin: 16px;
     border-radius: 8px;
 
 }
 
 .comment-sort-area {
+    color:rgb(244,245,240);
+    font-size: 16px;
+    font-family: 'Arimo', sans-serif;
     border-bottom: none;
     padding: 4px 0px;
     border-top-style: solid;
     border-top-width: 1px;
-    border-top-color: rgb(200,200,200);
+    border-top-color: rgb(124,124,124);
     line-height: 3em;
-    background-color: rgb(240,240,240);
+    background-color: rgb(124,124,124);
 }
 
 
@@ -290,9 +296,11 @@
 
 
 .comment-text-area {
+    color: rgb(32,32,32);
+   background-color:  rgb(188,188,188);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
-    min-height: 4em;
+    min-height: 3em;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     padding: 8px;
@@ -303,8 +311,8 @@
 }
 
 .add-comment-btn {
-    background-color: rgb(125, 181, 227);
-    color: rgb(244,245,240);
+    background-color: rgb(125,181,227);
+    color: rgb(32,32,32);
     border-radius: 8px;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
@@ -328,14 +336,14 @@
 
 
 .add-comment-btn:hover {
-    background: rgb(34, 150, 227);
+    background: rgb(0,120,248);
     color:  rgb(244,245,240);
 }
 
 
 .add-comment-btn:disabled {
-    background-color: #aeabad;
-    color: #606060;
+    color: rgb(244,245,240);
+    background-color: rgb(188,188,188);
 }
 
 
@@ -356,8 +364,8 @@
     padding: 16px;
     border-radius: 8px;
     border-style: none;
-    color: black;
-    background-color: rgb(255, 255, 255);
+    color: rgb(32,32,32);
+    background-color: rgb(244, 245, 240);
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     display: block;
@@ -371,7 +379,7 @@
     border-bottom-style:solid;
     border-bottom-width: 1px;
     margin-bottom:8px;
-    border-bottom-color: rgb(80,80,80);
+    border-bottom-color: rgb(124,124,124));
     padding-bottom: 8px;
 }
 .comment-table-row {
@@ -388,7 +396,7 @@
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
     font-weight: bold;
-    color:black;
+    color:rgb(32,32,32);
 }
 
 
@@ -396,7 +404,7 @@
     font-size: 12px;
     font-family: 'Arimo', sans-serif;
     font-style: italic;
-    color: #A0A0A0;
+    color: rgb(124,124,124);
     float:right;
     padding-right: 8px;
 }
@@ -411,7 +419,7 @@
 }
 
 .comment-image-upload-row {
-    background-color: lightgray;
+    background-color: rgb(124,124,124);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px
 
@@ -428,17 +436,18 @@
 }
 
 .image-preview.comment-preview {
+    background-color: rgb(244,245,240);
     margin: -20px 4px 2px -64px;
-
+    border: 1px black rgb(32,32,32);
 }
 
 
 
 
 .comment-text {
+    color:  rgb(84,86,98);
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
-    color: #404040;
     word-break: break-word;
     word-wrap: break-word ;
     overflow-wrap: break-word;
@@ -448,11 +457,11 @@
     font-size: 12px;
     font-family: 'Arimo', sans-serif;
     font-style: italic;
-    color: #A0A0A0;
+    color: rgb(124,124,124);
 }
 
 .comment-vote-wrapper {
-    color:#404040;
+    color:rgb(124,124,124);
     font-size: 12px;
     font-family: 'Arimo', sans-serif;
 }
@@ -505,13 +514,13 @@
 }
 
 .inline-button.blah-closer {
-    background: rgb(0, 184, 244);
-    color: #ffffff;
+    background: rgb(125,181,227);
+    color: rgb(32,32,32);
 }
 
 .inline-button.blah-closer:hover {
-    background: rgba(0, 194, 255, 0.52);
-    color:  black;
+    background: rgba(0, 120,248, 0.52);
+    color:  rgb(244,245,240)
 }
 
 
@@ -520,11 +529,11 @@
     font-size: 24px;
     text-align: center;
     margin: 8px;
-    background-color: white;
-    border: 0px solid black;
+    background-color: rgb(244,245,240);
+    border: 0px solid rgb(32,32,32);
     padding: 8px;
     border-radius: 8px;
-    box-shadow: 0 0 5px 5px rgba(0,0,0,.3);
+;
 }
 
 .conversion-header {
@@ -544,7 +553,7 @@
 }
 
 .more-comments-row a {
-    color:blue;
+    color:rgb(0,120,248);
     text-decoration: underline;
     cursor: pointer;
 
@@ -555,19 +564,19 @@
     font-family: 'Arimo' sans-serif;
     width: 100%;
     margin: 8px 0px;
-    border-bottom: 1px rgb(0, 144, 255) solid;
+    border-bottom: 1px rgb(124,124,124) solid;
 
 }
 
 .top-comments-header div {
-    background: rgb(0, 144,255);
+    background: rgb(124,124,124);
     width: 50%;
     margin-left: 25%;
     padding: 8px;
     font-weight: bold;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
-    color: white;
+    color: rgb(244,245,240);
 }
 
 .ExtraInfoArea {
@@ -575,5 +584,43 @@
 }
 
 .image-label {
+
+}
+/* media-specific styles */
+@media all and (max-width: 400px)  {
+    .BlahDiv {
+        border-radius: 0px;
+        box-shadow: none;
+
+    }
+	.BlahFullHeadline
+	{
+	 font-size: 12px;
+	 padding: 15px 10px;
+	 
+	}
+	.fill-center-container
+	{
+	width: 230px;
+	}
+	.BlahFullBody
+	{
+	font-size: 14px;
+	
+	}
+	.comment-container
+	{
+	width: 230px;
+	}
+	.SuggestSignIn
+	{
+	font-size: 12px;
+	width:200px;
+	margin-left: 10px;
+	}
+	.ExtraInfoArea
+	{
+	width:230px;
+	}
 
 }

@@ -5,7 +5,7 @@
     <div class="sign-in">
         <h2><div id="CancelSignIn" class="back-button blah-closer"></div></h2>
         <h5><div class="logo" align="middle"></div></h5>
-        <br><b>See</b> what matters to you.<br>   <br><b>Publish</b> & track your content.<br>   <br><b>Verified</b>, but not Identified.&trade;<br></h5>
+        <br><b>See</b> what matters to you.<br>   <br><b>Publish</b> & track your content.<br><br><b>Verified</b>, but not Identified.&trade;<br></h5>
     <br></div>
     <div class="content_frame">
         <div class="toggle-header">
@@ -22,18 +22,16 @@
                     </thead>
                     <tbody>
                     <tr class="label-group">
-                        <td><label for="userName2">Username</label></td>
-                        <td><input id="userName2"  type="text"></td>
+                        <td><input id="userName2"  type="text" placeholder="Username" maxlength="32"></td>
                     </tr>
                     <tr class="label-group">
-                        <td><label for="pwd2">Password</label></td>
-                        <td><input id="pwd2"  type="password"></td>
+                        <td><input id="pwd2"  type="password" placeholder="Password"></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">
                             <div class="checkbox-group">
-                                <label for="rememberme2">Remember me</label>
                                 <input type="checkbox" value="true" id="rememberme2">
+                                <label for="rememberme2">Remember me</label>
                             </div>
                         </td>
                     </tr>
@@ -45,7 +43,7 @@
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button id="ShowAccountRecoveryBtn" class="action-btn">Forgot Password</button>
+                                <button id="ShowAccountRecoveryBtn" class="recover-btn">Forgot password?</button>
                             </div>
                         </td>
                     </tr>
@@ -56,15 +54,13 @@
                         </td>
                     </tr>
                     <tr class="recover-password label-group"  style="display:none">
-                        <td><label for="uname2">Username</label></td>
-                        <td><input id="uname2"  type="text"></td>
+                        <td><input id="uname2"  type="text" placeholder="Username" maxlength="32"></td>
                     </tr>
                     <tr class="recover-password label-group"  style="display:none">
-                        <td><label for="email">Email</label></td>
-                        <td><input id="email"  type="email"></td>
+                        <td><input id="email"  type="email" placeholder="Email"></td>
                     </tr>
                     <tr class="recover-password" style="display:none">
-                        <td  colspan="2" ><button id="RecoverPasswordBtn" class="action-btn">Recover</button></td>
+                        <td  colspan="2" ><button id="RecoverPasswordBtn" class="action-btn action-default">Recover</button></td>
                     </tr>
                     </tbody>
                 </table>
@@ -77,23 +73,19 @@
                     </thead>
                     <tbody>
                     <tr class="label-group">
-                        <td> <label for="userName">Username</label></td>
-                        <td><input  id="userName"  type="text"></td>
+                        <td><input  id="userName"  type="text" placeholder="Username"></td>
                     </tr>
                     <tr class="label-group">
-                        <td><label for="pwd">Password</label></td>
-                        <td><input id="pwd"  type="password"></td>
+                        <td><input id="pwd"  type="password" placeholder="Password"></td>
                     </tr>
                     <tr class="label-group">
-                        <td><label for="pwd3">Confirm</label></td>
-                        <td><input id="pwd3"  type="password"></td>
+                        <td><input id="pwd3"  type="password" placeholder="Confirm password"></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">
                             <div class="checkbox-group">
-                                <label for="rememberme">Remember me</label>
                                 <input type="checkbox" value="true" id="rememberme">
-
+                                <label for="rememberme">Remember me</label>
                             </div>
                         </td>
                     </tr>
