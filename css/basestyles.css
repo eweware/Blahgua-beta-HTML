@@ -455,10 +455,10 @@ color:#f4f5f0;
 }
 
 .logo {
-    width:36px;
-    height:36px;
+    width:341px;
+    height:99px;
     display: inline-block;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Blahgua+logo.PNG');
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
 
 .splash-image {
@@ -466,7 +466,7 @@ color:#f4f5f0;
     width:36px;
     height:36px;
     display: inline-block;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Blahgua+logo.png');
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
 
 /* media-specific styles */
