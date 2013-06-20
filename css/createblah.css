@@ -19,6 +19,9 @@
 }
 
 .create-footer-div {
+    font-family: 'Arimo', sans-serif;
+    font-size: 16px;
+    color:rgb(32,32,32);
     background-color: rgb(187, 187, 187);
     position: absolute;
     bottom: 25px;
