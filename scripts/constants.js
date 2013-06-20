@@ -27,7 +27,7 @@ define('constants',
         var kInterBlahGutter = 12;
         var kNewlineToken = "[_r;";
         var kBlahRollPixelStep = 1;
-        var kBlahRollScrollInterval = 42;
+        var kBlahRollScrollInterval = 46;
 
         var Initialize = function() {
             // placeholder

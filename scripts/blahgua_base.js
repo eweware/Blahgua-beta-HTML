@@ -677,18 +677,19 @@ define('blahgua_base',
 
     var CreateElementForBlah = function(theBlah) {
         var newEl = CreateBaseDiv(theBlah);
-        var paddingOffset = 0;//8 * 2;
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
 
         if (theBlah.displaySize == 1) {
-            newEl.style.width = G.LargeTileWidth - paddingOffset + "px";
-            newEl.style.height = G.LargeTileHeight - paddingOffset + "px";
+            newEl.style.width = G.LargeTileWidth - widthpaddingOffset + "px";
+            newEl.style.height = G.LargeTileHeight - heightpaddingOffset + "px";
 
         } else if (theBlah.displaySize == 2) {
-            newEl.style.width = G.MediumTileWidth - paddingOffset + "px";
-            newEl.style.height = G.MediumTileHeight - paddingOffset + "px";
+            newEl.style.width = G.MediumTileWidth - widthpaddingOffset + "px";
+            newEl.style.height = G.MediumTileHeight - heightpaddingOffset + "px";
         } else {
-            newEl.style.width = G.SmallTileWidth - paddingOffset + "px";
-            newEl.style.height = G.SmallTileHeight - paddingOffset + "px";
+            newEl.style.width = G.SmallTileWidth - widthpaddingOffset + "px";
+            newEl.style.height = G.SmallTileHeight - heightpaddingOffset + "px";
         }
 
         switch (theBlah.Y) {
