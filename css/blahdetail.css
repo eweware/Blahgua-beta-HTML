@@ -531,7 +531,7 @@
     margin: 8px;
     background-color: rgb(244,245,240);
     border: 0px solid rgb(32,32,32);
-    padding: 8px;
+    padding-left: 8px;
     border-radius: 8px;
 ;
 }
@@ -539,10 +539,11 @@
 .conversion-header {
     font-family: 'Arimo', sans-serif;
     font-size: 24px;
+
 }
 .conversion-percent {
     font-family: 'Arimo', sans-serif;
-    font-size: 48px;
+    font-size: 24px;
 }
 
 
