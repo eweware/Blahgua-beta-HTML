@@ -35,16 +35,15 @@
                                         </td>
                                     </tr>
                                     <tr  class="comment-image-upload-row">
-
                                             <td >
-
                                                 <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
                                                     <div class="image-preview comment-preview no-image" id="ImagePreviewDiv">
                                                         no<br/>image
                                                     </div>
-                                                    <input id="CommentImage" name="file" type="file" >
-                                                    <span id="CharCountDiv"></span>
-                                                    <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
+                                                    <div><input id="CommentImage" name="file" type="file" ></div>
+                                                    <div id="CharCountDiv"></div>
+                                                    <div> label/counter</div>
+                                                    <div><button id="AddCommentBtn" class="add-comment-btn">Comment</button></div>
                                                     <div style="display: none">
                                                         <input type="text" name="objectType" hidden="true" value="X"/>
                                                         <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
@@ -52,9 +51,7 @@
                                                     </div>
                                                 </form>
                                         </td>
-
                                     </tr>
-
                                     </tbody>
                                 </table>
                             </div>

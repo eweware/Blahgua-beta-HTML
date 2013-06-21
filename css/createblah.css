@@ -62,7 +62,21 @@
 border: 1px black rgb(124,124,124)
 }
 
+#ImageForm {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 
+#ImageForm div {
+    display: table-cell;
+    vertical-align: middle;
+    width:64px;
+    height:64px;
+}
+
+#CommentImage {
+    padding-left: 10px;
+}
 .createblahheadlinephoto
 {
     width:40px;

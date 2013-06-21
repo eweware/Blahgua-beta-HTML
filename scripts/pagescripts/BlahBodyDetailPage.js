@@ -159,6 +159,7 @@ define('BlahBodyDetailPage',
 
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
+                    $("#CommentImage").attr("disabled", false)
                     document.getElementById("AddCommentBtn").disabled = true;
                     document.getElementById("CommentTextArea").disabled = true;
                     comments.DoAddComment(function(newComment) {

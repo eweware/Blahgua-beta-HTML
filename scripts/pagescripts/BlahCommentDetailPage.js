@@ -26,17 +26,17 @@ define('BlahCommentDetailPage',
         });
 
          if (G.IsUserLoggedIn)  {
-                var commentTextArea = document.getElementById("CommentTextArea");
-                commentTextArea.empty();
+                var $commentTextArea = $("#CommentTextArea");
                 $("#CommentImage").change(comments.UploadCommentImage);
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
+                    $("#CommentImage").attr("disabled", false)
                     document.getElementById("AddCommentBtn").disabled = true;
-                    commentTextArea.disabled = true;
+                    $commentTextArea.disabled = true;
                     comments.DoAddComment(function(newComment) {
                         $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
-                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $commentTextArea.empty().height("40px").removeAttr('disabled').focus();
                         $("#CommentImage").val("").change();
                     });
                 });
