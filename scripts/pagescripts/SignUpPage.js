@@ -149,7 +149,7 @@ define('SignUpPage',
                 $(".toggle-btn").removeClass("toggle-active");
                 $(this).addClass("toggle-active");
                 $(selector).show();
-                $(selector).find("input:first").focus();
+               // $(selector).find("input:first").focus();
             })
 
             $(".content_frame").keydown(function(theEvent) {
