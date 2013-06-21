@@ -126,22 +126,22 @@
 }
 
 .BlahButton:hover {
-    background-color: rgb(125,191,227);
+    background-color: rgb(207,208,203);
     color: rgb(32,32,32);
 
 }
 
 .BlahBtnSelected {
-    background-color: rgb(0,120,248);
-    color: rgb(244,245,240);
+    background-color: rgb(125,191,227);
+    color: rgb(32,32,32);
     position:relative;
     z-index:1;
 
 }
 
 .BlahBtnSelected:hover{
-    background-color: rgb(0,120,248);
-    color: rgb(244,245,240);
+    background-color: rgb(125,191,227);
+    color: rgb(32,32,32);
     border: none;
 
 }
@@ -149,10 +149,16 @@
 .Button-left {
 
     border-bottom-left-radius: 8px;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-right-color: rgb(207,208,203);
 }
 
 .Button-right {
     border-bottom-right-radius: 8px;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-left-color: rgb(207,208,203);
 }
 
 
