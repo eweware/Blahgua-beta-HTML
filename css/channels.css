@@ -66,9 +66,6 @@
     height:48px;
     background-size: cover;
     float:right;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(32,32,32);
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/unknown-user.png");
 }
 
@@ -106,7 +103,7 @@
     position: absolute;
     left:8px;
     top:56px;
-    width:90%;
+    width:auto;
     height:auto;
     background-color: white;
     box-shadow:rgba(0,0,0,.4) 4px 4px;
@@ -139,6 +136,7 @@
     font-size:14px;
     width:100%;
     line-height:18px;
+    padding-right:12px;
 }
 
 
@@ -165,7 +163,7 @@
     color: rgb(0, 0, 0);
     font-family: 'Arimo', sans-serif;
     font-size: 22px;
-    padding: 8px 16px;
+    padding: 2px 16px;
     text-align:center;
 }
 
@@ -178,20 +176,21 @@
 }
 
 .instant-menu li {
-    padding:12px;
+    padding:2px 12px;
 }
 .instant-menu li:hover {
     background-color: rgb(125,181,227);
 }
 
-#ChannelList>tbody>tr {
-    background-color:rgb(244,245,240);
-    border-bottom: 1px solid black;
+#ChannelList>tbody>tr:hover {
+    background-color: rgb(125,181,227);
 }
 
-#ChannelList>tbody>tr:hover {
-    background-color: rgb(141, 199, 245);
+#ChannelList tbody td {
+    padding:2px 12px;
 }
+
+
 
 
 

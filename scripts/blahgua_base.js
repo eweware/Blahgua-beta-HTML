@@ -61,7 +61,19 @@ define('blahgua_base',
 
     var HandleWindowResize = function() {
         ComputeSizes();
-        //SetCurrentChannel(G.ChannelList.indexOf(G.CurrentChannel));
+        // TODO: preserver existing location
+        $("#BlahContainer > div").each(function (index, item) {
+            ResizeBlahRow(item);
+        });
+
+
+
+        // TODO: restore existing location
+
+    };
+
+    var ResizeBlahRow = function(item) {
+
     };
 
 
@@ -391,7 +403,7 @@ define('blahgua_base',
     var HideChannelList = function() {
         var menu = document.getElementById("ChannelDropMenu");
         if (menu.style.display != "none") {
-            $("#LightBox").hide();
+            $("#LightBox").hide().css({"background-color": "rgba(0,0,0,.8)"});
             $(menu).fadeOut("fast");
             StartAnimation();
         }
@@ -399,11 +411,12 @@ define('blahgua_base',
 
     var ShowChannelList = function() {
         var menu = document.getElementById("ChannelDropMenu");
+
         var banner = $("#ChannelBanner");
         menu.style.left = banner[0].style.left;
-        menu.style.width = banner.width() + "px";
+        //menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
-            $("#LightBox").show();
+            $("#LightBox").css({"background-color": "transparent"}).show();
             if (G.IsUserLoggedIn)
                 $("#BrowseChannelBtn").show();
             else
@@ -426,15 +439,17 @@ define('blahgua_base',
         banner.appendChild(caret);
 
 
+
+
+        var profile = document.createElement("div");
+        profile.className = "profile-button";
+        banner.appendChild(profile);
+
         var options = document.createElement("div");
         options.className = "ChannelOptions";
         options.innerHTML = "+";
         banner.appendChild(options);
         banner.options = options;
-
-        var profile = document.createElement("div");
-        profile.className = "profile-button";
-        banner.appendChild(profile);
 
         var signin = document.createElement("button");
         signin.className = "sign-in-button";
@@ -1419,7 +1434,7 @@ define('blahgua_base',
 
         $("#ChannelList").html(newHTML);
         $("#ChannelList img").error(imgError);
-        $(".channel-info-table").click(DoJumpToChannel);
+        $("tr[data-channelId]").click(DoJumpToChannel);
         refreshSignInBtn();
     };
 
@@ -1433,28 +1448,15 @@ define('blahgua_base',
 
     var createChannelHTML = function(index, curChannel) {
         var newHTML = "";
-        // todo:  set the actual desc from the channel obj
-        var channelDesc = "This is where a pleasant description of this channel will go, once Ben writes it for this channel and Ruben implements it.";
-        newHTML += "<tr><td><table class='channel-info-table' channelId='" + index + "'>";
-        newHTML += "<tr>";
-        newHTML += "<td rowspan=2 class='channel-image-td'>";
-        newHTML += '<img class="channel-image" src="' + BlahguaConfig.fragmentURL + 'images/groups/' + curChannel.N + '.png">';
-        newHTML += "</td>";
-
-        newHTML += "<td><span class='channel-title'>" + curChannel.N + "</span></td>";
+        newHTML += "<tr data-channelId='" + index + "'><td><span class='channel-title'>" + curChannel.N + "</span></td>";
         newHTML += "</tr>";
-        newHTML += "<tr><td><span class='channel-description'>" + channelDesc + "</span>";
-        newHTML += "</td></tr>";
-        newHTML += "</table></td></tr>";
         return newHTML;
     };
 
 
 
     var DoJumpToChannel = function(theEvent) {
-        var who = theEvent.target;
-
-        var channelID = $(who).parents(".channel-info-table").attr("channelId");
+        var channelID = $(this).attr("data-channelId");
         HideChannelList();
         SetCurrentChannel(channelID);
     };
