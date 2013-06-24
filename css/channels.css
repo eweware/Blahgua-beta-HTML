@@ -162,10 +162,11 @@
 
 .channel-menu-title {
     background-color: #A0A0A0;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     font-family: 'Arimo', sans-serif;
-    font-size: 18px;
+    font-size: 22px;
     padding: 8px 16px;
+    text-align:center;
 }
 
 .instant-menu {
@@ -183,19 +184,15 @@
     background-color: rgb(125,181,227);
 }
 
-#ChannelList>tbody>tr:nth-child(odd) {
-    background-color:rgb(125,181,227)
-}
-#ChannelList>tbody>tr:nth-child(even) {
-    background-color:rgb(122,208,0);
+#ChannelList>tbody>tr {
+    background-color:rgb(244,245,240);
+    border-bottom: 1px solid black;
 }
 
-#ChannelList>tbody>tr:nth-child(odd):hover {
-    background-color:#add8e6
+#ChannelList>tbody>tr:hover {
+    background-color: rgb(141, 199, 245);
 }
-#ChannelList>tbody>tr:nth-child(even):hover {
-    background-color: rgb(143, 230, 0);
-}
+
 
 
 @media all and (max-width: 400px)  {

@@ -422,7 +422,7 @@ define('blahgua_base',
         banner.appendChild(label);
         banner.channelLabel = label;
         var caret = document.createElement("i");
-        caret.className = "channel-dropdown icon-chevron-down";
+        caret.className = "channel-dropdown icon-chevron-sign-down";
         banner.appendChild(caret);
 
 
