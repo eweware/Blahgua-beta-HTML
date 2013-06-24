@@ -22,6 +22,11 @@
     text-shadow: 1px 1px rgba(0,0,0,.4);
 }
 
+.channel-dropdown {
+    margin-left:8px;
+    text-shadow: 1px 1px rgba(0,0,0,.4);
+}
+
 .ChannelViewersImg {
     position:relative;
     top:4px;
@@ -99,7 +104,6 @@
 
 .ChannelDropMenu {
     position: absolute;
-    padding:16px 0px 16px 0px;
     left:8px;
     top:56px;
     width:90%;
@@ -115,8 +119,7 @@
 .channel-image {
     width:64px;
     height:64px;
-    margin-right:8px;
-    margin-top:4px
+    margin:8px;
 }
 
 .channel-image-td {
@@ -125,30 +128,18 @@
 
 .channel-title {
     font-family: 'Arimo', sans-serif;
-    font-size:36px;
-    width:100%;
+    font-size: 24px;
+    width: 100%;
+    top: 8px;
+    position: relative;
 }
 
 .channel-description {
     font-family: 'Arimo', sans-serif;
-    font-size:18px;
+    font-size:14px;
     width:100%;
     line-height:18px;
 }
-
-.channel-info-table:hover {
-
-    background-color: white;
-
-}
-
-
-.channel-info-table:hover {
-
-    background-color: #add8e6;
-
-}
-
 
 
 
@@ -167,66 +158,45 @@
     border-radius: 8px;
 }
 
-.ChannelBrowser {
-    width:100%;
-    height: 100%;
-    overflow-y: scroll;
-}
-
-.channelBrowserGroupItem {
-    font-size:36px;
-    background-color: #add8e6;
-    color:black;
-    margin: 4px;
-    padding: 8px;
-    width:100%;
-    border-radius: 8px;
-
-}
-
-
-.ChannelBrowser ul  {
-    list-style-type: none;
-    padding-left: 8px;
-    margin-left: 0;
-    background-color:transparent;
-}
-.channelBrowserGroupItem {
-    font-size:36px;
-    width:100%;
-    background-color:transparent;
-    color:black;
-}
-
-.channelBrowserGroupItem:hover
-{
-    background-color: #369;
-    color: #FFF;
-}
-
-
-.channelBrowserChannelItem {
-    font-size:24px;
-    width:100%;
-    background-color:transparent;
-    color:#a9a9a9;
-}
-
-.channelBrowserChannelItem:hover
-{
-    background-color: #369;
-    color: #a9a9a9;
-}
-
 
 
 .channel-menu-title {
-    background-color:rgba(255,255,255,0.8);
-    color: black;
+    background-color: #A0A0A0;
+    color: rgb(255, 255, 255);
     font-family: 'Arimo', sans-serif;
-    font-size:36px;
-
+    font-size: 18px;
+    padding: 8px 16px;
 }
+
+.instant-menu {
+    position:absolute;
+    background-color: white;
+    box-shadow: 5px 5px rgba(0,0,0,.3);
+    font-famuly: 'Arimo' sans-serif;
+    font-size:24px;
+}
+
+.instant-menu li {
+    padding:12px;
+}
+.instant-menu li:hover {
+    background-color: rgb(125,181,227);
+}
+
+#ChannelList>tbody>tr:nth-child(odd) {
+    background-color:rgb(125,181,227)
+}
+#ChannelList>tbody>tr:nth-child(even) {
+    background-color:rgb(122,208,0);
+}
+
+#ChannelList>tbody>tr:nth-child(odd):hover {
+    background-color:#add8e6
+}
+#ChannelList>tbody>tr:nth-child(even):hover {
+    background-color: rgb(143, 230, 0);
+}
+
 
 @media all and (max-width: 400px)  {
 	.ChannelBanner

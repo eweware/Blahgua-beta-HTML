@@ -18,9 +18,7 @@ define('SelfPage',
             $(".blah-closer").click(function(theEvent) {
                 exports.CloseBlah();
             });
-            $("#SignOutBtn").click(function(theEvent) {
-                exports.LogoutUser();
-            });
+
             $("#SelfProfileBtn").click(function(theEvent){
                 SetSelfDetailPage('Profile');
             });

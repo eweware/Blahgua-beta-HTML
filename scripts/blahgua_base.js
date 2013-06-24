@@ -421,6 +421,9 @@ define('blahgua_base',
         label.className = "ChannelNameText";
         banner.appendChild(label);
         banner.channelLabel = label;
+        var caret = document.createElement("i");
+        caret.className = "channel-dropdown icon-chevron-down";
+        banner.appendChild(caret);
 
 
         var options = document.createElement("div");
@@ -438,6 +441,7 @@ define('blahgua_base',
         signin.innerHTML = "sign in";
         banner.appendChild(signin);
 
+
         // bind events
 
         $("#ChannelBanner").click(function (theEvent) {
@@ -452,7 +456,30 @@ define('blahgua_base',
 
         $("#ChannelBanner .profile-button").click(function(theEvent) {
             theEvent.stopPropagation();
-            ShowUserProfile();
+            var newHTML = "";
+            newHTML += "<div class='click-shield' style='background-color:transparent'>" +
+                "<div class='instant-menu'>" +
+                "<ul>" +
+                "<li id='ShowProfileItem'>Show Profile</li>" +
+                "<li id='LogOutItem'>Sign Out</li>" +
+                "</ul></div></div>";
+
+            $(document.body).append(newHTML);
+            $(".click-shield").click(function (theEvent) {
+                DismissAll();
+            });
+            $("#ShowProfileItem").click(function (theEvent) {
+                DismissAll();
+                ShowUserProfile();
+                });
+            $("#LogOutItem").click(function (theEvent) {
+                DismissAll();
+                LogoutUser();
+            });
+            var imageRect = $(".profile-button")[0].getBoundingClientRect();
+            var newTop = imageRect.bottom;
+            var newLeft = imageRect.right - $(".instant-menu").width();
+            $(".instant-menu").css({"left":newLeft + "px", "top":newTop + "px"})
         });
 
         $("#ChannelBanner .ChannelOptions").click(function(theEvent) {
@@ -528,6 +555,7 @@ define('blahgua_base',
             CloseBlah();
         if (document.getElementById("ChannelDropMenu").style.display != "none")
             HideChannelList();
+        $(".instant-menu").parent(".click-shield").remove();
     };
 
     var OpenLoadedBlah = function(whichBlah) {

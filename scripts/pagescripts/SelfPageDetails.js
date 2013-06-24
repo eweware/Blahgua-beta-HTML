@@ -21,6 +21,12 @@ define('SelfPageDetails',
                 document.getElementById('UserFormImage').click();
             } );
             $("#UserFormImage").change(HandleFilePreview);
+            $("#RecoveryInfo").click(function(theEvent) {
+                G.PromptUser("Blahgua does not require an email address to fully use the system.  However, if you should forget your password, we will not be able to recover it for you if we do not have an email address on file.<br/><br/>" +
+                    "You can also change or remove your email address at any time.",
+                    "Got it");
+            });
+
             RefreshPage();
         };
 
@@ -35,11 +41,26 @@ define('SelfPageDetails',
         var RefreshPage = function() {
             $("#userName").val(G.CurrentUser.N);
             var nickName = G.GetSafeProperty(G.UserProfile, "A", "someone");
-            $("#NicknameInput").val(nickName);
+            $("#NicknameInput").val(nickName).attr("initial-value", nickName);
             //image
             var newImage = G.GetUserImage(G.CurrentUser, "A");
             if (newImage != "")
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
+
+            // recovery info
+            blahgua_rest.getRecoveryInfo(function(theData) {
+                var emailAddr = "";
+                if (theData.hasOwnProperty("E")) {
+                    emailAddr = theData.E;
+                }
+                $("#RecoveryEmail").val(emailAddr).attr("initial-value", emailAddr);
+
+            }, function (theErr) {
+
+            });
+            // password
+            $("#Password").val("").attr("initial-value", "");
+            $("#PasswordConfirm").val("");
 
             // location
             $("#CityInput").val(G.GetSafeProperty(G.UserProfile, "G", ""));
@@ -101,7 +122,7 @@ define('SelfPageDetails',
             UpdateBadgeArea();
             ShowBadgeSelection();
             $("#SaveAccountInfoBtn").attr("disabled", "disabled");
-            $('#AccountArea input:not([no-validate])').change(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input[data-validate]').change(MaybeEnableProfileSaveBtn);
             $('#AccountArea input:text').keydown(MaybeEnableProfileSaveBtn);
 
             $("#SaveDemographicsBtn").attr("disabled", "disabled");
@@ -126,8 +147,11 @@ define('SelfPageDetails',
         };
 
         var MaybeEnableProfileSaveBtn = function() {
-            var validated = true;
-            if(validated) $("#SaveAccountInfoBtn").removeAttr("disabled");
+            var errMsg = G.ValidateForm($("#AccountArea"));
+            if(errMsg == "")
+                $("#SaveAccountInfoBtn").removeAttr("disabled");
+            else
+                $("#SaveAccountInfoBtn").attr("disabled", true);
         };
 
         var MaybeEnableDemoSaveBtn = function() {
@@ -227,17 +251,37 @@ define('SelfPageDetails',
         };
 
         var UpdateUserAccountInfo = function() {
-            G.UserProfile["A"] = $("#NicknameInput").val();
-            G.UserProfile["0"] = 2; // TODO: review - nickname is always public
-
-            // TODO:  email address
-            // TODO:  password
-            // commit
-            blahgua_rest.UpdateUserProfile(G.UserProfile, function() {
+            var theErr = G.ValidateForm($("#AccountArea"));
+            $("#SaveAccountInfoBtn").attr("disabled", true);
+            if (theErr == "")  {
                 var nickName = $("#NicknameInput").val();
-                $("#FullBlahNickName").text(nickName);
-                $("#SaveAccountInfoBtn").attr("disabled", "disabled");
-            });
+                if (nickName != $("#NicknameInput").attr("initial-value")) {
+                    G.UserProfile["A"] = $("#NicknameInput").val();
+                    G.UserProfile["0"] = 2; // TODO: review - nickname is always public
+
+                    // commit
+                    blahgua_rest.UpdateUserProfile(G.UserProfile, function() {
+                        var nickName = $("#NicknameInput").val();
+                        $("NicknameInput").attr("initial-value", nickName);
+                        $("#FullBlahNickName").text(nickName);
+                    });
+                }
+
+                var password = $("#Password").val();
+                if (password != "") {
+                    blahgua_rest.updatePassword(password);
+                }
+
+                var email = $("#RecoveryEmail").val();
+                if (email != $("#RecoveryEmail").attr("initial-value")) {
+                    if (email == "")
+                        email = null;
+                    blahgua_rest.setRecoveryInfo(email, function (data) {
+                        $("#RecoveryEmail").attr("initial-value", email);
+                    });
+                }
+            }
+
         };
 
         var UpdateUserDemographics = function() {

@@ -469,6 +469,14 @@ color:#f4f5f0;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
 
+.validation-error {
+    color:red;
+    margin-left:-20px;
+    margin-right:4px;
+}
+
+
+
 /* media-specific styles */
 @media all and (max-width: 400px)  {
     .BlahDiv {

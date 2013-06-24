@@ -335,7 +335,7 @@ define('globals',
 
         var ClearPrompt = function() {
             $('.click-shield').remove();
-        }
+        };
 
         var PromptUser = function(promptString, yesString, noString, yesCallback, noCallback) {
             var newHTML = "";
@@ -349,7 +349,7 @@ define('globals',
             "</div>";
 
             $(document.body).append(newHTML);
-            $(".dialog-prompt").text(promptString);
+            $(".dialog-prompt").html(promptString);
             if ((!noString) || (noString == "")) {
                 $(".dialog-no").hide();
             } else {
@@ -369,8 +369,141 @@ define('globals',
             });
             $(".dialog-box").show();
 
+        };
+
+
+        var ValidateForm = function($theForm) {
+            var errMsg = "";
+            $theForm.find("input[data-validate]").each(function(index, item) {
+                var theErr =  ValidateField($(item));
+                if (theErr != "") {
+                    errMsg += theErr + ".  ";
+                }
+            });
+            return errMsg;
         }
-        document.body
+
+
+        var ValidateField = function($item) {
+            // clear any existing validation
+            $item.next(".validation-error").remove();
+            var val, compVal, isValid, errMsg = "";
+            var fieldName = $item.attr("data-fieldname");
+            if (fieldName === undefined || fieldName == "")
+                fieldName = "Value";
+            var initialVal = $item.attr("initial-value");
+            isValid = true;
+            val = $item.val();
+            if ((initialVal === undefined) || (initialVal != val)) {
+                try {
+                    // max
+                    if (compVal = $item.attr("data-validate-max")) {
+                        if (Number(val) > Number(compVal)) {
+                            isValid = false;
+                            errMsg = fieldName + " must be no more than " + compVal;
+                        }
+                    }
+                    // min
+                    if (compVal = $item.attr("data-validate-min")) {
+                        if (Number(val) < Number(compVal)) {
+                            isValid = false;
+                            errMsg = fieldName + " must be no less than " + compVal;
+                        }
+                    }
+                    // minLength
+                    if (compVal = $item.attr("data-validate-minlen")) {
+                        if (String(val).length < Number(compVal)) {
+                            isValid = false;
+                            errMsg = fieldName + " must be at least " + compVal + " characters";
+                        }
+                    }
+                    // maxLength
+                    if (compVal = $item.attr("data-validate-maxlen")) {
+                        if (String(val).length > Number(compVal)) {
+                            isValid = false;
+                            errMsg = fieldName + " must be no more than " + compVal + " characters";
+                        }
+                    }
+                    // notEmpty
+                    if ($item.is("[data-validate-notempty]")) {
+                        if (String(val).length == 0) {
+                            isValid = false;
+                            errMsg = fieldName + " cannot be blank";
+                        }
+                    }
+                    // exactLength
+                    if (compVal = $item.attr("data-validate-len")) {
+                        if (String(val).length != Number(compVal)) {
+                            isValid = false;
+                            errMsg = fieldName + " must be exactly " + compVal + " characters";
+                        }
+                    }
+                    // alphanumeric
+                    if ($item.is("[data-validate-alphanum]") && (val.length > 0)) {
+                        var characterReg = /^\s*[a-z0-9A-Z\s]+\s*$/;
+                        if(!characterReg.test(val)){
+                            isValid = false;
+                            errMsg = fieldName + " must be no more than " + compVal + " characters";
+                        }
+                    }
+                    // numeric
+                    if ($item.is("[data-validate-number]") && (val.length > 0)) {
+                        var characterReg = /^\s*[0-9\s]+\s*$/;
+                        if(!characterReg.test(val)) {
+                            isValid = false;
+                            errMsg = fieldName + " must contain only numbers";
+                        }
+                    }
+                    // alphabetic
+                    if ($item.is('[data-validate-abc]') && (val.length > 0)) {
+                        var characterReg = /^\s*[a-zA-Z\s]+\s*$/;
+                        if(!characterReg.test(val)) {
+                            isValid = false;
+                            errMsg = fieldName + " must contain only alphabetic characters";
+                        }
+                    }
+                    // printable
+                    if ($item.is("[data-validate-printable]") && (val.length > 0)) {
+                        var characterReg = /^\s*[a-z0-9A-Z.,'\s]+\s*$/;
+                        if(!characterReg.test(val)){
+                            isValid = false;
+                            errMsg = fieldName + " contains invalid characters";
+                        }
+                    }
+                    // email
+                    if ($item.is("[data-validate-email]") && (val.length > 0)) {
+                        var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
+                        if(!pattern.test(val)){
+                            isValid = false;
+                            errMsg = fieldName + " must be a valid email address";
+                        }
+                    }
+                    // match
+                    if ($item.is("[data-validate-match]")) {
+                        var otherVal = $("#" + $item.attr("data-validate-match")).val();
+                        if (val != otherVal){
+                            isValid = false;
+                            errMsg = $item.attr("data-validate-match-text");
+                        }
+                    }
+
+                } catch (theErr) {
+                    isValid = false;
+                    errMsg = "Parsing error";
+                }
+
+                // ADD ERROR
+                if (!isValid) {
+                    $item.removeClass("success").addClass("error").after("<i class='validation-error icon-warning-sign' title='" + errMsg + "'></i>");
+                } else {
+                    $item.parent("div").removeClass("error").addClass("success");
+                }
+            }
+
+            return errMsg;
+        };
+
+
 
         return {
             Initialize :   Initialize,
@@ -427,6 +560,8 @@ define('globals',
             RefreshSessionTimer: RefreshSessionTimer,
             ClearSessionTimer: ClearSessionTimer,
             ClearPrompt: ClearPrompt,
+            ValidateForm: ValidateForm,
+            ValidateField: ValidateField,
             Cryptify: cryptify
         }
 
