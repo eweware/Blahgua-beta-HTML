@@ -15,17 +15,21 @@
 
         <div class="toggle-container">
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="existing">
-                <table>
+                <table id="ExistingUserForm">
                     <thead>
                     <tr class="table-label-col"></tr>
                     <tr class="table-input-col"></tr>
                     </thead>
                     <tbody>
                     <tr class="label-group">
-                        <td><input id="userName2"  type="text" placeholder="Username" maxlength="32"></td>
+                        <td><input id="userName2"  data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2" type="text" placeholder="Username" maxlength="32">
+
+                        </td>
                     </tr>
                     <tr class="label-group">
-                        <td><input id="pwd2"  type="password" placeholder="Password"></td>
+                        <td><input id="pwd2"  data-validate data-fieldname="password" data-validate-notempty type="password" placeholder="Password">
+
+                        </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">
@@ -37,7 +41,7 @@
                     </tr>
                     <tr  class="label-group" >
                         <td colspan="2" class="item-container">
-                            <button id="SignInBtn" class="action-btn action-default">Sign In</button>
+                            <button id="SignInBtn" class="action-btn action-default" disabled="true">Sign In</button>
                         </td>
                     </tr>
                     <tr>
@@ -47,39 +51,53 @@
                             </div>
                         </td>
                     </tr>
-                    <tr class="recover-password" style="display:none">
+                    </tbody>
+                    </table>
+                <table id="RecoverPasswordForm" style="display:none">
+                    <tbody>
+                    <tr class="recover-password" >
                         <td colspan="2" class="item-container">
                             <span class="recovery-instructions">Submit the username and email you have on file to recover account.
                             </span>
                         </td>
                     </tr>
-                    <tr class="recover-password label-group"  style="display:none">
-                        <td><input id="uname2"  type="text" placeholder="Username" maxlength="32"></td>
+                    <tr class="recover-password label-group" >
+                        <td><input id="uname2"  data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2" type="text" placeholder="Username" maxlength="32">
+                            </td>
                     </tr>
-                    <tr class="recover-password label-group"  style="display:none">
-                        <td><input id="email"  type="email" placeholder="Email"></td>
+                    <tr class="recover-password label-group" >
+                        <td><input id="email"  data-validate data-fieldname="email address" data-validate-email type="email" placeholder="Email">
+                            </td>
                     </tr>
-                    <tr class="recover-password" style="display:none">
-                        <td  colspan="2" ><button id="RecoverPasswordBtn" class="action-btn action-default">Recover</button></td>
+                    <tr class="recover-password">
+                        <td><button id="CancelRecoverBtn" class="action-btn">cancel</button>
+                            <button id="RecoverPasswordBtn" class="action-btn action-default" disabled="true">Recover</button></td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="new">
-                <table>
+                <table id="NewUserForm">
                     <thead>
                     <tr class="table-label-col"></tr>
                     <tr class="table-input-col"></tr>
                     </thead>
                     <tbody>
                     <tr class="label-group">
-                        <td><input  id="userName"  type="text" placeholder="Username"></td>
+                        <td><input  id="userName" data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2"  type="text" placeholder="Username">
+                            </td>
                     </tr>
                     <tr class="label-group">
-                        <td><input id="pwd"  type="password" placeholder="Password"></td>
+                        <td><input id="pwd"  data-validate data-fieldname="password" data-validate-notempty type="password" placeholder="Password">
+                            </td>
                     </tr>
                     <tr class="label-group">
-                        <td><input id="pwd3"  type="password" placeholder="Confirm password"></td>
+                        <td><input id="pwd3"  data-validate data-fieldname="password confirm" data-validate-match="pwd" data-validate-match-text='passwords must match' data-validate-notempty type="password" placeholder="Confirm password">
+                            </td>
+                    </tr>
+                    <tr class="label-group">
+                        <td><input id="recoveryemail"  data-validate data-fieldname="recovery email" data-validate-email type="email" placeholder="recovery email (optional)">
+                            <i id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">
@@ -92,18 +110,19 @@
                     <tr>
                         <td colspan="2">
                             <div class="item-container">
-                                <button id="NewUserBtn" class="action-btn action-default">Register</button>
+                                <button id="NewUserBtn" class="action-btn action-default"  disabled="true">Register</button>
                             </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
+            <div class="error-msg-div">
+                <span class="error-msg-span"></span>
+            </div>
         </div>
 
-        <div class="error-msg-div">
-            <span class="error-msg-span"></span>
-        </div>
+
     </div>
 </div>
 </body>

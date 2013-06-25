@@ -22,33 +22,37 @@
             <tbody>
             <tr>
                 <td class="attribute-col">Username</td>
-                <td colspan="2"> <input disabled="disabled" id="userName" type="text" class="userName"></td>
+                <td colspan="2"> <input disabled="disabled" id="userName" type="text" class="userName">
+                </td>
             </tr>
             <tr>
                 <td class="attribute-col" >Screen&nbsp;name</td>
 
-                <td colspan="2"><input id="NicknameInput" type="text" class="userName"><input type="hidden" value="0" name="nickname"/></td>
+                <td colspan="2">
+                    <input data-validate data-validate-notempty data-validate-maxlen="32" id="NicknameInput" type="text" class="userName">
+                </td>
 
             </tr>
             <tr>
                 <td class="attribute-col" >Password</td>
 
                 <td>
-                    <input id="Password" type="password">
+                    <input data-validate data-validate-notempty id="Password" type="password">
                 </td>
             </tr>
             <tr>
                 <td class="attribute-col" >Password&nbsp;confirm</td>
 
                 <td>
-                    <input id="PasswordConfirm" type="password">
+                    <input data-validate data-validate-match="Password" data-validate-match-text="Passwords must match" id="PasswordConfirm" type="password">
                 </td>
             </tr>
             <tr>
                 <td class="attribute-col" >Recovery&nbsp;email</td>
 
                 <td colspan="2">
-                    <input id="RecoveryEmail" type="text" class="email">
+                    <input data-validate data-validate-email id="RecoveryEmail" type="text" class="email">
+                    <i id="RecoveryInfo" style="color:rgb(125,181,227)" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
                 </td>
             </tr>
             <tr style="border-bottom: none;">

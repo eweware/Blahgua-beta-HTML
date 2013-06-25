@@ -62,7 +62,7 @@
     margin:0px;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    height: 200px;
+    height: 300px;
     background-color:RGB(122, 208, 0);
 
 
@@ -271,4 +271,12 @@
     background-color: #ffa602;
     padding: 4px 16px;
 
+}
+.indicator-icon {
+    color:white;
+    margin-left: 8px;
+}
+
+#RecoveryInfo:hover {
+    color:#808080;
 }

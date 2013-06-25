@@ -11,15 +11,39 @@ define('SignUpPage',
     function (G, exports, blahgua_rest) {
 
         var CreateNewUser = function() {
-            var userName = $("#userName").val();
-            var pwd = $("#pwd").val();
-            blahgua_rest.CreateUser(userName, pwd, HandleCreateUserOK, HandleCreateUserFail);
+            var theErr = G.ValidateForm($("#NewUserForm"));
+            if (theErr == "") {
+                ClearErrorMessage();
+                var userName = $("#userName").val();
+                var pwd = $("#pwd").val();
+                blahgua_rest.CreateUser(userName, pwd, function(json) {
+                    var email = $("$email").val();
+                    if (email != "") {
+                        // set recovery email
+                        blahgua_rest.setRecoveryInfo(email, HandleUserLoginOK, function(theErr) {
+                            alert("Unable to set recovery info.  Logging in anyway.");
+                            HandleUserLoginOK();
+                        })
+                    } else
+                         HandleUserLoginOK(json);
+                }, HandleCreateUserFail);
+            } else {
+                ShowErrorMessage(theErr);
+            }
+
         };
 
-        var SignInExistingUser = function() {
-            var userName = $("#userName2").val();
-            var pwd = $("#pwd2").val();
-            blahgua_rest.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+        var SignInExistingUser = function(theEvent) {
+            theEvent.stopImmediatePropagation();
+            var theErr = G.ValidateForm($("#ExistingUserForm"));
+            if (theErr == "") {
+                ClearErrorMessage();
+                var userName = $("#userName2").val();
+                var pwd = $("#pwd2").val();
+                blahgua_rest.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+            } else {
+                ShowErrorMessage(theErr);
+            }
         };
 
         var HandleCreateUserOK = function(json) {
@@ -57,6 +81,7 @@ define('SignUpPage',
 
         var ClearErrorMessage = function(){
             $(".error-msg-div").css({"opacity":"0"});
+            $(".error-msg-span").empty();
         };
 
         var ShowErrorMessage = function(theText) {
@@ -120,14 +145,19 @@ define('SignUpPage',
         };
 
         var RecoverPassword = function() {
-            $(this).attr("disabled", true);
-            var userName = $("#uname2").val();
-            var email = $("#email").val();
-            blahgua_rest.recoverUser(userName, email, function(theResult) {
-                ShowErrorMessage("reset instructions will be sent to the email account on file.");
-            }, function (theErr) {
-                ShowErrorMessage("reset instructions will be sent to the email account on file. ");
-            })
+            var theErr = G.ValidateForm($("#RecoverPasswordForm"));
+            if (theErr == "") {
+                $(this).attr("disabled", true);
+                var userName = $("#uname2").val();
+                var email = $("#email").val();
+                blahgua_rest.recoverUser(userName, email, function(theResult) {
+                    ShowErrorMessage("reset instructions will be sent to the email account on file.");
+                }, function (theErr) {
+                    ShowErrorMessage("reset instructions will be sent to the email account on file. ");
+                })
+            } else {
+                ShowErrorMessage(theErr);
+            }
         };
 
         var RefreshSignupContent = function(message) {
@@ -149,19 +179,19 @@ define('SignUpPage',
                 $(".toggle-btn").removeClass("toggle-active");
                 $(this).addClass("toggle-active");
                 $(selector).show();
-               // $(selector).find("input:first").focus();
-            })
+                $(selector).find("input:visible:first").focus();
+            });
 
             $(".content_frame").keydown(function(theEvent) {
                 if (theEvent.which == 13) {
                     var thisVal = $(".toggle-active").attr("data-toggle-value");
                     var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
-                    $(selector).find(".action-default").click();
+                    $(selector).find(".action-default:visible").click();
+                } else {
+                    MaybeEnableButton();
                 }
             });
-            $(".content_frame").keyup(function(theEvent) {
-                MaybeEnableButton();
-            });
+
 
             $(".toggle-btn.toggle-active").click(); // init
 
@@ -170,9 +200,17 @@ define('SignUpPage',
             $("#CancelForgot").click(CancelSignIn);
             $("#NewUserBtn").click(CreateNewUser);
             $("#SignInBtn").click(SignInExistingUser);
-            $("#ShowAccountRecoveryBtn").click(ShowRecoveryInfo)
+            $("#CancelRecoverBtn").click(HideRecoveryInfo);
+            $("#ShowAccountRecoveryBtn").click(ShowRecoveryInfo);
             $("#RecoverPasswordBtn").click(RecoverPassword);
-            MaybeEnableButton();
+            $("#RecoveryInfo").click(function(theEvent) {
+                G.PromptUser("Blahgua does not require an email address to fully use the system.  However, if you should forget your password, we will not be able to recover it for you if we do not have an email address on file.<br/><br/>" +
+                    "You can also change or remove your email address later by going to your profile page.",
+                    "Got it");
+            });
+            $("[data-validate]").blur(function(theEvent) {
+                G.ValidateField($(this));
+            });
         };
 
         var isValidEmailAddress = function(emailAddress) {
@@ -181,40 +219,41 @@ define('SignUpPage',
         };
 
         var MaybeEnableButton = function() {
-            // signin
-            if (($("#userName2").val() == "")  ||
-                ($("#pwd2").val() == ""))
-                $("#SignInBtn").attr("disabled", true);
-            else
-                $("#SignInBtn").removeAttr("disabled");
-
-            // new user
-            if ($("#pwd").val() != $("#pwd3").val()) {
-                // passwords do not match
-                $("#SignInBtn").attr("disabled", true);
-                ShowErrorMessage("Passwords must match");
-            } else {
-                ClearErrorMessage();
-                if (($("#userName").val() == "")  ||
-                    ($("#pwd").val() == "") ||
-                    ($("#pwd3").val() == ""))
-                    $("#NewUserBtn").attr("disabled", true);
+            var $form;
+            if ($(".toggle-btn[data-toggle-value=existing]").hasClass("toggle-active")) {
+                // check recovery
+                if ($("#RecoverPasswordForm").is(":visible"))
+                    // recover
+                    $form = $("#RecoverPasswordForm");
                 else
-                    $("#NewUserBtn").removeAttr("disabled");
+                    $form = $("#ExistingUserForm");
+            }
+            else
+                $form = $("#NewUserForm");
+
+            var $btn = $form.find(".action-default");
+            var errMsg = G.ValidateForm($form);
+            if (errMsg == "")
+            {
+                $btn.removeAttr("disabled");
+                ClearErrorMessage();
+            }
+            else
+            {
+                $btn.attr("disabled", true);
+
             }
 
-            // recover
-            if (($("#uname2").val() == "")  ||
-                !isValidEmailAddress($("#email").val()))
-                $("#RecoverPasswordBtn").attr("disabled", true);
-            else
-                $("#RecoverPasswordBtn").removeAttr("disabled");
         };
 
         var ShowRecoveryInfo = function(theEvent) {
-            var table =  $(theEvent.target).closest("table");
-            table.find("tr").hide();
-            table.find("tr.recover-password").show();
+            $("#RecoverPasswordForm").show().find("input:visible:first").focus();;
+            $("#ExistingUserForm").hide();
+        };
+
+        var HideRecoveryInfo = function(theEvent) {
+            $("#RecoverPasswordForm").hide();
+            $("#ExistingUserForm").show().find("input:visible:first").focus();
         };
 
         return {

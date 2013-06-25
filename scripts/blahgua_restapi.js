@@ -431,6 +431,17 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallPostMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
     };
 
+    var updatePassword = function (password, OnSuccess, OnFailure) {
+        /// <summary>sets the recovery email for the user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var params = new Object();
+        params["P"] = password;
+        var method = "users/update/password";
+        CallPutMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
+    };
+
     var setRecoveryInfo = function (email, OnSuccess, OnFailure) {
         /// <summary>sets the recovery email for the user</summary>
         /// <param name="OnSuccess">method to call when the function returns successfully</param>
@@ -751,6 +762,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         recoverUser: recoverUser,
         setRecoveryInfo: setRecoveryInfo,
         getRecoveryInfo: getRecoveryInfo ,
+        updatePassword: updatePassword,
         RefreshSession:RefreshSession
     }
 });
