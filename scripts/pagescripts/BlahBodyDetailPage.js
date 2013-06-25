@@ -82,9 +82,12 @@ define('BlahBodyDetailPage',
                     $("#UploadImageTable").hide();
                 }
             } else {
-                $("#BlahRowVote").hide();
+                //$("#BlahRowVote").hide();
+			
+			    $("#PromoteBlahImage").hide();
+				$("#DemoteBlahImage").hide();
                 $("#BlahRowSignIn").show();
-                $("#UploadImageTable").hide();
+	            $("#UploadImageTable").hide();
                 $("#CreateCommentArea").hide();
             }
 
