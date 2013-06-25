@@ -471,6 +471,7 @@ define('blahgua_base',
 
         $("#ChannelBanner .profile-button").click(function(theEvent) {
             theEvent.stopPropagation();
+            StopAnimation();
             var newHTML = "";
             newHTML += "<div class='click-shield' style='background-color:transparent'>" +
                 "<div class='instant-menu'>" +
@@ -482,6 +483,7 @@ define('blahgua_base',
             $(document.body).append(newHTML);
             $(".click-shield").click(function (theEvent) {
                 DismissAll();
+                StartAnimation();
             });
             $("#ShowProfileItem").click(function (theEvent) {
                 DismissAll();

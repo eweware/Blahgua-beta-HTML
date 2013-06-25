@@ -126,9 +126,6 @@
 .channel-title {
     font-family: 'Arimo', sans-serif;
     font-size: 24px;
-    width: 100%;
-    top: 8px;
-    position: relative;
 }
 
 .channel-description {
@@ -168,15 +165,17 @@
 }
 
 .instant-menu {
-    position:absolute;
+    position: absolute;
     background-color: white;
     box-shadow: 5px 5px rgba(0,0,0,.3);
-    font-famuly: 'Arimo' sans-serif;
-    font-size:24px;
+    font-family: 'Arimo' sans-serif;
+    font-size: 24px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .instant-menu li {
-    padding:2px 12px;
+    padding:4px 12px;
 }
 .instant-menu li:hover {
     background-color: rgb(125,181,227);
@@ -187,7 +186,7 @@
 }
 
 #ChannelList tbody td {
-    padding:2px 12px;
+    padding:4px 12px;
 }
 
 
