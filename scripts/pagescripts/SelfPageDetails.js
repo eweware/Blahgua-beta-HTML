@@ -39,7 +39,7 @@ define('SelfPageDetails',
 
 
         var RefreshPage = function() {
-            $("#userName").val(G.CurrentUser.N);
+            $("#userName").text(G.CurrentUser.N);
             var nickName = G.GetSafeProperty(G.UserProfile, "A", "someone");
             $("#NicknameInput").val(nickName).attr("initial-value", nickName);
             //image

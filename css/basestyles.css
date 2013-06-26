@@ -284,7 +284,7 @@ color:#f4f5f0;
     width:100%;
     min-height:2em;
 }
-
+                                                   ""
 
 .detailpageheader
 {
@@ -472,7 +472,7 @@ color:#f4f5f0;
 
 .validation-error {
     color:red;
-    margin-left:-20px;
+    margin-left:20px;
     margin-right:4px;
 }
 

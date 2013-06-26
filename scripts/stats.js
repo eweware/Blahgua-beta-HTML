@@ -67,10 +67,19 @@ define('stats',
                 // daily stat
                 statStr = G.CreateDateString(date);
                 for (var index in statsObj.L) {
-                    item = statsObj.L[index];
-                    if (item._id.substring(item._id.length - 6) == statStr) {
+                    var theItem = statsObj.L[index];
+
+                    if (theItem.dy) {
+                        // monthly stat
+                        statStr = G.CreateDateString(date, true);
+                        if (theItem._id.substring(theItem._id.length - 4) == statStr) {
+                            // found the month
+                            statVal = theItem.dy[date.getDate() - 1][stat];
+                            break;
+                        }
+                    } else if (theItem._id.substring(theItem._id.length - 6) == statStr) {
                         // found the day
-                        statVal = item[stat];
+                        statVal = theItem[stat];
                         break;
                     }
                 }

@@ -67,7 +67,38 @@ define('SelfPageStats',
                 var commentsMade  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#UserActivityDiv').highcharts({
+                $('#UserActivityDiv1').highcharts({
+                    title: {
+                        text:null
+                    },
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled:false
+                    },
+                    xAxis: {
+                        categories: catAxis
+                    },
+                    yAxis: {
+                        min:0,
+                        title: { text: "posts opened"}
+                    },
+                    series: [{
+                        type: 'areaspline',
+                        data: openData,
+                        name: "#blahs opened"
+                    }]
+                });
+
+                $('#UserActivityDiv2').highcharts({
                     title: {
                         text:null
                     },
@@ -81,39 +112,56 @@ define('SelfPageStats',
                     credits: {
                         enabled:false
                     },
+                    legend: {
+                        enabled: false
+                    },
                     xAxis: {
                         categories: catAxis
                     },
-                    yAxis: [{
+                    yAxis: {
                         min:0,
-                        title: { text: "views & opens"}
-                    },  {
-                        min:0,
-                        opposite: true,
                         endOnTick: true,
-                        title: { text: "creation"}
-                    }],
-                    series: [{
-                        type: 'areaspline',
-                        data: viewData,
-                        name: "#blahs viewed"
+                        title: { text: "posts created"}
                     },
-                        {
-                            type: 'areaspline',
-                            data: openData,
-                            name: "#blahs opened"
-                        } ,
+                    series: [
                         {
                             type: 'column',
                             data: blahsMade,
-                            name: "#blahs",
-                            yAxis: 1
-                        },
+                            name: "#blahs"
+                        }]
+                });
+
+                $('#UserActivityDiv3').highcharts({
+                    title: {
+                        text:"Comments Created",
+                        align:left,
+                        style:{fontFamily:"Arimo"}
+                    },
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: false
+                            }
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled:false
+                    },
+                    xAxis: {
+                        categories: catAxis
+                    },
+                    yAxis: {
+                        min:0,
+                        endOnTick: true,
+                        title: {text:null}
+                    },
+                    series: [
                         {
                             type: 'column',
-                            data: commentsMade,
-                            name: "#comments",
-                            yAxis: 1
+                            data: commentsMade
                         }]
                 });
 
