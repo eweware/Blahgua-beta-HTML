@@ -80,6 +80,7 @@ define('SelfPageDetails',
             });
 
             // demographics
+			$("#DOBInput").attr('max',getTodayDate)
             $("#DOBInput").val(G.GetSafeProperty(G.UserProfile, "C", ""));
 
             $.each(G.ProfileSchema.B.DT, function(index, item){
@@ -351,6 +352,18 @@ define('SelfPageDetails',
                 processData: false
             }, 'json');
         };
+
+	  var getTodayDate=function()
+		 {
+		    var today=new Date();
+			var y=today.getFullYear();
+			var m=today.getMonth()+1;
+			if(m<10)
+			{m="0"+m;}
+			var d=today.getDate();
+			 return y+"-"+m+"-"+d;
+		 
+		 }
 
         var DoUploadComplete = function() {
            $("#ProgressDiv").hide();
