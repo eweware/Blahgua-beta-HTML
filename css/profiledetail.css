@@ -124,7 +124,7 @@
 .attribute-table thead {
     background-color:rgb(244,245,240);
     font-weight: bold;
-    text-decoration: underline;
+    /*text-decoration: underline;*/
     border-bottom: none;
 
 }

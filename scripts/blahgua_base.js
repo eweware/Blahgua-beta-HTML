@@ -661,7 +661,7 @@ define('blahgua_base',
         textDiv.className = "BlahTextDiv";
         newDiv.appendChild(textDiv);
         newDiv.blahTextDiv = textDiv;
-        $(textDiv).text(G.UnCodifyText(theBlah.T));
+        $(textDiv).html(G.UnCodifyText(theBlah.T));
         switch (theBlah.displaySize) {
             case 1:
                 blahImageSize = "C";

@@ -22,7 +22,8 @@
             <tbody>
             <tr>
                 <td class="attribute-col">Username</td>
-                <td colspan="2"> <span disabled="disabled" id="userName" class="userName"></span>
+                <td colspan="2">
+                   <span disabled="disabled" id="userName" class="userName"></span>
                 </td>
             </tr>
             <tr>
@@ -141,9 +142,11 @@
         <table id="DemoArea" class="attribute-table">
             <thead>
             <tr>
-                <th scope="col" style="width: 75px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col">Input</th>
-                <th scope="col" style="border-top-right-radius: 8px;">Public</th>
+                <!--<th scope="col" style="width: 75px; border-top-left-radius: 8px;">Attribute</th>
+                <th scope="col">Input</th>-->
+				<th></th>
+				<th></th>
+                <th  scope="col" style="border-top-right-radius: 8px;">Public</th>
 
             </tr>
             </thead>
@@ -157,7 +160,7 @@
             <tr>
                 <td class="attribute-col">Date&nbsp;of&nbsp;Birth</td>
                 <td> <input id="DOBInput" type="date"></td>
-                <td><input type="checkbox" value="2" name="age"></td>
+                <td><input type="checkbox" value="2" name="age" min=13></td>
             </tr>	                
             <tr>
                 <td class="attribute-col">Ethnicity</td>
@@ -175,7 +178,7 @@
                 <td><input type="checkbox" value="2" name="state"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Zip</td>
+                <td class="attribute-col">Post Code</td>
                 <td><input id="ZipcodeInput" type="text"></td>
                 <td><input type="checkbox" value="2" name="zipcode"></td>
             </tr>
