@@ -476,8 +476,8 @@ define('blahgua_base',
             newHTML += "<div class='click-shield' style='background-color:transparent'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
-                "<li id='ShowProfileItem'>Show Profile</li>" +
-                "<li id='LogOutItem'>Sign Out</li>" +
+                "<li id='ShowProfileItem'>Profile</li>" +
+                "<li id='LogOutItem'>Sign out</li>" +
                 "</ul></div></div>";
 
             $(document.body).append(newHTML);
