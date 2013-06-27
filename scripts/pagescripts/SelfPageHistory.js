@@ -155,7 +155,7 @@ define('SelfPageHistory',
                 });
                 FilterBlahs();
             } else {
-                newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
+                newHTML = "<tr><td colspan='2'>You have not created any posts.</td></tr>";
                 blahsDiv.append(newHTML);
             }
         };
