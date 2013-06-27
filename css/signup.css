@@ -136,7 +136,10 @@
     padding-top: 10px;
     padding-left: 0px;
 }
-
+.aboutCompany
+{
+    padding-top: 70px;
+}
 .toggle-btn {
     color:rgb(244,245,240);
     background-color: #00b800;
