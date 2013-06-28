@@ -198,13 +198,15 @@
 	.ChannelBanner
 	{
 	  height: 38px;
-	  font-size: 16px;
-	  line-height: 3em;
+	  font-size: 22px;
+	  line-height: 2.0em;
 	}
 	.sign-in-button
 	{
-	   font-size: 12px;
+	   font-size: 16px;
        height: 38px;
+	  
+	  
 	   
 	}
 
