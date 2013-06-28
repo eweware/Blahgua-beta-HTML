@@ -89,6 +89,28 @@ define('stats',
             return statVal;
         };
 
+        /*
+         $(function () {
+         $('#container').highcharts({
+         "chart":  {"type":"column"},
+         "title":{"text":"Ethnicity"},
+         "xAxis":{
+         "categories":             ["Promote","Demote"]},
+         "plotOptions":{"series":{"stacking":"normal",
+         "marker":{"enabled":false}}},
+         "credits":{"enabled":false},
+         "yAxis":[{"minRange":10, min:0,"title":{"text":null}}],
+         "series":[
+         {"data":[1,10],"name":"Asian"},
+         {"data":[4,2],"name":"Black"},
+         {"data":[8,22],"name":"Hispanic"},
+         {"data":[13,5],"name":"White"},
+         {"data":[8,8],"name":"Other"},
+         {"data":[29,13],"name":"Unspecified"}]} );
+         });
+
+         */
+
         var MakeDemoSeries = function(whichObject, whichDemo) {
             // one series for upVote and downVote
             // one data point for each unique value of the demo
@@ -115,9 +137,12 @@ define('stats',
 
         var MakeDemoCategories = function(whichDemo) {
             var catArray = [];
+            /*
             $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
                 catArray.push(item);
             });
+            */
+            catArray = ["Promotes", "Demotes"];
 
             return catArray;
         };
@@ -137,9 +162,8 @@ define('stats',
             var chartHeight = 125 + (25 * demoCat.length);
 
             var newDemos = {
-                colors: ["#FF0000", "#00FF00"],
                 chart: {
-                    type: "bar",
+                    type: "column",
                     height:chartHeight
                 },
                 title: {
@@ -154,10 +178,6 @@ define('stats',
                         marker: {
                             enabled: false
                         }
-                    },
-                    bar : {
-                        pointPadding:0,
-                        groupPadding:0
                     }
                 },
                 credits: {
@@ -167,7 +187,7 @@ define('stats',
                 yAxis: [{
                     minRange:10,
                     minorTickInterval:1,
-                    title: { text: "votes"}
+                    title: { text: null}
                 }],
                 series: demoSeries
             };

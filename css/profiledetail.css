@@ -256,3 +256,16 @@
 .user-blah-row .title-text {
     width: 100%;
 }
+
+.chart-box {
+    height:200px;
+    width:400px;
+    border: 1px solid #999999;
+    border-radius: 8px;
+    margin:8px;
+}
+
+.chart-info-box {
+    font-size: 14px;
+    font-style: italic;
+}

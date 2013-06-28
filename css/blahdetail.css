@@ -36,6 +36,8 @@
     border-width: 1px;
     border-color:rgb(32,32,32);
     margin: 2px;
+    margin-right: 16px;
+    margin-left: 8px;
 }
 
 .BlahFullHeader {
@@ -101,13 +103,12 @@
 }
 
 .BlahFullHeadline {
-    font-size:36px;
+    font-size: 24px;
     font-family: 'Arimo', sans-serif;
-    width:100%;
-    text-align:center;
-    font-weight:bold;
-    margin:16px 16px 16px 16px;
-    padding:10px 10px;
+    width: 100%;
+    text-align: left;
+    margin: 16px 16px 16px 16px;
+    padding: 10px 10px;
     word-wrap: break-word;
 }
 
@@ -237,13 +238,13 @@
 
 .BlahFullBody {
     font-size:20px;
-    color: rgb(245,244,240);
+    color: rgb(22,22,22);
     font-family: 'Arimo', sans-serif;
     width:100%;
     word-wrap: break-word;
     padding-left:16px;
     padding-right:16px;
-    padding-top:4px;
+    padding-top:12px;
 }
 
 .FullBlahContent {
@@ -269,9 +270,8 @@
 /* Comments */
 
 .comment-detail-area {
-    border: 1px solid rgb(124,124,124);
-    margin: 16px;
-    border-radius: 8px;
+
+    margin: 8px;
 
 }
 
@@ -303,17 +303,16 @@
 
 .comment-text-area {
     color: rgb(32,32,32);
-   background-color:  rgb(188,188,188);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    background-color: white;
     min-height: 3em;
-    font-size: 18px;
+    font-size: 14px;
     font-family: 'Arimo', sans-serif;
     padding: 8px;
     box-shadow: none;
     width: 100%;
     overflow-y: auto;
-    border: none;
+    border: 1px solid #999999;
+    border-radius: 8px;
 }
 
 .add-comment-btn {
@@ -323,11 +322,20 @@
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
     border-style: none;
-    margin:0 8px;
     padding: 4px 12px;
-    float:right;
-
+    float: right;
+    margin-left: 8px;
 }
+
+#CharCountDiv {
+    float:right;
+    margin-top:7px;
+}
+
+#CommentImage {
+    float:left;
+}
+
 
 .comment-image-row {
     text-align: center;
@@ -424,27 +432,16 @@
     padding-right: 16px;
 }
 
-.comment-image-upload-row {
-    background-color: rgb(124,124,124);
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px
 
-}
-
-.comment-image-upload-row td {
-    text-align:center;
-    margin: 0px 4px 2px 8px;
-    padding-top:24px;
-}
-
-.comment-image-upload-row image {
-    margin-top: 5px;
-}
 
 .image-preview.comment-preview {
-    background-color: rgb(244,245,240);
-    margin: -20px 4px 2px -64px;
-    border: 1px black rgb(32,32,32);
+    display: table-cell;
+    vertical-align: middle;
+    width: 64px;
+    min-width: 64px;
+    height: 64px;
+    border: 1px solid #999999;
+    background-color: white;
 }
 
 
@@ -572,7 +569,7 @@
     width: 100%;
     margin: 8px 0px;
     border-bottom: 1px rgb(124,124,124) solid;
-
+    font-family: 'Arimo' sans-serif;
 }
 
 .top-comments-header div {
