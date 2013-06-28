@@ -10,32 +10,34 @@
         <tbody>
         <tr><td>
             <div id="CreateCommentArea" class="comment-detail-area">
-                <table style="width:100%">
-                    <tbody>
+                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                    <table style="width:100%">
+                        <tbody>
 
-                    <tr class="comment-body-row">
-                        <td>
-                            <textarea class="comment-text-area" id="CommentTextArea"></textarea>
-                        </td>
-                    </tr>
-                    <tr  class="comment-image-upload-row">
-                        <td >
-                            <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                        <tr class="comment-body-row">
+                            <td>
                                 <div class="image-preview comment-preview no-image" id="ImagePreviewDiv">no<br/>image</div>
-                                <div><input id="CommentImage" name="file" type="file" ></div>
-                                <div id="CharCountDiv"></div>
-                                <div>label/counter</div>
-                                <div><button id="AddCommentBtn" class="add-comment-btn">Comment</button></div>
+                            </td>
+                            <td style="width:100%">
+                                <textarea class="comment-text-area" id="CommentTextArea" placeholder="Enter comment text"></textarea>
+                            </td>
+                        </tr>
+                        <tr  class="comment-image-upload-row">
+                            <td colspan="2">
+                                <input id="CommentImage" name="file" type="file" >
+                                <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
+                                <span id="CharCountDiv"></span>
                                 <div style="display: none">
                                     <input type="text" name="objectType" hidden="true" value="X"/>
                                     <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                                     <input type="text" name="primary" hidden="true" value="true"/>
                                 </div>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </td></tr>
         <tr><td><table>
@@ -48,7 +50,7 @@
                 <table style="width:100%">
             <tr class="comment-sort-area">
                 <td></td>
-                <td>filter:<input text="text" id="FilterBox"></td>
+                <td><input text="text" id="FilterBox" placeholder="Search"></td>
                 <td></td>
                 <td><select id="SortBySelect">
                     <option value="bydate" selected>by date</option>

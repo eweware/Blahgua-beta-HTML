@@ -471,17 +471,19 @@ define('blahgua_base',
 
         $("#ChannelBanner .profile-button").click(function(theEvent) {
             theEvent.stopPropagation();
+            StopAnimation();
             var newHTML = "";
             newHTML += "<div class='click-shield' style='background-color:transparent'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
-                "<li id='ShowProfileItem'>Show Profile</li>" +
-                "<li id='LogOutItem'>Sign Out</li>" +
+                "<li id='ShowProfileItem'>Profile</li>" +
+                "<li id='LogOutItem'>Sign out</li>" +
                 "</ul></div></div>";
 
             $(document.body).append(newHTML);
             $(".click-shield").click(function (theEvent) {
                 DismissAll();
+                StartAnimation();
             });
             $("#ShowProfileItem").click(function (theEvent) {
                 DismissAll();
@@ -659,7 +661,7 @@ define('blahgua_base',
         textDiv.className = "BlahTextDiv";
         newDiv.appendChild(textDiv);
         newDiv.blahTextDiv = textDiv;
-        $(textDiv).text(G.UnCodifyText(theBlah.T));
+        $(textDiv).html(G.UnCodifyText(theBlah.T));
         switch (theBlah.displaySize) {
             case 1:
                 blahImageSize = "C";

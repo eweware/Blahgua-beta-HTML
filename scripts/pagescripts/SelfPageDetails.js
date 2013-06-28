@@ -39,7 +39,7 @@ define('SelfPageDetails',
 
 
         var RefreshPage = function() {
-            $("#userName").val(G.CurrentUser.N);
+            $("#userName").text(G.CurrentUser.N);
             var nickName = G.GetSafeProperty(G.UserProfile, "A", "someone");
             $("#NicknameInput").val(nickName).attr("initial-value", nickName);
             //image
@@ -79,6 +79,7 @@ define('SelfPageDetails',
             });
 
             // demographics
+			$("#DOBInput").attr('max',getTodayDate)
             $("#DOBInput").val(G.GetSafeProperty(G.UserProfile, "C", ""));
 
             $.each(G.ProfileSchema.B.DT, function(index, item){
@@ -350,6 +351,20 @@ define('SelfPageDetails',
                 processData: false
             }, 'json');
         };
+
+	  var getTodayDate=function()
+		 {
+		    var today=new Date();
+			var y=today.getFullYear();
+			var m=today.getMonth()+1;
+			if(m<10)
+			{m="0"+m;}
+			var d=today.getDate();
+			if(d<10)
+			{d="0"+d;}
+			 return y+"-"+m+"-"+d;
+		 
+		 }
 
         var DoUploadComplete = function() {
            $("#ProgressDiv").hide();

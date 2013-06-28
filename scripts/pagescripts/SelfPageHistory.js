@@ -155,7 +155,7 @@ define('SelfPageHistory',
                 });
                 FilterBlahs();
             } else {
-                newHTML = "<tr><td colspan='2'>You have not created any blahs yet.</td></tr>";
+                newHTML = "<tr><td colspan='2'>You have not created any posts.</td></tr>";
                 blahsDiv.append(newHTML);
             }
         };
@@ -258,14 +258,22 @@ define('SelfPageHistory',
             var img = G.GetItemImage(theBlah, "A");
 
             newHTML += "<tr class='user-blah-row' data-blah-id='" + theBlah._id + "'>";
-            newHTML += "<td>";
             if (img != "") {
+                newHTML += "<td class='title-text'>";
+                newHTML += G.UnCodifyText(theBlah.T);
+                newHTML += "</a></td>";
+                newHTML += "<td>";
                 newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
+                newHTML += "</td>";
+            } else {
+                newHTML += "<td colspan='2' class='title-text'>";
+                newHTML += G.UnCodifyText(theBlah.T);
+                newHTML += "</a></td>";
             }
-            newHTML += "</td>"
-            newHTML += "<td class='title-text'>";
-            newHTML += G.UnCodifyText(theBlah.T);
-            newHTML += "</a></td>";
+            newHTML += "</tr>";
+
+
+            newHTML += "<tr>"
             newHTML += "<td>" + G.ElapsedTimeString(new Date(theBlah.c)) + "</td>";
             newHTML += "</tr>";
             return newHTML;
