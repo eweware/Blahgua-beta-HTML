@@ -4,13 +4,13 @@
 .create-blah-channel-span {
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
-    color:rgb(244,245,240);
+    color:rgb(255,255,245);
 }
 
 .create-author-image {
     width:56px;
     height:56px;
-    color:rgb(244,245,240);
+    color:rgb(255,255,245);
     background-size:cover;
     border-style: solid;
     border-width: 1px;
@@ -50,7 +50,7 @@
     width:64px;
     height:64px;
     background-size:cover;
-    background-color:rgb(244,245,240);
+    background-color:rgb(255,255,245);
     font-size:9pt;
     text-align: center;
     vertical-align: middle;
@@ -145,7 +145,7 @@ border: 1px black rgb(124,124,124)
     border-radius:8px;
 
     color: rgb(32,32,32);
-    background-color: rgb(244,245,240);
+    background-color: rgb(255,255,245);
     font-family: 'Arimo', sans-serif;
     font-size: 30pt;
     overflow-y: hidden;
@@ -164,7 +164,7 @@ border: 1px black rgb(124,124,124)
     min-height:60px;
     font-size:12pt;
     font-family: 'Arimo', sans-serif;
-    background-color: rgb(244,245,240);
+    background-color: rgb(255,255,245);
     color: rgb(32,32,32);
     border:2px solid rgb(124,124,124);
     border-radius:8px;
@@ -187,7 +187,7 @@ border: 1px black rgb(124,124,124)
 {
     position:relative;
     background-color: #555555;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
@@ -211,7 +211,7 @@ border: 1px black rgb(124,124,124)
 {
 
     background-color: #555555;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
 
 
 }
@@ -219,7 +219,7 @@ border: 1px black rgb(124,124,124)
 .create-page-button:hover
 {
     background: #444444;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
 
 }
 
@@ -260,7 +260,7 @@ border: 1px black rgb(124,124,124)
     border-width: 1px;
     border-style: solid;
     border-color:rgb(32,32,32)
-    background-color:Rgb(244,245,240);
+    background-color:Rgb(255,255,245);
     color: rgb(124,124,124);
     display:inline-block;
 }

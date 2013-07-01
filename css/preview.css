@@ -18,7 +18,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     word-wrap: break-word;
-    background-color: rgb(244,245,240);
+    background-color: rgb(255,255,245);
     padding-top:8px;
 }
 
@@ -113,7 +113,7 @@
 .blah-preview-content {
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: rgb(244,245,240);
+    background-color: rgb(255,255,245);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     z-index: 3;

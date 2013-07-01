@@ -7,7 +7,7 @@
     height:48px;
     z-index:10;
     background-color:white;
-    color:rgb(244,245,240);
+    color:rgb(255,255,245);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
@@ -49,7 +49,7 @@
     border-left-width:1px;
     border-left-style:solid;
     background: #555555;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
     font-weight:bold;
     text-align:center;
     vertical-align:middle;
@@ -58,7 +58,7 @@
 
 .ChannelOptions:hover {
     background: #444444;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
 }
 
 .profile-button {
@@ -71,7 +71,7 @@
 
 .sign-in-button {
     background: #444444;
-    color: #f4f5f0;
+    color: rgb(255,255,245);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     border-style: none;
@@ -82,7 +82,7 @@
 
 .sign-in-button:hover {
     background: #333333;
-    color:  #f4f5f0;
+    color:  rgb(255,255,245);
 }
 
 .sign-in-button signed-in {
