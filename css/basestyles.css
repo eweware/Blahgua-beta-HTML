@@ -485,6 +485,11 @@ color:#f4f5f0;
         box-shadow: none;
 
     }
+	.logo {
+    width:170px;
+    height:49px;
+	background-size:170px;
+}
 }
 
 @media all and (max-width: 2000px) and (min-width: 401px)  {

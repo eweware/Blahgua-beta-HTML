@@ -283,3 +283,13 @@
 #RecoveryInfo:hover {
     color:#808080;
 }
+@media all and (max-width: 400px)  {
+    .label-group input 
+	{
+	 width:120px;
+	}
+	.sign-in 
+	{
+	 font-size:14px;
+	}
+}
