@@ -200,6 +200,7 @@
 	  height: 38px;
 	  font-size: 22px;
 	  line-height: 2.0em;
+	  background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/channel_bkgndSmallDevice.jpg");
 	}
 	.sign-in-button
 	{
