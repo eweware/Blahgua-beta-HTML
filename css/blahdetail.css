@@ -626,5 +626,19 @@
 	{
 	width:230px;
 	}
+	.fullBlahgerName
+	{
+	font-size: 16px;
+	}
+	.fullBlahSpeechAct
+	{
+	font-size: 12px;
+	}
+	.author-image {
+    width:36px;
+    height:36px;
+    background-size:36px;
+   
+}
 
 }

@@ -490,6 +490,11 @@ color:#f4f5f0;
     height:49px;
 	background-size:170px;
 }
+.back-button {
+    width:28px;
+    height:28px;
+    background-size: 28px; 
+}
 }
 
 @media all and (max-width: 2000px) and (min-width: 401px)  {
