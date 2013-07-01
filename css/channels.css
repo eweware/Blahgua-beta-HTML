@@ -198,9 +198,9 @@
 	.ChannelBanner
 	{
 	  height: 38px;
-	  font-size: 22px;
+	  font-size: 20px;
 	  line-height: 2.0em;
-	  background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/channel_bkgndSmallDevice.jpg");
+	  background-size: 280px;
 	}
 	.sign-in-button
 	{
