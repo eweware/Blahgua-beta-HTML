@@ -10,7 +10,7 @@
 
 
 .sign-in {
-    color:  rgb(255,255,245);
+    color:  rgb(244,245,240);
     text-align: center;
     font-family: 'Arimo', sans-serif;
     padding-left: 8px;
@@ -52,7 +52,7 @@
 .recovery-instructions {
     font-size:16px;
     font-family: 'Arimo', sans-serif;
-    color:white;
+    color:rgb(244,245,240);
 }
 .toggle-container {
     text-align: center;
@@ -91,7 +91,7 @@
 }
 
 .label-group label {
-    color:white;
+    color:rgb(244,245,240);
     font-weight: bold;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
@@ -104,7 +104,7 @@
     text-align: left;
     padding: 8px;
     border-size:0px;
-    background-color: rgb(255,255,245);
+    background-color: rgb(244,245,240);
     border-width: 0px;
     border-style: none;
     border-radius: 8px;
@@ -120,7 +120,7 @@
 }
 
 .checkbox-group label {
-    color:white;
+    color:rgb(244,245,240);
     font-weight: bold;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
@@ -141,7 +141,7 @@
     padding-top: 70px;
 }
 .toggle-btn {
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
     background-color: #00b800;
     border-style:none;
     border-width: 0px;
@@ -173,24 +173,24 @@
 
 
 .toggle-btn:hover {
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
     background-color: #00a800;
 }
 
 .toggle-active {
     background-color: rgb(122,208,0);
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
     background-color: rgb(122,208,0);
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
 }
 
 
 
 .action-btn {
-    color: rgb(255,255,245);
+    color: rgb(244,245,240);
     background-color: #444444;
     border-style:none;
     border-width: 0px;
@@ -201,7 +201,7 @@
 }
 
 .action-btn:hover {
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
     background-color: #444444;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .recover-btn {
-    color: rgb(255,255,245);
+    color: rgb(244,245,240);
     background-color: rgb(122,208,0);
     border-style:none;
     border-width: 0px;
@@ -222,7 +222,7 @@
 }
 
 .recover-btn:hover {
-    color: rgb(255,255,245);
+    color: rgb(244,245,240);
     background-color: rgb(122,208,0);
     text-decoration: underline;
 }
@@ -234,12 +234,12 @@
 
 .action-default {
     background-color: #555555;
-    color: rgb(255,255,245);
+    color: rgb(244,245,240);
 }
 
 .action-default:hover {
     background-color: #444444;
-    color:rgb(255,255,245);
+    color:rgb(244,245,240);
 }
 
 .action-default:disabled {
@@ -250,13 +250,13 @@
 
 
 .inline-button.login-btn {
-    background: white;
-    color: black;
+    background: rgb(244,245,240);
+    color: rgb(32,32,32);
 }
 
 .inline-button.login-btn:hover {
     background: #00b800;
-    color:  white;
+    color:  rgb(244,245,240);
 }
 
 .error-msg-div {
@@ -270,13 +270,13 @@
     border-radius: 8px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
-    color:black;
+    color:rgb(32,32,32);
     background-color: #ffa602;
     padding: 4px 16px;
 
 }
 .indicator-icon {
-    color:white;
+    color:rgb(244,245,240);
     margin-left: 8px;
 }
 

@@ -18,7 +18,7 @@
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     word-wrap: break-word;
-    background-color: rgb(255,255,245);
+    background-color: rgb(244,245,240);
     padding-top:8px;
 }
 
@@ -72,7 +72,7 @@
 .previewBlahgerName {
     padding-left:12px;
     font-size:24px;
-    color:white;
+    color:rgb(255,255,255);
     font-family: 'Arimo', sans-serif;
 }
 
@@ -81,7 +81,7 @@
     top:-8px;
     padding-right:12px;
     font-size:24px;
-    color:white;
+    color:rgb(255,255,255);
     font-family: 'Arimo', sans-serif;
     padding-left:4px;
 }
@@ -113,7 +113,7 @@
 .blah-preview-content {
     overflow-x: hidden;
     overflow-y: auto;
-    background-color: rgb(255,255,245);
+    background-color: rgb(244,245,240);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     z-index: 3;
