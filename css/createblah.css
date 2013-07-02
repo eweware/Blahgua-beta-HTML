@@ -46,6 +46,7 @@
 
 }
 .image-preview {
+    font-family: 'Arimo', sans-serif;
     display: inline-block;
     width:64px;
     height:64px;
@@ -59,7 +60,8 @@
 }
 
 .image-preview.no-image {
-border: 1px rgb(32,32,32) rgb(124,124,124)
+    font-family: 'Arimo', sans-serif;
+    border: 1px rgb(32,32,32) rgb(124,124,124)
 }
 
 #ImageForm {
@@ -143,18 +145,30 @@ border: 1px rgb(32,32,32) rgb(124,124,124)
 {
     width:98%;
     min-height:60px;
-
-    border:1px solid #999999;
-    border-radius: 8px;
-    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
-
-    color: rgb(32,32,32);
-    background-color: rgb(255,255,255);
-    font-family: 'Arimo', sans-serif;
     font-size: 24px;
+    font-family: 'Arimo', sans-serif;
+    background-color: rgb(250,250,247);
+    color: rgb(32,32,32);
+    border:1px solid #999999;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
     overflow-y: hidden;
+      }
 
+.inputheadlineframe:focus
+{
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 0 5px ;
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999);
+    background-color: rgb(255,255,255);
 }
+
+
+
 .inputheadline
 {   width:512px;
     overflow-y:hidden;
@@ -162,20 +176,39 @@ border: 1px rgb(32,32,32) rgb(124,124,124)
     background:lightblue;
     border:2px solid grey;
 }
+
+
+
+
+
 .inputbodyframe
 {
     width:98%;
     min-height:60px;
     font-size:20px;
     font-family: 'Arimo', sans-serif;
-    background-color: rgb(255,255,255);
+    background-color: rgb(250,250,247);
     color: rgb(32,32,32);
     border:1px solid #999999;
-    border-radius: 8px;
-    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
-    border-radius:8px;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
     overflow-y: hidden;
 }
+.inputbodyframe:focus
+{
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 0 5px ;
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999);
+    background-color: rgb(255,255,255);
+
+
+}
+
+
 .inputbody
 {       width:512px;
     overflow-y:hidden;
@@ -252,6 +285,7 @@ border: 1px rgb(32,32,32) rgb(124,124,124)
 }
 
 .image-preview-row {
+    font-family: 'Arimo', sans-serif;
     width:100%;
     text-align: center;
 }
@@ -261,6 +295,7 @@ border: 1px rgb(32,32,32) rgb(124,124,124)
 }
 
 .create-preview-image {
+    font-family: 'Arimo', sans-serif;
     width: 128px;
     height: 128px;
     border-width: 1px;
