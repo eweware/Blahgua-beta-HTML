@@ -13,7 +13,20 @@ textarea {
     background-color: white;
 }
 
+
+
+
 input {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    padding: 8px;
+    border-size:0px;
+    background-color: rgb(255,255,255);
+    border-width: 0px;
+    border-style: none;
+    border-radius: 8px;
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
     outline:none;
     transition: all 0.25s ease-in-out;
     -webkit-transition: all 0.25s ease-in-out;
@@ -21,9 +34,9 @@ input {
 }
 
 input:focus {
-    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    box-shadow: 0 0 5px rgba(125, 181, 227, 1);
+    -webkit-box-shadow: 0 0 5px rgba(125, 181, 227, 1);
+    -moz-box-shadow: 0 0 5px rgba(125, 181, 227, 1);
 }
 
 

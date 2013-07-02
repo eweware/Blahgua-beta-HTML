@@ -223,7 +223,7 @@ define('globals',
 
         };
 
-        var GetGenericUserImage = function(theItem, size) {
+        var GetGenericUserImage = function() {
             var imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 
             return imagePathName;
