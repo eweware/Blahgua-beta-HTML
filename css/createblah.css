@@ -141,13 +141,14 @@ border: 1px black rgb(124,124,124)
     width:98%;
     min-height:60px;
 
-    border:2px solid rgb(124,124,124);
-    border-radius:8px;
+    border:1px solid #999999;
+    border-radius: 8px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,.3);
 
     color: rgb(32,32,32);
-    background-color: rgb(255,255,245);
+    background-color: rgb(255,255,255);
     font-family: 'Arimo', sans-serif;
-    font-size: 30pt;
+    font-size: 24px;
     overflow-y: hidden;
 
 }
@@ -162,11 +163,13 @@ border: 1px black rgb(124,124,124)
 {
     width:98%;
     min-height:60px;
-    font-size:12pt;
+    font-size:20px;
     font-family: 'Arimo', sans-serif;
-    background-color: rgb(255,255,245);
+    background-color: rgb(255,255,255);
     color: rgb(32,32,32);
-    border:2px solid rgb(124,124,124);
+    border:1px solid #999999;
+    border-radius: 8px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,.3);
     border-radius:8px;
     overflow-y: hidden;
 }
@@ -285,6 +288,8 @@ border: 1px black rgb(124,124,124)
 .charcounter {
     font-size:9pt;
     float: right;
+    color: rgb(32,32,32);
+    font-family: 'Arimo', sans-serif;
 }
 
 

@@ -108,7 +108,7 @@
     border-width: 0px;
     border-style: none;
     border-radius: 8px;
-    box-shadow: inset 5px 5px 5px rgba(0,0,0,.3);
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
 }
 
 .recover-password {

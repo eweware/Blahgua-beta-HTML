@@ -176,7 +176,7 @@
 
 .accordion h2 {
     color: rgb(255,255,245);
-    background-color:#999999;
+    background-color:rgb(156,156,166);
     font-family: 'Arimo', sans-serif;
     margin-top: 2px;
    margin-left: 12px ;
@@ -186,7 +186,7 @@
     padding-top: 4px;
     padding-bottom: 4px;
     font-weight: bold;
-    border: solid 1px #999999;
+    border: solid 1px rgb(156,156,166);
 
 }
 

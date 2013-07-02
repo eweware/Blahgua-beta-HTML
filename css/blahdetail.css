@@ -238,7 +238,7 @@
 
 .BlahFullBody {
     font-size:20px;
-    color: rgb(22,22,22);
+    color: rgb(32,32,32);
     font-family: 'Arimo', sans-serif;
     width:100%;
     word-wrap: break-word;
@@ -308,10 +308,11 @@
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
     padding: 8px;
-    box-shadow: none;
+    border:1px solid #999999;
+    border-radius: 8px;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,.3);
     width: 100%;
     overflow-y: auto;
-    border: 1px solid #999999;
     border-radius: 8px;
 }
 
@@ -329,7 +330,9 @@
 
 #CharCountDiv {
     float:right;
-    margin-top:7px;
+    margin-top:8px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 14px;
 }
 
 #CommentImage {
