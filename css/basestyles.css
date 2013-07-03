@@ -10,7 +10,7 @@ body {
 textarea {
     resize: none;
     padding:4px;
-    background-color: rgb(255,255,255);
+    background-color: rgb(244,245,240);
 }
 
 
@@ -20,23 +20,24 @@ input {
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     text-align: left;
-    padding: 8px;
+    padding: 4px;
     border-size:0px;
-    background-color: rgb(255,255,255);
-    border-width: 0px;
-    border-style: none;
-    border-radius: 8px;
-    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
+    background-color: rgb(250,250,247);
+    border: solid   1px #999999;
+    border-radius: 4px;
     outline:none;
-    transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
 }
 
 input:focus {
-    box-shadow: 0 0 5px rgba(125, 181, 227, 1);
-    -webkit-box-shadow: 0 0 5px rgba(125, 181, 227, 1);
-    -moz-box-shadow: 0 0 5px rgba(125, 181, 227, 1);
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 0 5px ;
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999);
+    background-color: rgb(255,255,255);
+
 }
 
 
@@ -52,7 +53,7 @@ input:focus {
     height:100%;
     z-index:0;
  background: linear-gradient(to bottom, rgb(31,33,51) 7%, rgb(105,107,117) 100%);
-background-image: -webkit-gradient(linear, left top, left bottom, from (#1F2133), to(#696B75));
+background-image: -webkit-gradient(linear, left top, left bottom, from (#1F2133),to(#696B75));
   background-image: -webkit-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
   background-image: -moz-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
   background-image: -ms-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
@@ -317,6 +318,7 @@ color:rgb(244,245,240);
     font-size:17px;
     color:rgb(124,124,124);
     margin-left:20px;
+    padding-left: 12px;
 
 }
 .shorttitle1

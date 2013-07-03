@@ -103,14 +103,23 @@
     font-family: 'Arimo', sans-serif;
     text-align: left;
     padding: 8px;
-    border-size:0px;
+    background-color: rgb(235, 235, 215);
+    border-width: 0px;
+    border-style: none;
+    border-radius: 8px;
+    box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
+}
+.label-group input:focus {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    padding: 8px;
     background-color: rgb(244,245,240);
     border-width: 0px;
     border-style: none;
     border-radius: 8px;
     box-shadow: inset 3px 3px 5px rgba(0,0,0,.3);
 }
-
 .recover-password {
     text-align:center;
 }
@@ -121,7 +130,6 @@
 
 .checkbox-group label {
     color:rgb(244,245,240);
-    font-weight: bold;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     text-align: left;
