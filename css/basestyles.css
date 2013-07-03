@@ -99,7 +99,7 @@ overflow:hidden;
 
 .BlahDiv:hover {
     box-shadow: 0px 0px 15px rgb(244,245,240);
-    transition: all .30s ease-in-out;
+
 }
 
 
