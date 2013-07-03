@@ -97,6 +97,9 @@ overflow:hidden;
     border-width:7px;
 }
 
+.BlahDiv:hover {
+    box-shadow: 0px 0px 15px rgb(244,245,240);
+}
 
 
 .LightBox {
