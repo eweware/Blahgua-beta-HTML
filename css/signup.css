@@ -161,6 +161,7 @@
     padding-right:8px;
     margin:0px;
     margin-left:1px;
+    width: 102px;
 }
 
 .table-label-col {
@@ -206,6 +207,7 @@
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     padding: 8px 16px;
+    width: 200px;
 }
 
 .action-btn:hover {
@@ -243,6 +245,7 @@
 .action-default {
     background-color: #555555;
     color: rgb(244,245,240);
+    width: 200px;
 }
 
 .action-default:hover {
