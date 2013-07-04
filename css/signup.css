@@ -297,7 +297,9 @@
 @media all and (max-width: 400px)  {
     .label-group input 
 	{
-	 width:120px;
+	font-size:10px;
+	width:130px;
+	 
 	}
 	.sign-in 
 	{
