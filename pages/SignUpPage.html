@@ -3,10 +3,12 @@
 <body>
 <div id="SignInInDiv" class="sign-in-page">
     <div class="sign-in">
-        <h2><div id="CancelSignIn" class="back-button blah-closer"></div></h2>
-        <h5><div class="logo" align="middle"></div></h5>
-        <br><b>See</b> what matters to you.<br>   <br><b>Publish</b> & track your content.<br><br><b>Verified</b>, but not Identified.&trade;<br></h5>
-    <br></div>
+        <div id="CancelSignIn" class="back-button blah-closer"></div>
+        <div class="logo" align="middle"></div>
+        <p><b>See</b> what matters to you.</p>
+        <p><b>Publish</b> & track your content.</p>
+        <p><b>Verified</b>, but not Identified.&trade;</p>
+    </div>
     <div class="content_frame">
         <div class="toggle-header">
             <button class="toggle-btn btn-left toggle-active" data-toggle-set="login" data-toggle-value="existing">Sign In</button>
@@ -51,13 +53,7 @@
                             </div>
                         </td>
                     </tr>
-					 <tr>
-                        <td colspan="2" >
-                            <div class="item-container aboutCompany" >
-                                <a class="recover-btn" href="#">About</a>
-                            </div>
-                        </td>
-                    </tr>
+
                     </tbody>
                     </table>
                 <table id="RecoverPasswordForm" style="display:none">
@@ -107,8 +103,10 @@
                     </tr>
                     <tr class="label-group">
 
-                        <td><input id="recoveryemail"  data-validate data-fieldname="Recovery email" data-validate-email type="email" placeholder="Recovery email (optional)">
-                         <i id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i></td>
+                        <td>
+                            <i id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
+                            <input id="recoveryemail"  data-validate data-fieldname="Recovery email" data-validate-email type="email" placeholder="Recovery email (optional)">
+                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">

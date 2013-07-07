@@ -362,11 +362,15 @@ color:rgb(244,245,240);
     display:inline-block;
     width:48px;
     height:48px;
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/back.png");
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_BackGreen.png");
     background-size: cover;
     margin-right:8px;
 }
 
+.back-button:hover {
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_BackWhite.png");
+
+}
 
 .float-right {
     float:right;
@@ -478,6 +482,7 @@ color:rgb(244,245,240);
     width:341px;
     height:99px;
     display: inline-block;
+    background-size:cover;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
 
@@ -490,9 +495,11 @@ color:rgb(244,245,240);
 }
 
 .validation-error {
-    color:red;
-    margin-left:20px;
-    margin-right:4px;
+    color: red;
+    margin-left: 8px;
+    margin-right: 4px;
+    margin-top: 10px;
+    position: absolute;
 }
 
 
@@ -528,7 +535,7 @@ color:rgb(244,245,240);
 	.logo {
     width:170px;
     height:49px;
-	background-size:170px;
+
 }
 .back-button {
     width:28px;
@@ -546,12 +553,22 @@ color:rgb(244,245,240);
 }
 
 
-@media only screen and (max-device-width: 480px) {
+@media all and (max-width: 400px) {
     /* iphone specific fixes */
     .BlahDiv {
 
         border-radius: 0px;
         box-shadow: none;
+    }
+
+    .dialog-prompt-container {
+        font-size: 16px;
+        padding: 12px 12px;
+
+    }
+
+    .feedback-div {
+        display:none;
     }
 }
 
