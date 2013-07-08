@@ -151,6 +151,9 @@
     padding-bottom: 8px;
 }
 
+#BlahSortBySelect,#BlahSortOrderSelect,#BlahFilterBox{
+background-color: rgb(244,245,240);
+}
 .attribute-table th {
     text-align: left;
     padding: 8px;
