@@ -130,10 +130,15 @@
 
 }
 
-.attribute-table tr {
+/*.attribute-table tr {
     border-bottom: solid;
     border-bottom-color: transparent;
     border-bottom-width: 4px;
+}*/
+.attribute-table .user-blah-row {
+    border-top: solid;
+    border-top-color: #999999;
+    border-top-width: 1px;
 }
 
 .attribute-table .attribute-col {
