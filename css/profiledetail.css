@@ -150,7 +150,13 @@
     text-align: left;
     padding-bottom: 8px;
 }
-
+.positionNum
+{
+ padding-right:8px;
+ font-size: 20px;
+ font-weight: bolder;
+ color: green;
+}
 #BlahSortBySelect,#BlahSortOrderSelect,#BlahFilterBox{
 background-color: rgb(244,245,240);
 }
