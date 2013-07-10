@@ -362,13 +362,13 @@ color:rgb(244,245,240);
     display:inline-block;
     width:48px;
     height:48px;
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_BackGreen.png");
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/back.png");
     background-size: cover;
     margin-right:8px;
 }
 
 .back-button:hover {
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_BackWhite.png");
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/backover1.png");
 
 }
 
