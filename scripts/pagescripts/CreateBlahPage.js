@@ -93,10 +93,26 @@ define('CreateBlahPage',
                 curHTML += '</OPTION>';
             }
             $("#BlahTypeList").html(curHTML);
+			/*$("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Says: Says are general posts with no requirements.");*/
         };
 
         var UpdateBlahInfoArea = function() {
             var blahTypeStr = exports.GetBlahTypeNameFromId($("#BlahTypeList").val());
+			var selectVal=$("#BlahTypeList").find("option:selected").text();
+			switch(selectVal)
+			{
+			  case "says":  $("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Says: Says are general posts with no requirements.");
+			   break;
+			   case "leaks":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Leaks: Leaks contain sensitive information and require a badge.");
+			   break;
+			   case "asks":  $("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Asks: Use Asks for open-ended questions. Be sure to end your headline with a '?'");
+			   break;
+			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Predicts: Predictions detail outcomes expected to occur by a specific date.");
+			   break;
+			   case "polls":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Polls: Polls allow users to vote on pre-defined options.");
+			   break;
+			   
+			}
             switch (blahTypeStr) {
                 case "predicts":
                     require(["BlahTypePredictAuthorPage"], function(PredictPage){
