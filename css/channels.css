@@ -48,7 +48,7 @@
     border-left-color:rgba(32,32,32,.4);
     border-left-width:1px;
     border-left-style:solid;
-    background: #555555;
+    background: rgb(84,86,98);
     color: rgb(244,245,240);
     font-weight:bold;
     text-align:center;
@@ -57,7 +57,7 @@
 }
 
 .ChannelOptions:hover {
-    background: #444444;
+    background: #474953;
     color: rgb(244,245,240);
 }
 
@@ -70,7 +70,7 @@
 }
 
 .sign-in-button {
-    background: #444444;
+    background: rgb(84,86,98);
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
@@ -81,7 +81,7 @@
 }
 
 .sign-in-button:hover {
-    background: #333333;
+    background: #474953;
     color:  rgb(244,245,240);
 }
 

@@ -172,7 +172,7 @@
 
 .action-btn {
     color: rgb(244,245,240);
-    background-color: #444444;
+    background-color: rgb(84,86,98);
     border-style:none;
     border-width: 0px;
     border-radius: 8px;
@@ -184,7 +184,7 @@
 
 .action-btn:hover {
     color:rgb(244,245,240);
-    background-color: #444444;
+    background-color: #474953;
 }
 
 .action-btn:disabled {
@@ -215,13 +215,13 @@
 }
 
 .action-default {
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     color: rgb(244,245,240);
     width: 200px;
 }
 
 .action-default:hover {
-    background-color: #444444;
+    background-color:#474953;
     color:rgb(244,245,240);
 }
 
@@ -266,7 +266,7 @@
 }
 
 #RecoveryInfo:hover {
-    color:#808080;
+    color:#474953;
 }
 @media all and (max-width: 400px)  {
 

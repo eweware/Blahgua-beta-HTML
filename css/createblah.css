@@ -225,7 +225,7 @@
 .create-page-button
 {
     position:relative;
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     color: rgb(244,245,240);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
@@ -249,7 +249,7 @@
 .create-page-button.default
 {
 
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     color: rgb(244,245,240);
 
 
@@ -257,7 +257,7 @@
 
 .create-page-button:hover
 {
-    background: #444444;
+    background: #474953;
     color: rgb(244,245,240);
 
 }

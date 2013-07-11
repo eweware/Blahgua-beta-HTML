@@ -336,7 +336,7 @@
 }
 
 .add-comment-btn {
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     color: rgb(244,245,240);
     border-radius: 8px;
     font-size: 18px;
@@ -375,7 +375,7 @@
 
 
 .add-comment-btn:hover {
-    background: #444444;
+    background: #474953;
     color: rgb(244,245,240);
 }
 

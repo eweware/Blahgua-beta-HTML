@@ -54,23 +54,23 @@
     font-size: 20px;
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     padding: 8px 12px;
     border-style: none;
     border-radius: 8px;
 }
 
 .small-button:hover {
-    background-color: #444444;
+    background-color: #474953;
 }
 
 .default-button {
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     color: rgb(244,245,240);
 }
 
 .default-button:hover {
-    background: #444444;
+    background: #474953;
     color: rgb(244,245,240);
 }
 
@@ -158,7 +158,7 @@
  color: green;
 }
 #BlahSortBySelect,#BlahSortOrderSelect,#BlahFilterBox{
-background-color: rgb(244,245,240);
+
 }
 .attribute-table th {
     text-align: left;
