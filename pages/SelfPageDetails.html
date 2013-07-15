@@ -57,13 +57,16 @@
                 </td>
             </tr>
             <tr style="border-bottom: none;">
-                <td class="attribute-col" >User&nbsp;image</td>
+                <td class="attribute-col" >Your&nbsp;image</td>
                 <td>
-                    <div id="uploadimage" class="user-image"></div>
+                    <div id="uploadimage" class="user-image">
+                        <i class="icon-remove-sign image-delete-btn"></i>
+                        <span></span>
+                    </div>
                     </td>
 
             </tr>
-            <tr>
+            <tr style="display:none">
                 <td></td>
                 <td>
                     <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
@@ -78,14 +81,7 @@
                     </form>
                 </td>
             </tr>
-            <tr id="ProgressDiv" style="display:none"><td colspan="2">
-                <div >
-                    <div id="ProgressBar" style="width:400px; border-style: solid; height:16px; border-width: 2;">
-                        <div id="Indicator" style="background-color: red; width:1px; height:16px;"></div>
-                    </div>
-                </div>
-            </td>
-            </tr>
+
             <tr>
                 <td> </td>
                 <td>
@@ -146,7 +142,7 @@
                 <th scope="col">Input</th>-->
 				<th></th>
 				<th></th>
-                <th  scope="col" style="border-top-right-radius: 8px;">Public</th>
+                <th  scope="col" style="text-align: center" >Public</th>
 
             </tr>
             </thead>

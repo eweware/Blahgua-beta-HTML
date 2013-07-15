@@ -27,6 +27,30 @@ define('SelfPageDetails',
                     "Got it");
             });
 
+            $("#uploadimage").click(function(theEvent) {
+                $("#UserFormImage").click();
+            });
+
+            $(".image-delete-btn").click(function(theEvent) {
+                blahgua_rest.DeleteUserImage(function(json) {
+                    // clear the image
+                    $("#uploadimage").addClass("no-image").css({"background-image":"none"});
+                    $("#uploadimage span").text("no image");
+                    $("#uploadimage i").hide();
+                    var newImage = G.GetGenericUserImage();
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $(".profile-button").css({"background-image": "url('" + newImage + "')"});
+
+                }, function(theErr) {
+                    $("#uploadimage").addClass("no-image").css({"background-image":"none"});
+                    $("#uploadimage span").text("no image");
+                    $("#uploadimage i").hide();
+                    var newImage = G.GetGenericUserImage();
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $(".profile-button").css({"background-image": "url('" + newImage + "')"});
+                });
+            });
+
             RefreshPage();
         };
 
@@ -44,8 +68,16 @@ define('SelfPageDetails',
             $("#NicknameInput").val(nickName).attr("initial-value", nickName);
             //image
             var newImage = G.GetUserImage(G.CurrentUser, "A");
-            if (newImage != "")
+            if (newImage != "") {
                 $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
+                $("#uploadimage span").text("");
+                $("#uploadimage i").show();
+            } else {
+                $("#uploadimage").css({"background-image": "none"});
+                $("#uploadimage span").text("no image");
+                $("#uploadimage i").hide();
+            }
+
 
             // recovery info
             blahgua_rest.getRecoveryInfo(function(theData) {
@@ -106,6 +138,8 @@ define('SelfPageDetails',
                     newEl.selected = "selected";
                 $("#IncomeInput").append(newEl);
             });
+
+
 
             // permissions
             $('input:checkbox[name=city]').val([G.GetSafeProperty(G.UserProfile, "6", 0)]);
@@ -320,36 +354,38 @@ define('SelfPageDetails',
         };
 
         var UploadUserImage = function() {
-            $("#ProgressDiv").show();
-            $("#objectId").val(G.CurrentUser._id);
+            if ($("#UserFormImage").val() == "" ) {
+                // do nothing if they cancel...
+            } else {
+                var imageURL = "url('" + BlahguaConfig.fragmentURL + "img/ajax-loader.gif')";
+                $("#uploadimage").addClass("no-image").css({"background-image":imageURL});
+                $("#uploadimage span").text("");
+                $("#uploadimage i").hide();
+                $("#objectId").val(G.CurrentUser._id);
 
-            var formData = new FormData($("#ImageForm")[0]);
-            $.ajax({
-                url: BlahguaConfig.apiURL + "images/upload",
+                var formData = new FormData($("#ImageForm")[0]);
+                $.ajax({
+                    url: BlahguaConfig.apiURL + "images/upload",
 
-                type: 'POST',
-                xhr: function() { // custom xhr
-                    myXhr = $.ajaxSettings.xhr();
-                    if(myXhr.upload){ // if upload property exists
-                        myXhr.upload.addEventListener('progress', progressHandlingFunction, false); // progressbar
-                    }
-                    return myXhr;
-                },
-                //Ajax events
-                success: completeHandler = function(data) {
-                    DoUploadComplete();
+                    type: 'POST',
 
-                },
-                error: errorHandler = function(theErr) {
-                    alert("Error uploading");
-                },
-                // Form data
-                data: formData,
-                //Options to tell JQuery not to process data or worry about content-type
-                cache: false,
-                contentType: false,
-                processData: false
-            }, 'json');
+                    //Ajax events
+                    success: completeHandler = function(data) {
+                        DoUploadComplete();
+
+                    },
+                    error: errorHandler = function(theErr) {
+                        $("uploadimage").addClass("no-image").css({"background-image":"none"});
+                        $("#uploadimage span").text("error");
+                    },
+                    // Form data
+                    data: formData,
+                    //Options to tell JQuery not to process data or worry about content-type
+                    cache: false,
+                    contentType: false,
+                    processData: false
+                }, 'json');
+            }
         };
 
 	  var getTodayDate=function()
@@ -372,8 +408,11 @@ define('SelfPageDetails',
             blahgua_rest.getUserInfo(function (json) {
                 G.CurrentUser = json;
                 var newImage = G.GetUserImage(G.CurrentUser, "A");
-                $("#uploadimage").css({"background-image": "url('" + newImage + "')"});
+                $("#uploadimage").removeClass("no-image").css({"background-image": "url('" + newImage + "')"});
+                $("#uploadimage span").text("");
+                $("#uploadimage i").show();
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                $(".profile-button").css({"background-image": "url('" + newImage + "')"});
 
 
 

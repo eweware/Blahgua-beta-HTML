@@ -46,6 +46,7 @@
 
 }
 .image-preview {
+    font-family: 'Arimo', sans-serif;
     display: inline-block;
     width:64px;
     height:64px;
@@ -55,11 +56,12 @@
     text-align: center;
     vertical-align: middle;
     margin: 0px 10px 8px 16px;
-    border: 1px black rgb(124,124,124));
+    border: 1px rgb(32,32,32) rgb(124,124,124));
 }
 
 .image-preview.no-image {
-border: 1px black rgb(124,124,124)
+    font-family: 'Arimo', sans-serif;
+    border: 1px rgb(32,32,32) rgb(124,124,124)
 }
 
 #ImageForm {
@@ -76,6 +78,9 @@ border: 1px black rgb(124,124,124)
 
 #CommentImage {
     width:200px;
+    box-shadow: none;
+    border: none;
+    background-color: rgb(244,245,240);
 }
 .createblahheadlinephoto
 {
@@ -140,17 +145,30 @@ border: 1px black rgb(124,124,124)
 {
     width:98%;
     min-height:60px;
-
-    border:2px solid rgb(124,124,124);
-    border-radius:8px;
-
-    color: rgb(32,32,32);
-    background-color: rgb(244,245,240);
+    font-size: 24px;
     font-family: 'Arimo', sans-serif;
-    font-size: 30pt;
+    background-color: rgb(250,250,247);
+    color: rgb(32,32,32);
+    border:1px solid #999999;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
     overflow-y: hidden;
+      }
 
+.inputheadlineframe:focus
+{
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 0 5px ;
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999);
+    background-color: rgb(255,255,255);
 }
+
+
+
 .inputheadline
 {   width:512px;
     overflow-y:hidden;
@@ -158,18 +176,39 @@ border: 1px black rgb(124,124,124)
     background:lightblue;
     border:2px solid grey;
 }
+
+
+
+
+
 .inputbodyframe
 {
     width:98%;
     min-height:60px;
-    font-size:12pt;
+    font-size:20px;
     font-family: 'Arimo', sans-serif;
-    background-color: rgb(244,245,240);
+    background-color: rgb(250,250,247);
     color: rgb(32,32,32);
-    border:2px solid rgb(124,124,124);
-    border-radius:8px;
+    border:1px solid #999999;
+    border-radius: 4px;
+    outline: none;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
     overflow-y: hidden;
 }
+.inputbodyframe:focus
+{
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 0 5px ;
+    -webkit-box-shadow: 0 0 5px #999999;
+    -moz-box-shadow: 0 0 5px #999999);
+    background-color: rgb(255,255,255);
+
+
+}
+
+
 .inputbody
 {       width:512px;
     overflow-y:hidden;
@@ -186,8 +225,8 @@ border: 1px black rgb(124,124,124)
 .create-page-button
 {
     position:relative;
-    background-color: #555555;
-    color: #f4f5f0;
+    background-color: rgb(84,86,98);
+    color: rgb(244,245,240);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
@@ -210,16 +249,16 @@ border: 1px black rgb(124,124,124)
 .create-page-button.default
 {
 
-    background-color: #555555;
-    color: #f4f5f0;
+    background-color: rgb(84,86,98);
+    color: rgb(244,245,240);
 
 
 }
 
 .create-page-button:hover
 {
-    background: #444444;
-    color: #f4f5f0;
+    background: #474953;
+    color: rgb(244,245,240);
 
 }
 
@@ -238,7 +277,7 @@ border: 1px black rgb(124,124,124)
 .create-err-msg {
     padding: 4px 8px;
     background-color: rgb(250,250,100);
-    color:black;
+    color:rgb(32,32,32);
     font-size: 16px;
     border-radius: 4px;
     font-family: 'Arimo', sans-serif;
@@ -246,6 +285,7 @@ border: 1px black rgb(124,124,124)
 }
 
 .image-preview-row {
+    font-family: 'Arimo', sans-serif;
     width:100%;
     text-align: center;
 }
@@ -255,6 +295,7 @@ border: 1px black rgb(124,124,124)
 }
 
 .create-preview-image {
+    font-family: 'Arimo', sans-serif;
     width: 128px;
     height: 128px;
     border-width: 1px;
@@ -285,6 +326,8 @@ border: 1px black rgb(124,124,124)
 .charcounter {
     font-size:9pt;
     float: right;
+    color: rgb(32,32,32);
+    font-family: 'Arimo', sans-serif;
 }
 
 

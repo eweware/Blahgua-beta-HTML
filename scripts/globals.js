@@ -223,7 +223,7 @@ define('globals',
 
         };
 
-        var GetGenericUserImage = function(theItem, size) {
+        var GetGenericUserImage = function() {
             var imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 
             return imagePathName;
@@ -503,10 +503,35 @@ define('globals',
             return errMsg;
         };
 
+        var DataZeroOrEmpty = function(theArray) {
+            if (theArray == null)
+                return true;
+            else if (theArray.length == 0) {
+                return true;
+            } else {
+                var isZero = true;
+                for (var curIndex in theArray) {
+                    if (theArray[curIndex] != 0) {
+                        isZero = false;
+                        break;
+                    }
+                }
+                return isZero;
+            }
+        };
+
+        var AppendChartMask = function(theTarget, theText) {
+            var maskObj = "<div class='chart-mask'><div>" +
+                theText + "</div></div>";
+            $(theTarget).append(maskObj);
+        }
+
 
 
         return {
             Initialize :   Initialize,
+            DataZeroOrEmpty: DataZeroOrEmpty,
+            AppendChartMask: AppendChartMask,
             BlahsMovingTimer: BlahsMovingTimer,
             BlahPreviewTimeout: BlahPreviewTimeout,
             ViewerUpdateTimer: ViewerUpdateTimer,

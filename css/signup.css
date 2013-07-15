@@ -20,18 +20,11 @@
     border-top-right-radius: 16px;
 }
 
-.sign-in h2 {
-    font-size: 36px;
-}
-
-.sign-in h3 {
-    font-size: 24px;
-}
-
-.sign-in h4 {
+.sign-in p {
     font-size: 18px;
-    font-style:italic;
+    line-height: 2em;
 }
+
 
 .sign-in img {
     width: 80%;
@@ -42,7 +35,8 @@
 
 
 .sign-in .back-button {
-    float:left;
+    position: absolute;
+    left: 40px;
 }
 
 .content_frame{
@@ -52,7 +46,7 @@
 .recovery-instructions {
     font-size:16px;
     font-family: 'Arimo', sans-serif;
-    color:white;
+    color:rgb(244,245,240);
 }
 .toggle-container {
     text-align: center;
@@ -62,7 +56,7 @@
     margin:0px;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    height: 300px;
+    height: 250px;
     background-color:RGB(122, 208, 0);
 
 
@@ -91,24 +85,11 @@
 }
 
 .label-group label {
-    color:white;
+    color:rgb(244,245,240);
     font-weight: bold;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     text-align: right;
-}
-
-.label-group input {
-    font-size:16px;
-    font-family: 'Arimo', sans-serif;
-    text-align: left;
-    padding: 8px;
-    border-size:0px;
-    background-color: rgb(244,245,240);
-    border-width: 0px;
-    border-style: none;
-    border-radius: 8px;
-    box-shadow: inset 5px 5px 5px rgba(0,0,0,.3);
 }
 
 .recover-password {
@@ -120,8 +101,7 @@
 }
 
 .checkbox-group label {
-    color:white;
-    font-weight: bold;
+    color:rgb(244,245,240);
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     text-align: left;
@@ -153,6 +133,7 @@
     padding-right:8px;
     margin:0px;
     margin-left:1px;
+    width: 102px;
 }
 
 .table-label-col {
@@ -190,19 +171,20 @@
 
 
 .action-btn {
-    color: #f4f5f0;
-    background-color: #444444;
+    color: rgb(244,245,240);
+    background-color: rgb(84,86,98);
     border-style:none;
     border-width: 0px;
     border-radius: 8px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     padding: 8px 16px;
+    width: 200px;
 }
 
 .action-btn:hover {
-    color:#f4f5f0;
-    background-color: #444444;
+    color:rgb(244,245,240);
+    background-color: #474953;
 }
 
 .action-btn:disabled {
@@ -233,13 +215,14 @@
 }
 
 .action-default {
-    background-color: #555555;
-    color: #f4f5f0;
+    background-color: rgb(84,86,98);
+    color: rgb(244,245,240);
+    width: 200px;
 }
 
 .action-default:hover {
-    background-color: #444444;
-    color:#f4f5f0;
+    background-color:#474953;
+    color:rgb(244,245,240);
 }
 
 .action-default:disabled {
@@ -250,13 +233,13 @@
 
 
 .inline-button.login-btn {
-    background: white;
-    color: black;
+    background: rgb(244,245,240);
+    color: rgb(32,32,32);
 }
 
 .inline-button.login-btn:hover {
     background: #00b800;
-    color:  white;
+    color:  rgb(244,245,240);
 }
 
 .error-msg-div {
@@ -270,16 +253,39 @@
     border-radius: 8px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
-    color:black;
+    color:rgb(32,32,32);
     background-color: #ffa602;
     padding: 4px 16px;
 
 }
 .indicator-icon {
-    color:white;
-    margin-left: 8px;
+    color: rgb(244,245,240);
+    margin-left: -24px;
+    position: absolute;
+    margin-top: 8px;
 }
 
 #RecoveryInfo:hover {
-    color:#808080;
+    color:#474953;
+}
+@media all and (max-width: 400px)  {
+
+
+    .sign-in-page {
+        margin:0px;
+    }
+
+    .sign-in p {
+        font-size: 14px;
+    }
+
+
+    .sign-in
+	{
+	 font-size:14px;
+	}
+
+    .sign-in .back-button {
+        left: 20px;
+    }
 }

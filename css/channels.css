@@ -6,7 +6,7 @@
     top: 8px;
     height:48px;
     z-index:10;
-    background-color:white;
+    background-color:rgb(255,255,255);
     color:rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
@@ -48,8 +48,8 @@
     border-left-color:rgba(32,32,32,.4);
     border-left-width:1px;
     border-left-style:solid;
-    background: #555555;
-    color: #f4f5f0;
+    background: rgb(84,86,98);
+    color: rgb(244,245,240);
     font-weight:bold;
     text-align:center;
     vertical-align:middle;
@@ -57,8 +57,8 @@
 }
 
 .ChannelOptions:hover {
-    background: #444444;
-    color: #f4f5f0;
+    background: #474953;
+    color: rgb(244,245,240);
 }
 
 .profile-button {
@@ -70,8 +70,8 @@
 }
 
 .sign-in-button {
-    background: #444444;
-    color: #f4f5f0;
+    background: rgb(84,86,98);
+    color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     border-style: none;
@@ -81,13 +81,13 @@
 }
 
 .sign-in-button:hover {
-    background: #333333;
-    color:  #f4f5f0;
+    background: #474953;
+    color:  rgb(244,245,240);
 }
 
 .sign-in-button signed-in {
     background: rgb(0, 141, 0);
-    color: white;
+    color: rgb(255,255,255);
 }
 
 
@@ -105,7 +105,7 @@
     top:56px;
     width:auto;
     height:auto;
-    background-color: white;
+    background-color: rgb(255,255,255);
     box-shadow:rgba(0,0,0,.4) 4px 4px;
     z-index: 12;
     border-bottom-left-radius: 8px;
@@ -147,7 +147,7 @@
 .signin-message {
     font-size:18px;
     background-color: orange;
-    color:black;
+    color:rgb(32,32,32);
     margin: 4px;
     padding: 8px;
     width:80%;
@@ -167,7 +167,7 @@
 
 .instant-menu {
     position: absolute;
-    background-color: white;
+    background-color: rgb(255,255,255);
     box-shadow: 5px 5px rgba(0,0,0,.3);
     font-family: 'Arimo' sans-serif;
     font-size: 24px;
@@ -198,13 +198,16 @@
 	.ChannelBanner
 	{
 	  height: 38px;
-	  font-size: 16px;
-	  line-height: 3em;
+	  font-size: 20px;
+	  line-height: 2.0em;
+	  background-size: 280px;
 	}
 	.sign-in-button
 	{
-	   font-size: 12px;
+	   font-size: 16px;
        height: 38px;
+	  
+	  
 	   
 	}
 

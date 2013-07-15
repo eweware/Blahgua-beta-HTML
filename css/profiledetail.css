@@ -7,7 +7,7 @@
     bottom: 60px;
     overflow-x: hidden;
     overflow-y: auto;
-    background-color:  rgb(244,245,240);
+    background-color:  rgb(245, 244, 240);
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
     box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
@@ -25,9 +25,9 @@
     height:64px;
     display: inline-block;
     border-width:1px;
-    border-color:black;
+    border-color:rgb(32,32,32);
     border-style:solid;
-    background-color:white;
+    background-color:rgb(255,255,255);
     background-size: cover;
     color:grey;
 }
@@ -52,26 +52,26 @@
 
 .small-button {
     font-size: 20px;
-    color: #f4f5f0;
+    color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
-    background-color: #555555;
+    background-color: rgb(84,86,98);
     padding: 8px 12px;
     border-style: none;
     border-radius: 8px;
 }
 
 .small-button:hover {
-    background-color: #444444;
+    background-color: #474953;
 }
 
 .default-button {
-    background-color: #555555;
-    color: #f4f5f0;
+    background-color: rgb(84,86,98);
+    color: rgb(244,245,240);
 }
 
 .default-button:hover {
-    background: #444444;
-    color: #f4f5f0;
+    background: #474953;
+    color: rgb(244,245,240);
 }
 
 .default-button:disabled {
@@ -94,12 +94,13 @@
 
 .permission-table tr {
     border-bottom: solid;
-    border-bottom-color: white;
+    border-bottom-color: rgb(255,255,255);
     border-bottom-width: 1px;
 }
 
 .permission-table .attribute-col {
     text-align: right;
+    padding-right: 12px;
 }
 
 .permission-table td {
@@ -129,21 +130,36 @@
 
 }
 
-.attribute-table tr {
+/*.attribute-table tr {
     border-bottom: solid;
-    border-bottom-color: #bcbcbc;
-    border-bottom-width: 1px;
+    border-bottom-color: transparent;
+    border-bottom-width: 4px;
+}*/
+.attribute-table .user-blah-row {
+    border-top: solid;
+    border-top-color: #999999;
+    border-top-width: 1px;
 }
 
 .attribute-table .attribute-col {
-    text-align: left;
+    text-align: right;
+    padding-right: 12px;
 }
 
 .attribute-table td {
     text-align: left;
     padding-bottom: 8px;
 }
+.positionNum
+{
+ padding-right:8px;
+ font-size: 20px;
+ font-weight: bolder;
+ color: green;
+}
+#BlahSortBySelect,#BlahSortOrderSelect,#BlahFilterBox{
 
+}
 .attribute-table th {
     text-align: left;
     padding: 8px;
@@ -176,7 +192,7 @@
 
 .accordion h2 {
     color: rgb(244,245,240);
-    background-color:#999999;
+    background-color:rgb(156,156,166);
     font-family: 'Arimo', sans-serif;
     margin-top: 2px;
    margin-left: 12px ;
@@ -186,7 +202,7 @@
     padding-top: 4px;
     padding-bottom: 4px;
     font-weight: bold;
-    border: solid 1px #999999;
+    border: solid 1px rgb(156,156,166);
 
 }
 
@@ -268,4 +284,21 @@
 .chart-info-box {
     font-size: 14px;
     font-style: italic;
+}
+
+.image-delete-btn {
+    color:red;
+    float: right;
+    padding: 2px;
+    opacity:.5;
+    display:none;
+}
+
+.image-delete-btn:hover {
+    opacity:1;
+
+}
+
+#DemoArea tr td:nth-child(3) {
+    text-align: center;
 }

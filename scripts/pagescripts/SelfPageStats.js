@@ -44,6 +44,9 @@ define('SelfPageStats',
                     credits: {
                         enabled:false
                     },
+                    tooltip: {
+                        enabled: false
+                    },
                     xAxis: {
                         categories: ['Strength', 'Controversy']
                     },
@@ -60,6 +63,7 @@ define('SelfPageStats',
                 });
 
 
+
                 // Your Activity
                 var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["v", "V"]);
                 var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["o", "O"]);
@@ -67,9 +71,9 @@ define('SelfPageStats',
                 var commentsMade  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#UserActivityDiv1').highcharts({
+                $('#UserActivityViewDiv').highcharts({
                     title: {
-                        text:"Posts Opened",
+                        text:"Post Impressions",
                         align:"left",
                         style:{fontFamily:"Arimo"}
                     },
@@ -81,6 +85,49 @@ define('SelfPageStats',
                         }
                     },
                     legend: {
+                        enabled: false
+                    },
+                    credits: {
+                        enabled:false
+                    },
+                    tooltip: {
+                        enabled: false
+                    },
+                    xAxis: {
+                        categories: catAxis
+                    },
+                    yAxis: {
+                        min:0,
+                        minRange:10,
+                        title: { text: null}
+                    },
+                    series: [{
+                        type: 'areaspline',
+                        data: viewData,
+                        title: {text:null}}]
+                });
+
+                if (G.DataZeroOrEmpty(viewData))
+                    G.AppendChartMask("#UserActivityViewDiv", "No activity in this time period");
+
+                $('#UserActivityOpenDiv').highcharts({
+                    title: {
+                        text:"Posts Opened",
+                        align:"left",
+                        style:{fontFamily:"Arimo"}
+                    },
+                    plotOptions: {
+                        series: {
+                            marker: {
+                                enabled: false
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    tooltip: {
                         enabled: false
                     },
                     credits: {
@@ -99,8 +146,11 @@ define('SelfPageStats',
                         data: openData,
                         title: {text:null}}]
                 });
+                if (G.DataZeroOrEmpty(openData))
+                    G.AppendChartMask("#UserActivityOpenDiv", "No activity in this time period");
 
-                $('#UserActivityDiv2').highcharts({
+
+                $('#UserActivityPostCreatedDiv').highcharts({
                     title: {
                         text:"Posts Created",
                         align:"left",
@@ -117,6 +167,8 @@ define('SelfPageStats',
                         enabled:false
                     },
                     legend: {
+                        enabled: false
+                    },tooltip: {
                         enabled: false
                     },
                     xAxis: {
@@ -135,8 +187,11 @@ define('SelfPageStats',
                             title: {text:null}}
                     ]
                 });
+                if (G.DataZeroOrEmpty(blahsMade))
+                    G.AppendChartMask("#UserActivityPostCreatedDiv", "No activity in this time period");
 
-                $('#UserActivityDiv3').highcharts({
+
+                $('#UserActivityCommentsCreatedDiv').highcharts({
                     title: {
                         text:"Comments Created",
                         align:"left",
@@ -148,6 +203,9 @@ define('SelfPageStats',
                                 enabled: false
                             }
                         }
+                    },
+                    tooltip: {
+                        enabled: false
                     },
                     legend: {
                         enabled: false
@@ -171,6 +229,8 @@ define('SelfPageStats',
                             title: {text:null}
                         }]
                 });
+                if (G.DataZeroOrEmpty(commentsMade))
+                    G.AppendChartMask("#UserActivityCommentsCreatedDiv", "No activity in this time period");
 
                 // Your Blahs and Comments
                 var otherUpVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
@@ -204,6 +264,9 @@ define('SelfPageStats',
                     xAxis: {
                         categories: catAxis
                     },
+                    tooltip: {
+                        enabled: false
+                    },
                     legend: {
                         enabled: false
                     },
@@ -235,6 +298,9 @@ define('SelfPageStats',
                     },
                     credits: {
                         enabled:false
+                    },
+                    tooltip: {
+                        enabled: false
                     },
                     legend: {
                         enabled: false
@@ -269,6 +335,9 @@ define('SelfPageStats',
                     },
                     credits: {
                         enabled:false
+                    },
+                    tooltip: {
+                        enabled: false
                     },
                     legend: {
                         enabled: false
@@ -305,8 +374,12 @@ define('SelfPageStats',
                     xAxis: {
                         categories: catAxis
                     },
+                    tooltip: {
+                        enabled: false
+                    },
                     yAxis: [{
-                        title: { text: "votes"}
+                        title: { text: "votes"},
+                        minRange:10
                     }],
                     series: [
                         {

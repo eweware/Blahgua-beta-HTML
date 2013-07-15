@@ -249,7 +249,7 @@ span.stButton span.email, span.sharethis {
     width: 58px;
     height: 29px;
     font-family: Verdana, Helvetica, sans-serif;
-    color: black;
+    color: rgb(32,32,32);
     position: relative;
     z-index: -1;
     border: 1px solid #ccc;
@@ -991,7 +991,7 @@ span.stButton span.email, span.sharethis {
 
 .stCSSButton {
     border: 1px solid #212121;
-    color: white;
+    color: rgb(244,245,240);
     display: inline-block;
     vertical-align: bottom;
     -moz-border-radius: 2px;

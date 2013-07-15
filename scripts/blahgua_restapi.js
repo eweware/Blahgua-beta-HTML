@@ -523,6 +523,9 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallPostMethod("users", paramStr, OnSuccess, OnFailure);
     };
 
+    var DeleteUserImage = function(OnSuccess, OnFailure) {
+        CallDeleteMethod("users/images","{}", OnSuccess, OnFailure);
+    }
 
     var SetUserPollVote = function (blahID, optionIndex, OnSuccess, OnFailure) {
         /// <summary>Returns the users vote on a poll, if any</summary>
@@ -763,6 +766,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         setRecoveryInfo: setRecoveryInfo,
         getRecoveryInfo: getRecoveryInfo ,
         updatePassword: updatePassword,
+        DeleteUserImage: DeleteUserImage,
         RefreshSession:RefreshSession
     }
 });

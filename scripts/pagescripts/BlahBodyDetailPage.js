@@ -17,7 +17,8 @@ define('BlahBodyDetailPage',
                 alert("Error:  No Blah!");
                 return;
             }
-
+            if (G.IsUserLoggedIn) 
+			{
             // bind methods
             $("#PromoteBlahImage").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
@@ -27,6 +28,19 @@ define('BlahBodyDetailPage',
                 theEvent.stopImmediatePropagation();
                 SetBlahVote(-1);
             });
+			}
+			else
+			{
+			$("#PromoteBlahImage").click(function(theEvent) {
+               G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
+               exports.SuggestUserSignIn("Sign in to participate.")});
+            });
+            $("#DemoteBlahImage").click(function(theEvent) {
+			G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
+               exports.SuggestUserSignIn("Sign in to participate.")});
+			
+            });
+			}
 
             // add share this button
             var shareURL;
@@ -84,9 +98,9 @@ define('BlahBodyDetailPage',
             } else {
                 //$("#BlahRowVote").hide();
 			
-			    $("#PromoteBlahImage").hide();
-				$("#DemoteBlahImage").hide();
-                $("#BlahRowSignIn").show();
+			   // $("#PromoteBlahImage").hide();
+				//$("#DemoteBlahImage").hide();
+                $("#BlahRowSignIn").hide();
 	            $("#UploadImageTable").hide();
                 $("#CreateCommentArea").hide();
             }
@@ -182,11 +196,11 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount < 3) || (charCount > 4000));
+            var tooManyOrFew = ((charCount < 0) || (charCount > 4000));
             document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
-            var color = "#000000";
+            var color = "rgb(124,124,124)";
             if (tooManyOrFew)
-                color = "#FF0000";
+                color = "rgb(248,120,88))";
             $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
         };
