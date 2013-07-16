@@ -74,9 +74,15 @@ define('BlahCommentDetailPage',
             }
 
             if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
+			{
+			    $("#CommentTextArea").attr("placeholder","Enter comment text here"); 
                 $(".comment-sort-area").show();
+			}
             else
+			{
+			    $("#CommentTextArea").attr("placeholder","Be the first to comment"); 
                 $(".comment-sort-area").hide();
+			}
             comments.UpdateBlahComments();
 
         };

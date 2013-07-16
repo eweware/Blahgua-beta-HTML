@@ -116,7 +116,14 @@ define('BlahBodyDetailPage',
                 $(".blah-body-divider").hide();
                 imageEl.src = image;
             }
-
+              if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
+			  {
+			   $("#CommentTextArea").attr("placeholder","Enter comment text here");
+			  }
+			  else
+			  {
+			  $("#CommentTextArea").attr("placeholder","Be the first to comment");
+			  }
             var bodyTextDiv = document.getElementById("BlahFullBody");
             if (G.CurrentBlah.hasOwnProperty("F")) {
                 var bodyText = G.CurrentBlah.F;
