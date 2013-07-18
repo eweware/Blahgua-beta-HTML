@@ -54,7 +54,7 @@ define('SignUpPage',
                 userObject['userId'] = userName;
                 userObject['pwd'] = pwd;
 
-                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 30, path: '/'});
+                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 3600*24*30, path: '/'});
                 $.removeCookie('isTemp');
             } else {
                 $.removeCookie("loginkey");

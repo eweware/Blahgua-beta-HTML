@@ -115,7 +115,7 @@
 }
 
 .attribute-table {
-    background-color:rgb(244,245,240);
+    background-color: rgb(250,250,247);
     border-radius: 8px;
     font-family: 'Arimo', sans-serif;
     border-collapse: collapse;
@@ -123,7 +123,7 @@
 }
 
 .attribute-table thead {
-    background-color:rgb(244,245,240);
+    background-color: rgb(250,250,247);
     font-weight: bold;
     /*text-decoration: underline;*/
     border-bottom: none;
@@ -180,29 +180,31 @@
     color: rgb(32,32,32);
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    background-color: rgb(244,245,240);
+    background-color: rgb(250,250,247);
     margin-left: 12px;
     margin-right: 12px;
     margin-bottom: 16px;
     padding-bottom: 4px;
     padding-left: 10px;
     padding-right: 10px;
-    border: solid 1px #999999;
+    border: solid 1px rgb(168,168,175);
 }
 
 .accordion h2 {
     color: rgb(244,245,240);
-    background-color:rgb(156,156,166);
+    background-color:rgb(168,168,175);
     font-family: 'Arimo', sans-serif;
     margin-top: 2px;
    margin-left: 12px ;
    margin-right:12px;
     padding-left: 10px;
     margin-bottom: 0px;
-    padding-top: 4px;
-    padding-bottom: 4px;
+    padding-top: 5px;
+    padding-bottom: 3px;
     font-weight: bold;
-    border: solid 1px rgb(156,156,166);
+    border: solid 1px rgb(168,168,175);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 
 }
 
@@ -212,8 +214,8 @@
     height:22px;
     float:right;
     position:relative;
-    top:-4px;
-    padding-right: 2px;
+    top:-6px;
+    padding-right: 4px;
     background-repeat: no-repeat;
 
 }
@@ -253,7 +255,7 @@
     text-align: left;
     padding-top: 8px;
     border-radius: 8px;
-    background-color: rgb(244,245,240);
+    background-color: rgb(250,250,247);
 }
 
 .user-comment-row {
