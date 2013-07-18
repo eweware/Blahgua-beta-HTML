@@ -615,9 +615,19 @@
 @media all and (max-width: 400px)  {
     .BlahDiv {
         border-radius: 0px;
+		
         box-shadow: none;
 
     }
+	.BlahPageFooter td
+	{
+	  width:5%;
+	}
+	.BlahButton
+	{
+	 font-size: 12px; 
+	 font-weight: bolder; 
+	}
 	.BlahFullHeadline
 	{
 	 font-size: 12px;
