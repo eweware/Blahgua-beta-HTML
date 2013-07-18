@@ -190,38 +190,3 @@
     padding:4px 12px;
 }
 
-
-
-
-
-@media all and (max-width: 400px)  {
-	.ChannelBanner
-	{
-	  height: 38px;
-	  font-size: 20px;
-	  line-height: 2.0em;
-	  background-size: 280px;
-	}
-	.sign-in-button
-	{
-	   font-size: 16px;
-       height: 38px;
-	  
-	  
-	   
-	}
-
-    .ChannelOptions
-    {
-        width:38px;
-        height:38px;
-        vertical-align: top;
-    }
-
-    .profile-button
-    {
-        width:38px;
-        height:38px;
-    }
-}
-

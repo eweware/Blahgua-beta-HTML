@@ -268,24 +268,3 @@
 #RecoveryInfo:hover {
     color:#474953;
 }
-@media all and (max-width: 400px)  {
-
-
-    .sign-in-page {
-        margin:0px;
-    }
-
-    .sign-in p {
-        font-size: 14px;
-    }
-
-
-    .sign-in
-	{
-	 font-size:14px;
-	}
-
-    .sign-in .back-button {
-        left: 20px;
-    }
-}
