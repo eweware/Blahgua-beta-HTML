@@ -73,13 +73,23 @@
     background: rgb(84,86,98);
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
-    font-size: 13px;
+    font-size: 18px;
     border-style: none;
     float: right;
     width: 80px;
     height: 48px;
 }
-
+.sign-in-comment-button
+{
+    background: rgb(84,86,98);
+    color: rgb(244,245,240);
+    font-family: 'Arimo', sans-serif;
+    font-size: 18px;
+    border-style: none;
+    float: right;
+    /*width: 80px;*/
+    height: 48px;
+}
 .sign-in-button:hover {
     background: #474953;
     color:  rgb(244,245,240);
