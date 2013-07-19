@@ -68,7 +68,7 @@ define('BlahCommentDetailPage',
                 RefreshForCommentText()
             } else {
                 $("#SignInToCommentArea").show();
-                $(".sign-in-button").click(SignInToComment);
+                $(".sign-in-comment-button").click(SignInToComment);
                 $("#CreateCommentArea").hide();
                 titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
