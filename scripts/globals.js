@@ -85,7 +85,7 @@ define('globals',
         var SpinTarget = null;
         var SessionTimer = null;
         var TimeoutFunction = null;
-        var numMinutes = 4;
+        var numMinutes = 60;
 
         /*
          Global functions
