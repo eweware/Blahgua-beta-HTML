@@ -57,7 +57,8 @@
     }
     .fill-center-container
     {
-        width: 230px;
+        width: 250px;
+		padding-left:10px;
     }
     .BlahFullBody
     {
