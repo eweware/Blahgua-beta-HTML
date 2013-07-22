@@ -140,7 +140,12 @@
     border-top-color: #999999;
     border-top-width: 1px;
 }
-
+.attribute-table .user-comment-row
+{
+    border-top: solid;
+    border-top-color: #999999;
+    border-top-width: 1px;
+}
 .attribute-table .attribute-col {
     text-align: right;
     padding-right: 12px;
