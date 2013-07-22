@@ -265,7 +265,10 @@
 .user-comment-row .title-text {
     width: 100%;
 }
-
+.user-comment-row .title-text a{
+ 
+	color:black;
+}
 
 .user-blah-row {
 
