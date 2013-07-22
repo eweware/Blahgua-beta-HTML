@@ -283,10 +283,17 @@
     padding: 4px 0px;
     line-height: 3em;
 }
-
-
+.comment-sort-area input
+{
+   background-color:white;
+}
+.blah-sort-area input
+{
+   background-color:white;
+}
 .comment-sort-area td {
     min-width: 25px;
+	padding-right:2px;
 }
 
 .comment-sort-area select {
