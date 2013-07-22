@@ -397,6 +397,10 @@ define('comments',
                         var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
                         var theUrl = 'url("' + imagePathName + '")';
                         $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
+                        $(".image-preview").append('<i class="icon-remove-sign image-delete-btn2"></i>');
+                        $(".image-delete-btn").click(function() {
+                           console.log("rest call");
+                        });
                     },
                     error: errorHandler = function(theErr) {
                         $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
