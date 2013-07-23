@@ -117,3 +117,15 @@
 
 }
 
+.option {
+    display: block;
+}
+
+.option .title {
+    display: block;
+}
+
+option .description {
+    display: block;
+}
+
