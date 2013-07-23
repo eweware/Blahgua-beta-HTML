@@ -168,7 +168,7 @@ define('SelfPageHistory',
             commentDiv.empty();
             if (CommentList.length > 0) {
                 $.each(CommentList, function (index, item) {
-                    newHTML = CreateUserCommentHTML(item);
+                    newHTML = CreateUserCommentHTML(item,index);
                     commentDiv.append(newHTML);
                 });
                 // bind events
@@ -287,6 +287,7 @@ define('SelfPageHistory',
             if (img != "") {
                 newHTML += "<td class='title-text'>";
 				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+				newHTML += "<a href='javascript:void(null)'>";
                 newHTML += G.UnCodifyText(theBlah.T);
                 newHTML += "</a></td>";
                 newHTML += "<td>";
@@ -306,8 +307,23 @@ define('SelfPageHistory',
             newHTML += "</tr>";
             return newHTML;
         };
+    var CreateUserCommentHTML = function(theComment,number) {
+            var newHTML = "";
+			var positionNum=number+1;
+            newHTML += "<tr class='user-comment-row'>"
+			newHTML += "<td class='title-text'>"
+			newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+			newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+			
+            
+            newHTML += G.UnCodifyText(theComment.T);
+            newHTML += "</a></td>";
+            newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>"
+            newHTML += "</tr>";
+            return newHTML;
+        };
 
-        var CreateUserCommentHTML = function(theComment) {
+       /* var CreateUserCommentHTML = function(theComment) {
             var newHTML = "";
             newHTML += "<tr class='user-comment-row'>"
             newHTML += "<td class='title-text'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
@@ -316,7 +332,7 @@ define('SelfPageHistory',
             newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>"
             newHTML += "</tr>";
             return newHTML;
-        };
+        };*/
 
 
         var DoOpenUserBlah = function(blahId) {
