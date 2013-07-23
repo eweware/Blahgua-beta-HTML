@@ -110,7 +110,7 @@ define('BlahBodyDetailPage',
             var imageEl = document.getElementById("blahFullImage");
             if (image == "") {
                 imageEl.style.display = "none";
-                $(".blah-body-divider").show();
+                $(".blah-body-divider").hide();
             } else {
                 imageEl.style.display = "absolute";
                 $(".blah-body-divider").hide();
