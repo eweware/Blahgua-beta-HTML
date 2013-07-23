@@ -296,6 +296,7 @@ define('SelfPageHistory',
             } else {
                 newHTML += "<td colspan='2' class='title-text'>";
 				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+				newHTML += "<a href='javascript:void(null)'>";
                 newHTML += G.UnCodifyText(theBlah.T);
                 newHTML += "</a></td>";
             }

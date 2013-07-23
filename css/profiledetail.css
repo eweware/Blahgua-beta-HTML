@@ -274,7 +274,10 @@
  
 	color:black;
 }
-
+.user-comment-row .title-text a:hover{
+ 
+	color:blue;
+}
 .user-blah-row {
 
 }
@@ -282,7 +285,12 @@
 .user-blah-row .title-text {
     width: 100%;
 }
-
+.user-blah-row .title-text a {
+   color:black;
+}
+.user-blah-row .title-text a:hover {
+   color:blue;
+}
 .chart-box {
     height:200px;
     width:400px;
