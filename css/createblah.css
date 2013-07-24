@@ -226,11 +226,17 @@
 {
     position:relative;
     background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     font-size:16px;
     font-family: 'Arimo',sans-serif;
     border-radius:8px;
-    border-style:none;
     padding:8px 16px;
 }
 
@@ -250,6 +256,12 @@
 {
 
     background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
     color: rgb(244,245,240);
 
 
@@ -257,7 +269,13 @@
 
 .create-page-button:hover
 {
-    background: #474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
     color: rgb(244,245,240);
 
 }
@@ -267,6 +285,8 @@
 {
     color: #CCCCCC;
     background-color: #999999;
+    background-image: none;
+    border: solid 1px #999999;
 }
 
 .create-validation-row {

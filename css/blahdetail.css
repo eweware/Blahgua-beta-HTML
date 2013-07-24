@@ -121,18 +121,36 @@
     width:100%;
     height:40px;
     border:none;
+    background-image: -moz-linear-gradient(rgb(244,245,240),rgb(183,184,180));
+    background-image: -ms-linear-gradient(rgb(244,245,240),rgb(183,184,180));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(244,245,240)),color-stop(100%,rgb(183,184,180)));
+    background-image: -webkit-linear-gradient(rgb(244,245,240),rgb(183,184,180));
+    background-image: -o-linear-gradient(rgb(244,245,240),rgb(183,184,180));
+    background-image: linear-gradient(rgb(244,245,240),rgb(183,184,180));
     background-color: rgb(244,245,240);
     color: rgb(32,32,32);
     font-size:18px;
 }
 
 .BlahButton:hover {
+    background-image: -moz-linear-gradient(rgb(207,208,203),rgb(155,156,152));
+    background-image: -ms-linear-gradient(rgb(207,208,203),rgb(155,156,152));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(207,208,203)),color-stop(100%,rgb(155,156,152)));
+    background-image: -webkit-linear-gradient(rgb(207,208,203),rgb(155,156,152));
+    background-image: -o-linear-gradient(rgb(207,208,203),rgb(155,156,152));
+    background-image: linear-gradient(rgb(207,208,203),rgb(155,156,152));
     background-color: rgb(207,208,203);
     color: rgb(32,32,32);
 
 }
 
 .BlahBtnSelected {
+    background-image: -moz-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -ms-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,215,255)),color-stop(100%,rgb(109,167,199)));
+    background-image: -webkit-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -o-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: linear-gradient(rgb(141,215,255),rgb(109,167,199));
     background-color: rgb(125,191,227);
     color: rgb(32,32,32);
     position:relative;
@@ -141,6 +159,12 @@
 }
 
 .BlahBtnSelected:hover{
+    background-image: -moz-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -ms-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,215,255)),color-stop(100%,rgb(109,167,199)));
+    background-image: -webkit-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -o-linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: linear-gradient(rgb(141,215,255),rgb(109,167,199));
     background-color: rgb(125,191,227);
     color: rgb(32,32,32);
 
@@ -339,11 +363,17 @@
 
 .add-comment-btn {
     background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     border-radius: 8px;
     font-size: 18px;
     font-family: 'Arimo', sans-serif;
-    border-style: none;
     padding: 4px 12px;
     float: right;
     margin-left: 8px;
@@ -377,7 +407,13 @@
 
 
 .add-comment-btn:hover {
-    background: #474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
     color: rgb(244,245,240);
 }
 
@@ -385,6 +421,8 @@
 .add-comment-btn:disabled {
     color: #CCCCCC;
     background-color: #999999;
+    background-image: none;
+    border: solid 1px #999999;
 }
 
 

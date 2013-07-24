@@ -122,6 +122,12 @@
 }
 .toggle-btn {
     color:rgb(244,245,240);
+    background-image: -moz-linear-gradient(rgb(0,207,0),rgb(0,161,0));
+    background-image: -ms-linear-gradient(rgb(0,207,0),rgb(0,161,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(0,207,0)),color-stop(100%,rgb(0,161,0)));
+    background-image: -webkit-linear-gradient(rgb(0,207,0),rgb(0,161,0));
+    background-image: -o-linear-gradient(rgb(0,207,0),rgb(0,161,0));
+    background-image: linear-gradient(rgb(0,207,0),rgb(0,161,0));
     background-color: #00b800;
     border-style:none;
     border-width: 0px;
@@ -132,7 +138,7 @@
     padding-left:8px;
     padding-right:8px;
     margin:0px;
-    margin-left:1px;
+    margin-left:0px;
     width: 102px;
 }
 
@@ -155,15 +161,33 @@
 
 .toggle-btn:hover {
     color:rgb(244,245,240);
+    background-image: -moz-linear-gradient(rgb(0,189,0),rgb(0,147,0));
+    background-image: -ms-linear-gradient(rgb(0,189,0),rgb(0,147,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(0,189,0)),color-stop(100%,rgb(0,147,0)));
+    background-image: -webkit-linear-gradient(rgb(0,189,0),rgb(0,147,0));
+    background-image: -o-linear-gradient(rgb(0,189,0),rgb(0,147,0));
+    background-image: linear-gradient(rgb(0,189,0),rgb(0,147,0));
     background-color: #00a800;
 }
 
 .toggle-active {
+    background-image: -moz-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(137,234,0)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: linear-gradient(rgb(137,234,0),rgb(122,208,0));
     background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
+    background-image: -moz-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(137,234,0)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(137,234,0),rgb(122,208,0));
+    background-image: linear-gradient(rgb(137,234,0),rgb(122,208,0));
     background-color: rgb(122,208,0);
     color:rgb(244,245,240);
 }
@@ -173,8 +197,13 @@
 .action-btn {
     color: rgb(244,245,240);
     background-color: rgb(84,86,98);
-    border-style:none;
-    border-width: 0px;
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     border-radius: 8px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
@@ -184,12 +213,21 @@
 
 .action-btn:hover {
     color:rgb(244,245,240);
-    background-color: #474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+
 }
 
 .action-btn:disabled {
     color: #CCCCCC;
     background-color: #999999;
+    background-image: none;
+    border: solid 1px #999999;
 }
 
 .recover-btn {
@@ -216,18 +254,33 @@
 
 .action-default {
     background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     width: 200px;
 }
 
 .action-default:hover {
-    background-color:#474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
     color:rgb(244,245,240);
 }
 
 .action-default:disabled {
     color: #CCCCCC;
     background-color: #999999;
+    background-image: none;
+    border: solid 1px #999999;
 }
 
 

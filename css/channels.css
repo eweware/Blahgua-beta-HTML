@@ -45,10 +45,19 @@
 .ChannelOptions {
     width:48px;
     height:48px;
-    border-left-color:rgba(32,32,32,.4);
+    border-left-color:rgba(88,90,103,.4);
     border-left-width:1px;
     border-left-style:solid;
-    background: rgb(84,86,98);
+    border-right-color:rgba(88,90,103,.4);
+    border-right-width:1px;
+    border-right-style:solid;
+    background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
     color: rgb(244,245,240);
     font-weight:bold;
     text-align:center;
@@ -57,7 +66,13 @@
 }
 
 .ChannelOptions:hover {
-    background: #474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
     color: rgb(244,245,240);
 }
 
@@ -70,18 +85,31 @@
 }
 
 .sign-in-button {
-    background: rgb(84,86,98);
+    background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
-    border-style: none;
     float: right;
     width: 80px;
     height: 48px;
 }
 .sign-in-comment-button
 {
-    background: rgb(84,86,98);
+    background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
@@ -90,8 +118,26 @@
     /*width: 80px;*/
     height: 48px;
 }
+
+.sign-in-comment-button:hover {
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    color:  rgb(244,245,240);
+}
+
 .sign-in-button:hover {
-    background: #474953;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
     color:  rgb(244,245,240);
 }
 
