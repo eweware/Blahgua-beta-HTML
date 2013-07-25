@@ -3,9 +3,9 @@
 <div id="CreateBlahPage">
 
     <table class="BlahFullHeader" id="CreateBlahHeader">
-        <tr  class="blah-headline-row">
+        <tr class="blah-headline-row">
             <td rowspan="2">
-                <div class="back-button blah-closer" ></div>
+                <div class="back-button blah-closer"></div>
             </td>
             <td rowspan="2">
                 <div id="BlahAuthorImage" class="create-author-image"></div>
@@ -24,7 +24,7 @@
         </tr>
 
         <tr class="show-blah-bkgnd">
-            <td  colspan="3">
+            <td colspan="3">
                 <div class="blah-summary-bar">
                     <table id="BlahFacetTable" style="width:100%">
                         <tr>
@@ -38,8 +38,9 @@
         </tr>
 
         <tr class="show-blah-bkgnd">
-            <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" >
-                <textarea placeholder="Headline here (64 chars max) Says: Says are general posts with no requirements." type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
+            <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline">
+                <textarea placeholder="Headline here (64 chars max) Says: Says are general posts with no requirements."
+                          type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
             </td>
         </tr>
 
@@ -48,70 +49,41 @@
         </tr>
     </table>
 
-    <div class="create-content-div show-blah-bkgnd" id="createcontent" >
-        <table class="createblahscrolltable show-blah-bkgnd">
-            <tr>
-                <td style="width:68px"><div class="image-preview no-image" id="ImagePreviewDiv">
-                    no<br/>image
-                </div></td>
-                <td colspan="2">
-                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
-                        <div>
-                            <input id="BlahImage" name="file" type="file" no-validate>
-                            <div style="display:none">
+    <div class="create-content-div show-blah-bkgnd" id="createcontent">
+        <div class="createblahscrolltable show-blah-bkgnd">
+            <span id="BodyCharCount" class="charcounter"></span>
+
+            <div id="AdditionalInfoDiv" class="createblahadditional"></div>
+            <div id="BadgeChoiceRow" name="BadgeRow" style="display:none">
+                <table class="attribute-table">
+                    <tbody id="BadgesDiv">
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="optionalBody">
+                <div class="image-preview comment-preview no-image" id="ImagePreviewDiv">no<br/>image</div>
+                <textarea placeholder="Optional body text here " class="inputbodyframe" id="BlahBody"></textarea>
+            </div>
+            <div id="ValidationRow" class="create-validation-row">
+                <div><span class="create-err-msg" id="ErrMsgSpan"></span></div>
+            </div>
+            <div class="CreateFooterDiv">
+                <form id="ImageForm" style="float:left" action="" method="post" enctype="multipart/form-data">
+                    <div>
+                        <input id="BlahImage" name="file" type="file" no-validate>
+                        <div style="display:none">
                             <input type="text" name="objectType" hidden="true" value="X"/>
                             <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                             <input type="text" name="primary" hidden="true" value="true"/>
-                            </div>
                         </div>
+                    </div>
                 </form>
-                    </td>
-
-            </tr>
-
-            <tr>
-                <td colspan="3"  class="shorttitle">Body</td>
-            </tr>
-            <tr>
-                <td colspan="3" class="BlahFullHeadline">
-                    <textarea placeholder="Optional body text here " class="inputbodyframe" id="BlahBody"></textarea>
-                </td>
-            </tr>
-            <tr><td colspan="3"><span id="BodyCharCount" class="charcounter"></span></td></tr>
-            <tr width="100%">
-                <td colspan="3" id="AdditionalInfoDiv"  class="createblahadditional">
-
-                </td>
-            </tr>
-
-
-            <tr id="BadgeChoiceRow" name="BadgeRow" style="display:none">
-                <td colspan="3">
-                    <table class="attribute-table">
-                        <tbody id="BadgesDiv">
-
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-
-        </table>
-    </div>
-    <div class="create-footer-div">
-        <table id="CreateFooterDiv" class="create-blah-footer">
-            <tr>After publishing, watch for your post in the stream.</tr>
-            <tr style="text-align: center">
-            <td>
-                <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
-            </td>
-            <td >
+                <button id="ShowBadgeAreaBtn" class="create-page-button">Add Badge</button>
                 <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Publish</button>
-            </td>
-        </tr>
-            <tr id="ValidationRow" class="create-validation-row">
-                <td  colSpan="3" ><span class="create-err-msg" id="ErrMsgSpan"></span></td>
-            </tr>
-        </table>
+            </div>
+
+        </div>
     </div>
 </div>
 </body>
