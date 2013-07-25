@@ -22,6 +22,9 @@ define('BlahStatsDetailPage',
             // bind the methods
 
             // handle the sizing
+            var newWidth = $(".accordion-body").width();
+            $(".chart-box").width(newWidth - 32);
+
             var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
             var maxSize = curBottom - curTop + "px";
@@ -144,44 +147,15 @@ define('BlahStatsDetailPage',
             if (curStats && curStats.length > 0) {
                 var endDate = new Date(Date.now());
                 var startDate = new Date(Date.now() - (G.numStatsDaysToShow * (24 * 3600 * 1000)));
-                //var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, CurrentBlah, "V");
+                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "V");
                 var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "O");
                 var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "C");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#BlahActivityDiv').empty().highcharts({
-                    title: {
-                        text:"Audience Activity"
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: [{
-                        min:0,
-                        title: { text: "count"}
-                    }],
-                    series: [{
-                            type: 'areaspline',
-                            data: openData,
-                            name: "#blahs opened"
-                        } ,
+                $('#BlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", viewData, catAxis));
+                $('#BlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Opens", openData, catAxis));
+                $('#BlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", commentsMade, catAxis));
 
-                        {
-                            type: 'column',
-                            data: commentsMade,
-                            name: "#comments",
-                        }]
-                });
             }
 
 
@@ -196,12 +170,12 @@ define('BlahStatsDetailPage',
             else
                 $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
-            /*
-             if (IsUserLoggedIn && UserProfile.hasOwnProperty("C") && (UserProfile["C"] != -1))
-             $("#DemoGenderChartArea").highcharts(MakeDemoChartOptions(CurrentBlah, "Age", "C"));
+
+             if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
+                $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
              else
-             $("#DemoGenderChartArea").html(GenerateShareDemoHTML("Age", "C"));
-             */
+                $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
+
 
             if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
                 $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
