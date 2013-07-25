@@ -27,7 +27,22 @@ define('BlahCommentDetailPage',
 
          if (G.IsUserLoggedIn)  {
                 var $commentTextArea = $("#CommentTextArea");
-                $("#CommentImage").change(comments.UploadCommentImage);
+
+             $("#CommentImage").change(comments.UploadCommentImage);
+             $("#ImagePreviewDiv").click(function(theEvent) {
+                 document.getElementById('CommentImage').click();
+             } );
+
+             $(".image-delete-btn").click(function(theEvent) {
+                 theEvent.stopImmediatePropagation();
+                 $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                 $("#ImagePreviewDiv span").text("no image");
+                 $("#ImagePreviewDiv i").hide();
+                 $("#CommentImage").val("");
+                 $("#objectId").val("");
+                 return false;
+             });
+
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
                     $("#CommentImage").attr("disabled", false)
@@ -36,17 +51,17 @@ define('BlahCommentDetailPage',
                     comments.DoAddComment(function(newComment) {
                         $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
-                        $commentTextArea.empty().height("40px").removeAttr('disabled').focus();
-                        $("#CommentImage").val("").change();
+                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                        $("#ImagePreviewDiv span").text("no image");
+                        $("#ImagePreviewDiv i").hide();
+                        $("#CommentImage").val("");
+                        $("#objectId").val("");
                     });
                 });
             }
 
-            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
-            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop + "px";
-            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
-            $("#CommentTextArea").focus();
+
 
             var titleBottom;
 
@@ -72,6 +87,12 @@ define('BlahCommentDetailPage',
                 $("#CreateCommentArea").hide();
                 titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
+
+            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
+            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+            var maxSize = curBottom - curTop + "px";
+            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
+            $("#CommentTextArea").focus();
 
             if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
 			{

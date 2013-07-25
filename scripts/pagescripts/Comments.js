@@ -282,36 +282,20 @@ define('comments',
 
             newHTML += '<td><table class="comment-item-table" data-comment-index="' + index + '"">';
 
-            // comment author
+            // comment author, date, voting
 
             newHTML += '<tr>';
-            newHTML += '<td rowspan=';
+            newHTML += '<td rowspan=3';
             if (image == "")
                 newHTML += "3";
             else
                 newHTML += "4";
             newHTML += ' style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
-            newHTML += '<td colspan=2 style="width:100%"><span class="comment-user-name">' + blahgerName + '</span>,&nbsp;';
-            newHTML += '<span class="comment-user-description">' + authorDesc + '</span></td>';
-
-            // comment text
-            newHTML += '<tr>';
-            newHTML += '<td colspan=2 class="comment-body-row"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
-            newHTML += '</tr>';
-
-            // comment image
-            if (image != "") {
-                newHTML += '<tr>';
-                newHTML += '<td colspan=2 class="comment-image-row">' +
-                    '<img src="' + image + '" alt="Comment Image" class="comment-image">';
-                newHTML += '</td></tr>';
-            }
-
-
+            newHTML += '<td class="comment-user-name">' + blahgerName + '</td>';
+            newHTML += '<td><span class="comment-date">' + G.ElapsedTimeString(new Date(theComment.c)) + '</span></td>';
 
             // coontrols
-            newHTML += '<tr>';
-            newHTML += '<td><div class="comment-vote-div">';
+            newHTML += '<td style="width:100%; text-align:right"><div class="comment-vote-div">';
             if (isOwnComment || isOwnBlah || (ownVote != 0)) {
                 var uv = G.GetSafeProperty(theComment, "U", 0);
                 var dv = G.GetSafeProperty(theComment, "D", 0)
@@ -361,13 +345,29 @@ define('comments',
                 newHTML += G.GetSafeProperty(theComment, "D", 0);
                 newHTML += '</span> ';
             }
+            newHTML += '</td></tr>'
 
-            newHTML += '</div></td>';
-            newHTML += '<td><span class="comment-date">' + G.ElapsedTimeString(new Date(theComment.c)) + '</span></td>';
+
+            // user description
+            newHTML += '<tr><td colspan="3" class="comment-user-description">' + authorDesc + '</td></tr>';
+
+
+            // comment text
+            newHTML += '<tr>';
+            newHTML += '<td colspan="3" class="comment-body-row"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
             newHTML += '</tr>';
 
-            newHTML += '</div>';
-            newHTML += '</td>';
+            // comment image
+            if (image != "") {
+                newHTML += '<tr>';
+                newHTML += '<td colspan="3" class="comment-image-row">' +
+                    '<img src="' + image + '" alt="Comment Image" class="comment-image">';
+                newHTML += '</td></tr>';
+            }
+
+
+
+            newHTML += '</table></td>';
 
 
             newEl.innerHTML = newHTML;
@@ -379,11 +379,13 @@ define('comments',
             $("#objectId").val("");
             if ($("#CommentImage").val() == "" ) {
                 // clear the image
-                $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
+                $(".image-preview").addClass("no-image").css({"background-image":"none"});
+                $(".image-preview span").text("no image");
             } else {
                 var imageUrl = "url('" + BlahguaConfig.fragmentURL +  "img/ajax-loader.gif')";
-                    $(".image-preview").addClass("no-image").css({"background-image": imageUrl}).text("loading");
 
+                $(".image-preview").addClass("no-image").css({"background-image": imageUrl});
+                $(".image-preview span").text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
                 $.ajax({
@@ -396,11 +398,9 @@ define('comments',
                         // to do - update the image...
                         var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
                         var theUrl = 'url("' + imagePathName + '")';
-                        $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
-                        $(".image-preview").append('<i class="icon-remove-sign image-delete-btn2"></i>');
-                        $(".image-delete-btn").click(function() {
-                           console.log("rest call");
-                        });
+                        $(".image-preview").removeClass("no-image").css({"background-image": theUrl});
+                        $(".image-preview span").text("");
+                        $(".image-preview i").show();
                     },
                     error: errorHandler = function(theErr) {
                         $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");

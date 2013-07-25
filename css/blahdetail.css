@@ -403,6 +403,7 @@
     border-radius: 8px;
     border: 1px solid lightgray;
     box-shadow: 0px 4px 5px 0px rgba(0,0,0,.2);
+    margin-top:8px;
 }
 
 
@@ -455,15 +456,15 @@
 
 .comment-item-table {
     width:100%;
-    border-bottom-style:solid;
-    border-bottom-width: 1px;
     margin-bottom:8px;
-    border-bottom-color: rgb(124,124,124));
-    padding-bottom: 8px;
+    margin-top: 8px;
 }
+
 .comment-table-row {
     width:100%;
+    border-bottom: 1px solid rgb(124, 124, 124);
 }
+
 .comment-user-image {
     width:48px;
     height:48px;
@@ -474,8 +475,8 @@
 .comment-user-name {
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
-    font-weight: bold;
-    color:rgb(32,32,32);
+    color:blue;
+    white-space: nowrap;
 }
 
 
@@ -484,12 +485,14 @@
     font-family: 'Arimo', sans-serif;
     font-style: italic;
     color: rgb(124,124,124);
-    float:right;
-    padding-right: 8px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    margin-left: 8px;
 }
 
 .comment-body-row {
-
+    padding-top: 4px;
 
 }
 
@@ -498,16 +501,20 @@
 }
 
 
+.comment-vote-div {
+    margin-right:8px;
+}
 
 .image-preview.comment-preview {
     font-family: 'Arimo', sans-serif;
-    display: table-cell;
+    display: inline-block;
     vertical-align: middle;
     width: 64px;
     min-width: 64px;
     height: 64px;
     border: 1px solid #999999;
     background-color: rgb(255,255,255);
+    margin:0 0 0 0;
 }
 
 
@@ -515,7 +522,7 @@
 
 .comment-text {
     color:  rgb(32,32,32);
-    font-size: 14px;
+    font-size: 12px;
     font-family: 'Arimo', sans-serif;
     word-break: break-word;
     word-wrap: break-word ;
@@ -523,7 +530,7 @@
 }
 
 .comment-user-description {
-    font-size: 12px;
+    font-size: 11px;
     font-family: 'Arimo', sans-serif;
     font-style: italic;
     color: rgb(124,124,124);

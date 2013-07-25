@@ -180,6 +180,19 @@ define('BlahBodyDetailPage',
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").val(exports.CurrentCommentText);
                 $("#CommentImage").change(comments.UploadCommentImage);
+                $("#ImagePreviewDiv").click(function(theEvent) {
+                    document.getElementById('CommentImage').click();
+                } );
+
+                $(".image-delete-btn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                    $("#ImagePreviewDiv span").text("no image");
+                    $("#ImagePreviewDiv i").hide();
+                    $("#CommentImage").val("");
+                    $("#objectId").val("");
+                    return false;
+                });
 
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
@@ -191,7 +204,11 @@ define('BlahBodyDetailPage',
                         $(".top-comments-header").show();
                         $("#CharCountDiv").text(4000);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
-                        $("#CommentImage").val("").change();
+                        $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                        $("#ImagePreviewDiv span").text("no image");
+                        $("#ImagePreviewDiv i").hide();
+                        $("#CommentImage").val("");
+                        $("#objectId").val("");
                     });
                 });
                 RefreshForCommentText();
