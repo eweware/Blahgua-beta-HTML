@@ -145,12 +145,12 @@
 }
 
 .BlahBtnSelected {
-    background-image: -moz-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -ms-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,215,255)),color-stop(100%,rgb(109,167,199)));
-    background-image: -webkit-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -o-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -moz-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -ms-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,204,255)),color-stop(100%,rgb(109,158,199)));
+    background-image: -webkit-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -o-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: linear-gradient(rgb(141,204,255),rgb(109,158,199));
     background-color: rgb(125,191,227);
     color: rgb(32,32,32);
     position:relative;
@@ -159,12 +159,12 @@
 }
 
 .BlahBtnSelected:hover{
-    background-image: -moz-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -ms-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,215,255)),color-stop(100%,rgb(109,167,199)));
-    background-image: -webkit-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: -o-linear-gradient(rgb(141,215,255),rgb(109,167,199));
-    background-image: linear-gradient(rgb(141,215,255),rgb(109,167,199));
+    background-image: -moz-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -ms-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,204,255)),color-stop(100%,rgb(109,158,199)));
+    background-image: -webkit-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: -o-linear-gradient(rgb(141,204,255),rgb(109,158,199));
+    background-image: linear-gradient(rgb(141,204,255),rgb(109,158,199));
     background-color: rgb(125,191,227);
     color: rgb(32,32,32);
 
