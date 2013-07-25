@@ -28,9 +28,9 @@
                 <div class="blah-summary-bar">
                     <table id="BlahFacetTable" style="width:100%">
                         <tr>
-                            <td colspan="2  ">
-                                <span class="FullBlahProfileString" id="FullBlahProfileString"></span>
-                            </td>
+                            <td style="width:100%"> <span class="FullBlahProfileString" id="FullBlahProfileString"></span> </td>
+                            <td><span id="FullBlahDateStr" class="FullBlahDateStr"></span>  </td>
+
                         </tr>
                     </table>
                 </div>
@@ -38,7 +38,13 @@
         </tr>
 
         <tr class="show-blah-bkgnd">
-            <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" >
+            <td>
+                <div class="image-preview no-image" id="ImagePreviewDiv">
+                    <i class="icon-remove-sign image-delete-btn"></i>
+                    <span>no image</span>
+                </div>
+            </td>
+            <td colspan="2" class="createblahheadline" id="BlahFullHeadline" >
                 <textarea placeholder="Headline here (64 chars max) Says: Says are general posts with no requirements." type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
             </td>
         </tr>
@@ -50,22 +56,18 @@
 
     <div class="create-content-div show-blah-bkgnd" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
-            <tr>
-                <td style="width:68px"><div class="image-preview no-image" id="ImagePreviewDiv">
-                    no<br/>image
-                </div></td>
+            <tr style="display:none">
+
                 <td colspan="2">
-                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
-                        <div>
-                            <input id="BlahImage" name="file" type="file" no-validate>
-                            <div style="display:none">
-                            <input type="text" name="objectType" hidden="true" value="X"/>
-                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                            <input type="text" name="primary" hidden="true" value="true"/>
+                    <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                            <div>
+                                <input id="BlahImage" name="file" type="file" no-validate>
+                                <input type="text" name="objectType" hidden="true" value="X"/>
+                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                <input type="text" name="primary" hidden="true" value="true"/>
                             </div>
-                        </div>
-                </form>
-                    </td>
+                    </form>
+                </td>
 
             </tr>
 

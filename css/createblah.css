@@ -37,14 +37,20 @@
     top: 0px;
 }
 
-.createblahheadline
-{
-    background-color:rgb(124,124,124);
+
+
+.createblahheadline {
+    font-size: 24px;
+    font-family: 'Arimo', sans-serif;
+    width: 100%;
+    text-align: left;
+    padding: 12px 12px 12px 0px;
+    word-wrap: break-word;
     border-spacing:0;
     overflow-x:hidden;
     overflow-y:hidden;
-
 }
+
 .image-preview {
     font-family: 'Arimo', sans-serif;
     display: inline-block;
@@ -55,13 +61,13 @@
     font-size:9pt;
     text-align: center;
     vertical-align: middle;
-    margin: 0px 10px 8px 16px;
-    border: 1px rgb(32,32,32) rgb(124,124,124));
+    margin: 0px 10px 7px 16px;
+    border: 1px solid rgb(32,32,32);
 }
 
 .image-preview.no-image {
     font-family: 'Arimo', sans-serif;
-    border: 1px rgb(32,32,32) rgb(124,124,124)
+    border: 1px solid rgb(32,32,32);
 }
 
 #ImageForm {
@@ -344,10 +350,12 @@
 
 
 .charcounter {
-    font-size:9pt;
+    font-size: 9pt;
     float: right;
     color: rgb(32,32,32);
     font-family: 'Arimo', sans-serif;
+    margin-right: 12px;
+    margin-bottom: 8px;
 }
 
 

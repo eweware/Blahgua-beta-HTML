@@ -133,6 +133,7 @@ define('BlahBodyDetailPage',
                 bodyTextDiv.innerHTML = bodyText;
             } else {
                 bodyTextDiv.innerHTML = "";
+                bodyTextDiv.style.display = "none";
             }
 
             // check if it is a special type
@@ -150,6 +151,8 @@ define('BlahBodyDetailPage',
                     });
                     break;
                 default:
+                    $("#AdditionalInfoArea").hide();
+                    break;
             }
 
             // fix any sizing issues

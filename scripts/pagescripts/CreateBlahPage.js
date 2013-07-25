@@ -32,6 +32,20 @@ define('CreateBlahPage',
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(UploadBlahImage);
+            $("#ImagePreviewDiv").click(function(theEvent) {
+                document.getElementById('BlahImage').click();
+            } );
+
+            $(".image-delete-btn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                $("#ImagePreviewDiv span").text("no image");
+                $("#ImagePreviewDiv i").hide();
+                $("#BlahImage").val("");
+                $("#objectId").val("");
+                return false;
+            });
+
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
             $("#ShowBadgeAreaBtn").click(function(theEvent) {
@@ -143,10 +157,7 @@ define('CreateBlahPage',
 
 
         var HandleHeadlineTextInput = function(target) {
-            if(target.scrollHeight > target.clientHeight)  {
-                target.style.height=target.scrollHeight+'px';
-                UpdateLayout();
-            }
+
             var numCharsRemaining = K.MaxTitleLength - target.value.length;
             if (numCharsRemaining < 32) {
                 $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
@@ -318,7 +329,8 @@ define('CreateBlahPage',
                 $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
             } else {
                 var imageURL = "url('" + BlahguaConfig.fragmentURL + "img/ajax-loader.gif')";
-                $(".image-preview").addClass("no-image").css({"background-image":imageURL}).text("loading");
+                $(".image-preview").addClass("no-image").css({"background-image":imageURL});
+                $(".image-preview span").text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
                 $.ajax({
@@ -331,7 +343,9 @@ define('CreateBlahPage',
                         // to do - update the image...
                         var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
                         var theUrl = 'url("' + imagePathName + '")';
-                        $(".image-preview").removeClass("no-image").css({"background-image":theUrl}).text("");
+                        $(".image-preview").removeClass("no-image").css({"background-image":theUrl});
+                        $(".image-preview span").text("");
+                        $(".image-preview i").show();
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
