@@ -244,6 +244,7 @@
     border: solid 1px rgb(168,168,175);
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    border-bottom-style: none;
 
 }
 

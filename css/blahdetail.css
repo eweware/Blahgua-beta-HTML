@@ -328,7 +328,7 @@
 
 .comment-text-area {
     color: rgb(32,32,32);
-    background-color: rgb(255,255,255);
+    background-color: rgb(254,254,254);
     min-height: 3em;
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
@@ -345,18 +345,11 @@
 }
 
 .comment-text-area:focus {
-    color: rgb(32,32,32);
-    background-color: rgb(255,255,255);
-    min-height: 3em;
-    font-size: 14px;
-    font-family: 'Arimo', sans-serif;
-    width: 100%;
-    overflow-y: auto;
     border: solid 1px rgb(125, 181, 227);
-    box-shadow: 0 0 5px #999999;
-    -webkit-box-shadow: 0 0 5px #999999;
-    -moz-box-shadow:0 0 5px #999999;
-
+    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    background-color: rgb(255,255,255);
 }
 
 .add-comment-btn {

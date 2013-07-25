@@ -22,7 +22,7 @@ input {
     text-align: left;
     padding: 4px;
     border-size:0px;
-    background-color: rgb(255,255,255);
+    background-color: rgb(254,254,254);
     border: solid   1px #999999;
     border-radius: 4px;
     outline:none;
@@ -33,9 +33,9 @@ input {
 
 input:focus {
     border: solid 1px rgb(125, 181, 227);
-    box-shadow: 0 0 5px ;
-    -webkit-box-shadow: 0 0 5px #999999;
-    -moz-box-shadow: 0 0 5px #999999);
+    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
     background-color: rgb(255,255,255);
 
 }
