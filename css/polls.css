@@ -93,7 +93,7 @@
 
 .poll-description {
     text-align: left;
-    width:100%;
+    width:80%;
     font-family: 'Arimo', sans-serif;
     font-size:12pt;
     font-style: italic;
@@ -119,13 +119,19 @@
 
 .option {
     display: block;
+    margin-top: 12px;
 }
 
 .option .title {
     display: block;
+    margin: 6px 0px;
 }
 
 option .description {
     display: block;
+}
+
+#BlahTypeAskAuthorPage {
+    text-align: left;
 }
 

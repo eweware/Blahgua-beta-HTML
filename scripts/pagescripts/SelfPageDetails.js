@@ -411,7 +411,7 @@ define('SelfPageDetails',
                 $("#uploadimage").removeClass("no-image").css({"background-image": "url('" + newImage + "')"});
                 $("#uploadimage span").text("");
                 $("#uploadimage i").show();
-                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+	            $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
                 $(".profile-button").css({"background-image": "url('" + newImage + "')"});
 
 

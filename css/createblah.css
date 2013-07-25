@@ -126,13 +126,11 @@
 }
 
 .create-content-div {
-    overflow-y: auto;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
-    position: absolute;
-    width: 100%;
     bottom: 60px;
     top: 244px;
+    padding: 12px 12px;
 }
 
 .create-blah-footer {
@@ -143,7 +141,7 @@
 .createblahscrolltable
 {   width:100%;
     height:auto;
-    overflow-y:scroll;
+    overflow-y:auto;
     overflow-x:hidden;
 }
 
@@ -189,7 +187,6 @@
 
 .inputbodyframe
 {
-    width:98%;
     min-height:60px;
     font-size:20px;
     font-family: 'Arimo', sans-serif;
@@ -214,6 +211,22 @@
 
 }
 
+.CreateFooterDiv button
+{
+    margin-top: 12px;
+    margin-left: 12px;
+}
+
+#ImagePreviewDiv
+{
+    margin: 0px 8px 8px 0px;
+    float: left;
+}
+
+.optionalBody .image-preview
+{
+    margin: 0px 0px 8px 16px;
+}
 
 .inputbody
 {       width:512px;
@@ -228,6 +241,11 @@
     background:grey;
 
 }
+
+.optionalBody {
+    margin-top: 20px;
+}
+
 .create-page-button
 {
     position:relative;
@@ -296,7 +314,7 @@
 }
 
 .create-validation-row {
-    text-align: right;
+    text-align: left;
     height: 32px;
 }
 
