@@ -135,3 +135,13 @@ option .description {
     text-align: left;
 }
 
+.add-poll-choice-btn {
+    display: block;
+    margin:0 auto;
+    background-image: url(../img/Large_Upvote2Grey.png);
+    background-size: 25px 25px;
+    background-repeat:no-repeat;
+    padding-left: 35px;
+    line-height: 25px;
+    margin-top: 10px;
+}
