@@ -6,7 +6,7 @@
     top: 8px;
     height:48px;
     z-index:10;
-    background-color:rgb(255,255,255);
+    background-color:rgb(125,191,227);
     color:rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
@@ -15,11 +15,11 @@
     box-shadow: rgba(0,0,0,.4) 0px 5px 8px;
     line-height:2em;
     background-image: linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -moz-linear-gradient(rgb((125,191,227),rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb((125,191,227),rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb((125,191,227)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb((125,191,227),rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb((125,191,227),rgb(122,208,0));
+    background-image: -moz-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(55%,rgb(125,191,227)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
 }
 
 .ChannelNameText {
@@ -97,20 +97,35 @@
 
 .sign-in-button {
     background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
-    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
+    background-image: -moz-linear-gradient(rgb(164,169,193),rgb(131,135,154));
+    background-image: -ms-linear-gradient(rgb(164,169,193),rgb(131,135,154));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(164,169,193)),color-stop(100%,rgb(131,135,154)));
+    background-image: -webkit-linear-gradient(rgb(164,169,193),rgb(131,135,154));
+    background-image: -o-linear-gradient(rgb(164,169,193),rgb(131,135,154));
+    background-image: linear-gradient(rgb(164,169,193),rgb(131,135,154));
+    border-left-color:rgba(131,135,154,.4);
+    border-left-width:1px;
+    border-left-style:solid;
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     float: right;
     width: 80px;
     height: 48px;
+    border-style: none;
 }
+
+.sign-in-button:hover {
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    background-image: -ms-linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(131,135,154)),color-stop(100%,rgb(105,108,123)));
+    background-image: -webkit-linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    background-image: -o-linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    background-image: linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    color:  rgb(244,245,240);
+}
+
 .sign-in-comment-button
 {
     background-color: rgb(84,86,98);
@@ -131,17 +146,6 @@
 }
 
 .sign-in-comment-button:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
-    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    color:  rgb(244,245,240);
-}
-
-.sign-in-button:hover {
     background-color: rgb(71,73,83);
     background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
