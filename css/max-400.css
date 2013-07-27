@@ -4,6 +4,7 @@
         box-shadow: none;
 
     }
+
     .logo {
         width:170px;
         height:49px;
@@ -13,12 +14,6 @@
         width:28px;
         height:28px;
         background-size: 28px;
-    }
-
-    .BlahDiv {
-
-        border-radius: 0px;
-        box-shadow: none;
     }
 
     .dialog-prompt-container {
