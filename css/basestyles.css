@@ -58,7 +58,7 @@ input:focus {
     background-image: -webkit-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
     background-image: -o-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
     background-image: linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75'); )
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75');
 }
 
 
@@ -75,7 +75,7 @@ input:focus {
     background-image: -webkit-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
     background-image: -o-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
     background-image: linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75'); )
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75');
     overflow:hidden;
 }
 
