@@ -75,18 +75,20 @@ define('blahgua_base',
 
     var HandleWindowResize = function() {
         ComputeSizes();
-        var rowTop = G.TopRow.getBoundingClientRect().top;
-        var curScroll = $("#BlahContainer").scrollTop();
-        var curTop = 0, rowHeight;
-        $("#BlahContainer > div").each(function (index, item) {
-            item.style.top = curTop + "px";
-            rowHeight = ResizeBlahRow(item);
-            curTop = curTop + rowHeight + K.InterBlahGutter;
+        if(G.TopRow != null) {
+            var rowTop = G.TopRow.getBoundingClientRect().top;
+            var curScroll = $("#BlahContainer").scrollTop();
+            var curTop = 0, rowHeight;
+            $("#BlahContainer > div").each(function (index, item) {
+                item.style.top = curTop + "px";
+                rowHeight = ResizeBlahRow(item);
+                curTop = curTop + rowHeight + K.InterBlahGutter;
 
-        });
-        var newTop = G.TopRow.getBoundingClientRect().top;
-        var newScroll = curScroll + (newTop - rowTop);
-        $("#BlahContainer").scrollTop(newScroll);
+            });
+            var newTop = G.TopRow.getBoundingClientRect().top;
+            var newScroll = curScroll + (newTop - rowTop);
+            $("#BlahContainer").scrollTop(newScroll);
+        }
     };
 
     var ResizeBlahRow = function(theRow) {
