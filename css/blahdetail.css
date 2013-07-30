@@ -190,7 +190,7 @@
 
 
 .blah-summary-bar {
-    background-color: rgb(188,188,188);
+    background-color: #cccccc;
     width: 90%;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -229,7 +229,7 @@
 /* classes for the full blah Summary page */
 
 .FullBlahTableFooter {
-    background-color: rgb(188,188,188);
+    background-color: #cccccc;
     overflow-x: hidden;
     overflow-y: hidden;
     position: absolute;
