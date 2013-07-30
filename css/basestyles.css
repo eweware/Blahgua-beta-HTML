@@ -10,20 +10,34 @@ body {
 textarea {
     resize: none;
     padding:4px;
-    background-color: white;
+    background-color: rgb(244,245,240);
 }
 
+
+
+
 input {
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    text-align: left;
+    padding: 4px;
+    border-size:0px;
+    background-color: rgb(254,254,254);
+    border: solid   1px #999999;
+    border-radius: 4px;
     outline:none;
-    transition: all 0.25s ease-in-out;
-    -webkit-transition: all 0.25s ease-in-out;
-    -moz-transition: all 0.25s ease-in-out;
+    transition: all 0.15s ease-in-out;
+    -webkit-transition: all 0.15s ease-in-out;
+    -moz-transition: all 0.15s ease-in-out;
 }
 
 input:focus {
-    box-shadow: 0 0 5px rgba(0, 0, 255, 1);
-    -webkit-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
-    -moz-box-shadow: 0 0 5px rgba(0, 0, 255, 1);
+    border: solid 1px rgb(125, 181, 227);
+    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    background-color: rgb(255,255,255);
+
 }
 
 
@@ -38,17 +52,15 @@ input:focus {
     width:100%;
     height:100%;
     z-index:0;
- background: linear-gradient(to bottom, rgb(31,33,51) 7%, rgb(105,107,117) 100%);
-background-image: -webkit-gradient(linear, left top, left bottom, from (#1F2133), to(#696B75));
-  background-image: -webkit-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -moz-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -ms-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -o-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75'); )
-
+    background-image: -moz-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -ms-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(31,33,51) 7%),color-stop(100%,rgb(105,107,117)));
+    background-image: -webkit-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -o-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75');
 }
-rgb(31,33,51) 7%, rgb(105,107,117) 100%)
+
 
 .Overlay {
     z-index:100;
@@ -57,15 +69,14 @@ rgb(31,33,51) 7%, rgb(105,107,117) 100%)
 .BlahContainer {
     position: absolute;
     height:100%;
- background: linear-gradient(to bottom, rgb(31,33,51) 7%, rgb(105,107,117) 100%);
-background-image: -webkit-gradient(linear, left top, left bottom, from (#1F2133), to(#696B75));
-  background-image: -webkit-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -moz-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -ms-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: -o-linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  background-image: linear-gradient(top, rgb(31,33,51), rgb(105,107,117));
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75'); 
-overflow:hidden;
+    background-image: -moz-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -ms-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(31,33,51) 7%),color-stop(100%,rgb(105,107,117)));
+    background-image: -webkit-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: -o-linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    background-image: linear-gradient(rgb(31,33,51) 7%,rgb(105,107,117));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75');
+    overflow:hidden;
 }
 
 
@@ -83,6 +94,10 @@ overflow:hidden;
     border-width:7px;
 }
 
+.BlahDiv:hover {
+    box-shadow: 0px 0px 15px rgb(244,245,240);
+
+}
 
 
 .LightBox {
@@ -193,10 +208,6 @@ overflow:hidden;
 }
 
 
-.user-image {
-
-}
-
 .user-image-thumbnail {
     position: absolute;
     display: inline-block;
@@ -249,8 +260,15 @@ a {
     text-align: center;
     font-family: 'Arimo', sans-serif;    
     font-size:18px;
-    background-color: #555555;
-    color: #f4f5f0;
+    background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
+    color: rgb(244,245,240);
     margin: 4px;
     padding-right: 8px;
     padding-left:8px;
@@ -262,8 +280,14 @@ a {
 }
 
 .SuggestSignIn:hover {
-    background-color: #444444;
-color:#f4f5f0;
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+color:rgb(244,245,240);
 }
 
 .BlahgerNickName {
@@ -304,6 +328,7 @@ color:#f4f5f0;
     font-size:17px;
     color:rgb(124,124,124);
     margin-left:20px;
+    padding-left: 12px;
 
 }
 .shorttitle1
@@ -333,7 +358,7 @@ color:#f4f5f0;
     background-color:rgb(248,120,88);
     border-radius:10px;
     border-color:transparent;
-    color:white;
+    color:rgb(255,255,255);
     font-size:16px;
     font-family:'Arimo',sans-serif;
 
@@ -348,6 +373,10 @@ color:#f4f5f0;
     margin-right:8px;
 }
 
+.back-button:hover {
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/backover1.png");
+
+}
 
 .float-right {
     float:right;
@@ -369,7 +398,7 @@ color:#f4f5f0;
 .dialog-box {
     margin: 60px auto;
     background-color: rgb(125,181,227);
-    border: 1px solid white;
+    border: 1px solid rgb(255,255,255);
     box-shadow: 0px 5px 5px 0px rgba(0,0,0,.3);
     border-radius: 8px;
     max-width: 500px;
@@ -401,7 +430,7 @@ color:#f4f5f0;
 }
 
 .dialog-prompt {
-    color: rgb(245,244,240);
+    color: rgb(244,245,240);
 
 }
 
@@ -414,13 +443,13 @@ color:#f4f5f0;
     font-family: 'Arimo' sans-serif;
     font-size: 16px;
     color: rgb(32, 32, 32);
-    background-color: rgb(245,244,240);
+    background-color: rgb(244,245,240);
 }
 
 
 .dialog-yes {
     background-color: rgb(170, 109, 0);
-    color: white;
+    color: rgb(255,255,255);
 }
 
 .promote-btn {
@@ -459,6 +488,7 @@ color:#f4f5f0;
     width:341px;
     height:99px;
     display: inline-block;
+    background-size:cover;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
 
@@ -471,21 +501,35 @@ color:#f4f5f0;
 }
 
 .validation-error {
-    color:red;
-    margin-left:20px;
-    margin-right:4px;
+    color: red;
+    margin-left: 8px;
+    margin-right: 4px;
+    margin-top: 10px;
+    position: absolute;
 }
 
 
+.chart-mask {
+    width:100%;
+    height:100%;
+    display:inline-block;
+    background-color: rgba(255,255,255,.8);
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+    top:-200px;
 
-/* media-specific styles */
-@media all and (max-width: 400px)  {
-    .BlahDiv {
-        border-radius: 0px;
-        box-shadow: none;
-
-    }
 }
+
+.chart-mask div {
+    padding: 12px;
+    color:black;
+    font-style: italic;
+    font-size:18px;
+    font-family: 'Arimo' sans-serif;
+    margin:auto 0;
+}
+
 
 @media all and (max-width: 2000px) and (min-width: 401px)  {
     .BlahDiv {
@@ -496,15 +540,6 @@ color:#f4f5f0;
 }
 
 
-@media only screen and (max-device-width: 480px) {
-    /* iphone specific fixes */
-    .BlahDiv {
-
-        border-radius: 0px;
-        box-shadow: none;
-    }
-}
-
 /* iPad  */
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
     .BlahDiv {
@@ -513,16 +548,3 @@ color:#f4f5f0;
         box-shadow: none;
     }
 }
-
-
-@media (max-width: 400px) {
-@-ms-viewport {
-		.BlahDiv {
-
-         border-radius: 0px;
-         box-shadow: none;
-
-     }
-	}
-}
-

@@ -58,22 +58,64 @@ define('blahgua_base',
             });
         };
 
+        $.fn.textfill3 = function(maxFontSize) {
+            maxFontSize = parseInt(maxFontSize, 10);
+            return this.each(function() {
+                var ourText = $("span", this),
+                    parent = ourText.parent(),
+                    maxHeight = parent.height(),
+                    maxWidth = parent.width(),
+                    fontSize = parseInt(ourText.css("fontSize"), 10),
+                    multiplier = maxWidth / ourText.width(),
+                    newSize = (fontSize * (multiplier - 0.1));
+                ourText.css("fontSize", (maxFontSize > 0 && newSize > maxFontSize) ? maxFontSize : newSize);
+            });
+        };
+
 
     var HandleWindowResize = function() {
         ComputeSizes();
-        // TODO: preserver existing location
-        $("#BlahContainer > div").each(function (index, item) {
-            ResizeBlahRow(item);
-        });
+        if(G.TopRow != null) {
+            var rowTop = G.TopRow.getBoundingClientRect().top;
+            var curScroll = $("#BlahContainer").scrollTop();
+            var curTop = 0, rowHeight;
+            $("#BlahContainer > div").each(function (index, item) {
+                item.style.top = curTop + "px";
+                rowHeight = ResizeBlahRow(item);
+                curTop = curTop + rowHeight + K.InterBlahGutter;
 
-
-
-        // TODO: restore existing location
-
+            });
+            var newTop = G.TopRow.getBoundingClientRect().top;
+            var newScroll = curScroll + (newTop - rowTop);
+            $("#BlahContainer").scrollTop(newScroll);
+        }
     };
 
-    var ResizeBlahRow = function(item) {
+    var ResizeBlahRow = function(theRow) {
+        var rowHeight;
+        switch (theRow.getAttribute("rowtype")) {
+            case "L":
+                rowHeight = ResizeLRow(theRow)
+                break;
+            case "MM":
+                rowHeight = ResizeMMRow(theRow);
+                break;
+            case "SSSS":
+                rowHeight = ResizeSSSSRow(theRow);
+                break;
+            case "MSS":
+                rowHeight = ResizeMSSRow(theRow);
+                break;
+            case "SMS":
+                rowHeight = ResizeSMSRow(theRow);
+                break;
+            case "SSM":
+                rowHeight = ResizeSSMRow(theRow);
+                break;
 
+        }
+        ResizeRowText(theRow);
+        return rowHeight;
     };
 
 
@@ -383,11 +425,11 @@ define('blahgua_base',
         blahContainer.style.left = offset + "px";
         blahContainer.style.width = G.LargeTileWidth + "px";
         var blahMargin = 16;
-
+        var channelBottom = $("#ChannelBanner")[0].getBoundingClientRect().bottom;
         $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#BlahFullItem").css({ 'top': '25px','left': (offset + blahMargin) + 'px', 'bottom': blahBottom + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
-
+        $("#ChannelDropMenu").css({'top': channelBottom + "px"});
     };
 
     var ShowHideChannelList = function() {
@@ -834,10 +876,32 @@ define('blahgua_base',
         var fontSize;
         var maxFontSize = 96;
         var scaleText = false;
-        var minFontSize = 18;
-
+        var minFontSize = 11;
+        var $curDiv, $curTextDiv, curFontSize, curDivHeight, curDivWidth;
         for (var i = 0; i < newRow.childNodes.length; i++) {
-            fontSize = 9;
+            $curDiv = $(newRow.childNodes[i]);
+            curTextDiv = newRow.childNodes[i].blahTextDiv;
+            $curTextDiv = $(curTextDiv);
+            curTextDiv.style.fontSize = "96px";
+            curFontSize = 96;
+            curDivHeight = $curDiv.height();
+
+
+            while(($curTextDiv.height() > curDivHeight ) && (curFontSize > minFontSize)) {
+                curFontSize--;
+                curTextDiv.style.fontSize = curFontSize + "px";
+            }
+
+            curTextDiv.scrollLeft++;
+
+            while((curTextDiv.scrollLeft > 0) && (curFontSize > minFontSize)) {
+                curTextDiv.scrollLeft = 0;
+                curFontSize--;
+                curTextDiv.style.fontSize = curFontSize + "px";
+                curTextDiv.scrollLeft++;
+            }
+            /*
+            fontSize = minFontSize;
             curTile = newRow.childNodes[i];
             var tileHeight = curTile.offsetHeight - 8; // allow for padding...
             var tileWidth = curTile.offsetWidth - 8;
@@ -845,7 +909,7 @@ define('blahgua_base',
             if (scaleText) {
                 tileHeight /= 2;
             }
-            textHeight = curTile.blahTextDiv.offsetHeight;
+            textHeight = 0;//curTile.blahTextDiv.offsetHeight;
             while ((textHeight < tileHeight) && (fontSize < maxFontSize)) {
                 fontSize++;
                 curTile.blahTextDiv.style.fontSize = fontSize + "px";
@@ -868,6 +932,7 @@ define('blahgua_base',
                 curTile.blahTextDiv.style.marginTop = offset + "px";
             }
             curTile.blahTextDiv.style.height = "100%";
+            */
         }
     };
 
@@ -1078,6 +1143,13 @@ define('blahgua_base',
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = K.EdgeGutter + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "L");
+    };
+
+    var ResizeLRow = function(theRow) {
+        theRow.childNodes[0].style.width = G.LargeTileWidth + "px";
+        theRow.childNodes[0].style.height = G.LargeTileHeight + "px";
+        return G.LargeTileHeight;
     };
 
     var CreateMMRow = function(newRowEl) {
@@ -1092,6 +1164,18 @@ define('blahgua_base',
         curLeft += G.MediumTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "MM");
+    };
+
+    var ResizeMMRow = function(theRow) {
+        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.height = G.MediumTileHeight + "px";
+
+        theRow.childNodes[1].style.width = G.MediumTileWidth + "px";
+        theRow.childNodes[1].style.height = G.MediumTileHeight + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+        return G.MediumTileHeight;
     };
 
     var CreateSSSSRow = function(newRowEl) {
@@ -1118,6 +1202,29 @@ define('blahgua_base',
         curLeft += G.SmallTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "SSSS");
+    };
+
+    var ResizeSSSSRow = function(theRow) {
+        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[0].style.height = G.SmallTileHeight + "px";
+
+        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        curLeft += K.InterBlahGutter + G.SmallTileWidth;
+        theRow.childNodes[2].style.left = curLeft + "px";
+
+        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        curLeft += K.InterBlahGutter + G.SmallTileWidth;
+        theRow.childNodes[3].style.left = curLeft + "px";
+
+        return G.SmallTileHeight;
     };
 
     var CreateMSSRow = function(newRowEl) {
@@ -1150,6 +1257,35 @@ define('blahgua_base',
         newBlahEl.style.left = curLeft + "px";
         newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "MSS");
+    };
+
+    var ResizeMSSRow = function(theRow) {
+        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
+        var curTop = G.SmallTileHeight + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+
+        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.left = curLeft + "px";
+        theRow.childNodes[2].style.top = curTop + "px";
+
+        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        curLeft += K.InterBlahGutter + G.SmallTileWidth;
+        theRow.childNodes[3].style.left = curLeft + "px";
+
+        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.left = curLeft + "px";
+        theRow.childNodes[4].style.top = curTop  + "px";
+
+        return G.MediumTileHeight;
     };
 
     var CreateSMSRow = function(newRowEl) {
@@ -1182,6 +1318,34 @@ define('blahgua_base',
         newBlahEl.style.left = curLeft + "px";
         newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "SMS");
+    };
+
+    var ResizeSMSRow = function(theRow) {
+        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
+        var curTop = G.SmallTileHeight + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.left = curLeft + "px";
+
+        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+
+        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.top = curTop + "px";
+
+        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        curLeft += K.InterBlahGutter + G.MediumTileWidth;
+        theRow.childNodes[3].style.left = curLeft + "px";
+
+        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.left = curLeft + "px";
+        theRow.childNodes[4].style.top = curTop  + "px";
+
+        return G.MediumTileHeight;
     };
 
     var CreateSSMRow = function(newRowEl) {
@@ -1214,6 +1378,34 @@ define('blahgua_base',
         newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "SSM");
+    };
+
+    var ResizeSSMRow = function(theRow) {
+        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
+        var curTop = G.SmallTileHeight + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.left = curLeft + "px";
+
+        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+
+        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.top = curTop + "px";
+
+        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        curLeft = K.EdgeGutter + K.InterBlahGutter + G.SmallTileWidth;
+        theRow.childNodes[3].style.left = curLeft + "px";
+
+        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
+        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.left = curLeft + "px";
+        theRow.childNodes[4].style.top = curTop  + "px";
+
+        return G.MediumTileHeight;
     };
 
 // ********************************************************

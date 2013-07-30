@@ -17,7 +17,8 @@ define('BlahBodyDetailPage',
                 alert("Error:  No Blah!");
                 return;
             }
-
+            if (G.IsUserLoggedIn) 
+			{
             // bind methods
             $("#PromoteBlahImage").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
@@ -27,6 +28,19 @@ define('BlahBodyDetailPage',
                 theEvent.stopImmediatePropagation();
                 SetBlahVote(-1);
             });
+			}
+			else
+			{
+			$("#PromoteBlahImage").click(function(theEvent) {
+               G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
+               exports.SuggestUserSignIn("Sign in to participate.")});
+            });
+            $("#DemoteBlahImage").click(function(theEvent) {
+			G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
+               exports.SuggestUserSignIn("Sign in to participate.")});
+			
+            });
+			}
 
             // add share this button
             var shareURL;
@@ -84,9 +98,9 @@ define('BlahBodyDetailPage',
             } else {
                 //$("#BlahRowVote").hide();
 			
-			    $("#PromoteBlahImage").hide();
-				$("#DemoteBlahImage").hide();
-                $("#BlahRowSignIn").show();
+			   // $("#PromoteBlahImage").hide();
+				//$("#DemoteBlahImage").hide();
+                $("#BlahRowSignIn").hide();
 	            $("#UploadImageTable").hide();
                 $("#CreateCommentArea").hide();
             }
@@ -96,13 +110,20 @@ define('BlahBodyDetailPage',
             var imageEl = document.getElementById("blahFullImage");
             if (image == "") {
                 imageEl.style.display = "none";
-                $(".blah-body-divider").show();
+                $(".blah-body-divider").hide();
             } else {
                 imageEl.style.display = "absolute";
                 $(".blah-body-divider").hide();
                 imageEl.src = image;
             }
-
+              if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
+			  {
+			   $("#CommentTextArea").attr("placeholder","Enter comment text here");
+			  }
+			  else
+			  {
+			  $("#CommentTextArea").attr("placeholder","Be the first to comment");
+			  }
             var bodyTextDiv = document.getElementById("BlahFullBody");
             if (G.CurrentBlah.hasOwnProperty("F")) {
                 var bodyText = G.CurrentBlah.F;
@@ -112,6 +133,7 @@ define('BlahBodyDetailPage',
                 bodyTextDiv.innerHTML = bodyText;
             } else {
                 bodyTextDiv.innerHTML = "";
+                bodyTextDiv.style.display = "none";
             }
 
             // check if it is a special type
@@ -129,6 +151,8 @@ define('BlahBodyDetailPage',
                     });
                     break;
                 default:
+                    $("#AdditionalInfoArea").hide();
+                    break;
             }
 
             // fix any sizing issues
@@ -159,6 +183,19 @@ define('BlahBodyDetailPage',
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").val(exports.CurrentCommentText);
                 $("#CommentImage").change(comments.UploadCommentImage);
+                $("#ImagePreviewDiv").click(function(theEvent) {
+                    document.getElementById('CommentImage').click();
+                } );
+
+                $(".image-delete-btn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                    $("#ImagePreviewDiv span").text("no image");
+                    $("#ImagePreviewDiv i").hide();
+                    $("#CommentImage").val("");
+                    $("#objectId").val("");
+                    return false;
+                });
 
                 $("#AddCommentBtn").click(function(theEvent) {
                     exports.CurrentCommentText = "";
@@ -170,7 +207,11 @@ define('BlahBodyDetailPage',
                         $(".top-comments-header").show();
                         $("#CharCountDiv").text(4000);
                         $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
-                        $("#CommentImage").val("").change();
+                        $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                        $("#ImagePreviewDiv span").text("no image");
+                        $("#ImagePreviewDiv i").hide();
+                        $("#CommentImage").val("");
+                        $("#objectId").val("");
                     });
                 });
                 RefreshForCommentText();
@@ -182,11 +223,11 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount < 3) || (charCount > 4000));
+            var tooManyOrFew = ((charCount < 0) || (charCount > 4000));
             document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
-            var color = "#000000";
+            var color = "rgb(124,124,124)";
             if (tooManyOrFew)
-                color = "#FF0000";
+                color = "rgb(248,120,88))";
             $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
         };

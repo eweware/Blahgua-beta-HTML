@@ -89,40 +89,22 @@ define('stats',
             return statVal;
         };
 
-        /*
-         $(function () {
-         $('#container').highcharts({
-         "chart":  {"type":"column"},
-         "title":{"text":"Ethnicity"},
-         "xAxis":{
-         "categories":             ["Promote","Demote"]},
-         "plotOptions":{"series":{"stacking":"normal",
-         "marker":{"enabled":false}}},
-         "credits":{"enabled":false},
-         "yAxis":[{"minRange":10, min:0,"title":{"text":null}}],
-         "series":[
-         {"data":[1,10],"name":"Asian"},
-         {"data":[4,2],"name":"Black"},
-         {"data":[8,22],"name":"Hispanic"},
-         {"data":[13,5],"name":"White"},
-         {"data":[8,8],"name":"Other"},
-         {"data":[29,13],"name":"Unspecified"}]} );
-         });
-
-         */
 
         var MakeDemoSeries = function(whichObject, whichDemo) {
             // one series for upVote and downVote
             // one data point for each unique value of the demo
             var newSeries;
-            if (whichObject.hasOwnProperty("_d")) {
+            if (whichObject.hasOwnProperty("_d") &&
+                G.ProfileSchema.hasOwnProperty(whichDemo) &&
+                G.ProfileSchema[whichDemo].hasOwnProperty("DT")) {
                 var upVoteSet = G.GetSafeProperty(whichObject._d._u, whichDemo, null);
                 var downVoteSet = G.GetSafeProperty(whichObject._d._d, whichDemo, null);
                 var upData = [], downData = [];
 
+
                 $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
                     upData.push(G.GetSafeProperty(upVoteSet, index, 0));
-                    downData.push(-G.GetSafeProperty(downVoteSet, index, 0));
+                    downData.push(G.GetSafeProperty(downVoteSet, index, 0));
                 });
 
                 newSeries = [
@@ -137,12 +119,15 @@ define('stats',
 
         var MakeDemoCategories = function(whichDemo) {
             var catArray = [];
-            /*
-            $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
-                catArray.push(item);
-            });
-            */
-            catArray = ["Promotes", "Demotes"];
+
+            if (G.ProfileSchema.hasOwnProperty(whichDemo) &&
+                G.ProfileSchema[whichDemo].hasOwnProperty("DT")) {
+                $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
+                    catArray.push(item);
+                });
+            }
+
+
 
             return catArray;
         };
@@ -156,6 +141,48 @@ define('stats',
             return newHTML;
         };
 
+        var MakeStatChartOptions = function(chartTitle, chartData, catAxis) {
+            var newStats = {
+                title: {
+                    text:chartTitle,
+                    align:"left",
+                    style:{fontFamily:"Arimo"}
+                },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: false
+                        },
+                        enableMouseTracking: false
+                    }
+                },
+                credits: {
+                    enabled:false
+                },
+                tooltip: {
+                    enabled: false
+                },
+                legend: {
+                    enabled: false
+                },
+                xAxis: {
+                    categories: catAxis
+                },
+                yAxis: [{
+                    min:0,
+                    minRange:10,
+                    endOnTick: true,
+                    title: {text:null}
+                }],
+                series: [{
+                    type: 'areaspline',
+                    data: chartData
+                }]
+            };
+
+            return newStats;
+        };
+
         var MakeDemoChartOptions = function(targetObject, demoString, demoName) {
             var demoSeries = MakeDemoSeries(targetObject, demoName);
             var demoCat = MakeDemoCategories(demoName);
@@ -163,9 +190,9 @@ define('stats',
 
             var newDemos = {
                 chart: {
-                    type: "column",
-                    height:chartHeight
+                    type: "column"
                 },
+                colors: ['#FF0000', '#00FF00'],
                 title: {
                     text:demoString
                 },
@@ -185,9 +212,10 @@ define('stats',
                 },
 
                 yAxis: [{
+                    min:0,
                     minRange:10,
-                    minorTickInterval:1,
-                    title: { text: null}
+                    endOnTick: true,
+                    title: {text:null}
                 }],
                 series: demoSeries
             };
@@ -203,7 +231,8 @@ define('stats',
             MakeDemoSeries: MakeDemoSeries,
             MakeDemoCategories: MakeDemoCategories ,
             MakeDemoChartOptions: MakeDemoChartOptions,
-            GenerateShareDemoHTML: GenerateShareDemoHTML
+            GenerateShareDemoHTML: GenerateShareDemoHTML,
+            MakeStatChartOptions: MakeStatChartOptions
         }
     }
 );

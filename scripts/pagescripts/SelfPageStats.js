@@ -17,6 +17,8 @@ define('SelfPageStats',
     function (G, exports, blahgua_rest, stats) {
 
         var  InitializePage = function() {
+            var newWidth = $(".accordion-body").width();
+            $(".chart-box").width(newWidth - 32);
             UpdateSelfStats();
         };
 
@@ -44,6 +46,9 @@ define('SelfPageStats',
                     credits: {
                         enabled:false
                     },
+                    tooltip: {
+                        enabled: false
+                    },
                     xAxis: {
                         categories: ['Strength', 'Controversy']
                     },
@@ -60,6 +65,7 @@ define('SelfPageStats',
                 });
 
 
+
                 // Your Activity
                 var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["v", "V"]);
                 var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, ["o", "O"]);
@@ -67,110 +73,23 @@ define('SelfPageStats',
                 var commentsMade  = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "XX");
                 var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#UserActivityDiv1').highcharts({
-                    title: {
-                        text:"Posts Opened",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: {
-                        min:0,
-                        minRange:10,
-                        title: { text: null}
-                    },
-                    series: [{
-                        type: 'areaspline',
-                        data: openData,
-                        title: {text:null}}]
-                });
+                $('#UserActivityViewDiv').highcharts(stats.MakeStatChartOptions("Posts Impressions", viewData, catAxis));
+                if (G.DataZeroOrEmpty(viewData))
+                    G.AppendChartMask("#UserActivityViewDiv", "No activity in this time period");
 
-                $('#UserActivityDiv2').highcharts({
-                    title: {
-                        text:"Posts Created",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: {
-                        min:0,
-                        minRange:10,
-                        endOnTick: true,
-                        title: { text: null}
-                    },
-                    series: [
-                        {
-                            type: 'areaspline',
-                            data: blahsMade,
-                            title: {text:null}}
-                    ]
-                });
+                $('#UserActivityOpenDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", openData, catAxis));
+                if (G.DataZeroOrEmpty(openData))
+                    G.AppendChartMask("#UserActivityOpenDiv", "No activity in this time period");
 
-                $('#UserActivityDiv3').highcharts({
-                    title: {
-                        text:"Comments Created",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: {
-                        min:0,
-                        minRange:10,
-                        endOnTick: true,
-                        title: {text:null}
-                    },
-                    series: [
-                        {
-                            type: 'areaspline',
-                            data: commentsMade,
-                            title: {text:null}
-                        }]
-                });
+
+                $('#UserActivityPostCreatedDiv').highcharts(stats.MakeStatChartOptions("Posts Created", blahsMade, catAxis));
+                if (G.DataZeroOrEmpty(blahsMade))
+                    G.AppendChartMask("#UserActivityPostCreatedDiv", "No activity in this time period");
+
+
+                $('#UserActivityCommentsCreatedDiv').highcharts(stats.MakeStatChartOptions("Comments Created", commentsMade, catAxis));
+                if (G.DataZeroOrEmpty(commentsMade))
+                    G.AppendChartMask("#UserActivityCommentsCreatedDiv", "No activity in this time period");
 
                 // Your Blahs and Comments
                 var otherUpVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
@@ -184,108 +103,11 @@ define('SelfPageStats',
                     reverseDown.push(-otherDownVotes[curIndex]);
                 }
 
+                $('#UserBlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", otherViews, catAxis));
 
-                $('#UserBlahActivityViewsDiv').highcharts({
-                    title: {
-                        text:"Impressions",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    yAxis: [{
-                        min:0,
-                        minRange:10,
-                        endOnTick: true,
-                        title: {text:null}
+                $('#UserBlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", otherOpens, catAxis));
 
-                    }],
-                    series: [{
-                        type: 'areaspline',
-                        data: otherViews
-                    }]
-                });
-
-                $('#UserBlahActivityOpensDiv').highcharts({
-                    title: {
-                        text:"Posts Opened",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: {
-                        min:0,
-                        minRange:10,
-                        endOnTick: true,
-                        title: {text:null}
-                    },
-                    series: [{
-                        type: 'areaspline',
-                        data: otherOpens
-                    }]
-                });
-
-                $('#UserBlahActivityCommentsDiv').highcharts({
-                    title: {
-                        text:"Comments",
-                        align:"left",
-                        style:{fontFamily:"Arimo"}
-                    },
-                    plotOptions: {
-                        series: {
-                            marker: {
-                                enabled: false
-                            }
-                        }
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    legend: {
-                        enabled: false
-                    },
-                    xAxis: {
-                        categories: catAxis
-                    },
-                    yAxis: [{
-                        min:0,
-                        endOnTick: true,
-                        title: {text:null}
-                    }],
-                    series: [{
-                        type: 'areaspline',
-                        data: otherComments
-                    }]
-                });
+                $('#UserBlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", otherComments, catAxis));
 
                 $('#UserBlahSentimentDiv').highcharts({
                     colors: ["#00FF00", "#FF0000"],
@@ -305,8 +127,12 @@ define('SelfPageStats',
                     xAxis: {
                         categories: catAxis
                     },
+                    tooltip: {
+                        enabled: false
+                    },
                     yAxis: [{
-                        title: { text: "votes"}
+                        title: { text: "votes"},
+                        minRange:10
                     }],
                     series: [
                         {
@@ -333,10 +159,10 @@ define('SelfPageStats',
                     $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
 
-                 if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["D"] != -1))
+                 if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
                     $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Age", "D"));
                  else
-                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "D"));
+                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
 
 
                 if (G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))

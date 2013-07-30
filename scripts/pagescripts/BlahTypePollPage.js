@@ -125,6 +125,7 @@ define('BlahTypePoll',
             } else {
                 // user isnot logged in - can't vote or see results
                 $(".poll-prompt").text("Sign in to vote and see results.")
+				$(".poll-checkbox-wrapper").css("display","none");
                 $(".poll-checkbox").hide();
                 $(".poll-chart-div").hide();
             }

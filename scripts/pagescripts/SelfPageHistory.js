@@ -145,7 +145,7 @@ define('SelfPageHistory',
             blahsDiv.empty();
             if (BlahList.length > 0) {
                 $.each(BlahList, function (index, item) {
-                    newHTML = CreateUserBlahHTML(item);
+                    newHTML = CreateUserBlahHTML(item,index);
                     blahsDiv.append(newHTML);
                 });
                 // bind events
@@ -168,7 +168,7 @@ define('SelfPageHistory',
             commentDiv.empty();
             if (CommentList.length > 0) {
                 $.each(CommentList, function (index, item) {
-                    newHTML = CreateUserCommentHTML(item);
+                    newHTML = CreateUserCommentHTML(item,index);
                     commentDiv.append(newHTML);
                 });
                 // bind events
@@ -253,13 +253,17 @@ define('SelfPageHistory',
             });
         };
 
-        var CreateUserBlahHTML = function(theBlah) {
+     
+        var CreateUserBlahHTML = function(theBlah,number) {
             var newHTML = "";
+			var positionNum=number+1;
             var img = G.GetItemImage(theBlah, "A");
 
             newHTML += "<tr class='user-blah-row' data-blah-id='" + theBlah._id + "'>";
             if (img != "") {
                 newHTML += "<td class='title-text'>";
+				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+				newHTML += "<a href='javascript:void(null)'>";
                 newHTML += G.UnCodifyText(theBlah.T);
                 newHTML += "</a></td>";
                 newHTML += "<td>";
@@ -267,6 +271,8 @@ define('SelfPageHistory',
                 newHTML += "</td>";
             } else {
                 newHTML += "<td colspan='2' class='title-text'>";
+				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+				newHTML += "<a href='javascript:void(null)'>";
                 newHTML += G.UnCodifyText(theBlah.T);
                 newHTML += "</a></td>";
             }
@@ -279,16 +285,38 @@ define('SelfPageHistory',
             return newHTML;
         };
 
-        var CreateUserCommentHTML = function(theComment) {
+        var CreateUserCommentHTML = function(theComment,number) {
             var newHTML = "";
+			var positionNum=number+1;
+			var img = G.GetItemImage(theComment, "D");
             newHTML += "<tr class='user-comment-row'>"
-            newHTML += "<td class='title-text'><a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+			if(img!="")
+			{
+			newHTML += "<td class='title-text'>"
+			newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+			newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
             newHTML += G.UnCodifyText(theComment.T);
             newHTML += "</a></td>";
-            newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>"
+			newHTML += "<td>";
+            newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
+            newHTML += "</td>";
+			}
+			else
+			{
+			newHTML += "<td colspan='2' class='title-text'>"
+			newHTML += "<span class='positionNum'>"+positionNum+"</span>";
+			newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+            newHTML += G.UnCodifyText(theComment.T);
+            newHTML += "</a></td>";
+			}
+            newHTML += "</tr>";
+			
+			newHTML += "<tr>"
+            newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>";
             newHTML += "</tr>";
             return newHTML;
         };
+     
 
 
         var DoOpenUserBlah = function(blahId) {

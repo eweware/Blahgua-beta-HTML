@@ -93,7 +93,7 @@
 
 .poll-description {
     text-align: left;
-    width:100%;
+    width:80%;
     font-family: 'Arimo', sans-serif;
     font-size:12pt;
     font-style: italic;
@@ -117,3 +117,31 @@
 
 }
 
+.option {
+    display: block;
+    margin-top: 12px;
+}
+
+.option .title {
+    display: block;
+    margin: 6px 0px;
+}
+
+option .description {
+    display: block;
+}
+
+#BlahTypeAskAuthorPage {
+    text-align: left;
+}
+
+.add-poll-choice-btn {
+    display: block;
+    margin:0 auto;
+    background-image: url(../img/Large_Upvote2Grey.png);
+    background-size: 25px 25px;
+    background-repeat:no-repeat;
+    padding-left: 35px;
+    line-height: 25px;
+    margin-top: 10px;
+}

@@ -5,39 +5,24 @@
 </head>
 <body>
 <div id="BlahTypeAskAuthorPage" >
-    <div class="poll-prompt">poll responses:</div>
-    <table class="poll-result-table create">
-        <tr class='poll-result-row'>
-            <td>
-                <table>
-                    <tr>
-                        <td><input type="text" class="poll-title" placeholder="option 1"></td>
-                        <td style="width:16px"></td>
-                        <td style="width:100px"><button class="delete-poll-vote inline-button">remove</button></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="text" class="poll-description" placeholder="optional descriptive text"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr class='poll-result-row'>
-            <td>
-                <table>
-                    <tr>
-                        <td><input type="text" class="poll-title" placeholder="option 2"></td>
-                        <td style="width:16px"></td>
-                        <td style="width:100px"><button class="delete-poll-vote inline-button">remove</button></td>
-                    </tr>
-                    <tr>
-                        <td colspan="2"><input type="text" class="poll-description" placeholder="optional descriptive text"></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-
-    <button class="add-poll-choice-btn inline-button">Add Response</button>
+    <div class="option">
+        <div class="title"><input type="text" class="poll-title" placeholder="option 1"></div>
+        <div class="description"><input type="text" class="poll-description" placeholder="optional description"></div>
+    </div>
+    <div class="option">
+        <div class="title"><input type="text" class="poll-title" placeholder="option 2"></div>
+        <div class="description"><input type="text" class="poll-description" placeholder="optional description"></div>
+    </div>
+    <div><a class="add-poll-choice-btn" id="addResponse">Add Response</a></div>
 </div>
+<script>
+    var removeIcon = '<button class="delete-poll-vote inline-button">remove</button>';
+    var optionHTMl = '<div class="option"><div class="title"><input type="text" class="poll-title" placeholder="option 1"></div>' +
+                     '<div class="description"><input type="text" class="poll-description" placeholder="optional description"></div></div>';
+    document.getElementById("addResponse").click = function() {
+        var $container = $("#BlahTypeAskAuthorPage");
+        $container.append(optionHTML);
+    };
+</script>
 </body>
 </html>

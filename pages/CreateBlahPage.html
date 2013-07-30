@@ -28,9 +28,9 @@
                 <div class="blah-summary-bar">
                     <table id="BlahFacetTable" style="width:100%">
                         <tr>
-                            <td colspan="2  ">
-                                <span class="FullBlahProfileString" id="FullBlahProfileString"></span>
-                            </td>
+                            <td style="width:100%"> <span class="FullBlahProfileString" id="FullBlahProfileString"></span> </td>
+                            <td><span id="FullBlahDateStr" class="FullBlahDateStr"></span>  </td>
+
                         </tr>
                     </table>
                 </div>
@@ -38,8 +38,14 @@
         </tr>
 
         <tr class="show-blah-bkgnd">
-            <td colspan="3" class="BlahFullHeadline" id="BlahFullHeadline" >
-                <textarea placeholder="Headline here (64 chars max)" type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
+            <td>
+                <div class="image-preview no-image" id="ImagePreviewDiv">
+                    <i class="icon-remove-sign image-delete-btn"></i>
+                    <span>no image</span>
+                </div>
+            </td>
+            <td colspan="2" class="createblahheadline" id="BlahFullHeadline" >
+                <textarea placeholder="Headline here (64 chars max) Says: Says are general posts with no requirements." type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
             </td>
         </tr>
 
@@ -50,22 +56,18 @@
 
     <div class="create-content-div show-blah-bkgnd" id="createcontent" >
         <table class="createblahscrolltable show-blah-bkgnd">
-            <tr>
-                <td style="width:68px"><div class="image-preview no-image" id="ImagePreviewDiv">
-                    no<br/>image
-                </div></td>
+            <tr style="display:none">
+
                 <td colspan="2">
-                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                    <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
                         <div>
                             <input id="BlahImage" name="file" type="file" no-validate>
-                            <div style="display:none">
                             <input type="text" name="objectType" hidden="true" value="X"/>
                             <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
                             <input type="text" name="primary" hidden="true" value="true"/>
-                            </div>
                         </div>
-                </form>
-                    </td>
+                    </form>
+                </td>
 
             </tr>
 
@@ -73,8 +75,8 @@
                 <td colspan="3"  class="shorttitle">Body</td>
             </tr>
             <tr>
-                <td colspan="3">
-                    <textarea placeholder="Optional body text here" class="inputbodyframe" id="BlahBody"></textarea>
+                <td colspan="3" class="BlahFullHeadline">
+                    <textarea placeholder="Optional body text here " class="inputbodyframe" id="BlahBody"></textarea>
                 </td>
             </tr>
             <tr><td colspan="3"><span id="BodyCharCount" class="charcounter"></span></td></tr>
@@ -101,13 +103,13 @@
         <table id="CreateFooterDiv" class="create-blah-footer">
             <tr>After publishing, watch for your post in the stream.</tr>
             <tr style="text-align: center">
-            <td>
-                <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
-            </td>
-            <td >
-                <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Publish</button>
-            </td>
-        </tr>
+                <td>
+                    <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
+                </td>
+                <td >
+                    <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Publish</button>
+                </td>
+            </tr>
             <tr id="ValidationRow" class="create-validation-row">
                 <td  colSpan="3" ><span class="create-err-msg" id="ErrMsgSpan"></span></td>
             </tr>
