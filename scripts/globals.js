@@ -386,7 +386,7 @@ define('globals',
 
         var ValidateField = function($item) {
             // clear any existing validation
-            $item.next(".validation-error").remove();
+            $item.parent().siblings(".validation-col").find(".validation-error").remove();
             var val, compVal, isValid, errMsg = "";
             var fieldName = $item.attr("data-fieldname");
             if (fieldName === undefined || fieldName == "")
@@ -494,7 +494,7 @@ define('globals',
 
                 // ADD ERROR
                 if (!isValid) {
-                    $item.removeClass("success").addClass("error").after("<i class='validation-error icon-warning-sign' title='" + errMsg + "'></i>");
+                    $item.removeClass("success").addClass("error").parent().siblings(".validation-col").append("<i class='validation-error icon-warning-sign' title='" + errMsg + "'></i>");
                 } else {
                     $item.parent("div").removeClass("error").addClass("success");
                 }

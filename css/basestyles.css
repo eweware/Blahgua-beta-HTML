@@ -504,7 +504,7 @@ color:rgb(244,245,240);
     color: red;
     margin-left: 8px;
     margin-right: 4px;
-    margin-top: 10px;
+    margin-top: -5px;
     position: absolute;
 }
 
@@ -523,11 +523,11 @@ color:rgb(244,245,240);
 
 .chart-mask div {
     padding: 12px;
-    color:black;
+    color: #333333;
     font-style: italic;
-    font-size:18px;
+    font-size: 18px;
     font-family: 'Arimo' sans-serif;
-    margin:auto 0;
+    margin: 50px 0px;
 }
 
 

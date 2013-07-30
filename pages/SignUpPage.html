@@ -27,11 +27,13 @@
                         <td><input id="userName2"  data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2" type="text" placeholder="Username" maxlength="32">
 
                         </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="label-group">
                         <td><input id="pwd2"  data-validate data-fieldname="password" data-validate-notempty data-validate-maxlen="32" type="password" placeholder="Password">
 
                         </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">
@@ -56,21 +58,24 @@
 
                     </tbody>
                     </table>
-                <table id="RecoverPasswordForm" style="display:none">
+                <div id="RecoverPasswordForm" style="display:none">
+                    <p class="recover-password">
+                        <span class="item-container" colspan="3">
+                            <span class="recovery-instructions">Submit the username and email you have on file to recover account.</span>
+                        </span>
+                    </p>
+                    <table>
                     <tbody>
-                    <tr class="recover-password" >
-                        <td colspan="2" class="item-container">
-                            <span class="recovery-instructions">Submit the username and email you have on file to recover account.
-                            </span>
-                        </td>
-                    </tr>
+
                     <tr class="recover-password label-group" >
                         <td><input id="uname2"  data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2" type="text" placeholder="Username" maxlength="32">
                             </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="recover-password label-group" >
                         <td><input id="email"  data-validate data-fieldname="email address" data-validate-email type="email" placeholder="Email">
                             </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="recover-password">
                         <td><button id="RecoverPasswordBtn" class="action-btn action-default" disabled="true">Recover</button></td>
@@ -81,6 +86,7 @@
 
                     </tbody>
                 </table>
+                    </div>
             </div>
             <div class="toggle-content" data-toggle-set="login" data-toggle-value="new">
                 <table id="NewUserForm">
@@ -92,14 +98,17 @@
                     <tr class="label-group">
                         <td><input  id="userName" data-validate data-fieldname="user name" data-validate-maxlen="32" data-validate-minlen="2"  type="text" placeholder="Username">
                             </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="label-group">
                         <td><input id="pwd"  data-validate data-fieldname="password" data-validate-notempty data-validate-maxlen="32" type="password" placeholder="Password">
                             </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="label-group">
                         <td><input id="pwd3"  data-validate data-fieldname="password confirm" data-validate-match="pwd" data-validate-match-text='passwords must match' data-validate-notempty type="password" placeholder="Confirm password">
                             </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr class="label-group">
 
@@ -107,6 +116,7 @@
                             <i id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
                             <input id="recoveryemail"  data-validate data-fieldname="Recovery email" data-validate-email type="email" placeholder="Recovery email (optional)">
                          </td>
+                        <td class="validation-col"></td>
                     </tr>
                     <tr>
                         <td colspan="2" class="item-container">

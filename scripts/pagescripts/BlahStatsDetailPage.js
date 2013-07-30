@@ -106,34 +106,37 @@ define('BlahStatsDetailPage',
                 }]
             });
 
-            if ((uv > 0) || (dv > 0)) {
-                $("#BlahVoteMixDiv").empty().height("200px").highcharts({
-                    title: {
-                        text:"Promotes & Demotes"
-                    },
-                    legend: {
-                        enabled:false
-                    },
-                    credits: {
-                        enabled:false
-                    },
-                    xAxis: {
-                        categories: ['promotes', 'demotes']
-                    },
-                    yAxis: {
-                        min: 0,
-                        minRange:10,
-                        minorTickInterval:1,
-                        min:0
-                    },
 
-                    series: [{
-                        type: 'bar',
-                        data: [{color: '#00FF00', y: uv},
-                            {color: '#FF0000', y: dv}]
+            $("#BlahVoteMixDiv").empty().height("200px").highcharts({
+                title: {
+                    text:"Promotes & Demotes"
+                },
+                legend: {
+                    enabled:false
+                },
+                credits: {
+                    enabled:false
+                },
+                xAxis: {
+                    categories: ['promotes', 'demotes']
+                },
+                yAxis: {
+                    min: 0,
+                    minRange:10,
+                    minorTickInterval:1,
+                    min:0
+                },
 
-                    }]
-                });
+                series: [{
+                    type: 'bar',
+                    data: [{color: '#00FF00', y: uv},
+                        {color: '#FF0000', y: dv}]
+
+                }]
+            });
+
+            if ((uv == 0) && (dv == 0)) {
+                G.AppendChartMask("#BlahVoteMixDiv", "No votes yet");
             }
 
 
@@ -146,7 +149,7 @@ define('BlahStatsDetailPage',
 
             if (curStats && curStats.length > 0) {
                 var endDate = new Date(Date.now());
-                var startDate = new Date(Date.now() - (G.numStatsDaysToShow * (24 * 3600 * 1000)));
+                var startDate = new Date(Date.now() - (G.NumStatsDaysToShow * (24 * 3600 * 1000)));
                 var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "V");
                 var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "O");
                 var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "C");
@@ -172,9 +175,9 @@ define('BlahStatsDetailPage',
 
 
              if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
-                $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
+                $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
              else
-                $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
+                $("#DemoAgeChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
 
 
             if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))

@@ -22,17 +22,18 @@
             <tbody>
             <tr>
                 <td class="attribute-col">Username</td>
-                <td colspan="2">
+                <td>
                    <span disabled="disabled" id="userName" class="userName"></span>
                 </td>
+                <td class="validation-col"></td>
             </tr>
             <tr>
                 <td class="attribute-col" >Screen&nbsp;name</td>
 
-                <td colspan="2">
+                <td >
                     <input data-validate data-validate-notempty data-validate-maxlen="32" id="NicknameInput" type="text" class="userName">
                 </td>
-
+                <td class="validation-col"></td>
             </tr>
             <tr>
                 <td class="attribute-col" >Password</td>
@@ -40,6 +41,7 @@
                 <td>
                     <input data-validate data-validate-notempty id="Password" type="password">
                 </td>
+                <td class="validation-col"></td>
             </tr>
             <tr>
                 <td class="attribute-col" >Confirm&nbsp;password</td>
@@ -47,13 +49,20 @@
                 <td>
                     <input data-validate data-validate-match="Password" data-validate-match-text="Passwords must match" id="PasswordConfirm" type="password">
                 </td>
+                <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Recovery&nbsp;email</td>
+                <td class="attribute-col" >
+                    <span style="position: relative;left: -24px;">Recovery&nbsp;email</span>
+                    <i style="position: relative; left: 4px; color:rgb(125,181,227)" id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
+                </td>
 
-                <td colspan="2">
+                <td>
                     <input data-validate data-validate-email id="RecoveryEmail" type="text" class="email">
-                    <i id="RecoveryInfo" style="color:rgb(125,181,227)" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
+
+                </td>
+                <td class="validation-col">
+
                 </td>
             </tr>
             <tr style="border-bottom: none;">

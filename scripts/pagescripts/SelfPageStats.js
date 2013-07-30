@@ -160,7 +160,7 @@ define('SelfPageStats',
 
 
                  if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
-                    $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Age", "D"));
+                    $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Age", "C"));
                  else
                     $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
 
