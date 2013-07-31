@@ -123,8 +123,8 @@ define('BlahDetailPage',
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var badgeName = G.GetSafeProperty(fullBadge, "N", "unnamed badge");
                 var newHTML = "<tr class='badge-info-row'>";
-                newHTML += "<td><img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'</td>";
-                newHTML += "<td style='width:100%'>verified <span class='badge-name-class'>"+ badgeName + "</span></td>";
+                newHTML += "<td><img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'>";
+                newHTML += "verified <span class='badge-name-class'>"+ badgeName + "</span></td></tr>";
 
                 $("#BlahFacetTable").append(newHTML);
                 var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;

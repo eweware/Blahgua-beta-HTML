@@ -135,12 +135,34 @@
     bottom:45px;
 }
 
+.badge-area {
+    text-align:left;
+    text-align: left;
+    position: absolute;
+    left: 120px;
+    background-color: white;
+    padding: 0px;
+}
+
+.badge-item {
+    padding: 4px 8px 4px 8px;
+}
+
+.badge-item:hover {
+    background-color: rgb(125, 181, 227);
+}
+
+.badge-item i {
+    margin-right:8px;
+}
+
 .create-content-div {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     bottom: 60px;
     top: 244px;
     padding: 12px 12px;
+    position: absolute;
 }
 
 .create-blah-footer {
@@ -325,7 +347,7 @@
 }
 
 .create-validation-row {
-    text-align: left;
+    text-align: center;
     height: 32px;
 }
 
@@ -369,11 +391,20 @@
 .badge-info-row td {
     font-family: 'Arimo',sans-serif;
     font-size:14px;
+    padding-left: 4px;
+}
+
+.badge-info-row img {
+    margin-right:4px;
 }
 
 .badge-name-class {
     font-weight: bold;
 
+}
+
+.post-prompt {
+    text-align: center;
 }
 
 
