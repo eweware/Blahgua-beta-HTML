@@ -14,6 +14,7 @@ define('CreateBlahPage',
         var blahTypeModule = null;
 
         var  InitializePage = function() {
+
             blahTypeModule = null;
             PopulateBlahTypeOptions();
             var blahChannelStr = G.CurrentChannel.N;
@@ -86,6 +87,7 @@ define('CreateBlahPage',
                 $("#BlahHeadline").focus();
             });
 
+
             UpdateBadgeArea();
             CheckPublishBtnDisable();
         };
@@ -115,15 +117,15 @@ define('CreateBlahPage',
 			var selectVal=$("#BlahTypeList").find("option:selected").text();
 			switch(selectVal)
 			{
-			  case "says":  $("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Says: Says are general posts with no requirements.");
+			  case "says":  $("#BlahHeadline").attr("placeholder","Headline: Says are general posts with no requirements.");
 			   break;
-			   case "leaks":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Leaks: Leaks contain sensitive information and require a badge.");
+			   case "leaks":$("#BlahHeadline").attr("placeholder","Headline: Leaks contain sensitive information and require a badge.");
 			   break;
-			   case "asks":  $("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Asks: Use Asks for open-ended questions. Be sure to end your headline with a '?'");
+			   case "asks":  $("#BlahHeadline").attr("placeholder","Headline: Use Asks for open-ended questions. Be sure to end your headline with a '?'");
 			   break;
-			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Predicts: Predictions detail outcomes expected to occur by a specific date.");
+			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline: Predictions detail outcomes expected to occur by a specific date.");
 			   break;
-			   case "polls":$("#BlahHeadline").attr("placeholder","Headline here (64 chars max)Polls: Polls allow users to vote on pre-defined options.");
+			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined options.");
 			   break;
 			   
 			}
@@ -215,13 +217,13 @@ define('CreateBlahPage',
         var UpdateBadgeArea = function() {
             if (G.CurrentUser.hasOwnProperty("B")) {
                 // add badges
-                $("#BadgesDiv").empty();
+                $("#BadgesAreaBtn").empty();
                 $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
 
             } else {
-                $("#BadgesDiv").html("<tr><td>You do not have any badges.  Go to the 'badges' section your profile to acquire some.</tr></td>");
+                $("#BadgesDiv").html("<drtion your profile to acquire some.</tr></td>");
             }
             UpdateLayout();
         };
@@ -246,26 +248,11 @@ define('CreateBlahPage',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = BlahguaConfig.fragmentURL + "img/generic-badge.png";
-                newHTML += "<tr data-badge-id='" + theBadge + "'>";
-                newHTML += "<td><input type=checkbox></td>";
-                newHTML += "<td><div class='badgeholder'>";
-                newHTML += "<div class='badgename'>";
-                if (fullBadge.hasOwnProperty("K")) {
-                    imagePath = fullBadge.K;
-                }
-                newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
-                newHTML += fullBadge.N + "</div>";
-                newHTML += "<div class='badgesource'>granted by: " + fullBadge.A + "</div>";
-                newHTML += "<div class='badgeexp'>expires: " + (new Date(fullBadge.X)).toLocaleString() + "</div>";
-                newHTML += "</div></td>";
+                newHTML += "<option value=''" + theBadge + "'>";
+                newHTML += fullBadge.N;
+                newHTML += "</option>";
 
-                newHTML += "</tr>";
-                $("#BadgesDiv").append(newHTML);
-            }, function (theErr) {
-                var newHTML = "";
-                newHTML += "<tr><td><div>Error loading Badge id=" + theBadge + "</div></td></tr>";
-                $("#BadgesDiv").append(newHTML);
+                $("#ShowBadgeAreaBtn").append(newHTML);
             });
         };
 
