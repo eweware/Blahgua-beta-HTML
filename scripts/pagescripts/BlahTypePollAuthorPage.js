@@ -19,10 +19,16 @@ define('BlahTypePollAuthorPage',
 
             $(".add-poll-choice-btn").click(function(theEvent) {
                 var newHTML = CreatePollChoiceElement();
-                $(".poll-result-table").append(newHTML);
+                $(".poll-result").append(newHTML);
                RefreshPollEvents();
 
             });
+
+            $(document).on("click", ".poll-result-row .delete-btn", function(theEvent) {
+                var $el = $(theEvent.target);
+                $el.closest(".poll-result-row").remove();
+            });
+
             RefreshPollEvents();
         };
 
@@ -79,21 +85,12 @@ define('BlahTypePollAuthorPage',
         var CreatePollChoiceElement = function() {
             var numItems = $(".poll-result-row").length + 1;
             var newHTML = "";
-            newHTML += "<tr class='poll-result-row'>" +
-                "<td> " +
-                "<table> "+
-                    "<tr>  " +
-                        '<td><input type="text" class="poll-title" placeholder="option ' + numItems + '"></td>' +
-                            '<td style="width:16px"></td>' +
-                            '<td style="width:100px"><button class="delete-poll-vote inline-button">remove</button></td> ' +
-                        '</tr> ' +
-                        '<tr>' +
-                            '<td colspan="2"><input type="text" class="poll-description" placeholder="optional descriptive text"></td>' +
-                            '</tr> ' +
-                        '</table> ' +
-                    '</td>' +
-                '</tr>';
-
+            newHTML += '<div class="poll-result-row">' +
+                            '<div class="title"><input type="text" class="poll-title" placeholder="option ' + numItems + '">' +
+                                '<div class="delete-btn" onclick=""></div>' +
+                             '</div>' +
+                            '<div class="description"><input type="text" class="poll-description" placeholder="optional descriptive text"></div>' +
+                        '</div>';
             return newHTML;
         };
 
@@ -103,4 +100,6 @@ define('BlahTypePollAuthorPage',
             PrepareCreateBlahJSON: PrepareCreateBlahJSON
         }
     }
+
+
 );
