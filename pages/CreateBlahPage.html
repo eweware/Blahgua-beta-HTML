@@ -38,13 +38,7 @@
         </tr>
 
         <tr class="show-blah-bkgnd">
-            <td>
-                <div class="image-preview no-image" id="ImagePreviewDiv">
-                    <i class="icon-remove-sign image-delete-btn"></i>
-                    <span>no image</span>
-                </div>
-            </td>
-            <td colspan="2" class="createblahheadline" id="BlahFullHeadline" >
+            <td colspan="3" class="createblahheadline" id="BlahFullHeadline" >
                 <textarea placeholder="Headline here (64 chars max) Says: Says are general posts with no requirements." type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
             </td>
         </tr>
@@ -71,29 +65,26 @@
 
             </tr>
 
+
             <tr>
-                <td colspan="3"  class="shorttitle">Body</td>
-            </tr>
-            <tr>
-                <td colspan="3" class="BlahFullHeadline">
+                <td>
+                    <div class="image-preview no-image" id="ImagePreviewDiv">
+                        <i class="icon-remove-sign image-delete-btn"></i>
+                        <span>no image</span>
+                    </div>
+                </td>
+                <td colspan="2" class="createblahbody">
                     <textarea placeholder="Optional body text here " class="inputbodyframe" id="BlahBody"></textarea>
                 </td>
             </tr>
-            <tr><td colspan="3"><span id="BodyCharCount" class="charcounter"></span></td></tr>
-            <tr width="100%">
-                <td colspan="3" id="AdditionalInfoDiv"  class="createblahadditional">
-
+            <tr>
+                <td colspan="3">
+                    <span id="BodyCharCount" class="charcounter"></span>
                 </td>
             </tr>
+            <tr style="width:100%">
+                <td colspan="3" id="AdditionalInfoDiv"  class="createblahadditional">
 
-
-            <tr id="BadgeChoiceRow" name="BadgeRow" style="display:none">
-                <td colspan="3">
-                    <table class="attribute-table">
-                        <tbody id="BadgesDiv">
-
-                        </tbody>
-                    </table>
                 </td>
             </tr>
 
@@ -101,10 +92,13 @@
     </div>
     <div class="create-footer-div">
         <table id="CreateFooterDiv" class="create-blah-footer">
-            <tr>After publishing, watch for your post in the stream.</tr>
+            <tr><td>After publishing, watch for your post in the stream.</td></tr>
             <tr style="text-align: center">
-                <td>
-                    <button id="ShowBadgeAreaBtn" class="create-page-button" >Add Badge</button>
+                <td><span>Add Badges</span>
+                    <select id="ShowBadgeAreaBtn" class="badge-select" multiple="true">
+
+                    </select>
+
                 </td>
                 <td >
                     <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Publish</button>

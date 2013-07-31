@@ -199,8 +199,6 @@ define('CreateBlahPage',
         };
 
         var HandleBodyTextInput = function(target) {
-            if(target.scrollHeight > target.clientHeight)
-                target.style.height=target.scrollHeight+'px';
             var numCharsRemaining = 4000 - target.value.length;
             if (numCharsRemaining < 100) {
                 $("#BodyCharCount").text(numCharsRemaining + " chars left");
