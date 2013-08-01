@@ -144,6 +144,7 @@ define('SelfPageHistory',
             var blahsDiv = $("#UserBlahList");
             blahsDiv.empty();
             if (BlahList.length > 0) {
+                $(".blah-sort-area").show();
                 $.each(BlahList, function (index, item) {
                     newHTML = CreateUserBlahHTML(item,index);
                     blahsDiv.append(newHTML);
@@ -155,7 +156,8 @@ define('SelfPageHistory',
                 });
                 FilterBlahs();
             } else {
-                newHTML = "<tr><td colspan='2'>You have not created any posts.</td></tr>";
+                $(".blah-sort-area").hide();
+                newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any posts.</td></tr>";
                 blahsDiv.append(newHTML);
             }
         };
@@ -167,6 +169,7 @@ define('SelfPageHistory',
             var commentDiv = $("#UserCommentList");
             commentDiv.empty();
             if (CommentList.length > 0) {
+                $(".comment-sort-area").show();
                 $.each(CommentList, function (index, item) {
                     newHTML = CreateUserCommentHTML(item,index);
                     commentDiv.append(newHTML);
@@ -178,7 +181,8 @@ define('SelfPageHistory',
                 });
                 FilterComments();
             } else {
-                newHTML = "<tr><td colspan='2'>You have not created any comments yet.</td></tr>";
+                $(".comment-sort-area").hide();
+                newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any comments yet.</td></tr>";
                 commentDiv.append(newHTML);
 
             }
@@ -219,6 +223,9 @@ define('SelfPageHistory',
                 case "bydemotes":
                     filterProp = "D";
                     break;
+                case "bytype":
+                    filterProp = "Y";
+                    break;
             }
 
             if (filterProp != "") {
@@ -256,32 +263,60 @@ define('SelfPageHistory',
      
         var CreateUserBlahHTML = function(theBlah,number) {
             var newHTML = "";
-			var positionNum=number+1;
             var img = G.GetItemImage(theBlah, "A");
+            var blahTitle = G.UnCodifyText(theBlah.T);
+            var promotes = G.GetSafeProperty(theBlah, "U", 0);
+            var demotes = G.GetSafeProperty(theBlah, "D", 0);
+            var opens = G.GetSafeProperty(theBlah, "O", 0);
+            var views = G.GetSafeProperty(theBlah, "V", 0);
+
+            if (views == 0)
+                views = opens;
+            var openScore;
+            if (opens == 0)
+                openScore = 0;
+            else
+                openScore = Math.floor(100 * (opens / views));
+            var numComments = G.GetSafeProperty(theBlah, "C", 0);
+
+
 
             newHTML += "<tr class='user-blah-row' data-blah-id='" + theBlah._id + "'>";
+            newHTML += "<td><table><tbody>";
+
+
             if (img != "") {
                 newHTML += "<td class='title-text'>";
-				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
-				newHTML += "<a href='javascript:void(null)'>";
-                newHTML += G.UnCodifyText(theBlah.T);
+                newHTML += "<a href='javascript:void(null)'>";
+                if (blahTitle == "")
+                    blahTitle = "<span class='untitled-blah'>untitled blah</span>";
+                newHTML += blahTitle;
                 newHTML += "</a></td>";
                 newHTML += "<td>";
                 newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
                 newHTML += "</td>";
             } else {
                 newHTML += "<td colspan='2' class='title-text'>";
-				newHTML += "<span class='positionNum'>"+positionNum+"</span>";
 				newHTML += "<a href='javascript:void(null)'>";
-                newHTML += G.UnCodifyText(theBlah.T);
+                newHTML += blahTitle;
                 newHTML += "</a></td>";
             }
             newHTML += "</tr>";
 
 
-            newHTML += "<tr>"
-            newHTML += "<td>" + G.ElapsedTimeString(new Date(theBlah.c)) + "</td>";
-            newHTML += "</tr>";
+            var blahType = exports.GetBlahTypeNameFromId(theBlah.Y);
+            var bgColor = exports.GetBlahTypeColorFromId(theBlah.Y);
+            newHTML += "<tr>";
+            newHTML += "<td colspan='2' class='user-blah-detail'>";
+            newHTML += "<div class='blah-type-square' style='background-color:" + bgColor + "'>" + blahType + "</div>";
+
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote.png">' + promotes + "</span>";
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote.png">' + demotes + "</span>";
+            newHTML += "<span><i class='icon-eye-open add-margin'></i>" + openScore + "%</span>";
+            newHTML += "<span><i class='icon-comments add-margin'></i>" + numComments + "</span>";
+            newHTML += "<span class='user-blah-date'>"+ G.ElapsedTimeString(new Date(theBlah.c)) + "</span>";
+            newHTML += "</td></tr>";
+            newHTML += "</tbody></table></td></tr>";
             return newHTML;
         };
 

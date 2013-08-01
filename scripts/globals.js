@@ -524,13 +524,27 @@ define('globals',
             var maskObj = "<div class='chart-mask'><div>" +
                 theText + "</div></div>";
             $(theTarget).append(maskObj);
-        }
+        };
+
+        var AppendText = function(curText, appendText, appendStr) {
+            if (appendText != "") {
+                if (curText == "") {
+                    curText = appendText;
+                } else {
+                    curText += appendStr;
+                    curText += appendText;
+                }
+            }
+
+            return curText;
+        };
 
 
 
         return {
             Initialize :   Initialize,
             DataZeroOrEmpty: DataZeroOrEmpty,
+            AppendText: AppendText,
             AppendChartMask: AppendChartMask,
             BlahsMovingTimer: BlahsMovingTimer,
             BlahPreviewTimeout: BlahPreviewTimeout,

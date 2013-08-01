@@ -24,12 +24,14 @@ define('ExportFunctions',
         var GetBlahTypeNameFromId = null;
         var LogoutUser = null;
         var ForgetUser = null;
+        var GetBlahTypeColorFromName = null;
         var CurrentCommentText = "";
 
         return {
             ForgetUser: ForgetUser,
             LogoutUser: LogoutUser,
             GetBlahTypeNameFromId: GetBlahTypeNameFromId,
+            GetBlahTypeColorFromId: GetBlahTypeColorFromName,
             GetBlahTypeId: GetBlahTypeId,
             ClosePage: ClosePage,
             RefreshPageForNewUser: RefreshPageForNewUser ,

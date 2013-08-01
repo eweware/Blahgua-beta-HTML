@@ -191,24 +191,26 @@ define('CreateBlahPage',
             var errMsg = "";
 
             if (headLineLen < minHeadlineLen)
-                errMsg += "Headline too short  ";
+                errMsg = G.AppendText(errMsg, "Headline too short", "; ");
             if (headLineLen > K.MaxTitleLength)
-                errMsg += "Headline too long  ";
+                errMsg = G.AppendText(errMsg, "Headline too long", "; ");
             if (bodyLen > 4000)
-                errMsg += "Body text too long  ";
+                errMsg = G.AppendText(errMsg, "Body text too long", "; ");
 
             if (blahTypeModule)
-                errMsg += blahTypeModule.ValidateCreate();
+                errMsg = G.AppendText(errMsg,  blahTypeModule.ValidateCreate(), "; ");
 
             if (errMsg == "") {
-                $("#ValidationRow").hide();
+                $("#ValidationRow").fadeTo(200,0, function(theEvent) {
+                    $("#ErrMsgSpan").empty();
+                });
                 document.getElementById("PublishBlahBtn").disabled = false;
-                $("#ErrMsgSpan").empty();
+
             }
             else {
                 document.getElementById("PublishBlahBtn").disabled = true;
                 $("#ErrMsgSpan").text(errMsg);
-                $("#ValidationRow").show();
+                $("#ValidationRow").fadeTo(200,1);
             }
         };
 
@@ -381,6 +383,9 @@ define('CreateBlahPage',
             newItem["G"] = theBlah.G;
             newItem["N"] = 0;
             newItem["Y"] = theBlah.Y;
+            if (theBlah.hasOwnProperty("B"))
+                newItem["B"] = theBlah.B;
+
             newItem.S = 0;
             newItem.R = 0;
             newItem.V = 0;

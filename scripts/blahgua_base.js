@@ -679,6 +679,33 @@ define('blahgua_base',
         return "";
     };
 
+    var GetBlahTypeColorFromId = function(theId) {
+        var theColor = "#FFFFFF";
+        switch (theId) {
+            case K.BlahType.says:
+                theColor = "#7DB5E3";
+                break;
+            case K.BlahType.leaks:
+                theColor = "#F87858";
+                break;
+            case K.BlahType.polls:
+                theColor = "#F8B800";
+                break;
+            case K.BlahType.predicts:
+                theColor = "#FAFA64";
+                break;
+            case K.BlahType.asks:
+                theColor = "#7AD000";
+                break;
+            case K.BlahType.ad:
+                theColor = "#FF0000";
+                break;
+            default:
+                break;
+        }
+        return theColor;
+    };
+
 
 
 
@@ -1833,6 +1860,7 @@ define('blahgua_base',
         Exports.CloseBlah = CloseBlah;
         Exports.GetBlahTypeId = GetBlahTypeId;
         Exports.GetBlahTypeNameFromId = GetBlahTypeNameFromId;
+        Exports.GetBlahTypeColorFromId = GetBlahTypeColorFromId;
         Exports.GetBlahTypeStr = GetBlahTypeStr;
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;

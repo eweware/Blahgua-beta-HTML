@@ -17,7 +17,7 @@ define('SignUpPage',
                 var userName = $("#userName").val();
                 var pwd = $("#pwd").val();
                 blahgua_rest.CreateUser(userName, pwd, function(json) {
-                    var email = $("$email").val();
+                    var email = $("#recoveryemail").val();
                     if (email != "") {
                         // set recovery email
                         blahgua_rest.setRecoveryInfo(email, HandleUserLoginOK, function(theErr) {

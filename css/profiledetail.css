@@ -306,7 +306,6 @@
     width: 100%;
 }
 .user-comment-row .title-text a{
- 
 	color:black;
 }
 .user-comment-row .title-text a:hover{
@@ -317,15 +316,76 @@
 
 }
 
+
+.no-history-item {
+    padding-top:16px;
+    padding-bottom: 16px;
+    text-align: center;
+    font-style: italic;
+    color: #202020;
+    font-size: 14pt;
+}
+
+.user-blah-row:hover {
+    background-color: #78B5E6;
+}
+
+.user-comment-row .title-text a{
+    color:black;
+}
+
+.untitled-blah {
+    font-style:italic;
+}
+
+.user-blah-detail {
+    font-size: 11pt;
+    width: 100%;
+    padding-bottom: 8px;
+    padding-top: 4px;
+    color: #999999;
+}
+
+.user-blah-detail i {
+    margin-left:12px;
+    margin-right:4px;
+    color:black;
+}
+
 .user-blah-row .title-text {
     width: 100%;
+    vertical-align: top;
+    padding-right: 8px;
+    font-size:16pt;
 }
-.user-blah-row .title-text a {
-   color:black;
+
+.user-blah-row .title-text a{
+    color:black;
 }
-.user-blah-row .title-text a:hover {
-   color:blue;
+
+.blah-type-square {
+    background-color: blue;
+    color:#202020;
+    width:80px;
+    display:inline-block;
+    text-align: center;
+    font-size: 12pt;
 }
+
+.user-blah-row table {
+    width:100%;
+    border-bottom: 1px solid #999999;
+    margin: 4px 0px 4px 0px;
+}
+
+.user-blah-date {
+    text-align: right;
+    color: #999999;
+    font-size: 11pt;
+    font-style: italic;
+    float:right;
+}
+
 .chart-box {
     height:200px;
     width:400px;
