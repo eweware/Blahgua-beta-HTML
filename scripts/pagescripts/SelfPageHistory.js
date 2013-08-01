@@ -324,25 +324,24 @@ define('SelfPageHistory',
             var newHTML = "";
 			var positionNum=number+1;
 			var img = G.GetItemImage(theComment, "D");
-            newHTML += "<tr class='user-comment-row'>"
+            newHTML += "<tr class='user-comment-row'>";
 			if(img!="")
 			{
-			newHTML += "<td class='title-text'>"
-			newHTML += "<span class='positionNum'>"+positionNum+"</span>";
-			newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
-            newHTML += G.UnCodifyText(theComment.T);
-            newHTML += "</a></td>";
-			newHTML += "<td>";
-            newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
-            newHTML += "</td>";
+                newHTML += "<td class='title-text'>"
+                newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+                newHTML += G.UnCodifyText(theComment.T);
+                newHTML += "</a></td>";
+                newHTML += "<td>";
+                newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
+                newHTML += "</td>";
 			}
 			else
 			{
-			newHTML += "<td colspan='2' class='title-text'>"
-			newHTML += "<span class='positionNum'>"+positionNum+"</span>";
-			newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
-            newHTML += G.UnCodifyText(theComment.T);
-            newHTML += "</a></td>";
+                newHTML += "<td colspan='2' class='title-text'>"
+
+                newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
+                newHTML += G.UnCodifyText(theComment.T);
+                newHTML += "</a></td>";
 			}
             newHTML += "</tr>";
 			
