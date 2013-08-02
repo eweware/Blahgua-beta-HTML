@@ -295,7 +295,7 @@
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     padding: 8px 16px;
-    width: 200px;
+    width: 125px;
 }
 
 .createblahadditional{
@@ -406,6 +406,12 @@
 
 .post-prompt {
     text-align: center;
+    padding-top: 12px;
+    font-style: italic;
+    font-family: 'Arimo', sans-serif;
+    word-wrap: normal;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
 
