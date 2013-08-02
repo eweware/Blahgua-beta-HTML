@@ -83,7 +83,6 @@ define('blahgua_base',
                 item.style.top = curTop + "px";
                 rowHeight = ResizeBlahRow(item);
                 curTop = curTop + rowHeight + K.InterBlahGutter;
-
             });
             var newTop = G.TopRow.getBoundingClientRect().top;
             var newScroll = curScroll + (newTop - rowTop);
@@ -1174,8 +1173,10 @@ define('blahgua_base',
     };
 
     var ResizeLRow = function(theRow) {
-        theRow.childNodes[0].style.width = G.LargeTileWidth + "px";
-        theRow.childNodes[0].style.height = G.LargeTileHeight + "px";
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
+        theRow.childNodes[0].style.width = (G.LargeTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.LargeTileHeight - heightpaddingOffset) + "px";
         return G.LargeTileHeight;
     };
 
@@ -1195,12 +1196,14 @@ define('blahgua_base',
     };
 
     var ResizeMMRow = function(theRow) {
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
-        theRow.childNodes[0].style.height = G.MediumTileHeight + "px";
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
 
-        theRow.childNodes[1].style.width = G.MediumTileWidth + "px";
-        theRow.childNodes[1].style.height = G.MediumTileHeight + "px";
+        theRow.childNodes[1].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[1].style.left = curLeft + "px";
         return G.MediumTileHeight;
     };
@@ -1233,21 +1236,23 @@ define('blahgua_base',
     };
 
     var ResizeSSSSRow = function(theRow) {
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[0].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[0].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
 
-        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[1].style.left = curLeft + "px";
 
-        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         curLeft += K.InterBlahGutter + G.SmallTileWidth;
         theRow.childNodes[2].style.left = curLeft + "px";
 
-        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         curLeft += K.InterBlahGutter + G.SmallTileWidth;
         theRow.childNodes[3].style.left = curLeft + "px";
 
@@ -1288,27 +1293,29 @@ define('blahgua_base',
     };
 
     var ResizeMSSRow = function(theRow) {
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
         var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
-        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
 
-        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[1].style.left = curLeft + "px";
 
-        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[2].style.left = curLeft + "px";
         theRow.childNodes[2].style.top = curTop + "px";
 
-        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         curLeft += K.InterBlahGutter + G.SmallTileWidth;
         theRow.childNodes[3].style.left = curLeft + "px";
 
-        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[4].style.left = curLeft + "px";
         theRow.childNodes[4].style.top = curTop  + "px";
 
@@ -1349,26 +1356,28 @@ define('blahgua_base',
     };
 
     var ResizeSMSRow = function(theRow) {
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
         var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
-        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[0].style.left = curLeft + "px";
 
-        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
 
-        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[2].style.top = curTop + "px";
 
-        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         curLeft += K.InterBlahGutter + G.MediumTileWidth;
         theRow.childNodes[3].style.left = curLeft + "px";
 
-        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[4].style.left = curLeft + "px";
         theRow.childNodes[4].style.top = curTop  + "px";
 
@@ -1409,26 +1418,28 @@ define('blahgua_base',
     };
 
     var ResizeSSMRow = function(theRow) {
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
         var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = G.MediumTileWidth + "px";
-        theRow.childNodes[0].style.height = G.MediumTileWidth + "px";
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[0].style.left = curLeft + "px";
 
-        theRow.childNodes[1].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[1].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
 
-        theRow.childNodes[2].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[2].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[2].style.top = curTop + "px";
 
-        theRow.childNodes[3].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[3].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         curLeft = K.EdgeGutter + K.InterBlahGutter + G.SmallTileWidth;
         theRow.childNodes[3].style.left = curLeft + "px";
 
-        theRow.childNodes[4].style.width = G.SmallTileWidth + "px";
-        theRow.childNodes[4].style.height = G.SmallTileHeight + "px";
+        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
         theRow.childNodes[4].style.left = curLeft + "px";
         theRow.childNodes[4].style.top = curTop  + "px";
 
