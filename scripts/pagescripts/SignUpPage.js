@@ -180,6 +180,7 @@ define('SignUpPage',
                 $(this).addClass("toggle-active");
                 $(selector).show();
                 $(selector).find("input:visible:first").focus();
+                MaybeEnableButton();
             });
 
             $(".content_frame").keydown(function(theEvent) {
@@ -211,6 +212,9 @@ define('SignUpPage',
             $("[data-validate]").blur(function(theEvent) {
                 G.ValidateField($(this));
             });
+
+            MaybeEnableButton();
+
         };
 
         var isValidEmailAddress = function(emailAddress) {
@@ -249,11 +253,13 @@ define('SignUpPage',
         var ShowRecoveryInfo = function(theEvent) {
             $("#RecoverPasswordForm").show().find("input:visible:first").focus();;
             $("#ExistingUserForm").hide();
+            MaybeEnableButton();
         };
 
         var HideRecoveryInfo = function(theEvent) {
             $("#RecoverPasswordForm").hide();
             $("#ExistingUserForm").show().find("input:visible:first").focus();
+            MaybeEnableButton();
         };
 
         return {

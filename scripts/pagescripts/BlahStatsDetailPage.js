@@ -83,7 +83,7 @@ define('BlahStatsDetailPage',
 
             $("#BlahStandingDiv").highcharts({
                 title: {
-                    text:"Blah Strength (100%)"
+                    text:"blahgua score (100%)"
                 },
                 legend: {
                     enabled:false

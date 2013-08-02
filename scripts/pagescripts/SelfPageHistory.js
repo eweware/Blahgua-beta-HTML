@@ -310,8 +310,8 @@ define('SelfPageHistory',
             newHTML += "<td colspan='2' class='user-blah-detail'>";
             newHTML += "<div class='blah-type-square' style='background-color:" + bgColor + "'>" + blahType + "</div>";
 
-            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote.png">' + promotes + "</span>";
-            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote.png">' + demotes + "</span>";
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote.png">' + promotes + "</span>";
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote.png">' + demotes + "</span>";
             newHTML += "<span><i class='icon-eye-open add-margin'></i>" + openScore + "%</span>";
             newHTML += "<span><i class='icon-comments add-margin'></i>" + numComments + "</span>";
             newHTML += "<span class='user-blah-date'>"+ G.ElapsedTimeString(new Date(theBlah.c)) + "</span>";
@@ -325,6 +325,7 @@ define('SelfPageHistory',
 			var positionNum=number+1;
 			var img = G.GetItemImage(theComment, "D");
             newHTML += "<tr class='user-comment-row'>";
+            newHTML += "<td><table><tbody>";
 			if(img!="")
 			{
                 newHTML += "<td class='title-text'>"
@@ -348,6 +349,7 @@ define('SelfPageHistory',
 			newHTML += "<tr>"
             newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>";
             newHTML += "</tr>";
+            newHTML += "</tbody></table></td></tr>";
             return newHTML;
         };
      

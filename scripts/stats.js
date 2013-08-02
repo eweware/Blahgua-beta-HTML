@@ -142,6 +142,7 @@ define('stats',
         };
 
         var MakeStatChartOptions = function(chartTitle, chartData, catAxis) {
+            var maxVal = GetMaxGraphRange(chartData, 4, 1.2);
             var newStats = {
                 title: {
                     text:chartTitle,
@@ -168,12 +169,11 @@ define('stats',
                 xAxis: {
                     categories: catAxis
                 },
-                yAxis: [{
+                yAxis: {
                     min:0,
-                    minRange:10,
-                    endOnTick: true,
+                    max:maxVal,
                     title: {text:null}
-                }],
+                },
                 series: [{
                     type: 'areaspline',
                     data: chartData
@@ -183,11 +183,41 @@ define('stats',
             return newStats;
         };
 
+        var GetMaxGraphRange = function(series, minVal, incVal) {
+            var max = minVal;
+
+            if ((series[0] != undefined) && series[0].hasOwnProperty("data")) {
+                // nested array
+                var curArray, curMax;
+                var arrayRank = series[0].data.length;
+
+                for (var curIndex in series[0].data) {
+                    curMax = 0;
+                    for (var curSubItem in series)  {
+                        curMax += series[curSubItem].data[curIndex];
+                    }
+                    if (curMax > max)
+                        max == curMax;
+                }
+            }  else {
+                for (var curVal in series) {
+                    if (series[curVal] > max)
+                        max = series[curVal];
+
+                }
+            }
+
+
+            max *= incVal;
+            return Math.ceil((max));
+        };
+
+
         var MakeDemoChartOptions = function(targetObject, demoString, demoName) {
             var demoSeries = MakeDemoSeries(targetObject, demoName);
             var demoCat = MakeDemoCategories(demoName);
             var chartHeight = 125 + (25 * demoCat.length);
-
+            var maxVal = GetMaxGraphRange(demoSeries, 4, 1.2);
             var newDemos = {
                 chart: {
                     type: "column"
@@ -211,12 +241,11 @@ define('stats',
                     enabled:false
                 },
 
-                yAxis: [{
+                yAxis: {
                     min:0,
-                    minRange:10,
-                    endOnTick: true,
+                    max: maxVal,
                     title: {text:null}
-                }],
+                },
                 series: demoSeries
             };
 

@@ -307,11 +307,9 @@
 }
 .user-comment-row .title-text a{
 	color:black;
+    word-break: break-word;
 }
-.user-comment-row .title-text a:hover{
- 
-	color:blue;
-}
+
 .user-blah-row {
 
 }
@@ -327,7 +325,7 @@
 }
 
 .user-blah-row:hover {
-    background-color: #78B5E6;
+    background-color: #e0dee6;
 }
 
 .user-comment-row .title-text a{
@@ -356,7 +354,7 @@
     width: 100%;
     vertical-align: top;
     padding-right: 8px;
-    font-size:16pt;
+    font-size:14pt;
 }
 
 .user-blah-row .title-text a{
@@ -366,10 +364,10 @@
 .blah-type-square {
     background-color: blue;
     color:#202020;
-    width:80px;
     display:inline-block;
     text-align: center;
     font-size: 12pt;
+    padding: 0px 4px;
 }
 
 .user-blah-row table {
