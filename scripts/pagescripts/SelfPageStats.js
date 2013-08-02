@@ -37,6 +37,9 @@ define('SelfPageStats',
                 var userContro = G.GetSafeProperty(statsObj, 'K', 0);
 
                 $('#UserStandingDiv').highcharts({
+                    chart: {
+                        spacingRight:40
+                    },
                     title: {
                         text:null
                     },
@@ -60,7 +63,8 @@ define('SelfPageStats',
                     plotOptions: {
                         bar: {
                             dataLabels: {
-                                enabled: true
+                                enabled: true,
+                                format: '{y}%'
                             }
                         }
                     },

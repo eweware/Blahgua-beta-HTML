@@ -363,11 +363,11 @@
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     border-radius: 8px;
-    font-size: 18px;
-    font-family: 'Arimo', sans-serif;
-    padding: 4px 12px;
     float: right;
     margin-left: 8px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 8px 16px;
     width: 200px;
 }
 

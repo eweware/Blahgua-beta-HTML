@@ -77,7 +77,6 @@ define('BlahStatsDetailPage',
             // Overall Standing
             var curStats = G.GetSafeProperty(G.CurrentBlah,"L", null);
             var curStr = G.GetSafeProperty(G.CurrentBlah, "S", 0);
-            var recentStr = G.GetSafeProperty(G.CurrentBlah, "R", 0);
             var uv = G.GetSafeProperty(G.CurrentBlah, "P", 0);
             var dv = G.GetSafeProperty(G.CurrentBlah, "D", 0);
 
@@ -91,18 +90,29 @@ define('BlahStatsDetailPage',
                 credits: {
                     enabled:false
                 },
-                xAxis: {
-                    categories: ['Current', 'Recent']
+                chart:{
+                    spacingRight:20
+                },
+
+                xAxis :{
+                    lineWidth: 0,
+                    minorGridLineWidth: 0,
+                    lineColor: 'transparent',
+                    labels: {
+                        enabled: false
+                    },
+                    minorTickLength: 0,
+                    tickLength: 0
                 },
                 yAxis: {
                     min:0,
                     max:100,
                     title: { text: null}
+
                 },
                 series: [{
                     type: 'bar',
-                    data: [{color: '#FF0000', y: curStr * 100},
-                        {color: '#0000FF', y: recentStr * 100}]
+                    data: [{color: '#FF0000', y: Math.floor(curStr * 100)}]
                 }]
             });
 

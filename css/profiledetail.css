@@ -51,9 +51,7 @@
 
 
 .small-button {
-    font-size: 20px;
     color: rgb(244,245,240);
-    font-family: 'Arimo', sans-serif;
     background-color: rgb(84,86,98);
     background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
@@ -62,9 +60,10 @@
     background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
     border: 1px solid rgb(88,90,103);
-    padding: 8px 12px;
-    border-style: none;
     border-radius: 8px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 8px 16px;
     width: 200px;
 }
 
@@ -88,6 +87,11 @@
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
+    border-radius: 8px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 8px 16px;
+    width: 200px;
 }
 
 .default-button:hover {
