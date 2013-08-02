@@ -309,12 +309,21 @@
 
 .user-comment-row .title-text {
     width: 100%;
-}
-.user-comment-row .title-text a{
 	color:black;
     word-break: break-word;
+    vertical-align: top;
+    padding-right: 8px;
 }
 
+.user-comment-row table {
+    width:100%;
+    border-bottom: 1px solid #999999;
+    margin: 4px 0px 4px 0px;
+}
+
+.blah-comment-link {
+    font-size:10pt;
+}
 .user-blah-row {
 
 }
@@ -333,16 +342,21 @@
     background-color: #e0dee6;
 }
 
-.user-comment-row .title-text a{
-    color:black;
-}
 
 .untitled-blah {
     font-style:italic;
 }
 
+.user-comment-detail {
+    font-size: 10pt;
+    width: 100%;
+    padding-bottom: 8px;
+    padding-top: 4px;
+    color: #999999;
+}
+
 .user-blah-detail {
-    font-size: 11pt;
+    font-size: 10pt;
     width: 100%;
     padding-bottom: 8px;
     padding-top: 4px;
@@ -359,7 +373,8 @@
     width: 100%;
     vertical-align: top;
     padding-right: 8px;
-    font-size:14pt;
+    font-size:12pt;
+    word-break: break-word;
 }
 
 .user-blah-row .title-text a{
@@ -371,7 +386,7 @@
     color:#202020;
     display:inline-block;
     text-align: center;
-    font-size: 12pt;
+    font-size: 10pt;
     padding: 0px 4px;
 }
 
@@ -384,7 +399,7 @@
 .user-blah-date {
     text-align: right;
     color: #999999;
-    font-size: 11pt;
+    font-size: 10pt;
     font-style: italic;
     float:right;
 }

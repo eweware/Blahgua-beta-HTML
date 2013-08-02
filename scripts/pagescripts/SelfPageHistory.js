@@ -322,16 +322,18 @@ define('SelfPageHistory',
 
         var CreateUserCommentHTML = function(theComment,number) {
             var newHTML = "";
-			var positionNum=number+1;
+            var promotes = G.GetSafeProperty(theComment, "U", 0);
+            var demotes = G.GetSafeProperty(theComment, "D", 0);
 			var img = G.GetItemImage(theComment, "D");
             newHTML += "<tr class='user-comment-row'>";
             newHTML += "<td><table><tbody>";
+
+            newHTML += "<tr>"
 			if(img!="")
 			{
                 newHTML += "<td class='title-text'>"
-                newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
                 newHTML += G.UnCodifyText(theComment.T);
-                newHTML += "</a></td>";
+                newHTML += "</td>";
                 newHTML += "<td>";
                 newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + img + "\")'>";
                 newHTML += "</td>";
@@ -339,15 +341,17 @@ define('SelfPageHistory',
 			else
 			{
                 newHTML += "<td colspan='2' class='title-text'>"
-
-                newHTML += "<a href='javascript:void(null)' data-blah-id='" + theComment.B + "'>";
                 newHTML += G.UnCodifyText(theComment.T);
-                newHTML += "</a></td>";
+                newHTML += "</td>";
 			}
             newHTML += "</tr>";
 			
 			newHTML += "<tr>"
-            newHTML += "<td>" + G.ElapsedTimeString(new Date(theComment.c)) + "</td>";
+            newHTML += "<td colspan='2'  class='user-comment-detail'>";
+            newHTML += "<a class='blah-comment-link' href='javascript:void(null)' data-blah-id='" + theComment.B + "'>go to post</a>";
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote.png">' + promotes + "</span>";
+            newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote.png">' + demotes + "</span>";
+            newHTML += "<span class='user-blah-date'>" + G.ElapsedTimeString(new Date(theComment.c)) + "</span></td>";
             newHTML += "</tr>";
             newHTML += "</tbody></table></td></tr>";
             return newHTML;
