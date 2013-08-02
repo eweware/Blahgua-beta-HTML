@@ -217,6 +217,9 @@ define('stats',
             var demoSeries = MakeDemoSeries(targetObject, demoName);
             var demoCat = MakeDemoCategories(demoName);
             var chartHeight = 125 + (25 * demoCat.length);
+            var lineCount = 1;
+            if (demoCat.length > 6)
+                lineCount = 2;
             var maxVal = GetMaxGraphRange(demoSeries, 4, 1.2);
             var newDemos = {
                 chart: {
@@ -227,7 +230,10 @@ define('stats',
                     text:demoString
                 },
                 xAxis: {
-                    categories:demoCat
+                    categories:demoCat,
+                    labels: {
+                        staggerLines: lineCount
+                    }
                 },
                 plotOptions: {
                     series: {

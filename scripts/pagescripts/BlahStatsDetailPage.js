@@ -134,7 +134,7 @@ define('BlahStatsDetailPage',
                     min: 0,
                     minRange:10,
                     minorTickInterval:1,
-                    min:0
+                    title: { text: null}
                 },
 
                 series: [{
@@ -194,6 +194,11 @@ define('BlahStatsDetailPage',
                 $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
             else
                 $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
+
+            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
+                $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Income", "E"));
+            else
+                $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
 
         };
 

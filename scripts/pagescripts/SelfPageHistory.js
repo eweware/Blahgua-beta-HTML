@@ -150,8 +150,8 @@ define('SelfPageHistory',
                     blahsDiv.append(newHTML);
                 });
                 // bind events
-                $("#UserBlahList tr").click(function(theEvent){
-                    theID = $(theEvent.target).closest("tr").attr("data-blah-id");
+                $("#UserBlahList>tr").click(function(theEvent){
+                    theID = $(this).attr("data-blah-id");
                     DoOpenUserBlah(theID);
                 });
                 FilterBlahs();
@@ -312,8 +312,8 @@ define('SelfPageHistory',
 
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote.png">' + promotes + "</span>";
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote.png">' + demotes + "</span>";
-            newHTML += "<span><i class='icon-eye-open add-margin'></i>" + openScore + "%</span>";
-            newHTML += "<span><i class='icon-comments add-margin'></i>" + numComments + "</span>";
+            newHTML += "<span><i class='icon-eye-open add-margin' title='ratio of opens to views'></i>" + openScore + "%</span>";
+            newHTML += "<span><i class='icon-comments add-margin' title='# of comments'></i>" + numComments + "</span>";
             newHTML += "<span class='user-blah-date'>"+ G.ElapsedTimeString(new Date(theBlah.c)) + "</span>";
             newHTML += "</td></tr>";
             newHTML += "</tbody></table></td></tr>";

@@ -182,9 +182,9 @@ define('SelfPageStats',
                     $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
 
                 if (G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
-                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Income", "E"));
+                    $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Income", "E"));
                 else
-                    $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
+                    $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
 
 
 

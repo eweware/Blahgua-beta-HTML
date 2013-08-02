@@ -44,13 +44,13 @@
 }
 
 .badgename {
-    font-size: 28px;
+    font-size: 14px;
     font-family: 'Arimo', sans-serif;
 }
 
 .badgeimage {
-    width:22px;
-    height:32px;
+    width:23px;
+    height:20px;
     margin-left: 8px;
     margin-right: 8px;
 }
@@ -65,9 +65,9 @@
     font-size: 9pt;
     font-style: italic;
     color: gray;
-    margin-left: 16px;
     text-align: right;
-    margin-right: 16px;
+    float: right;
+    margin: 10px 16px 0px 4px;
 }
 
 .badge-div {

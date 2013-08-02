@@ -236,15 +236,15 @@ define('SelfPageDetails',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = BlahguaConfig.fragmentURL + "img/generic-badge.png";
+                var imagePath = BlahguaConfig.fragmentURL + "img/black_badge.png";
                 newHTML += "<tr><td><div class='badgeholder'>";
-                newHTML += "<div class='badgename'>";
+                newHTML += "<span class='badgename'>";
                 if (fullBadge.hasOwnProperty("K")) {
                     imagePath = fullBadge.K;
                 }
                 newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
-                newHTML += fullBadge.N + "</div>";
-                newHTML += "<div class='badgeexp'>" + (new Date(fullBadge.X)).toLocaleString() + "</div>";
+                newHTML += fullBadge.N + "</span>";
+                newHTML += "<span class='badgeexp'>expires " + (new Date(fullBadge.X)).toLocaleDateString() + "</span>";
                 newHTML += "</div></td>";
 
                 newHTML += "</tr>";
