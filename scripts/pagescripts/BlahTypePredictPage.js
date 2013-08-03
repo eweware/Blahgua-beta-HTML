@@ -72,21 +72,21 @@ define('BlahTypePredict',
             var isPast = (expDate < new Date(Date.now()));
 
             if (isPast) {
-                $("#ElapsedTimeText").text("should have happened ");
+                $("#predictionPrompt").text("should have happened ");
                 $("#PredictVotePrompt").text("Did it happen?");
                 $("#PredictVoteTable").hide();
                 $("#ExpPredictVoteTable").show();
                 $('.current-choices img').unbind('click');
             } else {
-                $("#ElapsedTimeText").text("happening within ");
+                $("#predictionPrompt").text("happening by ");
                 $("#PredictVotePrompt").text("Do you agree?");
                 $("#PredictVoteTable").show();
                 $("#ExpPredictVoteTable").hide();
                 $('.expired-choices img').unbind('click');
             }
 
-            $("#elapsedTime").text(elapStr);
             $("#predictionDate").text(expDate.toLocaleDateString());
+            $("#elapsedTime").text("(" + elapStr + ")");
 
             // update the bars
             var yesVotes = G.GetSafeProperty(G.CurrentBlah, "4", 0);

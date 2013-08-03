@@ -36,12 +36,6 @@ define('BlahTypePoll',
                 }
                 targetTable[0].innerHTML = newHTML;
 
-                // adjust the sizes
-                var widths = $('.poll-title').map(function() {
-                    return $(this).width();
-                }).get();
-                var maxWidth = Math.max.apply( Math, widths );
-                $('.poll-title').width(maxWidth);
 
                 // add methods
                 $(".poll-checkbox").click(function(theEvent) {
@@ -77,6 +71,9 @@ define('BlahTypePoll',
             var votes = G.CurrentBlah.J;
             var newChoice;
             var maxVotes = 0, curVotes, totalVotes = 0;
+            var maxWidth = document.getElementById("BlahTypePoll").getBoundingClientRect().width - 100;
+            var curWidth;
+
             for (var curIndex in votes) {
                 curVotes = votes[curIndex];
                 totalVotes += curVotes;
@@ -89,8 +86,8 @@ define('BlahTypePoll',
                 var myIndex = Number(item.getAttribute("data-poll-vote"));
                 var curVote = G.CurrentBlah.J[myIndex];
                 var ratio = curVote/ maxVotes;
-                var curRatio = Math.floor(100 * ratio);
-                var newWidth = curRatio + "%";
+                var curRatio = Math.floor(maxWidth * ratio);
+                var newWidth = curRatio + "px";
                 var votePercent = Math.floor((curVote / totalVotes) * 100) + "%";
                 if (curVote > 0)
                     $(item).find(".poll-vote-text").text(votePercent).removeClass("no-votes");
@@ -101,33 +98,29 @@ define('BlahTypePoll',
         };
 
         var UpdatePollPage = function() {
+            var maxWidth = document.getElementById("BlahTypePoll").getBoundingClientRect().width - 100;
             if (G.IsUserLoggedIn) {
                 blahgua_rest.GetUserPollVote(G.CurrentBlah._id, function (json) {
                     if (json.hasOwnProperty("W")) {
                         // user voted - show their vote icon, disable
-                        // all others, show chart
-                        var selector = "[data-poll-vote=" + json.W + "] .poll-checkbox";
-                        var img = $(selector);
-
+                        var selector = "[data-poll-vote=" + json.W + "] .poll-title";
                         $(".poll-checkbox").hide();
-                        img.addClass("checked").show();
-                        $(".poll-chart-div").show()
                         $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
+                        $('.user-vote-div').text("You voted for '" + $(selector).text() + "'").show();
                     } else {
                         // user did not vote - they can vote!
-                        $(".poll-chart-div").css({width: "50%"});
+                        $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
                         $(".poll-vote-text").text("?");
-                        $(".poll-checkbox").show();
-                        $(".poll-chart-div").show();
+                        $('.user-vote-div').hide();
                     }
                 });
             } else {
-                // user isnot logged in - can't vote or see results
-                $(".poll-prompt").text("Sign in to vote and see results.")
-				$(".poll-checkbox-wrapper").css("display","none");
-                $(".poll-checkbox").hide();
-                $(".poll-chart-div").hide();
+                // user is not logged in - can't vote or see results
+                $(".poll-checkbox-wrapper").css({"opacity": 0});
+                $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
+                $(".poll-vote-text").text("?");
+                $('.user-vote-div').hide();
             }
         };
 
@@ -138,23 +131,20 @@ define('BlahTypePoll',
                 "<td><table>" +
                 "  <tr>" +
                 "    <td class='poll-checkbox-wrapper'>" +
-                "      <div class='poll-checkbox'></div>" +
+                "      <i class='icon-check-empty poll-checkbox'></i>" +
                 "    </td>" +
-                '    <td><div class="poll-title">' + pollChoice.G + '</div></td>' +
                 '    <td class="poll-chart-holder">' +
                 '      <div class="poll-chart-div" style="width:0%"></div>' +
-                '      </td><td><span class="poll-vote-text">' + curVotes + '</span>' +
+                '      <span class="poll-vote-text">' + curVotes + '</span>' +
                 '    </td>' +
                 '  </tr>' +
                 '  <tr>' +
-                '    <td></td><td colspan=2><span class="poll-description">' + description + '</span></td>' +
+                '    <td></td><td><span class="poll-title">' + pollChoice.G + '</span><span class="poll-description">' + description + '</span></td>' +
                 '  </tr>' +
                 "</table></td></tr>";
 
             return newHTML;
         };
-
-
 
 
         return {
