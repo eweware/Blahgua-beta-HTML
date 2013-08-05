@@ -94,7 +94,7 @@
             <tr>
                 <td> </td>
                 <td>
-                    <button disabled="disabled" id="SaveAccountInfoBtn" class="float-right small-button default-button" >Update</button>
+                    <button disabled="disabled" id="SaveAccountInfoBtn" class="float-right action-button default-button" >Update</button>
                 </td>
             </tr>
             </tbody>
@@ -153,67 +153,55 @@
         </div>
         <div class="accordion-content">
         <table id="DemoArea" class="attribute-table">
-            <thead>
-            <tr>
-                <!--<th scope="col" style="width: 75px; border-top-left-radius: 8px;">Attribute</th>
-                <th scope="col">Input</th>-->
-				<th></th>
-				<th></th>
-                <th  scope="col" style="text-align: center" >Public</th>
-
-            </tr>
-            </thead>
             <tbody>
                      
             <tr>
-                <td class="attribute-col">Gender</td>
-                <td> <select id="GenderInput"> </select></td>
-                <td><input type="checkbox" value="2" name="gender"></td>
+                <td><span class="demographic-detail">Gender</span>
+                <select id="GenderInput"> </select></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="gender"></td>
                   </tr>
             <tr>
-                <td class="attribute-col">Date&nbsp;of&nbsp;birth</td>
-                <td> <input id="DOBInput" type="date" placeholder="mm/dd/yyyy"></td>
-                <td><input type="checkbox" value="2" name="age" min=13></td>
+                <td><span class="demographic-detail">Date&nbsp;of&nbsp;birth</span>
+                <input id="DOBInput" type="date" placeholder="mm/dd/yyyy"></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="age" min=13></td>
             </tr>	                
             <tr>
-                <td class="attribute-col">Ethnicity</td>
-                <td><select id="EthnicityInput"> </select></td>
-                <td><input type="checkbox" value="2" name="race"></td>
+                <td><span class="demographic-detail">Ethnicity</span>
+                <select id="EthnicityInput"> </select></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="race"></td>
                     </tr>
             <tr>
-                <td class="attribute-col">City</td>
-                <td><input id="CityInput" type="text"></td>
-                <td><input type="checkbox" value="2" name="city"></td>
+                <td><span class="demographic-detail">City</span>
+                <input id="CityInput" type="text"></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="city"></td>
             </tr>
             <tr>
-                <td class="attribute-col">State</td>
-                <td> <input id="StateInput" type="text"></td>
-                <td><input type="checkbox" value="2" name="state"></td>
+                <td><span class="demographic-detail">State</span>
+                <input id="StateInput" type="text"></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="state"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Post code</td>
-                <td><input id="ZipcodeInput" type="text"></td>
-                <td><input type="checkbox" value="2" name="zipcode"></td>
+                <td><span class="demographic-detail">Post code</span>
+                <input id="ZipcodeInput" type="text"></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="zipcode"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Country</td>
-                <td><select id="CountryInput"> </select></td>
-                <td><input type="checkbox" value="2" name="country"></td>
+                <td><span class="demographic-detail">Country</span>
+                <select id="CountryInput"> </select></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="country"></td>
             </tr>
             <tr>
-                <td class="attribute-col">Income</td>
-                <td><select id="IncomeInput"> </select></td>
-                <td><input type="checkbox" value="2" name="income"></td>
+                <td><span class="demographic-detail">Income</span>
+                <select id="IncomeInput"> </select></td>
+                <td class='demo-public-col'><input type="checkbox" value="2" name="income"></td>
             </tr>
             <tr><td>
 
             </td>
                 <td>
-
+                    <button disabled="disabled" id="SaveDemographicsBtn" class="action-button default-button" >Update</button>
                 </td>
-                <td>
-                    <button disabled="disabled" id="SaveDemographicsBtn" class="small-button default-button" >Update</button>
-                </td>
+                <td></td>
             </tr>
             </tbody>
         </table>
