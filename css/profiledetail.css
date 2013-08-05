@@ -307,6 +307,11 @@
 
 }
 
+.user-comment-row:hover {
+    background-color: rgba(184,184,184,.3);
+}
+
+
 .user-comment-row .title-text {
     width: 100%;
 	color:black;

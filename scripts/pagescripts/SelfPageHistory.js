@@ -17,11 +17,15 @@ define('SelfPageHistory',
         var blahSortType = "bydate";
         var blahSortDir = "desc";
         var blahFilter = "";
+        var blahsLoaded = false;
+        var commentsLoaded = false;
 
         var CommentList = [];
         var BlahList = [];
 
         var  InitializePage = function() {
+            blahsLoaded = false;
+            commentsLoaded = false;
             // bind events
             $("#BlahSortBySelect").change(function(theEvent) {
                 UpdateBlahSort();
@@ -160,6 +164,11 @@ define('SelfPageHistory',
                 newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any posts.</td></tr>";
                 blahsDiv.append(newHTML);
             }
+
+            blahsLoaded = true;
+            if (blahsLoaded && commentsLoaded) {
+                OpenSectionAndScroll();
+            }
         };
 
         var SortAndRedrawComments = function(theComments) {
@@ -176,8 +185,11 @@ define('SelfPageHistory',
                 });
                 // bind events
                 $("#UserCommentList a").click(function(theEvent){
-                    theID = $(theEvent.target).attr("data-blah-id");
-                    DoOpenUserComment(theID);
+                    var blahId = $(theEvent.target).attr("data-blah-id");
+                    var commentId = $(theEvent.target).parents(".user-comment-row").attr("data-comment-id");
+                    G.ReturnBlahId = null;
+                    G.ReturnCommentId = commentId;
+                    DoOpenUserComment(blahId);
                 });
                 FilterComments();
             } else {
@@ -185,6 +197,11 @@ define('SelfPageHistory',
                 newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any comments yet.</td></tr>";
                 commentDiv.append(newHTML);
 
+            }
+
+            commentsLoaded = true;
+            if (blahsLoaded && commentsLoaded) {
+                OpenSectionAndScroll();
             }
         };
 
@@ -260,6 +277,26 @@ define('SelfPageHistory',
             });
         };
 
+        var OpenSectionAndScroll = function() {
+            if (G.ReturnBlahId != null) {
+                $("#HistoryBlahHeader").click();
+                var $targetItem = $(".user-blah-row[data-blah-id=" + G.ReturnBlahId + "]");
+                $targetItem.css({'background-color':'rgb(255,255,0)'});
+                var itemHeight = $targetItem.height();
+                $("#SelfPageDiv").scrollTo($targetItem, {offsetTop:itemHeight+66});
+                $targetItem.animate({'background-color': 'rgb(255,255,255)'}, 2000);
+            } else if (G.ReturnCommentId != null) {
+                $("#HistoryCommentHeader").click();
+                var $targetItem = $(".user-comment-row[data-comment-id=" + G.ReturnCommentId + "]");
+                $targetItem.css({'background-color':'rgb(255,255,0)'});
+                var itemHeight = $targetItem.height();
+                $("#SelfPageDiv").scrollTo($targetItem, {offsetTop:itemHeight+66});
+                $targetItem.animate({'background-color': 'rgb(255,255,255)'}, 2000);
+            }
+
+            G.ReturnBlahId = null;
+            G.ReturnCommentId = null;
+        }
      
         var CreateUserBlahHTML = function(theBlah,number) {
             var newHTML = "";
@@ -325,7 +362,7 @@ define('SelfPageHistory',
             var promotes = G.GetSafeProperty(theComment, "U", 0);
             var demotes = G.GetSafeProperty(theComment, "D", 0);
 			var img = G.GetItemImage(theComment, "D");
-            newHTML += "<tr class='user-comment-row'>";
+            newHTML += "<tr class='user-comment-row' data-comment-id='" + theComment._id + "'>";
             newHTML += "<td><table><tbody>";
 
             newHTML += "<tr>"
@@ -364,6 +401,8 @@ define('SelfPageHistory',
             var StartDate = new Date(Date.now() - (G.NumStatsDaysToShow * 24 * 3600 * 1000 ));
             var startStr = G.CreateDateString(StartDate);
             var endStr = G.CreateDateString(EndDate);
+            G.ReturnBlahId = blahId;
+            G.ReturnCommentId = null;
 
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 G.CurrentBlah = theBlah;
@@ -378,6 +417,7 @@ define('SelfPageHistory',
             var StartDate = new Date(Date.now() - (G.NumStatsDaysToShow * 24 * 3600 * 1000 ));
             var startStr = G.CreateDateString(StartDate);
             var endStr = G.CreateDateString(EndDate);
+
 
             blahgua_rest.GetBlahWithStats(blahId,  startStr, endStr, function(theBlah) {
                 G.CurrentBlah = theBlah;

@@ -85,6 +85,8 @@ define('globals',
         var SpinTarget = null;
         var SessionTimer = null;
         var TimeoutFunction = null;
+        var ReturnCommentID = null;
+        var ReturnBlahId = null;
         var numMinutes = 60;
 
         /*
@@ -601,6 +603,8 @@ define('globals',
             ClearPrompt: ClearPrompt,
             ValidateForm: ValidateForm,
             ValidateField: ValidateField,
+            ReturnCommentId: ReturnCommentID,
+            ReturnBlahId: ReturnBlahId,
             Cryptify: cryptify
         }
 
