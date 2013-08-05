@@ -15,7 +15,7 @@
     border-style: solid;
     border-width: 1px;
     border-color:rgb(32,32,32);
-    margin: 4px 8px 2px 2px;
+    margin: 4px 8px 2px 0px;
 }
 
 .create-footer-div {
@@ -253,7 +253,7 @@
 
 #ImagePreviewDiv
 {
-    margin: 0px 8px 8px 0px;
+    margin: 0px 0px 8px 12px;
     float: left;
 }
 

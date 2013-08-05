@@ -37,7 +37,7 @@
     border-color:rgb(32,32,32);
     margin: 2px;
     margin-right: 16px;
-    margin-left: 8px;
+    margin-left: 0px;
 }
 
 .BlahFullHeader {
@@ -365,6 +365,7 @@
     border-radius: 8px;
     float: right;
     margin-left: 8px;
+    margin-right: 6px;
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     padding: 8px 16px;
@@ -630,15 +631,14 @@
     text-align: left;
     font-family: 'Arimo' sans-serif;
     width: 100%;
-    margin: 8px 0px;
+    margin: 8px 12px 8px 12px;
     border-bottom: 1px rgb(124,124,124) solid;
-    font-family: 'Arimo' sans-serif;
-}
+ }
 
 .top-comments-header div {
-    padding: 8px;
+    padding-bottom: 8px;
     font-weight: bold;
-    color: #202020;
+    color: rgb(32,32,32);
     font-family: 'Arimo' sans-serif;
 }
 

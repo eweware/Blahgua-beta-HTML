@@ -35,6 +35,7 @@
 
 .badgeholder {
     font-family: 'Arimo', sans-serif;
+    border-color: #999999;
     border-top-style: solid;
     border-top-width: 1px;
     padding: 4px;

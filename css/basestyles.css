@@ -370,7 +370,7 @@ color:rgb(244,245,240);
     height:48px;
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/back.png");
     background-size: cover;
-    margin-right:8px;
+    margin-right:0px;
 }
 
 .back-button:hover {
