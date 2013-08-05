@@ -462,13 +462,13 @@
     width:48px;
     height:48px;
     display:inline-block;
-    margin:4px;
+    margin:4px 4px 4px 0px;
 }
 
 .comment-user-name {
     font-size: 14px;
     font-family: 'Arimo', sans-serif;
-    color:blue;
+    color:#0058F8;
     white-space: nowrap;
 }
 
@@ -548,6 +548,7 @@
 
 .comment-container {
     width:100%;
+    margin: 0px 12px 0px 12px;
 
 }
 
@@ -556,6 +557,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     width:100%;
+    margin: 0px 12px 0px 12px;
 }
 
 .stats-container {
@@ -631,12 +633,13 @@
     text-align: left;
     font-family: 'Arimo' sans-serif;
     width: 100%;
-    margin: 8px 12px 8px 12px;
+    margin: 8px 12px 0px 12px;
     border-bottom: 1px rgb(124,124,124) solid;
  }
 
 .top-comments-header div {
-    padding-bottom: 8px;
+    padding-bottom: 4px;
+    padding-top: 8px;
     font-weight: bold;
     color: rgb(32,32,32);
     font-family: 'Arimo' sans-serif;
