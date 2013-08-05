@@ -215,7 +215,7 @@ define('SelfPageDetails',
             var newHTML = "<tr>";
             newHTML += "<td><span class='badge-name-span'>" + theAuth.N + "</span><br/>";
             newHTML += "<span class='badge-desc-span'>" + theAuth.D + "</span></td>";
-            newHTML += '<td><button class="small-button" style="width:120px" data-authority-id="' + theAuth._id + '">Get Badges</button></td>';
+            newHTML += '<td><button class="small-button" style="width:120px" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
             newHTML += "</tr>";
 
             return newHTML;
