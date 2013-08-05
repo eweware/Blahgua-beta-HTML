@@ -213,9 +213,9 @@ define('SelfPageDetails',
 
         var CreateBadgeAuthHTML = function(theAuth) {
             var newHTML = "<tr>";
-            newHTML += "<td><span>" + theAuth.N + "</span></td>";
-            newHTML += "<td><span>" + theAuth.D + "</span></td>";
-            newHTML += '<td><button data-authority-id="' + theAuth._id + '">Add</button></td>';
+            newHTML += "<td><span class='badge-name-span'>" + theAuth.N + "</span><br/>";
+            newHTML += "<span class='badge-desc-span'>" + theAuth.D + "</span></td>";
+            newHTML += '<td><button class="small-button" style="width:120px" data-authority-id="' + theAuth._id + '">Get Badges</button></td>';
             newHTML += "</tr>";
 
             return newHTML;

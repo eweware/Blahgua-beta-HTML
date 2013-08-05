@@ -258,6 +258,12 @@ define('blahgua_base',
 
         ComputeSizes();
         refreshSignInBtn();
+        $(document).keydown(function(theEvent) {
+            if (theEvent.which == 27) {
+                theEvent.stopImmediatePropagation();
+                DismissAll();
+            }
+        }).focus();
 
     };
 
@@ -613,7 +619,9 @@ define('blahgua_base',
             CloseBlah();
         if (document.getElementById("ChannelDropMenu").style.display != "none")
             HideChannelList();
-        $(".instant-menu").parent(".click-shield").remove();
+        if ($(".click-shield").length > 0)
+            $(".instant-menu").parent(".click-shield").remove();
+        StartBlahsMoving();
     };
 
     var OpenLoadedBlah = function(whichBlah) {
@@ -623,11 +631,7 @@ define('blahgua_base',
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
         G.CurrentComments = null;
-        $(document).keydown(function(theEvent) {
-            if (theEvent.which == 27) {
-                DismissAll();
-            }
-        }).focus();
+
 
         G.CurrentBlahNickname = G.GetSafeProperty(whichBlah, "K", G.CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();

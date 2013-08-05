@@ -627,7 +627,7 @@
 }
 
 .top-comments-header {
-    text-align: center;
+    text-align: left;
     font-family: 'Arimo' sans-serif;
     width: 100%;
     margin: 8px 0px;
@@ -636,14 +636,10 @@
 }
 
 .top-comments-header div {
-    background: rgb(124,124,124);
-    width: 50%;
-    margin-left: 25%;
     padding: 8px;
     font-weight: bold;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    color: rgb(244,245,240);
+    color: #202020;
+    font-family: 'Arimo' sans-serif;
 }
 
 .ExtraInfoArea {

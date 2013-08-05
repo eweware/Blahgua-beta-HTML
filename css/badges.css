@@ -80,3 +80,14 @@
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_badge.png");
     background-size:cover;
 }
+
+.badge-desc-span {
+    font-size: 11pt;
+    font-style: italic;
+    color: #999999;
+}
+
+.badge-name-span {
+    color:#202020;
+    font-size:12pt;
+}

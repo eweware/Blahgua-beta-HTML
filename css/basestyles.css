@@ -465,7 +465,7 @@ color:rgb(244,245,240);
 }
 
 .promote-btn.checked {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_checked.png');
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green_promote.png');
 }
 
 .demote-btn {
@@ -481,7 +481,7 @@ color:rgb(244,245,240);
 }
 
 .demote-btn.checked {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_checked.png');
+    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green_demote.png');
 }
 
 .logo {

@@ -21,6 +21,11 @@
 
 }
 
+#BlahTypePredictAuthorPage {
+    text-align: left;
+    height:130px;
+}
+
 .elapsedTimeText {
     font-family: 'Arimo', sans-serif;
     font-size:14pt;

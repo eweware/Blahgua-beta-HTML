@@ -88,7 +88,7 @@ define('comments',
 
         var DrawTopComments = function(theComments) {
             G.CurrentComments = theComments;
-            G.CurrentBlah["C"] = G.CurrentComments.length;
+            //G.CurrentBlah["C"] = G.CurrentComments.length;
             SortComments("newest");
             var more = false;
             if (G.CurrentBlah["C"] > 5){
@@ -306,7 +306,7 @@ define('comments',
                     // vote up
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote > 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote_checked.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/green_promote.png">';
                     else
                         newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote_disabled.png">';
 
@@ -316,7 +316,7 @@ define('comments',
                     // vote down
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote < 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote_checked.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/green_demote.png">';
                     else
                         newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote_disabled.png">';
 
