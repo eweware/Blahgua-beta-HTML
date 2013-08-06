@@ -73,6 +73,7 @@
     font-family: 'Arimo', sans-serif;
     font-style: italic;
     font-size: 12px;
+    display:inline-block;
 }
 
 .PredictCheckBoxWrapper {

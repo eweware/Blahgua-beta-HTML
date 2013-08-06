@@ -18,11 +18,11 @@ define('BlahTypePredict',
 
         var InitPredictPage = function() {
             // add the event handlers
-            $('.current-choices img').click(function(theEvent) {
+            $('.current-choices i').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
                 if($(theEvent.target).attr("disabled") != "disabled") {
-                    $('.current-choices img').attr('disabled', 'disabled');
-                    var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
+                    $('.current-choices i').attr('disabled', 'disabled');
+                    var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
                     blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
                         var theProp;
                         switch(myVote) {
@@ -41,24 +41,27 @@ define('BlahTypePredict',
                 }
             });
 
-            $('.expired-choices img').click(function(theEvent) {
+            $('.expired-choices i').click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
-                var myVote = $(theEvent.target).parents('tr').attr('data-predict-vote');
-                blahgua_rest.SetUserExpiredPredictionVote(G.CurrentBlahId, myVote, function() {
-                    var theProp;
-                    switch(myVote) {
-                        case "y":
-                            theProp = "1";
-                            break;
-                        case "n":
-                            theProp = "2";
-                            break;
-                        default:
-                            theProp = "3";
-                    }
-                    G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
-                    UpdatePredictPage();
-                }, HandleVoteFailed);
+                if($(theEvent.target).attr("disabled") != "disabled") {
+                    $('.expired-choices i').attr('disabled', 'disabled');
+                    var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
+                    blahgua_rest.SetUserExpiredPredictionVote(G.CurrentBlahId, myVote, function() {
+                        var theProp;
+                        switch(myVote) {
+                            case "y":
+                                theProp = "1";
+                                break;
+                            case "n":
+                                theProp = "2";
+                                break;
+                            default:
+                                theProp = "3";
+                        }
+                        G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
+                        UpdatePredictPage();
+                    }, HandleVoteFailed);
+                }
             });
             UpdatePredictPage();
         };
@@ -70,16 +73,15 @@ define('BlahTypePredict',
             var expDate = new Date(expDateVal);
             var elapStr = G.ElapsedTimeString(expDate);
             var isPast = (expDate < new Date(Date.now()));
+            var maxWidth = document.getElementById("BlahTypePredict").getBoundingClientRect().width - 125;
 
             if (isPast) {
                 $("#predictionPrompt").text("should have happened ");
-                $("#PredictVotePrompt").text("Did it happen?");
                 $("#PredictVoteTable").hide();
                 $("#ExpPredictVoteTable").show();
                 $('.current-choices img').unbind('click');
             } else {
                 $("#predictionPrompt").text("happening by ");
-                $("#PredictVotePrompt").text("Do you agree?");
                 $("#PredictVoteTable").show();
                 $("#ExpPredictVoteTable").hide();
                 $('.expired-choices img').unbind('click');
@@ -98,25 +100,31 @@ define('BlahTypePredict',
             var maybeRatio = 0;
 
             if (totalVotes > 0) {
-                yesRatio = Math.floor((yesVotes / totalVotes) * 100);
-                noRatio = Math.floor((noVotes / totalVotes) * 100);
-                maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
+                yesRatio = yesVotes / totalVotes;
+                noRatio = noVotes / totalVotes;
+                maybeRatio = maybeVotes / totalVotes;
             }
 
-            if (yesVotes > 0)
-                $("#PredictYesSpan").empty().animate({'width': yesRatio + "%"}, 250);
+            if (yesVotes > 0)  {
+                $("#PredictYesSpan").empty().animate({'width': (maxWidth * yesRatio) + "px"}, 250);
+                $("#PredictYesLabel").text(Math.floor(yesRatio * 100) + "%");
+            }
             else
-                $("#PredictYesSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#PredictYesLabel").html("no&nbsp;votes");
 
-            if (noVotes > 0)
-                $("#PredictNoSpan").empty().animate({'width': noRatio + "%"}, 250);
+            if (noVotes > 0) {
+                $("#PredictNoSpan").empty().animate({'width': (maxWidth * noRatio) + "px"}, 250);
+                $("#PredictNoLabel").text(Math.floor(noRatio * 100) + "%");
+            }
             else
-                $("#PredictNoSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#PredictNoLabel").html("no&nbsp;votes");
 
-            if (maybeVotes > 0)
-                $("#PredictMaybeSpan").empty().animate({'width': maybeRatio + "%"}, 250);
+            if (maybeVotes > 0) {
+                $("#PredictMaybeSpan").empty().animate({'width': (maxWidth * maybeRatio) + "px"}, 250);
+                $("#PredictMaybeLabel").text(Math.floor(maybeRatio * 100) + "%");
+            }
             else
-                $("#PredictMaybeSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#PredictMaybeLabel").html("no&nbsp;votes");
 
 
 
@@ -130,24 +138,30 @@ define('BlahTypePredict',
             maybeRatio = 0;
 
             if (totalVotes > 0) {
-                yesRatio = Math.floor((yesVotes / totalVotes) * 100);
-                noRatio = Math.floor((noVotes / totalVotes) * 100);
-                maybeRatio = Math.floor((maybeVotes / totalVotes) * 100);
+                yesRatio = yesVotes / totalVotes;
+                noRatio = noVotes / totalVotes;
+                maybeRatio = maybeVotes / totalVotes;
             }
-            if (yesVotes > 0)
-                $("#ExpPredictYesSpan").empty().animate({'width': yesRatio + "%"}, 250);
+            if (yesVotes > 0) {
+                $("#ExpiredYesSpan").empty().animate({'width': (maxWidth * yesRatio) + "px"}, 250);
+                $("#ExpiredYesLabel").text(Math.floor(yesRatio * 100) + "%");
+            }
             else
-                $("#ExpPredictYesSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#ExpiredYesLabel").html("no&nbsp;votes");
 
-            if (noVotes > 0)
-                $("#ExpPredictNoSpan").empty().animate({'width': noRatio + "%"}, 250);
+            if (noVotes > 0) {
+                $("#ExpiredNoLabel").text(Math.floor(noRatio * 100) + "%");
+                $("#ExpiredNoSpan").empty().animate({'width': (maxWidth * noRatio) + "px"}, 250);
+            }
             else
-                $("#ExpPredictNoSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#ExpiredNoLabel").html("no&nbsp;votes");
 
-            if (maybeVotes > 0)
-                $("#ExpPredictMaybeSpan").empty().animate({'width': maybeRatio + "%"}, 250);
+            if (maybeVotes > 0) {
+                $("#ExpiredMaybeLabel").text(Math.floor(maybeRatio * 100) + "%");
+                $("#ExpiredMaybeSpan").empty().animate({'width': (maxWidth * maybeRatio) + "px"}, 250);
+            }
             else
-                $("#ExpPredictMaybeSpan").html("no&nbsp;votes&nbsp;yet");
+                $("#ExpiredMaybeLabel").html("no&nbsp;votes");
 
 
             if (G.IsUserLoggedIn) {
@@ -158,60 +172,42 @@ define('BlahTypePredict',
                         var userVote = G.GetSafeProperty(json, "D", null);
                         var expVote = G.GetSafeProperty(json, "Z", null);
                         if (userVote) {
-                            $('.current-choices img').unbind('click');
+                            $('.current-choices i').unbind('click');
                             switch (userVote) {
                                 case "y":
-                                     $("#PredictYesImg").addClass("checked").show();
-
+                                     $('#PredictVoteTable tr[data-predict-vote=y] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                                 case "n":
-                                    $("#PredictNoImg").addClass("checked").show();
+                                    $('#PredictVoteTable tr[data-predict-vote=n] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                                 case "u":
-                                    $("#PredictMaybeImg").addClass("checked").show();
+                                    $('#PredictVoteTable tr[data-predict-vote=u] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {
                             $('.current-choices img').unbind('click');
-                            $("#PredictVotePrompt").text("The result so far:");
                         }
-                        else {
-                            // no vote yey
-                            $("#PredictYesImg").show();
-                            $("#PredictNoImg").show();
-                            $("#PredictMaybeImg").show();
-                        }
+
 
                         if (expVote) {
-                            $('.expired-choices img').unbind('click');
+                            $('.expired-choices i').unbind('click');
                             switch (expVote) {
                                 case "y":
-                                    $("#ExpPredictYesImg").addClass("checked").show();
+                                    $('#ExpPredictVoteTable tr[data-predict-vote=y] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                                 case "n":
-                                    $("#ExpPredictNoImg").addClass("checked").show();
+                                    $('#ExpPredictVoteTable tr[data-predict-vote=n] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                                 case "u":
-                                    $("#ExpPredictMaybeImg").addClass("checked").show();
+                                    $('#ExpPredictVoteTable tr[data-predict-vote=u] i').addClass("icon-check").removeClass("icon-check-empty").show();
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {
                             $('.current-choices img').unbind('click');
-                            $("#PredictVotePrompt").text("The result so far:");
-                        } else  {
-                            // no vote yey
-                            $("#ExpPredictYesImg").show();
-                            $("#ExpPredictNoImg").show();
-                            $("#ExpPredictMaybeImg").show();
+                            $('#BlahTypePredict i').hide();
                         }
-                    }, function(theErr) {
-                        $("#PredictYesImg").hide();
-                        $("#PredictNoImg").hide();
-                        $("#PredictMaybeImg").hide();
-                        $("#ExpPredictYesImg").hide();
-                        $("#ExpPredictNoImg").hide();
-                        $("#ExpPredictMaybeImg").hide()
-                    });
+
+                    }, G.OnFailure);
             }
         };
 

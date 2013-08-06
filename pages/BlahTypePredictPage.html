@@ -10,70 +10,133 @@
         </span>
 
     </div>
-    <div class="predictionVotePrompt">
-        <span id="PredictVotePrompt">Do you agree?</span>
-    </div>
+
     <table id="PredictVoteTable" class="PredictionChoiceTable current-choices">
-        <tr data-predict-vote="y">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass"  id="PredictYesImg"></div>
-            </td>
+        <tr class='poll-result-row' data-predict-vote="y">
             <td>
-                <span class="PredictAnswerText">I agree</span>
-                <div id="PredictYesSpan" class="predict-indicator-span"></div>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="PredictYesSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="PredictYesLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">I agree</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class='poll-result-row' data-predict-vote="n">
+            <td>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="PredictNoSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="PredictNoLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">I disagree</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class='poll-result-row' data-predict-vote="u">
+            <td>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="PredictMaybeSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="PredictMaybeLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">It is unclear</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
 
-            </td>
-        </tr>
-        <tr data-predict-vote="n">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass" id="PredictNoImg"></div>
-            </td>
-            <td>
-                <span class="PredictAnswerText">I disagree</span>
-                <div id="PredictNoSpan" class="predict-indicator-span"></div>
-            </td>
-        </tr>
-        <tr data-predict-vote="u">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass" id="PredictMaybeImg"></div>
-            </td>
-            <td>
-                <span class="PredictAnswerText">It is unclear</span>
-                <div id="PredictMaybeSpan" class="predict-indicator-span"></div>
-            </td>
-        </tr>
     </table>
+
     <table id="ExpPredictVoteTable" class="PredictionChoiceTable expired-choices">
-        <tr data-predict-vote="y">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass"  id="ExpPredictYesImg"></div>
-            </td>
+        <tr class='poll-result-row' data-predict-vote="y">
             <td>
-                <span class="PredictAnswerText">The prediction was right</span>
-
-                <div id="ExpPredictYesSpan" class="PredictSpan"></div>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="ExpiredYesSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="ExpiredYesLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">The prediction was right</span>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
-        <tr data-predict-vote="n">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass" id="ExpPredictNoImg"></div>
-            </td>
+        <tr class='poll-result-row' data-predict-vote="n">
             <td>
-                <span class="PredictAnswerText">The prediction was wrong</span>
-
-                <div id="ExpPredictNoSpan" class="PredictSpan"></div>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="ExpiredNoSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="ExpiredNoLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">The prediction was wrong</span>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
-        <tr data-predict-vote="u">
-            <td class="PredictCheckBoxWrapper">
-                <div class="PredictCheckBoxClass" id="ExpPredictMaybeImg"></div>
-            </td>
+        <tr class='poll-result-row' data-predict-vote="u">
             <td>
-                <span class="PredictAnswerText">It is not clear</span>
-
-                <div id="ExpPredictMaybeSpan" class="PredictSpan"></div>
+                <table>
+                    <tr>
+                        <td class='poll-checkbox-wrapper'>
+                            <i class='icon-check-empty poll-checkbox'></i>
+                        </td>
+                        <td class="poll-chart-holder">
+                            <div id="ExpiredMaybeSpan" class="poll-chart-div" style="width:0%"></div>
+                            <span id="ExpiredMaybeLabel" class="poll-vote-text">0</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><span class="poll-title">It is unclear</span>
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
+
     </table>
 
 </div>
