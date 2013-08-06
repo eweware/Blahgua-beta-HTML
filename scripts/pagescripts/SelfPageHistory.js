@@ -281,14 +281,14 @@ define('SelfPageHistory',
             if (G.ReturnBlahId != null) {
                 $("#HistoryBlahHeader").click();
                 var $targetItem = $(".user-blah-row[data-blah-id=" + G.ReturnBlahId + "]");
-                $targetItem.css({'background-color':'rgb(255,255,0)'});
+                $targetItem.css({'background-color':'rgb(250,250,100)'});
                 var itemHeight = $targetItem.height();
                 $("#SelfPageDiv").scrollTo($targetItem, {offsetTop:itemHeight+66});
                 $targetItem.animate({'background-color': 'rgb(255,255,255)'}, 2000);
             } else if (G.ReturnCommentId != null) {
                 $("#HistoryCommentHeader").click();
                 var $targetItem = $(".user-comment-row[data-comment-id=" + G.ReturnCommentId + "]");
-                $targetItem.css({'background-color':'rgb(255,255,0)'});
+                $targetItem.css({'background-color':'rgb(250,250,100)'});
                 var itemHeight = $targetItem.height();
                 $("#SelfPageDiv").scrollTo($targetItem, {offsetTop:itemHeight+66});
                 $targetItem.animate({'background-color': 'rgb(255,255,255)'}, 2000);
