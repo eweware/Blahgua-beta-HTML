@@ -462,7 +462,7 @@
     width:48px;
     height:48px;
     display:inline-block;
-    margin:4px 4px 4px 0px;
+    margin:4px 8px 4px 24px;
 }
 
 .comment-user-name {
@@ -486,6 +486,7 @@
 
 .comment-body-row {
     padding-top: 4px;
+    padding-right:8px;
 
 }
 
@@ -548,7 +549,7 @@
 
 .comment-container {
     width:100%;
-    margin: 0px 12px 0px 12px;
+
 
 }
 
