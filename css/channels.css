@@ -184,8 +184,6 @@
     background-color: rgb(244,245,240);
     box-shadow:rgba(0,0,0,.4) 4px 4px;
     z-index: 12;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 	overflow: hidden;
 }
 
@@ -202,7 +200,7 @@
 
 .channel-title {
     font-family: 'Arimo', sans-serif;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .channel-description {
@@ -246,23 +244,22 @@
     background-color: rgb(244,245,240);
     box-shadow: 5px 5px rgba(0,0,0,.3);
     font-family: 'Arimo' sans-serif;
-    font-size: 24px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    font-size: 20px;
+
 }
 
 .instant-menu li {
-    padding:4px 12px;
+    padding:4px 10px;
 }
 .instant-menu li:hover {
-    background-color: rgba(125,181,227,.4);
+    background-color: rgba(184,184,184,.3);
 }
 
 #ChannelList>tbody>tr:hover {
-    background-color: rgba(125,181,227,.4);
+    background-color: rgba(184,184,184,.3);
 }
 
 #ChannelList tbody td {
-    padding:4px 12px;
+    padding:4px 10px;
 }
 
