@@ -149,6 +149,9 @@ define('stats',
                     align:"left",
                     style:{fontFamily:"Arimo"}
                 },
+                chart: {
+                    backgroundColor: 'transparent'
+                },
                 plotOptions: {
                     series: {
                         marker: {
@@ -167,12 +170,15 @@ define('stats',
                     enabled: false
                 },
                 xAxis: {
-                    categories: catAxis
+                    categories: catAxis,
+
                 },
                 yAxis: {
                     min:0,
                     max:maxVal,
-                    title: {text:null}
+                    title: {text:null},
+                    gridLineColor: 'transparent',
+                    lineWidth:1
                 },
                 series: [{
                     type: 'areaspline',
@@ -223,11 +229,14 @@ define('stats',
             var maxVal = GetMaxGraphRange(demoSeries, 4, 1.2);
             var newDemos = {
                 chart: {
-                    type: "column"
+                    type: "column",
+                    backgroundColor: 'transparent'
                 },
                 colors: ['#FF0000', '#00FF00'],
                 title: {
-                    text:demoString
+                    text:demoString,
+                    align:"left",
+                    style:{fontFamily:"Arimo"}
                 },
                 xAxis: {
                     categories:demoCat,
@@ -250,7 +259,9 @@ define('stats',
                 yAxis: {
                     min:0,
                     max: maxVal,
-                    title: {text:null}
+                    title: {text:null},
+                    gridLineColor: 'transparent',
+                    lineWidth:1
                 },
                 series: demoSeries
             };

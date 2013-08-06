@@ -91,7 +91,8 @@ define('BlahStatsDetailPage',
                     enabled:false
                 },
                 chart:{
-                    spacingRight:20
+                    spacingRight:20,
+                    backgroundColor: 'transparent'
                 },
 
                 xAxis :{
@@ -120,6 +121,9 @@ define('BlahStatsDetailPage',
             $("#BlahVoteMixDiv").empty().height("200px").highcharts({
                 title: {
                     text:"Promotes & Demotes"
+                },
+                chart:{
+                    backgroundColor: 'transparent'
                 },
                 legend: {
                     enabled:false

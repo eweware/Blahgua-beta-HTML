@@ -38,7 +38,8 @@ define('SelfPageStats',
 
                 $('#UserStandingDiv').highcharts({
                     chart: {
-                        spacingRight:40
+                        spacingRight:40,
+                        backgroundColor: 'transparent'
                     },
                     title: {
                         text:null
@@ -121,9 +122,14 @@ define('SelfPageStats',
                 $('#UserBlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", otherComments, catAxis));
 
                 $('#UserBlahSentimentDiv').highcharts({
+                    chart: {
+                        backgroundColor: 'transparent'
+                    },
                     colors: ["#00FF00", "#FF0000"],
                     title: {
-                        text:"User Sentiment"
+                        text:"User Sentiment",
+                        align:"left",
+                        style:{fontFamily:"Arimo"}
                     },
                     plotOptions: {
                         series: {
