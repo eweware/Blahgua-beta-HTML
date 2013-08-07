@@ -94,15 +94,22 @@ define('stats',
             // one series for upVote and downVote
             // one data point for each unique value of the demo
             var newSeries;
-            if (whichObject.hasOwnProperty("_d") &&
-                G.ProfileSchema.hasOwnProperty(whichDemo) &&
+            var catLabels = [];
+            if ( G.ProfileSchema.hasOwnProperty(whichDemo) &&
                 G.ProfileSchema[whichDemo].hasOwnProperty("DT")) {
+                catLabels = G.ProfileSchema[whichDemo].DT;
+            } else if (whichDemo == "C") {
+                // hardwire age for now
+                //catLabels = {0: "65 & up", 1: "55-64", 2: "45-54", 3: "35-44", 4: "25-34", 5: "18-24", 6: "under 18", "-1": "Unspecified"}
+                catLabels = {6: "under 18", 5: "18-24", 4: "25-34", 3: "35-44", 2: "45-54", 1: "55-64", 0: "65 & up", "-1": "Unspecified"}
+            }
+            if (whichObject.hasOwnProperty("_d")) {
                 var upVoteSet = G.GetSafeProperty(whichObject._d._u, whichDemo, null);
                 var downVoteSet = G.GetSafeProperty(whichObject._d._d, whichDemo, null);
                 var upData = [], downData = [];
 
 
-                $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
+                $.each(catLabels, function(index, item){
                     upData.push(G.GetSafeProperty(upVoteSet, index, 0));
                     downData.push(G.GetSafeProperty(downVoteSet, index, 0));
                 });
@@ -127,7 +134,8 @@ define('stats',
                 });
             } else if (whichDemo == "C") {
                 // hardwire age for now
-               catArray = ["65 and over", "55-64", "45-54", "35-44", "25-34", "18-24", "under 18"];
+                //catArray = ["65 and over", "55-64", "45-54", "35-44", "25-34", "18-24", "under 18", "unspecified"];
+                catArray = ["under 18", "18-24", "25-34", "35-44", "45-54", "55-64", "65 and over", "unspecified"];
             }
 
 
@@ -248,6 +256,9 @@ define('stats',
                     }
                 },
                 plotOptions: {
+                    column: {
+                        borderWidth: 0
+                    },
                     series: {
                         stacking: 'normal',
                         marker: {

@@ -116,10 +116,16 @@ define('SelfPageStats',
                 }
 
                 $('#UserBlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", otherViews, catAxis));
+                if (G.DataZeroOrEmpty(otherViews))
+                    G.AppendChartMask("#UserBlahActivityViewsDiv", "No activity in this time period");
 
                 $('#UserBlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", otherOpens, catAxis));
+                if (G.DataZeroOrEmpty(otherOpens))
+                    G.AppendChartMask("#UserBlahActivityOpensDiv", "No activity in this time period");
 
                 $('#UserBlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", otherComments, catAxis));
+                if (G.DataZeroOrEmpty(otherComments))
+                    G.AppendChartMask("#UserBlahActivityCommentsDiv", "No activity in this time period");
 
                 $('#UserBlahSentimentDiv').highcharts({
                     chart: {

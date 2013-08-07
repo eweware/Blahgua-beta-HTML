@@ -114,7 +114,7 @@ define('BlahTypePoll',
                     } else {
                         // user did not vote - they can vote!
                         $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
-                        $(".poll-vote-text").text("?");
+                        $(".poll-vote-text").html("<i class='icon-question-sign unknown-qty-icon' title='vote to see results'></i>");
                     }
                 });
             } else {
@@ -122,7 +122,7 @@ define('BlahTypePoll',
                 $('.poll-checkbox').unbind('click');
                 $(".poll-checkbox").css({"color":"gray"});
                 $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
-                $(".poll-vote-text").text("?");
+                $(".poll-vote-text").html("<i class='icon-question-sign unknown-qty-icon' title='sign in and vote to see results'></i>");
             }
         };
 

@@ -131,3 +131,7 @@ poll-result-row .description {
     height:25px;
     background-repeat:no-repeat;
 }
+
+.unknown-qty-icon {
+    font-size:14pt;
+}

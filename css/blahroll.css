@@ -7,6 +7,8 @@
     padding-left: 4px;
     padding-right: 4px;
     text-align:left;
+    position: absolute;
+    bottom:0;
 }
 
 
