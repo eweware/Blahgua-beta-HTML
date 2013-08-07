@@ -140,14 +140,10 @@
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     border-style: none;
-    float: right;
-    /*width: 80px;*/
     height: 48px;
     border-radius: 8px;
     padding: 4px 12px;
-    float: right;
-    margin-left: 8px;
-    width: 200px;;
+    margin: 10px 0px;
 }
 
 .sign-in-comment-button:hover {

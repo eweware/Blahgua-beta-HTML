@@ -36,7 +36,8 @@ define('BlahBodyDetailPage',
                exports.SuggestUserSignIn("Sign in to participate.")});
             });
             $("#DemoteBlahImage").click(function(theEvent) {
-			G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
+			G.PromptUser("Sign in to participate"," Sign in","Cancel",function(){
+                theEvent.stopImmediatePropagation();
                exports.SuggestUserSignIn("Sign in to participate.")});
 			
             });
@@ -86,7 +87,7 @@ define('BlahBodyDetailPage',
                 $("#BlahRowVote").show();
                 $("#BlahRowSignIn").hide();
                 $("#UploadImageTable").show();
-
+                $("#SignInToCommentArea").hide();
 
                 if (isOwnBlah) {
                     if (image != "") {
@@ -96,13 +97,15 @@ define('BlahBodyDetailPage',
                     $("#UploadImageTable").hide();
                 }
             } else {
-                //$("#BlahRowVote").hide();
-			
-			   // $("#PromoteBlahImage").hide();
-				//$("#DemoteBlahImage").hide();
+
                 $("#BlahRowSignIn").hide();
 	            $("#UploadImageTable").hide();
-                $("#CreateCommentArea").hide();
+                $("#SignInToCommentArea").show();
+
+                $(".sign-in-comment-button").click(function(){
+                    theEvent.stopImmediatePropagation();
+                    exports.SuggestUserSignIn("Sign in to participate.");
+                });
             }
 
             UpdateVoteBtns();
@@ -213,8 +216,6 @@ define('BlahBodyDetailPage',
                     });
                 });
                 RefreshForCommentText();
-            } else {
-                $("#CreateCommentArea").hide();
             }
         };
 

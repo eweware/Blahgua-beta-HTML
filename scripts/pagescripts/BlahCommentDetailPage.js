@@ -59,7 +59,10 @@ define('BlahCommentDetailPage',
                         $("#objectId").val("");
                     });
                 });
-            }
+
+            } else {
+
+         }
 
 
 
@@ -84,7 +87,7 @@ define('BlahCommentDetailPage',
             } else {
                 $("#SignInToCommentArea").show();
                 $(".sign-in-comment-button").click(SignInToComment);
-                $("#CreateCommentArea").hide();
+                //$("#CreateCommentArea").hide();
                 titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
 
