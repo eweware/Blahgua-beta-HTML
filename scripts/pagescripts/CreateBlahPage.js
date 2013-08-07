@@ -12,6 +12,7 @@ define('CreateBlahPage',
     function (K, G, exports, blahgua_rest) {
 
         var blahTypeModule = null;
+        var pageHeight = null;
 
         var  InitializePage = function() {
 
@@ -56,7 +57,8 @@ define('CreateBlahPage',
                 });
                 var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
                 var newTop = imageRect.bottom;
-                var newLeft = imageRect.right - $("#ShowBadgeArea").width();
+                //var newLeft = imageRect.right - $("#ShowBadgeArea").width();
+                var newLeft = imageRect.left;
                 $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
 
                 $(".badge-item").click(function(theEvent) {
@@ -76,8 +78,6 @@ define('CreateBlahPage',
                     theEvent.preventDefault();
                 }
             });
-
-
 
 
             $("#BlahHeadline").keyup(function (theEvent) {
@@ -102,6 +102,7 @@ define('CreateBlahPage',
 
             UpdateBadgeArea();
             CheckPublishBtnDisable();
+            ResizeCreatePage();
         };
 
         var UpdateLayout = function() {
@@ -121,7 +122,6 @@ define('CreateBlahPage',
                 curHTML += '</OPTION>';
             }
             $("#BlahTypeList").html(curHTML);
-			/*$("#BlahHeadline").attr("placeholder","Headline here (64 chars max) Says: Says are general posts with no requirements.");*/
         };
 
         var UpdateBlahInfoArea = function() {
@@ -149,6 +149,7 @@ define('CreateBlahPage',
                             function() {
                                 PredictPage.InitializePage(CheckPublishBtnDisable);
                                 CheckPublishBtnDisable();
+                                ResizeCreatePage();
                             });
                     });
 
@@ -158,14 +159,27 @@ define('CreateBlahPage',
                         blahTypeModule = PollPage;
                         $("#AdditionalInfoDiv").load(BlahguaConfig.fragmentURL + "pages/BlahTypePollAuthorPage.html #BlahTypeAskAuthorPage",
                             function() {
+                                if (pageHeight == null)
+                                    pageHeight = $(".PageBody")[0].getBoundingClientRect().height;
+                                var contentTop = document.getElementById("BlahTypeAskAuthorPage").getBoundingClientRect().top;
+                                var footerSize = $(".create-footer-div")[0].getBoundingClientRect().height;
+                                var offsetSize = 83;
+
+                                var maxSize = pageHeight - (contentTop + footerSize + offsetSize);
+                                PollPage.SetLayoutCallback(ResizeCreatePage);
                                 PollPage.InitializePage(CheckPublishBtnDisable);
+                                $(".poll-result").css({"max-height": maxSize + "px"});
                                 CheckPublishBtnDisable();
+                                ResizeCreatePage();
                             });
                     });
 
                     break;
                 default:
+                    blahTypeModule = null;
                     $("#AdditionalInfoDiv").empty();
+                    CheckPublishBtnDisable();
+                    ResizeCreatePage();
             }
         };
 
@@ -253,6 +267,7 @@ define('CreateBlahPage',
             });
 
             UpdateLayout();
+            ResizeCreatePage();
         };
 
         var CreateBadgeDescription = function(theBadge) {
@@ -331,6 +346,25 @@ define('CreateBlahPage',
             InsertNewBlahIntoChannel(G.CurrentBlah);
             $("#AdditionalInfoDiv").empty();
             exports.CloseBlah();
+        }
+
+        var ResizeCreatePage = function() {
+            if (pageHeight == null)
+                pageHeight = $(".PageBody")[0].getBoundingClientRect().height;
+            var contentHeight = document.getElementById("createcontent").getBoundingClientRect().bottom;
+            var footerHeight = $(".create-footer-div")[0].getBoundingClientRect().height;
+            var offsetHeight = 36;
+            var newBottom =  pageHeight - (contentHeight + footerHeight + offsetHeight);
+            var minBottom = 0;
+            if (newBottom < minBottom)
+                newBottom = minBottom;
+            $(".create-footer-div").css({"bottom": newBottom + "px"});
+
+            // resize the badge menu...
+            var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
+            var newTop = imageRect.bottom;
+            var newLeft = imageRect.left;
+            $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
         }
 
         var UploadBlahImage  = function() {

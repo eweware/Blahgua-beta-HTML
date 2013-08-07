@@ -12,6 +12,7 @@ define('BlahTypePollAuthorPage',
     function () {
 
         var validateCallback = null;
+        var layoutCallback = null;
 
         var  InitializePage = function(callback) {
 
@@ -21,15 +22,25 @@ define('BlahTypePollAuthorPage',
                 var newHTML = CreatePollChoiceElement();
                 $(".poll-result").append(newHTML);
                RefreshPollEvents();
-
+               UpdateLayout();
             });
 
             $(document).on("click", ".poll-result-row .delete-btn", function(theEvent) {
                 var $el = $(theEvent.target);
                 $el.closest(".poll-result-row").remove();
+                UpdateLayout();
             });
 
             RefreshPollEvents();
+        };
+
+        var UpdateLayout = function() {
+            if (layoutCallback)
+                layoutCallback();
+        };
+
+        var SetLayoutCallback = function(callback) {
+            layoutCallback = callback;
         };
 
         var RefreshPollEvents = function() {
@@ -41,6 +52,7 @@ define('BlahTypePollAuthorPage',
                 });
             });
             $(".poll-title").change(validateCallback).keydown(validateCallback);
+
         };
 
         var UpdatePollChoiceBtn = function() {
@@ -97,6 +109,7 @@ define('BlahTypePollAuthorPage',
         return {
             InitializePage: InitializePage,
             ValidateCreate: ValidateCreate,
+            SetLayoutCallback: SetLayoutCallback,
             PrepareCreateBlahJSON: PrepareCreateBlahJSON
         }
     }

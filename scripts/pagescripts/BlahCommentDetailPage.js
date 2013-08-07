@@ -51,7 +51,7 @@ define('BlahCommentDetailPage',
                     comments.DoAddComment(function(newComment) {
                         $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
-                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $("#CommentTextArea").empty().removeAttr('disabled').focus();
                         $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
                         $("#ImagePreviewDiv span").text("no image");
                         $("#ImagePreviewDiv i").hide();

@@ -116,13 +116,11 @@ define('BlahBodyDetailPage',
                 $(".blah-body-divider").hide();
                 imageEl.src = image;
             }
-              if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
-			  {
+              if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0) {
 			   $("#CommentTextArea").attr("placeholder","Enter comment text here");
 			  }
-			  else
-			  {
-			  $("#CommentTextArea").attr("placeholder","Be the first to comment");
+			  else {
+			    $("#CommentTextArea").attr("placeholder","Be the first to comment");
 			  }
             var bodyTextDiv = document.getElementById("BlahFullBody");
             if (G.CurrentBlah.hasOwnProperty("F")) {
@@ -206,7 +204,7 @@ define('BlahBodyDetailPage',
                         comments.InsertNewComment(newComment);
                         $(".top-comments-header").show();
                         $("#CharCountDiv").text(4000);
-                        $("#CommentTextArea").empty().height("40px").removeAttr('disabled').focus();
+                        $("#CommentTextArea").empty().removeAttr('disabled').focus();
                         $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
                         $("#ImagePreviewDiv span").text("no image");
                         $("#ImagePreviewDiv i").hide();

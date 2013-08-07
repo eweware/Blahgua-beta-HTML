@@ -90,6 +90,10 @@
 
 }
 
+.poll-result {
+    overflow-y: scroll;
+}
+
 .poll-result-row {
     display: block;
     margin-top: 12px;
