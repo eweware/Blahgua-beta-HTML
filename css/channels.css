@@ -128,13 +128,13 @@
 
 .sign-in-comment-button
 {
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
-    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-color: rgb(248,120,88);
+    background-image: -moz-linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-image: -ms-linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,150,110)),color-stop(100%,rgb(248,120,88)));
+    background-image: -webkit-linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-image: -o-linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-image: linear-gradient(rgb(255,150,110),rgb(248,120,88));
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
@@ -151,13 +151,13 @@
 }
 
 .sign-in-comment-button:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
-    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-color: rgb(211,102,75);
+    background-image: -moz-linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-image: -ms-linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(248,120,88)),color-stop(100%,rgb(211,102,75)));
+    background-image: -webkit-linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-image: -o-linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-image: linear-gradient(rgb(248,120,88),rgb(211,102,75));
     color:  rgb(244,245,240);
 }
 
