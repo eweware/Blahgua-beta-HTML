@@ -125,6 +125,9 @@ define('stats',
                 $.each(G.ProfileSchema[whichDemo].DT, function(index, item){
                     catArray.push(item);
                 });
+            } else if (whichDemo == "C") {
+                // hardwire age for now
+               catArray = ["65 and over", "55-64", "45-54", "35-44", "25-34", "18-24", "under 18"];
             }
 
 
