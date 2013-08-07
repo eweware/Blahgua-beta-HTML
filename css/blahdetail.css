@@ -624,6 +624,7 @@
 }
 
 .more-comments-row a {
+    font-family: 'Arimo' sans-serif;
     color:rgb(0,120,248);
     text-decoration: underline;
     cursor: pointer;

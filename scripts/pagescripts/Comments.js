@@ -306,9 +306,9 @@ define('comments',
                     // vote up
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote > 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/green_promote.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/green_promote.png">';
                     else
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_promote_disabled.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote_disabled.png">';
 
                     newHTML += uv;
                     newHTML += '</span> ';
@@ -316,9 +316,9 @@ define('comments',
                     // vote down
                     newHTML += '<span class="comment-vote-wrapper">';
                     if (ownVote < 0)
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/green_demote.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/green_demote.png">';
                     else
-                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + '/img/black_demote_disabled.png">';
+                        newHTML += ' <img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote_disabled.png">';
 
                     newHTML += dv;
                     newHTML += '</span> ';
