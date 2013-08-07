@@ -173,6 +173,7 @@ define('BlahTypePredict',
                         var expVote = G.GetSafeProperty(json, "Z", null);
                         if (userVote) {
                             $('.current-choices i').unbind('click');
+                            $('#BlahTypePredict i').css({"color":"gray"});
                             switch (userVote) {
                                 case "y":
                                      $('#PredictVoteTable tr[data-predict-vote=y] i').addClass("icon-check").removeClass("icon-check-empty").show();
@@ -185,12 +186,14 @@ define('BlahTypePredict',
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {
-                            $('.current-choices img').unbind('click');
+                            $('.current-choices i').unbind('click');
+                            $('#BlahTypePredict i').css({"color":"gray"});
                         }
 
 
                         if (expVote) {
                             $('.expired-choices i').unbind('click');
+                            $('#BlahTypePredict i').css({"color":"gray"});
                             switch (expVote) {
                                 case "y":
                                     $('#ExpPredictVoteTable tr[data-predict-vote=y] i').addClass("icon-check").removeClass("icon-check-empty").show();
@@ -203,11 +206,15 @@ define('BlahTypePredict',
                                     break;
                             }
                         } else if (G.CurrentBlah.A == G.CurrentUser._id) {
-                            $('.current-choices img').unbind('click');
-                            $('#BlahTypePredict i').hide();
+                            $('.expired-choices i').unbind('click');
+                            $('#BlahTypePredict i').css({"color":"gray"});
                         }
 
                     }, G.OnFailure);
+            } else {
+                $('.current-choices i').unbind('click');
+                $('.expired-choices i').unbind('click');
+                $('#BlahTypePredict i').css({"color":"gray"});
             }
         };
 

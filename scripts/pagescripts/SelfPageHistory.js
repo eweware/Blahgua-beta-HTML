@@ -108,7 +108,7 @@ define('SelfPageHistory',
             var changed = false;
 
             if (newSort != commentSortType) {
-                commentSortType = true;
+                commentSortType = newSort;
                 changed = true;
             }
 
@@ -218,6 +218,9 @@ define('SelfPageHistory',
                 case "bydemotes":
                     filterProp = "D";
                     break;
+                case "bypost":
+                filterProp = "B";
+                break;
             }
 
             if (filterProp != "") {

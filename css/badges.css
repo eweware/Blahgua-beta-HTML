@@ -49,11 +49,17 @@
     font-family: 'Arimo', sans-serif;
 }
 
+.badge-authority-table {
+    margin:20px 0px;
+}
+
 .badgeimage {
     width:23px;
     height:20px;
     margin-left: 8px;
     margin-right: 8px;
+    position: relative;
+    top: 2px;
 }
 
 .badgesource {
@@ -83,7 +89,7 @@
 }
 
 .badge-desc-span {
-    font-size: 11pt;
+    font-size: 10pt;
     font-style: italic;
     color: #999999;
 }

@@ -89,8 +89,10 @@ define('BlahTypePoll',
                 var curRatio = Math.floor(maxWidth * ratio);
                 var newWidth = curRatio + "px";
                 var votePercent = Math.floor((curVote / totalVotes) * 100) + "%";
-                if (curVote > 0)
+                if (curVote > 0) {
                     $(item).find(".poll-vote-text").text(votePercent).removeClass("no-votes");
+                }
+
                 else
                     $(item).find(".poll-vote-text").html("no&nbsp;votes").addClass("no-votes");
                 $(item).find(".poll-chart-div").animate({width: newWidth}, 200);
@@ -104,23 +106,23 @@ define('BlahTypePoll',
                     if (json.hasOwnProperty("W")) {
                         // user voted - show their vote icon, disable
                         var selector = "[data-poll-vote=" + json.W + "] .poll-title";
-                        $(".poll-checkbox").hide();
+                        $(".poll-checkbox").css({"color":"gray"});
                         $('.poll-checkbox').unbind('click');
                         UpdatePollChart();
-                        $('.user-vote-div').text("You voted for '" + $(selector).text() + "'").show();
+                         selector = "[data-poll-vote=" + json.W + "] .poll-checkbox";
+                        $(selector).addClass("icon-check").removeClass("icon-check-empty");
                     } else {
                         // user did not vote - they can vote!
                         $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
                         $(".poll-vote-text").text("?");
-                        $('.user-vote-div').hide();
                     }
                 });
             } else {
                 // user is not logged in - can't vote or see results
-                $(".poll-checkbox-wrapper").css({"opacity": 0});
+                $('.poll-checkbox').unbind('click');
+                $(".poll-checkbox").css({"color":"gray"});
                 $(".poll-chart-div").css({width: (maxWidth / 2 ) + "px"});
                 $(".poll-vote-text").text("?");
-                $('.user-vote-div').hide();
             }
         };
 
