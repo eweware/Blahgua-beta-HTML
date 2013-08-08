@@ -220,6 +220,11 @@
 
 }
 
+.no-item-div {
+    border-bottom: 1px solid #999999;
+    margin: 8px;
+}
+
 
 .BlahRowVote {
     height:55px;

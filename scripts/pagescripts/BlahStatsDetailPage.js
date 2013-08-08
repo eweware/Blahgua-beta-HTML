@@ -82,7 +82,9 @@ define('BlahStatsDetailPage',
 
             $("#BlahStandingDiv").highcharts({
                 title: {
-                    text:"blahgua Score"
+                    text:"blahgua Score",
+                    align:"left",
+                    style:{fontFamily:"Arimo"}
                 },
                 legend: {
                     enabled:false
@@ -113,14 +115,16 @@ define('BlahStatsDetailPage',
                 },
                 series: [{
                     type: 'bar',
-                    data: [{color: '#FF0000', y: Math.floor(curStr * 100)}]
+                    data: [{color: '#f87858', y: Math.floor(curStr * 100)}]
                 }]
             });
 
 
             $("#BlahVoteMixDiv").empty().height("200px").highcharts({
                 title: {
-                    text:"Promotes & Demotes"
+                    text:"Promotes & Demotes",
+                    align:"left",
+                    style:{fontFamily:"Arimo"}
                 },
                 chart:{
                     backgroundColor: 'transparent'
@@ -144,7 +148,7 @@ define('BlahStatsDetailPage',
                 series: [{
                     type: 'bar',
                     data: [{color: '#00FF00', y: uv},
-                        {color: '#FF0000', y: dv}]
+                        {color: '#f87858', y: dv}]
 
                 }]
             });

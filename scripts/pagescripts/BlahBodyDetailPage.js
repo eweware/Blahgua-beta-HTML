@@ -102,9 +102,10 @@ define('BlahBodyDetailPage',
 	            $("#UploadImageTable").hide();
                 $("#SignInToCommentArea").show();
 
-                $(".sign-in-comment-button").click(function(){
+                $(".sign-in-comment-button").click(function(theEvent){
                     theEvent.stopImmediatePropagation();
                     exports.SuggestUserSignIn("Sign in to participate.");
+
                 });
             }
 
@@ -152,7 +153,7 @@ define('BlahBodyDetailPage',
                     });
                     break;
                 default:
-                    $("#AdditionalInfoArea").hide();
+                    $("#AdditionalInfoArea").html("<div class='no-item-div'></div>");
                     break;
             }
 

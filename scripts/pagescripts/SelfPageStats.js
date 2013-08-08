@@ -71,8 +71,8 @@ define('SelfPageStats',
                     },
                     series: [{
                         type: 'bar',
-                        data: [{color: '#0000FF', y: userStrength * 100},
-                            {color: '#78B5E6', y: userContro * 100}]
+                        data: [{color: '#7db5e3', y: userStrength * 100},
+                            {color: '#f8b800', y: userContro * 100}]
                     }]
                 });
 
@@ -131,7 +131,7 @@ define('SelfPageStats',
                     chart: {
                         backgroundColor: 'transparent'
                     },
-                    colors: ["#00FF00", "#FF0000"],
+                    colors: ["#7ad000", "#f87858"],
                     title: {
                         text:"User Sentiment",
                         align:"left",

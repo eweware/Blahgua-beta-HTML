@@ -160,6 +160,7 @@ define('stats',
                     align:"left",
                     style:{fontFamily:"Arimo"}
                 },
+                colors: ["#7db5e3"],
                 chart: {
                     backgroundColor: 'transparent'
                 },
@@ -243,7 +244,7 @@ define('stats',
                     type: "column",
                     backgroundColor: 'transparent'
                 },
-                colors: ['#FF0000', '#00FF00'],
+                colors: ['#f87858', '#7ad000'],
                 title: {
                     text:demoString,
                     align:"left",

@@ -73,6 +73,7 @@ define('BlahCommentDetailPage',
                 document.getElementById("AddCommentBtn").disabled = true;
                 $("#SignInToCommentArea").hide();
                 $("#CreateCommentArea").show();
+                $("#CommentTextArea").focus();
                 titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").keydown(function(theEvent) {
@@ -95,7 +96,7 @@ define('BlahCommentDetailPage',
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
             var maxSize = curBottom - curTop + "px";
             $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
-            $("#CommentTextArea").focus();
+
 
             if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)
 			{
