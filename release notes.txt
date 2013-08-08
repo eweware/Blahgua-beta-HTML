@@ -1,0 +1,3 @@
+Release Notes
+
+- Do not turn on private browsing on devices as it decreases performance.
