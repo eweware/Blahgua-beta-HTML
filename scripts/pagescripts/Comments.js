@@ -328,9 +328,9 @@ define('comments',
                 newHTML += '<span class="comment-vote-wrapper">';
                 newHTML += '<img class="comment-vote up-vote" alt="" src="' + BlahguaConfig.fragmentURL;
                 if (G.IsUserLoggedIn)
-                    newHTML += '/img/black_promote.png" data-votable>';
+                    newHTML += 'img/black_promote.png" data-votable>';
                 else
-                    newHTML += '/img/black_promote_disabled.png">';
+                    newHTML += 'img/black_promote_disabled.png">';
                 newHTML += G.GetSafeProperty(theComment, "U", 0);
                 newHTML += '</span> ';
 
