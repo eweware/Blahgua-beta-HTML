@@ -22,8 +22,8 @@ define('SelfPageDetails',
             } );
             $("#UserFormImage").change(HandleFilePreview);
             $("#RecoveryInfo").click(function(theEvent) {
-                G.PromptUser("Blahgua does not require an email address to fully use the system.  However, if you should forget your password, we will not be able to recover it for you if we do not have an email address on file.<br/><br/>" +
-                    "You can also change or remove your email address at any time.",
+                G.PromptUser("blahgua does not require an email address to fully use the system.  However, if you forget your password, it will not be recoverable if we do not have an email address on file.<br/><br/>" +
+                    "Your recovery email can be different than the email you use to obtain badges, and can be changed or removed at any time.",
                     "Got it");
             });
 
