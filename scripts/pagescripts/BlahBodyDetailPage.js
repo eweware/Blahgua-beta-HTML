@@ -14,7 +14,7 @@ define('BlahBodyDetailPage',
         var InitializePage = function() {
             G.CurrentComments = null;
             if (G.CurrentBlah == null) {
-                alert("Error:  No Blah!");
+                alert("Error:  No Post!");
                 return;
             }
             if (G.IsUserLoggedIn) 
@@ -53,9 +53,9 @@ define('BlahBodyDetailPage',
                 "service":"sharethis",
                 "element":document.getElementById('ShareBlah'),
                 "url": BlahguaConfig.shareURL + "?blahId=" + G.CurrentBlah._id,
-                "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A Blah from Blahgua")),
+                "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A post from blahgua")),
                 "type":"large",
-                "text": "Share this blah" ,
+                "text": "Share this post" ,
                 "image":shareURL,
                 "onhover": false,
 
