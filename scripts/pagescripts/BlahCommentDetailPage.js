@@ -92,10 +92,10 @@ define('BlahCommentDetailPage',
                 titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
             }
 
-            var curTop = document.getElementById("CommentHeaderArea").getBoundingClientRect().bottom;
+            var curTop = document.getElementById("FullBlahCommentsContainer").getBoundingClientRect().top;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
             var maxSize = curBottom - curTop + "px";
-            $("#CommentContainer").css({ 'max-height': maxSize, 'min-height':maxSize});
+            $("#FullBlahCommentsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
 
 
             if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0)

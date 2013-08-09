@@ -6,6 +6,7 @@
 </head>
 <body>
 <div id="FullBlahCommentDiv">
+    <div id="FullBlahCommentsContainer" class="stats-container">
     <table id="CommentHeaderArea" style="width:100%">
         <tbody>
         <tr><td>
@@ -55,18 +56,20 @@
                 <table style="width:100%">
             <tr class="comment-sort-area">
 
-                <td><input text="text" id="FilterBox" placeholder="Search"></td>
+                <td>
+                    <input text="text" id="FilterBox" placeholder="Search">
 
-                <td><select id="SortBySelect">
+                <select id="SortBySelect">
                     <option value="bydate" selected>by date</option>
                     <option value="bypromotes" >by promotes</option>
                     <option value="bydemotes" >by demotes</option>
-                </select> </td>
+                </select>
 
-                <td><select id="SortOrderSelect">
+                <select id="SortOrderSelect">
                     <option value="desc" selected>descending</option>
                     <option value="asc">ascending</option>
-                </select> </td>
+                </select>
+                </td>
             </tr>
         </table>
         </td>
@@ -74,10 +77,11 @@
         </tbody>
     </table>
 
-    <div id="CommentContainer" class="comment-container scrolling">
+    <div id="CommentContainer" class="comment-container">
         <table id="BlahCommentTable" class="blah-comment-table">
 
         </table>
+    </div>
     </div>
 </div>
 </body>

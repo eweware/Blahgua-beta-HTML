@@ -1,4 +1,4 @@
-@media all and (max-width: 400px)  {
+@media all and (max-width: 450px)  {
     .BlahDiv {
         border-radius: 0px;
         box-shadow: none;
@@ -46,24 +46,53 @@
     }
     .BlahFullHeadline
     {
-        font-size: 12px;
-        padding: 15px 10px;
+        font-size: 18px;
 
     }
     .fill-center-container
     {
-        width: 250px;
-		padding-left:10px;
+
     }
     .BlahFullBody
     {
         font-size: 14px;
 
     }
-    .comment-container
+
+    .BlahRowVote
     {
-        width: 230px;
+        height:40px;
+
     }
+
+    .FullBlahTableFooter {
+        height:40px;
+    }
+
+    .promote-btn {
+        width:28px;
+        height:28px;
+    }
+
+    .demote-btn {
+        width:28px;
+        height:28px;
+    }
+
+
+    .comment-sort-area {
+        text-align: center;
+    }
+
+    .comment-vote {
+        padding-right: 2px;
+        padding-left: 4px;
+    }
+
+    .comment-sort-area input {
+        width:280px;
+    }
+
     .SuggestSignIn
     {
         font-size: 12px;
@@ -92,7 +121,7 @@
     .ChannelBanner
     {
         height: 38px;
-        font-size: 20px;
+        font-size: 18px;
         line-height: 2.0em;
 
     }
@@ -100,8 +129,9 @@
     {
         font-size: 16px;
         height: 38px;
+        margin:0px 0px;
 
-
+        width:60px;
 
     }
 
@@ -133,6 +163,6 @@
     }
 
     .sign-in .back-button {
-        left: 20px;
+        right: 20px;
     }
 }

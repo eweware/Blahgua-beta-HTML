@@ -88,6 +88,11 @@ define('globals',
         var ReturnCommentID = null;
         var ReturnBlahId = null;
         var numMinutes = 60;
+        var isShort = false;
+        var isNarrow = false;
+        var isHorizontal = false;
+        var isiPhone = false;
+        var isiPad = false;
 
         /*
          Global functions
@@ -605,6 +610,11 @@ define('globals',
             ValidateField: ValidateField,
             ReturnCommentId: ReturnCommentID,
             ReturnBlahId: ReturnBlahId,
+            IsShort: isShort,
+            IsNarrow: isNarrow,
+            IsHorizontal: isHorizontal,
+            IsiPhone: isiPhone,
+            IsiPad: isiPad,
             Cryptify: cryptify
         }
 

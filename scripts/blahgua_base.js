@@ -14,16 +14,7 @@ define('blahgua_base',
         var initialBlah =  null;
 
         var InitializeBlahgua = function() {
-            if ((window.location.hostname == "") ||
-                (window.location.hostname == "localhost") ||
-                (window.location.hostname == "127.0.0.1"))
-				{
-                // running local
-                G.FragmentURL = "./";
-            }
-			G.FragmentURL = "./";
-
-            $(window).resize(function(){
+           $(window).resize(function(){
                 G.ResizeTimer && clearTimeout(G.ResizeTimer);
                 G.ResizeTimer = setTimeout(HandleWindowResize, 100);
             });
@@ -38,6 +29,9 @@ define('blahgua_base',
                 trail: 100, // Afterglow percentage
                 shadow: false // Whether to render a shadow
             };
+
+            G.IsiPhone = (navigator.userAgent.match(/iPhone/i) != null);
+            G.IsiPad = (navigator.userAgent.match(/iPad/i) != null);
 
             Exports.SpinElement = new Spinner(opts);
 
@@ -399,13 +393,44 @@ define('blahgua_base',
         if (desiredWidth < K.MinWidth)
             desiredWidth = K.MinWidth;
 
+
+        var blahBottom = 25;
+        var blahTop = 25;
+        var blahMargin = 16;
+        G.IsNarrow = windowWidth < 450;
+        G.IsShort = windowHeight < 600;
+
+
+        if (G.IsNarrow) {
+            blahMargin = 0;
+        }
+
+        if (G.IsShort) {
+            blahBottom = 0;
+            blahTop = 0;
+        }
+
+        // manually address the lying iPhone.
+        if (G.IsiPhone || G.IsiPad) {
+            var titleBarSize = 20, browserControlSize;
+            if (G.IsiPad)
+                browserControlSize = 75;
+            else if (G.IsiPhone)
+                browserControlSize = 44;
+
+            if (window.navigator.standalone)  // launched from home screen
+                browserControlSize = 0;
+            var totalOffset = titleBarSize + browserControlSize;
+            windowHeight -= totalOffset;
+            //$(".PageBody").css({'bottom': totalOffset});
+            //$("#BlahContainer").css({ 'bottom': totalOffset});
+        }
+
         if (windowWidth > windowHeight) {
             isVertical = false;
         } else {
             isVertical = true;
         }
-
-        var blahBottom = 25;
 
 
         var totalGutter = K.EdgeGutter * 2 + K.InterBlahGutter * 3;
@@ -426,14 +451,11 @@ define('blahgua_base',
         var offset = Math.floor((windowWidth - targetWidthWidth) / 2);
         if (offset < 0)
             offset = 0;
-        var blahContainer = document.getElementById("BlahContainer");
-        blahContainer.style.left = offset + "px";
-        blahContainer.style.width = G.LargeTileWidth + "px";
-        var blahMargin = 16;
+
         var channelBottom = $("#ChannelBanner")[0].getBoundingClientRect().bottom;
-        $("#BlahContainer").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
+        $("#BlahContainer").css({ 'left': offset , 'right': offset });
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
-        $("#BlahFullItem").css({ 'top': '25px','left': (offset + blahMargin) + 'px', 'bottom': blahBottom + 'px', 'width': targetWidthWidth - (blahMargin * 2) + 'px' });
+        $("#BlahFullItem").css({ 'top': blahTop,'left': (offset + blahMargin) , 'bottom': blahBottom, 'right': (offset + blahMargin)});
         $("#ChannelDropMenu").css({'top': channelBottom + "px"});
     };
 

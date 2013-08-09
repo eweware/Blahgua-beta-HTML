@@ -32,6 +32,13 @@ define('BlahDetailPage',
                 SetBlahDetailPage('Stats');
             });
 
+            if(G.IsShort) {
+                $("#BlahPageFooter").css({"height":"42px"});
+                $("#BlahPageDiv").css({"bottom":"42px"});
+            } else {
+                $("#BlahPageFooter").css({"height":"60px"});
+                $("#BlahPageDiv").css({"bottom":"60px"});
+            }
             UpdateBlahPage();
         }
 
@@ -89,7 +96,7 @@ define('BlahDetailPage',
         };
 
         var LoadOpenPage = function() {
-            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().bottom - 25;
+            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().height;
             $("#BlahPageDiv").css({ 'top': curTop + "px"});
             // see if we were supposed to go elsewhere
             if (G.BlahOpenPage == "")
