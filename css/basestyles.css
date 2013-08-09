@@ -403,10 +403,11 @@ color:rgb(244,245,240);
 .dialog-box {
     margin: 60px auto;
     background-color: rgb(125,181,227);
-    border: 1px solid rgb(255,255,255);
-    box-shadow: 0px 5px 5px 0px rgba(0,0,0,.3);
+    border: 1px solid rgb(244,245,240);
     border-radius: 8px;
     max-width: 500px;
+    font-size:20px;
+    font-family:'Arimo',sans-serif;
 
 }
 
@@ -443,19 +444,53 @@ color:rgb(244,245,240);
     padding: 5px 24px;
     border-radius: 8px;
     text-align: center;
-    border: none;
     margin: 8px;
     font-family: 'Arimo' sans-serif;
     font-size: 16px;
-    color: rgb(32, 32, 32);
-    background-color: rgb(244,245,240);
+    background-color: #999999;
+    background-image: -moz-linear-gradient(#999999,#888888);
+    background-image: -ms-linear-gradient(#999999,#888888);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#999999),color-stop(100%,#888888));
+    background-image: -webkit-linear-gradient(#999999,#888888);
+    background-image: -o-linear-gradient(#999999,#888888);
+    background-image: linear-gradient(#999999,#888888);
+    border: 1px solid #888888;
+    color: rgb(244,245,240);
 }
-
+.dialog-button:hover {
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(#888888,#777777);
+    background-image: -ms-linear-gradient(#888888,#777777);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#888888),color-stop(100%,#777777));
+    background-image: -webkit-linear-gradient(#888888,#777777);
+    background-image: -o-linear-gradient(#888888,#777777);
+    background-image: linear-gradient(#888888,#777777);
+    color: rgb(244,245,240);
+}
 
 .dialog-yes {
-    background-color: rgb(170, 109, 0);
-    color: rgb(255,255,255);
+    background-color: rgb(84,86,98);
+    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
+    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    border: 1px solid rgb(88,90,103);
+    color: rgb(244,245,240);
+
 }
+.dialog-yes:hover {
+    background-color: rgb(71,73,83);
+    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
+    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    color: rgb(244,245,240);
+}
+
 
 .promote-btn {
     width:36px;

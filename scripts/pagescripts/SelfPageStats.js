@@ -161,12 +161,12 @@ define('SelfPageStats',
                         {
                             type: 'areaspline',
                             data: otherUpVotes,
-                            name: "# promotes"
+                            name: "promotes"
                         } ,
                         {
                             type: 'areaspline',
                             data: reverseDown,
-                            name: "# demotes"
+                            name: "demotes"
                         }]
                 });
 
