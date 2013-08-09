@@ -83,11 +83,11 @@ define('BlahTypePollAuthorPage',
             var msg = "";
             var $polls = $(".poll-title");
             if ($polls.length < 2) {
-                msg = "A poll must have at least two responses."
+                msg = "A poll must have at least two options."
             } else {
                 $polls.each(function(index, item) {
                     if (item.value == "")
-                        msg = "Each poll response must have a title.  ";
+                        msg = "Each option title must have text.  ";
                 });
             }
 
