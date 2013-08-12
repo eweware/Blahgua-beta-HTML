@@ -89,9 +89,50 @@
         padding-left: 4px;
     }
 
+    .comment-user-image {
+        width: 32px;
+        height: 32px;
+        margin: 4px 8px 4px 4px;
+    }
+
+    .elapsedTimeText {
+        font-size: 12pt;
+    }
+
+    .instruction-text {
+        width:auto;
+    }
+
     .comment-sort-area input {
         width:280px;
     }
+
+    .conversion-div {
+        font-size: 14pt;
+        margin: 8px 0px;
+        padding: 0px;
+
+    }
+
+    .chart-box {
+        margin: 8px 0px;
+    }
+
+    .conversion-desc {
+        font-size: 10pt;
+    }
+
+
+    .accordion h2 {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .accordion-body {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
 
     .SuggestSignIn
     {
