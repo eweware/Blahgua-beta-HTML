@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<div id="SelfPageHistoryDiv" >
+    <div class="accordion">
+        <h2 id="HistoryBlahHeader"><div class="collapser"></div>Your Posts</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                What you have sent into the network.
+            </div>
+            <div class="accordion-content">
+            <table  style="width:100%">
+                <thead style="border-bottom: solid 2px #999999">
+                <tr>
+                    <td colspan="2" style="padding-bottom: 4px; width:100%" >
+                        <table style="width:100%">
+                            <tr class="blah-sort-area">
+                                <td>
+                                    <input text="text" id="BlahFilterBox" placeholder="Search">
+                                </td>
+
+                                <td><select id="BlahSortBySelect">
+                                    <option value="bydate" selected>by date</option>
+                                    <option value="bypromotes" >by promotes</option>
+                                    <option value="bydemotes" >by demotes</option>
+                                    <option value="bytype" >by type</option>
+                                </select> </td>
+
+                                <td><select id="BlahSortOrderSelect">
+                                    <option value="desc" selected>descending</option>
+                                    <option value="asc">ascending</option>
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </thead>
+                <tbody id="UserBlahList">
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion">
+        <h2 id="HistoryCommentHeader"><div class="collapser"></div>Your Comments</h2>
+        <div class="accordion-body">
+            <div class="instruction-text">
+                The comments that you have made.
+            </div>
+            <div class="accordion-content">
+            <table  style="width:100%">
+                <thead style="border-bottom: solid 2px #999999">
+                <tr>
+                    <td colspan="2" style="padding-bottom: 4px; width:100%" >
+                        <table  style="width:100%">
+                            <tr class="comment-sort-area">
+                                <td>
+                                    <input text="text" id="FilterBox" placeholder="Search">
+                                </td>
+                                <td><select id="SortBySelect">
+                                    <option value="bydate" selected>by date</option>
+                                    <option value="bypromotes" >by promotes</option>
+                                    <option value="bydemotes" >by demotes</option>
+                                    <option value="bypost" >by post</option>
+                                </select>
+                                </td>
+                                <td><select id="SortOrderSelect">
+                                    <option value="desc" selected>descending</option>
+                                    <option value="asc">ascending</option>
+                                </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                </thead>
+
+                <tbody id="UserCommentList">
+
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
