@@ -64,13 +64,19 @@ define('SelfPage',
             });
         }
 
+
+
         var SetSelfDetailPage = function(whichPage) {
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
+            var basePage;
             switch (whichPage) {
                 case "Profile":
+                    basePage = "SelfPageDetails.html";
+                    if (G.IsShort)
+                        basePage = "SelfPageDetailsShort.html";
                     G.BlahFullItem.curPage = "Profile";
                     require(["SelfPageDetails"], function(DetailsPage){
-                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageDetails.html #SelfPageDetailsDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageDetailsDiv", function() {
                             $("#SelfProfileBtn").addClass("BlahBtnSelected");
                             DetailsPage.InitializePage();
                         });
@@ -78,9 +84,12 @@ define('SelfPage',
 
                     break;
                 case "History":
+                    basePage = "SelfPageHistory.html";
+                    if (G.IsShort)
+                        basePage = "SelfPageHistoryShort.html";
                     G.BlahFullItem.curPage = "History";
                     require(["SelfPageHistory"], function(HistoryPage){
-                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageHistory.html #SelfPageHistoryDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageHistoryDiv", function() {
                             $("#SelfHistoryBtn").addClass("BlahBtnSelected");
                             HistoryPage.InitializePage();
                         });
@@ -88,9 +97,12 @@ define('SelfPage',
 
                     break;
                 case "Stats":
+                    basePage = "SelfPageStats.html";
+                    if (G.IsShort)
+                        basePage = "SelfPageStatsShort.html";
                     G.BlahFullItem.curPage = "Stats";
                     require(["SelfPageStats"], function(StatsPage){
-                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/SelfPageStats.html #SelfPageStatsDiv", function() {
+                        $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageStatsDiv", function() {
                             $("#SelfStatsBtn").addClass("BlahBtnSelected");
                             StatsPage.InitializePage();
                         });

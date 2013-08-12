@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/blahgua.css" />
+</head>
+<body>
+<div id="FullBlahCommentDiv">
+    <div id="FullBlahCommentsContainer" class="stats-container">
+    <table id="CommentHeaderArea" style="width:100%">
+        <tbody>
+        <tr><td>
+            <div id="CreateCommentArea" class="comment-detail-area">
+                    <table style="width:100%">
+                        <tbody>
+
+                        <tr class="comment-body-row">
+                            <td>
+                                <div class="image-preview comment-preview no-image" id="ImagePreviewDiv">
+                                    <i class="icon-remove-sign image-delete-btn"></i>
+                                    <span>no<br/>image</span>
+                                </div>
+                            </td>
+                            <td style="width:100%">
+                                <textarea class="comment-text-area" id="CommentTextArea" ></textarea>
+                            </td>
+                        </tr>
+                        <tr class="comment-image-upload-row">
+                            <td colspan="2">
+                                <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
+                                <span id="CharCountDiv"></span>
+                            </td>
+                        </tr>
+                        <tr style="display:none">
+                            <td>
+                                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                                    <input id="CommentImage" name="file" type="file" >
+                                    <div style="display: none">
+                                        <input type="text" name="objectType" hidden="true" value="X"/>
+                                        <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                        <input type="text" name="primary" hidden="true" value="true"/>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div id="SignInToCommentArea" class="signin-comment-shield">
+                        <button class="sign-in-comment-button">sign in to comment</button>
+                    </div>
+            </div>
+        </td></tr>
+
+        <tr>
+            <td style="padding: 4px 12px; width:100%" >
+                <table style="width:100%">
+            <tr class="comment-sort-area">
+
+                <td>
+                    <input text="text" id="FilterBox" placeholder="Search">
+
+                <select id="SortBySelect">
+                    <option value="bydate" selected>by date</option>
+                    <option value="bypromotes" >by promotes</option>
+                    <option value="bydemotes" >by demotes</option>
+                </select>
+
+                <select id="SortOrderSelect">
+                    <option value="desc" selected>descending</option>
+                    <option value="asc">ascending</option>
+                </select>
+                </td>
+            </tr>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div id="CommentContainer" class="comment-container">
+        <table id="BlahCommentTable" class="blah-comment-table">
+
+        </table>
+    </div>
+    </div>
+</div>
+</body>
+</html>

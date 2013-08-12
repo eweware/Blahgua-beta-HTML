@@ -653,12 +653,15 @@ define('blahgua_base',
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
         G.CurrentComments = null;
+        var blahPageBase = "BlahDetailPage.html";
+        if (G.IsShort)
+            blahPageBase = "BlahDetailPageShort.html"
 
 
         G.CurrentBlahNickname = G.GetSafeProperty(whichBlah, "K", G.CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
-            $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/BlahDetailPage.html #FullBlahDiv", function() {
+            $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + blahPageBase + " #FullBlahDiv", function() {
                 var windowHeight = $(window).height();
                 $(BlahFullItem).disableSelection();
                 $(BlahFullItem).fadeIn("fast", function() {
@@ -1797,8 +1800,11 @@ define('blahgua_base',
 
 
     var PopulateUserChannel = function(whichPage) {
+        var selfPageBase = "SelfPage.html";
+        if (G.IsShort)
+            selfPageBase = "SelfPageShort.html";
         require(["SelfPage"], function(SelfPage){
-            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SelfPage.html #UserChannelDiv", function() {
+            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + selfPageBase + " #UserChannelDiv", function() {
                 SelfPage.InitializePage(whichPage);
             });
         });

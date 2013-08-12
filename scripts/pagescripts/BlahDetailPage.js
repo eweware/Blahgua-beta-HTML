@@ -143,11 +143,15 @@ define('BlahDetailPage',
 
         var SetBlahDetailPage = function(whichPage) {
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
+            var basePage;
             switch (whichPage) {
                 case "Overview":
+                    basePage = "BlahBodyDetailPage.html";
+                    if (G.IsShort)
+                        basePage = "BlahBodyDetailPageShort.html";
                     G.BlahFullItem.curPage = "Overview";
                     require(["BlahBodyDetailPage"], function(BodyDetails) {
-                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahBodyDetailPage.html #FullBlahBodyDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahBodyDiv", function() {
                             $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
                             BodyDetails.InitializePage();
                         });
@@ -155,9 +159,12 @@ define('BlahDetailPage',
                     break;
 
                 case "Comments":
+                    basePage = "BlahCommentDetailPage.html";
+                    if (G.IsShort)
+                        basePage = "BlahCommentDetailPageShort.html";
                     G.BlahFullItem.curPage = "Comments";
                     require(["BlahCommentDetailPage"], function(CommentDetails){
-                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahCommentDetailPage.html #FullBlahCommentDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahCommentDiv", function() {
                             $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                             CommentDetails.InitializePage();
                         });
@@ -165,9 +172,12 @@ define('BlahDetailPage',
                     break;
 
                 case "Stats":
+                    basePage = "BlahStatsDetailPage.html";
+                    if (G.IsShort)
+                        basePage = "BlahStatsDetailPageShort.html";
                     G.BlahFullItem.curPage = "Stats";
                     require(["BlahStatsDetailPage"], function(StatsDetails){
-                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/BlahStatsDetailPage.html #FullBlahStatsDiv", function() {
+                        $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahStatsDiv", function() {
                             $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                             StatsDetails.InitializePage();
                         });

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/blahgua.css" />
+</head>
+<body>
+<div id="FullBlahBodyDiv">
+
+        <div class="FullBlahContent" id="FullBlahContent">
+                <table class="FullBlahTable" width="100%">
+                    <tr>
+                        <td>
+                            <div class="fill-center-container">
+                                <img src="" alt="Blah Image" class="BlahPreviewImage" id="blahFullImage">
+                            </div>
+                        </td>
+                    </tr>
+
+
+                        <tr><td><div class="blah-body-divider"></div></td></tr>
+                        <tr><td class="BlahFullBody" id="BlahFullBody"></td></tr>
+
+                        <tr><td class="ExtraInfoArea" id="AdditionalInfoArea" style="width:500px;"></td></tr>
+
+                        <tr><td>
+                            <div id="CreateCommentArea" class="comment-detail-area">
+                                 <table style="width:100%">
+                                    <tbody>
+
+                                    <tr class="comment-body-row">
+                                        <td>
+                                            <div class="image-preview comment-preview no-image" id="ImagePreviewDiv">
+                                                <i class="icon-remove-sign image-delete-btn"></i>
+                                                <span>no image</span>
+                                            </div>
+                                        </td>
+                                        <td style="width:100%">
+                                            <textarea class="comment-text-area" id="CommentTextArea" ></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr class="comment-image-upload-row">
+                                        <td colspan="2">
+                                            <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
+                                            <span id="CharCountDiv"></span>
+                                        </td>
+                                    </tr>
+                                    <tr style="display:none">
+                                    <td>
+                                        <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                                            <input id="CommentImage" name="file" type="file" >
+                                            <div style="display: none">
+                                                <input type="text" name="objectType" hidden="true" value="X"/>
+                                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                                <input type="text" name="primary" hidden="true" value="true"/>
+                                            </div>
+                                        </form>
+                                    </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div id="SignInToCommentArea" class="signin-comment-shield">
+                                    <button class="sign-in-comment-button">sign in to comment</button>
+                                </div>
+                            </div>
+                        </td></tr>
+                        <tr><td>
+                            <div class="top-comments-header">
+                                <div>Top Comments</div>
+                            </div>
+                            <div id="CommentContainer" class="comment-container">
+                             <table id="BlahCommentTable" class="blah-comment-table">
+
+                                </table>
+                            </div>
+                        </td></tr>
+                </table>
+        </div>
+
+    
+    <table id="FullBlahBlahTableFooter"  class="FullBlahTableFooter">
+        <tr id="BlahRowVote" class="BlahRowVote">
+            <td></td>
+            <td class="footer-button">
+                <div class="promote-btn" id="PromoteBlahImage"></div>
+            </td>
+            <td class="footer-button">
+                <div class="demote-btn"  id="DemoteBlahImage"></div>
+            </td>
+            <td class="footer-button">
+                <span id="ShareBlah"></span>
+            </td>
+            <td></td>
+
+        </tr>
+        <tr id="BlahRowSignIn">
+            <td colspan="5" style="text-align: center">
+                <div id="SuggestSignInDiv" class="SuggestSignIn" >
+                    Sign in to participate.
+                </div>
+            </td>
+        </tr>
+
+    </table>
+</div>
+</body>
+</html>
