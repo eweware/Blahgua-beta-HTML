@@ -340,7 +340,14 @@
 
 .blah-comment-link {
     font-size:10pt;
+    font-family: 'Arimo', sans-serif;
+    color: #0058F8
 }
+.blah-comment-link:hover {
+    text-decoration: underline;
+}
+
+
 .user-blah-row {
 
 }
