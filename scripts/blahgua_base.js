@@ -196,6 +196,11 @@ define('blahgua_base',
                     finalizeInitialLoad();
                 }
             }
+        }, function(theErr) {
+            // todo:  check for specific error codes
+            $(".PageBody").empty();
+            var newHTML = "<div class='site-down-div'></div>";
+            $(".PageBody").append(newHTML);
         })
     };
 

@@ -93,8 +93,19 @@ define('BlahStatsDetailPage',
                 legend: {
                     enabled:false
                 },
+                plotOptions: {
+                    series: {
+                        marker: {
+                            enabled: false
+                        },
+                        enableMouseTracking: false
+                    }
+                },
                 credits: {
                     enabled:false
+                },
+                tooltip: {
+                    enabled: false
                 },
                 chart:{
                     spacingRight:20,

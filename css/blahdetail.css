@@ -553,6 +553,12 @@
 }
 
 
+.short-scroll-div {
+    overflow-x: hidden;
+    overflow-y: auto;
+    position:absolute;
+}
+
 
 .stats-container {
     overflow-x: hidden;

@@ -63,6 +63,16 @@ input:focus {
     filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#1F2133', EndColorStr='#696B75');
 }
 
+.site-down-div {
+    position:fixed;
+    left:0;
+    right:0;
+    top:0;
+    bottom:0;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/down2.jpg");
+}
 
 .Overlay {
     z-index:100;
