@@ -23,7 +23,10 @@ define('BlahStatsDetailPage',
 
             // handle the sizing
             var newWidth = $(".accordion-body").width();
-            $(".chart-box").width(newWidth - 32);
+            var widthDelta = 32;
+            if (G.IsNarrow)
+                widthDelta = 0;
+            $(".chart-box").width(newWidth - widthDelta);
 
             var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
             var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
@@ -79,6 +82,7 @@ define('BlahStatsDetailPage',
             var curStr = G.GetSafeProperty(G.CurrentBlah, "S", 0);
             var uv = G.GetSafeProperty(G.CurrentBlah, "P", 0);
             var dv = G.GetSafeProperty(G.CurrentBlah, "D", 0);
+
 
             $("#BlahStandingDiv").highcharts({
                 title: {
@@ -161,52 +165,71 @@ define('BlahStatsDetailPage',
             // Audience Engagement
             var views = G.GetSafeProperty(G.CurrentBlah,"V", 0);
             var opens = G.GetSafeProperty(G.CurrentBlah, "O", 0);
+            if (views < opens)
+                views = opens;
+
             var ratio = Math.round((opens / views) * 10000) / 100;
             $(".conversion-percent").text(ratio + "%");
             $(".conversion-desc").text("Opened " + opens + " times out of " + views + " impressions");
 
-            if (curStats && curStats.length > 0) {
-                var endDate = new Date(Date.now());
-                var startDate = new Date(Date.now() - (G.NumStatsDaysToShow * (24 * 3600 * 1000)));
-                var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "V");
-                var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "O");
-                var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "C");
-                var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-                $('#BlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", viewData, catAxis));
-                $('#BlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Opens", openData, catAxis));
-                $('#BlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", commentsMade, catAxis));
+            var endDate = new Date(Date.now());
+            var startDate = new Date(Date.now() - (G.NumStatsDaysToShow * (24 * 3600 * 1000)));
+            var viewData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "V");
+            var openData = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "O");
+            var commentsMade = stats.GetDailyStatValuesForTimeRange(startDate, endDate, G.CurrentBlah, "C");
+            var catAxis = stats.makeDateRangeAxis(startDate, endDate);
 
-            }
+            $('#BlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", viewData, catAxis));
+            if (G.DataZeroOrEmpty(viewData))
+                G.AppendChartMask("#BlahActivityViewsDiv", "No impressions in this period.");
+
+            $('#BlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Opens", openData, catAxis));
+            if (G.DataZeroOrEmpty(openData))
+                G.AppendChartMask("#BlahActivityOpensDiv", "No opens in this period.");
+
+            $('#BlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", commentsMade, catAxis));
+            if (G.DataZeroOrEmpty(commentsMade))
+                G.AppendChartMask("#BlahActivityCommentsDiv", "No comments in this period.");
+
 
 
             // Voter Demographics
-            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
-                $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Gender", "B"));
-            else
-                $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
+            if (G.IsUserLoggedIn) {
+                $("#SignInForDemoDiv").hide();
+                if (G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
+                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Gender", "B"));
+                else
+                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
-            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
-                $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Ethnicity", "D"));
-            else
-                $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
-
-
-             if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
-                $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
-             else
-                $("#DemoAgeChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
+                if (G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
+                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Ethnicity", "D"));
+                else
+                    $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
 
 
-            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
-                $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
-            else
-                $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
+                if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
+                    $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
+                else
+                    $("#DemoAgeChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
 
-            if (G.IsUserLoggedIn && G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
-                $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Income", "E"));
-            else
-                $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
+
+                if (G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
+                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
+                else
+                    $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
+
+                if (G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
+                    $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Income", "E"));
+                else
+                    $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
+            } else {
+                // hide these all
+                $("#SignInForDemoDiv").show();
+                $("#AboutAudienceSection .chart-box").hide();
+
+            }
+
 
         };
 

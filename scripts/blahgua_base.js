@@ -50,6 +50,8 @@ define('blahgua_base',
                 initialBlah = getQueryVariable("blahId");
                 SignIn();
             });
+
+            window.addEventListener( 'orientationchange', HandleWindowResize, false );
         };
 
         $.fn.textfill3 = function(maxFontSize) {
@@ -570,6 +572,7 @@ define('blahgua_base',
                 "</ul></div></div>";
 
             $(document.body).append(newHTML);
+            $(".instant-menu").disableSelection();
             $(".click-shield").click(function (theEvent) {
                 DismissAll();
                 StartAnimation();
@@ -1712,6 +1715,10 @@ define('blahgua_base',
     var PopulateChannelMenu = function( ) {
         var newHTML = "";
 
+        G.ChannelList.sort(function (a, b) {
+            return G.GetSafeProperty(a, "R", 0) - G.GetSafeProperty(b, "R", 0);
+        });
+
         $.each(G.ChannelList, function(index, element) {
             newHTML += createChannelHTML(index, element);
         });
@@ -1864,6 +1871,9 @@ define('blahgua_base',
     var DoCreateBlah = function() {
         StopAnimation();
         $("#LightBox").show();
+        var basePage = "CreateBlahPage.html";
+        if (G.IsShort)
+            basePage = "CreateBlahPageShort.html";
         if (G.IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
                 $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/CreateBlahPage.html", function() {

@@ -28,7 +28,10 @@ define('SelfPageDetails',
             });
 
             $("#uploadimage").click(function(theEvent) {
+                if($(this).attr("disabled") == undefined) {
+                    $(this).attr("disabled", true);
                 $("#UserFormImage").click();
+                }
             });
 
             $(".image-delete-btn").click(function(theEvent) {
@@ -206,7 +209,8 @@ define('SelfPageDetails',
                 // bind event
                 $("#BadgeAuthorityArea button").click(function(theEvent) {
                     var ID = $(theEvent.target).attr("data-authority-id");
-                    DoAddBadge(ID);
+                    var badgeName =  $(theEvent.target).attr("data-authority-name");
+                    DoAddBadge(ID, badgeName);
                 });
             }, exports.OnFailure);
         };
@@ -215,7 +219,7 @@ define('SelfPageDetails',
             var newHTML = "<tr>";
             newHTML += "<td><span class='badge-name-span'>" + theAuth.N + "</span><br/>";
             newHTML += "<span class='badge-desc-span'>" + theAuth.D + "</span></td>";
-            newHTML += '<td><button class="small-button" style="width:120px" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
+            newHTML += '<td><button class="small-button" style="width:120px" data-authority-name="' + theAuth.N + '" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
             newHTML += "</tr>";
 
             return newHTML;
@@ -256,7 +260,7 @@ define('SelfPageDetails',
             });
         };
 
-        var DoAddBadge = function(badgeID) {
+        var DoAddBadge = function(badgeID, badgeName) {
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 var dialogHTML = data;
                 var windowWidth = $(window).width();
@@ -264,8 +268,9 @@ define('SelfPageDetails',
                 if (offset < 0)
                     offset = 0;
                 $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-                $(".BadgeTitleBar").text("" + badgeID);
+                $(".BadgeTitleBar").text(badgeName);
                 $("#badgedialog").html(dialogHTML);
+                $("#BadgeOverlayShield").show();
                 $("#BadgeOverlay").fadeIn();
                 window.ba_dialog_closed = HandleBadgeDismiss;
 
@@ -274,6 +279,7 @@ define('SelfPageDetails',
 
         var HandleBadgeDismiss = function(theMsg) {
             $("#BadgeOverlay").fadeOut( 150, function () {
+                $("#BadgeOverlayShield").hide();
                 $("#badgedialog").empty();
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
@@ -332,17 +338,59 @@ define('SelfPageDetails',
             G.UserProfile["D"] = $("#EthnicityInput").val();
 
             // permissions
-            G.UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
-            G.UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
-            G.UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
-            G.UserProfile["9"] = $('input:checkbox[name=country]:checked').val() ? 2 : 0;
-            G.UserProfile["2"] = $('input:checkbox[name=age]:checked').val() ? 2 : 0;
-            G.UserProfile["4"] = $('input:checkbox[name=income]:checked').val() ? 2 : 0;
-            G.UserProfile["1"] = $('input:checkbox[name=gender]:checked').val() ? 2 : 0;
-            G.UserProfile["3"] = $('input:checkbox[name=race]:checked').val() ? 2 : 0;
+            var permVal;
+            if (G.UserProfile["G"] == "") {
+                G.UserProfile["6"] = 0;
+                $('input:checkbox[name=city]').prop("checked", false)
+            }
+            else
+                G.UserProfile["6"] = $('input:checkbox[name=city]:checked').val() ? 2 : 0;
+
+
+            if (G.UserProfile["H"] == "") {
+                G.UserProfile["7"] = 0;
+                $('input:checkbox[name=state]').prop("checked", false)
+            } else
+                G.UserProfile["7"] = $('input:checkbox[name=state]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["I"] == "") {
+                G.UserProfile["8"] = 0;
+                $('input:checkbox[name=zipcode]').prop("checked", false)
+            } else
+                G.UserProfile["8"] = $('input:checkbox[name=zipcode]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["J"] == "-1") {
+                G.UserProfile["9"] = 0;
+                $('input:checkbox[name=country]').prop("checked", false)
+            } else
+                G.UserProfile["9"] = $('input:checkbox[name=country]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["C"] == "") {
+                G.UserProfile["2"] = 0;
+                $('input:checkbox[name=age]').prop("checked", false)
+            } else
+                G.UserProfile["2"] = $('input:checkbox[name=age]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["E"] == "-1") {
+                G.UserProfile["4"] = 0;
+                $('input:checkbox[name=income]').prop("checked", false)
+            } else
+                G.UserProfile["4"] = $('input:checkbox[name=income]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["B"] == "-1") {
+                G.UserProfile["1"] = 0;
+                $('input:checkbox[name=gender]').prop("checked", false)
+            } else
+                G.UserProfile["1"] = $('input:checkbox[name=gender]:checked').val() ? 2 : 0;
+
+            if (G.UserProfile["D"] == "-1") {
+                G.UserProfile["3"] = 0;
+                $('input:checkbox[name=race]').prop("checked", false)
+            } else
+                G.UserProfile["3"] = $('input:checkbox[name=race]:checked').val() ? 2 : 0;
 
             // commit
-            blahgua_rest.UpdateUserProfile(G.UserProfile, function() {
+            blahgua_rest.UpdateUserProfile(G.UserProfile, function(theObject) {
                 $("#SaveDemographicsBtn").attr("disabled", "disabled");
                 blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
@@ -370,11 +418,13 @@ define('SelfPageDetails',
 
                     //Ajax events
                     success: completeHandler = function(data) {
+                        $("#uploadimage").removeAttr("disabled");
                         DoUploadComplete();
 
                     },
                     error: errorHandler = function(theErr) {
-                        $("uploadimage").addClass("no-image").css({"background-image":"none"});
+                        $("#uploadimage").removeAttr("disabled");
+                        $("#uploadimage").addClass("no-image").css({"background-image":"none"});
                         $("#uploadimage span").text("error");
                     },
                     // Form data

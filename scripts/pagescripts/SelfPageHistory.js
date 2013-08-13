@@ -388,7 +388,7 @@ define('SelfPageHistory',
 			
 			newHTML += "<tr>"
             newHTML += "<td colspan='2'  class='user-comment-detail'>";
-            newHTML += "<a class='blah-comment-link' href='javascript:void(null)' data-blah-id='" + theComment.B + "'>go to post</a>";
+            newHTML += "<a class='blah-comment-link' href='javascript:void(null)' data-blah-id='" + theComment.B + "'>open post</a>";
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote.png">' + promotes + "</span>";
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote.png">' + demotes + "</span>";
             newHTML += "<span class='user-blah-date'>" + G.ElapsedTimeString(new Date(theComment.c)) + "</span></td>";

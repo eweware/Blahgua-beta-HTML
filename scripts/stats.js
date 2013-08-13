@@ -182,8 +182,7 @@ define('stats',
                     enabled: false
                 },
                 xAxis: {
-                    categories: catAxis,
-
+                    categories: catAxis
                 },
                 yAxis: {
                     min:0,
@@ -236,8 +235,17 @@ define('stats',
             var demoCat = MakeDemoCategories(demoName);
             var chartHeight = 125 + (25 * demoCat.length);
             var lineCount = 1;
+            var textAngle = 0;
+            var alignStr = "center";
+
             if (demoCat.length > 6)
                 lineCount = 2;
+
+            if (G.IsNarrow) {
+                lineCount = 1;
+                textAngle = -90;
+                alignStr = "right";
+            }
             var maxVal = GetMaxGraphRange(demoSeries, 4, 1.2);
             var newDemos = {
                 chart: {
@@ -253,7 +261,9 @@ define('stats',
                 xAxis: {
                     categories:demoCat,
                     labels: {
-                        staggerLines: lineCount
+                        staggerLines: lineCount,
+                        align: alignStr,
+                        rotation: textAngle
                     }
                 },
                 plotOptions: {
