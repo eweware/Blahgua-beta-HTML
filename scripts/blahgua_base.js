@@ -111,6 +111,26 @@ define('blahgua_base',
         return rowHeight;
     };
 
+    var BlahViewMap = [];
+
+    var AddBlahView = function(blahId) {
+        if (BlahViewMap.hasOwnProperty(blahId))
+            BlahViewMap[blahId]++;
+        else
+            BlahViewMap[blahId] = 1;
+    };
+
+    var FlushViewMap = function() {
+        if (BlahViewMap.length > 0) {
+            blahgua_restapi.UpdateBlahCounts(BlahViewMap, function() {
+                BlahViewMap = [];
+            });
+        } else {
+            BlahViewMap = [];
+        }
+
+
+    };
 
     var getQueryVariable = function(variable) {
         var query = window.location.search.substring(1);
@@ -670,6 +690,8 @@ define('blahgua_base',
                 });
             });
         });
+
+        FlushViewMap();
     };
 
     var OpenBlah = function(whichBlah) {
@@ -745,6 +767,7 @@ define('blahgua_base',
 
     var CreateBaseDiv = function(theBlah) {
         var newDiv = document.createElement("div");
+        AddBlahView(theBlah._id);
         newDiv.blah = theBlah;
         newDiv.className = "BlahDiv";
         newDiv.style.top = "0px";
@@ -1744,7 +1767,8 @@ define('blahgua_base',
         G.NextBlahList = theResult;
         if (theResult.length > 0)
             PrepareBlahList(G.NextBlahList);
-        $("#ChannelBanner").animate({"background-color": K.BannerColor }, 'slow');
+        FlushViewMap();
+
     };
 
 

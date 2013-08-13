@@ -218,6 +218,12 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("users/profile/info", paramStr, OnSuccess, OnFailure);
     };
 
+    var UpdateBlahCounts = function (viewMap, OnSuccess, OnFailure) {
+        var paramObj = new Object();
+        paramObj["V"] = viewMap;
+        CallPutMethod("blahs/counts", JSON.stringify(paramObj), OnSuccess, OnFailure);
+    }
+
     var GetBlahAuthor = function (blahId, OnSuccess, OnFailure) {
         /// <summary>Returns the profile for the session user</summary>
         /// <param name="userID">The id of the user, or "" for the session user</param>
@@ -767,6 +773,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         getRecoveryInfo: getRecoveryInfo ,
         updatePassword: updatePassword,
         DeleteUserImage: DeleteUserImage,
+        UpdateBlahCounts: UpdateBlahCounts,
         RefreshSession:RefreshSession
     }
 });
