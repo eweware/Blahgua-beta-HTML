@@ -243,8 +243,8 @@ define('stats',
 
             if (G.IsNarrow) {
                 lineCount = 1;
-                textAngle = 90;
-                alignStr = "left";
+                textAngle = -90;
+                alignStr = "right";
             }
             var maxVal = GetMaxGraphRange(demoSeries, 4, 1.2);
             var newDemos = {
