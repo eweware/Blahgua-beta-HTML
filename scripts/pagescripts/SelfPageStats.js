@@ -59,7 +59,7 @@ define('SelfPageStats',
                     yAxis: {
                         min:0,
                         max:100,
-                        title: { text: "Percent"}
+                        title: { text: null}
                     },
                     plotOptions: {
                         bar: {
@@ -71,8 +71,8 @@ define('SelfPageStats',
                     },
                     series: [{
                         type: 'bar',
-                        data: [{color: '#7db5e3', y: userStrength * 100},
-                            {color: '#f8b800', y: userContro * 100}]
+                        data: [{color: '#7db5e3', y: Math.floor(userStrength * 100)},
+                            {color: '#f8b800', y: Math.floor(userContro * 100)}]
                     }]
                 });
 

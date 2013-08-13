@@ -310,6 +310,12 @@
 }
 
 
+.demo-breakdown-div {
+    margin: 16px 0px;
+    padding: 12px;
+    font-size: 16pt;
+    font-style: italic;
+}
 
 .comment-text-area {
     color: rgb(32,32,32);

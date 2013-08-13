@@ -1,0 +1,117 @@
+<html>
+<body>
+<div id="CreateBlahPage">
+
+    <table class="BlahFullHeader" id="CreateBlahHeader">
+        <tr  class="blah-headline-row">
+
+            <td rowspan="2">
+                <div id="BlahAuthorImage" class="create-author-image"></div>
+            </td>
+            <td colspan="1" style="width:100%">
+                <span class="fullBlahgerName" id="FullBlahNickName"></span>
+            <td rowspan="2">
+                <div class="back-button blah-closer" ></div>
+            </td></td>
+        </tr>
+
+        <tr>
+            <td class="createblahheadlineoptionframe">
+                <select id="BlahTypeList" class="createblahheadlineoption"></select>
+                <span class="fullBlahSpeechAct"></span>
+
+            </td>
+        </tr>
+
+        <tr class="show-blah-bkgnd">
+            <td  colspan="3">
+                <div class="blah-summary-bar">
+                    <table id="BlahFacetTable" style="width:100%">
+                        <tr>
+                            <td style="width:100%"> <span class="FullBlahProfileString" id="FullBlahProfileString"></span> </td>
+                            <td><span id="FullBlahDateStr" class="FullBlahDateStr"></span>  </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+
+        <tr class="show-blah-bkgnd">
+            <td colspan="3" class="createblahheadline" id="BlahFullHeadline" >
+                <textarea placeholder="Headline: Says are general posts with no requirements." type="text" id="BlahHeadline" class="inputheadlineframe"></textarea>
+            </td>
+        </tr>
+
+        <tr class="show-blah-bkgnd">
+            <td colspan="3"><span id="HeadlineCharCount" class="charcounter"></span></td>
+        </tr>
+    </table>
+
+    <div class="create-content-div show-blah-bkgnd" id="createcontent" >
+        <table class="createblahscrolltable show-blah-bkgnd">
+            <tr style="display:none">
+
+                <td colspan="3">
+                    <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
+                        <div>
+                            <input id="BlahImage" name="file" type="file" no-validate>
+                            <input type="text" name="objectType" hidden="true" value="X"/>
+                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                            <input type="text" name="primary" hidden="true" value="true"/>
+                        </div>
+                    </form>
+                </td>
+
+            </tr>
+
+
+            <tr>
+                <td style="width:76px; max-width: 76px;">
+                    <div class="image-preview no-image" id="ImagePreviewDiv">
+                        <i class="icon-remove-sign image-delete-btn"></i>
+                        <span>no image</span>
+                    </div>
+                </td>
+                <td colspan="2" class="createblahbody">
+                    <textarea placeholder="Optional body text here " class="inputbodyframe" id="BlahBody"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span id="BodyCharCount" class="charcounter"></span>
+                </td>
+            </tr>
+            <tr style="width:100%">
+                <td colspan="3" id="AdditionalInfoDiv"  class="createblahadditional">
+
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="create-footer-div">
+        <table id="CreateFooterDiv" class="create-blah-footer">
+            <tr id="ValidationRow" class="create-validation-row">
+                <td  colSpan="2" ><span class="create-err-msg" id="ErrMsgSpan"></span></td>
+            </tr>
+            <tr style="text-align: center">
+                <td><button id="ShowBadgeAreaBtn" class="create-page-button badge-select">
+                        <span>Add Badges</span>
+                        <i class="icon-caret-down"></i>
+                    </button>
+                    <div id="ShowBadgeAreaHolder" class="click-shield" style="background-color:transparent; display:none">
+                        <div id="ShowBadgeArea" class="badge-area">
+
+                        </div>
+                    </div>
+                </td>
+                <td >
+                    <button disabled="disabled" id="PublishBlahBtn" class="create-page-button default">Publish</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

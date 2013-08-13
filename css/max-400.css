@@ -2,6 +2,7 @@
     .BlahDiv {
         border-radius: 0px;
         box-shadow: none;
+        border-width: 4px;
 
     }
 
@@ -31,14 +32,12 @@
 
          border-radius: 0px;
          box-shadow: none;
+         border-width:4px;
 
         }
 	}
 
-    .BlahPageFooter td
-    {
-        width:5%;
-    }
+
     .BlahButton
     {
         font-size: 12px;
@@ -79,9 +78,33 @@
         height:28px;
     }
 
+    .create-page-button {
+        width:135px;
+    }
+
 
     .comment-sort-area {
         text-align: center;
+    }
+
+    .comment-sort-area input {
+        width:280px;
+    }
+
+    .blah-sort-area {
+        text-align: center;
+    }
+
+    .blah-sort-area input {
+        width:280px;
+    }
+
+    .demographic-detail {
+        display: block;
+        width: auto;
+        text-align: left;
+        padding-right: 0px;
+        font-size: 10pt;
     }
 
     .comment-vote {
@@ -95,6 +118,10 @@
         margin: 4px 8px 4px 4px;
     }
 
+    .default-button {
+        width:auto;
+    }
+
     .elapsedTimeText {
         font-size: 12pt;
     }
@@ -103,9 +130,7 @@
         width:auto;
     }
 
-    .comment-sort-area input {
-        width:280px;
-    }
+
 
     .conversion-div {
         font-size: 14pt;
@@ -124,13 +149,15 @@
 
 
     .accordion h2 {
-        margin-left: 0px;
-        margin-right: 0px;
+        margin-left: 4px;
+        margin-right: 4px;
     }
 
     .accordion-body {
-        margin-left: 0px;
-        margin-right: 0px;
+        margin-left: 4px;
+        margin-right: 4px;
+        padding-left:4px;
+        padding-right:4px;
     }
 
 

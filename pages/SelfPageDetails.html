@@ -5,9 +5,11 @@
 </head>
 <body>
 <div id="SelfPageDetailsDiv" >
-<div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
-    <div class="BadgeTitleBar"></div>
-    <div id="badgedialog" class="BadgeDialog"></div>
+<div id="BadgeOverlayShield" class="BadgeOverlayShield" style="display:none">
+    <div id="BadgeOverlay" class="BadgeOverlay" style="display:none">
+        <div class="BadgeTitleBar"></div>
+        <div id="badgedialog" class="BadgeDialog"></div>
+    </div>
 </div>
 
 <div class="accordion">
@@ -21,43 +23,39 @@
            
             <tbody>
             <tr>
-                <td class="attribute-col">Username</td>
                 <td>
+                    <div class="demographic-detail">Username</div>
                    <span disabled="disabled" id="userName" class="userName"></span>
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Screen&nbsp;name</td>
-
                 <td >
+                    <div class="demographic-detail">Screen&nbsp;name</div>
                     <input maxlength="20" data-validate data-validate-notempty data-validate-maxlen="20" id="NicknameInput" type="text" class="userName">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Password</td>
-
                 <td>
+                    <div class="demographic-detail">Password</div>
                     <input data-validate data-validate-notempty id="Password" type="password">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Confirm&nbsp;password</td>
-
                 <td>
+                    <div class="demographic-detail">Confirm&nbsp;password</div>
                     <input data-validate data-validate-match="Password" data-validate-match-text="Passwords must match" id="PasswordConfirm" type="password">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >
-                    <span style="position: relative;left: -24px;">Recovery&nbsp;email</span>
-                    <i style="position: relative; left: 4px; color:rgb(125,181,227)" id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
-                </td>
-
                 <td>
+                    <div class="demographic-detail">
+                        <span style="position: relative;left: -24px;">Recovery&nbsp;email</span>
+                        <i style="position: relative; left: 4px; color:rgb(125,181,227)" id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
+                    </div>
                     <input data-validate data-validate-email id="RecoveryEmail" type="text" class="email">
 
                 </td>
@@ -66,8 +64,8 @@
                 </td>
             </tr>
             <tr style="border-bottom: none;">
-                <td class="attribute-col" >Your&nbsp;image</td>
                 <td>
+                    <div class="demographic-detail">Your&nbsp;image</div>
                     <div id="uploadimage" class="user-image">
                         <i class="icon-remove-sign image-delete-btn"></i>
                         <span></span>
@@ -92,7 +90,6 @@
             </tr>
 
             <tr>
-                <td> </td>
                 <td>
                     <button disabled="disabled" id="SaveAccountInfoBtn" class="float-right action-button default-button" >Update</button>
                 </td>
@@ -156,49 +153,51 @@
             <tbody>
                      
             <tr>
-                <td><span class="demographic-detail">Gender</span>
-                <select id="GenderInput"> </select></td>
-                <td class='demo-public-col'><input type="checkbox" value="2" name="gender"></td>
-                  </tr>
+                <td>
+                    <div class="demographic-detail">Gender</div>
+                    <select id="GenderInput"> </select>
+                </td>
+                <td class='demo-public-col'>
+                    <input type="checkbox" value="2" name="gender">
+                </td>
+            </tr>
             <tr>
-                <td><span class="demographic-detail">Date&nbsp;of&nbsp;birth</span>
+                <td><div class="demographic-detail">Date&nbsp;of&nbsp;birth</div>
                 <input id="DOBInput" type="date" placeholder="mm/dd/yyyy"></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="age" min=13></td>
             </tr>	                
             <tr>
-                <td><span class="demographic-detail">Ethnicity</span>
+                <td><div class="demographic-detail">Ethnicity</div>
                 <select id="EthnicityInput"> </select></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="race"></td>
                     </tr>
             <tr>
-                <td><span class="demographic-detail">City</span>
+                <td><div class="demographic-detail">City</div>
                 <input id="CityInput" type="text"></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="city"></td>
             </tr>
             <tr>
-                <td><span class="demographic-detail">State</span>
+                <td><div class="demographic-detail">State</div>
                 <input id="StateInput" type="text"></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="state"></td>
             </tr>
             <tr>
-                <td><span class="demographic-detail">Post code</span>
+                <td><div class="demographic-detail">Post code</div>
                 <input id="ZipcodeInput" type="text"></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="zipcode"></td>
             </tr>
             <tr>
-                <td><span class="demographic-detail">Country</span>
+                <td><div class="demographic-detail">Country</div>
                 <select id="CountryInput"> </select></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="country"></td>
             </tr>
             <tr>
-                <td><span class="demographic-detail">Income</span>
+                <td><div class="demographic-detail">Income</div>
                 <select id="IncomeInput"> </select></td>
                 <td class='demo-public-col'><input type="checkbox" value="2" name="income"></td>
             </tr>
-            <tr><td>
-
-            </td>
-                <td>
+            <tr>
+                <td style="text-align: right">
                     <button disabled="disabled" id="SaveDemographicsBtn" class="action-button default-button" >Update</button>
                 </td>
                 <td></td>

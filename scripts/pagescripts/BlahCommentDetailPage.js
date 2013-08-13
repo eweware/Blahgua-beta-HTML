@@ -28,9 +28,15 @@ define('BlahCommentDetailPage',
          if (G.IsUserLoggedIn)  {
                 var $commentTextArea = $("#CommentTextArea");
 
+             if (document.getElementById('CommentImage').disabled) {
+                 $("#ImagePreviewDiv").hide();
+             }
              $("#CommentImage").change(comments.UploadCommentImage);
              $("#ImagePreviewDiv").click(function(theEvent) {
+                 if($(this).attr("disabled") == undefined) {
+                     $(this).attr("disabled", true);
                  document.getElementById('CommentImage').click();
+                 }
              } );
 
              $(".image-delete-btn").click(function(theEvent) {

@@ -219,10 +219,10 @@ define('comments',
 
 
         var DoAddComment = function(OnSuccess, OnFailure) {
-            var commentText = $("#CommentTextArea").val();
+            var commentText = $.trim($("#CommentTextArea").val());
             var imageId = $("#objectId").val();
             blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, function (newComment) {
-                $("#CommentTextArea").val("");
+                $("#CommentTextArea").val("").attr("placeholder","Enter comment text here");
                 if (G.CurrentBlah.hasOwnProperty("C")) {
                     G.CurrentBlah.C++;
                 } else {
@@ -394,6 +394,7 @@ define('comments',
 
                     //Ajax events
                     success: completeHandler = function(data) {
+                        $("#ImagePreviewDiv").removeAttr("disabled");
                         $("#objectId").val(data);
                         // to do - update the image...
                         var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
@@ -403,6 +404,7 @@ define('comments',
                         $(".image-preview i").show();
                     },
                     error: errorHandler = function(theErr) {
+                        $("#ImagePreviewDiv").removeAttr("disabled");
                         $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
 
                     },

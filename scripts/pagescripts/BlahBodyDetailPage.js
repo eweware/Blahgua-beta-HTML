@@ -184,9 +184,15 @@ define('BlahBodyDetailPage',
                 });
                 $("#CommentTextArea").keyup(RefreshForCommentText);
                 $("#CommentTextArea").val(exports.CurrentCommentText);
+                if (document.getElementById('CommentImage').disabled) {
+                    $("#ImagePreviewDiv").hide();
+                }
                 $("#CommentImage").change(comments.UploadCommentImage);
                 $("#ImagePreviewDiv").click(function(theEvent) {
-                    document.getElementById('CommentImage').click();
+                    if($(this).attr("disabled") == undefined) {
+                        $(this).attr("disabled", true);
+                        document.getElementById('CommentImage').click();
+                    }
                 } );
 
                 $(".image-delete-btn").click(function(theEvent) {

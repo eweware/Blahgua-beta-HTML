@@ -35,7 +35,10 @@ define('CreateBlahPage',
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(UploadBlahImage);
             $("#ImagePreviewDiv").click(function(theEvent) {
-                document.getElementById('BlahImage').click();
+                if($(this).attr("disabled") == undefined) {
+                    $(this).attr("disabled", true);
+                    document.getElementById('BlahImage').click();
+                }
             } );
 
             $(".image-delete-btn").click(function(theEvent) {
@@ -383,6 +386,7 @@ define('CreateBlahPage',
                     type: 'POST',
                     //Ajax events
                     success: completeHandler = function(data) {
+                        $("#ImagePreviewDiv").removeAttr("disabled");
                         $("#objectId").val(data);
                         // to do - update the image...
                         var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
@@ -393,6 +397,7 @@ define('CreateBlahPage',
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
+                        $("#ImagePreviewDiv").removeAttr("disabled");
                         $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
                     },
                     // Form data
