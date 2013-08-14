@@ -173,7 +173,6 @@ define('BlahBodyDetailPage',
             comments.UpdateTopComments();
             document.getElementById("AddCommentBtn").disabled = true;
             if (G.IsUserLoggedIn) {
-                $("#AddCommentBtn").disabled;
                 $("#CreateCommentArea").show();
                 $("#CommentTextArea").focus();
                 $("#CommentTextArea").keydown(function(theEvent) {
@@ -230,11 +229,11 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount < 0) || (charCount > 4000));
+            var tooManyOrFew = ((charCount <= 0) || (charCount > 4000));
             document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
-                color = "rgb(248,120,88))";
+                color = "rgb(248,120,88)";
             $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
         };

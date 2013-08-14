@@ -241,7 +241,7 @@ define('SelfPageDetails',
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
-                var imagePath = BlahguaConfig.fragmentURL + "img/black_badge.png";
+                var imagePath = BlahguaConfig.fragmentURL + "img/badge_standalone-46x40.png";
                 newHTML += "<tr><td><div class='badgeholder'>";
                 newHTML += "<span class='badgename'>";
                 if (fullBadge.hasOwnProperty("K")) {

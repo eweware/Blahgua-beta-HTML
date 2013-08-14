@@ -173,7 +173,7 @@ define('BlahStatsDetailPage',
 
                 series: [{
                     type: 'bar',
-                    data: [{color: '#00FF00', y: uv},
+                    data: [{color: '#7ad000', y: uv},
                         {color: '#f87858', y: dv}]
 
                 }]
