@@ -45,7 +45,7 @@ define('BlahDetailPage',
         var UpdateBlahPage = function() {
             var headlineText = document.getElementById("BlahFullHeadline");
             headlineText.innerHTML = G.CurrentBlah.T;
-            var nickNameStr = G.CurrentBlahNickname;
+            var nickNameStr = "someone";
             var blahTypeStr = exports.GetBlahTypeStr();
             var isOwnBlah;
             var blahChannelStr = exports.GetChannelNameFromID(G.CurrentBlah.G);
@@ -57,13 +57,9 @@ define('BlahDetailPage',
                 isOwnBlah = false;
             }
 
-            if (isOwnBlah) {
-                nickNameStr += " (you)";
-            }
-
             // stats
             //document.getElementById("FullBlahViewerCount").innerHTML = G.GetSafeProperty(CurrentBlah, "V", 0); // change to actual viewers
-            document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
+
             document.getElementById("BlahSpeechAct").innerHTML = blahTypeStr + " in " + blahChannelStr;
 
             // update the opens
@@ -77,10 +73,14 @@ define('BlahDetailPage',
                     newImage = G.GetGenericUserImage();
 
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                nickNameStr = G.GetSafeProperty(theAuthor, "N", nickNameStr);
+                if (isOwnBlah)
+                    nickNameStr += " (you)";
+                document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
 
             }, function (theErr) {
                 newImage = G.GetGenericUserImage();
-
+                document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
             });
 

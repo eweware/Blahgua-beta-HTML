@@ -113,22 +113,28 @@ define('blahgua_base',
         return rowHeight;
     };
 
-    var BlahViewMap = [];
+    var BlahViewMap = new Object();
+    var MapIsDirty = false;
 
     var AddBlahView = function(blahId) {
         if (BlahViewMap.hasOwnProperty(blahId))
             BlahViewMap[blahId]++;
         else
             BlahViewMap[blahId] = 1;
+        MapIsDirty = true;
     };
 
     var FlushViewMap = function() {
-        if (BlahViewMap.length > 0) {
-            blahgua_restapi.UpdateBlahCounts(BlahViewMap, function() {
-                BlahViewMap = [];
+        if (MapIsDirty) {
+            Blahgua.UpdateBlahCounts(BlahViewMap, function() {
+                BlahViewMap = new Object();
+                MapIsDirty = false;
+            }, function(theErr) {
+                BlahViewMap = new Object();
+                MapIsDirty = false;
             });
         } else {
-            BlahViewMap = [];
+            BlahViewMap = new Object();
         }
 
 
@@ -685,8 +691,6 @@ define('blahgua_base',
         if (G.IsShort)
             blahPageBase = "BlahDetailPageShort.html"
 
-
-        G.CurrentBlahNickname = G.GetSafeProperty(whichBlah, "K", G.CurrentBlahNickname);
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
             $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + blahPageBase + " #FullBlahDiv", function() {
@@ -709,7 +713,6 @@ define('blahgua_base',
         G.CurrentBlah = null;
         StopAnimation();
         G.CurrentBlahId = whichBlah.blah.I;
-        G.CurrentBlahNickname = G.GetSafeProperty(whichBlah.blah, "K", "someone");
         Blahgua.GetBlah(G.CurrentBlahId, OpenLoadedBlah, OnFailure);
     };
 
@@ -775,7 +778,7 @@ define('blahgua_base',
 
     var CreateBaseDiv = function(theBlah) {
         var newDiv = document.createElement("div");
-        AddBlahView(theBlah._id);
+        AddBlahView(theBlah.I);
         newDiv.blah = theBlah;
         newDiv.className = "BlahDiv";
         newDiv.style.top = "0px";
@@ -1096,6 +1099,7 @@ define('blahgua_base',
             } else {
                 G.BlahsMovingTimer = null;
                 DoAddBlahRow();
+                G.CurrentScrollSpeed = 1;
             }
             if (G.CurrentScrollSpeed < 1) {
                 // scrolling backwards, slow down

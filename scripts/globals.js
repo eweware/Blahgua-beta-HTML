@@ -75,7 +75,6 @@ define('globals',
         var ChannelDropMenu = null;
         var ProfileSchema = null;
         var UserProfile = null;
-        var CurrentBlahNickname = "";
         var BlahReturnPage = "";
         var numStatsDaysToShow = 7;
         var BlahOpenPage = "Overview";
@@ -580,7 +579,6 @@ define('globals',
             ChannelDropMenu: ChannelDropMenu,
             ProfileSchema: ProfileSchema,
             UserProfile: UserProfile,
-            CurrentBlahNickname: CurrentBlahNickname,
             BlahReturnPage: BlahReturnPage,
             NumStatsDaysToShow: numStatsDaysToShow,
             BlahOpenPage: BlahOpenPage,

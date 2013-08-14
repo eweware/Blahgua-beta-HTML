@@ -20,46 +20,42 @@
         </div>
         <div class="accordion-content">
         <table id="AccountArea" class="attribute-table">
-           
+
             <tbody>
             <tr>
-                <td class="attribute-col">Username</td>
                 <td>
-                   <span disabled="disabled" id="userName" class="userName"></span>
+                    <div class="demographic-detail">Username</div>
+                    <span disabled="disabled" id="userName" class="userName"></span>
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Screen&nbsp;name</td>
-
                 <td >
+                    <div class="demographic-detail">Screen&nbsp;name</div>
                     <input maxlength="20" data-validate data-validate-notempty data-validate-maxlen="20" id="NicknameInput" type="text" class="userName">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Password</td>
-
                 <td>
+                    <div class="demographic-detail">Password</div>
                     <input data-validate data-validate-notempty id="Password" type="password">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >Confirm&nbsp;password</td>
-
                 <td>
+                    <div class="demographic-detail">Confirm&nbsp;password</div>
                     <input data-validate data-validate-match="Password" data-validate-match-text="Passwords must match" id="PasswordConfirm" type="password">
                 </td>
                 <td class="validation-col"></td>
             </tr>
             <tr>
-                <td class="attribute-col" >
-                    <span style="position: relative;left: -24px;">Recovery&nbsp;email</span>
-                    <i style="position: relative; left: 4px; color:rgb(125,181,227)" id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
-                </td>
-
                 <td>
+                    <div class="demographic-detail recovery-email-div">
+                        <span >Recovery&nbsp;email</span>
+                        <i id="RecoveryInfo" class="indicator-icon icon-info-sign icon-large" title="learn about the recovery email"></i>
+                    </div>
                     <input data-validate data-validate-email id="RecoveryEmail" type="text" class="email">
 
                 </td>
@@ -68,13 +64,13 @@
                 </td>
             </tr>
             <tr style="border-bottom: none;">
-                <td class="attribute-col" >Your&nbsp;image</td>
                 <td>
+                    <div class="demographic-detail">Your&nbsp;image</div>
                     <div id="uploadimage" class="user-image">
                         <i class="icon-remove-sign image-delete-btn"></i>
                         <span></span>
                     </div>
-                    </td>
+                </td>
 
             </tr>
             <tr style="display:none">
@@ -84,17 +80,16 @@
                         <div >
                             <input id="UserFormImage" name="file" type="file" no-validate >
                             <div style="display:none">
-                            <input type="text" name="objectType" hidden="true" value="U"/>
-                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                            <input type="text" name="primary" hidden="true" value="true"/>
-                                </div>
+                                <input type="text" name="objectType" hidden="true" value="U"/>
+                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                <input type="text" name="primary" hidden="true" value="true"/>
+                            </div>
                         </div>
                     </form>
                 </td>
             </tr>
 
             <tr>
-                <td> </td>
                 <td>
                     <button disabled="disabled" id="SaveAccountInfoBtn" class="float-right action-button default-button" >Update</button>
                 </td>

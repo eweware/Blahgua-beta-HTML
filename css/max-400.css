@@ -95,6 +95,17 @@
         text-align: center;
     }
 
+    .recovery-email-div span {
+        position: static;
+        left: 0px;
+    }
+
+
+    .recovery-email-div i {
+        position: relative;
+        left: 24px;
+    }
+
     .blah-sort-area input {
         width:280px;
     }

@@ -85,7 +85,7 @@ define('SignUpPage',
         };
 
         var ShowErrorMessage = function(theText) {
-            $(".error-msg-span").text(theText);
+            $(".error-msg-span").empty().text(theText);
             $(".error-msg-div").css({"opacity":"1"});
         };
 
@@ -151,9 +151,12 @@ define('SignUpPage',
                 var userName = $("#uname2").val();
                 var email = $("#email").val();
                 blahgua_rest.recoverUser(userName, email, function(theResult) {
-                    ShowErrorMessage("reset instructions will be sent to the email account on file.");
+                    ShowErrorMessage("Reset instructions will be sent to the email account on file.");
                 }, function (theErr) {
-                    ShowErrorMessage("reset instructions will be sent to the email account on file. ");
+                    if (theErr.status == 409) {
+                        ShowErrorMessage("Account has no email address on file.")
+                    } else
+                        ShowErrorMessage("Reset instructions will be sent to the email account on file. ");
                 })
             } else {
                 ShowErrorMessage(theErr);

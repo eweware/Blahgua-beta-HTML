@@ -69,6 +69,7 @@ input:focus {
     right:0;
     top:0;
     bottom:0;
+    background-position: 50% 10%;
     background-repeat: no-repeat;
     background-size: contain;
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/down2.jpg");
@@ -408,6 +409,7 @@ color:rgb(244,245,240);
     top:0;
     bottom: 0;
     background-color: rgba(0,0,0,.7);
+    z-index: 50;
 }
 
 .dialog-box {

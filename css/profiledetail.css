@@ -20,6 +20,20 @@
     font-family: 'Arimo', sans-serif;
 }
 
+.recovery-email-div span {
+    position: relative;
+    left: -24px;
+}
+
+
+.recovery-email-div i {
+    position: relative;
+    left: 4px;
+    color:rgb(125,181,227)
+}
+
+
+
 .user-image {
     width:64px;
     height:64px;
