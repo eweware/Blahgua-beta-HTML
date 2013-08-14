@@ -45,7 +45,7 @@ define('BlahDetailPage',
         var UpdateBlahPage = function() {
             var headlineText = document.getElementById("BlahFullHeadline");
             headlineText.innerHTML = G.CurrentBlah.T;
-            var nickNameStr = "someone";
+
             var blahTypeStr = exports.GetBlahTypeStr();
             var isOwnBlah;
             var blahChannelStr = exports.GetChannelNameFromID(G.CurrentBlah.G);
@@ -73,14 +73,10 @@ define('BlahDetailPage',
                     newImage = G.GetGenericUserImage();
 
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                nickNameStr = G.GetSafeProperty(theAuthor, "N", nickNameStr);
-                if (isOwnBlah)
-                    nickNameStr += " (you)";
-                document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
+
 
             }, function (theErr) {
                 newImage = G.GetGenericUserImage();
-                document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
                 $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
             });
 
@@ -110,6 +106,16 @@ define('BlahDetailPage',
             // update the badges & date
             blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
                 $("#FullBlahProfileString").text(theString.d);
+                var nickNameStr = "someone";
+                if (G.IsUserLoggedIn) {
+                    isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
+                } else {
+                    isOwnBlah = false;
+                }
+                nickNameStr = G.GetSafeProperty(theString, "n", nickNameStr);
+                if (isOwnBlah)
+                    nickNameStr += " (you)";
+                document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
                 LoadOpenPage();
             }, function (theErr) {
                 $("#FullBlahProfileString").text("someone");
