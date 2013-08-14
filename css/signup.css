@@ -52,7 +52,6 @@
     text-align: center;
     padding-left: 2px;
     padding-top: 8px;
-    padding-bottom: 16px;
     margin:0px;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
@@ -109,7 +108,9 @@
 
 .checkbox-group input[type='checkbox'] {
 
-    padding:8px;
+    background-color: transparent;
+    padding:0px;
+    border: none;
 }
 
 .toggle-content td {
@@ -226,6 +227,7 @@
 .action-btn:disabled {
     color: #CCCCCC;
     background-color: #999999;
+    background-image: none;
     background-image: none;
     border: solid 1px #999999;
 }

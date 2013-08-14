@@ -161,10 +161,11 @@ define('SelfPageDetails',
             ShowBadgeSelection();
             $("#SaveAccountInfoBtn").attr("disabled", "disabled");
             $('#AccountArea input[data-validate]').change(MaybeEnableProfileSaveBtn);
-            $('#AccountArea input:text').keydown(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input:text').keyup(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input:password').keyup(MaybeEnableProfileSaveBtn);
 
             $("#SaveDemographicsBtn").attr("disabled", "disabled");
-            $('#DemoArea input').keydown(MaybeEnableDemoSaveBtn);
+            $('#DemoArea input').keyup(MaybeEnableDemoSaveBtn);
             $('#DemoArea select').change(MaybeEnableDemoSaveBtn);
             $('#DemoArea input:checkbox').click(MaybeEnableDemoSaveBtn);
 

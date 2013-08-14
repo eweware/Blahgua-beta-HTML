@@ -397,8 +397,13 @@ define('CreateBlahPage',
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
-                        $("#ImagePreviewDiv").removeAttr("disabled");
-                        $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
+                        if (theErr.status = "409")
+                            exports.LogoutUser();
+                        else {
+                            $("#ImagePreviewDiv").removeAttr("disabled");
+                            $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
+                        }
+
                     },
                     // Form data
                     data: formData,

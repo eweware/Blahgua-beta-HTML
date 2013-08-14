@@ -86,12 +86,14 @@ define('globals',
         var TimeoutFunction = null;
         var ReturnCommentID = null;
         var ReturnBlahId = null;
-        var numMinutes = 60;
+        var numMinutes = 5;
         var isShort = false;
         var isNarrow = false;
         var isHorizontal = false;
         var isiPhone = false;
         var isiPad = false;
+        var InitialBlah = null;
+        var InitialChannel = null;
 
         /*
          Global functions
@@ -613,6 +615,8 @@ define('globals',
             IsHorizontal: isHorizontal,
             IsiPhone: isiPhone,
             IsiPad: isiPad,
+            InitialBlah: InitialBlah,
+            InitialChannel:  InitialChannel,
             Cryptify: cryptify
         }
 

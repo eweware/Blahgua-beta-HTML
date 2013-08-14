@@ -11,7 +11,7 @@ define('blahgua_base',
 
         var rowSequence = [4,32,31,4,1,33,4,2,4,32,1,4,31,32,33,31,4,33,1,31,4,32,33,1,4,2];
         var curRowSequence = 0;
-        var initialBlah =  null;
+
 
         var InitializeBlahgua = function() {
            $(window).resize(function(){
@@ -47,7 +47,7 @@ define('blahgua_base',
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
                 $("#LightBox").click(DismissAll);
-                initialBlah = getQueryVariable("blahId");
+                G.InitialBlah = getQueryVariable("blahId");
                 SignIn();
             });
 
@@ -1063,8 +1063,8 @@ define('blahgua_base',
             G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
         }
 
-        if (initialBlah) {
-            Blahgua.GetBlah(initialBlah, function(theBlah) {
+        if (G.InitialBlah) {
+            Blahgua.GetBlah(G.InitialBlah, function(theBlah) {
 
                 if (G.IsUserLoggedIn) {
                     if (!UserHasChannel(theBlah.G))
@@ -1079,7 +1079,7 @@ define('blahgua_base',
             }, function (theErr) {
                 // todo: handle the missing blah.  For now we fail silently.
             });
-            initialBlah = null;
+            G.InitialBlah = null;
         }
     };
 
@@ -1099,7 +1099,8 @@ define('blahgua_base',
             } else {
                 G.BlahsMovingTimer = null;
                 DoAddBlahRow();
-                G.CurrentScrollSpeed = 1;
+                if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
+                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
             }
             if (G.CurrentScrollSpeed < 1) {
                 // scrolling backwards, slow down
@@ -1515,6 +1516,7 @@ define('blahgua_base',
 
     var GetUserBlahs = function() {
         $("#BlahContainer").empty();
+        InboxCount = 0;
         Blahgua.GetNextBlahs(OnGetBlahsOK, OnFailure);
     };
 
@@ -1775,11 +1777,22 @@ define('blahgua_base',
         UpdateChannelViewers();
     };
 
+        var InboxCount = 0;
+        var MaxInboxCount = 10;
+
     var GetNextBlahList = function() {
+        InboxCount++;
+        if (InboxCount > MaxInboxCount)
+            TruncateBlahStream();
         Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
     };
 
+    var TruncateBlahStream = function() {
+        InBoxCount == 1;
+    };
+
     var OnGetNextBlahsOK = function(theResult) {
+
         G.NextBlahList = theResult;
         if (theResult.length > 0)
             PrepareBlahList(G.NextBlahList);
@@ -1806,8 +1819,12 @@ define('blahgua_base',
                 PopulateUserChannel("Profile");
             }
         } else {
+            var basePage = "SignUpPage.html";
+            if (G.IsShort)
+                basePage = "SignUpPageShort.html";
+
             require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
@@ -1821,8 +1838,11 @@ define('blahgua_base',
         StopAnimation();
         $("#LightBox").show();
         $("#BlahFullItem").empty();
+        var basePage = "SignUpPage.html";
+        if (G.IsShort)
+            basePage = "SignUpPageShort.html";
         require(['SignUpPage'], function(SignUpPage) {
-                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv",
+                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv",
                     function () {
                         SignUpPage.RefreshSignupContent();
                     });
@@ -1831,8 +1851,13 @@ define('blahgua_base',
     };
 
     var SuggestUserSignIn = function(message) {
+        if (G.CurrentBlah != null)
+            G.InitialBlah = G.CurrentBlahId;
+        var basePage = "SignUpPage.html";
+        if (G.IsShort)
+            basePage = "SignUpPageShort.html";
         require(['SignUpPage'], function(SignUpPage) {
-            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/SignUpPage.html #SignInInDiv", function() {
+            $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv", function() {
                 SignUpPage.RefreshSignupContent(message);
             });
         });

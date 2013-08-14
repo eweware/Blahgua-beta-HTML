@@ -32,8 +32,9 @@ define('BlahBodyDetailPage',
 			else
 			{
 			$("#PromoteBlahImage").click(function(theEvent) {
-               G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){theEvent.stopImmediatePropagation();
-               exports.SuggestUserSignIn("Sign in to participate.")});
+               G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                   theEvent.stopImmediatePropagation();
+                exports.SuggestUserSignIn("Sign in to participate.")});
             });
             $("#DemoteBlahImage").click(function(theEvent) {
 			G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
