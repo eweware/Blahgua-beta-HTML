@@ -31,6 +31,12 @@
     border-bottom-right-radius: 8px;
 }
 
+.create-footer-div.short {
+    position:fixed;
+    bottom:4px;
+}
+
+
 #CreateBlahPage {
     bottom: 25px;
     position: absolute;
@@ -166,6 +172,13 @@
     z-index:2;
 }
 
+.create-content-div.short{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    top: 0px;
+    padding: 12px 0px;
+}
+
 .create-blah-footer {
     width:100%;
 
@@ -177,6 +190,13 @@
     overflow-y:auto;
     overflow-x:hidden;
 }
+.createblahscrolltable.short
+{   width:100%;
+    height:auto;
+    overflow-y:visible;
+    overflow-x:visible;
+}
+
 
 .inputheadlineframe
 {

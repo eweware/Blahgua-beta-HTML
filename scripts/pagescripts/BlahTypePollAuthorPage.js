@@ -8,8 +8,8 @@
 
 
 define('BlahTypePollAuthorPage',
-    [],
-    function () {
+    ["globals"],
+    function (G) {
 
         var validateCallback = null;
         var layoutCallback = null;
@@ -17,6 +17,10 @@ define('BlahTypePollAuthorPage',
         var  InitializePage = function(callback) {
 
             validateCallback = callback;
+
+            fi (G.IsShort) {
+                $(".poll-result").css({"overflow-y":"visible"});
+            }
 
             $(".add-poll-choice-btn").click(function(theEvent) {
                 var newHTML = CreatePollChoiceElement();

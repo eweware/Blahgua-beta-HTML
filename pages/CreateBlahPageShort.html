@@ -5,24 +5,22 @@
     <table class="BlahFullHeader" id="CreateBlahHeader">
         <tr  class="blah-headline-row">
 
-            <td rowspan="2">
+            <td >
                 <div id="BlahAuthorImage" class="create-author-image"></div>
             </td>
-            <td colspan="1" style="width:100%">
+            <td style="width:100%">
                 <span class="fullBlahgerName" id="FullBlahNickName"></span>
-            <td rowspan="2">
-                <div class="back-button blah-closer" ></div>
-            </td></td>
-        </tr>
-
-        <tr>
+            </td>
             <td class="createblahheadlineoptionframe">
                 <select id="BlahTypeList" class="createblahheadlineoption"></select>
-                <span class="fullBlahSpeechAct"></span>
-
+            </td>
+            <td >
+                <div class="back-button blah-closer" ></div>
             </td>
         </tr>
-
+        </table>
+    <div id="ShortScreenScrollDiv" class="short-scroll-div" style="top: 40px; bottom: 60px;">
+        <table class="BlahFullHeader">
         <tr class="show-blah-bkgnd">
             <td  colspan="3">
                 <div class="blah-summary-bar">
@@ -48,8 +46,8 @@
         </tr>
     </table>
 
-    <div class="create-content-div show-blah-bkgnd" id="createcontent" >
-        <table class="createblahscrolltable show-blah-bkgnd">
+    <div class="create-content-div show-blah-bkgnd short" id="createcontent" >
+        <table class="createblahscrolltable short show-blah-bkgnd">
             <tr style="display:none">
 
                 <td colspan="3">
@@ -90,7 +88,8 @@
 
         </table>
     </div>
-    <div class="create-footer-div">
+        </div>
+    <div class="create-footer-div short">
         <table id="CreateFooterDiv" class="create-blah-footer">
             <tr id="ValidationRow" class="create-validation-row">
                 <td  colSpan="2" ><span class="create-err-msg" id="ErrMsgSpan"></span></td>

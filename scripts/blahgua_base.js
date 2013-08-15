@@ -1922,7 +1922,7 @@ define('blahgua_base',
             basePage = "CreateBlahPageShort.html";
         if (G.IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
-                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/CreateBlahPage.html", function() {
+                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #CreateBlahPage", function() {
                     CreatePage.InitializePage();
                 });
             });

@@ -101,6 +101,12 @@
         left: 0px;
     }
 
+    .create-author-image {
+        width: 32px;
+        height: 32px;
+        margin: 4px 8px 2px 4px;
+    }
+
 
     .recovery-email-div i {
         position: relative;

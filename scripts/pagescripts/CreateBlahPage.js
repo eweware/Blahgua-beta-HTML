@@ -109,8 +109,13 @@ define('CreateBlahPage',
         };
 
         var UpdateLayout = function() {
-            var top = document.getElementById("CreateBlahHeader").getBoundingClientRect().bottom - 25;
-            $("#createcontent").css({"top": top + "px"});
+            if (G.IsShort) {
+
+            } else {
+                var top = document.getElementById("CreateBlahHeader").getBoundingClientRect().bottom - 25;
+                $("#createcontent").css({"top": top + "px"});
+            }
+
         };
 
         var PopulateBlahTypeOptions = function() {
@@ -171,7 +176,8 @@ define('CreateBlahPage',
                                 var maxSize = pageHeight - (contentTop + footerSize + offsetSize);
                                 PollPage.SetLayoutCallback(ResizeCreatePage);
                                 PollPage.InitializePage(CheckPublishBtnDisable);
-                                $(".poll-result").css({"max-height": maxSize + "px"});
+                                if (!G.IsShort)
+                                    $(".poll-result").css({"max-height": maxSize + "px"});
                                 CheckPublishBtnDisable();
                                 ResizeCreatePage();
                             });
@@ -352,22 +358,31 @@ define('CreateBlahPage',
         }
 
         var ResizeCreatePage = function() {
-            if (pageHeight == null)
-                pageHeight = $(".PageBody")[0].getBoundingClientRect().height;
-            var contentHeight = document.getElementById("createcontent").getBoundingClientRect().bottom;
-            var footerHeight = $(".create-footer-div")[0].getBoundingClientRect().height;
-            var offsetHeight = 36;
-            var newBottom =  pageHeight - (contentHeight + footerHeight + offsetHeight);
-            var minBottom = 0;
-            if (newBottom < minBottom)
-                newBottom = minBottom;
-            $(".create-footer-div").css({"bottom": newBottom + "px"});
+            if (G.IsShort) {
+                // resize the badge menu...
+                var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
+                var newTop = imageRect.top - 100;
+                var newLeft = imageRect.left;
+                $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
+            } else {
+                if (pageHeight == null)
+                    pageHeight = $(".PageBody")[0].getBoundingClientRect().height;
+                var contentHeight = document.getElementById("createcontent").getBoundingClientRect().bottom;
+                var footerHeight = $(".create-footer-div")[0].getBoundingClientRect().height;
+                var offsetHeight = 36;
+                var newBottom =  pageHeight - (contentHeight + footerHeight + offsetHeight);
+                var minBottom = 0;
+                if (newBottom < minBottom)
+                    newBottom = minBottom;
+                $(".create-footer-div").css({"bottom": newBottom + "px"});
 
-            // resize the badge menu...
-            var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
-            var newTop = imageRect.bottom;
-            var newLeft = imageRect.left;
-            $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
+                // resize the badge menu...
+                var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
+                var newTop = imageRect.bottom;
+                var newLeft = imageRect.left;
+                $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
+            }
+
         }
 
         var UploadBlahImage  = function() {
