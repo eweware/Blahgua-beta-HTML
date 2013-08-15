@@ -318,6 +318,8 @@ define('blahgua_base',
 
 
     var HandleSwipeUp = function(theEvent) {
+        if (G.CurrentScrollSpeed < 0)
+            G.CurrenScrollSpeed = 1;
         G.CurrentScrollSpeed *= 50;
         if (G.CurrentScrollSpeed > 50)
             G.CurrentScrollSpeed = 50;
@@ -325,7 +327,9 @@ define('blahgua_base',
 
 
     var HandleSwipeDown = function(theEvent) {
-        G.CurrentScrollSpeed *= -50;
+        if (G.CurrentScrollSpeed > 0)
+            G.CurrenScrollSpeed = -1;
+        G.CurrentScrollSpeed *= 50;
         if (G.CurrentScrollSpeed < -50)
             G.CurrentScrollSpeed = -50;
     };
@@ -905,7 +909,8 @@ define('blahgua_base',
     var DrawInitialBlahs = function() {
         if (G.ActiveBlahList.length > 0) {
             var curRow = BuildNextRow();
-            $("#BlahContainer").append(curRow);
+
+            $("#BlahContainer").empty().append(curRow);
             ResizeRowText(curRow);
             G.TopRow = curRow;
             var curTop = curRow.rowHeight + K.InterBlahGutter;
@@ -1062,66 +1067,76 @@ define('blahgua_base',
         if (G.BlahsMovingTimer == null) {
             G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
         }
-
-        if (G.InitialBlah) {
-            Blahgua.GetBlah(G.InitialBlah, function(theBlah) {
-
-                if (G.IsUserLoggedIn) {
-                    if (!UserHasChannel(theBlah.G))
-                        AddUserToChannel(theBlah.G);
-
-                } else {
-                    // if anonymous, this channel must be public
-                }
-                SetCurrentChannelbyID(theBlah.G);
-                OpenLoadedBlah(theBlah);
-
-            }, function (theErr) {
-                // todo: handle the missing blah.  For now we fail silently.
-            });
-            G.InitialBlah = null;
-        }
     };
 
-    var MakeBlahsMove = function() {
-        if (G.ActiveBlahList.length > 0) {
-            var curScroll = $("#BlahContainer").scrollTop();
-            $("#BlahContainer").scrollTop(curScroll + G.CurrentScrollSpeed);
-            var newScroll = $("#BlahContainer").scrollTop();
-            if (newScroll != curScroll) {
-                // we scrolled a pixel or so
-                if (G.TopRow.getBoundingClientRect().bottom < 0) {
-                    G.TopRow = G.TopRow.rowBelow;
-                    G.RowsOnScreen--;
 
-                }
-                G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+
+
+    var MakeBlahsMove = function() {
+        if (G.InitialBlah) {
+            if (G.InitialChannel == null) {
+                Blahgua.GetBlah(G.InitialBlah, function(theBlah) {
+                    G.InitialChannel = theBlah.G;
+                    if (G.IsUserLoggedIn) {
+                        if (!UserHasChannel(G.InitialChannel))
+                            AddUserToChannel(G.InitialChannel);
+
+                    } else {
+                        // if anonymous, this channel must be public
+                    }
+                    SetCurrentChannelbyID(theBlah.G);
+                });
             } else {
-                G.BlahsMovingTimer = null;
-                DoAddBlahRow();
-                if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
-                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                // now we should be correctly on the channel...
+                Blahgua.GetBlah(G.InitialBlah, function(theBlah) {
+                    OpenLoadedBlah(theBlah);
+                }, function (theErr) {
+                    // todo: handle the missing blah.  For now we fail silently.
+                });
+                G.InitialBlah = null;
+                G.InitialChannel = null;
             }
-            if (G.CurrentScrollSpeed < 1) {
-                // scrolling backwards, slow down
-                G.CurrentScrollSpeed *= .95;
-                if (G.CurrentScrollSpeed > -1) {
-                    G.CurrentScrollSpeed = 1;
+        } else {
+            if (G.ActiveBlahList.length > 0) {
+                var curScroll = $("#BlahContainer").scrollTop();
+                $("#BlahContainer").scrollTop(curScroll + G.CurrentScrollSpeed);
+                var newScroll = $("#BlahContainer").scrollTop();
+                if (newScroll != curScroll) {
+                    // we scrolled a pixel or so
+                    if (G.TopRow.getBoundingClientRect().bottom < 0) {
+                        G.TopRow = G.TopRow.rowBelow;
+                        G.RowsOnScreen--;
+
+                    }
+                    G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+                } else {
+                    G.BlahsMovingTimer = null;
+                    DoAddBlahRow();
+                    if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
+                        G.CurrentScrollSpeed = K.BlahRollPixelStep;
                 }
-                // see if a new top row is on the screen...
-                if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
-                    G.TopRow = G.TopRow.rowAbove;
-                    G.RowsOnScreen++;
+                if (G.CurrentScrollSpeed < 1) {
+                    // scrolling backwards, slow down
+                    G.CurrentScrollSpeed *= .95;
+                    if (G.CurrentScrollSpeed > -1) {
+                        G.CurrentScrollSpeed = 1;
+                    }
+                    // see if a new top row is on the screen...
+                    if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
+                        G.TopRow = G.TopRow.rowAbove;
+                        G.RowsOnScreen++;
+                    }
                 }
-            }
-            else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
-                // skipping ahead - slow down
-                G.CurrentScrollSpeed *= 0.95;
-                if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
-                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
+                    // skipping ahead - slow down
+                    G.CurrentScrollSpeed *= 0.95;
+                    if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
+                        G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                    }
                 }
             }
         }
+
     };
 
 
@@ -1764,15 +1779,12 @@ define('blahgua_base',
     };
 
     var SetCurrentChannel = function(whichChannel) {
-        $("#ChannelBanner").css("background-color", K.BannerHighlightColor);
         StopAnimation();
         G.CurrentChannel = G.ChannelList[whichChannel];
         Blahgua.currentChannel = G.CurrentChannel._id;
         var labelDiv = document.getElementById("ChannelBannerLabel");
         labelDiv.innerHTML = G.CurrentChannel.N;
-        var imageURL = "url('" + BlahguaConfig.fragmentURL + "images/groups/bkgnds/";
-        imageURL += G.CurrentChannel.N + ".jpg')";
-        //document.getElementById("BlahContainer").style.backgroundImage = imageURL;
+
         GetUserBlahs();
         UpdateChannelViewers();
     };
