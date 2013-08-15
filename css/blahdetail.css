@@ -576,6 +576,7 @@
     box-shadow: 0px 5px 5px rgba(0,0,0,.3);
     z-index: 3;
     padding-bottom: 12px;
+    width:100%;
 }
 
 

@@ -395,8 +395,17 @@ define('SelfPageDetails',
                 $("#SaveDemographicsBtn").attr("disabled", "disabled");
                 blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                     $("#DescriptionSpan").text(theString.d);
+                    if (!G.IsShort) {
+                        var pageTop = $("#DescriptionSpan")[0].getBoundingClientRect().bottom - 16;
+                        $("#SelfPageDiv").css({"top":pageTop + "px"});
+                    }
+
                 }, function(theErr) {
                     $("#DescriptionSpan").text("someone");
+                    if (!G.IsShort) {
+                        var pageTop = $("#DescriptionSpan")[0].getBoundingClientRect().bottom - 16;
+                        $("#SelfPageDiv").css({"top":pageTop + "px"});
+                    }
                 });
             });
         };

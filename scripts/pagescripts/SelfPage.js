@@ -14,7 +14,7 @@ define('SelfPage',
         var curStatPage = null;
 
         var  InitializePage = function(whichPage) {
-            $(BlahFullItem).disableSelection();
+            $(G.BlahFullItem).disableSelection();
             $(".blah-closer").click(function(theEvent) {
                 exports.CloseBlah();
             });
@@ -61,13 +61,15 @@ define('SelfPage',
                 var pageTop = $("#DescriptionSpan")[0].getBoundingClientRect().bottom;
                 if(G.IsShort) {
                     $(".BlahPageFooter").css({"height":"42px"});
-                    $("#SelfPageDiv").css({"bottom":"0px", "top":pageTop + "px"});
+                    $("#SelfPageDiv").css({"bottom":"0px"});
                 } else {
                     $(".BlahPageFooter").css({"height":"60px"});
-                    $("#SelfPageDiv").css({"bottom":"60px", "top":pageTop + "px"});
+                    $("#SelfPageDiv").css({"bottom":"60px"});
                 }
 
-                $(BlahFullItem).fadeIn("fast", function() {
+                $(G.BlahFullItem).fadeIn("fast", function() {
+                    var pageTop = $("#DescriptionSpan")[0].getBoundingClientRect().bottom - 16;
+                    $("#SelfPageDiv").css({"top":pageTop + "px"});
                     SetSelfDetailPage(curStatPage);
                 });
             });
