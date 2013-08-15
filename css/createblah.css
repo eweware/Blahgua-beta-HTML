@@ -149,9 +149,17 @@
     left: 120px;
     background-color: white;
     padding: 0px;
+    border: 1px solid #999999;
 }
 
+.badge-area.short {
+    position: fixed;
+    bottom:50px;
+}
+
+
 .badge-item {
+    font-family: 'Arimo' sans-serif;
     padding: 4px 8px 4px 8px;
 }
 
@@ -177,6 +185,7 @@
     border-bottom-right-radius: 0px;
     top: 0px;
     padding: 12px 0px;
+    position: static;
 }
 
 .create-blah-footer {

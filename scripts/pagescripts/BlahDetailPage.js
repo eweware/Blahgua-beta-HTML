@@ -118,7 +118,7 @@ define('BlahDetailPage',
                 } else {
                     isOwnBlah = false;
                 }
-                nickNameStr = G.GetSafeProperty(theString, "n", nickNameStr);
+                nickNameStr = G.GetSafeProperty(theString, "K", nickNameStr);
                 if (isOwnBlah)
                     nickNameStr += " (you)";
                 document.getElementById("FullBlahNickName").innerHTML = nickNameStr;

@@ -18,7 +18,7 @@ define('BlahTypePollAuthorPage',
 
             validateCallback = callback;
 
-            fi (G.IsShort) {
+            if (G.IsShort) {
                 $(".poll-result").css({"overflow-y":"visible"});
             }
 

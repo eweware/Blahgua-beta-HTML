@@ -54,15 +54,17 @@ define('CreateBlahPage',
             $(".blah-closer").click(CancelCreate);
             $("#PublishBlahBtn").click(CreateBlah);
             $("#ShowBadgeAreaBtn").click(function(theEvent) {
+                if (!G.IsShort) {
+                    var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
+                    var newLeft = imageRect.left;
+                    var newTop = imageRect.bottom;
+                    $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
+                }
+
                 $("#ShowBadgeAreaHolder").show().click(function(theEvent) {
                     if (theEvent.target.id == "ShowBadgeAreaHolder")
                         $(theEvent.target).hide();
                 });
-                var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
-                var newTop = imageRect.bottom;
-                //var newLeft = imageRect.right - $("#ShowBadgeArea").width();
-                var newLeft = imageRect.left;
-                $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
 
                 $(".badge-item").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
@@ -358,13 +360,7 @@ define('CreateBlahPage',
         }
 
         var ResizeCreatePage = function() {
-            if (G.IsShort) {
-                // resize the badge menu...
-                var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
-                var newTop = imageRect.top - 100;
-                var newLeft = imageRect.left;
-                $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
-            } else {
+            if (!G.IsShort) {
                 if (pageHeight == null)
                     pageHeight = $(".PageBody")[0].getBoundingClientRect().height;
                 var contentHeight = document.getElementById("createcontent").getBoundingClientRect().bottom;
