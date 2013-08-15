@@ -282,6 +282,11 @@
     margin-top:-2px;
 }
 
+.FullBlahContent.ahort {
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
 
 .blah-preview-image {
     width:48px;
@@ -647,14 +652,11 @@
 .top-comments-header {
     text-align: left;
     font-family: 'Arimo' sans-serif;
-    width: 100%;
-    margin: 8px 12px 0px 12px;
     border-bottom: 1px rgb(124,124,124) solid;
  }
 
 .top-comments-header div {
-    padding-bottom: 4px;
-    padding-top: 8px;
+    padding:8px 0px 4px 8px;
     font-weight: bold;
     color: rgb(32,32,32);
     font-family: 'Arimo' sans-serif;
