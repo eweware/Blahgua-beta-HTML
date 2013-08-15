@@ -244,8 +244,6 @@
 }
 
 .recover-btn:hover {
-    color: rgb(244,245,240);
-    background-color: rgb(122,208,0);
     text-decoration: underline;
 }
 
@@ -326,4 +324,19 @@
 
 #RecoveryInfo:hover {
     color:#474953;
+}
+
+.about-link {
+    color: rgb(244,245,240);
+    background-color: rgb(122,208,0);
+    border-style:none;
+    border-width: 0px;
+    border-radius: 0px;
+    font-size:16px;
+    font-family: 'Arimo', sans-serif;
+    padding: 0px 0px;
+}
+
+.about-link:hover {
+    text-decoration: underline;
 }
