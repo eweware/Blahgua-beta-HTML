@@ -15,6 +15,15 @@
     padding-top: 4px;
 }
 
+.SelfPageDiv.short {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: none;
+    overflow-x: hidden;
+    overflow-y: visible;
+    position: static;
+}
+
 .UserImageImageNameSpan {
     font-size:20px;
     font-family: 'Arimo', sans-serif;

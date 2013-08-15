@@ -313,10 +313,13 @@ define('SelfPageHistory',
             if (views == 0)
                 views = opens;
             var openScore;
+
             if (opens == 0)
                 openScore = 0;
             else
                 openScore = Math.floor(100 * (opens / views));
+            if (openScore > 100)
+                openScore = 100;
             var numComments = G.GetSafeProperty(theBlah, "C", 0);
 
 

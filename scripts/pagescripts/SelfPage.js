@@ -31,6 +31,7 @@ define('SelfPage',
 
             curStatPage = whichPage;
 
+
             blahgua_rest.GetUserProfile(G.CurrentUser._id, OnGetOwnProfileOK, OnGetOwnProfileFailed);
         };
 
@@ -57,11 +58,21 @@ define('SelfPage',
 
             blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                 $("#DescriptionSpan").text(theString.d);
+                var pageTop = $("#DescriptionSpan")[0].getBoundingClientRect().bottom;
+                if(G.IsShort) {
+                    $(".BlahPageFooter").css({"height":"42px"});
+                    $("#SelfPageDiv").css({"bottom":"0px", "top":pageTop + "px"});
+                } else {
+                    $(".BlahPageFooter").css({"height":"60px"});
+                    $("#SelfPageDiv").css({"bottom":"60px", "top":pageTop + "px"});
+                }
+
+                $(BlahFullItem).fadeIn("fast", function() {
+                    SetSelfDetailPage(curStatPage);
+                });
             });
 
-            $(BlahFullItem).fadeIn("fast", function() {
-                SetSelfDetailPage(curStatPage);
-            });
+
         }
 
 
