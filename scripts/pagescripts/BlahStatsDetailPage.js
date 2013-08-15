@@ -28,10 +28,17 @@ define('BlahStatsDetailPage',
                 widthDelta = 0;
             $(".chart-box").width(newWidth - widthDelta);
 
-            var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
-            var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop + "px";
-            $("#FullBlahStatsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
+            if (G.IsShort) {
+                // reparent that footer.
+                $("#FullBlahBlahTableFooter").remove();
+                $("#ShortScreenScrollDiv").css({"bottom":"42px"});
+                $("#FullBlahStatsContainer").css({ 'overflow-x': 'visible' , 'overflow-y': 'visible'});
+            } else {
+                var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
+                var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+                var maxSize = curBottom - curTop + "px";
+                $("#FullBlahStatsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
+            }
 
             $('.accordion h2').click(function(theEvent) {
                 var parent = $(this).parent('.accordion');

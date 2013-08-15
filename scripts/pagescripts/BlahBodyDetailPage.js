@@ -159,13 +159,19 @@ define('BlahBodyDetailPage',
             }
 
             // fix any sizing issues
-            var winHeight = $(window).height() - 16;
-            var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
-            var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
-            var maxSize = curBottom - curTop + "px";
-            $("#FullBlahContent").css({
-                'max-height': maxSize,
-                'min-height': maxSize });
+            if (G.IsShort) {
+                // reparent that footer.
+                $("#BlahPageFooter").before($("#FullBlahBlahTableFooter"));
+                $("#ShortScreenScrollDiv").css({"bottom":"76px"});
+            } else {
+                var curTop = document.getElementById("FullBlahContent").getBoundingClientRect().top;
+                var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
+                var maxSize = curBottom - curTop + "px";
+                $("#FullBlahContent").css({
+                    'max-height': maxSize,
+                    'min-height': maxSize });
+            }
+
 
             // handle the top comments
             if (G.GetSafeProperty(G.CurrentBlah, "C", 0) == 0)

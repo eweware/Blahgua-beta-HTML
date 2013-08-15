@@ -34,7 +34,7 @@ define('BlahDetailPage',
 
             if(G.IsShort) {
                 $("#BlahPageFooter").css({"height":"42px"});
-                $("#BlahPageDiv").css({"bottom":"42px"});
+                $("#BlahPageDiv").css({"bottom":"0px"});
             } else {
                 $("#BlahPageFooter").css({"height":"60px"});
                 $("#BlahPageDiv").css({"bottom":"60px"});
@@ -92,8 +92,14 @@ define('BlahDetailPage',
         };
 
         var LoadOpenPage = function() {
-            var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().height;
-            $("#BlahPageDiv").css({ 'top': curTop + "px"});
+
+            if (G.IsShort) {
+                $("#BlahPageDiv").css({ 'top': "0px", 'position':'static'});
+            }
+            else {
+                var curTop = document.getElementById("FullBlahHeader").getBoundingClientRect().height;
+                $("#BlahPageDiv").css({ 'top': curTop + "px"});
+            }
             // see if we were supposed to go elsewhere
             if (G.BlahOpenPage == "")
                 G.BlahOpenPage = "Overview";
