@@ -394,7 +394,6 @@
 }
 
 .comment-image {
-    max-width: 90%;
     border-radius: 8px;
     border: 1px solid lightgray;
     box-shadow: 0px 4px 5px 0px rgba(0,0,0,.2);
