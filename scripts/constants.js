@@ -10,7 +10,7 @@ define('constants',
     [],
     function () {
 
-        var kMinWidth = 300;
+        var kMinWidth = 320;
         var kBlahType = {
             "says":null,
             "leaks":null,

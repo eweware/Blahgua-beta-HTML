@@ -84,9 +84,17 @@
         padding: 8px 8px;
     }
 
+    .createblahbody {
+        padding: 0px 20px 0px 12px;
+    }
+
 
     .comment-sort-area {
         text-align: center;
+    }
+
+    .inputheadlineframe {
+        font-size: 16px;
     }
 
     .comment-sort-area input {
@@ -115,7 +123,7 @@
     }
 
     .blah-sort-area input {
-        width:280px;
+        width:80%;
     }
 
     .demographic-detail {

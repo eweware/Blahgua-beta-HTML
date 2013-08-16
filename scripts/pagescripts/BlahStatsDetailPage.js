@@ -24,8 +24,12 @@ define('BlahStatsDetailPage',
             // handle the sizing
             var newWidth = $(".accordion-body").width();
             var widthDelta = 32;
-            if (G.IsNarrow)
-                widthDelta = 0;
+            if (G.IsNarrow) {
+                if (G.IsiPad || G.IsiPad)
+                    widthDelta = 0;
+                else
+                    widthDelta = 16;
+            }
             $(".chart-box").width(newWidth - widthDelta);
 
             if (G.IsShort) {

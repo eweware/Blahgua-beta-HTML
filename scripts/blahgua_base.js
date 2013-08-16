@@ -319,7 +319,7 @@ define('blahgua_base',
 
     var HandleSwipeUp = function(theEvent) {
         if (G.CurrentScrollSpeed < 0)
-            G.CurrenScrollSpeed = 1;
+            G.CurrentScrollSpeed = 1;
         G.CurrentScrollSpeed *= 50;
         if (G.CurrentScrollSpeed > 50)
             G.CurrentScrollSpeed = 50;
@@ -328,7 +328,7 @@ define('blahgua_base',
 
     var HandleSwipeDown = function(theEvent) {
         if (G.CurrentScrollSpeed > 0)
-            G.CurrenScrollSpeed = -1;
+            G.CurrentScrollSpeed = -1;
         G.CurrentScrollSpeed *= 50;
         if (G.CurrentScrollSpeed < -50)
             G.CurrentScrollSpeed = -50;
@@ -1111,7 +1111,8 @@ define('blahgua_base',
                     G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
                 } else {
                     G.BlahsMovingTimer = null;
-                    DoAddBlahRow();
+                    if (G.CurrentScrollSpeed > 0)
+                        DoAddBlahRow();
                     if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
                         G.CurrentScrollSpeed = K.BlahRollPixelStep;
                 }

@@ -235,7 +235,7 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount <= 0) || (charCount > 4000));
+            var tooManyOrFew = ((charCount <= 2) || (charCount > 4000));
             document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
