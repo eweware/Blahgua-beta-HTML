@@ -238,6 +238,16 @@ define('SelfPageDetails',
             }
         };
 
+        var MinDateStr = function(theDate) {
+            var dateStr = "";
+            dateStr += theDate.getDate();
+            dateStr += "/";
+            dateStr += theDate.getMonth() + 1;
+            dateStr += "/";
+            dateStr += theDate.getFullYear();
+            return dateStr ;
+        }
+
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
                 var newHTML = "";
@@ -248,8 +258,13 @@ define('SelfPageDetails',
                     imagePath = fullBadge.K;
                 }
                 newHTML += "<img class='badgeimage' src='" + imagePath + "'>";
-                newHTML += fullBadge.N + "</span>";
-                newHTML += "<span class='badgeexp'>expires " + (new Date(fullBadge.X)).toLocaleDateString() + "</span>";
+                newHTML += "<span class='badgenamespan'>" + fullBadge.N + "</span></span>";
+                newHTML += "<span class='badgeexp'>";
+                if (G.IsNarrow)
+                    newHTML += "exp ";
+                else
+                    newHTML += "expires ";
+                newHTML += MinDateStr(new Date(fullBadge.X)) + "</span>";
                 newHTML += "</div></td>";
 
                 newHTML += "</tr>";

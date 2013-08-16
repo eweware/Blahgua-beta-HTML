@@ -58,6 +58,11 @@
     font-family: 'Arimo', sans-serif;
 }
 
+.badgenamespan {
+    bottom: 2px;
+    position: relative;
+}
+
 .badge-authority-table {
     margin:20px 0px;
 }
@@ -65,7 +70,7 @@
 .badgeimage {
     width:23px;
     height:20px;
-    margin-left: 8px;
+    margin-left: 0px;
     margin-right: 8px;
     position: relative;
     top: 2px;
@@ -83,7 +88,7 @@
     color: gray;
     text-align: right;
     float: right;
-    margin: 10px 16px 0px 4px;
+    margin: 7px 0px 0px 4px;
 }
 
 .badge-div {

@@ -520,6 +520,7 @@
     color:  rgb(32,32,32);
     font-size: 12px;
     font-family: 'Arimo', sans-serif;
+    word-break:break-all;
     word-break: break-word;
     word-wrap: break-word ;
     overflow-wrap: break-word;

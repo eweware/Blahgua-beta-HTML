@@ -186,15 +186,20 @@ define('SignUpPage',
                 MaybeEnableButton();
             });
 
-            $(".content_frame").keydown(function(theEvent) {
-                if (theEvent.which == 13) {
-                    var thisVal = $(".toggle-active").attr("data-toggle-value");
-                    var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
-                    $(selector).find(".action-default:visible").click();
-                } else {
-                    MaybeEnableButton();
-                }
-            });
+            if (G.IsiPhone || G.IsiPad) {
+                // todo:  iPhone & iPad specific validation
+            } else {
+                $(".content_frame").keydown(function(theEvent) {
+                    if (theEvent.which == 13) {
+                        var thisVal = $(".toggle-active").attr("data-toggle-value");
+                        var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
+                        $(selector).find(".action-default:visible").click();
+                    } else {
+                        MaybeEnableButton();
+                    }
+                });
+            }
+
 
 
             $(".toggle-btn.toggle-active").click(); // init
