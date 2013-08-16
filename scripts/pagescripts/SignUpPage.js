@@ -188,6 +188,8 @@ define('SignUpPage',
 
             if (G.IsiPhone || G.IsiPad) {
                 // todo:  iPhone & iPad specific validation
+                $("#BlahFullItem").css({"overflow-y":"auto"});
+                MaybeEnableButton();
             } else {
                 $(".content_frame").keydown(function(theEvent) {
                     if (theEvent.which == 13) {
@@ -255,6 +257,10 @@ define('SignUpPage',
                 $btn.attr("disabled", true);
 
             }
+
+            // button on phone is always enabled
+            if (G.IsiPad || G.IsiPhone)
+                $btn.removeAttr("disabled");
 
         };
 
