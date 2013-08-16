@@ -285,7 +285,7 @@ define('comments',
             // comment author, date, voting
 
             newHTML += '<tr>';
-            newHTML += '<td rowspan=3';
+            newHTML += '<td rowspan=';
             if (image == "")
                 newHTML += "3";
             else
