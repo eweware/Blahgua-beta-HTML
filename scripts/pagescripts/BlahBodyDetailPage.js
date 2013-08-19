@@ -119,7 +119,11 @@ define('BlahBodyDetailPage',
             } else {
                 imageEl.style.display = "absolute";
                 $(".blah-body-divider").hide();
+                var theRect = document.getElementById("FullBlahContent").getBoundingClientRect();
+                var maxSize = Math.round(theRect.width * .95);
+                $("#blahFullImage").css({"max-width":maxSize + "px"});
                 imageEl.src = image;
+
             }
               if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0) {
 			   $("#CommentTextArea").attr("placeholder","Enter comment text here");

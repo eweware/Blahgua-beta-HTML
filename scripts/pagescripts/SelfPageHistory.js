@@ -142,7 +142,7 @@ define('SelfPageHistory',
 
 
         var SortAndRedrawBlahs = function(theBlahs) {
-            $("#HistoryBlahHeader").append(" (" + theBlahs.length + ")" );
+            $("#HistoryBlahHeader").text("Your Posts (" + theBlahs.length + ")" );
             BlahList = theBlahs;
             SortBlahs();
             var newHTML = "";
@@ -173,7 +173,7 @@ define('SelfPageHistory',
         };
 
         var SortAndRedrawComments = function(theComments) {
-            $("#HistoryCommentHeader").append(" (" + theComments.length + ")" );
+            $("#HistoryCommentHeader").text("Your Comments (" + theComments.length + ")" );
             CommentList = theComments;
             SortComments();
             var newHTML = "";

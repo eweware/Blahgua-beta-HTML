@@ -20,6 +20,7 @@ define('comments',
         var commentSortType = "bydate";
         var commentSortDir = "desc";
         var commentFilter = "";
+        var kMaxImgWidth = 90;
 
         var SetCommentFilter = function(newFilter) {
             if (newFilter != commentFilter) {
@@ -201,6 +202,8 @@ define('comments',
             var curComment;
             var commentDiv = document.getElementById("BlahCommentTable");
             commentDiv.innerHTML = "";
+            var theRect = commentDiv.getBoundingClientRect();
+            kMaxImgWidth = theRect.width - 150;
             for (i in G.CurrentComments) {
                 curComment = G.CurrentComments[i];
                 var commentEl = createCommentElement(i, curComment);
@@ -285,7 +288,7 @@ define('comments',
             // comment author, date, voting
 
             newHTML += '<tr>';
-            newHTML += '<td rowspan=3';
+            newHTML += '<td rowspan=';
             if (image == "")
                 newHTML += "3";
             else
@@ -361,7 +364,7 @@ define('comments',
             if (image != "") {
                 newHTML += '<tr>';
                 newHTML += '<td colspan="3" class="comment-image-row">' +
-                    '<img src="' + image + '" alt="Comment Image" class="comment-image">';
+                    '<img src="' + image + '" alt="Comment Image" class="comment-image" style="max-width:' + kMaxImgWidth + 'px">';
                 newHTML += '</td></tr>';
             }
 
