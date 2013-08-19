@@ -32,7 +32,7 @@ define('comments',
             var changed = false;
 
             if (newSort != commentSortType) {
-                commentSortType = true;
+                commentSortType = newSort;
                 changed = true;
             }
 
@@ -99,8 +99,8 @@ define('comments',
             var authorIds = GetCommentAuthorIDs();
             blahgua_rest.GetUserDescriptors(authorIds, function(authorData) {
                 for (var curIndex in authorData) {
-                    if (authorData[curIndex].hasOwnProperty('n'))
-                        G.CurrentComments[curIndex]["n"] = authorData[curIndex].n;
+                    if (authorData[curIndex].hasOwnProperty('K'))
+                        G.CurrentComments[curIndex]["K"] = authorData[curIndex].K;
                     if (authorData[curIndex].hasOwnProperty('d'))
                         G.CurrentComments[curIndex]["d"] = authorData[curIndex].d;
                     if (authorData[curIndex].hasOwnProperty('m'))
