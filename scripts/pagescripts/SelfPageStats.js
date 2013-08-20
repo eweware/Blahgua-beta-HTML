@@ -87,21 +87,21 @@ define('SelfPageStats',
 
                 $('#UserActivityViewDiv').highcharts(stats.MakeStatChartOptions("Posts Impressions", viewData, catAxis));
                 if (G.DataZeroOrEmpty(viewData))
-                    G.AppendChartMask("#UserActivityViewDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserActivityViewDiv", "No activity in this time period.");
 
                 $('#UserActivityOpenDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", openData, catAxis));
                 if (G.DataZeroOrEmpty(openData))
-                    G.AppendChartMask("#UserActivityOpenDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserActivityOpenDiv", "No activity in this time period.");
 
 
                 $('#UserActivityPostCreatedDiv').highcharts(stats.MakeStatChartOptions("Posts Created", blahsMade, catAxis));
                 if (G.DataZeroOrEmpty(blahsMade))
-                    G.AppendChartMask("#UserActivityPostCreatedDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserActivityPostCreatedDiv", "No activity in this time period.");
 
 
                 $('#UserActivityCommentsCreatedDiv').highcharts(stats.MakeStatChartOptions("Comments Created", commentsMade, catAxis));
                 if (G.DataZeroOrEmpty(commentsMade))
-                    G.AppendChartMask("#UserActivityCommentsCreatedDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserActivityCommentsCreatedDiv", "No activity in this time period.");
 
                 // Your Blahs and Comments
                 var otherUpVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
@@ -117,15 +117,15 @@ define('SelfPageStats',
 
                 $('#UserBlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", otherViews, catAxis));
                 if (G.DataZeroOrEmpty(otherViews))
-                    G.AppendChartMask("#UserBlahActivityViewsDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserBlahActivityViewsDiv", "No activity in this time period.");
 
                 $('#UserBlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", otherOpens, catAxis));
                 if (G.DataZeroOrEmpty(otherOpens))
-                    G.AppendChartMask("#UserBlahActivityOpensDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserBlahActivityOpensDiv", "No activity in this time period.");
 
                 $('#UserBlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", otherComments, catAxis));
                 if (G.DataZeroOrEmpty(otherComments))
-                    G.AppendChartMask("#UserBlahActivityCommentsDiv", "No activity in this time period");
+                    G.AppendChartMask("#UserBlahActivityCommentsDiv", "No activity in this time period.");
 
                 $('#UserBlahSentimentDiv').highcharts({
                     chart: {
