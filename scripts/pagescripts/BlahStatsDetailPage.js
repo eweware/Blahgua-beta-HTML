@@ -191,7 +191,7 @@ define('BlahStatsDetailPage',
             });
 
             if ((uv == 0) && (dv == 0)) {
-                G.AppendChartMask("#BlahVoteMixDiv", "No votes yet");
+                G.AppendChartMask("#BlahVoteMixDiv", "No votes yet.");
             }
 
 

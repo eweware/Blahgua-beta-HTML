@@ -304,7 +304,7 @@ define('comments',
                 var dv = G.GetSafeProperty(theComment, "D", 0)
                 if ((isOwnComment || isOwnBlah) && (uv == 0) && (dv == 0)) {
                     // it is their own blah or comment
-                    newHTML += '<span class="comment-vote-wrapper no-vote">no votes yet</span>';
+                    newHTML += '<span class="comment-vote-wrapper no-vote">no votes</span>';
                 } else {
                     // vote up
                     newHTML += '<span class="comment-vote-wrapper">';
