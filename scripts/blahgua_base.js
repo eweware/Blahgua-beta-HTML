@@ -666,6 +666,7 @@ define('blahgua_base',
         if (G.BlahsMovingTimer != null) {
             clearTimeout(G.BlahsMovingTimer);
             G.BlahsMovingTimer = null;
+            G.CurrentScrollSpeed = K.BlahRollPixelStep;
         }
     };
 
@@ -1066,6 +1067,7 @@ define('blahgua_base',
 
     var StartBlahsMoving = function() {
         if (G.BlahsMovingTimer == null) {
+            G.CurrentScrollSpeed = K.BlahRollPixelStep;
             G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
         }
     };
@@ -1112,16 +1114,22 @@ define('blahgua_base',
                     G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
                 } else {
                     G.BlahsMovingTimer = null;
-                    if (G.CurrentScrollSpeed > 0)
+                    if (G.CurrentScrollSpeed > 0)  {
+                        var oldSpeed = G.CurrentScrollSpeed;
                         DoAddBlahRow();
-                    if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
-                        G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                        G.CurrentScrollSpeed = oldSpeed;
+                    } else {
+                        if (G.CurrentScrollSpeed < K.BlahRollPixelStep)
+                            G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                        G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+                    }
+
                 }
                 if (G.CurrentScrollSpeed < 1) {
                     // scrolling backwards, slow down
                     G.CurrentScrollSpeed *= .95;
-                    if (G.CurrentScrollSpeed > -1) {
-                        G.CurrentScrollSpeed = 1;
+                    if (G.CurrentScrollSpeed > -K.BlahRollPixelStep) {
+                        G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     }
                     // see if a new top row is on the screen...
                     if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {

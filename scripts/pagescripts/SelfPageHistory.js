@@ -156,7 +156,8 @@ define('SelfPageHistory',
                 });
                 // bind events
                 $("#UserBlahList>tr").click(function(theEvent){
-                    theID = $(this).attr("data-blah-id");
+                    theEvent.stopImmediatePropagation();
+                    var theID = $(this).attr("data-blah-id");
                     DoOpenUserBlah(theID);
                 });
                 FilterBlahs();
