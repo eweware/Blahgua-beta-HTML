@@ -182,7 +182,8 @@ define('stats',
                     enabled: false
                 },
                 xAxis: {
-                    categories: catAxis
+                    categories: catAxis,
+                    tickPixelInterval: 150
                 },
                 yAxis: {
                     min:0,

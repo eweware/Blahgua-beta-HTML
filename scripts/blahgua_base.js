@@ -782,7 +782,8 @@ define('blahgua_base',
 
     var CreateBaseDiv = function(theBlah) {
         var newDiv = document.createElement("div");
-        AddBlahView(theBlah.I);
+        if (!theBlah.hasOwnProperty("IsTemp"))
+            AddBlahView(theBlah.I);
         newDiv.blah = theBlah;
         newDiv.className = "BlahDiv";
         newDiv.style.top = "0px";
@@ -1191,10 +1192,7 @@ define('blahgua_base',
             nextBlah = GetNextMatchingBlah(blahSize);
         }
 
-        /* todo: add in view count
-        if (nextBlah != null)
-            Blahgua.AddBlahViewsOpens(nextBlah.I, 1, 0, null, null);
-            */
+
         return nextBlah;
     };
 

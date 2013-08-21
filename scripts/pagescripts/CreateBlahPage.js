@@ -438,6 +438,7 @@ define('CreateBlahPage',
             newItem["G"] = theBlah.G;
             newItem["N"] = 0;
             newItem["Y"] = theBlah.Y;
+            newItem["IsTemp"] = true;
             if (theBlah.hasOwnProperty("B"))
                 newItem["B"] = theBlah.B;
 

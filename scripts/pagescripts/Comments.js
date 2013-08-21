@@ -260,8 +260,8 @@ define('comments',
             var blahgerName = "someone";
             var authorDesc = "someone";
 
-            if (theComment.hasOwnProperty("n")) {
-                blahgerName = theComment.n;
+            if (theComment.hasOwnProperty("K")) {
+                blahgerName = theComment.K;
             }
             if (theComment.hasOwnProperty("d")) {
                 authorDesc = theComment.d;
