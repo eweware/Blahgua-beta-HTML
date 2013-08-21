@@ -320,18 +320,18 @@ define('blahgua_base',
     var HandleSwipeUp = function(theEvent) {
         if (G.CurrentScrollSpeed < 0)
             G.CurrentScrollSpeed = 1;
-        G.CurrentScrollSpeed *= 50;
-        if (G.CurrentScrollSpeed > 50)
-            G.CurrentScrollSpeed = 50;
+        G.CurrentScrollSpeed *= 35;
+        if (G.CurrentScrollSpeed > 35)
+            G.CurrentScrollSpeed = 35;
     };
 
 
     var HandleSwipeDown = function(theEvent) {
         if (G.CurrentScrollSpeed > 0)
             G.CurrentScrollSpeed = -1;
-        G.CurrentScrollSpeed *= 50;
-        if (G.CurrentScrollSpeed < -50)
-            G.CurrentScrollSpeed = -50;
+        G.CurrentScrollSpeed *= 35;
+        if (G.CurrentScrollSpeed < -35)
+            G.CurrentScrollSpeed = -35;
     };
 
 
