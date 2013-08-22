@@ -103,23 +103,26 @@ define('stats',
                 //catLabels = {0: "65 & up", 1: "55-64", 2: "45-54", 3: "35-44", 4: "25-34", 5: "18-24", 6: "under 18", "-1": "Unspecified"}
                 catLabels = {6: "under 18", 5: "18-24", 4: "25-34", 3: "35-44", 2: "45-54", 1: "55-64", 0: "65 & up", "-1": "Unspecified"}
             }
+
+            var upVoteSet, downVoteSet;
+
             if (whichObject.hasOwnProperty("_d")) {
-                var upVoteSet = G.GetSafeProperty(whichObject._d._u, whichDemo, null);
-                var downVoteSet = G.GetSafeProperty(whichObject._d._d, whichDemo, null);
-                var upData = [], downData = [];
-
-
-                $.each(catLabels, function(index, item){
-                    upData.push(G.GetSafeProperty(upVoteSet, index, 0));
-                    downData.push(G.GetSafeProperty(downVoteSet, index, 0));
-                });
-
-                newSeries = [
-                    {"data":downData,"name":"demotes"},
-                    {"data":upData,"name":"promotes"}];
+                upVoteSet = G.GetSafeProperty(whichObject._d._u, whichDemo, null);
+                downVoteSet = G.GetSafeProperty(whichObject._d._d, whichDemo, null);
             } else {
-                newSeries = [];
+                upVoteSet = new Object();
+                downVoteSet = new Object();
             }
+            var upData = [], downData = [];
+
+            $.each(catLabels, function(index, item){
+                upData.push(G.GetSafeProperty(upVoteSet, index, 0));
+                downData.push(G.GetSafeProperty(downVoteSet, index, 0));
+            });
+
+            newSeries = [
+                {"data":downData,"name":"demotes"},
+                {"data":upData,"name":"promotes"}];
 
             return newSeries;
         };
