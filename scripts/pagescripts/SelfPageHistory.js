@@ -197,7 +197,7 @@ define('SelfPageHistory',
                 FilterComments();
             } else {
                 $(".comment-sort-area").hide();
-                newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any comments yet.</td></tr>";
+                newHTML = "<tr><td colspan='2' class='no-history-item'>You have not created any comments.</td></tr>";
                 commentDiv.append(newHTML);
 
             }
