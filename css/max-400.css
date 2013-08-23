@@ -49,6 +49,16 @@
         font-size: 18px;
 
     }
+
+    .hidden-upload {
+        margin: 8px 4px 8px 24px;
+    }
+
+    .hidden-upload.userimage-upload {
+        left: -24px;
+        top: -72px;
+    }
+
     .fill-center-container
     {
 

@@ -85,26 +85,9 @@
     font-family: 'Arimo', sans-serif;
     border: 1px solid #999999;
     color: #999999;
-    }
-
-#ImageForm {
-    margin-left: 10px;
-    margin-bottom: 10px;
 }
 
-#ImageForm div {
-    display: table-cell;
-    vertical-align: middle;
-    width:64px;
-    height:64px;
-}
 
-#CommentImage {
-    width:205px;
-    box-shadow: none;
-    border: none;
-    background-color: rgb(244,245,240);
-}
 .createblahheadlinephoto
 {
     width:40px;

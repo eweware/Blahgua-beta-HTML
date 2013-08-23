@@ -34,12 +34,6 @@ define('CreateBlahPage',
             // bind events
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(UploadBlahImage);
-            $("#ImagePreviewDiv").click(function(theEvent) {
-                if($(this).attr("disabled") == undefined) {
-                    $(this).attr("disabled", true);
-                    document.getElementById('BlahImage').click();
-                }
-            } );
 
             $(".image-delete-btn").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();

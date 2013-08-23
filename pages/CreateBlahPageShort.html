@@ -48,27 +48,21 @@
 
     <div class="create-content-div show-blah-bkgnd short" id="createcontent" >
         <table class="createblahscrolltable short show-blah-bkgnd">
-            <tr style="display:none">
-
-                <td colspan="3">
-                    <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
-                        <div>
-                            <input id="BlahImage" name="file" type="file" no-validate>
-                            <input type="text" name="objectType" hidden="true" value="X"/>
-                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                            <input type="text" name="primary" hidden="true" value="true"/>
-                        </div>
-                    </form>
-                </td>
-
-            </tr>
-
-
             <tr>
                 <td style="width:76px; max-width: 76px;">
                     <div class="image-preview no-image" id="ImagePreviewDiv">
                         <i class="icon-remove-sign image-delete-btn"></i>
                         <span>no image</span>
+                    </div>
+                    <div class="hidden-upload short">
+                        <form id="ImageForm" action="images/upload" method="post" enctype="multipart/form-data">
+                            <div>
+                                <input id="BlahImage" name="file" type="file" no-validate>
+                                <input type="text" name="objectType" hidden="true" value="X"/>
+                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                <input type="text" name="primary" hidden="true" value="true"/>
+                            </div>
+                        </form>
                     </div>
                 </td>
                 <td colspan="2" class="createblahbody">

@@ -20,6 +20,16 @@
                                     <i class="icon-remove-sign image-delete-btn"></i>
                                     <span>no<br/>image</span>
                                 </div>
+                                <div class="hidden-upload comment-upload">
+                                    <form id="ImageForm" action="images/upload" method="post" enctype="multipart/form-data">
+                                        <div>
+                                            <input id="CommentImage" name="file" type="file" no-validate>
+                                            <input type="text" name="objectType" hidden="true" value="X"/>
+                                            <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                            <input type="text" name="primary" hidden="true" value="true"/>
+                                        </div>
+                                    </form>
+                                </div>
                             </td>
                             <td style="width:100%">
                                 <textarea class="comment-text-area" id="CommentTextArea" ></textarea>
@@ -31,18 +41,7 @@
                                 <span id="CharCountDiv"></span>
                             </td>
                         </tr>
-                        <tr style="display:none">
-                            <td>
-                                <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
-                                    <input id="CommentImage" name="file" type="file" >
-                                    <div style="display: none">
-                                        <input type="text" name="objectType" hidden="true" value="X"/>
-                                        <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                                        <input type="text" name="primary" hidden="true" value="true"/>
-                                    </div>
-                                </form>
-                            </td>
-                        </tr>
+
                         </tbody>
                     </table>
                     <div id="SignInToCommentArea" class="signin-comment-shield">

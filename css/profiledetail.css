@@ -51,8 +51,15 @@
     border-color:#999999;
     border-style:solid;
     background-color:rgb(255,255,255);
-    background-size: cover;
+
     color:grey;
+}
+
+.user-image div {
+    width:64px;
+    height:64px;
+    display: inline-block;
+    background-size: cover;
 }
 
 .user-image-upload-btn

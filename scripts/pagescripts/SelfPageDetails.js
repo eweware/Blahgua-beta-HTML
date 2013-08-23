@@ -17,21 +17,12 @@ define('SelfPageDetails',
             $("#SaveDemographicsBtn").click(UpdateUserDemographics);
             $("#LogoutBtn").click(exports.LogoutUser);
             $("#ForgetBtn").click(exports.ForgetUser);
-            $("#UserImageBtn").click(function(theEvent) {
-                document.getElementById('UserFormImage').click();
-            } );
+
             $("#UserFormImage").change(HandleFilePreview);
             $("#RecoveryInfo").click(function(theEvent) {
                 G.PromptUser("blahgua does not require an email address to fully use the system.  However, if you forget your password, it will not be recoverable if we do not have an email address on file.<br/><br/>" +
                     "Your recovery email can be different than the email you use to obtain badges, and can be changed or removed at any time.",
                     "Got it");
-            });
-
-            $("#uploadimage").click(function(theEvent) {
-                if($(this).attr("disabled") == undefined) {
-                    $(this).attr("disabled", true);
-                $("#UserFormImage").click();
-                }
             });
 
             $(".image-delete-btn").click(function(theEvent) {

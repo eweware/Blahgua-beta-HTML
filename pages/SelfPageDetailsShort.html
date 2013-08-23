@@ -66,26 +66,23 @@
             <tr style="border-bottom: none;">
                 <td>
                     <div class="demographic-detail">Your&nbsp;image</div>
-                    <div id="uploadimage" class="user-image">
-                        <i class="icon-remove-sign image-delete-btn"></i>
-                        <span></span>
-                    </div>
-                </td>
-
-            </tr>
-            <tr style="display:none">
-                <td></td>
-                <td>
-                    <form id="ImageForm" action="" method="post" enctype="multipart/form-data">
-                        <div >
-                            <input id="UserFormImage" name="file" type="file" no-validate >
-                            <div style="display:none">
-                                <input type="text" name="objectType" hidden="true" value="U"/>
-                                <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
-                                <input type="text" name="primary" hidden="true" value="true"/>
-                            </div>
+                    <div class="user-image">
+                        <div id="uploadimage">
+                            <i class="icon-remove-sign image-delete-btn"></i>
+                            <span></span>
                         </div>
-                    </form>
+
+                        <div class="hidden-upload userimage-upload short">
+                            <form id="ImageForm" action="images/upload" method="post" enctype="multipart/form-data">
+                                <div>
+                                    <input id="UserFormImage" name="file" type="file" no-validate>
+                                    <input type="text" name="objectType" hidden="true" value="U"/>
+                                    <input type="text" id="objectId" name="objectId" hidden="true" value=""/>
+                                    <input type="text" name="primary" hidden="true" value="true"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </td>
             </tr>
 

@@ -15,7 +15,6 @@ textarea {
 
 
 
-
 input {
     font-size:16px;
     font-family: 'Arimo', sans-serif;
@@ -590,6 +589,59 @@ color:rgb(244,245,240);
     font-size: 18px;
     font-family: 'Arimo' sans-serif;
     margin: 50px 0px;
+}
+
+.hidden-upload {
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    max-width: 68px;
+    width:68px;
+    height:68px;
+    max-height: 68px;
+    overflow:hidden;
+    margin:24px 4px 8px 24px;
+    opacity:0
+}
+
+.hidden-upload.comment-upload {
+    margin: 0px 4px 8px 12px;
+}
+
+.hidden-upload.userimage-upload {
+    position: relative;
+    left: -24px;
+    top: -88px;
+}
+
+.hidden-upload.short {
+    left: 10px;
+    top: 140px;
+    margin: 0px 4px 8px 0px;
+
+}
+
+.hidden-upload.comment-upload.short {
+    left: 0px;
+    top: 0px;
+    margin: 0px 4px 8px 12px;
+    opacity:.8;
+}
+
+.hidden-upload.userimage-upload.short {
+    position: relative;
+    left: 0px;
+    top: -64px;
+    opacity:.8;
+}
+
+
+
+
+.hidden-upload input[type=file] {
+    height:68px;
+    width:68px;
+    padding:0px;
 }
 
 
