@@ -407,8 +407,8 @@
     height: 128px;
     border-width: 1px;
     border-style: solid;
-    border-color:rgb(32,32,32)
-    background-color:Rgb(244,245,240);
+    border-color: rgb(32,32,32);
+    background-color: rgb(244,245,240);
     color: rgb(124,124,124);
     display:inline-block;
 }

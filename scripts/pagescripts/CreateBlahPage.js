@@ -264,7 +264,8 @@ define('CreateBlahPage',
 
                 UpdateLayout();
             } else {
-                $("#ShowBadgesAreaBtn").addAttr("disabled", "disabled");
+                $("#ShowBadgeAreaBtn").attr("disabled", "disabled");
+                UpdateLayout();
             }
         };
 

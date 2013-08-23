@@ -625,7 +625,6 @@
     border: 0px solid rgb(32,32,32);
     padding-left: 8px;
     border-radius: 8px;
-;
 }
 
 .conversion-header {
@@ -673,8 +672,8 @@
 }
 
 .image-delete-btn2 {
-    color:red;;
-    opacity:.5;
+    color:red;
+    opacity: 0.5;
     position: absolute;
     left: 65px;
     top: 15px;

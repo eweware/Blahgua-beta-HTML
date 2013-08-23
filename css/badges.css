@@ -12,6 +12,10 @@
     border-width: 4px;
     border-color: #000000;
     z-index: 30;
+    overflow-x: hidden;
+    overflow-y: auto;
+    bottom: 0px;
+    max-height: 370px;
 }
 
 .BadgeOverlayShield {
@@ -22,6 +26,10 @@
     bottom:0px;
     background-color: rgba(0,0,0,.5);
     z-index: 25;
+}
+
+.BadgeOverlayShield input {
+    max-width:250px;
 }
 
 .BadgeDialog {

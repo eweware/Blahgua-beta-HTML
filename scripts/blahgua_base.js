@@ -583,6 +583,11 @@ define('blahgua_base',
                 "<div class='instant-menu'>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +
+                "<li id='ShowHistoryItem'>History</li>" +
+                "<li id='ShowStatsItem'>Stats</li>" +
+                "<li class='divider'></li>" +
+                "<li id='ShowAboutItem'>About blahgua</li>" +
+                "<li class='divider'></li>" +
                 "<li id='LogOutItem'>Sign out</li>" +
                 "</ul></div></div>";
 
@@ -594,8 +599,20 @@ define('blahgua_base',
             });
             $("#ShowProfileItem").click(function (theEvent) {
                 DismissAll();
-                ShowUserProfile();
+                ShowUserProfile("Profile");
                 });
+            $("#ShowHistoryItem").click(function (theEvent) {
+                DismissAll();
+                ShowUserProfile("History");
+            });
+            $("#ShowStatsItem").click(function (theEvent) {
+                DismissAll();
+                ShowUserProfile("Stats");
+            });
+            $("#ShowAboutItem").click(function (theEvent) {
+                DismissAll();
+                window.open("http://www.eweware.com/blahgua");
+            });
             $("#LogOutItem").click(function (theEvent) {
                 DismissAll();
                 LogoutUser();
@@ -977,6 +994,9 @@ define('blahgua_base',
         for (var i = 0; i < newRow.childNodes.length; i++) {
             $curDiv = $(newRow.childNodes[i]);
             curTextDiv = newRow.childNodes[i].blahTextDiv;
+            if (curTextDiv == undefined) {
+                alert("No text div (wtf)");
+            }
             $curTextDiv = $(curTextDiv);
             curTextDiv.style.fontSize = "96px";
             curFontSize = 96;
@@ -1594,8 +1614,30 @@ define('blahgua_base',
         }
     };
 
+    var IsBlahValid = function(theBlah) {
+        if (theBlah.hasOwnProperty("A") &&
+            theBlah.hasOwnProperty("I") &&
+            (theBlah.I.length > 1))  {
+            return true;
+        } else
+            return false
+    };
+
+    var removeInvalidBlahs = function(theList) {
+        var curIndex = 0;
+
+        while (curIndex < theList.length) {
+            if (!IsBlahValid(theList[curIndex])) {
+                theList.splice(curIndex, 1);
+            } else {
+                curIndex++;
+            }
+        }
+    };
 
     var PrepareBlahList = function(theBlahList) {
+        // remove invalid blahs
+        removeInvalidBlahs(theBlahList);
 
         // ensure 100 blahs
         if (theBlahList.length < 100) {
@@ -1824,7 +1866,9 @@ define('blahgua_base',
 // *****************************************
 // User Channel
 
-    var ShowUserProfile = function() {
+    var ShowUserProfile = function(whichPage) {
+        if (whichPage == undefined)
+            whichPage = "Profile";
         StopAnimation();
         $("#LightBox").show();
         $("#BlahFullItem").empty();
@@ -1832,11 +1876,11 @@ define('blahgua_base',
             if (G.CurrentUser == null) {
                 Blahgua.GetCurrentUser(function (theResult) {
                     G.CurrentUser = theResult;
-                    PopulateUserChannel("Profile");
+                    PopulateUserChannel(whichPage);
                 }, OnFailure);
             }
             else {
-                PopulateUserChannel("Profile");
+                PopulateUserChannel(whichPage);
             }
         } else {
             var basePage = "SignUpPage.html";

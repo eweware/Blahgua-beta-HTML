@@ -16,17 +16,7 @@ define('SignUpPage',
                 ClearErrorMessage();
                 var userName = $("#userName").val();
                 var pwd = $("#pwd").val();
-                blahgua_rest.CreateUser(userName, pwd, function(json) {
-                    var email = $("#recoveryemail").val();
-                    if (email != "") {
-                        // set recovery email
-                        blahgua_rest.setRecoveryInfo(email, HandleUserLoginOK, function(theErr) {
-                            alert("Unable to set recovery info.  Logging in anyway.");
-                            HandleUserLoginOK();
-                        })
-                    } else
-                         HandleUserLoginOK(json);
-                }, HandleCreateUserFail);
+                blahgua_rest.CreateUser(userName, pwd, HandleCreateUserOK, HandleCreateUserFail);
             } else {
                 ShowErrorMessage(theErr);
             }
@@ -54,7 +44,7 @@ define('SignUpPage',
                 userObject['userId'] = userName;
                 userObject['pwd'] = pwd;
 
-                $.cookie("loginkey",  cryptify("Sheep", JSON.stringify(userObject)), { expires: 3600*24*30, path: '/'});
+                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 3600*24*30, path: '/'});
                 $.removeCookie('isTemp');
             } else {
                 $.removeCookie("loginkey");
@@ -62,20 +52,53 @@ define('SignUpPage',
             }
             $("#userName2").val(userName);
             $("#pwd2").val(pwd);
-            blahgua_rest.loginUser(userName, pwd, HandleUserLoginOK, HandleUserLoginFail);
+            blahgua_rest.loginUser(userName, pwd, HandleCreatedUserLoginOK, HandleCreatedUserLoginFail);
+        };
+
+        var HandleCreatedUserLoginOK = function() {
+            var email = $("#recoveryemail").val();
+            if (email != "") {
+                // set recovery email
+                blahgua_rest.setRecoveryInfo(email, FinalizeLogin, function(theErr) {
+                    alert("Unable to set recovery info.  Logging in anyway.");
+                    FinalizeLogin();
+                });
+            } else {
+                FinalizeLogin();
+            }
         };
 
         var HandleCreateUserFail = function(theErr) {
             switch (theErr.status) {
                 case 202:
                     // this is not an error, just malformed JSON
-                    HandleUserLoginOK();
+                    HandleCreateUserOK();
                     break;
                 case 409:
                     ShowErrorMessage("Username already exists");
                     break;
                 default:
                     exports.OnFailure(theErr);
+            }
+        };
+
+        var HandleCreatedUserLoginFail = function(theErr) {
+            //TODO: any of these error messages would be bizarre to the user...
+            switch (theErr.status) {
+                case 202:
+                    // this is not an error, just malformed JSON
+                    HandleCreatedUserLoginOK();
+                    break;
+                case 404:
+                    // username not found
+                    ShowErrorMessage("No user of that name");
+                    break;
+                case 401:
+                    // incorrect password
+                    ShowErrorMessage("Cannot login. Check password.");
+                    break;
+                default:
+                    ShowErrorMessage("Login Failed. Check username and password.");
             }
         };
 
@@ -89,14 +112,18 @@ define('SignUpPage',
             $(".error-msg-div").css({"opacity":"1"});
         };
 
-
-        var HandleUserLoginOK = function(json, successOk, status) {
+        var FinalizeLogin = function() {
             G.IsUserLoggedIn = true;
             blahgua_rest.GetProfileSchema(function(theSchema) {
                 G.ProfileSchema = theSchema.fieldNameToSpecMap;
-            }, function(theErr){
-                exports.OnFailure(theErr);
-            }) ;
+                blahgua_rest.getUserInfo(RefreshPageForNewUser, exports.OnFailure);
+            }, exports.OnFailure);
+
+        };
+
+
+        var HandleUserLoginOK = function(json, successOk, status) {
+
             var userName = $("#userName2").val();
             var pwd = $("#pwd2").val();
             if ($('#rememberme2').is(':checked')) {
@@ -110,9 +137,7 @@ define('SignUpPage',
                 $.removeCookie("loginkey");
                 $.removeCookie('isTemp');
             }
-            blahgua_rest.getUserInfo(RefreshPageForNewUser, function(theErr) {
-                exports.OnFailure(theErr);
-            });
+            FinalizeLogin();
         };
 
         var HandleUserLoginFail = function (theErr) {

@@ -128,7 +128,7 @@ poll-result-row .description {
 .poll-result-row .delete-btn {
     display: block;
     float: left;
-    margin-left: 12px;;
+    margin-left: 12px;
     background-image: url(../img/Large_CloseGrey.png);
     background-size: 25px 25px;
     width:25px;

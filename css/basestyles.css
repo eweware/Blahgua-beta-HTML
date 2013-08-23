@@ -21,7 +21,7 @@ input {
     font-family: 'Arimo', sans-serif;
     text-align: left;
     padding: 4px;
-    border-size:0px;
+    border-width: 0px;
     background-color: rgb(254,254,254);
     border: solid   1px #999999;
     border-radius: 4px;
@@ -38,6 +38,14 @@ input:focus {
     -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
     background-color: rgb(255,255,255);
 
+}
+
+li.divider {
+    border-bottom: 1px black solid;
+}
+
+li.divider:hover {
+    background-color: rgb(244,245,240);
 }
 
 
