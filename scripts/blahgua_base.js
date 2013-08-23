@@ -320,18 +320,18 @@ define('blahgua_base',
     var HandleSwipeUp = function(theEvent) {
         if (G.CurrentScrollSpeed < 0)
             G.CurrentScrollSpeed = 1;
-        G.CurrentScrollSpeed *= 50;
-        if (G.CurrentScrollSpeed > 50)
-            G.CurrentScrollSpeed = 50;
+        G.CurrentScrollSpeed *= 35;
+        if (G.CurrentScrollSpeed > 35)
+            G.CurrentScrollSpeed = 35;
     };
 
 
     var HandleSwipeDown = function(theEvent) {
         if (G.CurrentScrollSpeed > 0)
             G.CurrentScrollSpeed = -1;
-        G.CurrentScrollSpeed *= 50;
-        if (G.CurrentScrollSpeed < -50)
-            G.CurrentScrollSpeed = -50;
+        G.CurrentScrollSpeed *= 35;
+        if (G.CurrentScrollSpeed < -35)
+            G.CurrentScrollSpeed = -35;
     };
 
 
@@ -522,7 +522,7 @@ define('blahgua_base',
         menu.style.left = banner[0].style.left;
         //menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
-            $("#LightBox").css({"background-color": "transparent"}).show();
+            $("#LightBox").css({"background": "transparent"}).show();
             if (G.IsUserLoggedIn)
                 $("#BrowseChannelBtn").show();
             else
@@ -579,7 +579,7 @@ define('blahgua_base',
             theEvent.stopPropagation();
             StopAnimation();
             var newHTML = "";
-            newHTML += "<div class='click-shield' style='background-color:transparent'>" +
+            newHTML += "<div class='click-shield' style='background:transparent'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +
