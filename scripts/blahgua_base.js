@@ -1803,11 +1803,12 @@ define('blahgua_base',
         InboxCount++;
         if (InboxCount > MaxInboxCount)
             TruncateBlahStream();
-        Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
+        else
+            Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
     };
 
     var TruncateBlahStream = function() {
-        InBoxCount == 1;
+        InboxCount = 1;
     };
 
     var OnGetNextBlahsOK = function(theResult) {
