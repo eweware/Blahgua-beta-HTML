@@ -207,11 +207,12 @@ define('SignUpPage',
                 $(".toggle-btn").removeClass("toggle-active");
                 $(this).addClass("toggle-active");
                 $(selector).show();
-                $(selector).find("input:visible:first").focus();
+                if (!G.IsMobile)
+                    $(selector).find("input:visible:first").focus();
                 MaybeEnableButton();
             });
 
-            if (G.IsiPhone || G.IsiPad) {
+            if (G.IsMobile) {
                 // todo:  iPhone & iPad specific validation
                 $("#BlahFullItem").css({"overflow-y":"auto"});
                 MaybeEnableButton();
@@ -284,20 +285,26 @@ define('SignUpPage',
             }
 
             // button on phone is always enabled
-            if (G.IsiPad || G.IsiPhone)
+            if (G.IsMobile)
                 $btn.removeAttr("disabled");
 
         };
 
         var ShowRecoveryInfo = function(theEvent) {
-            $("#RecoverPasswordForm").show().find("input:visible:first").focus();;
+            if (G.IsMobile)
+                $("#RecoverPasswordForm").show();
+            else
+                $("#RecoverPasswordForm").show().find("input:visible:first").focus();
             $("#ExistingUserForm").hide();
             MaybeEnableButton();
         };
 
         var HideRecoveryInfo = function(theEvent) {
             $("#RecoverPasswordForm").hide();
-            $("#ExistingUserForm").show().find("input:visible:first").focus();
+            if (G.IsMobile)
+                $("#ExistingUserForm").show();
+            else
+                $("#ExistingUserForm").show().find("input:visible:first").focus();
             MaybeEnableButton();
         };
 

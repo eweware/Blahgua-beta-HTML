@@ -92,6 +92,7 @@ define('globals',
         var isHorizontal = false;
         var isiPhone = false;
         var isiPad = false;
+        var isMobile = false;
         var InitialBlah = null;
         var InitialChannel = null;
 
@@ -615,6 +616,7 @@ define('globals',
             IsHorizontal: isHorizontal,
             IsiPhone: isiPhone,
             IsiPad: isiPad,
+            IsMobile: isMobile,
             InitialBlah: InitialBlah,
             InitialChannel:  InitialChannel,
             Cryptify: cryptify

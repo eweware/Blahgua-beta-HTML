@@ -12,6 +12,8 @@ define('BlahCommentDetailPage',
 
 
         var InitializePage = function() {
+                var titleBottom;
+
         // bind events
         $("#SortBySelect").change(function(theEvent) {
             UpdateCommentSort();
@@ -26,7 +28,7 @@ define('BlahCommentDetailPage',
         });
 
          if (G.IsUserLoggedIn)  {
-                var $commentTextArea = $("#CommentTextArea");
+             var $commentTextArea = $("#CommentTextArea");
 
              if (document.getElementById('CommentImage').disabled) {
                  $("#ImagePreviewDiv").hide();
@@ -44,13 +46,13 @@ define('BlahCommentDetailPage',
                  return false;
              });
 
-                $("#AddCommentBtn").click(function(theEvent) {
+            $("#AddCommentBtn").click(function(theEvent) {
+                if (!RefreshForCommentText()) {
                     exports.CurrentCommentText = "";
                     $("#CommentImage").attr("disabled", false)
                     document.getElementById("AddCommentBtn").disabled = true;
                     $commentTextArea.disabled = true;
                     comments.DoAddComment(function(newComment) {
-                        $("#CharCountDiv").text(4000);
                         comments.UpdateBlahComments(newComment);
                         $("#CommentTextArea").empty().removeAttr('disabled').focus();
                         $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
@@ -58,40 +60,40 @@ define('BlahCommentDetailPage',
                         $("#ImagePreviewDiv i").hide();
                         $("#CommentImage").val("");
                         $("#objectId").val("");
+                        RefreshForCommentText();
                     });
-                });
+                }
+            });
 
-            } else {
+             $("#SignInToCommentArea").hide();
+             $("#CreateCommentArea").show();
+             if (!G.IsMobile) {
+                 $("#CommentTextArea").focus();
+                 document.getElementById("AddCommentBtn").disabled = true;
+             }
+
+             titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
+             $("#CommentTextArea").keyup(RefreshForCommentText);
+             $("#CommentTextArea").keydown(function(theEvent) {
+                 if (theEvent.ctrlKey && theEvent.keyCode == 13) {
+                     if (!document.getElementById("AddCommentBtn").disabled) {
+                         $("#AddCommentBtn").click();
+                     }
+                 }
+             });
+             $("#CommentTextArea").val(exports.CurrentCommentText);
+             RefreshForCommentText();
+
+        } else {
+         // user is not logged in
+             $("#SignInToCommentArea").show();
+             $(".sign-in-comment-button").click(SignInToComment);
+             //$("#CreateCommentArea").hide();
+             titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
+
 
          }
 
-
-
-            var titleBottom;
-
-            // update the input area
-            if (G.IsUserLoggedIn) {
-                document.getElementById("AddCommentBtn").disabled = true;
-                $("#SignInToCommentArea").hide();
-                $("#CreateCommentArea").show();
-                $("#CommentTextArea").focus();
-                titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-                $("#CommentTextArea").keyup(RefreshForCommentText);
-                $("#CommentTextArea").keydown(function(theEvent) {
-                    if (theEvent.ctrlKey && theEvent.keyCode == 13) {
-                        if (!document.getElementById("AddCommentBtn").disabled) {
-                            $("#AddCommentBtn").click();
-                        }
-                    }
-                });
-                $("#CommentTextArea").val(exports.CurrentCommentText);
-                RefreshForCommentText()
-            } else {
-                $("#SignInToCommentArea").show();
-                $(".sign-in-comment-button").click(SignInToComment);
-                //$("#CreateCommentArea").hide();
-                titleBottom =  document.getElementById("SignInToCommentArea").getBoundingClientRect().bottom;
-            }
 
             if (G.IsShort) {
                 // reparent that footer.
@@ -124,12 +126,14 @@ define('BlahCommentDetailPage',
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
             var tooManyOrFew = ((charCount <= 3) || (charCount > 4000));
-            document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
+            if (!G.IsMobile)
+                document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
                 color = "rgb(248,120,88)";
             $("#CharCountDiv").text(4000 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
+            return tooManyOrFew;
         };
 
         var UpdateCommentSort = function() {
