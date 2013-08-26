@@ -54,7 +54,7 @@ define('SelfPageStats',
                         enabled: false
                     },
                     xAxis: {
-                        categories: ['Strength', 'Controversy']
+                        categories: ['Reputation', 'Controversy']
                     },
                     yAxis: {
                         min:0,

@@ -15,7 +15,7 @@
     text-align: center;
     margin-top: 8px;
     font-size: 14pt;
-    font-family: 'arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     color: #202020;
 }
 
@@ -121,7 +121,7 @@ poll-result-row .description {
     background-repeat:no-repeat;
     padding-left: 35px;
     line-height: 25px;
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     margin-top: 10px;
 }
 

@@ -104,7 +104,7 @@
 }
 .createblahheadlineoption
 {
-    font-family:'Arimo' sans-serif;
+    font-family:'Arimo', sans-serif;
     border:none;
     margin-right:16px;
     border: 0 none;
@@ -142,7 +142,7 @@
 
 
 .badge-item {
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     padding: 4px 8px 4px 8px;
 }
 

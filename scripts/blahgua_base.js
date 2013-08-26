@@ -238,8 +238,8 @@ define('blahgua_base',
             G.ClearPrompt();
            LogoutUser();
         }, 15 * 1000);
-        G.PromptUser("We haven't heard from you in a while.  Do you want to keep watching?",
-            "Keep watching", null, function() {
+        G.PromptUser("We haven't heard from you in a while.  Do you want to stay signed in?",
+            "Stay signed in", null, function() {
                 clearTimeout(sessionTimeOut);
                 // touch the server...
                 Blahgua.RefreshSession();

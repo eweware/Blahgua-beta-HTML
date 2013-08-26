@@ -638,7 +638,7 @@
 }
 
 .more-comments-row a {
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     color:rgb(0,120,248);
     text-decoration: underline;
     cursor: pointer;
@@ -647,7 +647,7 @@
 
 .top-comments-header {
     text-align: left;
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     border-bottom: 1px rgb(124,124,124) solid;
  }
 
@@ -655,7 +655,7 @@
     padding:8px 0px 4px 8px;
     font-weight: bold;
     color: rgb(32,32,32);
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 
 .ExtraInfoArea {
