@@ -1011,6 +1011,9 @@ define('blahgua_base',
                 curTextDiv.style.fontSize = "96px";
                 curFontSize = 96;
                 curDivHeight = $curDiv.height();
+                if ($curDiv[0].blah.displaySize != 3)
+                    curDivHeight = curDivHeight /2;
+
 
 
                 while(($curTextDiv.height() > curDivHeight ) && (curFontSize > minFontSize)) {
@@ -1019,13 +1022,19 @@ define('blahgua_base',
                 }
 
                 curTextDiv.scrollLeft++;
-
+                // now shrink the single word cases to not scroll horizontally
                 while((curTextDiv.scrollLeft > 0) && (curFontSize > minFontSize)) {
                     curTextDiv.scrollLeft = 0;
                     curFontSize--;
                     curTextDiv.style.fontSize = curFontSize + "px";
                     curTextDiv.scrollLeft++;
                 }
+                var textShift = 0;
+
+                if ((!$curDiv[0].blah.hasOwnProperty("M")))
+                    textShift = ($curDiv.height() - $curTextDiv.height()) / 2;
+
+                $(curTextDiv).addClass("finished-sizing").css({"bottom":textShift + "px"})
             }
         }
     };

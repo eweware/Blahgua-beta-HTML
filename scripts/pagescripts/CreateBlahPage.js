@@ -95,7 +95,8 @@ define('CreateBlahPage',
             //noinspection JSUnresolvedFunction
             $(BlahFullItem).fadeIn("fast", function() {
                 UpdateLayout();
-                $("#BlahHeadline").focus();
+                if (!G.IsMobile)
+                    $("#BlahHeadline").focus();
             });
 
 
