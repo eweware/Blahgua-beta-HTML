@@ -95,6 +95,7 @@ define('globals',
         var isMobile = false;
         var InitialBlah = null;
         var InitialChannel = null;
+        var ChannelTypes = [];
 
         /*
          Global functions
@@ -597,6 +598,7 @@ define('globals',
             GetGenericUserImage: GetGenericUserImage,
             CodifyText: CodifyText,
             UnCodifyText: UnCodifyText,
+            ChannelTypes: ChannelTypes,
             //GetURLsFromString: GetURLsFromString,
             //URLifyText: URLifyText,
             //FakeURLifyText: FakeURLifyText,

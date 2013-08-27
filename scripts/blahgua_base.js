@@ -45,7 +45,7 @@ define('blahgua_base',
 
             Exports.SpinTarget = document.getElementById("spin-div");
 
-            $(document).ready(function () {
+            $(window).load(function () {
                 $("#BlahContainer").disableSelection();
                 $("#ChannelBanner").disableSelection();
                 $("#ChannelDropMenu").disableSelection();
@@ -350,6 +350,7 @@ define('blahgua_base',
 
     var OnFailure = function(theErr) {
         if (theErr.status >= 500) {
+            console.log("Uncaught error: " + theErr.status + " - " + theErr.responseText);
             GlobalReset();
         } else {
             var errString = "An error occured. Soz!";
@@ -365,7 +366,8 @@ define('blahgua_base',
                 }
                 errString += "\nFull Text: \n" + responseText;
             }
-            alert(errString);
+            //alert(errString);
+            console.log("uncaught error: " + theErr.status + " - " + theErr.responseText);
         }
     };
 
@@ -904,9 +906,6 @@ define('blahgua_base',
         }
 
         switch (theBlah.Y) {
-            case K.BlahType.says:
-                $(newEl).addClass("BlahTypeSays");
-                break;
             case K.BlahType.leaks:
                 $(newEl).addClass("BlahTypeLeaks");
                 break;
@@ -921,6 +920,10 @@ define('blahgua_base',
                 break;
             case K.BlahType.ad:
                 $(newEl).addClass("BlahTypeAd");
+                break;
+            case K.BlahType.says:
+            default:
+                $(newEl).addClass("BlahTypeSays");
                 break;
         }
 
@@ -1543,10 +1546,15 @@ define('blahgua_base',
 // ********************************************************
 // Getting the current inbox for the current user
 
+
     var GetUserBlahs = function() {
         $("#BlahContainer").empty();
         InboxCount = 0;
-        Blahgua.GetNextBlahs(OnGetBlahsOK, OnFailure);
+        Blahgua.GetNextBlahs(OnGetBlahsOK, function(theErr) {
+            // just assume no blahs
+            console.log("Error in GetUserBlahs: " + theErr.status + " - " + theErr.responseText);
+            OnGetBlahsOK([]);
+        });
     };
 
     var OnGetBlahsOK = function(theResult) {
@@ -1708,36 +1716,55 @@ define('blahgua_base',
         return theName;
     };
 
-    var GetUserChannels = function() {
-        if (G.IsUserLoggedIn) {
-            Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
-        } else {
-            Blahgua.GetFeaturedChannels(function (channelList) {
-                    var defChannel = getQueryVariable('channel');
-                    if (defChannel != null) {
-                        var theChannel = GetChannelByName(defChannel, channelList);
-                        if (theChannel != null)
-                            channelList.push(theChannel);
-                    }
+    var isChannelValid = function(theChannel) {
+        return true;
+        var isValid = false;
+        for (var curType in G.ChannelTypes) {
+            if (G.ChannelTypes[curType]._id == theChannel.Y)  {
+                isValid =  true;
+                break;
+            }
 
-
-                    GetChannelsOK(channelList);
-                },
-                OnFailure);
         }
+
+        return isValid;
+    };
+
+
+
+    var GetUserChannels = function() {
+        Blahgua.GetChannelTypes(function (theTypes) {
+            G.ChannelTypes = theTypes;
+            if (G.IsUserLoggedIn) {
+                Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
+            } else {
+                Blahgua.GetFeaturedChannels(function (channelList) {
+                        var defChannel = getQueryVariable('channel');
+                        if (defChannel != null) {
+                            var theChannel = GetChannelByName(defChannel, channelList);
+                            if (theChannel != null)
+                                realChannels.push(theChannel);
+                        }
+
+
+                        GetChannelsOK(channelList);
+                    },
+                    OnFailure);
+            }
+        }, OnFailure);
     };
 
 
     var GetChannelsOK = function(theChannels) {
         G.ChannelList = theChannels;
 
-        if (theChannels.length == 0) {
+        if (G.ChannelList.length == 0) {
             AddDefaultChannelsToNewUser();
         } else {
             // fetch URL parameter Channel
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
-                for (curIndex in G.ChannelList) {
+                for (var curIndex in G.ChannelList) {
                     if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                     {
                         PopulateChannelMenu();
@@ -1749,7 +1776,7 @@ define('blahgua_base',
                 // user does not have this channel - add it!
                 if (G.IsUserLoggedIn) {
                     Blahgua.GetAllChannels(function (allChannels) {
-                        for (curIndex in allChannels) {
+                        for (var curIndex in allChannels) {
                             if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                             {
                                 Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
@@ -1833,7 +1860,10 @@ define('blahgua_base',
         if (InboxCount > MaxInboxCount)
             TruncateBlahStream();
         else
-            Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
+            Blahgua.GetNextBlahs(OnGetNextBlahsOK, function(theErr) {
+                console.log("Error in GetNextBlahList: " + theErr.status + " - " + theErr.responseText);
+                OnGetNextBlahsOK([]);
+            });
     };
 
     var TruncateBlahStream = function() {

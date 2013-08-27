@@ -459,8 +459,10 @@ define('CreateBlahPage',
             if (!didIt) {
                 // if there are no more twos, go ahead and replace the last item
                 var size = G.ActiveBlahList.length;
-                newItem.displaySize = G.ActiveBlahList[size-1].displaySize;
-                G.ActiveBlahList[size-1] = newItem;
+                if (size > 0) {
+                    newItem.displaySize = G.ActiveBlahList[size-1].displaySize;
+                    G.ActiveBlahList[size-1] = newItem;
+                }
             }
 
         };

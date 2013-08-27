@@ -592,6 +592,10 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
     };
 
 
+    var GetChannelTypes = function(OnSuccess, OnFailure) {
+        CallGetMethod("groupTypes", "{}", OnSuccess, OnFailure);
+    };
+
 
     var GetViewersOfUser = function (OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
@@ -761,6 +765,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetUserComments:  GetUserComments ,
         GetUserChannels:  GetUserChannels ,
         GetFeaturedChannels:  GetFeaturedChannels ,
+        GetChannelTypes: GetChannelTypes,
         GetUsers:  GetUsers ,
         GetNextBlahs:  GetNextBlahs ,
         GetBlahComments:  GetBlahComments ,
