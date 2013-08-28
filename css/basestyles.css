@@ -136,13 +136,48 @@ li.divider:hover {
 
 
 .BlahFullItem {
-    display:none;
+    display:block;
     background-color: transparent;
     position:fixed;
     z-index:20;
 }
 
+.load-panel {
+    position:fixed;
+    left:0px;
+    right:0px;
+    z-index:100;
+    height:250px;
+    top:100px;
+    text-align: center;
+}
 
+.splash-page {
+    border-style:none;
+    padding:8px;
+    border-radius: 16px;
+    width:280px;
+    margin:0 auto;
+}
+
+.splash {
+    color: rgb(244,245,240);
+    text-align: center;
+    font-family: 'Arimo', sans-serif;
+    padding-left: 8px;
+    padding-top: 8px;
+    background-color: rgb(125, 181, 227);
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    min-height: 200px;
+    max-height: 400px;
+}
+
+
+.splash-footer {
+    position:absolute;
+    bottom:0;
+}
 
 
 .BlahFullTable {
@@ -556,12 +591,13 @@ color:rgb(244,245,240);
 }
 
 .splash-image {
-    text-align: center;
-    width:36px;
-    height:36px;
+    width:280px;
+    hieght:80px;
     display: inline-block;
+    background-size:cover;
     background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
 }
+
 
 .validation-error {
     color: red;
