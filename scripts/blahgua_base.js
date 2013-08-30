@@ -59,6 +59,11 @@ define('blahgua_base',
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
                 $("#LightBox").click(DismissAll);
                 G.InitialBlah = getQueryVariable("blahId");
+                if (G.IsiPad || G.IsiPhone) {
+                    $("#BlahFullItem").on("focusout", function(e) {
+                        window.setTimeout(function() { window.scrollTo(0,0); }, 500);
+                    });
+                }
                 SignIn();
             });
 
@@ -137,12 +142,11 @@ define('blahgua_base',
 
     var FlushViewMap = function() {
         if (MapIsDirty) {
+            MapIsDirty = false;
             Blahgua.UpdateBlahCounts(BlahViewMap, function() {
                 BlahViewMap = new Object();
-                MapIsDirty = false;
             }, function(theErr) {
                 BlahViewMap = new Object();
-                MapIsDirty = false;
             });
         } else {
             BlahViewMap = new Object();

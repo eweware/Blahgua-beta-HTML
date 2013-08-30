@@ -227,8 +227,6 @@ define('SignUpPage',
                     });
             }
 
-
-
             $(".toggle-btn.toggle-active").click(); // init
 
             $("#CancelNewUser").click(CancelSignIn);
