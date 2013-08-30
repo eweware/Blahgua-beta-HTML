@@ -11,6 +11,9 @@ define('blahgua_base',
 
         var rowSequence = [4,32,31,4,1,33,4,2,4,32,1,4,31,32,33,31,4,33,1,31,4,32,33,1,4,2];
         var curRowSequence = 0;
+        var isStarting = true;
+        var splashTimeout;
+        var showSplash = true;
 
         var IsMobileBrowser = function() {
             var check = false;
@@ -181,9 +184,12 @@ define('blahgua_base',
 
     var SignIn = function() {
         Blahgua.isUserLoggedIn(function(json) {
-            if (json.loggedIn == "Y")
+            if (json.loggedIn == "Y") {
+                isStarting = false;
+                showSplash = false;
                 HandlePostSignIn();
-            else {
+
+            } else {
                 var savedID = $.cookie("loginkey");
                 var userName, pwd;
 
@@ -194,14 +200,15 @@ define('blahgua_base',
                 }
 
                 if (userName != null) {
-                    if (pwd == null) {
-                        pwd = prompt("Welcome back. enter password:")
-                    }
-
                     // sign in
-                    Blahgua.loginUser(userName, pwd, HandlePostSignIn, function() {
+                    Blahgua.loginUser(userName, pwd, function() {
+                        isStarting = false;
+                        showSplash = false;
+                        HandlePostSignIn();
+                    }, function() {
                         $.removeCookie("loginkey");
                         G.IsUserLoggedIn = false;
+                        console.log("ERROR: could not sign in user from cookie.");
                         finalizeInitialLoad();
                     });
                 } else {
@@ -286,6 +293,17 @@ define('blahgua_base',
 // Initial Load
 
     var finalizeInitialLoad = function() {
+        if (showSplash) {
+            $("#LightBox").fadeIn();
+            $("#BlahFullItem").fadeIn();
+            $("#DismissSplashBtn").click(function(theEvent) {
+                ClosePage();
+            });
+            splashTimeout = setTimeout(function() {
+                ClosePage();
+            }, 5000);
+        }
+
         CreateChannelBanner();
         CreateFullBlah();
         GetUserChannels();
@@ -1076,9 +1094,11 @@ define('blahgua_base',
     };
 
     var StartBlahsMoving = function() {
-        if (G.BlahsMovingTimer == null) {
-            G.CurrentScrollSpeed = K.BlahRollPixelStep;
-            G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+        if (!isStarting) {
+            if (G.BlahsMovingTimer == null) {
+                G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+            }
         }
     };
 
@@ -1548,7 +1568,6 @@ define('blahgua_base',
 
 
     var GetUserBlahs = function() {
-        $("#BlahContainer").empty();
         InboxCount = 0;
         Blahgua.GetNextBlahs(OnGetBlahsOK, function(theErr) {
             // just assume no blahs
@@ -1841,8 +1860,11 @@ define('blahgua_base',
         SetCurrentChannel(channelID);
     };
 
+    var loadingHTML = '<div class="ChannelLoadingDiv"><img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/ajax-loader.gif" alt="Loading"><span>Loading...</span></div>';
+
     var SetCurrentChannel = function(whichChannel) {
         StopAnimation();
+        $("#BlahContainer").html(loadingHTML);
         G.CurrentChannel = G.ChannelList[whichChannel];
         Blahgua.currentChannel = G.CurrentChannel._id;
         var labelDiv = document.getElementById("ChannelBannerLabel");
@@ -1958,8 +1980,13 @@ define('blahgua_base',
 
 
     var ClosePage = function() {
-        $("#BlahFullItem").hide();
-        $("#LightBox").hide();
+        if (isStarting) {
+            isStarting = false;
+            clearTimeout(splashTimeout);
+            splashTimeout = null;
+        }
+        $("#BlahFullItem").fadeOut();
+        $("#LightBox").fadeOut();
         StartAnimation();
     };
 
