@@ -215,17 +215,16 @@ define('SignUpPage',
             if (G.IsMobile) {
                 // todo:  iPhone & iPad specific validation
                 $("#BlahFullItem").css({"overflow-y":"auto"});
-                MaybeEnableButton();
             } else {
                 $(".content_frame").keydown(function(theEvent) {
                     if (theEvent.which == 13) {
                         var thisVal = $(".toggle-active").attr("data-toggle-value");
                         var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
                         $(selector).find(".action-default:visible").click();
-                    } else {
-                        MaybeEnableButton();
                     }
-                });
+                }).keyup(function(theEvent) {
+                        MaybeEnableButton();
+                    });
             }
 
 
@@ -245,12 +244,13 @@ define('SignUpPage',
                     "Your recovery email can be different than the email you use to obtain badges, and can be changed or removed at any time.",
                     "Got it");
             });
-            $("[data-validate]").blur(function(theEvent) {
-                G.ValidateField($(this));
-            });
 
-            MaybeEnableButton();
+            if (!G.IsMobile) {
+                $("[data-validate]").blur(function(theEvent) {
+                    G.ValidateField($(this));
+                });
 
+            }
         };
 
         var isValidEmailAddress = function(emailAddress) {

@@ -248,9 +248,10 @@ define('BlahBodyDetailPage',
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
             var tooManyOrFew = ((charCount <= 2) || (charCount > 4000));
-            if (!G.IsMobile) {
+            if (G.IsMobile) {
+                document.getElementById("AddCommentBtn").disabled = false;
+            } else {
                 document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
-
             }
             $("#CharCountDiv").text(4000 - charCount).css({"color": color});
 

@@ -86,9 +86,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
                                 }
                             } else {
                                 // system is inconsistent - we have been logged out.
-                                if (confirm("You are no longer signed in.  Reset?")) {
-                                    location.reload();
-                                }
+                                console.log("Error:  User was supposed to be signed in but server said they were signed out.")
+                                location.reload();
                             }}, function(theErr) {
                                 alert("Blahgua is down.  Try to refresh the page or wait a while.");
                         });

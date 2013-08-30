@@ -70,17 +70,15 @@ define('BlahCommentDetailPage',
              if (!G.IsMobile) {
                  $("#CommentTextArea").focus();
                  document.getElementById("AddCommentBtn").disabled = true;
-             }
-
-             titleBottom =  document.getElementById("CreateCommentArea").getBoundingClientRect().bottom;
-             $("#CommentTextArea").keyup(RefreshForCommentText);
-             $("#CommentTextArea").keydown(function(theEvent) {
-                 if (theEvent.ctrlKey && theEvent.keyCode == 13) {
-                     if (!document.getElementById("AddCommentBtn").disabled) {
-                         $("#AddCommentBtn").click();
+                 $("#CommentTextArea").keyup(RefreshForCommentText);
+                 $("#CommentTextArea").keydown(function(theEvent) {
+                     if (theEvent.ctrlKey && theEvent.keyCode == 13) {
+                         if (!document.getElementById("AddCommentBtn").disabled) {
+                             $("#AddCommentBtn").click();
+                         }
                      }
-                 }
-             });
+                 });
+             }
              $("#CommentTextArea").val(exports.CurrentCommentText);
              RefreshForCommentText();
 
@@ -126,7 +124,9 @@ define('BlahCommentDetailPage',
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
             var tooManyOrFew = ((charCount <= 3) || (charCount > 4000));
-            if (!G.IsMobile)
+            if (G.IsMobile)
+                document.getElementById("AddCommentBtn").disabled = false;
+            else
                 document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)

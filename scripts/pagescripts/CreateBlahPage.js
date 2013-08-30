@@ -72,25 +72,29 @@ define('CreateBlahPage',
                 });
 
             });
-            $("#BlahHeadline").keydown(function (theEvent) {
-                if(theEvent.keyCode == 13) {
-                    theEvent.preventDefault();
-                }
-            });
+
+            if (!G.IsMobile) {
+                $("#BlahHeadline").keydown(function (theEvent) {
+                    if(theEvent.keyCode == 13) {
+                        theEvent.preventDefault();
+                    }
+                });
 
 
-            $("#BlahHeadline").keyup(function (theEvent) {
-                HandleHeadlineTextInput(theEvent.target);
-            });
-            $("#BlahHeadline").change(function (theEvent) {
-                HandleHeadlineTextInput(theEvent.target);
-            });
-            $("#BlahBody").keyup(function (theEvent) {
-                HandleBodyTextInput(theEvent.target);
-            });
-            $("#BlahBody").change(function (theEvent) {
-                HandleBodyTextInput(theEvent.target);
-            });
+                $("#BlahHeadline").keyup(function (theEvent) {
+                    HandleHeadlineTextInput(theEvent.target);
+                });
+                $("#BlahHeadline").change(function (theEvent) {
+                    HandleHeadlineTextInput(theEvent.target);
+                });
+                $("#BlahBody").keyup(function (theEvent) {
+                    HandleBodyTextInput(theEvent.target);
+                });
+                $("#BlahBody").change(function (theEvent) {
+                    HandleBodyTextInput(theEvent.target);
+                });
+            }
+
 
             //noinspection JSUnresolvedFunction
             $(BlahFullItem).fadeIn("fast", function() {
@@ -232,6 +236,14 @@ define('CreateBlahPage',
                 $("#ErrMsgSpan").text(errMsg);
                 $("#ValidationRow").fadeTo(200,1);
             }
+
+            if (G.IsMobile)
+                document.getElementById("PublishBlahBtn").disabled = false;
+
+            if (errMsg)
+                return errMsg;
+            else
+                return false;
         };
 
         var HandleBodyTextInput = function(target) {
@@ -303,43 +315,45 @@ define('CreateBlahPage',
 
 
         var CreateBlah = function() {
-            // disable create button to prevent double-submit
-            var btn =  document.getElementById("PublishBlahBtn");
-            btn.disabled = true;
-            exports.SpinElement.spin(btn);
+            if (!CheckPublishBtnDisable()) {
+                // disable create button to prevent double-submit
+                var btn =  document.getElementById("PublishBlahBtn");
+                btn.disabled = true;
+                exports.SpinElement.spin(btn);
 
-            var blahType = $("#BlahTypeList").val();
+                var blahType = $("#BlahTypeList").val();
 
-            var blahHeadline = $("#BlahHeadline").val();
-            var blahBody = $("#BlahBody").val();
-            blahBody = G.CodifyText(blahBody);
-            var blahGroup = G.CurrentChannel._id;
-            var options = new Object();
+                var blahHeadline = $("#BlahHeadline").val();
+                var blahBody = $("#BlahBody").val();
+                blahBody = G.CodifyText(blahBody);
+                var blahGroup = G.CurrentChannel._id;
+                var options = new Object();
 
 
-            // check for additional options
-            if (blahTypeModule) {
-                options = blahTypeModule.PrepareCreateBlahJSON();
+                // check for additional options
+                if (blahTypeModule) {
+                    options = blahTypeModule.PrepareCreateBlahJSON();
+                }
+
+                var badges = $("#ShowBadgeArea .badge-item");
+                if (badges.length > 0) {
+                    var badgeArray = [];
+                    badges.each(function(index, item) {
+                       var theID =  $(item).attr("data-badge-id");
+                       var isChecked = $(item).find("i").hasClass("icon-check");
+                       if (isChecked)
+                           badgeArray.push(theID);
+                    });
+                    if (badgeArray != [])
+                        options["B"] = badgeArray;
+                }
+
+                if ($("#objectId").val() != "") {
+                    options["M"] = [$("#objectId").val()];
+                }
+
+                blahgua_rest.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, HandleCreateBlahFailure);
             }
-
-            var badges = $("#ShowBadgeArea .badge-item");
-            if (badges.length > 0) {
-                var badgeArray = [];
-                badges.each(function(index, item) {
-                   var theID =  $(item).attr("data-badge-id");
-                   var isChecked = $(item).find("i").hasClass("icon-check");
-                   if (isChecked)
-                       badgeArray.push(theID);
-                });
-                if (badgeArray != [])
-                    options["B"] = badgeArray;
-            }
-
-            if ($("#objectId").val() != "") {
-                options["M"] = [$("#objectId").val()];
-            }
-
-            blahgua_rest.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, exports.OnFailure);
         };
 
         var OnCreateBlahOK = function(json) {
@@ -348,6 +362,13 @@ define('CreateBlahPage',
             // check for images
             DoCloseBlah();
         };
+
+        var HandleCreateBlahFailure = function(theErr) {
+            console.log("ERROR when creating blah");
+            G.PromptUser("Your blah was not created due to an error.  Please try again, or come back later.  Sorry!", "Fine", null, function(theData) {
+                CheckPublishBtnDisable();
+            });
+        }
 
         var DoCloseBlah = function(){
             InsertNewBlahIntoChannel(G.CurrentBlah);
