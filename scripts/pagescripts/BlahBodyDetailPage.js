@@ -247,13 +247,13 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount <= 2) || (charCount > 4000));
+            var tooManyOrFew = ((charCount <= 2) || (charCount > 1500));
             if (G.IsMobile) {
                 document.getElementById("AddCommentBtn").disabled = false;
             } else {
                 document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             }
-            $("#CharCountDiv").text(4000 - charCount).css({"color": color});
+            $("#CharCountDiv").text(1500 - charCount).css({"color": color});
 
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)

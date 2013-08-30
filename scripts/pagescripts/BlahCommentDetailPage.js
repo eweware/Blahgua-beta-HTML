@@ -123,7 +123,7 @@ define('BlahCommentDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount <= 3) || (charCount > 4000));
+            var tooManyOrFew = ((charCount <= 3) || (charCount > 1500));
             if (G.IsMobile)
                 document.getElementById("AddCommentBtn").disabled = false;
             else
@@ -131,7 +131,7 @@ define('BlahCommentDetailPage',
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
                 color = "rgb(248,120,88)";
-            $("#CharCountDiv").text(4000 - charCount).css({"color": color});
+            $("#CharCountDiv").text(1500 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
             return tooManyOrFew;
         };
