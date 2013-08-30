@@ -465,8 +465,10 @@ define('blahgua_base',
         G.IsNarrow = windowWidth < 450;
         G.IsShort = windowHeight < 600;
 
-        if (G.IsMobile && (!G.IsiPad))
+        if (G.IsMobile)
             G.IsShort = true;   // force short pages on mobile devices.
+        if (G.IsiPad)
+            G.IsShort = false;  // but not on iPad
 
 
         if (G.IsNarrow) {

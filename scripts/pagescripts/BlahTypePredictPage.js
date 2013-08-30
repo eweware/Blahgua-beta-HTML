@@ -94,33 +94,38 @@ define('BlahTypePredict',
             var yesVotes = G.GetSafeProperty(G.CurrentBlah, "4", 0);
             var noVotes = G.GetSafeProperty(G.CurrentBlah, "5", 0);
             var maybeVotes = G.GetSafeProperty(G.CurrentBlah, "6", 0);
-            var totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
+            var totalVotes = yesVotes + noVotes + maybeVotes;
             var yesRatio = 0;
             var noRatio = 0;
             var maybeRatio = 0;
+            var maxVote = Math.max(yesVotes, noVotes,maybeVotes);
+            var yesWidth, noWidth, maybeWidth;
 
             if (totalVotes > 0) {
                 yesRatio = yesVotes / totalVotes;
                 noRatio = noVotes / totalVotes;
                 maybeRatio = maybeVotes / totalVotes;
+                yesWidth = yesVotes / maxVote;
+                noWidth = noVotes / maxVote;
+                maybeWidth = maybeVotes / maxVote;
             }
 
             if (yesVotes > 0)  {
-                $("#PredictYesSpan").empty().animate({'width': (maxWidth * yesRatio) + "px"}, 250);
+                $("#PredictYesSpan").empty().animate({'width': (maxWidth * yesWidth) + "px"}, 250);
                 $("#PredictYesLabel").text(Math.floor(yesRatio * 100) + "%");
             }
             else
                 $("#PredictYesLabel").html("no&nbsp;votes");
 
             if (noVotes > 0) {
-                $("#PredictNoSpan").empty().animate({'width': (maxWidth * noRatio) + "px"}, 250);
+                $("#PredictNoSpan").empty().animate({'width': (maxWidth * noWidth) + "px"}, 250);
                 $("#PredictNoLabel").text(Math.floor(noRatio * 100) + "%");
             }
             else
                 $("#PredictNoLabel").html("no&nbsp;votes");
 
             if (maybeVotes > 0) {
-                $("#PredictMaybeSpan").empty().animate({'width': (maxWidth * maybeRatio) + "px"}, 250);
+                $("#PredictMaybeSpan").empty().animate({'width': (maxWidth * maybeWidth) + "px"}, 250);
                 $("#PredictMaybeLabel").text(Math.floor(maybeRatio * 100) + "%");
             }
             else
@@ -129,21 +134,20 @@ define('BlahTypePredict',
 
 
             // expired ui
-            yesVotes = G.GetSafeProperty(G.CurrentBlah, "1", 0);
-            noVotes = G.GetSafeProperty(G.CurrentBlah, "2", 0);
-            maybeVotes = G.GetSafeProperty(G.CurrentBlah, "3", 0);
-            totalVotes = Math.max(yesVotes, noVotes,maybeVotes);
-            yesRatio = 0;
-            noRatio = 0;
-            maybeRatio = 0;
+            var maxVote = Math.max(yesVotes, noVotes,maybeVotes);
+            var yesWidth, noWidth, maybeWidth;
 
             if (totalVotes > 0) {
                 yesRatio = yesVotes / totalVotes;
                 noRatio = noVotes / totalVotes;
                 maybeRatio = maybeVotes / totalVotes;
+                yesWidth = yesVotes / maxVote;
+                noWidth = noVotes / maxVote;
+                maybeWidth = maybeVotes / maxVote;
             }
+
             if (yesVotes > 0) {
-                $("#ExpiredYesSpan").empty().animate({'width': (maxWidth * yesRatio) + "px"}, 250);
+                $("#ExpiredYesSpan").empty().animate({'width': (maxWidth * yesWidth) + "px"}, 250);
                 $("#ExpiredYesLabel").text(Math.floor(yesRatio * 100) + "%");
             }
             else
@@ -151,14 +155,14 @@ define('BlahTypePredict',
 
             if (noVotes > 0) {
                 $("#ExpiredNoLabel").text(Math.floor(noRatio * 100) + "%");
-                $("#ExpiredNoSpan").empty().animate({'width': (maxWidth * noRatio) + "px"}, 250);
+                $("#ExpiredNoSpan").empty().animate({'width': (maxWidth * noWidth) + "px"}, 250);
             }
             else
                 $("#ExpiredNoLabel").html("no&nbsp;votes");
 
             if (maybeVotes > 0) {
                 $("#ExpiredMaybeLabel").text(Math.floor(maybeRatio * 100) + "%");
-                $("#ExpiredMaybeSpan").empty().animate({'width': (maxWidth * maybeRatio) + "px"}, 250);
+                $("#ExpiredMaybeSpan").empty().animate({'width': (maxWidth * maybeWidth) + "px"}, 250);
             }
             else
                 $("#ExpiredMaybeLabel").html("no&nbsp;votes");
