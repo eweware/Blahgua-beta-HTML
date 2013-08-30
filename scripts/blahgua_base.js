@@ -1860,7 +1860,7 @@ define('blahgua_base',
         SetCurrentChannel(channelID);
     };
 
-    var loadingHTML = '<div class="ChannelLoadingDiv"><img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/ajax-loader.gif" alt="Loading"><span>Loading...</span></div>';
+    var loadingHTML = '<div class="ChannelLoadingDiv"><img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green-spinner.gif" alt="Loading"><span>Loading...</span></div>';
 
     var SetCurrentChannel = function(whichChannel) {
         StopAnimation();
