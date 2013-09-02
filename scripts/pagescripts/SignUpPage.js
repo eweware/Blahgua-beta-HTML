@@ -60,7 +60,7 @@ define('SignUpPage',
             if (email != "") {
                 // set recovery email
                 blahgua_rest.setRecoveryInfo(email, FinalizeLogin, function(theErr) {
-                    alert("Unable to set recovery info.  Logging in anyway.");
+                    console.log("Unable to set recovery info.  Logging in anyway.");
                     FinalizeLogin();
                 });
             } else {

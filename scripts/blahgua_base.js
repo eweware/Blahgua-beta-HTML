@@ -42,6 +42,8 @@ define('blahgua_base',
             G.IsiPhone = (navigator.userAgent.match(/iPhone/i) != null);
             G.IsiPad = (navigator.userAgent.match(/iPad/i) != null);
 
+            G.IsUploadCapable = G.BrowserSupportsUpload();
+
             G.IsMobile = IsMobileBrowser();
 
             Exports.SpinElement = new Spinner(opts);
@@ -560,7 +562,7 @@ define('blahgua_base',
         menu.style.left = banner[0].style.left;
         //menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
-            $("#LightBox").css({"background": "transparent"}).show();
+            $("#LightBox").css({"background-color": "rgba(0,0,0,.1)"}).show();
             if (G.IsUserLoggedIn)
                 $("#BrowseChannelBtn").show();
             else
@@ -617,7 +619,7 @@ define('blahgua_base',
             theEvent.stopPropagation();
             StopAnimation();
             var newHTML = "";
-            newHTML += "<div class='click-shield' style='background:transparent'>" +
+            newHTML += "<div class='click-shield'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +
@@ -743,7 +745,7 @@ define('blahgua_base',
     var OpenLoadedBlah = function(whichBlah) {
         StopAnimation();
         if (!whichBlah)
-            alert("Null or missing blah in OpenLoadedBlah");
+            console.log("Null or missing blah in OpenLoadedBlah");
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
         G.CurrentComments = null;
@@ -768,7 +770,7 @@ define('blahgua_base',
 
     var OpenBlah = function(whichBlah) {
         if (!whichBlah)
-            alert("Null or missing blah in OpenBlah");
+            console.log("Null or missing blah in OpenBlah");
         $("#LightBox").show();
         G.CurrentBlah = null;
         StopAnimation();

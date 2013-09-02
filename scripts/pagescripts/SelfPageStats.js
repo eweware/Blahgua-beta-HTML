@@ -88,20 +88,28 @@ define('SelfPageStats',
                 $('#UserActivityViewDiv').highcharts(stats.MakeStatChartOptions("Posts Impressions", viewData, catAxis));
                 if (G.DataZeroOrEmpty(viewData))
                     G.AppendChartMask("#UserActivityViewDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserActivityViewDiv", "");
 
                 $('#UserActivityOpenDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", openData, catAxis));
                 if (G.DataZeroOrEmpty(openData))
                     G.AppendChartMask("#UserActivityOpenDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserActivityOpenDiv", "");
 
 
                 $('#UserActivityPostCreatedDiv').highcharts(stats.MakeStatChartOptions("Posts Created", blahsMade, catAxis));
                 if (G.DataZeroOrEmpty(blahsMade))
                     G.AppendChartMask("#UserActivityPostCreatedDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserActivityPostCreatedDiv", "");
 
 
                 $('#UserActivityCommentsCreatedDiv').highcharts(stats.MakeStatChartOptions("Comments Created", commentsMade, catAxis));
                 if (G.DataZeroOrEmpty(commentsMade))
                     G.AppendChartMask("#UserActivityCommentsCreatedDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserActivityCommentsCreatedDiv", "");
 
                 // Your Blahs and Comments
                 var otherUpVotes = stats.GetDailyStatValuesForTimeRange(startDate, endDate, statsObj, "T" );
@@ -118,14 +126,20 @@ define('SelfPageStats',
                 $('#UserBlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", otherViews, catAxis));
                 if (G.DataZeroOrEmpty(otherViews))
                     G.AppendChartMask("#UserBlahActivityViewsDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserBlahActivityViewsDiv", "");
 
                 $('#UserBlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Posts Opened", otherOpens, catAxis));
                 if (G.DataZeroOrEmpty(otherOpens))
                     G.AppendChartMask("#UserBlahActivityOpensDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserBlahActivityOpensDiv", "");
 
                 $('#UserBlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", otherComments, catAxis));
                 if (G.DataZeroOrEmpty(otherComments))
                     G.AppendChartMask("#UserBlahActivityCommentsDiv", "No activity in this time period.");
+                else
+                    G.AppendChartMask("#UserBlahActivityCommentsDiv", "");
 
                 $('#UserBlahSentimentDiv').highcharts({
                     chart: {
@@ -169,38 +183,15 @@ define('SelfPageStats',
                             name: "demotes"
                         }]
                 });
+                G.AppendChartMask("#UserBlahSentimentDiv", "");
 
-                // Your Audience Demographics
-                if (G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
-                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Gender", "B"));
-                else
-                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
+                var showLegend = true;
 
-                if (G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
-                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Ethnicity", "D"));
-                else
-                    $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
-
-
-                 if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
-                    $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Age", "C"));
-                 else
-                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
-
-
-                if (G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
-                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Country", "J"));
-                else
-                    $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
-
-                if (G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
-                    $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentUser, "Income", "E"));
-                else
-                    $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
-
-
-
-                // your stats
+                showLegend = stats.MaybeShowDemoChart(G.CurrentUser, "#DemoGenderChartArea", "Gender", "B", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentUser, "#DemoEthnicityChartArea", "Ethnicity", "D", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentUser, "#DemoAgeChartArea", "Age", "C", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentUser, "#DemoCountryChartArea", "Country", "J", showLegend);
+                stats.MaybeShowDemoChart(G.CurrentUser, "#DemoIncomeChartArea", "Income", "E", showLegend);
 
 
             }, function (theErr) {

@@ -323,7 +323,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         var paramStr = '{"V":' + numViews + ', "O":' + numOpens + '}';
         var methodname = "blahs/" + blahID;
         if (typeof blahID === "undefined") {
-            alert("undefined blah id!");
+            console.log("undefined blah id!");
+            return;
         }
         CallPutMethod(methodname, paramStr, OnSuccess, OnFailure);
     };

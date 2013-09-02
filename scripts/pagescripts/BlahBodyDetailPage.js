@@ -14,7 +14,7 @@ define('BlahBodyDetailPage',
         var InitializePage = function() {
             G.CurrentComments = null;
             if (G.CurrentBlah == null) {
-                alert("Error:  No Post!");
+                console.log("Error:  No Post!");
                 return;
             }
             if (G.IsUserLoggedIn) 
@@ -200,8 +200,9 @@ define('BlahBodyDetailPage',
                 }
 
                 $("#CommentTextArea").val(exports.CurrentCommentText);
-                if (document.getElementById('CommentImage').disabled) {
+                if (!G.IsUploadCapable) {
                     $("#ImagePreviewDiv").hide();
+                    $(".hidden-upload").hide();
                 }
                 $("#CommentImage").change(comments.UploadCommentImage);
 

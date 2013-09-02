@@ -526,8 +526,9 @@ color:rgb(244,245,240);
     right:0;
     top:0;
     bottom: 0;
-    background-color: rgba(0,0,0,.7);
+    background-color: rgba(0,0,0,.2);
     z-index: 50;
+    padding:16px;
 }
 
 .dialog-box {
@@ -682,6 +683,10 @@ color:rgb(244,245,240);
     position: relative;
     top:-200px;
 
+}
+
+.chart-mask.blank {
+    background-color: rgba(255,255,255,0);
 }
 
 .chart-mask div {

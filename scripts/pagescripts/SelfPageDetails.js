@@ -25,6 +25,10 @@ define('SelfPageDetails',
                     "Got it");
             });
 
+            if (!G.IsUploadCapable) {
+                $(".hidden-upload").hide();
+            }
+
             $(".image-delete-btn").click(function(theEvent) {
                 blahgua_rest.DeleteUserImage(function(json) {
                     // clear the image

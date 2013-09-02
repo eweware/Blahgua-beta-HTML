@@ -141,9 +141,11 @@ define('BlahStatsDetailPage',
                 },
                 series: [{
                     type: 'bar',
+                    pointWidth: 24,
                     data: [{color: '#f87858', y: Math.floor(curStr * 100)}]
                 }]
             });
+            G.AppendChartMask("#BlahStandingDiv", "");
 
 
             $("#BlahVoteMixDiv").empty().height("200px").highcharts({
@@ -193,6 +195,8 @@ define('BlahStatsDetailPage',
             if ((uv == 0) && (dv == 0)) {
                 G.AppendChartMask("#BlahVoteMixDiv", "No votes yet.");
             }
+            else
+                G.AppendChartMask("#BlahVoteMixDiv", "");
 
 
             // Audience Engagement
@@ -216,46 +220,35 @@ define('BlahStatsDetailPage',
             $('#BlahActivityViewsDiv').highcharts(stats.MakeStatChartOptions("Impressions", viewData, catAxis));
             if (G.DataZeroOrEmpty(viewData))
                 G.AppendChartMask("#BlahActivityViewsDiv", "No impressions in this period.");
+            else
+                G.AppendChartMask("#BlahActivityViewsDiv", "");
 
             $('#BlahActivityOpensDiv').highcharts(stats.MakeStatChartOptions("Opens", openData, catAxis));
             if (G.DataZeroOrEmpty(openData))
                 G.AppendChartMask("#BlahActivityOpensDiv", "No opens in this period.");
+            else
+                G.AppendChartMask("#BlahActivityOpensDiv", "");
 
             $('#BlahActivityCommentsDiv').highcharts(stats.MakeStatChartOptions("Comments", commentsMade, catAxis));
             if (G.DataZeroOrEmpty(commentsMade))
                 G.AppendChartMask("#BlahActivityCommentsDiv", "No comments in this period.");
+            else
+                G.AppendChartMask("#BlahActivityCommentsDiv", "");
 
 
 
             // Voter Demographics
             if (G.IsUserLoggedIn) {
+                var showLegend = true;
                 $("#SignInForDemoDiv").hide();
-                if (G.UserProfile.hasOwnProperty("B") && (G.UserProfile["B"] != -1))
-                    $("#DemoGenderChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Gender", "B"));
-                else
-                    $("#DemoGenderChartArea").html(stats.GenerateShareDemoHTML("Gender", "B"));
 
-                if (G.UserProfile.hasOwnProperty("D") && (G.UserProfile["D"] != -1))
-                    $("#DemoEthnicityChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Ethnicity", "D"));
-                else
-                    $("#DemoEthnicityChartArea").html(stats.GenerateShareDemoHTML("Ethnicity", "D"));
+                showLegend = stats.MaybeShowDemoChart(G.CurrentBlah, "#DemoGenderChartArea", "Gender", "B", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentBlah, "#DemoEthnicityChartArea", "Ethnicity", "D", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentBlah, "#DemoAgeChartArea", "Age", "C", showLegend);
+                showLegend = stats.MaybeShowDemoChart(G.CurrentBlah, "#DemoCountryChartArea", "Country", "J", showLegend);
+                stats.MaybeShowDemoChart(G.CurrentBlah, "#DemoIncomeChartArea", "Income", "E", showLegend);
 
 
-                if (G.UserProfile.hasOwnProperty("C") && (G.UserProfile["C"] != -1))
-                    $("#DemoAgeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Age", "C"));
-                else
-                    $("#DemoAgeChartArea").html(stats.GenerateShareDemoHTML("Age", "C"));
-
-
-                if (G.UserProfile.hasOwnProperty("J") && (G.UserProfile["J"] != -1))
-                    $("#DemoCountryChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Country", "J"));
-                else
-                    $("#DemoCountryChartArea").html(stats.GenerateShareDemoHTML("Country", "J"));
-
-                if (G.UserProfile.hasOwnProperty("E") && (G.UserProfile["E"] != -1))
-                    $("#DemoIncomeChartArea").highcharts(stats.MakeDemoChartOptions(G.CurrentBlah, "Income", "E"));
-                else
-                    $("#DemoIncomeChartArea").html(stats.GenerateShareDemoHTML("Income", "E"));
             } else {
                 // hide these all
                 $("#SignInForDemoDiv").show();
@@ -267,31 +260,9 @@ define('BlahStatsDetailPage',
         };
 
 
-        var CreateDemoData = function(whichDemo) {
-            var curResult = [];
-            var curData;
-            var curIndexName;
-            var o, p,c;
-            if (G.CurrentBlah.hasOwnProperty('_d') && (G.ProfileSchema != null)) {
-                for(curIndex in G.ProfileSchema[whichDemo].DT) {
-                    curData = new Object();
-                    curIndexName = G.ProfileSchema[whichDemo].DT[curIndex];
-                    curData.name = curIndexName;
-                    curData.data = [];
-                    o = G.GetSafeProperty(G.CurrentBlah._d._o[whichDemo], curIndex,0);
-                    p = G.GetSafeProperty(G.CurrentBlah._d._u[whichDemo], curIndex,0);
-                    c = G.GetSafeProperty(G.CurrentBlah._d._c[whichDemo], curIndex,0);
-                    if ((o > 0) || (p > 0) || (c > 0)) {
-                        curData.data.push(o);
-                        curData.data.push(p);
-                        curData.data.push(c);
-                        curResult.push(curData);
-                    }
-                }
-            }
 
-            return curResult;
-        };
+
+
 
         return {
             InitializePage: InitializePage

@@ -30,8 +30,9 @@ define('BlahCommentDetailPage',
          if (G.IsUserLoggedIn)  {
              var $commentTextArea = $("#CommentTextArea");
 
-             if (document.getElementById('CommentImage').disabled) {
+             if (!G.IsUploadCapable) {
                  $("#ImagePreviewDiv").hide();
+                 $(".hidden-upload").hide();
              }
              $("#CommentImage").change(comments.UploadCommentImage);
 

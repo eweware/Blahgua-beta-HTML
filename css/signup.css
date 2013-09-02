@@ -335,6 +335,7 @@
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     padding: 0px 0px;
+    line-height: 2em;
 }
 
 .about-link:hover {

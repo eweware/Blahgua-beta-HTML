@@ -18,51 +18,60 @@ define('BlahTypePredict',
 
         var InitPredictPage = function() {
             // add the event handlers
-            $('.current-choices i').click(function(theEvent) {
-                theEvent.stopImmediatePropagation();
-                if($(theEvent.target).attr("disabled") != "disabled") {
-                    $('.current-choices i').attr('disabled', 'disabled');
-                    var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
-                    blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
-                        var theProp;
-                        switch(myVote) {
-                            case "y":
-                                theProp = "4";
-                                break;
-                            case "n":
-                                theProp = "5";
-                                break;
-                            default:
-                                theProp = "6";
-                        }
-                        G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
-                        UpdatePredictPage();
-                    }, HandleVoteFailed);
-                }
-            });
+            if(!G.IsUserLoggedIn) {
+                $(".poll-checkbox-wrapper").click(function(theEvent) {
+                    G.PromptUser("Sign in to vote."," Sign in","Cancel",function(){
+                        theEvent.stopImmediatePropagation();
+                        exports.SuggestUserSignIn("Sign in to vote.")});
+                });
 
-            $('.expired-choices i').click(function(theEvent) {
-                theEvent.stopImmediatePropagation();
-                if($(theEvent.target).attr("disabled") != "disabled") {
-                    $('.expired-choices i').attr('disabled', 'disabled');
-                    var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
-                    blahgua_rest.SetUserExpiredPredictionVote(G.CurrentBlahId, myVote, function() {
-                        var theProp;
-                        switch(myVote) {
-                            case "y":
-                                theProp = "1";
-                                break;
-                            case "n":
-                                theProp = "2";
-                                break;
-                            default:
-                                theProp = "3";
-                        }
-                        G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
-                        UpdatePredictPage();
-                    }, HandleVoteFailed);
-                }
-            });
+            } else {
+                $('.current-choices i').click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    if($(theEvent.target).attr("disabled") != "disabled") {
+                        $('.current-choices i').attr('disabled', 'disabled');
+                        var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
+                        blahgua_rest.SetUserPredictionVote(G.CurrentBlahId, myVote, function() {
+                            var theProp;
+                            switch(myVote) {
+                                case "y":
+                                    theProp = "4";
+                                    break;
+                                case "n":
+                                    theProp = "5";
+                                    break;
+                                default:
+                                    theProp = "6";
+                            }
+                            G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
+                            UpdatePredictPage();
+                        }, HandleVoteFailed);
+                    }
+                });
+
+                $('.expired-choices i').click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    if($(theEvent.target).attr("disabled") != "disabled") {
+                        $('.expired-choices i').attr('disabled', 'disabled');
+                        var myVote = $(theEvent.target).parents('tr.poll-result-row').attr('data-predict-vote');
+                        blahgua_rest.SetUserExpiredPredictionVote(G.CurrentBlahId, myVote, function() {
+                            var theProp;
+                            switch(myVote) {
+                                case "y":
+                                    theProp = "1";
+                                    break;
+                                case "n":
+                                    theProp = "2";
+                                    break;
+                                default:
+                                    theProp = "3";
+                            }
+                            G.CurrentBlah[theProp] = G.GetSafeProperty(G.CurrentBlah, theProp, 0) + 1;
+                            UpdatePredictPage();
+                        }, HandleVoteFailed);
+                    }
+                });
+            }
             UpdatePredictPage();
         };
 

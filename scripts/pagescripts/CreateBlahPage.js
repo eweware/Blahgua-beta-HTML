@@ -13,6 +13,7 @@ define('CreateBlahPage',
 
         var blahTypeModule = null;
         var pageHeight = null;
+        var blahHasBadges = false;
 
         var  InitializePage = function() {
 
@@ -32,6 +33,10 @@ define('CreateBlahPage',
             $(".fullBlahSpeechAct").text("to " + channelName);
 
             // bind events
+            if (!G.IsUploadCapable) {
+                $("#ImagePreviewDiv").hide();
+                $(".hidden-upload").hide();
+            }
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(UploadBlahImage);
 
@@ -197,18 +202,15 @@ define('CreateBlahPage',
         var HandleHeadlineTextInput = function(target) {
 
             var numCharsRemaining = K.MaxTitleLength - target.value.length;
-            if (numCharsRemaining < 32) {
-                $("#HeadlineCharCount").text(numCharsRemaining + " chars left");
-            } else {
-                $("#HeadlineCharCount").text("");
-            }
+            $("#HeadlineCharCount").text(numCharsRemaining);
 
             CheckPublishBtnDisable();
         };
 
         var CheckPublishBtnDisable = function() {
             var minHeadlineLen = 3;
-            var headLineLen = document.getElementById("BlahHeadline").value.length;
+            var headlineText = document.getElementById("BlahHeadline").value;
+            var headLineLen = headlineText.length;
             var bodyLen = document.getElementById("BlahBody").value.length;
             if ($("#BlahImage").val() != "")
                 minHeadlineLen = 0;
@@ -218,11 +220,25 @@ define('CreateBlahPage',
                 errMsg = G.AppendText(errMsg, "Headline too short", "; ");
             if (headLineLen > K.MaxTitleLength)
                 errMsg = G.AppendText(errMsg, "Headline too long", "; ");
-            if (bodyLen > 4000)
+            if (bodyLen > 1000)
                 errMsg = G.AppendText(errMsg, "Body text too long", "; ");
 
             if (blahTypeModule)
                 errMsg = G.AppendText(errMsg,  blahTypeModule.ValidateCreate(), "; ");
+            else {
+                // hardwire some types
+                var blahTypeStr = exports.GetBlahTypeNameFromId($("#BlahTypeList").val());
+                switch (blahTypeStr) {
+                    case "leaks":
+                       if (!blahHasBadges)
+                            errMsg = G.AppendText(errMsg, "Leaks require a badge", "; ");
+                        break;
+                    case "asks":
+                        if (headlineText.indexOf("?") == -1)
+                            errMsg = G.AppendText(errMsg, "Asks should include a ?");
+                        break;
+                }
+            }
 
             if (errMsg == "") {
                 $("#ValidationRow").fadeTo(200,0, function(theEvent) {
@@ -247,12 +263,9 @@ define('CreateBlahPage',
         };
 
         var HandleBodyTextInput = function(target) {
-            var numCharsRemaining = 4000 - target.value.length;
-            if (numCharsRemaining < 100) {
-                $("#BodyCharCount").text(numCharsRemaining + " chars left");
-            } else {
-                $("#BodyCharCount").text("");
-            }
+            var numCharsRemaining = 1000 - target.value.length;
+            $("#BodyCharCount").text(numCharsRemaining);
+
             CheckPublishBtnDisable();
         };
 
@@ -277,10 +290,12 @@ define('CreateBlahPage',
         };
 
         var RefreshBadgePreview = function() {
+            blahHasBadges = false;
             $("tr.badge-info-row").remove();
             $("#ShowBadgeArea .badge-item").each(function(index, item) {
                 if ($(item).find("i").hasClass("icon-check")) {
                     $("#BlahFacetTable").append(CreateBadgeDescription(item));
+                    blahHasBadges = true;
                 }
 
             });
@@ -425,7 +440,7 @@ define('CreateBlahPage',
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
-                        if (theErr.status = "409")
+                        if (theErr.status == "409")
                             exports.LogoutUser();
                         else {
                             $("#ImagePreviewDiv").removeAttr("disabled");

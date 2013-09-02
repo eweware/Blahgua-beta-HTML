@@ -86,6 +86,7 @@ define('globals',
         var TimeoutFunction = null;
         var ReturnCommentID = null;
         var ReturnBlahId = null;
+        var IsUploadCapable = true;
         var numMinutes = 5;
         var isShort = false;
         var isNarrow = false;
@@ -530,9 +531,25 @@ define('globals',
             }
         };
 
+        var BrowserSupportsUpload = function () {
+            // Handle devices which falsely report support
+            if (navigator.userAgent.match(/(Android (1.0|1.1|1.5|1.6|2.0|2.1))|(Windows Phone (OS 7|8.0))|(XBLWP)|(ZuneWP)|(w(eb)?OSBrowser)|(webOS)|(Kindle\/(1.0|2.0|2.5|3.0))/)) {
+                return false;
+            }
+            // Create test element
+            var el = document.createElement("input");
+            el.type = "file";
+            return !el.disabled;
+        };
+
+
         var AppendChartMask = function(theTarget, theText) {
-            var maskObj = "<div class='chart-mask'><div>" +
-                theText + "</div></div>";
+            var maskObj;
+
+            if (theText != "")
+                maskObj = "<div class='chart-mask'><div>" + theText + "</div></div>";
+            else
+                maskObj = "<div class='chart-mask blank'></div>";
             $(theTarget).append(maskObj);
         };
 
@@ -602,6 +619,7 @@ define('globals',
             //GetURLsFromString: GetURLsFromString,
             //URLifyText: URLifyText,
             //FakeURLifyText: FakeURLifyText,
+            BrowserSupportsUpload: BrowserSupportsUpload,
             DynamicSort: dynamicSort,
             GetCommentUserImage: GetCommentUserImage,
             PromptUser:  PromptUser,
@@ -621,6 +639,7 @@ define('globals',
             IsMobile: isMobile,
             InitialBlah: InitialBlah,
             InitialChannel:  InitialChannel,
+            IsUploadCapable: IsUploadCapable,
             Cryptify: cryptify
         }
 

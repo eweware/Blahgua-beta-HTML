@@ -160,6 +160,10 @@
         margin: 4px 8px 4px 4px;
     }
 
+    .createblahheadlineoption {
+        font-size: 16px;
+    }
+
     .default-button {
         width:auto;
     }

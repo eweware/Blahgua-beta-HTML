@@ -218,6 +218,14 @@ define('comments',
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
                 SetCommentVote(theEvent, -1, theIndex);
             });
+
+            if(!G.IsUserLoggedIn) {
+                $(".comment-vote-wrapper").click(function(theEvent) {
+                    G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                        theEvent.stopImmediatePropagation();
+                        exports.SuggestUserSignIn("Sign in to participate.")});
+                });
+            }
         };
 
 
