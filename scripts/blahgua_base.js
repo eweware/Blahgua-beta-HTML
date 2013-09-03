@@ -42,6 +42,8 @@ define('blahgua_base',
 
             G.IsiPhone = (navigator.userAgent.match(/iPhone/i) != null);
             G.IsiPad = (navigator.userAgent.match(/iPad/i) != null);
+            if ($.cookie("hidesplash"))
+                showSplash = false;
 
             G.IsUploadCapable = G.BrowserSupportsUpload();
 
@@ -306,10 +308,20 @@ define('blahgua_base',
             $("#DismissSplashBtn").click(function(theEvent) {
                 ClosePage();
             });
+            $("#dontshowbox").change(function(theEvent) {
+                if (theEvent.target.checked)
+                    $.cookie("hidesplash", true);
+                else
+                    $.removeCookie("hidesplash");
+            });
             splashTimeout = setTimeout(function() {
                 ClosePage();
-            }, 5000);
+            }, 10000);
+        } else {
+            $("#BlahFullItem").empty();
+            isStarting = false;
         }
+
 
         CreateChannelBanner();
         CreateFullBlah();
