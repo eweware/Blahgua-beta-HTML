@@ -64,11 +64,6 @@ define('BlahDetailPage',
 
             // update the opens
             blahgua_rest.AddBlahViewsOpens(G.CurrentBlah._id, 0, 1, null, null);// to do - check for errors
-
-<<<<<<< HEAD
-=======
-
->>>>>>> e44e74fb39a0f1faeb095694dd862027a19ddca7
             var curDate = new Date(G.GetSafeProperty(G.CurrentBlah, "c", Date.now()));
             var dateString = G.ElapsedTimeString(curDate);
             $("#FullBlahDateStr").text(dateString);
