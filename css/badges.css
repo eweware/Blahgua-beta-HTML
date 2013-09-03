@@ -13,7 +13,7 @@
     border-color: #000000;
     z-index: 30;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
     bottom: 0px;
     max-height: 370px;
 }
@@ -43,11 +43,12 @@
 .BadgeTitleBar {
     width: 100%;
     text-align: center;
-    background-color: lightblue;
+    background-color: black;
     font-size: 18pt;
     font-family: 'Arimo', sans-serif;
     padding-top: 4px;
     padding-bottom: 4px;
+    color: #FFA500;
 }
 
 .badgeholder {
@@ -123,4 +124,5 @@
 
 .ie-apology {
     font-style: italic;
+    color: rgb(248,120,88);
 }

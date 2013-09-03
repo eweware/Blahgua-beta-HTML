@@ -143,8 +143,11 @@ define('BlahTypePredict',
 
 
             // expired ui
-            var maxVote = Math.max(yesVotes, noVotes,maybeVotes);
-            var yesWidth, noWidth, maybeWidth;
+            yesVotes = G.GetSafeProperty(G.CurrentBlah, "1", 0);
+            noVotes = G.GetSafeProperty(G.CurrentBlah, "2", 0);
+            maybeVotes = G.GetSafeProperty(G.CurrentBlah, "3", 0);
+            totalVotes = yesVotes + noVotes + maybeVotes;
+            maxVote = Math.max(yesVotes, noVotes,maybeVotes);
 
             if (totalVotes > 0) {
                 yesRatio = yesVotes / totalVotes;

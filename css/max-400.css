@@ -267,6 +267,18 @@
         line-height: 2.0em;
 
     }
+
+    .ChannelNameText {
+        top: 3px;
+        position: relative;
+    }
+
+    .channel-dropdown {
+        top: 3px;
+        position: relative;
+    }
+
+
     .sign-in-button
     {
         font-size: 16px;

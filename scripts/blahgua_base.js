@@ -640,7 +640,7 @@ define('blahgua_base',
             theEvent.stopPropagation();
             StopAnimation();
             var newHTML = "";
-            newHTML += "<div class='click-shield'>" +
+            newHTML += "<div class='click-shield menu'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +

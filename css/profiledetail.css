@@ -333,12 +333,22 @@
 .request-demographic {
    font-style: italic;
     font-family: 'Arimo', sans-serif;
-    width: 90%;
-    text-align: left;
+    width: 100%;
+    height:100%;
+    text-align: center;
     padding-top: 8px;
     border-radius: 8px;
     border-radius: 8px;
-    background-color: rgb(250,250,247);
+    background-color: rgba(255,255,255,.8);
+}
+
+.request-demographic div {
+    padding: 12px;
+    color: #333333;
+    font-style: italic;
+    font-size: 18px;
+    font-family: 'Arimo', sans-serif;
+    margin: 50px 0px;
 }
 
 .user-comment-row {

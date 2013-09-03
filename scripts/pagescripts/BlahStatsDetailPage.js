@@ -93,6 +93,8 @@ define('BlahStatsDetailPage',
             var curStr = G.GetSafeProperty(G.CurrentBlah, "S", 0);
             var uv = G.GetSafeProperty(G.CurrentBlah, "P", 0);
             var dv = G.GetSafeProperty(G.CurrentBlah, "D", 0);
+            if (curStr < .01)
+                curStr = .01;
 
 
             $("#BlahStandingDiv").highcharts({
@@ -141,7 +143,7 @@ define('BlahStatsDetailPage',
                 },
                 series: [{
                     type: 'bar',
-                    pointWidth: 24,
+                    pointWidth: 36,
                     data: [{color: '#f87858', y: Math.floor(curStr * 100)}]
                 }]
             });

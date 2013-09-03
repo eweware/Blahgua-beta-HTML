@@ -235,7 +235,7 @@ define('CreateBlahPage',
                         break;
                     case "asks":
                         if (headlineText.indexOf("?") == -1)
-                            errMsg = G.AppendText(errMsg, "Asks should include a ?");
+                            errMsg = G.AppendText(errMsg, "Asks must include a ?");
                         break;
                 }
             }
@@ -302,6 +302,7 @@ define('CreateBlahPage',
 
             UpdateLayout();
             ResizeCreatePage();
+            CheckPublishBtnDisable();
         };
 
         var CreateBadgeDescription = function(theBadge) {

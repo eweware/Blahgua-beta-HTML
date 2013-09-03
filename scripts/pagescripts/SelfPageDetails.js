@@ -223,7 +223,7 @@ define('SelfPageDetails',
 
             newHTML += "</td>";
             if (isIE) {
-                newHTML += '<td><button class="small-button" style="width:120px" disabled="disabled">Get Badged</button></td>';
+                newHTML += '<td><button class="small-button" style="margin-left: 12px; width:120px" disabled="disabled">Get Badged</button></td>';
             }
             else
                 newHTML += '<td><button class="small-button" style="width:120px" data-authority-name="' + theAuth.N + '" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
@@ -247,9 +247,9 @@ define('SelfPageDetails',
 
         var MinDateStr = function(theDate) {
             var dateStr = "";
-            dateStr += theDate.getDate();
-            dateStr += "/";
             dateStr += theDate.getMonth() + 1;
+            dateStr += "/";
+            dateStr += theDate.getDate();
             dateStr += "/";
             dateStr += theDate.getFullYear();
             return dateStr ;
@@ -294,7 +294,7 @@ define('SelfPageDetails',
                 var iFrameHTML = "<div id='BadgeOverlayShield' class='BadgeOverlayShield' style='display:none'>";
                 iFrameHTML += "<div  id='BadgeOverlay' class='BadgeOverlay' style='display:none; left:" + offset + "px; right:" + offset + "px'>"
                 iFrameHTML += "<div class='BadgeTitleBar'>" + badgeName + "</div>";
-                iFrameHTML += "<div id='badgedialog' style='background-color: orange; position:absolute; width:100%; height:100%'>";
+                iFrameHTML += "<div id='badgedialog' style='background-color: orange; position:absolute; width:100%; top:35px; bottom:0px; overflow-y: auto'>";
                 iFrameHTML += dialogHTML;
                 iFrameHTML += "</div>";
                 iFrameHTML += "</div>";

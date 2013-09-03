@@ -680,12 +680,13 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("users", paramStr, OnSuccess, OnFailure);
     };
 
+
     var GetNextBlahs = function (OnSuccess, OnFailure) {
         ///
         var paramStr = new Object();
-        paramStr["start"] = 0;
-        paramStr["count"] = 100;
+
         paramStr["groupId"] = this.currentChannel;
+
         var methodName = "users/inbox";
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
