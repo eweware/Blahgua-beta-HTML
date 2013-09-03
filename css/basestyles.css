@@ -748,14 +748,13 @@ color:rgb(244,245,240);
     left: 0px;
     top: 0px;
     margin: 0px 4px 8px 12px;
-    opacity:.8;
+
 }
 
 .hidden-upload.userimage-upload.short {
     position: relative;
     left: 0px;
     top: -64px;
-    opacity:.8;
 }
 
 

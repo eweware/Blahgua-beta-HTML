@@ -271,9 +271,12 @@ define('SelfPageDetails',
             });
         };
 
+        var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+
         var DoAddBadge = function(badgeID, badgeName) {
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 var dialogHTML = data;
+                dialogHTML = dialogHTML.replace(SCRIPT_REGEX, "");
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;
                 if (offset < 0)
@@ -281,12 +284,20 @@ define('SelfPageDetails',
                 var iFrameHTML = "<div id='BadgeOverlayShield' class='BadgeOverlayShield' style='display:none'>";
                 iFrameHTML += "<div  id='BadgeOverlay' class='BadgeOverlay' style='display:none; left:" + offset + "px; right:" + offset + "px'>"
                 iFrameHTML += "<div class='BadgeTitleBar'>" + badgeName + "</div>";
-                iFrameHTML += "<div id='badgedialog' style='background-color: orange; width:100%; height:100%'>";
+                iFrameHTML += "<div id='badgedialog' style='background-color: orange; position:absolute; width:100%; height:100%'>";
                 iFrameHTML += dialogHTML;
                 iFrameHTML += "</div>";
                 iFrameHTML += "</div>";
                 iFrameHTML += "</div>";
                 $(iFrameHTML).appendTo('body');
+                // append our scripts manually
+                var html_doc = document.getElementsByTagName('head')[0];
+                var js = document.createElement('script');
+                js.setAttribute('type', 'text/javascript');
+                js.setAttribute('src', "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/badges.js");
+                js.setAttribute('id', "BadgeScript01");
+                html_doc.appendChild(js);
+
 
                // $("#badgedialog").contents().find('body').append(dialogHTML);
                 $("#BadgeOverlayShield").show();
@@ -297,9 +308,12 @@ define('SelfPageDetails',
             }, exports.OnFailure);
         };
 
+
         var HandleBadgeDismiss = function(theMsg) {
             $("#BadgeOverlay").fadeOut( 150, function () {
                 $("#BadgeOverlayShield").remove();
+                $("#BadgeScript01").remove();
+                $("#BadgeScript02").remove();
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
                     G.CurrentUser = json;
