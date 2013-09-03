@@ -516,6 +516,22 @@ color:rgb(244,245,240);
     float:right;
 }
 
+::-webkit-input-placeholder {
+    color: #d3d3d3;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: #d3d3d3;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    color: #d3d3d3;
+}
+
+:-ms-input-placeholder {
+    color: #d3d3d3;
+}
+
 /* self pages */
 
 

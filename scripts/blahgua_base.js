@@ -14,6 +14,7 @@ define('blahgua_base',
         var isStarting = true;
         var splashTimeout;
         var showSplash = true;
+        var FadeTimer = null;
 
         var IsMobileBrowser = function() {
             var check = false;
@@ -434,13 +435,21 @@ define('blahgua_base',
     };
 
     var FadeRandomElement = function() {
-        var theEl = SelectRandomElement();
-        if (theEl.style.backgroundImage != "") {
-            $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
+        if (G.BlahsMovingTimer != null) {
+            var theEl = SelectRandomElement();
+            if ((theEl != undefined) && (theEl.style.backgroundImage != "")) {
+                $(theEl.blahTextDiv).fadeToggle(1000, "swing", function() {
+                    FadeTimer = setTimeout(FadeRandomElement, 100);
+                });
+                LastFadeElement = theEl;
+            } else {
+                LastFadeElement = null;
+                FadeTimer = setTimeout(FadeRandomElement, 2000);
+            }
         } else {
-            setTimeout(FadeRandomElement, 1000);
+            clearTimeout(FadeTimer);
+            FadeTimer = null;
         }
-        LastFadeElement = theEl;
     };
 
 
@@ -724,6 +733,11 @@ define('blahgua_base',
             clearTimeout(G.BlahsMovingTimer);
             G.BlahsMovingTimer = null;
             G.CurrentScrollSpeed = K.BlahRollPixelStep;
+        }
+
+        if (FadeTimer != null) {
+            clearTimeout(FadeTimer);
+            FadeTimer = null;
         }
     };
 
@@ -1106,6 +1120,10 @@ define('blahgua_base',
             if (G.BlahsMovingTimer == null) {
                 G.CurrentScrollSpeed = K.BlahRollPixelStep;
                 G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+            }
+
+            if (FadeTimer == null) {
+                FadeRandomElement();
             }
         }
     };
