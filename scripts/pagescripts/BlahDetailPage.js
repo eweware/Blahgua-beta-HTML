@@ -65,21 +65,6 @@ define('BlahDetailPage',
             // update the opens
             blahgua_rest.AddBlahViewsOpens(G.CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
-
-            // fetch the user image
-            blahgua_rest.GetBlahAuthor(G.CurrentBlah._id, function(theAuthor) {
-                var newImage = G.GetUserImage(theAuthor, "A");
-                if (newImage == "")
-                    newImage = G.GetGenericUserImage();
-
-                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-
-
-            }, function (theErr) {
-                newImage = G.GetGenericUserImage();
-                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-            });
-
             var curDate = new Date(G.GetSafeProperty(G.CurrentBlah, "c", Date.now()));
             var dateString = G.ElapsedTimeString(curDate);
             $("#FullBlahDateStr").text(dateString);
@@ -111,6 +96,13 @@ define('BlahDetailPage',
         var UpdateDescriptionString = function() {
             // update the badges & date
             blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
+                var imageName = G.GetSafeProperty(theString, "m", "");
+                if (imageName != "") {
+                    var  newImage = BlahguaConfig.imageURL + imageName + "-A.jpg";
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                }
+
                 $("#FullBlahProfileString").text(theString.d);
                 var nickNameStr = "someone";
                 if (G.IsUserLoggedIn) {

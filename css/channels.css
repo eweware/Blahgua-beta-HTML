@@ -240,14 +240,14 @@
     position: absolute;
     background-color: rgb(244,245,240);
     box-shadow: 5px 5px rgba(0,0,0,.3);
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
     font-size: 20px;
 
 }
 
 .instant-menu li {
     padding:4px 10px;
-    font-family: 'Arimo' sans-serif;
+    font-family: 'Arimo', sans-serif;
 }
 .instant-menu li:hover {
     background-color: rgba(184,184,184,.3);
