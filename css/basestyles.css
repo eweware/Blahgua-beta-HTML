@@ -7,6 +7,11 @@ body {
     color: rgb(32,32,32);
 }
 
+@-ms-viewport{
+    width: device-width;
+}
+
+
 textarea {
     resize: none;
     padding:4px;

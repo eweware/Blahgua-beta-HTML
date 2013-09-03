@@ -212,10 +212,22 @@ define('SelfPageDetails',
         };
 
         var CreateBadgeAuthHTML = function(theAuth) {
+            var isIE = (navigator.userAgent.indexOf('MSIE') != -1);
             var newHTML = "<tr>";
-            newHTML += "<td><span class='badge-name-span'>" + theAuth.N + "</span><br/>";
-            newHTML += "<span class='badge-desc-span'>" + theAuth.D + "</span></td>";
-            newHTML += '<td><button class="small-button" style="width:120px" data-authority-name="' + theAuth.N + '" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
+            newHTML += "<td><span class='badge-name-span'>" + theAuth.N;
+            if (isIE) {
+                newHTML += "<span class='ie-apology'>  (not supported in IE)</span>";
+            }
+            newHTML += "</span><br/>";
+            newHTML += "<span class='badge-desc-span'>" + theAuth.D + "</span>";
+
+            newHTML += "</td>";
+            if (isIE) {
+                newHTML += '<td><button class="small-button" style="width:120px" disabled="disabled">Get Badged</button></td>';
+            }
+            else
+                newHTML += '<td><button class="small-button" style="width:120px" data-authority-name="' + theAuth.N + '" data-authority-id="' + theAuth._id + '">Get Badged</button></td>';
+
             newHTML += "</tr>";
 
             return newHTML;

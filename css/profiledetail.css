@@ -142,6 +142,13 @@
     border: solid 1px #999999;
 }
 
+.small-button:disabled {
+    color: #CCCCCC;
+    background-color: #999999;
+    background-image: none;
+    border: solid 1px #999999;
+}
+
 
 .permission-table {
     background-color:#add8e6;
