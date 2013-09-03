@@ -25,6 +25,10 @@ define('SelfPageDetails',
                     "Got it");
             });
 
+            if (!G.IsUploadCapable) {
+                $(".hidden-upload").hide();
+            }
+
             $(".image-delete-btn").click(function(theEvent) {
                 blahgua_rest.DeleteUserImage(function(json) {
                     // clear the image
@@ -269,25 +273,36 @@ define('SelfPageDetails',
 
         var DoAddBadge = function(badgeID, badgeName) {
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
+                //var dialogHTML = badge_api.dialog_html();
                 var dialogHTML = data;
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;
                 if (offset < 0)
                     offset = 0;
-                $("#BadgeOverlay").css({"left": offset + "px", "right": offset + "px"});
-                $(".BadgeTitleBar").text(badgeName);
-                $("#badgedialog").html(dialogHTML);
+                var iFrameHTML = "<div id='BadgeOverlayShield' class='BadgeOverlayShield' style='display:none'>";
+                iFrameHTML += "<div  id='BadgeOverlay' class='BadgeOverlay' style='display:none; left:" + offset + "px; right:" + offset + "px'>"
+                iFrameHTML += "<div class='BadgeTitleBar'>" + badgeName + "</div>";
+                iFrameHTML += "<div id='badgedialog' style='background-color: orange; position:absolute; width:100%; height:100%'>";
+                iFrameHTML += dialogHTML;
+                iFrameHTML += "</div>";
+                iFrameHTML += "</div>";
+                iFrameHTML += "</div>";
+                $(iFrameHTML).appendTo('body');
+
+               // $("#badgedialog").contents().find('body').append(dialogHTML);
                 $("#BadgeOverlayShield").show();
                 $("#BadgeOverlay").fadeIn();
+
+
                 window.ba_dialog_closed = HandleBadgeDismiss;
 
             }, exports.OnFailure);
         };
 
+
         var HandleBadgeDismiss = function(theMsg) {
             $("#BadgeOverlay").fadeOut( 150, function () {
-                $("#BadgeOverlayShield").hide();
-                $("#badgedialog").empty();
+                $("#BadgeOverlayShield").remove();
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
                     G.CurrentUser = json;

@@ -86,9 +86,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
                                 }
                             } else {
                                 // system is inconsistent - we have been logged out.
-                                if (confirm("You are no longer signed in.  Reset?")) {
-                                    location.reload();
-                                }
+                                console.log("Error:  User was supposed to be signed in but server said they were signed out.")
+                                location.reload();
                             }}, function(theErr) {
                                 alert("Blahgua is down.  Try to refresh the page or wait a while.");
                         });
@@ -324,7 +323,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         var paramStr = '{"V":' + numViews + ', "O":' + numOpens + '}';
         var methodname = "blahs/" + blahID;
         if (typeof blahID === "undefined") {
-            alert("undefined blah id!");
+            console.log("undefined blah id!");
+            return;
         }
         CallPutMethod(methodname, paramStr, OnSuccess, OnFailure);
     };
@@ -592,6 +592,10 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
     };
 
 
+    var GetChannelTypes = function(OnSuccess, OnFailure) {
+        CallGetMethod("groupTypes", "{}", OnSuccess, OnFailure);
+    };
+
 
     var GetViewersOfUser = function (OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
@@ -761,6 +765,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetUserComments:  GetUserComments ,
         GetUserChannels:  GetUserChannels ,
         GetFeaturedChannels:  GetFeaturedChannels ,
+        GetChannelTypes: GetChannelTypes,
         GetUsers:  GetUsers ,
         GetNextBlahs:  GetNextBlahs ,
         GetBlahComments:  GetBlahComments ,

@@ -4,20 +4,28 @@
 
     font-family: 'Arimo', sans-serif;
     overflow:hidden;
-    padding-left: 4px;
-    padding-right: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
     text-align:left;
-
 }
 
 
 .BlahAltTextDiv {
     text-align:left;
+    text-shadow: rgba(32,32,32,.5) 0.1em 0.1em 0.2em;
+
 
 }
 
 .BlahExpandTextDiv {
     text-align:left;
+    text-shadow: rgba(32,32,32,.5) 0.1em 0.1em 0.2em;
+}
+
+.finished-sizing {
+    position:absolute;
+    bottom:0px;
+    width:100%;
 }
 
 

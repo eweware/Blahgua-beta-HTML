@@ -60,7 +60,7 @@ define('SignUpPage',
             if (email != "") {
                 // set recovery email
                 blahgua_rest.setRecoveryInfo(email, FinalizeLogin, function(theErr) {
-                    alert("Unable to set recovery info.  Logging in anyway.");
+                    console.log("Unable to set recovery info.  Logging in anyway.");
                     FinalizeLogin();
                 });
             } else {
@@ -207,27 +207,25 @@ define('SignUpPage',
                 $(".toggle-btn").removeClass("toggle-active");
                 $(this).addClass("toggle-active");
                 $(selector).show();
-                $(selector).find("input:visible:first").focus();
+                if (!G.IsMobile)
+                    $(selector).find("input:visible:first").focus();
                 MaybeEnableButton();
             });
 
-            if (G.IsiPhone || G.IsiPad) {
+            if (G.IsMobile) {
                 // todo:  iPhone & iPad specific validation
                 $("#BlahFullItem").css({"overflow-y":"auto"});
-                MaybeEnableButton();
             } else {
                 $(".content_frame").keydown(function(theEvent) {
                     if (theEvent.which == 13) {
                         var thisVal = $(".toggle-active").attr("data-toggle-value");
                         var selector = ".toggle-content[data-toggle-value=" + thisVal + "]";
                         $(selector).find(".action-default:visible").click();
-                    } else {
-                        MaybeEnableButton();
                     }
-                });
+                }).keyup(function(theEvent) {
+                        MaybeEnableButton();
+                    });
             }
-
-
 
             $(".toggle-btn.toggle-active").click(); // init
 
@@ -244,12 +242,13 @@ define('SignUpPage',
                     "Your recovery email can be different than the email you use to obtain badges, and can be changed or removed at any time.",
                     "Got it");
             });
-            $("[data-validate]").blur(function(theEvent) {
-                G.ValidateField($(this));
-            });
 
-            MaybeEnableButton();
+            if (!G.IsMobile) {
+                $("[data-validate]").blur(function(theEvent) {
+                    G.ValidateField($(this));
+                });
 
+            }
         };
 
         var isValidEmailAddress = function(emailAddress) {
@@ -284,20 +283,26 @@ define('SignUpPage',
             }
 
             // button on phone is always enabled
-            if (G.IsiPad || G.IsiPhone)
+            if (G.IsMobile)
                 $btn.removeAttr("disabled");
 
         };
 
         var ShowRecoveryInfo = function(theEvent) {
-            $("#RecoverPasswordForm").show().find("input:visible:first").focus();;
+            if (G.IsMobile)
+                $("#RecoverPasswordForm").show();
+            else
+                $("#RecoverPasswordForm").show().find("input:visible:first").focus();
             $("#ExistingUserForm").hide();
             MaybeEnableButton();
         };
 
         var HideRecoveryInfo = function(theEvent) {
             $("#RecoverPasswordForm").hide();
-            $("#ExistingUserForm").show().find("input:visible:first").focus();
+            if (G.IsMobile)
+                $("#ExistingUserForm").show();
+            else
+                $("#ExistingUserForm").show().find("input:visible:first").focus();
             MaybeEnableButton();
         };
 

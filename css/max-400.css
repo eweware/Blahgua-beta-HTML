@@ -5,6 +5,11 @@
         border-width: 4px;
 
     }
+    .BlahTextDiv {
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
 
     .logo {
         width:170px;
@@ -155,6 +160,10 @@
         margin: 4px 8px 4px 4px;
     }
 
+    .createblahheadlineoption {
+        font-size: 16px;
+    }
+
     .default-button {
         width:auto;
     }
@@ -165,6 +174,34 @@
 
     .instruction-text {
         width:auto;
+    }
+
+    .splash-image {
+        width: 240px;
+        height: 70px;
+        margin: 16px 16px 8px 16px;
+    }
+
+    .splash-closer {
+        top: 16px;
+        right: 8px;
+    }
+
+    .splash-body {
+        font-size: 16px;
+    }
+
+    .splash-footer h2 {
+        font-size: 18px;
+    }
+
+    .splash-footer ul {
+        font-size:14px;
+    }
+
+
+    .splash-footer div {
+        font-size: 18px;
     }
 
 

@@ -298,8 +298,27 @@ define('stats',
             return newDemos
         };
 
+        var MaybeShowDemoChart = function(targetObject, DivName, DemoName, demoProp, legendNeeded) {
+            if (G.UserProfile.hasOwnProperty(demoProp) && (G.UserProfile[demoProp] != -1)) {
+                var options = MakeDemoChartOptions(targetObject, DemoName, demoProp, legendNeeded);
+                if (!legendNeeded)
+                    options["legend"] = {"enabled": false };
+                $(DivName).highcharts(options);
+                legendNeeded = false;
+                if (G.DataZeroOrEmpty(options.series[0].data) && G.DataZeroOrEmpty(options.series[1].data))
+                    G.AppendChartMask(DivName, "No votes from users who have shared their " + DemoName + ".");
+                else
+                    G.AppendChartMask(DivName, "");
+            }
+            else {
+                $(DivName).html(GenerateShareDemoHTML(DemoName, demoProp));
+            }
+            return legendNeeded;
+        };
+
 
         return {
+            MaybeShowDemoChart: MaybeShowDemoChart,
             GetDailyStatValuesForTimeRange: GetDailyStatValuesForTimeRange,
             makeDateRangeAxis: makeDateRangeAxis,
             GetStatValue: GetStatValue,

@@ -11,6 +11,16 @@ define('blahgua_base',
 
         var rowSequence = [4,32,31,4,1,33,4,2,4,32,1,4,31,32,33,31,4,33,1,31,4,32,33,1,4,2];
         var curRowSequence = 0;
+        var isStarting = true;
+        var splashTimeout;
+        var showSplash = true;
+        var FadeTimer = null;
+
+        var IsMobileBrowser = function() {
+            var check = false;
+            (function(a){if(/(android|iPad|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
+            return check;
+        };
 
 
         var InitializeBlahgua = function() {
@@ -33,11 +43,15 @@ define('blahgua_base',
             G.IsiPhone = (navigator.userAgent.match(/iPhone/i) != null);
             G.IsiPad = (navigator.userAgent.match(/iPad/i) != null);
 
+            G.IsUploadCapable = G.BrowserSupportsUpload();
+
+            G.IsMobile = IsMobileBrowser();
+
             Exports.SpinElement = new Spinner(opts);
 
             Exports.SpinTarget = document.getElementById("spin-div");
 
-            $(document).ready(function () {
+            $(window).load(function () {
                 $("#BlahContainer").disableSelection();
                 $("#ChannelBanner").disableSelection();
                 $("#ChannelDropMenu").disableSelection();
@@ -48,6 +62,11 @@ define('blahgua_base',
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
                 $("#LightBox").click(DismissAll);
                 G.InitialBlah = getQueryVariable("blahId");
+                if (G.IsiPad || G.IsiPhone) {
+                    $("#BlahFullItem").on("focusout", function(e) {
+                        window.setTimeout(function() { window.scrollTo(0,0); }, 500);
+                    });
+                }
                 SignIn();
             });
 
@@ -126,12 +145,11 @@ define('blahgua_base',
 
     var FlushViewMap = function() {
         if (MapIsDirty) {
+            MapIsDirty = false;
             Blahgua.UpdateBlahCounts(BlahViewMap, function() {
                 BlahViewMap = new Object();
-                MapIsDirty = false;
             }, function(theErr) {
                 BlahViewMap = new Object();
-                MapIsDirty = false;
             });
         } else {
             BlahViewMap = new Object();
@@ -173,9 +191,12 @@ define('blahgua_base',
 
     var SignIn = function() {
         Blahgua.isUserLoggedIn(function(json) {
-            if (json.loggedIn == "Y")
+            if (json.loggedIn == "Y") {
+                isStarting = false;
+                showSplash = false;
                 HandlePostSignIn();
-            else {
+
+            } else {
                 var savedID = $.cookie("loginkey");
                 var userName, pwd;
 
@@ -186,14 +207,15 @@ define('blahgua_base',
                 }
 
                 if (userName != null) {
-                    if (pwd == null) {
-                        pwd = prompt("Welcome back. enter password:")
-                    }
-
                     // sign in
-                    Blahgua.loginUser(userName, pwd, HandlePostSignIn, function() {
+                    Blahgua.loginUser(userName, pwd, function() {
+                        isStarting = false;
+                        showSplash = false;
+                        HandlePostSignIn();
+                    }, function() {
                         $.removeCookie("loginkey");
                         G.IsUserLoggedIn = false;
+                        console.log("ERROR: could not sign in user from cookie.");
                         finalizeInitialLoad();
                     });
                 } else {
@@ -230,8 +252,8 @@ define('blahgua_base',
             G.ClearPrompt();
            LogoutUser();
         }, 15 * 1000);
-        G.PromptUser("We haven't heard from you in a while.  Do you want to keep watching?",
-            "Keep watching", null, function() {
+        G.PromptUser("We haven't heard from you in a while.  Do you want to stay signed in?",
+            "Stay signed in", null, function() {
                 clearTimeout(sessionTimeOut);
                 // touch the server...
                 Blahgua.RefreshSession();
@@ -278,6 +300,17 @@ define('blahgua_base',
 // Initial Load
 
     var finalizeInitialLoad = function() {
+        if (showSplash) {
+            $("#LightBox").fadeIn();
+            $("#BlahFullItem").fadeIn();
+            $("#DismissSplashBtn").click(function(theEvent) {
+                ClosePage();
+            });
+            splashTimeout = setTimeout(function() {
+                ClosePage();
+            }, 5000);
+        }
+
         CreateChannelBanner();
         CreateFullBlah();
         GetUserChannels();
@@ -342,6 +375,7 @@ define('blahgua_base',
 
     var OnFailure = function(theErr) {
         if (theErr.status >= 500) {
+            console.log("Uncaught error: " + theErr.status + " - " + theErr.responseText);
             GlobalReset();
         } else {
             var errString = "An error occured. Soz!";
@@ -357,7 +391,8 @@ define('blahgua_base',
                 }
                 errString += "\nFull Text: \n" + responseText;
             }
-            alert(errString);
+            //alert(errString);
+            console.log("uncaught error: " + theErr.status + " - " + theErr.responseText);
         }
     };
 
@@ -400,13 +435,21 @@ define('blahgua_base',
     };
 
     var FadeRandomElement = function() {
-        var theEl = SelectRandomElement();
-        if (theEl.style.backgroundImage != "") {
-            $(theEl.blahTextDiv).fadeToggle(1000, "swing", FadeRandomElement);
+        if (G.BlahsMovingTimer != null) {
+            var theEl = SelectRandomElement();
+            if ((theEl != undefined) && (theEl.style.backgroundImage != "")) {
+                $(theEl.blahTextDiv).fadeToggle(1000, "swing", function() {
+                    FadeTimer = setTimeout(FadeRandomElement, 100);
+                });
+                LastFadeElement = theEl;
+            } else {
+                LastFadeElement = null;
+                FadeTimer = setTimeout(FadeRandomElement, 2000);
+            }
         } else {
-            setTimeout(FadeRandomElement, 1000);
+            clearTimeout(FadeTimer);
+            FadeTimer = null;
         }
-        LastFadeElement = theEl;
     };
 
 
@@ -437,6 +480,11 @@ define('blahgua_base',
         G.IsNarrow = windowWidth < 450;
         G.IsShort = windowHeight < 600;
 
+        if (G.IsMobile)
+            G.IsShort = true;   // force short pages on mobile devices.
+        if (G.IsiPad)
+            G.IsShort = false;  // but not on iPad
+
 
         if (G.IsNarrow) {
             blahMargin = 0;
@@ -461,6 +509,7 @@ define('blahgua_base',
             windowHeight -= totalOffset;
             //$(".PageBody").css({'bottom': totalOffset});
             //$("#BlahContainer").css({ 'bottom': totalOffset});
+            $(document).css({"min-height":windowHeight + "px"});
         }
 
         if (windowWidth > windowHeight) {
@@ -522,7 +571,7 @@ define('blahgua_base',
         menu.style.left = banner[0].style.left;
         //menu.style.width = banner.width() + "px";
         if (menu.style.display == "none") {
-            $("#LightBox").css({"background": "transparent"}).show();
+            $("#LightBox").css({"background-color": "rgba(0,0,0,.1)"}).show();
             if (G.IsUserLoggedIn)
                 $("#BrowseChannelBtn").show();
             else
@@ -579,7 +628,7 @@ define('blahgua_base',
             theEvent.stopPropagation();
             StopAnimation();
             var newHTML = "";
-            newHTML += "<div class='click-shield' style='background:transparent'>" +
+            newHTML += "<div class='click-shield'>" +
                 "<div class='instant-menu'>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +
@@ -685,6 +734,11 @@ define('blahgua_base',
             G.BlahsMovingTimer = null;
             G.CurrentScrollSpeed = K.BlahRollPixelStep;
         }
+
+        if (FadeTimer != null) {
+            clearTimeout(FadeTimer);
+            FadeTimer = null;
+        }
     };
 
     var StartAnimation = function() {
@@ -705,7 +759,7 @@ define('blahgua_base',
     var OpenLoadedBlah = function(whichBlah) {
         StopAnimation();
         if (!whichBlah)
-            alert("Null or missing blah in OpenLoadedBlah");
+            console.log("Null or missing blah in OpenLoadedBlah");
         $("#LightBox").show();
         G.CurrentBlah = whichBlah;
         G.CurrentComments = null;
@@ -730,7 +784,7 @@ define('blahgua_base',
 
     var OpenBlah = function(whichBlah) {
         if (!whichBlah)
-            alert("Null or missing blah in OpenBlah");
+            console.log("Null or missing blah in OpenBlah");
         $("#LightBox").show();
         G.CurrentBlah = null;
         StopAnimation();
@@ -892,9 +946,6 @@ define('blahgua_base',
         }
 
         switch (theBlah.Y) {
-            case K.BlahType.says:
-                $(newEl).addClass("BlahTypeSays");
-                break;
             case K.BlahType.leaks:
                 $(newEl).addClass("BlahTypeLeaks");
                 break;
@@ -909,6 +960,10 @@ define('blahgua_base',
                 break;
             case K.BlahType.ad:
                 $(newEl).addClass("BlahTypeAd");
+                break;
+            case K.BlahType.says:
+            default:
+                $(newEl).addClass("BlahTypeSays");
                 break;
         }
 
@@ -994,61 +1049,36 @@ define('blahgua_base',
         for (var i = 0; i < newRow.childNodes.length; i++) {
             $curDiv = $(newRow.childNodes[i]);
             curTextDiv = newRow.childNodes[i].blahTextDiv;
-            if (curTextDiv == undefined) {
-                alert("No text div (wtf)");
-            }
-            $curTextDiv = $(curTextDiv);
-            curTextDiv.style.fontSize = "96px";
-            curFontSize = 96;
-            curDivHeight = $curDiv.height();
+            if (curTextDiv != undefined) {
+                $curTextDiv = $(curTextDiv);
+                curTextDiv.style.fontSize = "96px";
+                curFontSize = 96;
+                curDivHeight = $curDiv.height();
+                if ($curDiv[0].blah.displaySize != 3)
+                    curDivHeight = curDivHeight /2;
 
 
-            while(($curTextDiv.height() > curDivHeight ) && (curFontSize > minFontSize)) {
-                curFontSize--;
-                curTextDiv.style.fontSize = curFontSize + "px";
-            }
 
-            curTextDiv.scrollLeft++;
+                while(($curTextDiv.height() > curDivHeight ) && (curFontSize > minFontSize)) {
+                    curFontSize--;
+                    curTextDiv.style.fontSize = curFontSize + "px";
+                }
 
-            while((curTextDiv.scrollLeft > 0) && (curFontSize > minFontSize)) {
-                curTextDiv.scrollLeft = 0;
-                curFontSize--;
-                curTextDiv.style.fontSize = curFontSize + "px";
                 curTextDiv.scrollLeft++;
-            }
-            /*
-            fontSize = minFontSize;
-            curTile = newRow.childNodes[i];
-            var tileHeight = curTile.offsetHeight - 8; // allow for padding...
-            var tileWidth = curTile.offsetWidth - 8;
-            scaleText = (curTile.style.backgroundImage != "") && (curTile.blah.displaySize != 3);
-            if (scaleText) {
-                tileHeight /= 2;
-            }
-            textHeight = 0;//curTile.blahTextDiv.offsetHeight;
-            while ((textHeight < tileHeight) && (fontSize < maxFontSize)) {
-                fontSize++;
-                curTile.blahTextDiv.style.fontSize = fontSize + "px";
-                textHeight = curTile.blahTextDiv.offsetHeight;
-            }
-            fontSize--;
-            curTile.blahTextDiv.style.fontSize = fontSize + "px";
+                // now shrink the single word cases to not scroll horizontally
+                while((curTextDiv.scrollLeft > 0) && (curFontSize > minFontSize)) {
+                    curTextDiv.scrollLeft = 0;
+                    curFontSize--;
+                    curTextDiv.style.fontSize = curFontSize + "px";
+                    curTextDiv.scrollLeft++;
+                }
+                var textShift = 0;
 
-            curTile.blahTextDiv.scrollLeft++;
+                if ((!$curDiv[0].blah.hasOwnProperty("M")))
+                    textShift = ($curDiv.height() - $curTextDiv.height()) / 2;
 
-            while((curTile.blahTextDiv.scrollLeft > 0) && (fontSize > minFontSize)) {
-                curTile.blahTextDiv.scrollLeft = 0;
-                fontSize--;
-                curTile.blahTextDiv.style.fontSize = fontSize + "px";
-                curTile.blahTextDiv.scrollLeft++;
+                $(curTextDiv).addClass("finished-sizing").css({"bottom":textShift + "px"})
             }
-
-            if (scaleText) {
-                var offset = tileHeight + (tileHeight - curTile.blahTextDiv.offsetHeight);
-                curTile.blahTextDiv.style.marginTop = offset + "px";
-            }
-            curTile.blahTextDiv.style.height = "100%";
-            */
         }
     };
 
@@ -1086,9 +1116,15 @@ define('blahgua_base',
     };
 
     var StartBlahsMoving = function() {
-        if (G.BlahsMovingTimer == null) {
-            G.CurrentScrollSpeed = K.BlahRollPixelStep;
-            G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+        if (!isStarting) {
+            if (G.BlahsMovingTimer == null) {
+                G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+            }
+
+            if (FadeTimer == null) {
+                FadeRandomElement();
+            }
         }
     };
 
@@ -1556,10 +1592,14 @@ define('blahgua_base',
 // ********************************************************
 // Getting the current inbox for the current user
 
+
     var GetUserBlahs = function() {
-        $("#BlahContainer").empty();
         InboxCount = 0;
-        Blahgua.GetNextBlahs(OnGetBlahsOK, OnFailure);
+        Blahgua.GetNextBlahs(OnGetBlahsOK, function(theErr) {
+            // just assume no blahs
+            console.log("Error in GetUserBlahs: " + theErr.status + " - " + theErr.responseText);
+            OnGetBlahsOK([]);
+        });
     };
 
     var OnGetBlahsOK = function(theResult) {
@@ -1721,36 +1761,55 @@ define('blahgua_base',
         return theName;
     };
 
-    var GetUserChannels = function() {
-        if (G.IsUserLoggedIn) {
-            Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
-        } else {
-            Blahgua.GetFeaturedChannels(function (channelList) {
-                    var defChannel = getQueryVariable('channel');
-                    if (defChannel != null) {
-                        var theChannel = GetChannelByName(defChannel, channelList);
-                        if (theChannel != null)
-                            channelList.push(theChannel);
-                    }
+    var isChannelValid = function(theChannel) {
+        return true;
+        var isValid = false;
+        for (var curType in G.ChannelTypes) {
+            if (G.ChannelTypes[curType]._id == theChannel.Y)  {
+                isValid =  true;
+                break;
+            }
 
-
-                    GetChannelsOK(channelList);
-                },
-                OnFailure);
         }
+
+        return isValid;
+    };
+
+
+
+    var GetUserChannels = function() {
+        Blahgua.GetChannelTypes(function (theTypes) {
+            G.ChannelTypes = theTypes;
+            if (G.IsUserLoggedIn) {
+                Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
+            } else {
+                Blahgua.GetFeaturedChannels(function (channelList) {
+                        var defChannel = getQueryVariable('channel');
+                        if (defChannel != null) {
+                            var theChannel = GetChannelByName(defChannel, channelList);
+                            if (theChannel != null)
+                                realChannels.push(theChannel);
+                        }
+
+
+                        GetChannelsOK(channelList);
+                    },
+                    OnFailure);
+            }
+        }, OnFailure);
     };
 
 
     var GetChannelsOK = function(theChannels) {
         G.ChannelList = theChannels;
 
-        if (theChannels.length == 0) {
+        if (G.ChannelList.length == 0) {
             AddDefaultChannelsToNewUser();
         } else {
             // fetch URL parameter Channel
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
-                for (curIndex in G.ChannelList) {
+                for (var curIndex in G.ChannelList) {
                     if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                     {
                         PopulateChannelMenu();
@@ -1762,7 +1821,7 @@ define('blahgua_base',
                 // user does not have this channel - add it!
                 if (G.IsUserLoggedIn) {
                     Blahgua.GetAllChannels(function (allChannels) {
-                        for (curIndex in allChannels) {
+                        for (var curIndex in allChannels) {
                             if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                             {
                                 Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
@@ -1827,8 +1886,11 @@ define('blahgua_base',
         SetCurrentChannel(channelID);
     };
 
+    var loadingHTML = '<div class="ChannelLoadingDiv"><img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green-spinner.gif" alt="Loading"><span>Loading...</span></div>';
+
     var SetCurrentChannel = function(whichChannel) {
         StopAnimation();
+        $("#BlahContainer").html(loadingHTML);
         G.CurrentChannel = G.ChannelList[whichChannel];
         Blahgua.currentChannel = G.CurrentChannel._id;
         var labelDiv = document.getElementById("ChannelBannerLabel");
@@ -1846,7 +1908,10 @@ define('blahgua_base',
         if (InboxCount > MaxInboxCount)
             TruncateBlahStream();
         else
-            Blahgua.GetNextBlahs(OnGetNextBlahsOK, OnFailure);
+            Blahgua.GetNextBlahs(OnGetNextBlahsOK, function(theErr) {
+                console.log("Error in GetNextBlahList: " + theErr.status + " - " + theErr.responseText);
+                OnGetNextBlahsOK([]);
+            });
     };
 
     var TruncateBlahStream = function() {
@@ -1941,8 +2006,13 @@ define('blahgua_base',
 
 
     var ClosePage = function() {
-        $("#BlahFullItem").hide();
-        $("#LightBox").hide();
+        if (isStarting) {
+            isStarting = false;
+            clearTimeout(splashTimeout);
+            splashTimeout = null;
+        }
+        $("#BlahFullItem").fadeOut();
+        $("#LightBox").fadeOut();
         StartAnimation();
     };
 

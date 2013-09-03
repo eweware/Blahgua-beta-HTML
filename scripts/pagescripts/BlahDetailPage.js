@@ -65,6 +65,10 @@ define('BlahDetailPage',
             // update the opens
             blahgua_rest.AddBlahViewsOpens(G.CurrentBlah._id, 0, 1, null, null);// to do - check for errors
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> e44e74fb39a0f1faeb095694dd862027a19ddca7
             var curDate = new Date(G.GetSafeProperty(G.CurrentBlah, "c", Date.now()));
             var dateString = G.ElapsedTimeString(curDate);
             $("#FullBlahDateStr").text(dateString);
@@ -114,6 +118,14 @@ define('BlahDetailPage',
                 if (isOwnBlah)
                     nickNameStr += " (you)";
                 document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
+                // get the author image
+                var userImage = G.GetSafeProperty(theString, "m", "");
+                if (userImage != "") {
+                    newImage = BlahguaConfig.imageURL + userImage + "-A.jpg";
+                } else {
+                    newImage = G.GetGenericUserImage();
+                }
+                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
                 LoadOpenPage();
             }, function (theErr) {
                 $("#FullBlahProfileString").text("someone");

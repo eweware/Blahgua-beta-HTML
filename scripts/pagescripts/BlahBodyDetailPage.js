@@ -14,7 +14,7 @@ define('BlahBodyDetailPage',
         var InitializePage = function() {
             G.CurrentComments = null;
             if (G.CurrentBlah == null) {
-                alert("Error:  No Post!");
+                console.log("Error:  No Post!");
                 return;
             }
             if (G.IsUserLoggedIn) 
@@ -181,21 +181,28 @@ define('BlahBodyDetailPage',
             if (G.GetSafeProperty(G.CurrentBlah, "C", 0) == 0)
                 $(".top-comments-header").hide();
             comments.UpdateTopComments();
-            document.getElementById("AddCommentBtn").disabled = true;
+
             if (G.IsUserLoggedIn) {
                 $("#CreateCommentArea").show();
-                $("#CommentTextArea").focus();
-                $("#CommentTextArea").keydown(function(theEvent) {
-                   if (theEvent.ctrlKey && theEvent.keyCode == 13) {
-                       if (!document.getElementById("AddCommentBtn").disabled) {
-                           $("#AddCommentBtn").click();
-                       }
-                   }
-                });
-                $("#CommentTextArea").keyup(RefreshForCommentText);
+                if (G.IsMobile) {
+                    //$("#CharCountDiv").text("(3-4000 chars)");
+                } else  {
+                    document.getElementById("AddCommentBtn").disabled = true;
+                    //$("#CommentTextArea").focus();
+                    $("#CommentTextArea").keydown(function(theEvent) {
+                        if (theEvent.ctrlKey && theEvent.keyCode == 13) {
+                            if (!document.getElementById("AddCommentBtn").disabled) {
+                                $("#AddCommentBtn").click();
+                            }
+                        }
+                    });
+                    $("#CommentTextArea").keyup(RefreshForCommentText);
+                }
+
                 $("#CommentTextArea").val(exports.CurrentCommentText);
-                if (document.getElementById('CommentImage').disabled) {
+                if (!G.IsUploadCapable) {
                     $("#ImagePreviewDiv").hide();
+                    $(".hidden-upload").hide();
                 }
                 $("#CommentImage").change(comments.UploadCommentImage);
 
@@ -211,21 +218,28 @@ define('BlahBodyDetailPage',
                 });
 
                 $("#AddCommentBtn").click(function(theEvent) {
-                    exports.CurrentCommentText = "";
-                    $("#CommentImage").attr("disabled", false)
-                    document.getElementById("AddCommentBtn").disabled = true;
-                    document.getElementById("CommentTextArea").disabled = true;
-                    comments.DoAddComment(function(newComment) {
-                        comments.InsertNewComment(newComment);
-                        $(".top-comments-header").show();
-                        $("#CharCountDiv").text(4000);
-                        $("#CommentTextArea").empty().removeAttr('disabled').focus();
-                        $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
-                        $("#ImagePreviewDiv span").text("no image");
-                        $("#ImagePreviewDiv i").hide();
-                        $("#CommentImage").val("");
-                        $("#objectId").val("");
-                    });
+                    if (!RefreshForCommentText()) {
+                        exports.CurrentCommentText = "";
+                        $("#CommentImage").attr("disabled", false);
+                        document.getElementById("AddCommentBtn").disabled = true;
+                        document.getElementById("CommentTextArea").disabled = true;
+                        comments.DoAddComment(function(newComment) {
+                            comments.InsertNewComment(newComment);
+                            $(".top-comments-header").show();
+                            $("#CommentTextArea").empty().removeAttr("disabled");
+                            if (!G.IsMobile) {
+                                $("#CommentTextArea").focus();
+                            }
+
+                            $("#ImagePreviewDiv").addClass("no-image").css({"background-image":"none"});
+                            $("#ImagePreviewDiv span").text("no image");
+                            $("#ImagePreviewDiv i").hide();
+                            $("#CommentImage").val("");
+                            $("#objectId").val("");
+                            RefreshForCommentText();
+                        });
+                    }
+
                 });
                 RefreshForCommentText();
             }
@@ -234,13 +248,21 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount <= 2) || (charCount > 4000));
-            document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
+            var tooManyOrFew = ((charCount <= 2) || (charCount > 1500));
+            if (G.IsMobile) {
+                document.getElementById("AddCommentBtn").disabled = false;
+            } else {
+                document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
+            }
+            $("#CharCountDiv").text(1500 - charCount).css({"color": color});
+
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
                 color = "rgb(248,120,88)";
-            $("#CharCountDiv").text(4000 - charCount).css({"color": color});
+
             exports.CurrentCommentText = textField.value;
+
+            return tooManyOrFew;
         };
 
 

@@ -28,6 +28,8 @@ define('BlahTypePoll',
                     }
                 }
 
+
+
                 var targetTable =  $(".poll-result-table");
                 var newHTML = "";
                 for (var curIndex in choices) {
@@ -38,30 +40,39 @@ define('BlahTypePoll',
 
 
                 // add methods
-                $(".poll-checkbox").click(function(theEvent) {
-                    theEvent.stopImmediatePropagation();
-                    if($(theEvent.target).attr("disabled") != "disabled") {
-                        $('.poll-checkbox').attr('disabled', 'disabled');
+                if(!G.IsUserLoggedIn) {
+                    $(".poll-checkbox-wrapper").click(function(theEvent) {
+                        G.PromptUser("Sign in to vote."," Sign in","Cancel",function(){
+                            theEvent.stopImmediatePropagation();
+                            exports.SuggestUserSignIn("Sign in to vote.")});
+                    });
+                } else {
+                    $(".poll-checkbox").click(function(theEvent) {
+                        theEvent.stopImmediatePropagation();
+                        if($(theEvent.target).attr("disabled") != "disabled") {
+                            $('.poll-checkbox').attr('disabled', 'disabled');
 
-                        var theVote = $(theEvent.target).parents("tr.poll-result-row").attr("data-poll-vote");
+                            var theVote = $(theEvent.target).parents("tr.poll-result-row").attr("data-poll-vote");
 
-                        blahgua_rest.SetUserPollVote(G.CurrentBlah._id, theVote,
-                            function(json) {
-                                blahgua_rest.GetBlah(G.CurrentBlahId, function(theBlah) {
-                                    G. CurrentBlah = theBlah;
-                                    UpdatePollPage();
-                                }, function(theErr) {
-                                    //todo: handle this error
-                                    UpdatePollPage();
-                                });
-                            }, function (theErr) {
-                                //todo:  poll specific errors
-                                exports.OnFailure(theErr);
-                            }
-                        );
-                    }
+                            blahgua_rest.SetUserPollVote(G.CurrentBlah._id, theVote,
+                                function(json) {
+                                    blahgua_rest.GetBlah(G.CurrentBlahId, function(theBlah) {
+                                        G. CurrentBlah = theBlah;
+                                        UpdatePollPage();
+                                    }, function(theErr) {
+                                        //todo: handle this error
+                                        UpdatePollPage();
+                                    });
+                                }, function (theErr) {
+                                    //todo:  poll specific errors
+                                    exports.OnFailure(theErr);
+                                }
+                            );
+                        }
 
-                });
+                    });
+                }
+
 
                 UpdatePollPage();
             }
