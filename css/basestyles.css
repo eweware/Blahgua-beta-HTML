@@ -176,7 +176,7 @@ li.divider:hover {
 
 .splash-page {
     border-style:none;
-    padding:8px;
+    padding:12px;
     border-radius: 16px;
     margin:0 auto;
 }
@@ -209,7 +209,7 @@ li.divider:hover {
 
 .splash-footer h2 {
     text-decoration: underline;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.5em;
 }
 
@@ -217,7 +217,7 @@ li.divider:hover {
     list-style-type: disc;
     padding-left: 20px;
     line-height: 1.5em;
-    font-size:22px;
+    font-size:18px;
 }
 
 .splash-footer a {
@@ -228,7 +228,7 @@ li.divider:hover {
 
 .splash-footer div {
     text-align: center;
-    font-size: 22px;
+    font-size: 18px;
 }
 
 .splash-image {
@@ -246,7 +246,7 @@ li.divider:hover {
     font-style: italic;
     margin: 0px 16px 16px 16px;
     text-align: left;
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.5em;
 }
 
