@@ -306,7 +306,7 @@ define('stats',
                 $(DivName).highcharts(options);
                 legendNeeded = false;
                 if (G.DataZeroOrEmpty(options.series[0].data) && G.DataZeroOrEmpty(options.series[1].data))
-                    G.AppendChartMask(DivName, "No votes from users with a known " + DemoName + " in this period.");
+                    G.AppendChartMask(DivName, "No votes from users who have shared their " + DemoName + ".");
                 else
                     G.AppendChartMask(DivName, "");
             }
