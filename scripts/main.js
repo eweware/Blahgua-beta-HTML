@@ -26,7 +26,8 @@ requirejs.config({
         "SelfPageHistory": "pagescripts/SelfPageHistory",
         "comments": "pagescripts/Comments",
         "spin": "spin.min",
-        "stats": "stats"
+        "stats": "stats",
+        "badges": "badges"
     }
 });
 

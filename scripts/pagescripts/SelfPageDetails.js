@@ -271,12 +271,10 @@ define('SelfPageDetails',
             });
         };
 
-        var SCRIPT_REGEX = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
-
         var DoAddBadge = function(badgeID, badgeName) {
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
+                //var dialogHTML = badge_api.dialog_html();
                 var dialogHTML = data;
-                dialogHTML = dialogHTML.replace(SCRIPT_REGEX, "");
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;
                 if (offset < 0)
@@ -290,18 +288,11 @@ define('SelfPageDetails',
                 iFrameHTML += "</div>";
                 iFrameHTML += "</div>";
                 $(iFrameHTML).appendTo('body');
-                // append our scripts manually
-                var html_doc = document.getElementsByTagName('head')[0];
-                var js = document.createElement('script');
-                js.setAttribute('type', 'text/javascript');
-                js.setAttribute('src', "https://s3-us-west-2.amazonaws.com/beta.blahgua.com/scripts/badges.js");
-                js.setAttribute('id', "BadgeScript01");
-                html_doc.appendChild(js);
-
 
                // $("#badgedialog").contents().find('body').append(dialogHTML);
                 $("#BadgeOverlayShield").show();
                 $("#BadgeOverlay").fadeIn();
+
 
                 window.ba_dialog_closed = HandleBadgeDismiss;
 
@@ -312,8 +303,6 @@ define('SelfPageDetails',
         var HandleBadgeDismiss = function(theMsg) {
             $("#BadgeOverlay").fadeOut( 150, function () {
                 $("#BadgeOverlayShield").remove();
-                $("#BadgeScript01").remove();
-                $("#BadgeScript02").remove();
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
                     G.CurrentUser = json;
