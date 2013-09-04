@@ -37,6 +37,7 @@ define('SignUpPage',
         };
 
         var HandleCreateUserOK = function(json) {
+            ga('send', 'event', 'account', 'register', 'default', 1);
             var userName = $("#userName").val();
             var pwd = $("#pwd").val();
             if ($('#rememberme2').is(':checked')) {
@@ -123,7 +124,7 @@ define('SignUpPage',
 
 
         var HandleUserLoginOK = function(json, successOk, status) {
-
+            ga('send', 'event', 'account', 'login', 'default', 1);
             var userName = $("#userName2").val();
             var pwd = $("#pwd2").val();
             if ($('#rememberme2').is(':checked')) {

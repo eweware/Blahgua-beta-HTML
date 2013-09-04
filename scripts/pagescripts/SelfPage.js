@@ -82,6 +82,10 @@ define('SelfPage',
         var SetSelfDetailPage = function(whichPage) {
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
             var basePage;
+            ga('send', 'pageview', {
+                'page': '/self/' + whichPage,
+                'title': G.CurrentUser._id
+            });
             switch (whichPage) {
                 case "Profile":
                     basePage = "SelfPageDetails.html";

@@ -154,6 +154,10 @@ define('BlahDetailPage',
 
         var SetBlahDetailPage = function(whichPage) {
             $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
+            ga('send', 'pageview', {
+                'page': '/blah/' + whichPage,
+                'title': G.CurrentBlah._id
+            });
             var basePage;
             switch (whichPage) {
                 case "Overview":
