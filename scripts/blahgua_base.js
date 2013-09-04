@@ -731,6 +731,10 @@ define('blahgua_base',
             default:
                 StartAnimation();
                 $(G.BlahFullItem).fadeOut("fast", function() {
+                    ga('send', 'pageview', {
+                        'page': '/channel/' + G.CurrentChannel.N,
+                        'title': G.CurrentChannel.N + " return"
+                    });
                     $("#LightBox").hide();
                     $(G.BlahFullItem).empty();
                 });
@@ -782,6 +786,10 @@ define('blahgua_base',
         $("#BlahPreviewExtra").empty();
         require(["BlahDetailPage"], function(BlahDetailPage) {
             $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + blahPageBase + " #FullBlahDiv", function() {
+                ga('send', 'pageview', {
+                    'page': '/blah',
+                    'title': G.CurrentBlah._id
+                });
                 var windowHeight = $(window).height();
                 $(BlahFullItem).disableSelection();
                 $(BlahFullItem).fadeIn("fast", function() {
@@ -1910,6 +1918,10 @@ define('blahgua_base',
 
         GetUserBlahs();
         UpdateChannelViewers();
+        ga('send', 'pageview', {
+            'page': '/channel/' + G.CurrentChannel.N,
+            'title': G.CurrentChannel.N
+        });
     };
 
         var InboxCount = 0;
@@ -1936,6 +1948,10 @@ define('blahgua_base',
         if (theResult.length > 0)
             PrepareBlahList(G.NextBlahList);
         FlushViewMap();
+        ga('send', 'pageview', {
+            'page': '/channel/' + G.CurrentChannel.N,
+            'title': G.CurrentChannel.N + " refresh"
+        });
 
     };
 
@@ -1967,6 +1983,10 @@ define('blahgua_base',
             require(['SignUpPage'], function(SignUpPage) {
                 $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv",
                     function () {
+                        ga('send', 'pageview', {
+                            'page': '/signup',
+                            'title': 'signup'
+                        });
                         SignUpPage.RefreshSignupContent();
                     });
             });
@@ -1985,6 +2005,10 @@ define('blahgua_base',
         require(['SignUpPage'], function(SignUpPage) {
                 $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv",
                     function () {
+                        ga('send', 'pageview', {
+                            'page': '/signup',
+                            'title': 'signup'
+                        });
                         SignUpPage.RefreshSignupContent();
                     });
             }
@@ -1999,6 +2023,10 @@ define('blahgua_base',
             basePage = "SignUpPageShort.html";
         require(['SignUpPage'], function(SignUpPage) {
             $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SignInInDiv", function() {
+                ga('send', 'pageview', {
+                    'page': '/signup',
+                    'title': 'signup - ' + message
+                });
                 SignUpPage.RefreshSignupContent(message);
             });
         });
@@ -2011,6 +2039,10 @@ define('blahgua_base',
             selfPageBase = "SelfPageShort.html";
         require(["SelfPage"], function(SelfPage){
             $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + selfPageBase + " #UserChannelDiv", function() {
+                ga('send', 'pageview', {
+                    'page': '/self',
+                    'title': G.CurrentUser._id
+                });
                 SelfPage.InitializePage(whichPage);
             });
         });
@@ -2018,6 +2050,10 @@ define('blahgua_base',
 
 
     var ClosePage = function() {
+        ga('send', 'pageview', {
+            'page': '/channel/' + G.CurrentChannel.N,
+            'title': G.CurrentChannel.N + " return"
+        });
         if (isStarting) {
             isStarting = false;
             clearTimeout(splashTimeout);
@@ -2057,6 +2093,10 @@ define('blahgua_base',
         if (G.IsUserLoggedIn) {
             require(["CreateBlahPage"], function(CreatePage) {
                 $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #CreateBlahPage", function() {
+                    ga('send', 'pageview', {
+                        'page': '/createblah',
+                        'title': G.CurrentUser._id
+                    });
                     CreatePage.InitializePage();
                 });
             });

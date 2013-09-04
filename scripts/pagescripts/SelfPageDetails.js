@@ -253,7 +253,7 @@ define('SelfPageDetails',
             dateStr += "/";
             dateStr += theDate.getFullYear();
             return dateStr ;
-        }
+        };
 
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
