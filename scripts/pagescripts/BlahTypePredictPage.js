@@ -20,9 +20,9 @@ define('BlahTypePredict',
             // add the event handlers
             if(!G.IsUserLoggedIn) {
                 $(".poll-checkbox-wrapper").click(function(theEvent) {
-                    G.PromptUser("Sign in to vote."," Sign in","Cancel",function(){
+                    G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
                         theEvent.stopImmediatePropagation();
-                        exports.SuggestUserSignIn("Sign in to vote.")});
+                        exports.SuggestUserSignIn("Sign in to participate.")});
                 });
 
             } else {
