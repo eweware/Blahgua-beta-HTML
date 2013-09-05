@@ -1924,8 +1924,8 @@ define('blahgua_base',
         });
     };
 
-        var InboxCount = 0;
-        var MaxInboxCount = 10;
+    var InboxCount = 0;
+    var MaxInboxCount = 10;
 
     var GetNextBlahList = function() {
         InboxCount++;

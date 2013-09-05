@@ -248,7 +248,7 @@ define('BlahBodyDetailPage',
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");
             var charCount =  textField.value.length;
-            var tooManyOrFew = ((charCount <= 2) || (charCount > 1500));
+            var tooManyOrFew = ((charCount < 3) || (charCount > 1500));
             if (G.IsMobile) {
                 document.getElementById("AddCommentBtn").disabled = false;
             } else {

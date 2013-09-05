@@ -1,0 +1,255 @@
+body {
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    color: #F4F5F0;
+    background: fixed;
+    background-color: #efefef;
+
+    background-image: url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    background-image: -webkit-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    background-image: -moz-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    background-image: -o-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    background-image: -ms-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    background-image: radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
+    /* For IE6-9 */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00EFEFEF, endColorstr=#00EFEFEF);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00EFEFEF, endColorstr=#00EFEFEF)";
+
+}
+
+p {
+    font-size: 13px;
+    color: #F4F5F0
+}
+
+.launch-head {
+    text-align: center;
+    padding-top: 20px;
+}
+
+.launch-head h1 {
+    letter-spacing: -2px;
+    font-weight: 400;
+    font-size: 126px;
+    line-height: 1.1;
+    white-space: nowrap
+}
+
+.launch-head h1 span {
+    font-weight: 300;
+    margin-left: -12px
+}
+
+.launch-head h2 {
+    font-size: 48px;
+    letter-spacing: -1px;
+    line-height: 48px;
+    font-weight: 300
+}
+
+#signup {
+    margin: 0
+}
+
+#signup-sect {
+    text-align: center;
+    margin-top: 60px
+}
+
+#signup-sect p {
+    font-weight: 300;
+    color: #F4F5F0;
+    font-size: 18px;
+    line-height: 140%;
+}
+
+.flex-container {
+    display: block;
+    text-align: center;
+}
+
+.signup_form {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 16px 16px 7px 16px;
+    position: relative;
+
+
+}
+
+textarea, input[type="email"], input[type="text"] {
+    font: 99% sans-serif;
+    font-size: 23px;
+    color: #333;
+    text-shadow: 0 0 2px rgba(255, 255, 255, 0.4);
+    padding: 4px 0 0 13px;
+    height: 40px;
+    border: 0;
+    border-bottom: 1px solid #f8f8f8;
+    background-color: #efefef;
+    -webkit-box-shadow: inset 0 2px 6px -1px #444;
+    box-shadow: inset 0 2px 6px -1px #444;
+    -webkit-border-radius: 8px;
+    border-radius: 8px
+}
+
+textarea {
+    height: auto;
+    font-size: 18px;
+    padding: 10px 0 10px 10px
+}
+
+.signup_form input:focus {
+    background: #f6f6f6;
+    box-shadow: inset 0 2px 6px -1px #666;
+    border-bottom: 1px solid #FFF;
+    -webkit-transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    -moz-transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s, background linear .2s;
+    transition: border linear .2s, box-shadow linear .2s, background linear .2s
+}
+
+.btn-fancy {
+    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-weight: 400;
+    color: #777;
+    font-size: 23px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 1);
+    white-space: nowrap;
+    border: 1px solid #ddd;
+    border-top: 1px solid #fff;
+    background: #cecece;
+    height: 43px;
+    margin-top: -1px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0 35px 40px -10px rgba(255, 255, 255, 0.8) inset, 0px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 35px 40px -10px rgba(255, 255, 255, 0.8) inset, 0px 1px 2px rgba(0, 0, 0, 0.5)
+}
+
+.btn-fancy:hover {
+    background: #bebebe;
+    -webkit-transition: background linear .2s;
+    -moz-transition: background linear .2s;
+    -o-transition: background linear .2s;
+    transition: background linear .2s
+}
+
+.btn-fancy:active, .btn-fancy.btn-down {
+    padding-top: 8px;
+    border: 1px solid #999;
+    border-bottom: 1px solid #f8f8f8;
+    background: #cecece;
+    -webkit-box-shadow: inset 0 2px 6px -1px #666;
+    box-shadow: inset 0 2px 6px -1px #666
+}
+
+
+select {
+    margin: 2px 0px 9px 0px;
+    height: 40px
+}
+
+
+
+
+
+
+#share a {
+    font-size: 13px;
+    font-weight: 300
+}
+
+
+.share-button i {
+    color: #c1c2bd;
+    font-size: 26px
+}
+
+.share-button i:hover {
+    text-decoration: none;
+    color: #F4F5F0
+}
+
+#info {
+    margin-top: 40px
+}
+
+
+ul.icons {
+    list-style: none;
+    margin: 0
+}
+
+
+.click-through-link {
+    margin: 16px;
+    vertical-align: middle;
+    line-height: 43px;
+    min-width: 200px;
+    max-width:200px;
+}
+
+.click-through-link:active, .click-through-link.btn-down {
+    margin-bottom: 5px;
+}
+
+.shadow-overlay {
+
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: hidden;
+    z-index: -1;
+
+    /* Fallback for older browsers */
+    background: #FFFFFF;
+    background: rgba(255, 255, 255, 0.0);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0.0)";
+
+}
+
+.container {
+    padding-bottom: 40px;
+}
+
+@media (max-width:767px) {
+
+
+    .launch-head h1 {
+        font-size: 80px;
+        line-height: 1.1
+    }
+
+    .launch-head h2 {
+        font-size: 35px;
+        line-height: 1
+    }
+
+    body {
+        width: auto;
+        position: static;
+    }
+}
+
+@media (max-width:480px) {
+    .launch-head h1 {
+        font-size: 64px;
+        line-height: 1.1
+    }
+
+    .launch-head h2 {
+        font-size: 25px;
+        line-height: 1
+    }
+
+    #signup-sect p {
+        font-size: 16px
+    }
+
+    #signup-sect {
+        margin-top: 40px
+    }
+}
