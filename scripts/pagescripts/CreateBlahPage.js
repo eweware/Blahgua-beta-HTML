@@ -382,7 +382,7 @@ define('CreateBlahPage',
 
         var HandleCreateBlahFailure = function(theErr) {
             console.log("ERROR when creating blah");
-            G.PromptUser("Your blah was not created due to an error.  Please try again, or come back later.  Sorry!", "Fine", null, function(theData) {
+            G.PromptUser("Sorry, an error occurred and your post was not created.  Please try again.", "OK", null, function(theData) {
                 CheckPublishBtnDisable();
             });
         }
