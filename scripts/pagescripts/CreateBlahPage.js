@@ -245,9 +245,7 @@ define('CreateBlahPage',
                     $("#ErrMsgSpan").empty();
                 });
                 document.getElementById("PublishBlahBtn").disabled = false;
-
-            }
-            else {
+            } else {
                 document.getElementById("PublishBlahBtn").disabled = true;
                 $("#ErrMsgSpan").text(errMsg);
                 $("#ValidationRow").fadeTo(200,1);
@@ -280,7 +278,6 @@ define('CreateBlahPage',
                 $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
-
 
                 UpdateLayout();
             } else {
@@ -385,13 +382,13 @@ define('CreateBlahPage',
             G.PromptUser("Your blah was not created due to an error.  Please try again, or come back later.  Sorry!", "Fine", null, function(theData) {
                 CheckPublishBtnDisable();
             });
-        }
+        };
 
         var DoCloseBlah = function(){
             InsertNewBlahIntoChannel(G.CurrentBlah);
             $("#AdditionalInfoDiv").empty();
             exports.CloseBlah();
-        }
+        };
 
         var ResizeCreatePage = function() {
             if (!G.IsShort) {
@@ -413,7 +410,7 @@ define('CreateBlahPage',
                 $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
             }
 
-        }
+        };
 
         var UploadBlahImage  = function() {
             if ($("#BlahImage").val() == "" ) {
