@@ -151,7 +151,7 @@ define('CreateBlahPage',
 			   break;
 			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline: Predictions detail outcomes expected to occur by a specific date.");
 			   break;
-			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined options.");
+			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined responses.");
 			   break;
 			   
 			}
@@ -379,7 +379,7 @@ define('CreateBlahPage',
 
         var HandleCreateBlahFailure = function(theErr) {
             console.log("ERROR when creating blah");
-            G.PromptUser("Your blah was not created due to an error.  Please try again, or come back later.  Sorry!", "Fine", null, function(theData) {
+            G.PromptUser("Sorry, an error occurred and your post was not created.  Please try again.", "OK", null, function(theData) {
                 CheckPublishBtnDisable();
             });
         };
