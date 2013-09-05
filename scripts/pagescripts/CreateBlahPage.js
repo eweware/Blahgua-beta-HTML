@@ -151,7 +151,7 @@ define('CreateBlahPage',
 			   break;
 			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline: Predictions detail outcomes expected to occur by a specific date.");
 			   break;
-			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined options.");
+			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined responses.");
 			   break;
 			   
 			}
