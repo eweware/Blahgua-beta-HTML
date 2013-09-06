@@ -545,11 +545,15 @@ define('globals',
 
         var AppendChartMask = function(theTarget, theText) {
             var maskObj;
+            var classStr = "chart-mask";
+
+            if (this.IsShort)
+                classStr += " short";
 
             if (theText != "")
-                maskObj = "<div class='chart-mask'><div>" + theText + "</div></div>";
+                maskObj = "<div class='" + classStr + "'><div>" + theText + "</div></div>";
             else
-                maskObj = "<div class='chart-mask blank'></div>";
+                maskObj = "<div class='" + classStr + " blank'></div>";
             $(theTarget).append(maskObj);
         };
 

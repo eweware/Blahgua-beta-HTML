@@ -34,7 +34,7 @@
     }
 
     @-ms-viewport {
-        width: device-width;
+        width: 320px;
 
 		.BlahDiv {
 
@@ -191,6 +191,10 @@
 
     .splash-body {
         font-size: 14px;
+    }
+
+    .splash-body ul {
+        font-size:14px;
     }
 
     .splash-footer h2 {

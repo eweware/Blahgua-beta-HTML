@@ -61,6 +61,10 @@
     width:300px;
 }
 
+.poll-title.response {
+    width:auto;
+}
+
 .poll-chart-holder {
     width:100%;
 }
@@ -111,8 +115,11 @@
 }
 
 .poll-result-row {
-    display: flex;
-    margin-top: 12px;
+    margin: 12px 12px 24px 8px;
+}
+
+.poll-result-row table{
+    margin-bottom: 12px;
 }
 
 .poll-result-row .title {

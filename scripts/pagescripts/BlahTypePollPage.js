@@ -152,7 +152,7 @@ define('BlahTypePoll',
                 '    </td>' +
                 '  </tr>' +
                 '  <tr>' +
-                '    <td></td><td><span class="poll-title">' + pollChoice.G + '</span><span class="poll-description">' + description + '</span></td>' +
+                '    <td></td><td><span class="poll-title response">' + pollChoice.G + '</span><span class="poll-description">' + description + '</span></td>' +
                 '  </tr>' +
                 "</table></td></tr>";
 
