@@ -102,7 +102,8 @@ define('BlahTypePollAuthorPage',
             var numItems = $(".poll-result-row").length + 1;
             var newHTML = "";
             newHTML += '<div class="poll-result-row">' +
-                            '<div class="title"><input maxlength="20" type="text" class="poll-title" placeholder="option ' + numItems + '">' +
+                            '<div class="label"><span>Response ' + numItems + '</span></div>'
+                            '<div class="title"><input maxlength="50" type="text" class="poll-title" placeholder="response text">' +
                                 '<div class="delete-btn" onclick=""></div>' +
                              '</div>' +
                             '<div class="description"><input maxlength="64" type="text" class="poll-description" placeholder="optional descriptive text"></div>' +

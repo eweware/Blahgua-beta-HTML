@@ -62,7 +62,8 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
-                $("#LightBox").click(DismissAll);
+                if (!G.IsMobile)
+                    $("#LightBox").click(DismissAll);
                 G.InitialBlah = getQueryVariable("blahId");
                 if (G.IsiPad || G.IsiPhone) {
                     $("#BlahFullItem").on("focusout", function(e) {

@@ -87,7 +87,7 @@ define('globals',
         var ReturnCommentID = null;
         var ReturnBlahId = null;
         var IsUploadCapable = true;
-        var numMinutes = 5;
+        var numMinutes = 10;
         var isShort = false;
         var isNarrow = false;
         var isHorizontal = false;

@@ -27,6 +27,18 @@
     text-align: center;
 }
 
+.poll-result-row .label {
+    text-decoration: underline;
+    font-family: 'Arimo', sans-serif;
+    font-size:14px;
+    margin: auto 0;
+    color: #202020;
+}
+
+.poll-result-row .label span {
+    margin-right:16px;
+}
+
 .poll-checkbox-wrapper {
     min-width:32px;
 }
@@ -46,7 +58,7 @@
     color: rgb(32,32,32);
     padding-left: 8px;
     padding-right: 8px;
-    max-width: 200px;
+    width:300px;
 }
 
 .poll-chart-holder {
@@ -72,6 +84,10 @@
     color: #999999;
 }
 
+.description {
+    display: none;
+}
+
 .poll-vote-text {
     font-family: 'Arimo', sans-serif;
     font-size: 12px;
@@ -95,7 +111,7 @@
 }
 
 .poll-result-row {
-    display: block;
+    display: flex;
     margin-top: 12px;
 }
 
