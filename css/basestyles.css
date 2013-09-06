@@ -20,7 +20,7 @@ textarea {
 
 
 
-input {
+input:not([type='checkbox']) {
     font-size:16px;
     font-family: 'Arimo', sans-serif;
     text-align: left;
@@ -35,7 +35,7 @@ input {
     -moz-transition: all 0.15s ease-in-out;
 }
 
-input:focus {
+input:not([type='checkbox']):focus {
     border: solid 1px rgb(125, 181, 227);
     box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
     -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
@@ -43,6 +43,9 @@ input:focus {
     background-color: rgb(255,255,255);
 
 }
+
+
+
 
 li.divider {
     border-bottom: 1px black solid;

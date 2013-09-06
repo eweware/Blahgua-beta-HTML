@@ -52,7 +52,7 @@ define('BlahTypePollAuthorPage',
             $('.delete-poll-vote').click(function(theEvent) {
                 $(theEvent.target).closest(".poll-result-row").remove();
                 $('.poll-title').each(function (index, item) {
-                    $(item).attr("placeholder", "option " + (index + 1));
+                    $(item).attr("placeholder", "response " + (index + 1));
                 });
             });
             $(".poll-title").change(validateCallback).keydown(validateCallback);
@@ -87,11 +87,11 @@ define('BlahTypePollAuthorPage',
             var msg = "";
             var $polls = $(".poll-title");
             if ($polls.length < 2) {
-                msg = "A poll must have at least two options."
+                msg = "A poll must have at least two reponses."
             } else {
                 $polls.each(function(index, item) {
                     if (item.value == "")
-                        msg = "Each option title must have text.  ";
+                        msg = "Each response requires a title.  ";
                 });
             }
 
@@ -102,7 +102,7 @@ define('BlahTypePollAuthorPage',
             var numItems = $(".poll-result-row").length + 1;
             var newHTML = "";
             newHTML += '<div class="poll-result-row">' +
-                            '<div class="title"><input maxlength="20" type="text" class="poll-title" placeholder="option ' + numItems + '">' +
+                            '<div class="title"><input maxlength="20" type="text" class="poll-title" placeholder="response ' + numItems + '">' +
                                 '<div class="delete-btn" onclick=""></div>' +
                              '</div>' +
                             '<div class="description"><input maxlength="64" type="text" class="poll-description" placeholder="optional descriptive text"></div>' +

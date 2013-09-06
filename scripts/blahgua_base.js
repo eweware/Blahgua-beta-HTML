@@ -53,7 +53,7 @@ define('blahgua_base',
 
             Exports.SpinTarget = document.getElementById("spin-div");
 
-            $(window).load(function () {
+            $(document).ready(function () {
                 $("#BlahContainer").disableSelection();
                 $("#ChannelBanner").disableSelection();
                 $("#ChannelDropMenu").disableSelection();
