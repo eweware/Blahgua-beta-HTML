@@ -723,7 +723,10 @@ color:rgb(244,245,240);
     vertical-align: middle;
     position: relative;
     top:-200px;
+}
 
+.chart-mask.short {
+    top: -300px;
 }
 
 .chart-mask.blank {
