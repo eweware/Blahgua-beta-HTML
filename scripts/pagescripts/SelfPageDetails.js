@@ -142,11 +142,11 @@ define('SelfPageDetails',
             // permissions
             $('input:checkbox[name=city]').val([G.GetSafeProperty(G.UserProfile, "6", 0)]);
             $('input:checkbox[name=state]').val([G.GetSafeProperty(G.UserProfile, "7", 0)]);
-            $('input:checkbox[name=zipcode]').val([G.GetSafeProperty(G.UserProfile, "8", 0)]);
+            $('input:checkbox[name=zipcode]').prop('checked', false).val(0);
             $('input:checkbox[name=country]').val([G.GetSafeProperty(G.UserProfile, "9", 0)]);
 
             $('input:checkbox[name=age]').val([G.GetSafeProperty(G.UserProfile, "2", 0)]);
-            $('input:checkbox[name=income]').val([G.GetSafeProperty(G.UserProfile, "4", 0)]);
+            $('input:checkbox[name=income]').prop('checked', false).val(0);
             $('input:checkbox[name=gender]').val([G.GetSafeProperty(G.UserProfile, "1", 0)]);
             $('input:checkbox[name=race]').val([G.GetSafeProperty(G.UserProfile, "3", 0)]);
 

@@ -1940,7 +1940,7 @@ define('blahgua_base',
     };
 
     var TruncateBlahStream = function() {
-        InboxCount = 1;
+        location.reload();
     };
 
     var OnGetNextBlahsOK = function(theResult) {
