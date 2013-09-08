@@ -357,7 +357,7 @@ define('CreateBlahPage',
                        if (isChecked)
                            badgeArray.push(theID);
                     });
-                    if (badgeArray != [])
+                    if (badgeArray.length > 0)
                         options["B"] = badgeArray;
                 }
 
