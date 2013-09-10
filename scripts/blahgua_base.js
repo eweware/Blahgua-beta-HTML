@@ -338,9 +338,7 @@ define('blahgua_base',
                 else
                     $.removeCookie("hidesplash");
             });
-            splashTimeout = setTimeout(function() {
-                ClosePage();
-            }, 10000);
+
         } else {
             $("#BlahFullItem").empty();
             isStarting = false;
@@ -735,7 +733,7 @@ define('blahgua_base',
     };
 
     var DoBlahClick = function(e) {
-        var theEvent = window.event || e;
+        var theEvent = e || window.event;
         if (theEvent.which == 1) {
             var who = theEvent.target || theEvent.srcElement;
             while (who.hasOwnProperty("blah") == false) {
@@ -747,7 +745,7 @@ define('blahgua_base',
     };
 
         var DoBlahMouseDown = function(e) {
-            var theEvent = window.event || e;
+            var theEvent = e || window.event;
             if (theEvent.which == 2) {
                 G.CurrentScrollSpeed = 0;
             }
@@ -1855,13 +1853,6 @@ define('blahgua_base',
                 Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
             } else {
                 Blahgua.GetFeaturedChannels(function (channelList) {
-                        var defChannel = getQueryVariable('channel');
-                        if (defChannel != null) {
-                            var theChannel = GetChannelByName(defChannel, channelList);
-                            if (theChannel != null)
-                                realChannels.push(theChannel);
-                        }
-
 
                         GetChannelsOK(channelList);
                     },
@@ -1880,10 +1871,10 @@ define('blahgua_base',
             // fetch URL parameter Channel
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
+                PopulateChannelMenu();
                 for (var curIndex in G.ChannelList) {
                     if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                     {
-                        PopulateChannelMenu();
                         SetCurrentChannel(curIndex);
                         return;
                         break;
