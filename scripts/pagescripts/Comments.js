@@ -233,7 +233,7 @@ define('comments',
             var commentText = $.trim($("#CommentTextArea").val());
             var imageId = $("#objectId").val();
             blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, function (newComment) {
-                ga('send', 'event', 'create', 'comment', "default", 1);
+                ga('send', 'event', 'createcomment', 'comment', "default", 1);
                 $("#CommentTextArea").val("").attr("placeholder","Enter comment text here");
                 if (G.CurrentBlah.hasOwnProperty("C")) {
                     G.CurrentBlah.C++;
@@ -250,7 +250,7 @@ define('comments',
             var theID = G.CurrentComments[commentIndex]._id;
             var targetDiv = $(theEvent.target).parents('tr')[1];
             blahgua_rest.SetCommentVote(theID, vote, function(json) {
-                ga('send', 'event', 'vote', 'comment', vote, 1);
+                ga('send', 'event', 'commentvote', 'comment', vote, 1);
                 if (vote == 1)
                     G.CurrentComments[commentIndex]["U"] = G.GetSafeProperty(G.CurrentComments[commentIndex], "U", 0) + 1;
                 else

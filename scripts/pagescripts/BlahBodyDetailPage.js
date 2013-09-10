@@ -308,7 +308,7 @@ define('BlahBodyDetailPage',
         var SetBlahVote = function(theVote) {
             if (!$(window.event.srcElement).hasClass("disabled")) {
                 blahgua_rest.SetBlahVote(G.CurrentBlah._id, theVote, function(json) {
-                    ga('send', 'event', 'vote', 'blah', theVote, 1);
+                    ga('send', 'event', 'blahvote', 'blah', theVote, 1);
                     var oldVote;
                     G.CurrentBlah["uv"] = theVote;
                     if (theVote == 1) {

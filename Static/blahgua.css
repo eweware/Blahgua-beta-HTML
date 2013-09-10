@@ -1,5 +1,5 @@
 body {
-    font-family: 'Open Sans', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Arimo', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
     color: #F4F5F0;
     background: fixed;
@@ -213,6 +213,18 @@ ul.icons {
 
 .container {
     padding-bottom: 40px;
+}
+
+.row {
+    position:fixed;
+    bottom:16px;
+    width:100%;
+    text-align: center;
+}
+
+.row a {
+    color:white;
+    margin:0px 10px;
 }
 
 @media (max-width:767px) {

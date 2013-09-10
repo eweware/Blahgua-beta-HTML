@@ -62,6 +62,11 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
+                $("#BlahContainer").on('mousedown', HandleMidBtnDown);
+                if(window.addEventListener) {
+                    document.addEventListener('DOMMouseScroll', mousewheel_handler, false);
+                }
+                document.onmousewheel = mousewheel_handler;
                 if (!G.IsMobile)
                     $("#LightBox").click(DismissAll);
                 G.InitialBlah = getQueryVariable("blahId");
@@ -88,6 +93,24 @@ define('blahgua_base',
                     newSize = (fontSize * (multiplier - 0.1));
                 ourText.css("fontSize", (maxFontSize > 0 && newSize > maxFontSize) ? maxFontSize : newSize);
             });
+        };
+
+        var mousewheel_handler = function(theEvent) {
+            var delta = event.wheelDelta;
+            if (delta < 0)
+                HandleSwipeUp();
+            else
+                HandleSwipeDown();
+        };
+
+        var HandleMidBtnDown = function(theEvent) {
+            if (theEvent.which == 2) {
+                G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                event.stopImmediatePropagation();
+                return true;
+            } else {
+                return false;
+            }
         };
 
 
@@ -711,13 +734,16 @@ define('blahgua_base',
         G.BlahFullItem = document.getElementById("BlahFullItem");
     };
 
-    var DoBlahClick = function(theEvent) {
-        theEvent = window.event || theEvent;
-        var who = theEvent.target || theEvent.srcElement;
-        while (who.hasOwnProperty("blah") == false) {
-            who = who.parentElement;
+    var DoBlahClick = function(e) {
+        var theEvent = window.event || e;
+        if (theEvent.which == 1) {
+            var who = theEvent.target || theEvent.srcElement;
+            while (who.hasOwnProperty("blah") == false) {
+                who = who.parentElement;
+            }
+            OpenBlah(who);
         }
-        OpenBlah(who);
+
     };
 
 
@@ -1137,18 +1163,20 @@ define('blahgua_base',
     };
 
     var StartBlahsMoving = function() {
-        if (!isStarting) {
-            if (G.BlahsMovingTimer == null) {
-                G.CurrentScrollSpeed = K.BlahRollPixelStep;
-                G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
-            }
+        if (G.BlahList.length > 0) {
+            if (!isStarting) {
+                if (G.BlahsMovingTimer == null) {
+                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                    G.BlahsMovingTimer = setTimeout(MakeBlahsMove, K.BlahRollScrollInterval);
+                }
 
-            if (FadeTimer == null) {
-                FadeRandomElement();
+                if (FadeTimer == null) {
+                    FadeRandomElement();
+                }
             }
         }
-    };
 
+    };
 
 
 

@@ -370,7 +370,7 @@ define('CreateBlahPage',
         };
 
         var OnCreateBlahOK = function(json) {
-            ga('send', 'event', 'create', 'blah', json.Y, 1);
+            ga('send', 'event', 'createblah', 'blah', json.Y, 1);
             G.CurrentBlah = json;
             G.CurrentBlahId = G.CurrentBlah._id;
             // check for images
