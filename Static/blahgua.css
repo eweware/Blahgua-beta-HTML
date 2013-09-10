@@ -35,6 +35,14 @@ p {
     white-space: nowrap
 }
 
+.indent {
+    margin-left: 16px;
+}
+
+
+.notes {
+    font-style: italic;
+}
 .launch-head h1 span {
     font-weight: 300;
     margin-left: -12px

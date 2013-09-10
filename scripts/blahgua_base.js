@@ -62,7 +62,7 @@ define('blahgua_base',
                 $("#BlahContainer").on('swiperight', HandleSwipeRight);
                 $("#BlahContainer").on('swipeup', HandleSwipeUp);
                 $("#BlahContainer").on('swipedown', HandleSwipeDown);
-                $("#BlahContainer").on('mousedown', HandleMidBtnDown);
+                //$("#BlahContainer").on('mousedown', HandleMidBtnDown);
                 if(window.addEventListener) {
                     document.addEventListener('DOMMouseScroll', mousewheel_handler, false);
                 }
@@ -746,9 +746,16 @@ define('blahgua_base',
 
     };
 
+        var DoBlahMouseDown = function(e) {
+            var theEvent = window.event || e;
+            if (theEvent.which == 2) {
+                G.CurrentScrollSpeed = 0;
+            }
+
+        };
 
 
-    var CloseBlah = function() {
+        var CloseBlah = function() {
         $("#AdditionalInfoArea").empty();
         switch (G.BlahReturnPage) {
             case "UserBlahList":
@@ -908,6 +915,7 @@ define('blahgua_base',
         newDiv.style.top = "0px";
         newDiv.style.position = "absolute";
         newDiv.onclick = DoBlahClick;
+        newDiv.onmousedown = DoBlahMouseDown;
         newDiv.topBlah = [];
         newDiv.bottomBlah = [];
 
@@ -1655,7 +1663,7 @@ define('blahgua_base',
         G.BlahList = theResult;
         G.NextBlahList = [];
         if (theResult.length > 0)
-            PrepareBlahList(G.BlahList);
+            G.BlahList = PrepareBlahList(G.BlahList);
         G.ActiveBlahList = [];
         RefreshActiveBlahList();
         DrawInitialBlahs();
@@ -1671,9 +1679,16 @@ define('blahgua_base',
     var NormalizeStrengths = function(theBlahList) {
         // ensure 100 blahs
         if (theBlahList.length < 100) {
-            var curLoc = 0;
+            theBlahList.sort(function(a,b) {
+                return a.S - b.S;
+            });
+
+            var startLoc = theBlahList.length - 1;
+            var curLoc = startLoc;
             while (theBlahList.length < 100) {
-                theBlahList.push(theBlahList[curLoc++]);
+                theBlahList.push(theBlahList[curLoc--]);
+                if (curLoc == 0)
+                    curLoc = startLoc;
             }
         }
     };
@@ -1685,8 +1700,13 @@ define('blahgua_base',
         // the rest are small - presumably 40, since we get 100 blahs
 
         // first, sort the blahs by their size
-        theBlahList.sort(function (a, b) {
-            return b.s - a.s;
+        theBlahList = theBlahList.sort(function (a, b) {
+            if (a.S == b.S)
+                return 0;
+            else if (a.S > b.S)
+                return -1;
+            else
+                return 1;
         });
 
         var i = 0;
@@ -1701,6 +1721,8 @@ define('blahgua_base',
         while (i < theBlahList.length) {
             theBlahList[i++].displaySize = 3;
         }
+
+        return theBlahList;
     };
 
     var IsBlahValid = function(theBlah) {
@@ -1736,12 +1758,12 @@ define('blahgua_base',
             }
         }
 
-        // shuffle
-        fisherYates(theBlahList);
-
-
         // sort by strength
-        AssignSizes(theBlahList);
+        theBlahList = AssignSizes(theBlahList);
+
+
+        return theBlahList;
+
     };
 
     var fisherYates = function(myArray) {
@@ -1975,7 +1997,7 @@ define('blahgua_base',
 
         G.NextBlahList = theResult;
         if (theResult.length > 0)
-            PrepareBlahList(G.NextBlahList);
+            G.NextBlahList = PrepareBlahList(G.NextBlahList);
         FlushViewMap();
         ga('send', 'pageview', {
             'page': '/channel/' + G.CurrentChannel.N,
