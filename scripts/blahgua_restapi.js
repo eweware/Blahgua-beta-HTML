@@ -724,6 +724,23 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var ShortenURL  = function(theURL, OnSuccess, OnFailure) {
+        var query = "login=blahgua&apiKey=R_e6c9339d5c7286f6a6d1002204578984&longUrl=" + longURL;
+
+        G.RefreshSessionTimer();
+        $.ajax({
+            type: "GET",
+            url: "http://api.bitly.com/v3/shorten",
+            data: query,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            timeout: 3000,
+            success: OnSuccess,
+            error: OnFailure
+        });
+    };
+
+
     return {
         currentChannel: currentChannel,
         GetUserStats:  GetUserStats ,

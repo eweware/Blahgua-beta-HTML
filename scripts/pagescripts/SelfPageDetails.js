@@ -284,6 +284,7 @@ define('SelfPageDetails',
         };
 
         var DoAddBadge = function(badgeID, badgeName) {
+            ga('send', 'event', 'requestbadge', 'badge', badgeID, 1);
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 //var dialogHTML = badge_api.dialog_html();
                 var dialogHTML = data;

@@ -333,8 +333,10 @@ define('blahgua_base',
                 ClosePage();
             });
             $("#dontshowbox").change(function(theEvent) {
-                if (theEvent.target.checked)
+                if (theEvent.target.checked)   {
                     $.cookie("hidesplash", true);
+                    ClosePage();
+                }
                 else
                     $.removeCookie("hidesplash");
             });
@@ -694,7 +696,7 @@ define('blahgua_base',
             });
             $("#ShowAboutItem").click(function (theEvent) {
                 DismissAll();
-                window.open("http://www.eweware.com/blahgua");
+                window.open("http://www.blahgua.com/about.html");
             });
             $("#LogOutItem").click(function (theEvent) {
                 DismissAll();
@@ -922,7 +924,7 @@ define('blahgua_base',
         textDiv.className = "BlahTextDiv";
         newDiv.appendChild(textDiv);
         newDiv.blahTextDiv = textDiv;
-        $(textDiv).html(G.UnCodifyText(theBlah.T));
+        $(textDiv).html(G.UnCodifyText(theBlah.T, true));
         switch (theBlah.displaySize) {
             case 1:
                 blahImageSize = "C";
