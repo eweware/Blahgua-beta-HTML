@@ -284,6 +284,7 @@ define('SelfPageDetails',
         };
 
         var DoAddBadge = function(badgeID, badgeName) {
+            ga('send', 'event', 'requestbadge', 'badge', badgeID, 1);
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 //var dialogHTML = badge_api.dialog_html();
                 var dialogHTML = data;
@@ -454,6 +455,7 @@ define('SelfPageDetails',
                 $("#objectId").val(G.CurrentUser._id);
 
                 var formData = new FormData($("#ImageForm")[0]);
+                ga('send', 'event', 'uploadimage', 'user', 1, 1);
                 $.ajax({
                     url: BlahguaConfig.apiURL + "images/upload",
 

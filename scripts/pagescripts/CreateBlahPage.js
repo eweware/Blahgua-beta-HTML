@@ -21,12 +21,13 @@ define('CreateBlahPage',
             PopulateBlahTypeOptions();
             var blahChannelStr = G.CurrentChannel.N;
             blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
+                $("#FullBlahNickName").text(G.GetSafeProperty(theString, "K", "someone" ));
                 $("#FullBlahProfileString").text(theString.d);
             }, function (theErr) {
                 $("#FullBlahProfileString").text("someone");
             });
 
-            $("#FullBlahNickName").text(G.GetSafeProperty(G.CurrentUser, "N", "someone" ));
+
             var newImage = G.GetUserImage(G.CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
             var channelName = G.CurrentChannel.N;
@@ -220,7 +221,7 @@ define('CreateBlahPage',
                 errMsg = G.AppendText(errMsg, "Headline too short", "; ");
             if (headLineLen > K.MaxTitleLength)
                 errMsg = G.AppendText(errMsg, "Headline too long", "; ");
-            if (bodyLen > 1000)
+            if (bodyLen > 2000)
                 errMsg = G.AppendText(errMsg, "Body text too long", "; ");
 
             if (blahTypeModule)
@@ -261,7 +262,7 @@ define('CreateBlahPage',
         };
 
         var HandleBodyTextInput = function(target) {
-            var numCharsRemaining = 1000 - target.value.length;
+            var numCharsRemaining = 2000 - target.value.length;
             $("#BodyCharCount").text(numCharsRemaining);
 
             CheckPublishBtnDisable();
@@ -422,6 +423,7 @@ define('CreateBlahPage',
                 $(".image-preview span").text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
+                ga('send', 'event', 'uploadimage', 'blah', 1, 1);
                 $.ajax({
                     url: BlahguaConfig.apiURL +  "images/upload",
 
@@ -439,13 +441,13 @@ define('CreateBlahPage',
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
-                        if (theErr.status == "409")
+                        if (theErr.status == "409") {
+                            ga('send', 'event', 'sessionerror', 'blahimageupload', 1, 1);
                             exports.LogoutUser();
-                        else {
+                        } else {
                             $("#ImagePreviewDiv").removeAttr("disabled");
                             $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
                         }
-
                     },
                     // Form data
                     data: formData,

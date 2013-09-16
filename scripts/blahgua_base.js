@@ -116,7 +116,9 @@ define('blahgua_base',
 
     var HandleWindowResize = function() {
         ComputeSizes();
-        if(G.TopRow != null) {
+        if ((G.TopRow != null) && (!G.IsMobile)) {
+            // note that we do NOT do this on a mobile device,
+            // since the resize is likely caused by the onscreen keyboard
             var rowTop = G.TopRow.getBoundingClientRect().top;
             var curScroll = $("#BlahContainer").scrollTop();
             var curTop = 0, rowHeight;
@@ -198,11 +200,13 @@ define('blahgua_base',
 
     var GlobalReset = function () {
         // clear all timers
+        ga('send', 'event', 'crash', 'crash', "GlobalReset", 1);
         clearInterval(G.BlahsMovingTimer);
         clearInterval(G.ViewerUpdateTimer);
         if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
             $.removeCookie("loginkey");
         }
+
         Blahgua.logoutUser();
         location.reload();
     };
@@ -333,14 +337,14 @@ define('blahgua_base',
                 ClosePage();
             });
             $("#dontshowbox").change(function(theEvent) {
-                if (theEvent.target.checked)
+                if (theEvent.target.checked)   {
                     $.cookie("hidesplash", true);
+                    ClosePage();
+                }
                 else
                     $.removeCookie("hidesplash");
             });
-            splashTimeout = setTimeout(function() {
-                ClosePage();
-            }, 10000);
+
         } else {
             $("#BlahFullItem").empty();
             isStarting = false;
@@ -696,7 +700,7 @@ define('blahgua_base',
             });
             $("#ShowAboutItem").click(function (theEvent) {
                 DismissAll();
-                window.open("http://www.eweware.com/blahgua");
+                window.open("http://www.blahgua.com/about.html");
             });
             $("#LogOutItem").click(function (theEvent) {
                 DismissAll();
@@ -735,7 +739,7 @@ define('blahgua_base',
     };
 
     var DoBlahClick = function(e) {
-        var theEvent = window.event || e;
+        var theEvent = e || window.event;
         if (theEvent.which == 1) {
             var who = theEvent.target || theEvent.srcElement;
             while (who.hasOwnProperty("blah") == false) {
@@ -747,7 +751,7 @@ define('blahgua_base',
     };
 
         var DoBlahMouseDown = function(e) {
-            var theEvent = window.event || e;
+            var theEvent = e || window.event;
             if (theEvent.which == 2) {
                 G.CurrentScrollSpeed = 0;
             }
@@ -924,7 +928,7 @@ define('blahgua_base',
         textDiv.className = "BlahTextDiv";
         newDiv.appendChild(textDiv);
         newDiv.blahTextDiv = textDiv;
-        $(textDiv).html(G.UnCodifyText(theBlah.T));
+        $(textDiv).html(G.UnCodifyText(theBlah.T, true));
         switch (theBlah.displaySize) {
             case 1:
                 blahImageSize = "C";
@@ -1267,8 +1271,7 @@ define('blahgua_base',
 // Manage the active blah list
 
     var RefreshActiveBlahList = function() {
-        // when the list is empty, we refill it. For now, we just use the same list
-        $("#ChannelBanner").css("background-color", K.BannerHighlightColor);
+
         var nextBlahSet = [];
 
         if (G.NextBlahList.length > 0) {
@@ -1283,14 +1286,6 @@ define('blahgua_base',
         GetNextBlahList();
     };
 
-    var GetNextBlah = function() {
-        var nextBlah = G.ActiveBlahList.pop();
-        if (G.ActiveBlahList.length == 0) {
-            RefreshActiveBlahList();
-        }
-
-        return nextBlah;
-    };
 
     var GetNextMatchingBlah = function(blahSize) {
         var curBlah;
@@ -1660,10 +1655,36 @@ define('blahgua_base',
     };
 
     var OnGetBlahsOK = function(theResult) {
+        console.log("loaded " + theResult.length + " blahs");
         G.BlahList = theResult;
         G.NextBlahList = [];
-        if (theResult.length > 0)
-            G.BlahList = PrepareBlahList(G.BlahList);
+        if (theResult.length > 0) {
+            var numInboxes =  (G.CurrentChannel.L - G.CurrentChannel.F) + 1;
+            if ((theResult.length < 100) && (numInboxes > 1)) {
+                console.log("loaded partial inbox of " + theResult.length + " blahs");
+                // we got less than 100 blahs but there are more out there.
+                // grab a random other inbox
+                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * numInboxes);
+                Blahgua.GetSpecificInbox(inboxNum, function(theBlahs) {
+                    var blahsNeeded = 100 - G.BlahList.length;
+                    G.BlahList = G.BlahList.concat(theBlahs.slice(0,blahsNeeded));
+                    console.log("...added more to make inbox of " + G.BlahList.length + " blahs");
+                    FinalizeInitialBlahLoad();
+                }, function(theErr) {
+                    console.log("Error getting random inbox");
+                    FinalizeInitialBlahLoad();
+                });
+            } else {
+                console.log("loaded " + theResult.length + " blahs");
+                FinalizeInitialBlahLoad();
+            }
+        } else  {
+            FinalizeInitialBlahLoad();
+        }
+    };
+
+    var FinalizeInitialBlahLoad = function() {
+        G.BlahList = PrepareBlahList(G.BlahList);
         G.ActiveBlahList = [];
         RefreshActiveBlahList();
         DrawInitialBlahs();
@@ -1672,6 +1693,7 @@ define('blahgua_base',
             StartAnimation();
         }
         GetNextBlahList();
+
     };
 
 
@@ -1855,13 +1877,6 @@ define('blahgua_base',
                 Blahgua.GetUserChannels(GetChannelsOK, OnFailure);
             } else {
                 Blahgua.GetFeaturedChannels(function (channelList) {
-                        var defChannel = getQueryVariable('channel');
-                        if (defChannel != null) {
-                            var theChannel = GetChannelByName(defChannel, channelList);
-                            if (theChannel != null)
-                                realChannels.push(theChannel);
-                        }
-
 
                         GetChannelsOK(channelList);
                     },
@@ -1880,10 +1895,10 @@ define('blahgua_base',
             // fetch URL parameter Channel
             var defChannel = getQueryVariable('channel');
             if (defChannel != null) {
+                PopulateChannelMenu();
                 for (var curIndex in G.ChannelList) {
                     if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                     {
-                        PopulateChannelMenu();
                         SetCurrentChannel(curIndex);
                         return;
                         break;
@@ -1984,7 +1999,7 @@ define('blahgua_base',
             TruncateBlahStream();
         else
             Blahgua.GetNextBlahs(OnGetNextBlahsOK, function(theErr) {
-                console.log("Error in GetNextBlahList: " + theErr.status + " - " + theErr.responseText);
+                console.log("Error in GetNextBlahList: " + theErr.status + " - " + theErr.statusText);
                 OnGetNextBlahsOK([]);
             });
     };
@@ -1994,10 +2009,28 @@ define('blahgua_base',
     };
 
     var OnGetNextBlahsOK = function(theResult) {
-
         G.NextBlahList = theResult;
-        if (theResult.length > 0)
-            G.NextBlahList = PrepareBlahList(G.NextBlahList);
+        if (theResult.length > 0) {
+            var numInboxes =  (G.CurrentChannel.L - G.CurrentChannel.F) + 1;
+            if ((theResult.length < 100) && (numInboxes > 1)) {
+                console.log("loaded next partial inbox of " + theResult.length + " blahs");
+                // we got less than 100 blahs but there are more out there.
+                // grab a random other inbox
+                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * numInboxes);
+                Blahgua.GetSpecificInbox(inboxNum, function(theBlahs) {
+                    var blahsNeeded = 100 - G.NextBlahList.length;
+                    G.NextBlahList = G.NextBlahList.concat(theBlahs.slice(0,blahsNeeded));
+                    console.log("...added more to make inbox of " + G.NextBlahList.length + " blahs");
+                    G.NextBlahList = PrepareBlahList(G.NextBlahList);
+                }, function(theErr) {
+                    console.log("Error getting random inbox");
+                    G.NextBlahList = PrepareBlahList(G.NextBlahList);
+                });
+            } else {
+                console.log("loaded next inbox of " + theResult.length + " blahs");
+                G.NextBlahList = PrepareBlahList(G.NextBlahList);
+            }
+        }
         FlushViewMap();
         ga('send', 'pageview', {
             'page': '/channel/' + G.CurrentChannel.N,

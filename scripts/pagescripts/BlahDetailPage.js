@@ -44,7 +44,7 @@ define('BlahDetailPage',
 
         var UpdateBlahPage = function() {
             var headlineText = document.getElementById("BlahFullHeadline");
-            headlineText.innerHTML = G.CurrentBlah.T;
+            headlineText.innerHTML = G.UnCodifyText(G.CurrentBlah.T, false);
 
             var blahTypeStr = exports.GetBlahTypeStr();
             var isOwnBlah;

@@ -275,8 +275,15 @@ define('globals',
 
         };
 
-        var UnCodifyText = function(theText) {
+        var UnCodifyText = function(theText, fakeURLs) {
             if (theText) {
+
+                if (fakeURLs == true) {
+                    theText = FakeURLifyText(theText);
+                } else {
+                    theText = URLifyText(theText);
+                }
+                theText = ReplaceBadWords(theText);
                 var regX = new RegExp("\\" + K.NewlineToken,"g");
                 var replaceString = "<br />";
                 return theText.replace(regX, replaceString);
@@ -285,8 +292,14 @@ define('globals',
 
         };
 
+        var ReplaceBadWords = function(theText) {
 
-        /*
+            return theText;
+        }
+
+
+
+
         // Code to handle URL detection in text
 
         var URLRegEx = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -304,7 +317,7 @@ define('globals',
             theText = theText.replace(/&quot;/gi, "\"");
             return theText.replace(URLRegEx, '<span style="color:blue; text-decoration:underline">$1</span>');
         };
-         */
+
 
         var dynamicSort = function(property, subProp) {
             return function (a, b) {
@@ -620,9 +633,9 @@ define('globals',
             CodifyText: CodifyText,
             UnCodifyText: UnCodifyText,
             ChannelTypes: ChannelTypes,
-            //GetURLsFromString: GetURLsFromString,
-            //URLifyText: URLifyText,
-            //FakeURLifyText: FakeURLifyText,
+            GetURLsFromString: GetURLsFromString,
+            URLifyText: URLifyText,
+            FakeURLifyText: FakeURLifyText,
             BrowserSupportsUpload: BrowserSupportsUpload,
             DynamicSort: dynamicSort,
             GetCommentUserImage: GetCommentUserImage,

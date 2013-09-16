@@ -401,6 +401,7 @@ define('comments',
                 $(".image-preview span").text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
+                ga('send', 'event', 'uploadimage', 'comment', 1, 1);
                 $.ajax({
                     url: BlahguaConfig.apiURL +  "images/upload",
                     type: 'POST',

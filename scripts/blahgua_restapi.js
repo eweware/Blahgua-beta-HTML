@@ -691,6 +691,16 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var GetSpecificInbox = function(whichInbox, OnSuccess, OnFailure) {
+        var paramStr = new Object();
+
+        paramStr["groupId"] = this.currentChannel;
+        paramStr["in"] = whichInbox;
+
+        var methodName = "users/inbox";
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    }
+
     var GetBlahComments = function (blahId, OnSuccess, OnFailure) {
         /// <summary>Returns the comments of the current blah</summary>
         /// <param name="OnSuccess">Success callback</param>
@@ -723,6 +733,23 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         //var methodName = "blahs/" + BlahID  + "?stats=true";
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
+
+    var ShortenURL  = function(theURL, OnSuccess, OnFailure) {
+        var query = "login=blahgua&apiKey=R_e6c9339d5c7286f6a6d1002204578984&longUrl=" + longURL;
+
+        G.RefreshSessionTimer();
+        $.ajax({
+            type: "GET",
+            url: "http://api.bitly.com/v3/shorten",
+            data: query,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            timeout: 3000,
+            success: OnSuccess,
+            error: OnFailure
+        });
+    };
+
 
     return {
         currentChannel: currentChannel,
@@ -769,6 +796,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetChannelTypes: GetChannelTypes,
         GetUsers:  GetUsers ,
         GetNextBlahs:  GetNextBlahs ,
+        GetSpecificInbox: GetSpecificInbox,
         GetBlahComments:  GetBlahComments ,
         GetBlah:  GetBlah ,
         GetBlahAuthor:  GetBlahAuthor ,
