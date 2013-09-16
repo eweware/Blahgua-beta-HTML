@@ -333,16 +333,9 @@ define('blahgua_base',
         if (showSplash) {
             $("#LightBox").fadeIn();
             $("#BlahFullItem").fadeIn();
-            $("#DismissSplashBtn").click(function(theEvent) {
+            $("#EnterBlahguaBtn").click(function(theEvent) {
+                $.cookie("hidesplash", true);
                 ClosePage();
-            });
-            $("#dontshowbox").change(function(theEvent) {
-                if (theEvent.target.checked)   {
-                    $.cookie("hidesplash", true);
-                    ClosePage();
-                }
-                else
-                    $.removeCookie("hidesplash");
             });
 
         } else {
@@ -1664,7 +1657,7 @@ define('blahgua_base',
                 console.log("loaded partial inbox of " + theResult.length + " blahs");
                 // we got less than 100 blahs but there are more out there.
                 // grab a random other inbox
-                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * numInboxes);
+                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * (numInboxes - 1));
                 Blahgua.GetSpecificInbox(inboxNum, function(theBlahs) {
                     var blahsNeeded = 100 - G.BlahList.length;
                     G.BlahList = G.BlahList.concat(theBlahs.slice(0,blahsNeeded));
@@ -1892,45 +1885,77 @@ define('blahgua_base',
         if (G.ChannelList.length == 0) {
             AddDefaultChannelsToNewUser();
         } else {
-            // fetch URL parameter Channel
-            var defChannel = getQueryVariable('channel');
-            if (defChannel != null) {
-                PopulateChannelMenu();
-                for (var curIndex in G.ChannelList) {
-                    if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
-                    {
-                        SetCurrentChannel(curIndex);
-                        return;
-                        break;
-                    }
+            SetInitialChannel();
+        }
+    };
+
+    var SetInitialChannel = function() {
+        var defChannel = getQueryVariable('channel');
+        if (defChannel != null) {
+            for (var curIndex in G.ChannelList) {
+                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
+                {
+                    EnsureChannelInfo(curIndex);
+                    return;
+                    break;
                 }
-                // user does not have this channel - add it!
-                if (G.IsUserLoggedIn) {
-                    Blahgua.GetAllChannels(function (allChannels) {
-                        for (var curIndex in allChannels) {
-                            if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
-                            {
-                                Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
-                                    G.ChannelList.splice(0,0,allChannels[curIndex]);
-                                    PopulateChannelMenu();
-                                    SetCurrentChannel(0);
-                                }, OnFailure);
-                                break;
-                            }
+            }
+            // if we got here, the user does not have this channel
+            // fetch all of the channels and add it
+            if (G.IsUserLoggedIn) {
+                Blahgua.GetAllChannels(function (allChannels) {
+                    for (var curIndex in allChannels) {
+                        if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
+                        {
+                            Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
+                                G.ChannelList.splice(0,0,allChannels[curIndex]);
+                                PopulateChannelInfo(allChannels);
+                                EnsureChannelInfo(0);
+                            }, OnFailure);
+                            break;
                         }
-                    }, OnFailure);
-                } else {
-                    // for some reason the channel is not available..
-                    // TO DO: show a warning
-                    PopulateChannelMenu();
-                    SetCurrentChannel(0);
-                }
+                    }
+                }, OnFailure);
             } else {
-                PopulateChannelMenu();
-                SetCurrentChannel(0);
+                // for some reason the channel is not available..
+                // TO DO: show a warning
+                EnsureChannelInfo(0);
+            }
+        } else {
+            // no initial channel, just use channel 0
+            EnsureChannelInfo(0);
+        }
+    };
+
+    var PopulateChannelInfo = function(allChannels) {
+        for (var curChannel in G.ChannelList) {
+            for (var curSubChannel in allChannels) {
+                if (allChannels[curSubChannel].N == G.ChannelList[curChannel].N) {
+                    G.ChannelList[curChannel].F = allChannels[curSubChannel].F;
+                    G.ChannelList[curChannel].L = allChannels[curSubChannel].L;
+                    break;
+                }
             }
         }
     };
+
+    var EnsureChannelInfo = function(defChannel) {
+        if (G.ChannelList[0].hasOwnProperty("F")) {
+            PopulateChannelMenu();
+            SetCurrentChannel(defChannel);
+        } else {
+            Blahgua.GetAllChannels(function (allChannels) {
+                PopulateChannelInfo(allChannels);
+                PopulateChannelMenu();
+                SetCurrentChannel(defChannel);
+            }, function(theErr){
+                // could not get all channels - maybe not signed in??
+                PopulateChannelMenu();
+                SetCurrentChannel(defChannel);
+            });
+        }
+    };
+
 
     var PopulateChannelMenu = function( ) {
         var newHTML = "";
@@ -2016,7 +2041,7 @@ define('blahgua_base',
                 console.log("loaded next partial inbox of " + theResult.length + " blahs");
                 // we got less than 100 blahs but there are more out there.
                 // grab a random other inbox
-                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * numInboxes);
+                var inboxNum = G.CurrentChannel.F + Math.floor(Math.random() * (numInboxes - 1));
                 Blahgua.GetSpecificInbox(inboxNum, function(theBlahs) {
                     var blahsNeeded = 100 - G.NextBlahList.length;
                     G.NextBlahList = G.NextBlahList.concat(theBlahs.slice(0,blahsNeeded));
