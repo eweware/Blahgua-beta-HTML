@@ -455,6 +455,7 @@ define('SelfPageDetails',
                 $("#objectId").val(G.CurrentUser._id);
 
                 var formData = new FormData($("#ImageForm")[0]);
+                ga('send', 'event', 'uploadimage', 'user', 1, 1);
                 $.ajax({
                     url: BlahguaConfig.apiURL + "images/upload",
 

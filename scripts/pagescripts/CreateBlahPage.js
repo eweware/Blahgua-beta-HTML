@@ -423,6 +423,7 @@ define('CreateBlahPage',
                 $(".image-preview span").text("loading");
 
                 var formData = new FormData($("#ImageForm")[0]);
+                ga('send', 'event', 'uploadimage', 'blah', 1, 1);
                 $.ajax({
                     url: BlahguaConfig.apiURL +  "images/upload",
 
@@ -440,13 +441,13 @@ define('CreateBlahPage',
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
-                        if (theErr.status == "409")
+                        if (theErr.status == "409") {
+                            ga('send', 'event', 'sessionerror', 'blahimageupload', 1, 1);
                             exports.LogoutUser();
-                        else {
+                        } else {
                             $("#ImagePreviewDiv").removeAttr("disabled");
                             $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");
                         }
-
                     },
                     // Form data
                     data: formData,

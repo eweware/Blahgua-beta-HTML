@@ -198,11 +198,13 @@ define('blahgua_base',
 
     var GlobalReset = function () {
         // clear all timers
+        ga('send', 'event', 'crash', 'crash', "GlobalReset", 1);
         clearInterval(G.BlahsMovingTimer);
         clearInterval(G.ViewerUpdateTimer);
         if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
             $.removeCookie("loginkey");
         }
+
         Blahgua.logoutUser();
         location.reload();
     };
