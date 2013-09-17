@@ -419,7 +419,7 @@ define('comments',
                     },
                     error: errorHandler = function(theErr) {
                         if (theErr.status = "409")
-                            exports.LogoutUser();
+                            exports.LogoutUser(true);
                         else {
                             $("#ImagePreviewDiv").removeAttr("disabled");
                             $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("error");

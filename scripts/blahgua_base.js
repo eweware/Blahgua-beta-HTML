@@ -242,11 +242,18 @@ define('blahgua_base',
                         isStarting = false;
                         showSplash = false;
                         HandlePostSignIn();
-                    }, function() {
-                        $.removeCookie("loginkey");
-                        G.IsUserLoggedIn = false;
-                        console.log("ERROR: could not sign in user from cookie.");
-                        finalizeInitialLoad();
+                    }, function(theErr) {
+                        switch (theErr.status) {
+                            case 202:
+                                isStarting = false;
+                                showSplash = false;
+                                HandlePostSignIn();
+                                break;
+                            default:
+                                $.removeCookie("loginkey");
+                                G.IsUserLoggedIn = false;
+                                finalizeInitialLoad();
+                        }
                     });
                 } else {
                     G.IsUserLoggedIn = false;
@@ -259,7 +266,7 @@ define('blahgua_base',
             $(".PageBody").empty();
             var newHTML = "<div class='site-down-div'></div>";
             $(".PageBody").append(newHTML);
-        })
+        });
     };
 
     var HandlePostSignIn = function() {
@@ -424,7 +431,6 @@ define('blahgua_base',
                 }
                 errString += "\nFull Text: \n" + responseText;
             }
-            //alert(errString);
             console.log("uncaught error: " + theErr.status + " - " + theErr.responseText);
         }
     };
@@ -2240,12 +2246,20 @@ define('blahgua_base',
     };
 
 
-    var LogoutUser = function() {
-        Blahgua.logoutUser(OnLogoutOK, function(theErr){
+    var LogoutUser = function(allowRelogin) {
+        Blahgua.logoutUser(function(theJson) {
+            if (allowRelogin == true)
+                HandleRelogin(theJson);
+            else
+                OnLogoutOK();
+        }, function(theErr){
             switch (theErr.status) {
                 case 202:
                     // this is not an error, just malformed JSON
-                    OnLogoutOK();
+                    if (allowRelogin == true) {
+                        HandleRelogin();
+                    } else
+                        OnLogoutOK();
                     break;
                 default:
                     OnFailure(theErr);
@@ -2253,13 +2267,41 @@ define('blahgua_base',
         });
     };
 
-    var OnLogoutOK = function(json) {
+    var OnLogoutOK = function() {
         G.ClearSessionTimer();
         G.IsUserLoggedIn = false;
         refreshSignInBtn();
         G.CurrentUser = null;
         ClosePage();
         GetUserChannels();
+    };
+
+    var HandleRelogin = function() {
+        G.ClearSessionTimer();
+        var savedID = $.cookie("loginkey");
+        var userName = null, pwd;
+
+        if (savedID) {
+            savedID = JSON.parse(G.Cryptify("Sheep", savedID));
+            userName = savedID.userId;
+            pwd = savedID.pwd;
+        }
+
+        if (userName != null) {
+            // sign in
+            Blahgua.loginUser(userName, pwd, function() {
+                G.IsUserLoggedIn = true;
+                Blahgua.GetProfileSchema(function(theSchema) {
+                    G.ProfileSchema = theSchema.fieldNameToSpecMap;
+                    Blahgua.getUserInfo(RefreshPageForNewUser, OnFailure);
+                }, exports.OnFailure);
+            }, function() {
+                OnLogoutOK();
+
+            });
+        } else {
+            OnLogoutOK();
+        }
     };
 
 
