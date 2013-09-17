@@ -1895,7 +1895,7 @@ define('blahgua_base',
             for (var curIndex in G.ChannelList) {
                 if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
                 {
-                    EnsureChannelInfo(curIndex);
+                    EnsureChannelInfo(defChannel);
                     return;
                     break;
                 }
@@ -1910,7 +1910,7 @@ define('blahgua_base',
                             Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
                                 G.ChannelList.splice(0,0,allChannels[curIndex]);
                                 PopulateChannelInfo(allChannels);
-                                EnsureChannelInfo(0);
+                                EnsureChannelInfo(defChannel);
                             }, OnFailure);
                             break;
                         }
@@ -1919,11 +1919,11 @@ define('blahgua_base',
             } else {
                 // for some reason the channel is not available..
                 // TO DO: show a warning
-                EnsureChannelInfo(0);
+                EnsureChannelInfo();
             }
         } else {
             // no initial channel, just use channel 0
-            EnsureChannelInfo(0);
+            EnsureChannelInfo();
         }
     };
 
@@ -1940,18 +1940,26 @@ define('blahgua_base',
     };
 
     var EnsureChannelInfo = function(defChannel) {
+        var channelNum = 0;
+        PopulateChannelMenu();
+        if (defChannel) {
+            for (var curIndex in G.ChannelList) {
+                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase()) {
+                    channelNum = curIndex;
+                    break;
+                }
+            }
+        }
+
         if (G.ChannelList[0].hasOwnProperty("F")) {
-            PopulateChannelMenu();
-            SetCurrentChannel(defChannel);
+            SetCurrentChannel(channelNum);
         } else {
             Blahgua.GetAllChannels(function (allChannels) {
                 PopulateChannelInfo(allChannels);
-                PopulateChannelMenu();
-                SetCurrentChannel(defChannel);
+                SetCurrentChannel(channelNum);
             }, function(theErr){
                 // could not get all channels - maybe not signed in??
-                PopulateChannelMenu();
-                SetCurrentChannel(defChannel);
+                SetCurrentChannel(channelNum);
             });
         }
     };
