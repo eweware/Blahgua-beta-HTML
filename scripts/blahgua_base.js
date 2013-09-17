@@ -334,7 +334,7 @@ define('blahgua_base',
             $("#LightBox").fadeIn();
             $("#BlahFullItem").fadeIn();
             $("#EnterBlahguaBtn").click(function(theEvent) {
-                $.cookie("hidesplash", true);
+                $.cookie("hidesplash", BlahguaConfig["version"], {expires:365, path:'/'});
                 ClosePage();
             });
 

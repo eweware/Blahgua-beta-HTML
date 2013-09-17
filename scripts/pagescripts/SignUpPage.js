@@ -45,7 +45,7 @@ define('SignUpPage',
                 userObject['userId'] = userName;
                 userObject['pwd'] = pwd;
 
-                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 3600*24*30, path: '/'});
+                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 365, path: '/'});
                 $.removeCookie('isTemp');
             } else {
                 $.removeCookie("loginkey");
@@ -132,7 +132,7 @@ define('SignUpPage',
                 userObject['userId'] = userName;
                 userObject['pwd'] = pwd;
 
-                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 3600*4*30, path: '/'});
+                $.cookie("loginkey",  G.Cryptify("Sheep", JSON.stringify(userObject)), { expires: 365, path: '/'});
                 $.removeCookie('isTemp');
             } else {
                 $.removeCookie("loginkey");
