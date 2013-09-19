@@ -2,16 +2,16 @@
 body {
     font-family: 'Arimo', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
-    color: #F4F5F0;
+    color:  rgb(244,245,240);
     background: fixed;
     background-color: #efefef;
 
-    background-image: linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -moz-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(55%,rgb(125,191,227)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: linear-gradient(rgb(125,191,227)66%,rgb(122,208,0)67%,rgb(122,208,0)),;
+    background-image: -moz-linear-gradient(rgb(125,191,227)66%,rgb(122,208,0)67%,rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(125,191,227)66%,rgb(122,208,0)67%,rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(66%,rgb(125,191,227)),color-stop(67%,rgb(122,208,0)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(125,191,227)66%,rgb(122,208,0)67%,rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(125,191,227)66%,rgb(122,208,0)67%,rgb(122,208,0));
 }
 
 a {
