@@ -6,16 +6,12 @@ body {
     background: fixed;
     background-color: #efefef;
 
-    background-image: url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    background-image: -webkit-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    background-image: -moz-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    background-image: -o-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    background-image: -ms-radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    background-image: radial-gradient(center 350px, circle, rgba(255, 255, 255, 0.0) 20px, rgba(240, 240, 240, 0.0) 450px, rgba(120, 120, 120, 0.0) 1200px), url('https://d2zc23renulrga.cloudfront.net/assets/10605/50kvotlpwcuolco7o8fw/down2.jpg');
-    /* For IE6-9 */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00EFEFEF, endColorstr=#00EFEFEF);
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00EFEFEF, endColorstr=#00EFEFEF)";
-
+    background-image: linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -moz-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(55%,rgb(125,191,227)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
 }
 
 a {
@@ -42,6 +38,10 @@ p {
     margin: 0px auto;
     width: 90%;
     max-width: 450px;
+    margin-top: 16px;
+}
+
+.tips ul {
     margin-top: 16px;
 }
 
@@ -116,12 +116,15 @@ ol li {
 
 
 ul li {
-    font-size:medium;
-    line-height: 1.1em;
-    padding-bottom: 0.5em;
+    font-size: medium;
+    line-height: 1.3em;
+    padding-bottom: 1em;
 }
+
+
 span.prompt {
     font-style: italic;
+    font-size: medium;
 }
 
 textarea, input[type="email"], input[type="text"] {
