@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Arimo', 'Helvetica', 'Arial', sans-serif;
     font-weight: 400;
@@ -17,9 +18,31 @@ body {
 
 }
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
 p {
     font-size: 13px;
     color: #F4F5F0
+}
+
+.hints {
+    margin: 0px auto;
+    width: 90%;
+    max-width: 450px;
+    margin-bottom: 16px;
+}
+
+.tips {
+    margin: 0px auto;
+    width: 90%;
+    max-width: 450px;
+    margin-top: 16px;
 }
 
 .launch-head {
@@ -83,6 +106,20 @@ p {
     position: relative;
 
 
+}
+
+ol li {
+    font-size:x-large;
+    padding-bottom: 0.5em;
+}
+
+
+ul li {
+    font-size:medium;
+    padding-bottom: 0.5em;
+}
+span.prompt {
+    font-style: italic;
 }
 
 textarea, input[type="email"], input[type="text"] {
@@ -302,4 +339,9 @@ ul.icons {
     #signup-sect {
         margin-top: 40px
     }
+
+    ol li {
+        font-size:medium;
+    }
+
 }
