@@ -67,8 +67,12 @@ define('blahgua_base',
                     document.addEventListener('DOMMouseScroll', mousewheel_handler, false);
                 }
                 document.onmousewheel = mousewheel_handler;
-                if (!G.IsMobile)
+
+                if (!G.IsMobile) {
                     $("#LightBox").click(DismissAll);
+                    $(window).on('keydown', HandleKeyDown);
+                }
+
                 G.InitialBlah = getQueryVariable("blahId");
                 if (G.IsiPad || G.IsiPhone) {
                     $("#BlahFullItem").on("focusout", function(e) {
@@ -79,6 +83,27 @@ define('blahgua_base',
             });
 
             window.addEventListener( 'orientationchange', HandleWindowResize, false );
+        };
+
+        var HandleKeyDown = function(e) {
+            switch(e.keyCode) {
+                case 38:
+                    G.CurrentScrollSpeed -= G.ScrollStepInc;
+                    break;
+                case 40:
+                    G.CurrentScrollSpeed += G.ScrollStepInc;
+                    break;
+                case 37:
+                    HandleSwipeLeft();
+                    break;
+                case 39:
+                    HandleSwipeRight();
+                    break;
+                case 32:
+                    G.CurrentScrollSpeed = K.BlahRollPixelStep;
+                    break;
+            }
+
         };
 
         $.fn.textfill3 = function(maxFontSize) {
@@ -98,9 +123,9 @@ define('blahgua_base',
         var mousewheel_handler = function(theEvent) {
             var delta = event.wheelDelta;
             if (delta < 0)
-                HandleSwipeUp();
+                G.CurrentScrollSpeed -= G.PageScrollInc;
             else
-                HandleSwipeDown();
+                G.CurrentScrollSpeed += G.PageScrollInc;
         };
 
         var HandleMidBtnDown = function(theEvent) {
@@ -390,21 +415,23 @@ define('blahgua_base',
     };
 
 
+
+
     var HandleSwipeUp = function(theEvent) {
         if (G.CurrentScrollSpeed < 0)
             G.CurrentScrollSpeed = 1;
-        G.CurrentScrollSpeed *= 35;
-        if (G.CurrentScrollSpeed > 35)
-            G.CurrentScrollSpeed = 35;
+        G.CurrentScrollSpeed += G.SwipeScrollInc;
+        if (G.CurrentScrollSpeed > G.MaxScrollSpeed)
+            G.CurrentScrollSpeed = G.MaxScrollSpeed;
     };
 
 
     var HandleSwipeDown = function(theEvent) {
         if (G.CurrentScrollSpeed > 0)
             G.CurrentScrollSpeed = -1;
-        G.CurrentScrollSpeed *= 35;
-        if (G.CurrentScrollSpeed < -35)
-            G.CurrentScrollSpeed = -35;
+        G.CurrentScrollSpeed -= G.SwipeScrollInc;
+        if (G.CurrentScrollSpeed < -G.MaxScrollSpeed)
+            G.CurrentScrollSpeed = -G.MaxScrollSpeed;
     };
 
 
@@ -582,6 +609,13 @@ define('blahgua_base',
         $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#BlahFullItem").css({ 'top': blahTop,'left': (offset + blahMargin) , 'bottom': blahBottom, 'right': (offset + blahMargin)});
         $("#ChannelDropMenu").css({'top': channelBottom + "px"});
+
+
+        // recompute scroll metrics
+        G.MaxScrollSpeed = G.LargeTileHeight;  //3
+        G.SwipeScrollInc = G.SmallTileHeight * 1.5;
+        G.PageScrollInc = G.SmallTileHeight /2;
+        G.ScrollStepInc = G.SmallTileHeight / 2;
     };
 
     var ShowHideChannelList = function() {
@@ -1243,7 +1277,7 @@ define('blahgua_base',
                 }
                 if (G.CurrentScrollSpeed < 1) {
                     // scrolling backwards, slow down
-                    G.CurrentScrollSpeed *= .95;
+                    G.CurrentScrollSpeed *= .8;
                     if (G.CurrentScrollSpeed > -K.BlahRollPixelStep) {
                         G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     }
@@ -1255,7 +1289,7 @@ define('blahgua_base',
                 }
                 else if (G.CurrentScrollSpeed > K.BlahRollPixelStep) {
                     // skipping ahead - slow down
-                    G.CurrentScrollSpeed *= 0.95;
+                    G.CurrentScrollSpeed *= 0.8;
                     if (G.CurrentScrollSpeed < K.BlahRollPixelStep) {
                         G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     }

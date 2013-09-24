@@ -59,6 +59,10 @@ define('globals',
         var LargeTileHeight = 400;
         var MediumTileHeight = 200;
         var SmallTileHeight = 100;
+        var MaxScrollSpeed = LargeTileHeight;  //3
+        var SwipeScrollInc = MediumTileHeight;
+        var PageScrollInc = SmallTileHeight;
+        var ScrollStepInc = SmallTileHeight / 2;
         var ActiveBlahList = [];
         var TopRow = null;
         var BottomRow = null;
@@ -657,6 +661,10 @@ define('globals',
             InitialBlah: InitialBlah,
             InitialChannel:  InitialChannel,
             IsUploadCapable: IsUploadCapable,
+            MaxScrollSpeed: MaxScrollSpeed,
+            SwipeScrollInc: SwipeScrollInc,
+            PageScrollInc: PageScrollInc,
+            ScrollStepInc: ScrollStepInc,
             Cryptify: cryptify
         }
 
