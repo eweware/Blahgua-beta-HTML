@@ -613,7 +613,7 @@ define('blahgua_base',
 
         // recompute scroll metrics
         G.MaxScrollSpeed = G.LargeTileHeight;  //3
-        G.SwipeScrollInc = G.SmallTileHeight * 1.5;
+        G.SwipeScrollInc = G.SmallTileHeight * 1.0;
         G.PageScrollInc = G.SmallTileHeight /2;
         G.ScrollStepInc = G.SmallTileHeight / 2;
     };
@@ -1074,12 +1074,13 @@ define('blahgua_base',
 
     var DrawInitialBlahs = function() {
         if (G.ActiveBlahList.length > 0) {
+            var curTop = document.getElementById("ChannelBanner").getBoundingClientRect().bottom + K.InterBlahGutter;
             var curRow = BuildNextRow();
-
+            curRow.style.top = curTop + "px";
             $("#BlahContainer").empty().append(curRow);
             ResizeRowText(curRow);
             G.TopRow = curRow;
-            var curTop = curRow.rowHeight + K.InterBlahGutter;
+            curTop += curRow.rowHeight + K.InterBlahGutter;
             var bottom = $("#BlahContainer").height();
             var lastRow = curRow;
             G.RowsOnScreen = 1;
