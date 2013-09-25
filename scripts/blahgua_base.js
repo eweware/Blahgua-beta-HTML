@@ -613,8 +613,8 @@ define('blahgua_base',
 
         // recompute scroll metrics
         G.MaxScrollSpeed = G.LargeTileHeight;  //3
-        G.SwipeScrollInc = G.SmallTileHeight * 1.0;
-        G.PageScrollInc = G.SmallTileHeight /2;
+        G.SwipeScrollInc = G.SmallTileHeight * .95;
+        G.PageScrollInc = G.SmallTileHeight /6.5;
         G.ScrollStepInc = G.SmallTileHeight / 2;
     };
 
