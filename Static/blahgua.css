@@ -30,7 +30,7 @@ p {
 .hints {
     margin: 0px auto;
     width: 90%;
-    max-width: 450px;
+    max-width: 300px;
     margin-bottom: 16px;
 }
 
@@ -41,8 +41,8 @@ p {
     margin-top: 16px;
 }
 
-.tips ul {
-    margin-top: 16px;
+.hints ul {
+    margin:0px;
 }
 
 .launch-head {
@@ -62,6 +62,13 @@ p {
     margin-left: 16px;
 }
 
+
+
+.headerprompt {
+    font-size: x-large;
+    font-style: italic;
+    text-align: center;
+}
 
 .notes {
     font-style: italic;
@@ -108,23 +115,18 @@ p {
 
 }
 
-ol li {
-    font-size:x-large;
-    line-height: 1.2em;
-    padding-bottom: 0.5em;
-}
-
 
 ul li {
-    font-size: medium;
+    font-size: large;
     line-height: 1.3em;
     padding-bottom: 1em;
 }
 
 
-span.prompt {
+div.prompt {
     font-style: italic;
     font-size: medium;
+    text-align: center;
 }
 
 textarea, input[type="email"], input[type="text"] {
@@ -335,6 +337,10 @@ ul.icons {
     .launch-head h2 {
         font-size: 25px;
         line-height: 1
+    }
+
+    .headerprompt {
+        font-size: large;
     }
 
     #signup-sect p {
