@@ -13,7 +13,7 @@ define('blahgua_base',
         var curRowSequence = 0;
         var isStarting = true;
         var splashTimeout;
-        var showSplash = true;
+        var showSplash = false;
         var FadeTimer = null;
 
         var IsMobileBrowser = function() {
