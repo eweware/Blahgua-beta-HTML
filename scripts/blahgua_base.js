@@ -1803,23 +1803,20 @@ define('blahgua_base',
     };
 
     var PrepareBlahList = function(theBlahList) {
-        // remove invalid blahs
-        removeInvalidBlahs(theBlahList);
-
         // ensure 100 blahs
-        if (theBlahList.length < 100) {
-            var curLoc = 0;
-            while (theBlahList.length < 100) {
-                theBlahList.push(jQuery.extend({}, theBlahList[curLoc++]));
+        if (theBlahList.length > 0) {
+            if (theBlahList.length < 100) {
+                var curLoc = 0;
+                while (theBlahList.length < 100) {
+                    theBlahList.push(jQuery.extend({}, theBlahList[curLoc++]));
+                }
             }
+
+            // sort by strength
+            theBlahList = AssignSizes(theBlahList);
         }
 
-        // sort by strength
-        theBlahList = AssignSizes(theBlahList);
-
-
         return theBlahList;
-
     };
 
     var fisherYates = function(myArray) {
