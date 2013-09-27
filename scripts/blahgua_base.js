@@ -2029,6 +2029,7 @@ define('blahgua_base',
 
 
     var createChannelHTML = function(index, curChannel) {
+
         var newHTML = "";
         newHTML += "<tr data-channelId='" + index + "'><td><span class='channel-title'>" + curChannel.N + "</span></td>";
         newHTML += "</tr>";
