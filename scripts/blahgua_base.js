@@ -2009,8 +2009,13 @@ define('blahgua_base',
 
         if (!G.IsUserLoggedIn) {
             for(var i = G.ChannelList.length-1; i >= 0; i--){
-                if((G.ChannelList[i].R < 0) && (G.ChannelList[i].N.toLowerCase() != defChannel)){
-                    G.ChannelList.splice(i,1);
+                if (G.ChannelList[i].R < 0) {
+                    if (G.ChannelList[i].N.toLowerCase() == defChannel){
+                        G.ChannelList =  [].concat(G.ChannelList[i]);
+                        break;
+                    } else {
+                        G.ChannelList.splice(i,1);
+                    }
                 }
             }
         }
