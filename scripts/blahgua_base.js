@@ -86,6 +86,7 @@ define('blahgua_base',
         };
 
         var HandleKeyDown = function(e) {
+            if (e.target == document.body) {
             switch(e.keyCode) {
                 case 38:
                     G.CurrentScrollSpeed -= G.ScrollStepInc;
@@ -102,6 +103,7 @@ define('blahgua_base',
                 case 32:
                     G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     break;
+            }
             }
 
         };
