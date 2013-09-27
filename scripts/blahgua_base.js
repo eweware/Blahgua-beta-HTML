@@ -1112,7 +1112,7 @@ define('blahgua_base',
 
             newDiv.innerHTML = newHTML;
             newDiv.className = "no-blahs-in-channel-warning";
-            $("#BlahContainer").append(newDiv);
+            $("#BlahContainer").empty().append(newDiv);
         }
     };
 
@@ -1926,13 +1926,14 @@ define('blahgua_base',
             SetInitialChannel();
         }
     };
+    var defChannel = null;
 
     var SetInitialChannel = function() {
-        var defChannel = getQueryVariable('channel');
+        defChannel = getQueryVariable('channel')
         if (defChannel != null) {
+            defChannel = defChannel.toLowerCase();
             for (var curIndex in G.ChannelList) {
-                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
-                {
+                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel) {
                     EnsureChannelInfo(defChannel);
                     return;
                     break;
@@ -1943,7 +1944,7 @@ define('blahgua_base',
             if (G.IsUserLoggedIn) {
                 Blahgua.GetAllChannels(function (allChannels) {
                     for (var curIndex in allChannels) {
-                        if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
+                        if (allChannels[curIndex].N.toLowerCase() == defChannel)
                         {
                             Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
                                 G.ChannelList.splice(0,0,allChannels[curIndex]);
@@ -1977,12 +1978,12 @@ define('blahgua_base',
         }
     };
 
-    var EnsureChannelInfo = function(defChannel) {
+    var EnsureChannelInfo = function(theChannel) {
         var channelNum = 0;
         PopulateChannelMenu();
-        if (defChannel) {
+        if (theChannel) {
             for (var curIndex in G.ChannelList) {
-                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase()) {
+                if (G.ChannelList[curIndex].N.toLowerCase() == theChannel) {
                     channelNum = curIndex;
                     break;
                 }
@@ -2006,8 +2007,16 @@ define('blahgua_base',
     var PopulateChannelMenu = function( ) {
         var newHTML = "";
 
+        if (!G.IsUserLoggedIn) {
+            for(var i = G.ChannelList.length-1; i >= 0; i--){
+                if((G.ChannelList[i].R < 0) && (G.ChannelList[i].N.toLowerCase() != defChannel)){
+                    G.ChannelList.splice(i,1);
+                }
+            }
+        }
+
         G.ChannelList.sort(function (a, b) {
-            return G.GetSafeProperty(a, "R", 0) - G.GetSafeProperty(b, "R", 0);
+            return Math.abs(G.GetSafeProperty(a, "R", 0)) - Math.abs(G.GetSafeProperty(b, "R", 0));
         });
 
         $.each(G.ChannelList, function(index, element) {
