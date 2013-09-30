@@ -390,6 +390,8 @@ define('blahgua_base',
             }
         }).focus();
 
+
+
     };
 
     var RefreshPageForNewUser = function(json) {
@@ -1114,6 +1116,8 @@ define('blahgua_base',
             newDiv.className = "no-blahs-in-channel-warning";
             $("#BlahContainer").append(newDiv);
         }
+
+
     };
 
     var DoAddBlahRow = function() {
@@ -1728,7 +1732,61 @@ define('blahgua_base',
         }
         GetNextBlahList();
 
+        // check for create
+        MaybeCreateBlah();
+
+
     };
+
+
+    var MaybeCreateBlah = function() {
+        var createParam = getQueryVariable("post");
+        if (createParam != null) {
+            if (G.IsUserLoggedIn) {
+                var title = getQueryVariable("title");
+                var body = getQueryVariable("body");
+                var channel = getQueryVariable("channel");
+
+                if (!channel)
+                    channel = "public";
+
+                var channelId = GetChannelByName(channel, G.ChannelList)._id;
+                var typeId = GetBlahTypeId("says");
+
+                if (title) {
+                    if (!body)
+                        body = "";
+                    var options = new Object();
+
+                    Blahgua.CreateUserBlah(title, typeId, channelId, body, options, function (theBlah) {
+                        SetCurrentChannelbyID(channelId);
+                        FinalizeCreateBlah(theBlah._id);
+                    }, function (theErr) {
+                        alert("unable to create your post.");
+                        FinalizeCreateBlah(null);
+                    });
+
+                }
+            } else {
+                alert("You must sign in to post");
+                ShowSignInUI();
+
+            }
+
+        }
+    };
+
+     var FinalizeCreateBlah = function(theId) {
+        // remove the query parameters
+         window.history.replaceState("object or string", "Blahgua", "/");
+         if (theId) {
+             Blahgua.GetBlah(theId, function(theBlah) {
+                 OpenLoadedBlah(theBlah);
+             }, function (theErr) {
+                 // todo: handle the missing blah.  For now we fail silently.
+             });
+         }
+     };
 
 
 
