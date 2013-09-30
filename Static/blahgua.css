@@ -68,6 +68,7 @@ p {
     font-size: x-large;
     font-style: italic;
     text-align: center;
+    margin-top: 10px;
 }
 
 .notes {
@@ -341,6 +342,7 @@ ul.icons {
 
     .headerprompt {
         font-size: large;
+        margin-top: 5px;
     }
 
     #signup-sect p {
