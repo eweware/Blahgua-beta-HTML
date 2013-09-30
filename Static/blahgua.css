@@ -68,6 +68,7 @@ p {
     font-size: x-large;
     font-style: italic;
     text-align: center;
+    margin-top: 10px;
 }
 
 .notes {
@@ -125,8 +126,12 @@ ul li {
 
 div.prompt {
     font-style: italic;
-    font-size: medium;
+    font-size: large;
     text-align: center;
+}
+
+div.prompt:hover {
+text-decoration: underline;
 }
 
 textarea, input[type="email"], input[type="text"] {
@@ -341,6 +346,7 @@ ul.icons {
 
     .headerprompt {
         font-size: large;
+        margin-top: 5px;
     }
 
     #signup-sect p {

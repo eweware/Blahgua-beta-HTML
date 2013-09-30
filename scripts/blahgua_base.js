@@ -13,7 +13,7 @@ define('blahgua_base',
         var curRowSequence = 0;
         var isStarting = true;
         var splashTimeout;
-        var showSplash = true;
+        var showSplash = false;
         var FadeTimer = null;
 
         var IsMobileBrowser = function() {
@@ -86,6 +86,7 @@ define('blahgua_base',
         };
 
         var HandleKeyDown = function(e) {
+            if (e.target == document.body) {
             switch(e.keyCode) {
                 case 38:
                     G.CurrentScrollSpeed -= G.ScrollStepInc;
@@ -102,6 +103,7 @@ define('blahgua_base',
                 case 32:
                     G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     break;
+            }
             }
 
         };
@@ -1114,7 +1116,7 @@ define('blahgua_base',
 
             newDiv.innerHTML = newHTML;
             newDiv.className = "no-blahs-in-channel-warning";
-            $("#BlahContainer").append(newDiv);
+            $("#BlahContainer").empty().append(newDiv);
         }
 
 
@@ -1861,23 +1863,20 @@ define('blahgua_base',
     };
 
     var PrepareBlahList = function(theBlahList) {
-        // remove invalid blahs
-        removeInvalidBlahs(theBlahList);
-
         // ensure 100 blahs
-        if (theBlahList.length < 100) {
-            var curLoc = 0;
-            while (theBlahList.length < 100) {
-                theBlahList.push(jQuery.extend({}, theBlahList[curLoc++]));
+        if (theBlahList.length > 0) {
+            if (theBlahList.length < 100) {
+                var curLoc = 0;
+                while (theBlahList.length < 100) {
+                    theBlahList.push(jQuery.extend({}, theBlahList[curLoc++]));
+                }
             }
+
+            // sort by strength
+            theBlahList = AssignSizes(theBlahList);
         }
 
-        // sort by strength
-        theBlahList = AssignSizes(theBlahList);
-
-
         return theBlahList;
-
     };
 
     var fisherYates = function(myArray) {
@@ -1987,13 +1986,14 @@ define('blahgua_base',
             SetInitialChannel();
         }
     };
+    var defChannel = null;
 
     var SetInitialChannel = function() {
-        var defChannel = getQueryVariable('channel');
+        defChannel = getQueryVariable('channel')
         if (defChannel != null) {
+            defChannel = defChannel.toLowerCase();
             for (var curIndex in G.ChannelList) {
-                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase())
-                {
+                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel) {
                     EnsureChannelInfo(defChannel);
                     return;
                     break;
@@ -2004,7 +2004,7 @@ define('blahgua_base',
             if (G.IsUserLoggedIn) {
                 Blahgua.GetAllChannels(function (allChannels) {
                     for (var curIndex in allChannels) {
-                        if (allChannels[curIndex].N.toLowerCase() == defChannel.toLowerCase())
+                        if (allChannels[curIndex].N.toLowerCase() == defChannel)
                         {
                             Blahgua.JoinUserToChannel(allChannels[curIndex]._id, function() {
                                 G.ChannelList.splice(0,0,allChannels[curIndex]);
@@ -2038,12 +2038,12 @@ define('blahgua_base',
         }
     };
 
-    var EnsureChannelInfo = function(defChannel) {
+    var EnsureChannelInfo = function(theChannel) {
         var channelNum = 0;
         PopulateChannelMenu();
-        if (defChannel) {
+        if (theChannel) {
             for (var curIndex in G.ChannelList) {
-                if (G.ChannelList[curIndex].N.toLowerCase() == defChannel.toLowerCase()) {
+                if (G.ChannelList[curIndex].N.toLowerCase() == theChannel) {
                     channelNum = curIndex;
                     break;
                 }
@@ -2067,8 +2067,21 @@ define('blahgua_base',
     var PopulateChannelMenu = function( ) {
         var newHTML = "";
 
+        if (!G.IsUserLoggedIn) {
+            for(var i = G.ChannelList.length-1; i >= 0; i--){
+                if (G.ChannelList[i].R < 0) {
+                    if (G.ChannelList[i].N.toLowerCase() == defChannel){
+                        G.ChannelList =  [].concat(G.ChannelList[i]);
+                        break;
+                    } else {
+                        G.ChannelList.splice(i,1);
+                    }
+                }
+            }
+        }
+
         G.ChannelList.sort(function (a, b) {
-            return G.GetSafeProperty(a, "R", 0) - G.GetSafeProperty(b, "R", 0);
+            return Math.abs(G.GetSafeProperty(a, "R", 0)) - Math.abs(G.GetSafeProperty(b, "R", 0));
         });
 
         $.each(G.ChannelList, function(index, element) {
@@ -2090,6 +2103,7 @@ define('blahgua_base',
 
 
     var createChannelHTML = function(index, curChannel) {
+
         var newHTML = "";
         newHTML += "<tr data-channelId='" + index + "'><td><span class='channel-title'>" + curChannel.N + "</span></td>";
         newHTML += "</tr>";
