@@ -1745,30 +1745,19 @@ define('blahgua_base',
         var createParam = getQueryVariable("post");
         if (createParam != null) {
             if (G.IsUserLoggedIn) {
+
                 var title = getQueryVariable("title");
                 var body = getQueryVariable("body");
-                var channel = getQueryVariable("channel");
+                var url = getQueryVariable("url");
 
-                if (!channel)
-                    channel = "public";
+                if (!body)
+                    body = '';
+                if (url)
+                    body += "\n \n" + url;
+                window.history.replaceState("object or string", "Blahgua", "/");
+                DoCreateBlah(title, body);
 
-                var channelId = GetChannelByName(channel, G.ChannelList)._id;
-                var typeId = GetBlahTypeId("says");
 
-                if (title) {
-                    if (!body)
-                        body = "";
-                    var options = new Object();
-
-                    Blahgua.CreateUserBlah(title, typeId, channelId, body, options, function (theBlah) {
-                        SetCurrentChannelbyID(channelId);
-                        FinalizeCreateBlah(theBlah._id);
-                    }, function (theErr) {
-                        alert("unable to create your post.");
-                        FinalizeCreateBlah(null);
-                    });
-
-                }
             } else {
                 alert("You must sign in to post");
                 ShowSignInUI();
@@ -1778,17 +1767,6 @@ define('blahgua_base',
         }
     };
 
-     var FinalizeCreateBlah = function(theId) {
-        // remove the query parameters
-         window.history.replaceState("object or string", "Blahgua", "/");
-         if (theId) {
-             Blahgua.GetBlah(theId, function(theBlah) {
-                 OpenLoadedBlah(theBlah);
-             }, function (theErr) {
-                 // todo: handle the missing blah.  For now we fail silently.
-             });
-         }
-     };
 
 
 
@@ -2314,7 +2292,7 @@ define('blahgua_base',
         $("#ChannelViewersCountText").html(G.GetSafeProperty(numViewers, "V", 0));
     };
 
-    var DoCreateBlah = function() {
+    var DoCreateBlah = function(title, body) {
         StopAnimation();
         $("#LightBox").show();
         var basePage = "CreateBlahPage.html";
@@ -2327,7 +2305,7 @@ define('blahgua_base',
                         'page': '/createblah',
                         'title': G.CurrentUser._id
                     });
-                    CreatePage.InitializePage();
+                    CreatePage.InitializePage(title, body);
                 });
             });
         } else {

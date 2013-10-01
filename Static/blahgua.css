@@ -23,8 +23,9 @@ a:hover {
 }
 
 p {
-    font-size: 13px;
-    color: #F4F5F0
+    font-size: medium;
+    font-weight: normal;
+    color: #202020;
 }
 
 .hints {
@@ -62,6 +63,10 @@ p {
     margin-left: 16px;
 }
 
+strong {
+    font-weight: bold;
+    text-decoration: underline;
+}
 
 
 .headerprompt {
@@ -125,14 +130,14 @@ ul li {
 
 
 div.prompt {
-    font-style: italic;
-    font-size: large;
+    font-size: x-large;
     text-align: center;
 }
 
-div.prompt:hover {
-text-decoration: underline;
+div.prompt.small {
+    font-size: medium;
 }
+
 
 textarea, input[type="email"], input[type="text"] {
     font: 99% sans-serif;
@@ -148,6 +153,16 @@ textarea, input[type="email"], input[type="text"] {
     box-shadow: inset 0 2px 6px -1px #444;
     -webkit-border-radius: 8px;
     border-radius: 8px
+}
+
+.browser-btn {
+    border: 1px solid #202020;
+    color: #202020;
+    background: rgb(244,245,240);
+    width: 150px;
+    display: inline-block;
+    text-align: center;
+    padding: 8px;
 }
 
 textarea {
@@ -299,6 +314,23 @@ ul.icons {
 
 }
 
+.infobox {
+    text-align: center;
+    padding: 10px;
+    margin: 20px 40px;
+    background-color: rgb(244,245,240);
+}
+
+.infobox h2 {
+    font-size:medium;
+    color: #202020;
+}
+
+.infobox p {
+    font-size:small;
+    text-align: left;
+}
+
 .container {
     padding-bottom: 40px;
 }
@@ -347,6 +379,10 @@ ul.icons {
     .headerprompt {
         font-size: large;
         margin-top: 5px;
+    }
+
+    .infobox {
+        display: none;
     }
 
     #signup-sect p {

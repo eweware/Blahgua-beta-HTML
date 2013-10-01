@@ -15,7 +15,7 @@ define('CreateBlahPage',
         var pageHeight = null;
         var blahHasBadges = false;
 
-        var  InitializePage = function() {
+        var  InitializePage = function(theTitle, theBody) {
 
             blahTypeModule = null;
             PopulateBlahTypeOptions();
@@ -108,6 +108,16 @@ define('CreateBlahPage',
                 if (!G.IsMobile)
                     $("#BlahHeadline").focus();
             });
+
+            if (theTitle != null) {
+                if (theBody != null)
+                    $("#BlahBody").text(theBody);
+                if (!G.IsMobile)
+                    $("#BlahHeadline").focus();
+                $("#BlahHeadline").text(theTitle);
+                $("#BlahHeadline").select();
+
+            }
 
 
             UpdateBadgeArea();
