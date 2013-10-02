@@ -14,6 +14,7 @@ define('CreateBlahPage',
         var blahTypeModule = null;
         var pageHeight = null;
         var blahHasBadges = false;
+        var isFromURL = false;
 
         var  InitializePage = function(theTitle, theBody) {
 
@@ -116,6 +117,7 @@ define('CreateBlahPage',
                     $("#BlahHeadline").focus();
                 $("#BlahHeadline").text(theTitle);
                 $("#BlahHeadline").select();
+                isFromURL = true;
 
             }
 
@@ -280,9 +282,13 @@ define('CreateBlahPage',
 
         var CancelCreate = function() {
             exports.CloseBlah();
+            if (isFromURL) {
+                window.close();
+            }
         };
 
         var UpdateBadgeArea = function() {
+            CreateAndAppendAnonPostHTML();
             if (G.CurrentUser.hasOwnProperty("B")) {
                 // add badges
                 $("#BadgesArea").empty();
@@ -321,6 +327,16 @@ define('CreateBlahPage',
             newHTML += "verified <span class='badge-name-class'>"+ badgeName + "</span>";
             newHTML += "</td></tr>";
             return newHTML;
+        };
+
+        var CreateAndAppendAnonPostHTML = function() {
+                var newHTML = "";
+                newHTML += "<div class='anonymous-item'>";
+                newHTML += "<i class='icon-check-empty'></i>";
+                newHTML += "<span>Post Anonymously</span>";
+                newHTML += "</div>";
+
+                $("#ShowBadgeArea").append(newHTML);
         };
 
 
@@ -385,7 +401,12 @@ define('CreateBlahPage',
             G.CurrentBlah = json;
             G.CurrentBlahId = G.CurrentBlah._id;
             // check for images
-            DoCloseBlah();
+            if (isFromURL) {
+                DoCloseBlah();
+                window.close();
+            }
+            else
+                DoCloseBlah();
         };
 
         var HandleCreateBlahFailure = function(theErr) {

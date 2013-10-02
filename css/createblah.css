@@ -154,6 +154,21 @@
     margin-right:8px;
 }
 
+
+.anonymous-item {
+    font-family: 'Arimo', sans-serif;
+    padding: 4px 8px 4px 8px;
+}
+
+.anonymous-item:hover {
+    background-color: rgb(125, 181, 227);
+}
+
+.anonymous-item i {
+    margin-right:8px;
+}
+
+
 .create-content-div {
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
