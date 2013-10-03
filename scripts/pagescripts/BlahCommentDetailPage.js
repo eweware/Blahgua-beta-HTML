@@ -7,8 +7,8 @@
  */
 
 define('BlahCommentDetailPage',
-    ["globals", "ExportFunctions", "comments"],
-    function (G, exports, comments) {
+    ["globals", "ExportFunctions","blahgua_restapi", "comments"],
+    function (G, exports, blahgua_rest, comments) {
 
 
         var InitializePage = function() {
@@ -83,7 +83,47 @@ define('BlahCommentDetailPage',
              $("#CommentTextArea").val(exports.CurrentCommentText);
              RefreshForCommentText();
 
-        } else {
+             $("#ShowBadgeAreaBtn").click(function(theEvent) {
+                 if (!G.IsShort) {
+                     var imageRect = $("#ShowBadgeAreaBtn")[0].getBoundingClientRect();
+                     var newLeft = imageRect.left;
+                     var newTop = imageRect.bottom;
+                     $("#ShowBadgeArea").css({"left":newLeft + "px", "top":newTop + "px"});
+                 }
+
+                 $("#ShowBadgeAreaHolder").show().click(function(theEvent) {
+                     if (theEvent.target.id == "ShowBadgeAreaHolder")
+                         $(theEvent.target).hide();
+                 });
+
+                 $(".badge-item").click(function(theEvent) {
+                     theEvent.stopImmediatePropagation();
+                     var $icon = $(this).find("i");
+                     if ($icon.hasClass("icon-check-empty")) {
+                         $icon.addClass("icon-check").removeClass("icon-check-empty");
+                     } else {
+                         $icon.addClass("icon-check-empty").removeClass("icon-check");
+                     }
+                     RefreshBadgePreview();
+                 });
+
+                 $(".anonymous-item").click(function(theEvent) {
+                     theEvent.stopImmediatePropagation();
+                     var $icon = $(this).find("i");
+                     if ($icon.hasClass("icon-check-empty")) {
+                         $icon.addClass("icon-check").removeClass("icon-check-empty");
+                     } else {
+                         $icon.addClass("icon-check-empty").removeClass("icon-check");
+                     }
+                     RefreshBadgePreview();
+                 });
+
+             });
+
+             UpdateBadgeArea();
+
+
+         } else {
          // user is not logged in
              $("#SignInToCommentArea").show();
              $(".sign-in-comment-button").click(SignInToComment);
@@ -117,9 +157,64 @@ define('BlahCommentDetailPage',
 			    $("#CommentTextArea").attr("placeholder","Be the first to comment"); 
                 $(".comment-sort-area").hide();
 			}
+
+
             comments.UpdateBlahComments();
 
         };
+
+        var UpdateBadgeArea = function() {
+            if (G.IsUserLoggedIn) {
+                CreateAndAppendAnonPostHTML();
+                if (G.CurrentUser.hasOwnProperty("B")) {
+                    // add badges
+                    $("#BadgesArea").empty();
+                    $.each(G.CurrentUser.B, function(index, curBadge) {
+                        CreateAndAppendBadgeHTML(curBadge);
+                    });
+                }
+                RefreshBadgePreview();
+            }
+
+        };
+
+        var CreateAndAppendBadgeHTML = function(theBadge) {
+            blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
+                var newHTML = "";
+                newHTML += "<div class='badge-item' data-badge-id='" + theBadge + "'>";
+                newHTML += "<i class='icon-check-empty'></i>";
+                newHTML += "<span>" + fullBadge.N + "</span>";
+                newHTML += "</div>";
+
+                $("#ShowBadgeArea").append(newHTML);
+            });
+        };
+
+
+        var CreateBadgeDescription = function(theBadge) {
+            var badgeName = $(theBadge).find("span").text();
+            var newHTML = "<tr class='badge-info-row'>";
+            newHTML += "<td>";
+            newHTML += "<img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'>";
+            newHTML += "verified <span class='badge-name-class'>"+ badgeName + "</span>";
+            newHTML += "</td></tr>";
+            return newHTML;
+        };
+
+        var CreateAndAppendAnonPostHTML = function() {
+            var newHTML = "";
+            newHTML += "<div class='anonymous-item'>";
+            newHTML += "<i class='icon-check-empty'></i>";
+            newHTML += "<span>Post Anonymously</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+        var RefreshBadgePreview = function() {
+            // TODO:  refresh badge area for a comment
+        };
+
 
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");

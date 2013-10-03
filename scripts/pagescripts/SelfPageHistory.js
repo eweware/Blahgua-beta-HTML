@@ -19,6 +19,7 @@ define('SelfPageHistory',
         var blahFilter = "";
         var blahsLoaded = false;
         var commentsLoaded = false;
+        var blahTrashList = [];
 
         var CommentList = [];
         var BlahList = [];
@@ -140,8 +141,17 @@ define('SelfPageHistory',
             }
         };
 
+        var  GetBlahIndexFromID = function(theId) {
+            for (var curIndex in BlahList) {
+                if (BlahList[curIndex]._id == theId)
+                    return curIndex;
+            }
+            return -1;
+        };
+
 
         var SortAndRedrawBlahs = function(theBlahs) {
+
             $("#HistoryBlahHeader span").text("Your Posts (" + theBlahs.length + ")" );
             BlahList = theBlahs;
             SortBlahs();
@@ -159,6 +169,20 @@ define('SelfPageHistory',
                     theEvent.stopImmediatePropagation();
                     var theID = $(this).attr("data-blah-id");
                     DoOpenUserBlah(theID);
+                });
+                $(".delete-blah-btn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    G.PromptUser("Are you sure you wish to delete this post?", "delete", "cancel", function() {
+                        // deleting it
+                        var theID = $(theEvent.target).parents(".user-blah-row").attr("data-blah-id");
+                        blahgua_rest.DeleteBlah(theID, function(theResult) {
+                            $(theEvent.target).parents(".user-blah-row").hide(200);
+                            var deadIndex = GetBlahIndexFromID(theID);
+                            BlahList.splice(deadIndex, 1);
+                            $("#HistoryBlahHeader span").text("Your Posts (" + theBlahs.length + ")" );
+                        });
+
+                    });
                 });
                 FilterBlahs();
             } else {
@@ -264,7 +288,7 @@ define('SelfPageHistory',
             blahsDiv.empty();
             commentDiv.empty();
 
-            blahgua_rest.GetUserBlahs(SortAndRedrawBlahs, exports.OnFailure);
+            blahgua_rest.GetUserBlahs(CleanBlahList, exports.OnFailure);
 
             blahgua_rest.GetUserComments(SortAndRedrawComments, exports.OnFailure);
 
@@ -281,6 +305,19 @@ define('SelfPageHistory',
                     this.scrollIntoView(true);
                 }
             });
+        };
+
+        var CleanBlahList = function(blahList) {
+            var newList = [];
+
+            for (var curIndex in blahList) {
+                if (blahList[curIndex].S < 0)
+                    blahTrashList.push(blahList[curIndex]);
+                else
+                    newList.push(blahList[curIndex]);
+            }
+
+            SortAndRedrawBlahs(newList);
         };
 
         var OpenSectionAndScroll = function() {
@@ -328,7 +365,7 @@ define('SelfPageHistory',
 
 
             newHTML += "<tr class='user-blah-row' data-blah-id='" + theBlah._id + "'>";
-            newHTML += "<td><table><tbody>";
+            newHTML += "<td><table><tbody><tr>";
 
 
             if (img != "") {
@@ -347,6 +384,8 @@ define('SelfPageHistory',
                 newHTML += blahTitle;
                 newHTML += "</a></td>";
             }
+            newHTML += "<td rowspan='2' style='width:32px'>";
+            newHTML += "<i class='icon-remove-sign icon-large delete-blah-btn'></i></td>";
             newHTML += "</tr>";
 
 

@@ -790,6 +790,7 @@ color:rgb(244,245,240);
     position: absolute;
     width: 32px;
     height: 32px;
+    background-size: cover;
     background-image:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/newblah.png");
 }
 

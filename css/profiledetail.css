@@ -34,6 +34,11 @@
     left: -24px;
 }
 
+.delete-blah-btn {
+    color: red;
+    margin: 0px 8px 0px 16px;
+}
+
 
 .recovery-email-div i {
     position: relative;

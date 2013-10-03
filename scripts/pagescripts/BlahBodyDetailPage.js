@@ -286,15 +286,18 @@ define('BlahBodyDetailPage',
         };
 
         var UpdateBadgeArea = function() {
-            CreateAndAppendAnonPostHTML();
-            if (G.CurrentUser.hasOwnProperty("B")) {
-                // add badges
-                $("#BadgesArea").empty();
-                $.each(G.CurrentUser.B, function(index, curBadge) {
-                    CreateAndAppendBadgeHTML(curBadge);
-                });
+            if (G.IsUserLoggedIn) {
+                CreateAndAppendAnonPostHTML();
+                if (G.CurrentUser.hasOwnProperty("B")) {
+                    // add badges
+                    $("#BadgesArea").empty();
+                    $.each(G.CurrentUser.B, function(index, curBadge) {
+                        CreateAndAppendBadgeHTML(curBadge);
+                    });
+                }
+                RefreshBadgePreview();
             }
-            RefreshBadgePreview();
+
         };
 
         var CreateAndAppendBadgeHTML = function(theBadge) {
