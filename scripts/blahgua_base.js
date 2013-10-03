@@ -945,7 +945,7 @@ define('blahgua_base',
 // ********************************************************
 // Create blah HTML
 
-
+    var ONE_DAY = 24 * 60 * 60 * 1000;
 
     var CreateBaseDiv = function(theBlah) {
         var newDiv = document.createElement("div");
@@ -1016,6 +1016,13 @@ define('blahgua_base',
                 default:
                     break;
             }
+        }
+
+        var now = (new Date()).getTime();
+        if ((now - theBlah.c) < ONE_DAY) {
+            var newBlahDiv = document.createElement("div");
+            newBlahDiv.className = "new-blah";
+            newDiv.appendChild(newBlahDiv);
         }
 
         return newDiv;

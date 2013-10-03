@@ -94,25 +94,27 @@ define('BlahDetailPage',
 
         var UpdateDescriptionString = function() {
             // update the badges & date
-            if (!G.GetSafeProperty(G.CurrentBlah, "XX", false)) {
-                blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
-                    var imageName = G.GetSafeProperty(theString, "m", "");
-                    if (imageName != "") {
-                        var  newImage = BlahguaConfig.imageURL + imageName + "-A.jpg";
-                        $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                        $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                    }
 
-                    $("#FullBlahProfileString").text(theString.d);
-                    var nickNameStr = "someone";
-                    if (G.IsUserLoggedIn) {
-                        isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
-                    } else {
-                        isOwnBlah = false;
-                    }
-                    nickNameStr = G.GetSafeProperty(theString, "K", nickNameStr);
-                    if (isOwnBlah)
-                        nickNameStr += " (you)";
+            blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
+                var imageName = G.GetSafeProperty(theString, "m", "");
+                if (imageName != "") {
+                    var  newImage = BlahguaConfig.imageURL + imageName + "-A.jpg";
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                }
+
+                $("#FullBlahProfileString").text(theString.d);
+                var nickNameStr = "someone";
+                if (G.IsUserLoggedIn) {
+                    isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
+                } else {
+                    isOwnBlah = false;
+                }
+                nickNameStr = G.GetSafeProperty(theString, "K", nickNameStr);
+                if (isOwnBlah)
+                    nickNameStr += " (you)";
+
+                if (!G.GetSafeProperty(G.CurrentBlah, "XX", false)) {
                     document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
                     // get the author image
                     var userImage = G.GetSafeProperty(theString, "m", "");
@@ -122,17 +124,17 @@ define('BlahDetailPage',
                         newImage = G.GetGenericUserImage();
                     }
                     $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                    LoadOpenPage();
-                }, function (theErr) {
-                    $("#FullBlahProfileString").text("someone");
-                    LoadOpenPage();
-                });
-            } else {
-                document.getElementById("FullBlahNickName").innerHTML = "someone";
-                var newImage = G.GetGenericUserImage();
-                $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                } else {
+                    // anonymous
+                    document.getElementById("FullBlahNickName").innerHTML = "someone";
+                    var newImage = G.GetGenericUserImage();
+                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                }
                 LoadOpenPage();
-            }
+            }, function (theErr) {
+                $("#FullBlahProfileString").text("someone");
+                LoadOpenPage();
+            });
         };
 
         var UpdateBlahBadges = function() {

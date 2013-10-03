@@ -25,7 +25,7 @@
 
                         <tr><td>
                             <div id="CreateCommentArea" class="comment-detail-area">
-                                 <table style="width:100%">
+                                 <table id="CommentTable" style="width:100%">
                                     <tbody>
 
                                     <tr class="comment-body-row">
@@ -51,7 +51,13 @@
                                     </tr>
                                     <tr class="comment-image-upload-row">
                                         <td colspan="2">
+
+
                                             <button id="AddCommentBtn" class="add-comment-btn">Comment</button>
+                                            <button id="ShowBadgeAreaBtn" class="add-comment-btn">
+                                                <span>Post As...</span>
+                                                <i class="icon-caret-down"></i>
+                                            </button>
                                             <span id="CharCountDiv"></span>
                                         </td>
                                     </tr>
@@ -101,6 +107,11 @@
         </tr>
 
     </table>
+    <div id="ShowBadgeAreaHolder" class="click-shield" style="background-color:transparent; display:none">
+        <div id="ShowBadgeArea" class="badge-area">
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

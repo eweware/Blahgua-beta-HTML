@@ -21,6 +21,7 @@ define('comments',
         var commentSortDir = "desc";
         var commentFilter = "";
         var kMaxImgWidth = 90;
+        var drawThreaded = false;
 
         var SetCommentFilter = function(newFilter) {
             if (newFilter != commentFilter) {
@@ -88,6 +89,7 @@ define('comments',
         };
 
         var DrawTopComments = function(theComments) {
+            drawThreaded = false;
             G.CurrentComments = theComments;
             //G.CurrentBlah["C"] = G.CurrentComments.length;
             SortComments("newest");
@@ -142,10 +144,12 @@ define('comments',
 
 
         var SortAndRedrawComments = function(theComments) {
+            drawThreaded = true;
             G.CurrentComments = theComments;
             G.CurrentBlah["C"] = G.CurrentComments.length;
             SortComments();
             var authorIds = GetCommentAuthorIDs();
+            ThreadComments();
             blahgua_rest.GetUserDescriptors(authorIds, function(authorData) {
                 for (var curIndex in authorData) {
                     if (authorData[curIndex].hasOwnProperty('K'))
@@ -161,6 +165,32 @@ define('comments',
                 UpdateBlahCommentDiv();
                 FilterComments();
             });
+        };
+
+        var GetCommentIndexFromId = function(theId) {
+            for (var i = 0; i < G.CurrentComments.length; i++) {
+                if (G.CurrentComments[i]._id == theId) {
+                    return i;
+                }
+            }
+
+            return -1;
+        };
+
+
+        var ThreadComments = function() {
+            // TODO: Make sure they are not threaded already....
+            var curParentId;
+            for (var curComment in G.CurrentComments) {
+                curParentId = G.GetSafeProperty(G.CurrentComments[curComment], "CID", null);
+                if (curParentId != null) {
+                    var curIndex = GetCommentIndexFromId(curParentId);
+                    if (!G.CurrentComments[curIndex].hasOwnProperty("subcomments")) {
+                        G.CurrentComments[curIndex]["subcomments"] = new Array();
+                    }
+                    G.CurrentComments[curIndex].subcomments.push(curComment);
+                }
+            }
         };
 
         var FilterComments = function() {
@@ -206,8 +236,10 @@ define('comments',
             kMaxImgWidth = theRect.width - 150;
             for (i in G.CurrentComments) {
                 curComment = G.CurrentComments[i];
-                var commentEl = createCommentElement(i, curComment);
-                commentDiv.appendChild(commentEl);
+                if ((!drawThreaded) || (G.GetSafeProperty(curComment, "CID", null) == null)) {
+                    var commentEl = createCommentElement(i, curComment);
+                    commentDiv.appendChild(commentEl);
+                }
             }
             //bind vote btns
             $(".up-vote[data-votable]").click(function(theEvent) {
@@ -217,6 +249,17 @@ define('comments',
             $(".down-vote[data-votable]").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
                 SetCommentVote(theEvent, -1, theIndex);
+            });
+
+            $(".reply-btn").click(function(theEvent) {
+                var targetDiv =  $(theEvent.target).next();
+                $(".reply-btn").text("reply");
+                if (targetDiv.html() == "") {
+                    $("#CommentTable").detach().appendTo(targetDiv);
+                    $(theEvent.target).text("cancel");
+                }  else {
+                    $("#CommentTable").detach().appendTo("#CreateCommentArea");
+                }
             });
 
             if(!G.IsUserLoggedIn) {
@@ -230,9 +273,38 @@ define('comments',
 
 
         var DoAddComment = function(OnSuccess, OnFailure) {
+            var parentComment = null;
+
+            if ($("#CommentTable").parent().hasClass("embedded-comment-div")) {
+                // it is a nested comment
+                var parentIndex = $("#CommentTable").parents(".comment-item-table").attr("data-comment-index");
+                parentComment = G.CurrentComments[parentIndex]._id;
+            }
             var commentText = $.trim($("#CommentTextArea").val());
             var imageId = $("#objectId").val();
-            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, function (newComment) {
+            var badgeList = null;
+            var postAnon = null;
+
+            var badges = $("#ShowBadgeArea .badge-item");
+            if (badges.length > 0) {
+                var badgeArray = [];
+                badges.each(function(index, item) {
+                    var theID =  $(item).attr("data-badge-id");
+                    var isChecked = $(item).find("i").hasClass("icon-check");
+                    if (isChecked)
+                        badgeArray.push(theID);
+                });
+                if (badgeArray.length > 0)
+                   badgeList = badgeArray;
+            }
+
+            if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+                postAnon = true;
+            }
+
+
+            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, parentComment, badgeList, postAnon, function (newComment) {
+                $("#CommentTable").detach().appendTo("#CreateCommentArea");
                 ga('send', 'event', 'createcomment', 'comment', "default", 1);
                 $("#CommentTextArea").val("").attr("placeholder","Enter comment text here");
                 if (G.CurrentBlah.hasOwnProperty("C")) {
@@ -262,15 +334,29 @@ define('comments',
             }, exports.OnFailure);
         };
 
+
+
         var createCommentElement = function(index, theComment) {
             var newEl = document.createElement("tr");
             newEl.className = "comment-table-row";
+            var newHTML = "<td>";
+            newHTML += createCommentHTML(index, theComment, 0);
+            newHTML += "</td>";
+            newEl.innerHTML = newHTML;
+
+            return newEl;
+
+        };
+
+        var createCommentHTML = function(index, theComment, indent) {
             var image = G.GetItemImage(theComment, "D");
             var newHTML = "";
             var blahgerName = "someone";
             var authorDesc = "someone";
+            var anon = G.GetSafeProperty(theComment, "XX", false);
+            var badges = G.GetSafeProperty(theComment, "BD", null);
 
-            if (theComment.hasOwnProperty("K")) {
+            if (theComment.hasOwnProperty("K") && (!anon)) {
                 blahgerName = theComment.K;
             }
             if (theComment.hasOwnProperty("d")) {
@@ -280,7 +366,8 @@ define('comments',
             var isOwnComment = false;
             if (G.IsUserLoggedIn &&  (theComment.A == G.CurrentUser._id)) {
                 isOwnComment = true;
-                blahgerName += " (you)"
+                if (!anon)
+                    blahgerName += " (you)"
             }
 
             var isOwnBlah = false;
@@ -288,22 +375,38 @@ define('comments',
                 isOwnBlah = true;
             }
 
-            var authorImageURL = G.GetCommentUserImage(theComment, "A");
+            var authorImageURL;
+
+            if (anon)
+                authorImageURL = G.GetGenericUserImage();
+            else
+                authorImageURL = G.GetCommentUserImage(theComment, "A");
+
 
 
             var ownVote = G.GetSafeProperty(theComment, "uv", 0);
 
-            newHTML += '<td><table class="comment-item-table" data-comment-index="' + index + '"">';
+            newHTML += '<table class="comment-item-table" data-comment-index="' + index + '"';
+            if (indent > 0) {
+                newHTML += " style='margin-left:" + indent + "px'";
+            }
+            newHTML += '>';
 
             // comment author, date, voting
+            var rowSpan = 5;
+            if (image == "")
+                rowSpan = 4;
+
 
             newHTML += '<tr>';
-            newHTML += '<td rowspan=';
-            if (image == "")
-                newHTML += "3";
-            else
-                newHTML += "4";
-            newHTML += ' style="width:48px; vertical-align:top;"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '"></td>';
+            newHTML += '<td rowspan=' + rowSpan;
+
+            newHTML += ' style="vertical-align:top;"><div class="comment-user-image-holder"><img class="comment-user-image" alt="Username" src="' + authorImageURL + '">';
+            if (badges != null) {
+                newHTML += "<img class='comment-badge-image' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'>";
+            }
+
+            newHTML += '</div></td>';
             newHTML += '<td class="comment-user-name">' + blahgerName + '</td>';
             newHTML += '<td><span class="comment-date">' + G.ElapsedTimeString(new Date(theComment.c)) + '</span></td>';
 
@@ -376,16 +479,38 @@ define('comments',
                 newHTML += '<td colspan="3" class="comment-image-row">' +
                     '<img src="' + image + '" alt="Comment Image" class="comment-image" style="max-width:' + kMaxImgWidth + 'px">';
                 newHTML += '</td></tr>';
+
             }
 
 
 
-            newHTML += '</table></td>';
+            // reply area (blank for now)
+            newHTML += '<tr><td class="comment-reply-row" colspan="3">';
+            newHTML += '<button class="reply-btn">reply</button>';
+            newHTML += '<div class="embedded-comment-div"></div>';
+            newHTML += '</td></tr>';
 
 
-            newEl.innerHTML = newHTML;
+            // threaded comment area (blank for now)
+            if (drawThreaded && theComment.hasOwnProperty("subcomments")) {
 
-            return newEl;
+                for (curChildIndex in theComment.subcomments) {
+                    newHTML += '<tr><td class="nested-row" colspan="4">';
+                    var childIndex = theComment.subcomments[curChildIndex];
+                    newHTML += createCommentHTML(childIndex, G.CurrentComments[childIndex], indent + 32);
+                    newHTML += '</td></tr>';
+                }
+
+
+            }
+
+
+
+
+            newHTML += '</table>';
+
+
+           return newHTML;
         };
 
         var UploadCommentImage  = function() {

@@ -242,7 +242,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("users/profile/schema", paramStr, OnSuccess, OnFailure);
     };
 
-    var AddBlahComment = function (commentText, blahId, imageId, OnSuccess, OnFailure) {
+    var AddBlahComment = function (commentText, blahId, imageId, parentId, badges, anon, OnSuccess, OnFailure) {
         /// <summary>Adds the specified comment to the current session blah</summary>
         /// <param name="commentText">the text to add</param>
         /// <param name="commentVote">The comment vote (should be 0)</param>
@@ -251,6 +251,12 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         var param = new Object();
         param["T"] = commentText;
         param["B"] = blahId;
+        if (badges != null)
+            param["BD"] = badges;
+        if (parentId != null)
+            param["CID"] = parentId;
+        if (anon != null)
+            param["XX"] = anon;
         if (imageId && imageId != "")
             param["M"] = [imageId];
 

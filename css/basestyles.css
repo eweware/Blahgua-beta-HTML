@@ -786,6 +786,12 @@ color:rgb(244,245,240);
 }
 
 
+.new-blah {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    background-image:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/newblah.png");
+}
 
 
 .hidden-upload input[type=file] {

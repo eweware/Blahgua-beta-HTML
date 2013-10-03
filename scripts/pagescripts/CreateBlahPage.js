@@ -15,6 +15,8 @@ define('CreateBlahPage',
         var pageHeight = null;
         var blahHasBadges = false;
         var isFromURL = false;
+        var userNameStr;
+        var userImageStr;
 
         var  InitializePage = function(theTitle, theBody) {
 
@@ -22,15 +24,16 @@ define('CreateBlahPage',
             PopulateBlahTypeOptions();
             var blahChannelStr = G.CurrentChannel.N;
             blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
-                $("#FullBlahNickName").text(G.GetSafeProperty(theString, "K", "someone" ));
+                userNameStr = G.GetSafeProperty(theString, "K", "someone");
+                $("#FullBlahNickName").text(userNameStr);
                 $("#FullBlahProfileString").text(theString.d);
             }, function (theErr) {
                 $("#FullBlahProfileString").text("someone");
             });
 
 
-            var newImage = G.GetUserImage(G.CurrentUser, "A");
-            $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+            userImageStr = G.GetUserImage(G.CurrentUser, "A");
+            $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
             var channelName = G.CurrentChannel.N;
             $(".fullBlahSpeechAct").text("to " + channelName);
 
@@ -68,6 +71,17 @@ define('CreateBlahPage',
                 });
 
                 $(".badge-item").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    var $icon = $(this).find("i");
+                    if ($icon.hasClass("icon-check-empty")) {
+                        $icon.addClass("icon-check").removeClass("icon-check-empty");
+                    } else {
+                        $icon.addClass("icon-check-empty").removeClass("icon-check");
+                    }
+                    RefreshBadgePreview();
+                });
+
+                $(".anonymous-item").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
                     var $icon = $(this).find("i");
                     if ($icon.hasClass("icon-check-empty")) {
@@ -295,12 +309,9 @@ define('CreateBlahPage',
                 $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
-
-                UpdateLayout();
-            } else {
-                $("#ShowBadgeAreaBtn").attr("disabled", "disabled");
-                UpdateLayout();
             }
+
+            UpdateLayout();
         };
 
         var RefreshBadgePreview = function() {
@@ -313,6 +324,16 @@ define('CreateBlahPage',
                 }
 
             });
+
+            if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+                // draw anonymous
+                $("#FullBlahNickName").text("someone");
+                $("#BlahAuthorImage").css({"background-image": "url('" + G.GetGenericUserImage() + "')"});
+            } else {
+                // draw normal
+                $("#FullBlahNickName").text(userNameStr);
+                $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
+            }
 
             UpdateLayout();
             ResizeCreatePage();
@@ -386,6 +407,10 @@ define('CreateBlahPage',
                     });
                     if (badgeArray.length > 0)
                         options["B"] = badgeArray;
+                }
+
+                if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+                    options["XX"] = true;
                 }
 
                 if ($("#objectId").val() != "") {
