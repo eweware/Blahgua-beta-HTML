@@ -1296,7 +1296,7 @@ define('blahgua_base',
                         G.CurrentScrollSpeed = K.BlahRollPixelStep;
                     }
                     // see if a new top row is on the screen...
-                    if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
+                    if ((G.TopRow != null) && G.TopRow.hasOwnProperty("rowAbove") && (G.TopRow.rowAbove != null) && (G.TopRow.rowAbove.getBoundingClientRect().bottom > 0)) {
                         G.TopRow = G.TopRow.rowAbove;
                         G.RowsOnScreen++;
                     }

@@ -502,11 +502,12 @@
 
 .nested-row {
     border-left: 16px solid rgb(244,245,240);
+    float:right;
+    margin: 0px 8px;
     border-top: 1px solid #AAAAAA;
 }
 
 .embedded-comment-div {
-    background-color: #d3d3d3;
     wodth:100%;
 }
 
@@ -531,8 +532,21 @@
     margin:0 0 0 0;
 }
 
+.reply-note-row {
+    text-align: right;
+    color: #202020;
+    padding-right: 16px;
+    font-family: 'Arimo' sans-serif;
+    font-size: 14px;
+}
 
+.reply-note-row span {
+    font-style:italic;
+}
 
+.reply-note-row .parentQuote {
+    font-style: normal;
+}
 
 .comment-text {
     color:  rgb(32,32,32);

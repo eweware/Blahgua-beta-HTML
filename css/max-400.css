@@ -23,10 +23,21 @@
         margin-right: 8px;
     }
 
+    .new-blah {
+        width: 16px;
+        height: 16px;
+    }
+
+
     .dialog-prompt-container {
         font-size: 16px;
         padding: 12px 12px;
 
+    }
+
+    .comment-badge-image {
+        right: 32px;
+        bottom: 20px;
     }
 
     .feedback-div {

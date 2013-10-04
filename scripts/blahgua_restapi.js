@@ -627,6 +627,16 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
     };
 
+    var DeleteBlah = function (BlahID, OnSuccess, OnFailure) {
+        /// <summary>Returns the current session blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the blah object</returns>
+        var paramStr = '{}';
+        var methodName = "blahs/" + BlahID;
+        CallDeleteMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
     var GetViewersOfBlah = function (BlahID, OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
@@ -802,6 +812,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetChannelTypes: GetChannelTypes,
         GetUsers:  GetUsers ,
         GetNextBlahs:  GetNextBlahs ,
+        DeleteBlah: DeleteBlah,
         GetSpecificInbox: GetSpecificInbox,
         GetBlahComments:  GetBlahComments ,
         GetBlah:  GetBlah ,

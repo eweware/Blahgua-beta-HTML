@@ -473,7 +473,8 @@ define('comments',
             newHTML += '<td colspan="3" class="comment-body-row"><span class="comment-text">' + G.UnCodifyText(theComment.T) + '</span></td>';
             newHTML += '</tr>';
 
-            // comment image
+            // comment
+            // bordimage
             if (image != "") {
                 newHTML += '<tr>';
                 newHTML += '<td colspan="3" class="comment-image-row">' +
@@ -486,22 +487,40 @@ define('comments',
 
             // reply area (blank for now)
             newHTML += '<tr><td class="comment-reply-row" colspan="3">';
-            newHTML += '<button class="reply-btn">reply</button>';
-            newHTML += '<div class="embedded-comment-div"></div>';
+            if (G.IsUserLoggedIn) {
+                newHTML += '<button class="reply-btn">reply</button>';
+                newHTML += '<div class="embedded-comment-div"></div>';
+            }
+
             newHTML += '</td></tr>';
 
 
             // threaded comment area (blank for now)
-            if (drawThreaded && theComment.hasOwnProperty("subcomments")) {
-
-                for (curChildIndex in theComment.subcomments) {
-                    newHTML += '<tr><td class="nested-row" colspan="4">';
-                    var childIndex = theComment.subcomments[curChildIndex];
-                    newHTML += createCommentHTML(childIndex, G.CurrentComments[childIndex], indent + 32);
-                    newHTML += '</td></tr>';
+            if (drawThreaded) {
+                if (theComment.hasOwnProperty("subcomments")) {
+                    for (curChildIndex in theComment.subcomments) {
+                        newHTML += '<tr><td class="nested-row" colspan="4">';
+                        var childIndex = theComment.subcomments[curChildIndex];
+                        newHTML += createCommentHTML(childIndex, G.CurrentComments[childIndex], indent + 0);
+                        newHTML += '</td></tr>';
+                    }
                 }
+            } else {
+                if (theComment.hasOwnProperty("CID")) {
+                    var parentIndex =  GetCommentIndexFromId(theComment.CID);
+                    if (parentIndex != -1) {
+                        var parentText = G.UnCodifyText(G.CurrentComments[parentIndex].T);
+                        if (parentText.length > 30) {
+                            parentText = parentText.substring(0, 30);
+                            parentText += "...";
+                        }
 
-
+                        newHTML += "<tr><td colspan='4' class='reply-note-row'>";
+                        newHTML += '<span>in reply to:  </span>';
+                        newHTML += '<span class="parentQuote">' + parentText + '</span>';
+                        newHTML += "</td></tr>";
+                    }
+                }
             }
 
 
