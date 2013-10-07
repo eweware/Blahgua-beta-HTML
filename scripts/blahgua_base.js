@@ -2414,6 +2414,7 @@ define('blahgua_base',
         Exports.ForgetUser = ForgetUser;
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OpenLoadedBlah = OpenLoadedBlah;
+        Exports.SetCurrentChannelById = SetCurrentChannelbyID;
 
 
     return {

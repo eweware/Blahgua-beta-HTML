@@ -36,6 +36,12 @@
     bottom:4px;
 }
 
+.createChannelList {
+    font-size:26px;
+    font-family: 'Arimo', sans-serif;
+    color:rgb(32,32,32);
+}
+
 
 #CreateBlahPage {
     bottom: 25px;

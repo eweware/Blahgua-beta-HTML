@@ -262,6 +262,15 @@ define('comments',
                 }
             });
 
+            $(".comment-user-image-holder").click(function(theEvent) {
+                var theTarget = $(theEvent.target).closest(".comment-item-table");
+
+                if (theTarget.attr("data-badged") != "true")
+                    LoadItemBadges(theTarget);
+                else
+                    ToggleDescription(theTarget);
+            });
+
             if(!G.IsUserLoggedIn) {
                 $(".comment-vote-wrapper").click(function(theEvent) {
                     G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
@@ -271,6 +280,39 @@ define('comments',
             }
         };
 
+        var LoadItemBadges = function (theElement) {
+            theElement.attr("data-badged", "true");
+            var theIndex = Number(theElement.attr("data-comment-index"));
+            var theComment = G.CurrentComments[theIndex];
+            var targetElement = theElement.find(".comment-user-description");
+            if (theComment.hasOwnProperty("BD")) {
+                var badgeList = theComment.BD;
+                for (var curIndex in badgeList) {
+                    CreateAndAppendBadgeDescription(badgeList[curIndex], targetElement);
+                }
+            }
+
+            ToggleDescription(theElement);
+        };
+
+
+        var CreateAndAppendBadgeDescription = function(theBadge, theElement) {
+            blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
+                var badgeName = G.GetSafeProperty(fullBadge, "N", "unnamed badge");
+                var newHTML = "<div class='comment-badge-info-row'>";
+                newHTML += "<img style='width:16px; height:16px;' src='" + BlahguaConfig.fragmentURL + "img/black_badge.png'>";
+                newHTML += "<span class='comment-badge-text'>verified <span class='badge-name-class'>"+ badgeName + "</span></span></div>";
+
+               theElement.append(newHTML);
+
+            }, function (theErr) {
+                // TODO:  handle badge load error
+            });
+        };
+
+        var ToggleDescription = function(theElement) {
+            theElement.find(".comment-user-description").slideToggle(250);
+        };
 
         var DoAddComment = function(OnSuccess, OnFailure) {
             var parentComment = null;
@@ -283,7 +325,7 @@ define('comments',
             var commentText = $.trim($("#CommentTextArea").val());
             var imageId = $("#objectId").val();
             var badgeList = null;
-            var postAnon = null;
+            var postAnon = true;
 
             var badges = $("#ShowBadgeArea .badge-item");
             if (badges.length > 0) {
@@ -299,7 +341,7 @@ define('comments',
             }
 
             if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
-                postAnon = true;
+                postAnon = false;
             }
 
 

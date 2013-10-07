@@ -327,7 +327,7 @@ define('BlahBodyDetailPage',
             var newHTML = "";
             newHTML += "<div class='anonymous-item'>";
             newHTML += "<i class='icon-check-empty'></i>";
-            newHTML += "<span>Post Anonymously</span>";
+            newHTML += "<span>Use Profile</span>";
             newHTML += "</div>";
 
             $("#ShowBadgeArea").append(newHTML);

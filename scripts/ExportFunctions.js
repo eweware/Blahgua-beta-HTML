@@ -26,6 +26,7 @@ define('ExportFunctions',
         var ForgetUser = null;
         var GetBlahTypeColorFromName = null;
         var CurrentCommentText = "";
+        var SetCurrentChannelById = null;
 
         return {
             ForgetUser: ForgetUser,
@@ -43,7 +44,8 @@ define('ExportFunctions',
             CloseBlah: CloseBlah,
             GetChannelNameFromID: GetChannelNameFromID ,
             OpenLoadedBlah: OpenLoadedBlah ,
-            CurrentCommentText: CurrentCommentText
+            CurrentCommentText: CurrentCommentText,
+            SetCurrentChannelById: SetCurrentChannelById
         }
     }
 );
