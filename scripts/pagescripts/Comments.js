@@ -311,7 +311,7 @@ define('comments',
         };
 
         var ToggleDescription = function(theElement) {
-            theElement.find(".comment-user-description").slideToggle(250);
+            theElement.find(".comment-user-description").toggle(250);
         };
 
         var DoAddComment = function(OnSuccess, OnFailure) {

@@ -502,7 +502,6 @@
 
 .nested-row {
     border-left: 16px solid rgb(244,245,240);
-    float:right;
     margin: 0px 8px;
     border-top: 1px solid #AAAAAA;
 }
@@ -570,7 +569,7 @@
 }
 
 .comment-user-description {
-
+    display: none;
     font-size: 11px;
     font-family: 'Arimo', sans-serif;
     font-style: italic;
