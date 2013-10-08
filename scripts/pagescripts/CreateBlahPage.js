@@ -17,6 +17,7 @@ define('CreateBlahPage',
         var isFromURL = false;
         var userNameStr;
         var userImageStr;
+        var userDescStr = "An anonymous person.";
 
         var  InitializePage = function(theTitle, theBody) {
 
@@ -25,15 +26,20 @@ define('CreateBlahPage',
             var blahChannelStr = G.CurrentChannel.N;
             blahgua_rest.getUserDescriptorString(G.CurrentUser._id, function(theString) {
                 userNameStr = G.GetSafeProperty(theString, "K", "someone");
-                $("#FullBlahNickName").text(userNameStr);
-                $("#FullBlahProfileString").text(theString.d);
+                //$("#FullBlahNickName").text(userNameStr);
+                userDescStr = theString.d;
+                //$("#FullBlahProfileString").text(userDescStr);
             }, function (theErr) {
-                $("#FullBlahProfileString").text("someone");
+                $("#FullBlahNickName").text("Someone");
+                $("#FullBlahProfileString").text(userDescStr);
+
             });
 
 
             userImageStr = G.GetUserImage(G.CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
+            var channelName = G.CurrentChannel.N;
+            $(".fullBlahSpeechAct").text("to " + channelName);
 
 
             // bind events
@@ -136,7 +142,7 @@ define('CreateBlahPage',
 
             }
 
-            PopulateChannelMenu();
+            //PopulateChannelMenu();
             UpdateBadgeArea();
             RefreshBadgePreview();
             CheckPublishBtnDisable();
@@ -345,10 +351,12 @@ define('CreateBlahPage',
                 // draw anonymous
                 $("#FullBlahNickName").text("someone");
                 $("#BlahAuthorImage").css({"background-image": "url('" + G.GetGenericUserImage() + "')"});
+                $("#FullBlahProfileString").text("An anonymous person.");
             } else {
                 // draw normal
                 $("#FullBlahNickName").text(userNameStr);
                 $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
+                $("#FullBlahProfileString").text(userDescStr);
             }
 
             UpdateLayout();
@@ -403,7 +411,8 @@ define('CreateBlahPage',
                 var blahHeadline = $("#BlahHeadline").val();
                 var blahBody = $("#BlahBody").val();
                 blahBody = G.CodifyText(blahBody);
-                var blahGroup = $("#BlahChannelList").val();
+                //var blahGroup = $("#BlahChannelList").val();
+                var blahGroup = G.CurrentChannel._id;
                 var options = new Object();
 
 

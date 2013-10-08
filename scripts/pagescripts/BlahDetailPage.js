@@ -103,7 +103,7 @@ define('BlahDetailPage',
                     $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
                 }
 
-                $("#FullBlahProfileString").text(theString.d);
+
                 var nickNameStr = "someone";
                 if (G.IsUserLoggedIn) {
                     isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
@@ -124,15 +124,17 @@ define('BlahDetailPage',
                         newImage = G.GetGenericUserImage();
                     }
                     $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $("#FullBlahProfileString").text(theString.d);
                 } else {
                     // anonymous
                     document.getElementById("FullBlahNickName").innerHTML = "someone";
                     var newImage = G.GetGenericUserImage();
                     $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    $("#FullBlahProfileString").text("An anonymous person.");
                 }
                 LoadOpenPage();
             }, function (theErr) {
-                $("#FullBlahProfileString").text("someone");
+                $("#FullBlahProfileString").text("An anonymous person");
                 LoadOpenPage();
             });
         };

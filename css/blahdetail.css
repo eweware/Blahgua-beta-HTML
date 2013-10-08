@@ -601,6 +601,7 @@
     bottom: 8px;
     position: absolute;
     display: block;
+    border: 1px solid gray;
 }
 
 .comment-user-image-holder {
