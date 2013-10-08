@@ -466,6 +466,7 @@
     font-family: 'Arimo', sans-serif;
     color:#0058F8;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 
@@ -498,6 +499,10 @@
     font-family: 'Arimo' sans-serif;
     color: blue;
     background-color: transparent;
+}
+
+.reply-btn.disabled {
+    color: gray;
 }
 
 .nested-row {

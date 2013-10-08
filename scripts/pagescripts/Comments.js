@@ -252,24 +252,25 @@ define('comments',
             });
 
             $(".reply-btn").click(function(theEvent) {
-                var targetDiv =  $(theEvent.target).next();
-                $(".reply-btn").text("reply");
-                if (targetDiv.html() == "") {
-                    $("#CommentTable").detach().appendTo(targetDiv);
-                    $(theEvent.target).text("cancel");
-                }  else {
-                    $("#CommentTable").detach().appendTo("#CreateCommentArea");
+                if (G.IsUserLoggedIn) {
+                    var targetDiv =  $(theEvent.target).next();
+                    $(".reply-btn").text("reply");
+                    if (targetDiv.html() == "") {
+                        $("#CommentTable").detach().appendTo(targetDiv);
+                        $(theEvent.target).text("cancel");
+                    }  else {
+                        $("#CommentTable").detach().appendTo("#CreateCommentArea");
+                    }
+                } else {
+                    G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                        theEvent.stopImmediatePropagation();
+                        exports.SuggestUserSignIn("Sign in to participate.")});
                 }
+
             });
 
-            $(".comment-user-image-holder").click(function(theEvent) {
-                var theTarget = $(theEvent.target).closest(".comment-item-table");
-
-                if (theTarget.attr("data-badged") != "true")
-                    LoadItemBadges(theTarget);
-                else
-                    ToggleDescription(theTarget);
-            });
+            $(".comment-user-image-holder").click(HandleUserClick);
+            $(".comment-user-name").click(HandleUserClick);
 
             if(!G.IsUserLoggedIn) {
                 $(".comment-vote-wrapper").click(function(theEvent) {
@@ -278,6 +279,15 @@ define('comments',
                         exports.SuggestUserSignIn("Sign in to participate.")});
                 });
             }
+        };
+
+        var HandleUserClick = function(theEvent) {
+            var theTarget = $(theEvent.target).closest(".comment-item-table");
+
+            if (theTarget.attr("data-badged") != "true")
+                LoadItemBadges(theTarget);
+            else
+                ToggleDescription(theTarget);
         };
 
         var LoadItemBadges = function (theElement) {
@@ -529,7 +539,7 @@ define('comments',
 
             // reply area (blank for now)
             newHTML += '<tr><td class="comment-reply-row" colspan="3">';
-            if (G.IsUserLoggedIn) {
+            if (true) {//G.IsUserLoggedIn) {
                 newHTML += '<button class="reply-btn">reply</button>';
                 newHTML += '<div class="embedded-comment-div"></div>';
             }
