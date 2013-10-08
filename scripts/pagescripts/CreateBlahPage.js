@@ -34,8 +34,7 @@ define('CreateBlahPage',
 
             userImageStr = G.GetUserImage(G.CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
-            var channelName = G.CurrentChannel.N;
-            $(".fullBlahSpeechAct").text("to " + channelName);
+
 
             // bind events
             if (!G.IsUploadCapable) {
@@ -92,6 +91,8 @@ define('CreateBlahPage',
                     RefreshBadgePreview();
                 });
 
+
+
             });
 
             if (!G.IsMobile) {
@@ -135,11 +136,26 @@ define('CreateBlahPage',
 
             }
 
-
+            PopulateChannelMenu();
             UpdateBadgeArea();
+            RefreshBadgePreview();
             CheckPublishBtnDisable();
             ResizeCreatePage();
         };
+
+        var PopulateChannelMenu = function() {
+            var newHTML = "";
+            $.each(G.ChannelList, function(index, element) {
+
+                newHTML += "<option value='" + element._id + "'";
+                if (G.CurrentChannel == element ) {
+                    newHTML += " selected='selected'";
+                }
+                newHTML +=   ">" + element.N + "</option>";
+            });
+            $("#BlahChannelList").html(newHTML);
+        };
+
 
         var UpdateLayout = function() {
             if (G.IsShort) {
@@ -325,7 +341,7 @@ define('CreateBlahPage',
 
             });
 
-            if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+            if (!$("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
                 // draw anonymous
                 $("#FullBlahNickName").text("someone");
                 $("#BlahAuthorImage").css({"background-image": "url('" + G.GetGenericUserImage() + "')"});
@@ -354,7 +370,7 @@ define('CreateBlahPage',
                 var newHTML = "";
                 newHTML += "<div class='anonymous-item'>";
                 newHTML += "<i class='icon-check-empty'></i>";
-                newHTML += "<span>Post Anonymously</span>";
+                newHTML += "<span>Use Profile</span>";
                 newHTML += "</div>";
 
                 $("#ShowBadgeArea").append(newHTML);
@@ -387,7 +403,7 @@ define('CreateBlahPage',
                 var blahHeadline = $("#BlahHeadline").val();
                 var blahBody = $("#BlahBody").val();
                 blahBody = G.CodifyText(blahBody);
-                var blahGroup = G.CurrentChannel._id;
+                var blahGroup = $("#BlahChannelList").val();
                 var options = new Object();
 
 
@@ -410,6 +426,8 @@ define('CreateBlahPage',
                 }
 
                 if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+                    //options["XX"] = false;
+                } else {
                     options["XX"] = true;
                 }
 
@@ -442,7 +460,9 @@ define('CreateBlahPage',
         };
 
         var DoCloseBlah = function(){
-            InsertNewBlahIntoChannel(G.CurrentBlah);
+            if (G.CurrentChannel._id == G.CurrentBlah.G) {
+                InsertNewBlahIntoChannel(G.CurrentBlah);
+            }
             $("#AdditionalInfoDiv").empty();
             exports.CloseBlah();
         };
