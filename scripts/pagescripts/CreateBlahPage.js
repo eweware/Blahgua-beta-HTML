@@ -39,7 +39,7 @@ define('CreateBlahPage',
             userImageStr = G.GetUserImage(G.CurrentUser, "A");
             $("#BlahAuthorImage").css({"background-image": "url('" + userImageStr + "')"});
             var channelName = G.CurrentChannel.N;
-            $(".fullBlahSpeechAct").text("to " + channelName);
+            $(".fullBlahSpeechAct").html("to&nbsp;" + channelName);
 
 
             // bind events

@@ -404,14 +404,14 @@ define('comments',
             var image = G.GetItemImage(theComment, "D");
             var newHTML = "";
             var blahgerName = "someone";
-            var authorDesc = "someone";
+            var authorDesc = "An anonymous person.";
             var anon = G.GetSafeProperty(theComment, "XX", false);
             var badges = G.GetSafeProperty(theComment, "BD", null);
 
             if (theComment.hasOwnProperty("K") && (!anon)) {
                 blahgerName = theComment.K;
             }
-            if (theComment.hasOwnProperty("d")) {
+            if (theComment.hasOwnProperty("d") && (!anon)) {
                 authorDesc = theComment.d;
             }
 
