@@ -288,6 +288,8 @@ define('SelfPageDetails',
             blahgua_rest.createBadgeForUser(badgeID, null, function(data) {
                 //var dialogHTML = badge_api.dialog_html();
                 var dialogHTML = data;
+                dialogHTML = data.slice(0,67) + data.slice(132);
+
                 var windowWidth = $(window).width();
                 var offset = (windowWidth - 512) / 2;
                 if (offset < 0)
@@ -319,7 +321,7 @@ define('SelfPageDetails',
                 // refresh the badges for the user
                 blahgua_rest.getUserInfo(function (json) {
                     G.CurrentUser = json;
-                    UpdateBadgeArea();
+                    SetSelfDetailPage("Profile");
                 });
 
             } );
