@@ -327,7 +327,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
         var paramStr = '{"V":' + numViews + ', "O":' + numOpens + '}';
-        var methodname = "blahs/" + blahID;
+        var methodname = "blahs/" + blahID + "/stats";
         if (typeof blahID === "undefined") {
             console.log("undefined blah id!");
             return;
@@ -367,7 +367,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         /// <param name="OnFailure">Failure callback</param>
         var paramStr = '{"uv":' + newVote + '}';
 
-        var methodName = "blahs/" + blahId;
+        var methodName = "blahs/" + blahId + "/stats";
         CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
