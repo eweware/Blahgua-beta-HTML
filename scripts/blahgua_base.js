@@ -915,19 +915,19 @@ define('blahgua_base',
         var theColor = "#FFFFFF";
         switch (theId) {
             case K.BlahType.says:
-                theColor = "#7DB5E3";
+                theColor = "#3D7DAB";
                 break;
             case K.BlahType.leaks:
-                theColor = "#F87858";
+                theColor = "#D34343";
                 break;
             case K.BlahType.polls:
-                theColor = "#F8B800";
+                theColor = "#FE8D4B";
                 break;
             case K.BlahType.predicts:
-                theColor = "#FAFA64";
+                theColor = "#483950";
                 break;
             case K.BlahType.asks:
-                theColor = "#7AD000";
+                theColor = "#477C48";
                 break;
             case K.BlahType.ad:
                 theColor = "#FF0000";

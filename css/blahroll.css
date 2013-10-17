@@ -107,7 +107,7 @@
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(72,57,80)),color-stop(100%,rgb(61,48,68)));
     background-image: -webkit-linear-gradient(rgb(72,57,80),rgb(61,48,68));
     background-image: -o-linear-gradient(rgb(72,57,80),rgb(61,48,68));
-    background-image: linear-gradient(rgb(72,57,805),rgb(61,48,68));
+    background-image: linear-gradient(rgb(72,57,80),rgb(61,48,68));
     border-color:rgba(72,57,80,1)
 
 }
