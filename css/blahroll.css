@@ -12,14 +12,11 @@
 
 .BlahAltTextDiv {
     text-align:left;
-    text-shadow: rgba(32,32,32,.5) 0.1em 0.1em 0.2em;
-
 
 }
 
 .BlahExpandTextDiv {
     text-align:left;
-    text-shadow: rgba(32,32,32,.5) 0.1em 0.1em 0.2em;
 }
 
 .finished-sizing {
@@ -121,34 +118,34 @@
 
 
 .BlahTypeSaysImgText {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0,0,0,0.6);
+    color: rgba(48,48,48,1);
+    background-color: rgba(255,255,245,0.75);
     border-color:rgba(61,125,171,1)
 }
 
 
 .BlahTypeAsksImgText {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0,0,0,0.6);
+    color: rgba(48,48,48,1);
+    background-color: rgba(255,255,245,0.75);
     border-color:rgba(71,124,72,1)
 }
 
 
 .BlahTypeLeaksImgText {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0,0,0,0.6);
+    color: rgba(48,48,48,1);
+    background-color: rgba(255,255,245,0.75);
     border-color:rgba(211,67,67,1)
 }
 
 .BlahTypePollsImgText {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0,0,0,0.6);
+    color: rgba(48,48,48,1);
+    background-color: rgba(255,255,245,0.75);
     border-color:rgba(254,141,75,1)
 }
 
 .BlahTypePredictsImgText {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0,0,0,0.6);
+    color: rgba(48,48,48,1);
+    background-color: rgba(255,255,245,0.75);
     border-color: rgb(72,57,80)
 }
 
