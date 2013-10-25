@@ -462,7 +462,7 @@
 .blah-type-square {
     font-family: 'Arimo', sans-serif;
     background-color: blue;
-    color: #444444;
+    color: rgb(244,245,240);
     display:inline-block;
     text-align: center;
     font-size: 10pt;
