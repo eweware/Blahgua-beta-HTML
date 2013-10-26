@@ -14,12 +14,13 @@
     font-stretch: condensed;
     box-shadow: rgba(0,0,0,.4) 0px 5px 8px;
     line-height:2em;
-    background-image: linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -moz-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(55%,rgb(125,191,227)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb(125,191,227)55%,rgb(122,208,0));
+
+    background-image: linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
+    background-image: -moz-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
+    background-image: -ms-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(65%,rgb(125,191,227)),color-stop(66%,rgb(122,208,0)),color-stop(100%,rgb(122,208,0)));
+    background-image: -webkit-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
+    background-image: -o-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
 }
 
 .ChannelNameText {
