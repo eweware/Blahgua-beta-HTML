@@ -15,6 +15,9 @@ define('blahgua_base',
         var splashTimeout;
         var showSplash = false;
         var FadeTimer = null;
+        var smallTextSize;
+        var mediumTextSize;
+        var largeTextSize;
 
         var IsMobileBrowser = function() {
             var check = false;
@@ -507,7 +510,7 @@ define('blahgua_base',
     var FadeRandomElement = function() {
         if (G.BlahsMovingTimer != null) {
             var theEl = SelectRandomElement();
-            if ((theEl != undefined) && (theEl.style.backgroundImage != "")) {
+            if ((theEl != undefined) && (theEl.style.backgroundImage != "") && (theEl.blahTextDiv != null)) {
                 $(theEl.blahTextDiv).fadeToggle(1000, "swing", function() {
                     FadeTimer = setTimeout(FadeRandomElement, 100);
                 });
@@ -542,6 +545,10 @@ define('blahgua_base',
             desiredWidth = windowWidth;
         if (desiredWidth < K.MinWidth)
             desiredWidth = K.MinWidth;
+        var ratio = (desiredWidth - 300) / 340;
+        smallTextSize = Math.round(12 + (12 * ratio)); //12-18
+        mediumTextSize = Math.round(30 + (18 * ratio)); // 30-48
+        largeTextSize = Math.round(40 + (24 * ratio)); // 40-64
 
 
         var blahBottom = 25;
@@ -986,13 +993,13 @@ define('blahgua_base',
         if (imagePath != "") {
             newDiv.style.backgroundImage = "url('" + imagePath + "')";
 
-            if (theBlah.displaySize != 3) {
-                $(textDiv).addClass("BlahAltTextDiv");
-            }
-            else {
+            if (theBlah.T == "") {
+               $(textDiv).remove();
+                newDiv.blahTextDiv = null;
+            } else {
                 $(textDiv).addClass("BlahExpandTextDiv");
-                $(textDiv).fadeOut(1000);
             }
+
 
             switch (theBlah.Y) {
                 case K.BlahType.says:
@@ -1011,11 +1018,12 @@ define('blahgua_base',
                     $(textDiv).addClass("BlahTypeAsksImgText");
                     break;
                 case K.BlahType.ad:
-                    $(textDiv).addClass("BlahTypeAddImgText");
+                    $(textDiv).addClass("BlahTypeAdImgText");
                     break;
                 default:
                     break;
             }
+
         }
 
         var now = (new Date()).getTime();
@@ -1137,6 +1145,7 @@ define('blahgua_base',
         G.BottomRow = nextRow;
         nextRow.style.top = ($("#BlahContainer").height() + $("#BlahContainer").scrollTop() + K.InterBlahGutter) + "px";
         $("#BlahContainer").append(nextRow);
+        $(nextRow).find(".BlahExpandTextDiv").fadeOut(1000);
         ResizeRowText(nextRow);
         G.RowsOnScreen++;
         // to do - add blah specific animation
@@ -1144,7 +1153,28 @@ define('blahgua_base',
     };
 
     var ResizeRowText = function(newRow) {
-        //return;
+        for (var i = 0; i < newRow.childNodes.length; i++) {
+            curTextDiv = newRow.childNodes[i].blahTextDiv;
+            if (curTextDiv != null) {
+                var displaySize = newRow.childNodes[i].blah.displaySize;
+                var newFontSize;
+
+                switch (displaySize) {
+                    case 1:
+                        newFontSize = largeTextSize;
+                        break;
+                    case 2:
+                        newFontSize = mediumTextSize;
+                        break;
+                    case 3:
+                        newFontSize = smallTextSize;
+                        break;
+                }
+
+                curTextDiv.style.fontSize = newFontSize.toString() + "px";
+            }
+        }
+        /*
         var curTile;
         var textHeight;
         var fontSize;
@@ -1186,6 +1216,7 @@ define('blahgua_base',
                 $(curTextDiv).addClass("finished-sizing").css({"bottom":textShift + "px"})
             }
         }
+        */
     };
 
 
@@ -1402,6 +1433,7 @@ define('blahgua_base',
         if (curRowSequence >= rowSequence.length)
             curRowSequence = 0;
 
+        // start fading on images...
         return newRowEl;
     };
 

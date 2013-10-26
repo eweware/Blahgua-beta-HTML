@@ -7,6 +7,7 @@
     padding-left: 8px;
     padding-right: 8px;
     text-align:left;
+    height:100%;
 }
 
 
@@ -26,7 +27,7 @@
 
 
 .SmallBlahFormat {
-
+    font-size:18px;
 }
 
 .XSmallBlahFormat {
@@ -34,12 +35,12 @@
 }
 
 .MediumBlahFormat {
-
+    font-size:48px;
 }
 
 
 .LargeBlahFormat {
-
+   font-size:64px;
 }
 
 .users-own-blah {
@@ -118,35 +119,44 @@
 
 
 .BlahTypeSaysImgText {
-    color: rgba(48,48,48,1);
-    background-color: rgba(255,255,245,0.75);
-    border-color:rgba(61,125,171,1)
+    color: rgba(60,60,60,1);
+    background-color: rgba(255,255,245, .9);
+    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(245,245,232,.7));
+    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(245,245,232,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(245,245,232,.7)));
+    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(245,245,232,.7));
+    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(245,245,232,.7));
+    background-image: linear-gradient(rgba(255,255,245,.7),rgba(245,245,232,.7));
+    border-color:rgba(61,125,171,1);
 }
 
 
 .BlahTypeAsksImgText {
-    color: rgba(48,48,48,1);
-    background-color: rgba(255,255,245,0.75);
+    color: rgba(60,60,60,1);
+    background-color: rgba(255,255,245, .7);
+
     border-color:rgba(71,124,72,1)
 }
 
 
 .BlahTypeLeaksImgText {
-    color: rgba(48,48,48,1);
-    background-color: rgba(255,255,245,0.75);
+    color: rgba(60,60,60,1);
+    background-color: rgba(255,255,245, .7);
+
     border-color:rgba(211,67,67,1)
 }
 
 .BlahTypePollsImgText {
-    color: rgba(48,48,48,1);
-    background-color: rgba(255,255,245,0.75);
+    color: rgba(60,60,60,1);
+    background-color: rgba(255,255,245, .7);
+
     border-color:rgba(254,141,75,1)
 }
 
 .BlahTypePredictsImgText {
-    color: rgba(48,48,48,1);
-    background-color: rgba(255,255,245,0.75);
-    border-color: rgb(72,57,80)
+    color: rgba(60,60,60,1);
+    background-color: rgba(255,255,245, .7);
+    border-color:rgba(72,57,80,1)
 }
 
 .BlahTypeAddImgText {
