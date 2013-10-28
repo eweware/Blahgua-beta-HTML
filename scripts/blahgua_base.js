@@ -546,9 +546,9 @@ define('blahgua_base',
         if (desiredWidth < K.MinWidth)
             desiredWidth = K.MinWidth;
         var ratio = (desiredWidth - 300) / 340;
-        smallTextSize = Math.round(12 + (12 * ratio)); //12-18
-        mediumTextSize = Math.round(30 + (18 * ratio)); // 30-48
-        largeTextSize = Math.round(40 + (24 * ratio)); // 40-64
+        smallTextSize = Math.round(10 + (10 * ratio)); //10-20
+        mediumTextSize = Math.round(20 + (16 * ratio)); // 20-36
+        largeTextSize = Math.round(30 + (22 * ratio)); // 30-52
 
 
         var blahBottom = 25;
