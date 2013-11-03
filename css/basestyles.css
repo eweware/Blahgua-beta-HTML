@@ -70,13 +70,13 @@ li.divider:hover {
     right:0;
     bottom:0;
     z-index:0;
-    background-image: -moz-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -ms-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(230,230,230)),color-stop(100%,rgb(190,190,190)));
-    background-image: -webkit-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -o-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#BEBEBE');
+    background-image: -moz-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -ms-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(230,230,230)),color-stop(100%,rgb(200,200,200)));
+    background-image: -webkit-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -o-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');
 }
 
 .site-down-div {
@@ -101,13 +101,13 @@ li.divider:hover {
     bottom:0;
     left:0;
     right:0;
-    background-image: -moz-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -ms-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(230,230,230)),color-stop(100%,rgb(190,190,190)));
-    background-image: -webkit-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: -o-linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    background-image: linear-gradient(rgb(230,230,230),rgb(190,190,190));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#BEBEBE');
+    background-image: -moz-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -ms-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(230,230,230)),color-stop(100%,rgb(200,200,200)));
+    background-image: -webkit-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: -o-linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    background-image: linear-gradient(rgb(230,230,230),rgb(200,200,200));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');
     overflow:hidden;
 }
 
