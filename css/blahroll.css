@@ -50,62 +50,62 @@
 
 .BlahTypeSays {
     color: rgba(60,60,60,1);
-    background-color: rgb(255,255,245);
-    background-image: -moz-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -ms-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,255,245)),color-stop(100%,rgb(255,255,245)));
-    background-image: -webkit-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -o-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: linear-gradient(rgb(255,255,245),rgb(255,255,245));
+    background-color: rgb(252,253,253);
+    background-image: -moz-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -ms-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(252,253,253)),color-stop(100%,rgb(252,253,253)));
+    background-image: -webkit-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -o-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: linear-gradient(rgb(252,253,253),rgb(252,253,253));
     border-color:rgba(61,125,171,1);
 }
 
 .BlahTypeAsks {
     color: rgba(60,60,60,1);
-    background-color: rgb(255,255,245);
-    background-image: -moz-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -ms-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,255,245)),color-stop(100%,rgb(255,255,245)));
-    background-image: -webkit-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -o-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: linear-gradient(rgb(255,255,245),rgb(255,255,245));
+    background-color: rgb(252,253,253);
+    background-image: -moz-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -ms-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(252,253,253)),color-stop(100%,rgb(252,253,253)));
+    background-image: -webkit-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -o-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: linear-gradient(rgb(252,253,253),rgb(252,253,253));
     border-color:rgba(71,124,72,1)
 }
 
 .BlahTypeLeaks {
     color: rgba(60,60,60,1);
-    background-color: rgb(255,255,245);
-    background-image: -moz-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -ms-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,255,245)),color-stop(100%,rgb(255,255,245)));
-    background-image: -webkit-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -o-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: linear-gradient(rgb(255,255,245),rgb(255,255,245));
+    background-color: rgb(252,253,253);
+    background-image: -moz-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -ms-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(252,253,253)),color-stop(100%,rgb(252,253,253)));
+    background-image: -webkit-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -o-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: linear-gradient(rgb(252,253,253),rgb(252,253,253));
     border-color:rgba(211,67,67,1)
 }
 
 .BlahTypePolls {
     color: rgba(60,60,60,1);
-    background-color: rgb(255,255,245);
-    background-image: -moz-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -ms-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,255,245)),color-stop(100%,rgb(255,255,245)));
-    background-image: -webkit-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -o-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: linear-gradient(rgb(255,255,245),rgb(255,255,245));
+    background-color: rgb(252,253,253);
+    background-image: -moz-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -ms-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(252,253,253)),color-stop(100%,rgb(252,253,253)));
+    background-image: -webkit-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -o-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: linear-gradient(rgb(252,253,253),rgb(252,253,253));
     border-color:rgba(254,141,75,1)
 
 }
 
 .BlahTypePredicts {
     color: rgba(60,60,60,1);
-    background-color: rgb(255,255,245);
-    background-image: -moz-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -ms-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,255,245)),color-stop(100%,rgb(255,255,245)));
-    background-image: -webkit-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: -o-linear-gradient(rgb(255,255,245),rgb(255,255,245));
-    background-image: linear-gradient(rgb(255,255,245),rgb(255,255,245));
+    background-color: rgb(252,253,253);
+    background-image: -moz-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -ms-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(252,253,253)),color-stop(100%,rgb(252,253,253)));
+    background-image: -webkit-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: -o-linear-gradient(rgb(252,253,253),rgb(252,253,253));
+    background-image: linear-gradient(rgb(252,253,253),rgb(252,253,253));
     border-color:rgba(72,57,80,1)
 
 }
@@ -120,63 +120,63 @@
 
 .BlahTypeSaysImgText {
     color: rgba(60,60,60,1);
-    background-color: rgba(255,255,245, .7);
-    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(255,255,245,.7)));
-    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
+    background-color: rgba(252,253,253, .7);
+    background-image: -moz-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -ms-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(252,253,253,.7)),color-stop(100%,rgba(252,253,253,.7)));
+    background-image: -webkit-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -o-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
     border-color:rgba(61,125,171,1);
 }
 
 
 .BlahTypeAsksImgText {
     color: rgba(60,60,60,1);
-    background-color: rgba(255,255,245, .7);
-    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(255,255,245,.7)));
-    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
+    background-color: rgba(252,253,253, .7);
+    background-image: -moz-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -ms-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(252,253,253,.7)),color-stop(100%,rgba(252,253,253,.7)));
+    background-image: -webkit-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -o-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
     border-color:rgba(71,124,72,1)
 }
 
 
 .BlahTypeLeaksImgText {
     color: rgba(60,60,60,1);
-    background-color: rgba(255,255,245, .7);
-    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(255,255,245,.7)));
-    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
+    background-color: rgba(252,253,253, .7);
+    background-image: -moz-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -ms-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(252,253,253,.7)),color-stop(100%,rgba(252,253,253,.7)));
+    background-image: -webkit-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -o-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
     border-color:rgba(211,67,67,1)
 }
 
 .BlahTypePollsImgText {
     color: rgba(60,60,60,1);
-    background-color: rgba(255,255,245, .7);
-    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(255,255,245,.7)));
-    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
+    background-color: rgba(252,253,253, .7);
+    background-image: -moz-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -ms-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(252,253,253,.7)),color-stop(100%,rgba(252,253,253,.7)));
+    background-image: -webkit-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -o-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
     border-color:rgba(254,141,75,1)
 }
 
 .BlahTypePredictsImgText {
     color: rgba(60,60,60,1);
-    background-color: rgba(255,255,245, .7);
-    background-image: -moz-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -ms-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(255,255,245,.7)),color-stop(100%,rgba(255,255,245,.7)));
-    background-image: -webkit-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: -o-linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
-    background-image: linear-gradient(rgba(255,255,245,.7),rgba(255,255,245,.7));
+    background-color: rgba(252,253,253, .7);
+    background-image: -moz-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -ms-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(252,253,253,.7)),color-stop(100%,rgba(252,253,253,.7)));
+    background-image: -webkit-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: -o-linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
+    background-image: linear-gradient(rgba(252,253,253,.7),rgba(252,253,253,.7));
     border-color:rgba(72,57,80,1)
 }
 
