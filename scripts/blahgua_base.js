@@ -1728,8 +1728,23 @@ define('blahgua_base',
         InboxCount = 0;
         Blahgua.GetNextBlahs(OnGetBlahsOK, function(theErr) {
             // just assume no blahs
-            console.log("Error in GetUserBlahs: " + theErr.status + " - " + theErr.responseText);
-            OnGetBlahsOK([]);
+
+            if (theErr.statusText == "timeout") {
+                // try again for good lock
+                Blahgua.GetNextBlahs(OnGetBlahsOK, function(theError) {
+                    if (theErr.statusText == "timeout") {
+                        console.log("Timeout trying to get blahs");
+                    }
+                    else
+                        console.log("Error in GetUserBlahs: " + theErr.status + " - " + theErr.responseText);
+                    OnGetBlahsOK([]);
+                });
+            } else {
+                    console.log("Error in GetUserBlahs: " + theErr.status + " - " + theErr.responseText);
+                OnGetBlahsOK([]);
+                }
+
+
         });
     };
 
