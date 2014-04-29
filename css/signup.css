@@ -10,12 +10,12 @@
 
 
 .sign-in {
-    color:  rgb(244,245,240);
+    color:  #000;
     text-align: center;
     font-family: 'Arimo', sans-serif;
     padding-left: 8px;
     padding-top: 8px;
-    background-color: rgb(125, 181, 227);
+    background-color: #fff;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
 }
@@ -56,9 +56,7 @@
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
     height: 250px;
-    background-color:RGB(122, 208, 0);
-
-
+    background-color:#2fb568;
 }
 
 .toggle-content table {
@@ -74,7 +72,7 @@
     text-align: center;
     font-size:0;
     margin: 0 auto;
-    background-color: rgb(125, 181, 227);
+    background-color: #fff;
     padding-top:10px;
 }
 
@@ -123,13 +121,7 @@
 }
 .toggle-btn {
     color:rgb(244,245,240);
-    background-image: -moz-linear-gradient(rgb(0,207,0),rgb(0,161,0));
-    background-image: -ms-linear-gradient(rgb(0,207,0),rgb(0,161,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(0,207,0)),color-stop(100%,rgb(0,161,0)));
-    background-image: -webkit-linear-gradient(rgb(0,207,0),rgb(0,161,0));
-    background-image: -o-linear-gradient(rgb(0,207,0),rgb(0,161,0));
-    background-image: linear-gradient(rgb(0,207,0),rgb(0,161,0));
-    background-color: #00b800;
+    background-color: #269052;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
@@ -162,34 +154,22 @@
 
 .toggle-btn:hover {
     color:rgb(244,245,240);
-    background-image: -moz-linear-gradient(rgb(0,189,0),rgb(0,147,0));
-    background-image: -ms-linear-gradient(rgb(0,189,0),rgb(0,147,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(0,189,0)),color-stop(100%,rgb(0,147,0)));
-    background-image: -webkit-linear-gradient(rgb(0,189,0),rgb(0,147,0));
-    background-image: -o-linear-gradient(rgb(0,189,0),rgb(0,147,0));
-    background-image: linear-gradient(rgb(0,189,0),rgb(0,147,0));
+    background-image: -moz-linear-gradient(#36d077,#2fb568);
+    background-image: -ms-linear-gradient(#36d077,#2fb568);
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#36d077),color-stop(100%,#2fb568));
+    background-image: -webkit-linear-gradient(#36d077,#2fb568);
+    background-image: -o-linear-gradient(#36d077,#2fb568);
+    background-image: linear-gradient(#36d077,#2fb568);
     background-color: #00a800;
 }
 
 .toggle-active {
-    background-image: -moz-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(137,234,0)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-color: rgb(122,208,0);
+    background-color: #2fb568;
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-image: -moz-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(137,234,0)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-image: linear-gradient(rgb(137,234,0),rgb(122,208,0));
-    background-color: rgb(122,208,0);
+    background-color: #2fb568;
     color:rgb(244,245,240);
 }
 
@@ -234,7 +214,7 @@
 
 .recover-btn {
     color: rgb(244,245,240);
-    background-color: rgb(122,208,0);
+    background-color: #2fb568;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
@@ -295,7 +275,7 @@
 }
 
 .inline-button.login-btn:hover {
-    background: #00b800;
+    background: #2fb568;
     color:  rgb(244,245,240);
 }
 
@@ -328,7 +308,7 @@
 
 .about-link {
     color: rgb(244,245,240);
-    background-color: rgb(122,208,0);
+    background-color: #2fb568;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;

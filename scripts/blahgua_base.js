@@ -9,7 +9,7 @@ define('blahgua_base',
     ],
     function(K, G, Exports, Blahgua) {
 
-        var rowSequence = [4,32,31,4,1,33,4,2,4,32,1,4,31,32,33,31,4,33,1,31,4,32,33,1,4,2];
+        var rowSequence = ["A","B","A","C","A","D","A","C","B","A","B","C","A","D","A","C","A","B","A","C","B","A","D","A","B","A","C","A","C","A","B","A","D","A","B","C"];
         var curRowSequence = 0;
         var isStarting = true;
         var splashTimeout;
@@ -598,10 +598,10 @@ define('blahgua_base',
 
         var totalGutter = K.EdgeGutter * 2 + K.InterBlahGutter * 3;
 
-        G.SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 4);
+        G.SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 3);
 
         G.MediumTileWidth = (G.SmallTileWidth * 2) + K.InterBlahGutter;
-        G.LargeTileWidth = (G.MediumTileWidth * 2) + K.InterBlahGutter;
+        G.LargeTileWidth = (G.MediumTileWidth * 1.5) + K.InterBlahGutter;
         //LargeTileWidth = (SmallTileWidth * 3) + (K.InterBlahGutter * 2);
 
         G.SmallTileHeight = G.SmallTileWidth;
@@ -610,14 +610,14 @@ define('blahgua_base',
         G.LargeTileHeight = G.MediumTileHeight;
 
         // now make the window the correct size
-        var targetWidthWidth = (G.SmallTileWidth * 4) + totalGutter;
+        var targetWidthWidth = (G.SmallTileWidth * 3) + totalGutter;
         var offset = Math.floor((windowWidth - targetWidthWidth) / 2);
         if (offset < 0)
             offset = 0;
 
         var channelBottom = $("#ChannelBanner")[0].getBoundingClientRect().bottom;
         $("#BlahContainer").css({ 'left': offset , 'right': offset });
-        $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
+        //$("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#BlahFullItem").css({ 'top': blahTop,'left': (offset + blahMargin) , 'bottom': blahBottom, 'right': (offset + blahMargin)});
         $("#ChannelDropMenu").css({'top': channelBottom + "px"});
 
@@ -714,6 +714,8 @@ define('blahgua_base',
             var newHTML = "";
             newHTML += "<div class='click-shield menu'>" +
                 "<div class='instant-menu'>" +
+                "<div class='menu-profile-pic'></div>" +
+                "<div class='menu-username'>" + G.CurrentUser.N + "</div>" +
                 "<ul>" +
                 "<li id='ShowProfileItem'>Profile</li>" +
                 "<li id='ShowHistoryItem'>History</li>" +
@@ -725,10 +727,19 @@ define('blahgua_base',
                 "</ul></div></div>";
 
             $(document.body).append(newHTML);
+
+            // Add profile image
+            var newImage = G.GetUserImage(G.CurrentUser, "A");
+            if (newImage != "") {
+                $(".menu-profile-pic").css({"background-image": "url('" + newImage + "')"});
+            }
+
             $(".instant-menu").disableSelection();
             $(".click-shield").click(function (theEvent) {
-                DismissAll();
-                StartAnimation();
+                $(".instant-menu").animate({"right":"-150px"}, 200,function(){
+                    DismissAll();
+                    StartAnimation();
+                });
             });
             $("#ShowProfileItem").click(function (theEvent) {
                 DismissAll();
@@ -750,10 +761,8 @@ define('blahgua_base',
                 DismissAll();
                 LogoutUser();
             });
-            var imageRect = $(".profile-button")[0].getBoundingClientRect();
-            var newTop = imageRect.bottom;
-            var newLeft = imageRect.right - $(".instant-menu").width();
-            $(".instant-menu").css({"left":newLeft + "px", "top":newTop + "px"})
+
+            $(".instant-menu").animate({"right":"0px"}, 200);
         });
 
         $("#ChannelBanner .ChannelOptions").click(function(theEvent) {
@@ -1033,6 +1042,11 @@ define('blahgua_base',
             newDiv.appendChild(newBlahDiv);
         }
 
+        var arrowDiv = document.createElement("div");
+        arrowDiv.className = "designator-arrow";
+        arrowDiv.style.borderBottomColor = GetBlahTypeColorFromId(theBlah.Y);
+        newDiv.appendChild(arrowDiv);
+
         return newDiv;
 
     };
@@ -1041,7 +1055,7 @@ define('blahgua_base',
 
     var CreateElementForBlah = function(theBlah) {
         var newEl = CreateBaseDiv(theBlah);
-        var heightpaddingOffset = 7;//8 * 2;
+        var heightpaddingOffset = 2; // Setting this to zero causes a fault.
         var widthpaddingOffset = 0;
 
         if (theBlah.displaySize == 1) {
@@ -1133,8 +1147,6 @@ define('blahgua_base',
             newDiv.className = "no-blahs-in-channel-warning";
             $("#BlahContainer").empty().append(newDiv);
         }
-
-
     };
 
     var DoAddBlahRow = function() {
@@ -1402,30 +1414,21 @@ define('blahgua_base',
         newRowEl.rowBelow = null;
 
         switch (rowSequence[curRowSequence]) {
-            case 1:
-                newRowEl.rowHeight = G.LargeTileHeight;
-                CreateLRow(newRowEl);
+            case "A":
+                newRowEl.rowHeight = G.SmallTileHeight;
+                CreateSSSRow(newRowEl);
                 break;
-            case 2:
-                newRowEl.rowHeight = G.MediumTileHeight;
-                CreateMMRow(newRowEl);
-                break;
-            case 3:
-            case 32:
-                newRowEl.rowHeight = G.MediumTileHeight;
-                CreateSMSRow(newRowEl);
-                break;
-            case 31:
-                newRowEl.rowHeight = G.MediumTileHeight;
-                CreateMSSRow(newRowEl);
-                break;
-            case 33:
+            case "B":
                 newRowEl.rowHeight = G.MediumTileHeight;
                 CreateSSMRow(newRowEl);
                 break;
-            case 4:
-                newRowEl.rowHeight = G.SmallTileHeight;
-                CreateSSSSRow(newRowEl);
+            case "C":
+                newRowEl.rowHeight = G.MediumTileHeight;
+                CreateMSSRow(newRowEl);
+                break;
+            case "D":
+                newRowEl.rowHeight = G.LargeTileHeight;
+                CreateLRow(newRowEl);
                 break;
         }
 
@@ -1437,52 +1440,7 @@ define('blahgua_base',
         return newRowEl;
     };
 
-
-    var CreateLRow = function(newRowEl) {
-        var theBlah = GetNextMatchingBlah(1);
-        var newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = K.EdgeGutter + "px";
-        newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "L");
-    };
-
-    var ResizeLRow = function(theRow) {
-        var heightpaddingOffset = 7;//8 * 2;
-        var widthpaddingOffset = 0;
-        theRow.childNodes[0].style.width = (G.LargeTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.LargeTileHeight - heightpaddingOffset) + "px";
-        return G.LargeTileHeight;
-    };
-
-    var CreateMMRow = function(newRowEl) {
-        var theBlah = GetNextMatchingBlah(2);
-        var curLeft = K.EdgeGutter;
-        var newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(2);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += G.MediumTileWidth + K.InterBlahGutter;
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "MM");
-    };
-
-    var ResizeMMRow = function(theRow) {
-        var heightpaddingOffset = 7;//8 * 2;
-        var widthpaddingOffset = 0;
-        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
-
-        theRow.childNodes[1].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[1].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[1].style.left = curLeft + "px";
-        return G.MediumTileHeight;
-    };
-
-    var CreateSSSSRow = function(newRowEl) {
+    var CreateSSSRow = function(newRowEl) {
         var curLeft = K.EdgeGutter;
         var theBlah = GetNextMatchingBlah(3);
         var newBlahEl = CreateElementForBlah(theBlah);
@@ -1500,198 +1458,32 @@ define('blahgua_base',
         curLeft += G.SmallTileWidth + K.InterBlahGutter;
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += G.SmallTileWidth + K.InterBlahGutter;
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "SSSS");
-    };
-
-    var ResizeSSSSRow = function(theRow) {
-        var heightpaddingOffset = 7;//8 * 2;
-        var widthpaddingOffset = 0;
-        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-
-        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[1].style.left = curLeft + "px";
-
-        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft += K.InterBlahGutter + G.SmallTileWidth;
-        theRow.childNodes[2].style.left = curLeft + "px";
-
-        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft += K.InterBlahGutter + G.SmallTileWidth;
-        theRow.childNodes[3].style.left = curLeft + "px";
-
-        return G.SmallTileHeight;
-    };
-
-    var CreateMSSRow = function(newRowEl) {
-        var curLeft = K.EdgeGutter;
-        var theBlah = GetNextMatchingBlah(2);
-        var newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (G.MediumTileWidth + K.InterBlahGutter);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (G.SmallTileWidth + K.InterBlahGutter);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
-        newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "MSS");
-    };
-
-    var ResizeMSSRow = function(theRow) {
-        var heightpaddingOffset = 7;//8 * 2;
-        var widthpaddingOffset = 0;
-        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
-        var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
-
-        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[1].style.left = curLeft + "px";
-
-        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[2].style.left = curLeft + "px";
-        theRow.childNodes[2].style.top = curTop + "px";
-
-        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft += K.InterBlahGutter + G.SmallTileWidth;
-        theRow.childNodes[3].style.left = curLeft + "px";
-
-        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[4].style.left = curLeft + "px";
-        theRow.childNodes[4].style.top = curTop  + "px";
-
-        return G.MediumTileHeight;
-    };
-
-    var CreateSMSRow = function(newRowEl) {
-        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
-        var theBlah = GetNextMatchingBlah(2);
-        var newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft = K.EdgeGutter;
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (G.MediumTileWidth + K.InterBlahGutter + K.InterBlahGutter + G.SmallTileWidth);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
-        newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "SMS");
-    };
-
-    var ResizeSMSRow = function(theRow) {
-        var heightpaddingOffset = 7;//8 * 2;
-        var widthpaddingOffset = 0;
-        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
-        var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[0].style.left = curLeft + "px";
-
-        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-
-        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[2].style.top = curTop + "px";
-
-        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft += K.InterBlahGutter + G.MediumTileWidth;
-        theRow.childNodes[3].style.left = curLeft + "px";
-
-        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[4].style.left = curLeft + "px";
-        theRow.childNodes[4].style.top = curTop  + "px";
-
-        return G.MediumTileHeight;
+        newRowEl.setAttribute("rowType", "SSS");
     };
 
     var CreateSSMRow = function(newRowEl) {
-        var theBlah = GetNextMatchingBlah(2);
-        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
+        var curLeft = K.EdgeGutter;
+        var theBlah = GetNextMatchingBlah(3);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft = K.EdgeGutter;
         newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
-        newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
 
-        theBlah = GetNextMatchingBlah(3);
+        curLeft += G.SmallTileWidth + K.InterBlahGutter;
+        theBlah = GetNextMatchingBlah(2);
         newBlahEl = CreateElementForBlah(theBlah);
-        curLeft += (G.SmallTileWidth + K.InterBlahGutter);
-        newBlahEl.style.left = curLeft + "px";
-        newRowEl.appendChild(newBlahEl);
-
-        theBlah = GetNextMatchingBlah(3);
-        newBlahEl = CreateElementForBlah(theBlah);
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
         newRowEl.setAttribute("rowType", "SSM");
     };
 
     var ResizeSSMRow = function(theRow) {
+        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
         var heightpaddingOffset = 7;//8 * 2;
         var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
@@ -1718,6 +1510,75 @@ define('blahgua_base',
         theRow.childNodes[4].style.top = curTop  + "px";
 
         return G.MediumTileHeight;
+    };
+
+    var CreateMSSRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter;
+        var theBlah = GetNextMatchingBlah(2);
+        var newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+
+        curLeft += G.MediumTileWidth + K.InterBlahGutter;
+        theBlah = GetNextMatchingBlah(3);
+        newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
+        newRowEl.appendChild(newBlahEl);
+
+        theBlah = GetNextMatchingBlah(3);
+        newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "SSM");
+    };
+
+    var ResizeMSSRow = function(theRow) {
+        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
+        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
+        var curTop = G.SmallTileHeight + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
+
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[2].style.left = curLeft + "px";
+        theRow.childNodes[2].style.top = curTop + "px";
+
+        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        curLeft += K.InterBlahGutter + G.SmallTileWidth;
+        theRow.childNodes[3].style.left = curLeft + "px";
+
+        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[4].style.left = curLeft + "px";
+        theRow.childNodes[4].style.top = curTop  + "px";
+
+        return G.MediumTileHeight;
+    };
+
+    var CreateLRow = function(newRowEl) {
+        var theBlah = GetNextMatchingBlah(1);
+        var newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = K.EdgeGutter + "px";
+        newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "L");
+    };
+
+    var ResizeLRow = function(theRow) {
+        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
+        var heightpaddingOffset = 7;//8 * 2;
+        var widthpaddingOffset = 0;
+        theRow.childNodes[0].style.width = (G.LargeTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.LargeTileHeight - heightpaddingOffset) + "px";
+        return G.LargeTileHeight;
     };
 
 // ********************************************************

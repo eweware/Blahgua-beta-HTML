@@ -101,14 +101,15 @@
 }
 
 .badge-div {
-    width:23px;
+    width:20px;
     height:20px;
     position:absolute;
-    bottom:0px;
-    right:0px;
+    bottom:5px;
+    left:5px;
     background-color: transparent;
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_badge.png");
     background-size:cover;
+    background-position: center;
 }
 
 .badge-desc-span {

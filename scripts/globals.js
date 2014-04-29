@@ -54,11 +54,12 @@ define('globals',
         var BlahList = null;
         var NextBlahList = null;
         var LargeTileWidth = 400;
-        var MediumTileWidth = 200;
-        var SmallTileWidth = 100;
+        var MediumTileWidth = 266;
+        var SmallTileWidth = 133;
         var LargeTileHeight = 400;
-        var MediumTileHeight = 200;
-        var SmallTileHeight = 100;
+        var MediumTileHeight = 266;
+        var SmallTileHeight = 133;
+        console.log("set small tile height to 133");
         var MaxScrollSpeed = LargeTileHeight;  //3
         var SwipeScrollInc = MediumTileHeight;
         var PageScrollInc = SmallTileHeight;

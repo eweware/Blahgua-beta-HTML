@@ -6,30 +6,23 @@
     top: 8px;
     height:48px;
     z-index:10;
-    background-color:rgb(125,191,227);
+    background-color:#2fb568;
     color:rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size:26px;
     font-weight:bold;
     font-stretch: condensed;
-    box-shadow: rgba(0,0,0,.4) 0px 5px 8px;
+    box-shadow: rgba(0,0,0,.2) 0px 2px 8px;
     line-height:2em;
-
-    background-image: linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
-    background-image: -moz-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
-    background-image: -ms-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(65%,rgb(125,191,227)),color-stop(66%,rgb(122,208,0)),color-stop(100%,rgb(122,208,0)));
-    background-image: -webkit-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
-    background-image: -o-linear-gradient(rgb(125,191,227)65%,rgb(122,208,0)66%,rgb(122,208,0));
 }
 
 .ChannelNameText {
-    margin-left:8px;
+    margin-left:10%;
     text-shadow: 1px 1px rgba(0,0,0,.4);
 }
 
 .channel-dropdown {
-    margin-left:8px;
+    margin-left:10%;
     text-shadow: 1px 1px rgba(0,0,0,.4);
 }
 
@@ -58,12 +51,6 @@
     border-right-width:1px;
     border-right-style:solid;
     background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -ms-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(164,169,193)),color-stop(100%,rgb(131,135,154)));
-    background-image: -webkit-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -o-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: linear-gradient(rgb(164,169,193),rgb(131,135,154));
     color: rgb(244,245,240);
     font-weight:bold;
     text-align:center;
@@ -97,34 +84,20 @@
 }
 
 .sign-in-button {
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -ms-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(164,169,193)),color-stop(100%,rgb(131,135,154)));
-    background-image: -webkit-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: -o-linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    background-image: linear-gradient(rgb(164,169,193),rgb(131,135,154));
-    border-left-color:rgba(131,135,154,.4);
-    border-left-width:1px;
-    border-left-style:solid;
-    color: rgb(244,245,240);
+    color:  rgb(244,245,240);
     font-family: 'Arimo', sans-serif;
     font-size: 18px;
     float: right;
     width: 80px;
     height: 48px;
+    margin-right: 10%;
     border-style: none;
+    background: none;
+    cursor: pointer;
 }
 
 .sign-in-button:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    background-image: -ms-linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(131,135,154)),color-stop(100%,rgb(105,108,123)));
-    background-image: -webkit-linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    background-image: -o-linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    background-image: linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    color:  rgb(244,245,240);
+    color: #fff;
 }
 
 .sign-in-comment-button
@@ -169,21 +142,21 @@
     color:  rgb(0, 141, 0);
 }
 
-
-
-
 .ChannelDropMenu {
     position: absolute;
-    left:8px;
+    left:10%;
     top:56px;
     width:auto;
     height:auto;
-    background-color: rgb(244,245,240);
-    box-shadow:rgba(0,0,0,.4) 4px 4px;
+    background-color: #3c3c3c;
+    font-weight: bold;
+    color: #fff;
+    box-shadow:rgba(0,0,0,.2) 0px 2px 8px;
     z-index: 12;
 	overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-
 
 .channel-image {
     width:64px;
@@ -239,19 +212,59 @@
 
 .instant-menu {
     position: absolute;
-    background-color: rgb(244,245,240);
-    box-shadow: 5px 5px rgba(0,0,0,.3);
+    background-color: #fff;
     font-family: 'Arimo', sans-serif;
     font-size: 20px;
+    right: -140px;
+    top: 0px;
+    height: 100%;
+    width: 200px;
+    box-shadow: rgba(0,0,0,.2) 0px 2px 8px;
 
+}
+
+.menu-profile-pic {
+    width: 180px;
+    height: 180px;
+    margin: 10px;
+    background-color: #000000;
+    background-size: contain;
+    background-position: center;
+}
+
+.menu-username {
+    display: block;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
 .instant-menu li {
     padding:4px 10px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue', 'Helvetica Neue','Arimo', sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+
 }
 .instant-menu li:hover {
     background-color: rgba(184,184,184,.3);
+}
+
+.instant-menu li.divider {
+    height: 1px;
+    border-bottom: 1px black solid;
+    padding:0px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-bottom: 1px #d9dada solid;
+    cursor: default;
+}
+
+.instant-menu li.divider:hover {
+    background-color: transparent;
 }
 
 #ChannelList>tbody>tr:hover {
@@ -260,5 +273,6 @@
 
 #ChannelList tbody td {
     padding:4px 10px;
+    cursor: pointer;
 }
 
