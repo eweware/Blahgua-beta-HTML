@@ -17,10 +17,12 @@
 .BlahPageFooter {
     position:absolute;
     bottom:0px;
-    width:100%;
+    width:70%;
     height:60px;
     border-collapse: collapse;
     background-color: transparent;
+    left:50%;
+    margin-left: -35%;
 }
 
 .BlahPageFooter tbody {
@@ -37,7 +39,7 @@
     border-color:rgb(32,32,32);
     margin: 2px;
     margin-right: 16px;
-    margin-left: 0px;
+    margin-left: 5px;
 }
 
 .BlahFullHeader {
@@ -46,7 +48,7 @@
     border:0px;
     top:0px;
     width:100%;
-    background-color: transparent;
+    background-color: #2fb568;
 }
 
 .show-blah-bkgnd {
@@ -54,8 +56,10 @@
 }
 
 .blah-headline-row {
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    background-color: #2fb568;
 }
 
 .blah-page {
@@ -79,8 +83,9 @@
 
 .fullBlahgerName {
     font-size:30px;
+    line-height: 40px;
     font-weight: bold;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     color:rgb(244,245,240);
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -89,9 +94,10 @@
 
 
 .fullBlahSpeechAct {
-    font-size:26px;
-    font-family: 'Arimo', sans-serif;
-    color:rgb(188,188,188);
+    font-size:20px;
+    line-height: 28px;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    color:#fff;
 }
 
 .CloseButton {
@@ -113,7 +119,7 @@
 
 .BlahFullHeadline {
     font-size: 24px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     width: 100%;
     text-align: left;
     margin: 16px 16px 16px 16px;
@@ -127,40 +133,24 @@
 
 }
 .BlahButton {
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     width:100%;
     height:40px;
     border:none;
-    background-image: -moz-linear-gradient(rgb(244,245,240),rgb(183,184,180));
-    background-image: -ms-linear-gradient(rgb(244,245,240),rgb(183,184,180));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(244,245,240)),color-stop(100%,rgb(183,184,180)));
-    background-image: -webkit-linear-gradient(rgb(244,245,240),rgb(183,184,180));
-    background-image: -o-linear-gradient(rgb(244,245,240),rgb(183,184,180));
-    background-image: linear-gradient(rgb(244,245,240),rgb(183,184,180));
-    background-color: rgb(244,245,240);
+    background-color: #8fd6ac;
     color: rgb(32,32,32);
     font-size:18px;
 }
 
 .BlahButton:hover {
-    background-image: -moz-linear-gradient(rgb(207,208,203),rgb(155,156,152));
-    background-image: -ms-linear-gradient(rgb(207,208,203),rgb(155,156,152));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(207,208,203)),color-stop(100%,rgb(155,156,152)));
-    background-image: -webkit-linear-gradient(rgb(207,208,203),rgb(155,156,152));
-    background-image: -o-linear-gradient(rgb(207,208,203),rgb(155,156,152));
-    background-image: linear-gradient(rgb(207,208,203),rgb(155,156,152));
-    background-color: rgb(207,208,203);
+    background-color: #54d68a;
     color: rgb(32,32,32);
 
 }
 
 .BlahBtnSelected {
-    background-image: -moz-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -ms-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,204,255)),color-stop(100%,rgb(109,158,199)));
-    background-image: -webkit-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -o-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-color: rgb(125,191,227);
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    background-color: #2fb567;
     color: rgb(32,32,32);
     position:relative;
     z-index:1;
@@ -168,41 +158,36 @@
 }
 
 .BlahBtnSelected:hover{
-    background-image: -moz-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -ms-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(141,204,255)),color-stop(100%,rgb(109,158,199)));
-    background-image: -webkit-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: -o-linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-image: linear-gradient(rgb(141,204,255),rgb(109,158,199));
-    background-color: rgb(125,191,227);
+    background-color: #1eb55d;
     color: rgb(32,32,32);
 
 }
 
 .Button-left {
-
-    border-bottom-left-radius: 8px;
     border-right-style: solid;
     border-right-width: 1px;
-    border-right-color: rgb(207,208,203);
+    border-right-color: #378d5b;
 }
 
 .Button-right {
-    border-bottom-right-radius: 8px;
     border-left-style: solid;
     border-left-width: 1px;
-    border-left-color: rgb(207,208,203);
+    border-left-color: #378d5b;
 }
 
 
 .blah-summary-bar {
-    background-color: #cccccc;
-    width: 90%;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    background-color: #f3f3f3;
+    width: 100%;
     margin: 0px auto;
-    padding: 4px;
     margin-bottom: 5px;
+    margin-top: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ececec;
+}
+
+.lower-blah-header-bar {
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
 }
 
 
@@ -210,6 +195,7 @@
     color:  rgb(32,32,32);
     padding-left:4px;
     font-size:12px;
+    line-height: 18px;
     font-family: 'Arimo', sans-serif;
     text-align: left;
     float:left;
@@ -235,14 +221,12 @@
 /* classes for the full blah Summary page */
 
 .FullBlahTableFooter {
-    background-color: #cccccc;
+    background-color: #2fb567;
     overflow-x: hidden;
     overflow-y: hidden;
     position: absolute;
     bottom: 0px;
     height: 55px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
     z-index: 3;
     width:100%;
 }
@@ -264,9 +248,9 @@
 }
 
 .BlahFullBody {
-    font-size:20px;
+    font-size:14px;
     color: rgb(32,32,32);
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue-Light','HelveticaNeue', sans-serif;
     width:100%;
     word-wrap: break-word;
     padding-left:16px;
@@ -358,28 +342,23 @@
 }
 
 .add-comment-btn {
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
-    background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
-    color: rgb(244,245,240);
+    background-color: #2fb567;
+    color: #fff;
     border-radius: 8px;
     float: right;
     margin-left: 8px;
     margin-right: 6px;
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     padding: 8px 16px;
+    border:0;
+    cursor: pointer;
 }
 
 #CharCountDiv {
     float:right;
     margin-top:8px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     font-size: 14px;
 }
 
@@ -397,22 +376,16 @@
 
 
 .add-comment-btn:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
-    background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    color: rgb(244,245,240);
+    background-color: #17b55a;
+    color: #fff;
 }
 
 
 .add-comment-btn:disabled {
-    color: #CCCCCC;
-    background-color: #999999;
+    color: #fff;
+    background-color: #7fb596;
     background-image: none;
-    border: solid 1px #999999;
+    border: solid 1px transparent;
 }
 
 
@@ -435,12 +408,11 @@
     border-style: none;
     color: rgb(32,32,32);
     background-color: rgb(244,245,240);
-    font-size: 18px;
-    font-family: 'Arimo', sans-serif;
+    font-size: 16px;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     display: block;
     margin-left: 16px;
     margin-right: 16px;
-    font-style: italic;
 }
 
 .comment-item-table {
@@ -463,8 +435,8 @@
 
 .comment-user-name {
     font-size: 14px;
-    font-family: 'Arimo', sans-serif;
-    color:#0058F8;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    color:#000;
     white-space: nowrap;
     cursor: pointer;
 }
@@ -496,7 +468,7 @@
     float: right;
     margin: 0px 8px;
     border: none;
-    font-family: 'Arimo' sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     color: blue;
     background-color: transparent;
 }

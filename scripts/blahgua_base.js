@@ -9,7 +9,17 @@ define('blahgua_base',
     ],
     function(K, G, Exports, Blahgua) {
 
-        var rowSequence = ["A","B","A","C","A","D","A","C","B","A","B","C","A","D","A","C","A","B","A","C","B","A","D","A","B","A","C","A","C","A","B","A","D","A","B","C"];
+        var rowSequence;
+        var useSequence = 2;
+
+        var rowSequence1 = ["A","B","A","C","A","F","A","C","B","A","B","C","A","F","A","C","A","B","A","C","B","A","F","A","B","A","C","A","C","A","B","A","F","A","B","C"];
+        var rowSequence2 = ["A","B","E","A","F","A","D","C","A","D","E","A","C","D","A","F","A","E","B","A","D","A","D","C","A","F","A","B","E","A","E","B","A","F","A","C","D","A","E","A"];
+
+        if (useSequence == 1)
+            rowSequence = rowSequence1;
+        else
+            rowSequence = rowSequence2;
+
         var curRowSequence = 0;
         var isStarting = true;
         var splashTimeout;
@@ -169,20 +179,20 @@ define('blahgua_base',
             case "L":
                 rowHeight = ResizeLRow(theRow)
                 break;
-            case "MM":
-                rowHeight = ResizeMMRow(theRow);
-                break;
-            case "SSSS":
-                rowHeight = ResizeSSSSRow(theRow);
+            case "SSM":
+                rowHeight = ResizeSSMRow(theRow);
                 break;
             case "MSS":
                 rowHeight = ResizeMSSRow(theRow);
                 break;
-            case "SMS":
-                rowHeight = ResizeSMSRow(theRow);
+            case "SSS":
+                rowHeight = ResizeSSSRow(theRow);
                 break;
-            case "SSM":
-                rowHeight = ResizeSSMRow(theRow);
+            case "SH":
+                rowHeight = ResizeSHRow(theRow);
+                break;
+            case "HS":
+                rowHeight = ResizeHSRow(theRow);
                 break;
 
         }
@@ -617,7 +627,7 @@ define('blahgua_base',
 
         var channelBottom = $("#ChannelBanner")[0].getBoundingClientRect().bottom;
         $("#BlahContainer").css({ 'left': offset , 'right': offset });
-        //$("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
+        $("#ChannelBanner").css({ 'left': offset + 'px', 'width': targetWidthWidth + 'px' });
         $("#BlahFullItem").css({ 'top': blahTop,'left': (offset + blahMargin) , 'bottom': blahBottom, 'right': (offset + blahMargin)});
         $("#ChannelDropMenu").css({'top': channelBottom + "px"});
 
@@ -813,27 +823,43 @@ define('blahgua_base',
 
 
         var CloseBlah = function() {
-        $("#AdditionalInfoArea").empty();
-        switch (G.BlahReturnPage) {
-            case "UserBlahList":
-                PopulateUserChannel("History");
-                break;
 
-            default:
+            if ($(G.BlahFullItem).find("#CreateBlahPage").length) {
                 StartAnimation();
-                $(G.BlahFullItem).fadeOut("fast", function() {
+                $(G.BlahFullItem).slideUp("fast", function() {
                     ga('send', 'pageview', {
                         'page': '/channel/' + G.CurrentChannel.N,
                         'title': G.CurrentChannel.N + " return"
                     });
+                    $(G.BlahFullItem).hide();
                     $("#LightBox").hide();
                     $(G.BlahFullItem).empty();
                 });
+                return;
+            }
 
-        }
-        $(document).focus();
-        G.BlahReturnPage = null;
-    };
+            $("#AdditionalInfoArea").empty();
+            switch (G.BlahReturnPage) {
+                case "UserBlahList":
+                    PopulateUserChannel("History");
+                    break;
+
+                default:
+                    StartAnimation();
+                    $(G.BlahFullItem).fadeOut("fast", function() {
+                        ga('send', 'pageview', {
+                            'page': '/channel/' + G.CurrentChannel.N,
+                            'title': G.CurrentChannel.N + " return"
+                        });
+                        $(G.BlahFullItem).hide();
+                        $("#LightBox").hide();
+                        $(G.BlahFullItem).empty();
+                    });
+
+            }
+            $(document).focus();
+            G.BlahReturnPage = null;
+        };
 
     var StopAnimation = function() {
         if (G.BlahsMovingTimer != null) {
@@ -1061,12 +1087,14 @@ define('blahgua_base',
         if (theBlah.displaySize == 1) {
             newEl.style.width = G.LargeTileWidth - widthpaddingOffset + "px";
             newEl.style.height = G.LargeTileHeight - heightpaddingOffset + "px";
-
         } else if (theBlah.displaySize == 2) {
             newEl.style.width = G.MediumTileWidth - widthpaddingOffset + "px";
             newEl.style.height = G.MediumTileHeight - heightpaddingOffset + "px";
-        } else {
+        } else if (theBlah.displaySize == 3) {
             newEl.style.width = G.SmallTileWidth - widthpaddingOffset + "px";
+            newEl.style.height = G.SmallTileHeight - heightpaddingOffset + "px";
+        } else {
+            newEl.style.width = G.MediumTileWidth - widthpaddingOffset + "px";
             newEl.style.height = G.SmallTileHeight - heightpaddingOffset + "px";
         }
 
@@ -1180,6 +1208,9 @@ define('blahgua_base',
                         break;
                     case 3:
                         newFontSize = smallTextSize;
+                        break;
+                    case 4:
+                        newFontSize = mediumTextSize;
                         break;
                 }
 
@@ -1427,6 +1458,14 @@ define('blahgua_base',
                 CreateMSSRow(newRowEl);
                 break;
             case "D":
+                newRowEl.rowHeight = G.SmallTileHeight;
+                CreateSHRow(newRowEl);
+                break;
+            case "E":
+                newRowEl.rowHeight = G.SmallTileHeight;
+                CreateHSRow(newRowEl);
+                break;
+            case "F":
                 newRowEl.rowHeight = G.LargeTileHeight;
                 CreateLRow(newRowEl);
                 break;
@@ -1461,6 +1500,26 @@ define('blahgua_base',
         newRowEl.setAttribute("rowType", "SSS");
     };
 
+    var ResizeSSSRow = function(theRow) {
+        var heightpaddingOffset = 2;
+        var widthpaddingOffset = 0;
+        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter);
+        theRow.childNodes[0].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        curLeft += (G.SmallTileWidth + K.InterBlahGutter);
+
+        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[2].style.left = curLeft + "px";
+
+        return G.SmallTileHeight;
+    };
+
     var CreateSSMRow = function(newRowEl) {
         var curLeft = K.EdgeGutter;
         var theBlah = GetNextMatchingBlah(3);
@@ -1483,33 +1542,80 @@ define('blahgua_base',
     };
 
     var ResizeSSMRow = function(theRow) {
-        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
-        var heightpaddingOffset = 7;//8 * 2;
+        var heightpaddingOffset = 2;
         var widthpaddingOffset = 0;
-        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter) * 2;
+        var curLeft = K.EdgeGutter + (G.SmallTileWidth + K.InterBlahGutter);
         var curTop = G.SmallTileHeight + K.InterBlahGutter;
-        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[0].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[0].style.left = curLeft + "px";
+        theRow.childNodes[0].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.SmallTileWidth - heightpaddingOffset) + "px";
 
         theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
         theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[1].style.top = curTop + "px";
 
-        theRow.childNodes[2].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[2].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[2].style.top = curTop + "px";
-
-        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft = K.EdgeGutter + K.InterBlahGutter + G.SmallTileWidth;
-        theRow.childNodes[3].style.left = curLeft + "px";
-
-        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[4].style.left = curLeft + "px";
-        theRow.childNodes[4].style.top = curTop  + "px";
+        theRow.childNodes[2].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[2].style.height = (G.MediumTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[2].style.left = curLeft + "px";
 
         return G.MediumTileHeight;
+    };
+
+    var CreateSHRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter;
+        var theBlah = GetNextMatchingBlah(3);
+        var newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+
+        curLeft += G.SmallTileWidth + K.InterBlahGutter;
+        theBlah = GetNextMatchingBlah(4);
+        newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "SH");
+    };
+
+    var ResizeSHRow = function(theRow) {
+        var heightpaddingOffset = 2;
+        var widthpaddingOffset = 0;
+        var curLeft = K.EdgeGutter + G.SmallTileWidth + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+
+        theRow.childNodes[1].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        return G.SmallTileHeight;
+    };
+
+    var CreateHSRow = function(newRowEl) {
+        var curLeft = K.EdgeGutter;
+        var theBlah = GetNextMatchingBlah(4);
+        var newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+
+        curLeft += G.MediumTileWidth + K.InterBlahGutter;
+        theBlah = GetNextMatchingBlah(3);
+        newBlahEl = CreateElementForBlah(theBlah);
+        newBlahEl.style.left = curLeft + "px";
+        newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "HS");
+    };
+
+    var ResizeHSRow = function(theRow) {
+        var heightpaddingOffset = 2;
+        var widthpaddingOffset = 0;
+        var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
+        theRow.childNodes[0].style.width = (G.MediumTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[0].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+
+        theRow.childNodes[1].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
+        theRow.childNodes[1].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
+        theRow.childNodes[1].style.left = curLeft + "px";
+
+        return G.SmallTileHeight;
     };
 
     var CreateMSSRow = function(newRowEl) {
@@ -1530,12 +1636,11 @@ define('blahgua_base',
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
         newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "SSM");
+        newRowEl.setAttribute("rowType", "MSS");
     };
 
     var ResizeMSSRow = function(theRow) {
-        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
-        var heightpaddingOffset = 7;//8 * 2;
+        var heightpaddingOffset = 2;
         var widthpaddingOffset = 0;
         var curLeft = K.EdgeGutter + G.MediumTileWidth + K.InterBlahGutter;
         var curTop = G.SmallTileHeight + K.InterBlahGutter;
@@ -1551,16 +1656,6 @@ define('blahgua_base',
         theRow.childNodes[2].style.left = curLeft + "px";
         theRow.childNodes[2].style.top = curTop + "px";
 
-        theRow.childNodes[3].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[3].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        curLeft += K.InterBlahGutter + G.SmallTileWidth;
-        theRow.childNodes[3].style.left = curLeft + "px";
-
-        theRow.childNodes[4].style.width = (G.SmallTileWidth - widthpaddingOffset) + "px";
-        theRow.childNodes[4].style.height = (G.SmallTileHeight - heightpaddingOffset) + "px";
-        theRow.childNodes[4].style.left = curLeft + "px";
-        theRow.childNodes[4].style.top = curTop  + "px";
-
         return G.MediumTileHeight;
     };
 
@@ -1573,8 +1668,7 @@ define('blahgua_base',
     };
 
     var ResizeLRow = function(theRow) {
-        return; // TODO: Temporarily disabled: given static column size, is this function necessary?
-        var heightpaddingOffset = 7;//8 * 2;
+        var heightpaddingOffset = 2;
         var widthpaddingOffset = 0;
         theRow.childNodes[0].style.width = (G.LargeTileWidth - widthpaddingOffset) + "px";
         theRow.childNodes[0].style.height = (G.LargeTileHeight - heightpaddingOffset) + "px";
@@ -1689,8 +1783,15 @@ define('blahgua_base',
 
     var AssignSizes = function(theBlahList) {
         // makes sure that there are a good ration of large, medium, small
+        var numHorizontal = 12;
         var numLarge = 4;
-        var numMedium = 16;
+        var numMedium = 8;
+
+        if (rowSequence == 1) {
+            numHorizontal = 0;
+            numLarge = 4;
+            numMedium = 16;
+        }
         // the rest are small - presumably 40, since we get 100 blahs
 
         // first, sort the blahs by their size
@@ -1710,6 +1811,10 @@ define('blahgua_base',
 
         while (i < (numMedium + numLarge)) {
             theBlahList[i++].displaySize = 2;
+        }
+
+        while (i < (numMedium + numLarge + numHorizontal)) {
+            theBlahList[i++].displaySize = 4;
         }
 
         while (i < theBlahList.length) {

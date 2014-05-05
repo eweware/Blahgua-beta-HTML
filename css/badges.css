@@ -76,6 +76,10 @@
     margin:20px 0px;
 }
 
+.badge-authority-table tbody tr td {
+    padding: 10px;
+}
+
 .badgeimage {
     width:23px;
     height:20px;
@@ -119,6 +123,7 @@
 }
 
 .badge-name-span {
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     color:#202020;
     font-size:12pt;
 }
