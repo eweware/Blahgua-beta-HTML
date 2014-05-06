@@ -133,6 +133,15 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("groupTypes", paramStr, OnSuccess, OnFailure);
     };
 
+    var GetWhatsNew = function (OnSuccess, OnFailure) {
+        /// <summary>Returns the types of groups available</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>A list of the group types</returns>
+        var paramStr = '{}';
+        CallGetMethod("users/whatsnew", paramStr, OnSuccess, OnFailure);
+    };
+
     var GetChannelsForType = function (ChannelType, OnSuccess, OnFailure) {
         /// <summary>Returns the types of groups available</summary>
         /// <param name="GroupType">The ID of the group type</param>
@@ -810,6 +819,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetUserChannels:  GetUserChannels ,
         GetFeaturedChannels:  GetFeaturedChannels ,
         GetChannelTypes: GetChannelTypes,
+        GetWhatsNew: GetWhatsNew,
         GetUsers:  GetUsers ,
         GetNextBlahs:  GetNextBlahs ,
         DeleteBlah: DeleteBlah,

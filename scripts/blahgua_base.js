@@ -13,7 +13,7 @@ define('blahgua_base',
         var curRowSequence = 0;
         var isStarting = true;
         var splashTimeout;
-        var showSplash = false;
+        var showSplash = true;
         var FadeTimer = null;
         var smallTextSize;
         var mediumTextSize;
@@ -45,8 +45,7 @@ define('blahgua_base',
 
             G.IsiPhone = (navigator.userAgent.match(/iPhone/i) != null);
             G.IsiPad = (navigator.userAgent.match(/iPad/i) != null);
-            if ($.cookie("hidesplash"))
-                showSplash = false;
+
 
             G.IsUploadCapable = G.BrowserSupportsUpload();
 
@@ -253,7 +252,6 @@ define('blahgua_base',
         Blahgua.isUserLoggedIn(function(json) {
             if (json.loggedIn == "Y") {
                 isStarting = false;
-                showSplash = false;
                 HandlePostSignIn();
 
             } else {
@@ -270,13 +268,13 @@ define('blahgua_base',
                     // sign in
                     Blahgua.loginUser(userName, pwd, function() {
                         isStarting = false;
-                        showSplash = false;
+
                         HandlePostSignIn();
                     }, function(theErr) {
                         switch (theErr.status) {
                             case 202:
                                 isStarting = false;
-                                showSplash = false;
+
                                 HandlePostSignIn();
                                 break;
                             default:
@@ -368,12 +366,10 @@ define('blahgua_base',
 
     var finalizeInitialLoad = function() {
         if (showSplash) {
-            $("#LightBox").fadeIn();
-            $("#BlahFullItem").fadeIn();
-            $("#EnterBlahguaBtn").click(function(theEvent) {
-                $.cookie("hidesplash", BlahguaConfig["version"], {expires:365, path:'/'});
-                ClosePage();
-            });
+           Blahgua.GetWhatsNew(function(newInfo) {
+              // to do:  add code here to draw the slide-up drawer
+            window.alert(newInfo.message);
+           });
 
         } else {
             $("#BlahFullItem").empty();
