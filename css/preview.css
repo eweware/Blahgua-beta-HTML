@@ -87,11 +87,8 @@
 }
 
 .BlahPreviewImage {
-    margin: 0 auto;
-    width:auto;
-    border-radius: 8px;
-    box-shadow: 0 5px 5px rgba(0,0,0,.3);
-
+    display: block;
+    margin: 0 auto 0 auto;
 }
 
 .BlahPreviewBody {

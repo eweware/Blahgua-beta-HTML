@@ -123,9 +123,7 @@ define('CreateBlahPage',
                 });
             }
 
-
-            //noinspection JSUnresolvedFunction
-            $(BlahFullItem).fadeIn("fast", function() {
+            $(BlahFullItem).slideDown("fast", function() {
                 UpdateLayout();
                 if (!G.IsMobile)
                     $("#BlahHeadline").focus();
@@ -147,6 +145,7 @@ define('CreateBlahPage',
             RefreshBadgePreview();
             CheckPublishBtnDisable();
             ResizeCreatePage();
+
         };
 
         var PopulateChannelMenu = function() {
@@ -202,7 +201,7 @@ define('CreateBlahPage',
 			   break;
 			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined responses.");
 			   break;
-			   
+
 			}
             switch (blahTypeStr) {
                 case "predicts":

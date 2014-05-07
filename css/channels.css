@@ -17,7 +17,7 @@
 }
 
 .ChannelNameText {
-    margin-left:10%;
+    margin-left:8px;
     text-shadow: 1px 1px rgba(0,0,0,.4);
 }
 
@@ -244,7 +244,7 @@
 
 .instant-menu li {
     padding:4px 10px;
-    font-family: 'HelveticaNeue', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
     font-weight: bold;
     cursor: pointer;
 
