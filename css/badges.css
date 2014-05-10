@@ -105,11 +105,9 @@
 }
 
 .badge-div {
+    display: inline-block;
     width:20px;
     height:20px;
-    position:absolute;
-    bottom:5px;
-    left:5px;
     background-color: transparent;
     background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_badge.png");
     background-size:cover;

@@ -376,10 +376,27 @@ define('blahgua_base',
 
     var finalizeInitialLoad = function() {
         if (showSplash) {
-           Blahgua.GetWhatsNew(function(newInfo) {
-              // to do:  add code here to draw the slide-up drawer
-            window.alert(newInfo.message);
-           });
+            Blahgua.GetWhatsNew(function(newInfo) {
+                console.log(newInfo);
+
+                $("body").append("<div id='NotificationPopupWindow'></div>");
+                $("#NotificationPopupWindow").html( "<div class='notification-popup-header'></div>"+
+                                                    "<div class='notification-popup-body'></div>");
+                $(".notification-popup-header").html(newInfo.message);
+
+                var bodytext = "";
+                if (newInfo.newComments     > -1) bodytext += newInfo.newComments   + " new comments<br/>";
+                if (newInfo.newUpVotes      > -1) bodytext += newInfo.newUpVotes    + " new upvotes<br/>";
+                if (newInfo.newDownVotes    > -1) bodytext += newInfo.newDownVotes  + " new downvotes<br/>";
+                if (newInfo.newMessages     > -1) bodytext += newInfo.newMessages   + " new messages<br/>";
+                if (newInfo.newOpens        > -1) bodytext += newInfo.newOpens      + " new opens<br/>";
+
+                $(".notification-popup-body").html(bodytext);
+
+                $("#NotificationPopupWindow").click(function(){
+                    $(this).fadeOut();
+                });
+            });
 
         } else {
             $("#BlahFullItem").empty();
@@ -1119,12 +1136,26 @@ define('blahgua_base',
         if (G.CurrentUser && (theBlah.A == G.CurrentUser._id))
             $(newEl).addClass("users-own-blah");
 
+        var holderDiv = document.createElement("div");
+        $(holderDiv).addClass("blahdiv-lowerleft-box");
+        $(newEl).append(holderDiv);
+
+        if (theBlah.hasOwnProperty("RR")) {
+            // Add update icon
+            var updatedDiv = document.createElement("div");
+            $(updatedDiv).html('<i class="fa fa-bolt"></i>');
+            $(updatedDiv).addClass("updated-bolt-div");
+            $(holderDiv).append(updatedDiv);
+        }
+
         if (theBlah.hasOwnProperty("B") && (theBlah.B.length > 0)) {
             // add a badge
             var badgeDiv = document.createElement("div");
             $(badgeDiv).addClass("badge-div");
-            $(newEl).append(badgeDiv);
+            $(holderDiv).append(badgeDiv);
         }
+
+        console.log(theBlah);
 
         return newEl;
     };
