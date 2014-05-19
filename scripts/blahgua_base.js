@@ -295,6 +295,7 @@ define('blahgua_base',
                     });
                 } else {
                     G.IsUserLoggedIn = false;
+                    isStarting = false;
                     // user is anonymous
                     finalizeInitialLoad();
                 }
