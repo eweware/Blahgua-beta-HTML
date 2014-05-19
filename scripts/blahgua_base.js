@@ -379,23 +379,28 @@ define('blahgua_base',
             Blahgua.GetWhatsNew(function(newInfo) {
                 console.log(newInfo);
 
-                $("body").append("<div id='NotificationPopupWindow'></div>");
+                $("body").append("<div class='notification-click-window'><div id='NotificationPopupWindow'></div></div>");
                 $("#NotificationPopupWindow").html( "<div class='notification-popup-header'></div>"+
                                                     "<div class='notification-popup-body'></div>");
                 $(".notification-popup-header").html(newInfo.message);
 
-                var bodytext = "";
+                var bodytext = "<div class='notification-body-text'>";
                 if (newInfo.newComments     > -1) bodytext += newInfo.newComments   + " new comments<br/>";
                 if (newInfo.newUpVotes      > -1) bodytext += newInfo.newUpVotes    + " new upvotes<br/>";
                 if (newInfo.newDownVotes    > -1) bodytext += newInfo.newDownVotes  + " new downvotes<br/>";
                 if (newInfo.newMessages     > -1) bodytext += newInfo.newMessages   + " new messages<br/>";
                 if (newInfo.newOpens        > -1) bodytext += newInfo.newOpens      + " new opens<br/>";
+                bodytext += "</div>";
 
                 $(".notification-popup-body").html(bodytext);
 
-                $("#NotificationPopupWindow").click(function(){
+                $(".notification-click-window").click(function(){
                     $(this).fadeOut();
                 });
+
+                setTimeout(function(){
+                    $(".notification-click-window").fadeOut();
+                },4000);
             });
 
         } else {
@@ -757,9 +762,12 @@ define('blahgua_base',
                 $(".menu-profile-pic").css({"background-image": "url('" + newImage + "')"});
             }
 
+            $(".instant-menu").css({"right":$("#BlahContainer").css("right"),
+                                    "width":"0px"});
+
             $(".instant-menu").disableSelection();
             $(".click-shield").click(function (theEvent) {
-                $(".instant-menu").animate({"right":"-150px"}, 200,function(){
+                $(".instant-menu").animate({"width":"0px"}, 200,function(){
                     DismissAll();
                     StartAnimation();
                 });
@@ -785,7 +793,7 @@ define('blahgua_base',
                 LogoutUser();
             });
 
-            $(".instant-menu").animate({"right":"0px"}, 200);
+            $(".instant-menu").animate({"width":"200px"}, 200);
         });
 
         $("#ChannelBanner .ChannelOptions").click(function(theEvent) {

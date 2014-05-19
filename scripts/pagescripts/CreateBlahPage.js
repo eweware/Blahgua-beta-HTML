@@ -456,8 +456,27 @@ define('CreateBlahPage',
                 DoCloseBlah();
                 window.close();
             }
-            else
+            else {
                 DoCloseBlah();
+
+                // Pop the notification
+                $("body").append("<div class='notification-click-window'>"+
+                        "<div id='NotificationPopupWindow'>"+
+                            "<div class='notification-popup-header'>Success!</div>"+
+                            "<div class='notification-popup-body'>" +
+                                "<div class='notification-body-text'>Your Blah has been posted!</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>");
+                
+                $(".notification-click-window").click(function(){
+                    $(this).fadeOut();
+                });
+
+                setTimeout(function(){
+                    $(".notification-click-window").fadeOut();
+                },4000);
+            }
         };
 
         var HandleCreateBlahFailure = function(theErr) {
