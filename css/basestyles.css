@@ -21,13 +21,13 @@ textarea {
 
 input:not([type='checkbox']) {
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     text-align: left;
     padding: 4px;
     border-width: 0px;
     background-color: rgb(254,254,254);
-    border: solid   1px #999999;
-    border-radius: 4px;
+    /*border: solid   1px #999999;
+    border-radius: 4px;*/
     outline:none;
     transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
@@ -71,13 +71,15 @@ li.divider:hover {
     right:0;
     bottom:0;
     z-index:0;
-    background-image: -moz-linear-gradient(rgb(231,234,238),rgb(201,204,208));
+    background-color:#1FBBD1;
+    background-image: url(../img/texture-01.png);
+    /*background-image: -moz-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -ms-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(231,234,238)),color-stop(100%,rgb(201,204,208)));
     background-image: -webkit-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -o-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: linear-gradient(rgb(231,234,238),rgb(201,204,208));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');*/
 }
 
 .site-down-div {
@@ -103,20 +105,20 @@ li.divider:hover {
     bottom:0;
     left:0;
     right:0;
-    background-image: -moz-linear-gradient(rgb(231,234,238),rgb(201,204,208));
+    /*background-image: -moz-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -ms-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(231,234,238)),color-stop(100%,rgb(201,204,208)));
     background-image: -webkit-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -o-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: linear-gradient(rgb(231,234,238),rgb(201,204,208));
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#E6E6E6', EndColorStr='#C8C8C8');*/
     overflow:hidden;
 }
 
 
 .BlahDiv {
     background-color:rgb(32,32,32);
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
 
     overflow:hidden;
     vertical-align:middle;
@@ -161,7 +163,7 @@ li.divider:hover {
 }
 
 .ChannelLoadingDiv span {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color: rgb(244, 245, 240);
     text-shadow: 2px 2px rgba(0,0,0,.5);
     font-size: 18px;
@@ -199,9 +201,9 @@ li.divider:hover {
 .designator-arrow {
     width: 0px;
     height: 0px;
-    border-style: solid;
+    /*border-style: solid;
     border-width: 0 0 15px 15px;
-    border-color: transparent transparent #007bff transparent;
+    border-color: transparent transparent #007bff transparent;*/
     position: absolute;
     bottom: 5px;
     right: 5px;
@@ -218,15 +220,15 @@ li.divider:hover {
 .splash {
     color: rgb(244,245,240);
     text-align: center;
-    font-family: 'Arimo', sans-serif;
-    background-color: rgb(125, 181, 227);
+    font-family: 'Gotham Rounded', sans-serif;
+    background-color: #5FC0A5;
     border-radius: 16px;
 
 }
 
 
 .splash-footer {
-    background-color: rgb(122,208,0);
+    background-color: #5FC0A5;
     color: rgb(244,245,240);
     text-align: left;
     padding: 16px;
@@ -270,12 +272,12 @@ li.divider:hover {
     height: 110px;
     display: inline-block;
     background-size: cover;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
+    background-image: url('../img/logo-black.png');
     margin: 16px;
 }
 
 .splash-body {
-    background-color: rgb(125, 181, 227);
+    background-color: #5FC0A5;
     color: rgb(244,245,240);
     margin: 0px 16px 16px 16px;
     text-align: left;
@@ -314,7 +316,7 @@ li.divider:hover {
 }
 
 .spin-text {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 12px;
     color: rgba(244,245,240,.8);
     display: inline-block;
@@ -336,7 +338,7 @@ li.divider:hover {
 .statsText
 {
     font-size:12px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
 }
 
 .statsText1
@@ -425,16 +427,16 @@ a {
 
 .SuggestSignIn {
     text-align: center;
-    font-family: 'Arimo', sans-serif;    
+    font-family: 'Gotham Rounded', sans-serif;    
     font-size:18px;
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-color: #3F2B2F;
+  /*  background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
     background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
+    background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));*/
+    /*border: 1px solid rgb(88,90,103);*/
     color: rgb(244,245,240);
     margin: 4px;
     padding-right: 8px;
@@ -442,23 +444,23 @@ a {
     padding-top:6px;
     width:35%;
     height:60%;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     margin-left:200px;
 }
 
 .SuggestSignIn:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-color: #1FBBD1;
+    /*background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
     background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));*/
 color:rgb(244,245,240);
 }
 
 .BlahgerNickName {
-    font-family:'Arimo', sans-serif;
+    font-family:'Gotham Rounded', sans-serif;
     font-size:20pt;
     color:rgb(244,245,240)
 }
@@ -491,7 +493,7 @@ color:rgb(244,245,240);
     width: 100%;
 }
 .shorttitle
-{   font-family:'Arimo',sans-serif;
+{   font-family:'Gotham Rounded',sans-serif;
     font-size:17px;
     color:rgb(124,124,124);
     margin-left:20px;
@@ -499,7 +501,7 @@ color:rgb(244,245,240);
 
 }
 .shorttitle1
-{   font-family:'Arimo',sans-serif;
+{   font-family:'Gotham Rounded',sans-serif;
     font-size:17px;
     margin-left:20px;
     color:rgb(124,124,124);
@@ -510,7 +512,7 @@ color:rgb(244,245,240);
     width:100%;
     min-height:10px;
     font-size:12pt;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     background-color:transparent;
     color:rgb(32,32,32);
     border:none;
@@ -527,7 +529,7 @@ color:rgb(244,245,240);
     border-color:transparent;
     color:rgb(255,255,255);
     font-size:16px;
-    font-family:'Arimo',sans-serif;
+    font-family:'Gotham Rounded',sans-serif;
 
 }
 
@@ -535,22 +537,22 @@ color:rgb(244,245,240);
     display:inline-block;
     width:48px;
     height:48px;
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/back.png");
+    background-image: url("../img/Large_CloseBlack.png");
     background-size: cover;
     margin-right:5px;
 }
 
 .back-button:hover {
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/backover1.png");
+    background-image: url("../img/Large_CloseRed.png");
 
 }
 
 .back-button.splash {
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_CloseWhite.png");
+    background-image: url("../img/Large_CloseBlack.png");
 }
 
 .back-button.splash:hover {
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/Large_CloseGrey.png");
+    background-image: url("../img/Large_CloseRed.png");
 }
 
 
@@ -598,12 +600,12 @@ color:rgb(244,245,240);
 
 .dialog-box {
     margin: 60px auto;
-    background-color: rgb(125,181,227);
-    border: 1px solid rgb(244,245,240);
-    border-radius: 8px;
+    background-color: #1FBBD1;
+    /*border: 1px solid rgb(244,245,240);
+    border-radius: 8px;*/
     max-width: 500px;
     font-size:20px;
-    font-family:'Arimo',sans-serif;
+    font-family:'Gotham Rounded',sans-serif;
 
 }
 
@@ -618,7 +620,7 @@ color:rgb(244,245,240);
 
 .dialog-prompt-container {
     font-size: 24px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     text-align: left;
     padding: 16px 32px;
 
@@ -626,9 +628,9 @@ color:rgb(244,245,240);
 
 .dialog-btn-container {
     text-align: right;
-    background-color: rgb(122,208,0);
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+    background-color: #1FBBD1;
+ /*   border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;*/
 }
 
 .dialog-prompt {
@@ -638,52 +640,53 @@ color:rgb(244,245,240);
 
 .dialog-button {
     padding: 5px 24px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     text-align: center;
     margin: 8px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 16px;
-    background-color: #999999;
-    background-image: -moz-linear-gradient(#999999,#888888);
+    background-color: #3F2B2F;
+    border:none;
+    /*background-image: -moz-linear-gradient(#999999,#888888);
     background-image: -ms-linear-gradient(#999999,#888888);
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#999999),color-stop(100%,#888888));
     background-image: -webkit-linear-gradient(#999999,#888888);
     background-image: -o-linear-gradient(#999999,#888888);
     background-image: linear-gradient(#999999,#888888);
-    border: 1px solid #888888;
+    border: 1px solid #888888;*/
     color: rgb(244,245,240);
 }
 .dialog-button:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(#888888,#777777);
+    background-color: #5FC0A5;
+    /*background-image: -moz-linear-gradient(#888888,#777777);
     background-image: -ms-linear-gradient(#888888,#777777);
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#888888),color-stop(100%,#777777));
     background-image: -webkit-linear-gradient(#888888,#777777);
     background-image: -o-linear-gradient(#888888,#777777);
-    background-image: linear-gradient(#888888,#777777);
+    background-image: linear-gradient(#888888,#777777);*/
     color: rgb(244,245,240);
 }
 
 .dialog-yes {
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-color: #3F2B2F;
+    /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
     background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
+    border: 1px solid rgb(88,90,103);*/
     color: rgb(244,245,240);
 
 }
 .dialog-yes:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-color: #5FC0A5;
+    /*background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
     background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));*/
     color: rgb(244,245,240);
 }
 
@@ -693,15 +696,15 @@ color:rgb(244,245,240);
     height:36px;
     background-size:cover;
     display: inline-block;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote.png');
+    background-image: url('../img/white_promote.png');
 }
 
 .promote-btn.disabled {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_promote_disabled.png');
+    background-image: url('../img/white_promote.png');
 }
 
 .promote-btn.checked {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green_promote.png');
+    background-image: url('../img/blue_promote.png');
 }
 
 .demote-btn {
@@ -709,15 +712,39 @@ color:rgb(244,245,240);
     height:36px;
     background-size:cover;
     display: inline-block;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote.png');
+    background-image: url('../img/white_demote.png');
 }
 
 .demote-btn.disabled {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/black_demote_disabled.png');
+    background-image: url('../img/white_demote.png');
 }
 
 .demote-btn.checked {
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green_demote.png');
+    background-image: url('../img/red_demote.png');
+}
+
+.summary-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/black_demote.png');
+}
+
+.comments-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/black_demote_disabled.png');
+}
+
+.stats-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/red_demote.png');
 }
 
 .logo {
@@ -725,7 +752,7 @@ color:rgb(244,245,240);
     height:99px;
     display: inline-block;
     background-size:cover;
-    background-image: url('https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/Blahgua logo.PNG');
+    background-image: url('../img/logo-white.png');
 }
 
 
@@ -762,7 +789,7 @@ color:rgb(244,245,240);
     color: #333333;
     font-style: italic;
     font-size: 18px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     margin: 50px 0px;
 }
 
@@ -816,7 +843,7 @@ color:rgb(244,245,240);
     height: 24px;
     bottom: 0px;
     background-size: cover;
-    background-image:url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/newblah.png");
+    background-image:url("../img/newblah.png");
 }
 
 
@@ -840,16 +867,16 @@ input:not([type='checkbox']) #CommentImage {
     left:50%;
     margin-left: -200px;
     box-shadow: 0 1px 5px #000;
-    background: #fff;
+    background: #E54054;
     padding: 5px;
 }
 
 .notification-popup-header {
-    background: #2fb567;
+    background: #3F2B2F;
     color: #fff;
     display: block;
     width: 100%;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     font-size: 16px;
     text-align: center;
     line-height: 20px;
@@ -863,14 +890,14 @@ input:not([type='checkbox']) #CommentImage {
 }
 
 .notification-popup-body {
-    background: #fff;
+    background: #E54054;
     width: 90%;
     margin-top: 10px;
     margin-bottom: 10px;
     margin-left: auto;
     margin-right: auto;
     color: #000;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     line-height: 18px;
     text-align: center;
