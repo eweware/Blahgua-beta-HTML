@@ -24,7 +24,7 @@
 
 .UserImageImageNameSpan {
     font-size:20px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
 }
 
 .recovery-email-div span {
@@ -67,7 +67,7 @@
     background: rgb( 125, 181, 227);
     color:rgb(32,32,32);
     font-size:16px;
-    font-family: 'Arimo',sans-serif;
+    font-family: 'Gotham Rounded',sans-serif;
     border-radius:8px;
     padding: 8px 16px;
     border-style:none;
@@ -75,40 +75,40 @@
 }
 .user-profile-description {
     font-size:20px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color:#999999;
 }
 
 
 .small-button {
-    color: #fefefe;
-    background-color: #2fb567;
+    color: #fff;
+    background-color: #3F2B2F;
     border:0;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     padding: 8px 16px;
     width: 200px;
 }
 
 .small-button:hover {
-    background-color: #248a4f;
+    background-color: #5FC0A5;
     color: #fff;
 }
 
 .default-button {
-    background-color: #2fb567;
-    color: #fefefe;
-    border-radius: 8px;
+    background-color: #5FC0A5;
+    color: #fff;
+    /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     padding: 8px 16px;
     width: 200px;
     border:0;
 }
 
 .default-button:hover {
-    background-color: #248a4f;
+    background-color: #3F2B2F;
     color: #fff;
 }
 
@@ -130,7 +130,7 @@
 .permission-table {
     background-color:#add8e6;
     border-radius: 8px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     border-collapse: collapse;
     margin:20px;
 }
@@ -164,7 +164,7 @@
 .attribute-table {
     background-color: rgb(250,250,247);
     border-radius: 8px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     border-collapse: collapse;
     margin:20px;
 }
@@ -219,7 +219,7 @@
 
 .instruction-text {
     font-size: 12px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     width: 90%;
     text-align: left;
 
@@ -228,7 +228,7 @@
 }
 
 .accordion-body {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color: rgb(32,32,32);
     background-color: rgb(250,250,247);
     margin-left: 12px;
@@ -242,8 +242,8 @@
 
 .accordion h2 {
     color: #fff;
-    background-color:#2fb567;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    background-color:#1FBBD1;
+    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     margin-top: 2px;
     margin-left: 12px;
     margin-right:12px;
@@ -299,7 +299,7 @@
 
 .request-demographic {
    font-style: italic;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     width: 100%;
     height:100%;
     text-align: center;
@@ -314,7 +314,7 @@
     color: #333333;
     font-style: italic;
     font-size: 18px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     margin: 50px 0px;
 }
 
@@ -331,7 +331,7 @@
 }
 
 .demographic-detail {
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
+    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     display: inline-block;
     width: 130px;
     text-align: right;
@@ -356,7 +356,7 @@
 
 .blah-comment-link {
     font-size:10pt;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color: #0058F8
 }
 .blah-comment-link:hover {
@@ -423,7 +423,7 @@
 }
 
 .blah-type-square {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     background-color: blue;
     color: rgb(244,245,240);
     display:inline-block;
