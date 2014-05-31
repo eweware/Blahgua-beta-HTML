@@ -6,11 +6,11 @@
     top: 8px;
     height:48px;
     z-index:10;
-    background-color:#2fb568;
-    color:rgb(244,245,240);
-    font-family: 'Arimo', sans-serif;
+    background-color:#3F2B2F;
+    color:#5FC0A5;
+    font-family: 'Merriweather', sans-serif;
     font-size:26px;
-    font-weight:bold;
+    font-weight:300;
     font-stretch: condensed;
     box-shadow: rgba(0,0,0,.2) 0px 2px 8px;
     line-height:2em;
@@ -39,19 +39,17 @@
 
 }
 
-
-
 .ChannelOptions {
     width:48px;
     height:48px;
-    border-left-color:rgba(131,135,154,.4);
+    /*border-left-color:rgba(131,135,154,.4);
     border-left-width:1px;
     border-left-style:solid;
     border-right-color:rgba(131,135,154,.4);
     border-right-width:1px;
-    border-right-style:solid;
-    background-color: rgb(84,86,98);
-    color: rgb(244,245,240);
+    border-right-style:solid;*/
+    background-color: #5FC0A5;
+    color: #fff;
     font-weight:bold;
     text-align:center;
     vertical-align:middle;
@@ -59,14 +57,14 @@
 }
 
 .ChannelOptions:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
+    background-color: #1FBBD1;
+    /*background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -ms-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(131,135,154)),color-stop(100%,rgb(105,108,123)));
     background-image: -webkit-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -o-linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    background-image: linear-gradient(rgb(131,135,154),rgb(105,108,123));
-    color: rgb(244,245,240);
+    background-image: linear-gradient(rgb(131,135,154),rgb(105,108,123));*/
+    color: #fff;
 }
 
 .profile-button {
@@ -74,7 +72,7 @@
     height:48px;
     background-size: cover;
     float:right;
-    background-image: url("https://s3-us-west-2.amazonaws.com/beta.blahgua.com/images/unknown-user.png");
+    background-image: url("../images/unknown-user.png");
 }
 
 .profile-button:hover {
@@ -84,9 +82,10 @@
 }
 
 .sign-in-button {
-    color:  rgb(244,245,240);
-    font-family: 'Arimo', sans-serif;
+    color:  #5FC0A5;
+    font-family: 'Merriweather', sans-serif;
     font-size: 18px;
+    font-weight: 300;
     float: right;
     width: 80px;
     height: 48px;
@@ -102,32 +101,32 @@
 
 .sign-in-comment-button
 {
-    background-color: rgb(248,120,88);
-    background-image: -moz-linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-color: #1FBBD1;
+    /*background-image: -moz-linear-gradient(rgb(255,150,110),rgb(248,120,88));
     background-image: -ms-linear-gradient(rgb(255,150,110),rgb(248,120,88));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,150,110)),color-stop(100%,rgb(248,120,88)));
     background-image: -webkit-linear-gradient(rgb(255,150,110),rgb(248,120,88));
     background-image: -o-linear-gradient(rgb(255,150,110),rgb(248,120,88));
-    background-image: linear-gradient(rgb(255,150,110),rgb(248,120,88));
+    background-image: linear-gradient(rgb(255,150,110),rgb(248,120,88));*/
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 18px;
     border-style: none;
     height: 48px;
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     padding: 4px 12px;
     margin: 10px 0px;
 }
 
 .sign-in-comment-button:hover {
-    background-color: rgb(211,102,75);
-    background-image: -moz-linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-color: #3F2B2F;
+    /*background-image: -moz-linear-gradient(rgb(248,120,88),rgb(211,102,75));
     background-image: -ms-linear-gradient(rgb(248,120,88),rgb(211,102,75));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(248,120,88)),color-stop(100%,rgb(211,102,75)));
     background-image: -webkit-linear-gradient(rgb(248,120,88),rgb(211,102,75));
     background-image: -o-linear-gradient(rgb(248,120,88),rgb(211,102,75));
-    background-image: linear-gradient(rgb(248,120,88),rgb(211,102,75));
+    background-image: linear-gradient(rgb(248,120,88),rgb(211,102,75));*/
     color:  rgb(244,245,240);
 }
 
@@ -169,12 +168,13 @@
 }
 
 .channel-title {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Merriweather', sans-serif;
     font-size: 20px;
+    font-weight: 300;
 }
 
 .channel-description {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size:14px;
     width:100%;
     line-height:18px;
@@ -201,7 +201,7 @@
 .channel-menu-title {
     background-color: rgb(244,245,240);
     color: rgb(32,32,32);
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 20px;
     padding: 2px 10px;
     text-align:left;
@@ -210,8 +210,8 @@
 
 .instant-menu {
     position: absolute;
-    background-color: #fff;
-    font-family: 'Arimo', sans-serif;
+    background-color: #3F2B2F;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 20px;
     right: -140px;
     top: 0px;
@@ -238,17 +238,20 @@
     padding-top: 5px;
     font-size: 16px;
     margin-bottom: 10px;
+    color: #1FBBD1;
 }
 
 .instant-menu li {
     padding:4px 10px;
-    font-family: 'HelveticaNeue-CondensedBold', 'Helvetica Neue','Arimo', sans-serif;
-    font-weight: bold;
+    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
+    font-weight:"book";
+    color: #fff;
     cursor: pointer;
 
 }
+
 .instant-menu li:hover {
-    background-color: rgba(184,184,184,.3);
+    background-color: #5FC0A5;
 }
 
 .instant-menu li.divider {
@@ -257,16 +260,18 @@
     padding:0px;
     margin-top: 5px;
     margin-bottom: 5px;
-    border-bottom: 1px #d9dada solid;
+    border-bottom: 1px #bdbdbd solid;
     cursor: default;
 }
-
+.instant-menu li#LogOutItem:hover {
+    background-color: #E54054;
+}
 .instant-menu li.divider:hover {
     background-color: transparent;
 }
 
 #ChannelList>tbody>tr:hover {
-    background-color: rgba(184,184,184,.3);
+    background-color: #5FC0A5;
 }
 
 #ChannelList tbody td {
