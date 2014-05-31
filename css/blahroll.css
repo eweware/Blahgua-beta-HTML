@@ -2,7 +2,7 @@
 
 .BlahTextDiv {
 
-    font-family: "HelveticaNeue-CondensedBold", "Helvetica Neue",'Arimo', sans-serif;
+    font-family: 'Gotham Rounded',"HelveticaNeue-CondensedBold", "Helvetica Neue", sans-serif;
     overflow:hidden;
     padding-left: 8px;
     padding-right: 8px;
@@ -48,6 +48,70 @@
     border-top-style:dotted;
 }
 
+.BlahTypeSays .designator-arrow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    background-image: url('../img/say-icon.png');
+    background-size:cover;
+    background-position: center;
+
+}
+
+.BlahTypeAsks .designator-arrow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    background-image: url('../img/ask-icon.png');
+    background-size:cover;
+    background-position: center;
+
+}
+
+.BlahTypeLeaks .designator-arrow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    background-image: url('../img/leak-icon.png');
+    background-size:cover;
+    background-position: center;
+
+}
+
+.BlahTypePolls .designator-arrow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    background-image: url('../img/poll-icon.png');
+    background-size:cover;
+    background-position: center;
+
+}
+
+.BlahTypePredicts .designator-arrow {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width:20px;
+    height:20px;
+    background-color: transparent;
+    background-image: url('../img/predict-icon.png');
+    background-size:cover;
+    background-position: center;
+
+}
 .BlahTypeSays {
     color: rgba(60,60,60,1);
     background-color: rgb(252,253,253);
@@ -197,7 +261,7 @@
 
 
 .no-blahs-in-channel-warning {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 20px;
     background-color: orange;
     border-radius: 8px;
@@ -208,7 +272,7 @@
 }
 
 .no-blahs-in-channel-warning a {
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     font-size: 18px;
     background-color: rgb(255,255,255);
     border-radius: 8px;
