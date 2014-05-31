@@ -5,16 +5,18 @@
     border-style:none;
     padding:8px;
     margin:24px;
+    background-image: url(../images/signup-2.jpg);
 }
 
 
 .sign-in {
-    color:  #000;
+    color:  #3F2B2F;
     text-align: center;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     padding-left: 8px;
     padding-top: 8px;
-    background-color: #fff;
+    /*background-color: #fff;*/
+
 }
 
 .sign-in p {
@@ -42,7 +44,7 @@
 
 .recovery-instructions {
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color:rgb(244,245,240);
 }
 .toggle-container {
@@ -51,7 +53,7 @@
     padding-top: 8px;
     margin:0px;
     height: 250px;
-    background-color:#2fb568;
+    /*background-color:#5FC0A5*/
 }
 
 .toggle-content table {
@@ -67,7 +69,7 @@
     text-align: center;
     font-size:0;
     margin: 0 auto;
-    background-color: #fff;
+    /*background-color: #fff;*/
     padding-top:10px;
 }
 
@@ -80,7 +82,7 @@
     color:rgb(244,245,240);
     font-weight: bold;
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     text-align: right;
 }
 
@@ -95,7 +97,7 @@
 .checkbox-group label {
     color:rgb(244,245,240);
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     text-align: left;
 }
 
@@ -116,12 +118,12 @@
 }
 .toggle-btn {
     color:rgb(244,245,240);
-    background-color: #269052;
+    background-color: #3F2B2F;
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     height:36px;
     padding-left:8px;
     padding-right:8px;
@@ -139,82 +141,83 @@
 }
 
 .btn-left {
-    border-top-left-radius: 8px;
+    /*border-top-left-radius: 8px;*/
 }
 
 .btn-right {
-    border-top-right-radius: 8px;
+    /*border-top-right-radius: 8px;*/
 }
 
 
 .toggle-btn:hover {
     color:rgb(244,245,240);
-    background-image: -moz-linear-gradient(#36d077,#2fb568);
+    /*background-image: -moz-linear-gradient(#36d077,#2fb568);
     background-image: -ms-linear-gradient(#36d077,#2fb568);
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#36d077),color-stop(100%,#2fb568));
     background-image: -webkit-linear-gradient(#36d077,#2fb568);
     background-image: -o-linear-gradient(#36d077,#2fb568);
-    background-image: linear-gradient(#36d077,#2fb568);
-    background-color: #00a800;
+    background-image: linear-gradient(#36d077,#2fb568);*/
+    background-color: #1FBBD1;
 }
 
 .toggle-active {
-    background-color: #2fb568;
+    background-color: #5FC0A5;
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-color: #2fb568;
+    background-color: #1FBBD1;
     color:rgb(244,245,240);
 }
 
 
 
 .action-btn {
-    color: rgb(244,245,240);
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    color: #fff;
+    background-color: #E54054;
+    border:none;
+    /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
     background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
-    border-radius: 8px;
+    border: 1px solid rgb(88,90,103);*/
+    /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
     width: 200px;
 }
 
 .action-btn:hover {
-    color:rgb(244,245,240);
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    color:#fff;
+    background-color: #1FBBD1;
+   /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
     background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));*/
 
 }
 
 .action-btn:disabled {
-    color: #CCCCCC;
-    background-color: #999999;
+    color: #fff;
+    background-color: #3F2B2F;
     background-image: none;
     background-image: none;
-    border: solid 1px #999999;
+    /*border: solid 1px #999999;*/
 }
 
 .recover-btn {
-    color: rgb(244,245,240);
-    background-color: #2fb568;
+    color: #fff;
+    background-color: transparent;
     border-style:none;
     border-width: 0px;
-    border-radius: 0px;
+    /*border-radius: 0px;*/
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     padding: 0px 0px;
 }
 
@@ -223,35 +226,36 @@
 }
 
 .recover-btn:disabled {
-    color: #CCCCCC;
-    background-color: #999999;
+    /*color: #CCCCCC;*/
+    /*background-color: #999999;*/
 }
 
 .action-default {
-    background-color: rgb(84,86,98);
-    background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
+    background-color: #1FBBD1;
+    border:none;
+    /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
     background-image: -webkit-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -o-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
-    border: 1px solid rgb(88,90,103);
+    border: 1px solid rgb(88,90,103);*/
     color: rgb(244,245,240);
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
     width: 200px;
 }
 
 .action-default:hover {
-    background-color: rgb(71,73,83);
-    background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-color: #3F2B2F;
+   /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
     background-image: -webkit-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -o-linear-gradient(rgb(84,86,98),rgb(63,65,74));
-    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));
+    background-image: linear-gradient(rgb(84,86,98),rgb(63,65,74));*/
     color:rgb(244,245,240);
 }
 
@@ -259,7 +263,7 @@
     color: #CCCCCC;
     background-color: #999999;
     background-image: none;
-    border: solid 1px #999999;
+    /*border: solid 1px #999999;*/
 }
 
 
@@ -284,7 +288,7 @@
 .error-msg-span {
     border-radius: 8px;
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     color:rgb(32,32,32);
     background-color: #ffa602;
     padding: 4px 16px;
@@ -303,12 +307,12 @@
 
 .about-link {
     color: rgb(244,245,240);
-    background-color: #2fb568;
+    /*background-color: #5FC0A5;*/
     border-style:none;
     border-width: 0px;
     border-radius: 0px;
     font-size:16px;
-    font-family: 'Arimo', sans-serif;
+    font-family: 'Gotham Rounded', sans-serif;
     padding: 0px 0px;
     line-height: 2em;
 }
