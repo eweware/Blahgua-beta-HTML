@@ -491,6 +491,8 @@ color:rgb(244,245,240);
 {
     height:70px;
     width: 100%;
+    margin-right: auto;
+    margin-left: auto;
 }
 .shorttitle
 {   font-family:'Gotham Rounded',sans-serif;
@@ -730,7 +732,36 @@ color:rgb(244,245,240);
     display: inline-block;
     background-image: url('../img/black_demote.png');
 }
-
+.footer-summary-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/summary.png');
+}
+.footer-summary-btn:active {
+    background-image: url('../img/summary_checked.png');
+}
+.footer-comments-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/comments.png');
+}
+.footer-comments-btn:active {
+    background-image: url('../img/comments_checked.png');
+}
+.footer-stats-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/stats.png');
+}
+.footer-stats-btn:active {
+    background-image: url('../img/stats_checked.png');
+}
 .comments-btn {
     width:36px;
     height:36px;
