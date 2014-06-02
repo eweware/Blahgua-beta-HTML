@@ -715,7 +715,6 @@ define('blahgua_base',
 
         var options = document.createElement("div");
         options.className = "ChannelOptions";
-        options.innerHTML = "+";
         banner.appendChild(options);
         banner.options = options;
 
