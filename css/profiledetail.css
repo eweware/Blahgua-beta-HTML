@@ -92,12 +92,12 @@
 }
 
 .small-button:hover {
-    background-color: #5FC0A5;
+    background-color: #3F2B2F;
     color: #fff;
 }
 
 .default-button {
-    background-color: #5FC0A5;
+    background-color: #3F2B2F;
     color: #fff;
     /*border-radius: 8px;*/
     font-size:16px;
@@ -108,13 +108,13 @@
 }
 
 .default-button:hover {
-    background-color: #3F2B2F;
+    background-color: #1FBBD1;
     color: #fff;
 }
 
 .default-button:disabled {
     color: #eee;
-    background-color: #6fb58c;
+    background-color: #3F2B2F;
     background-image: none;
     border: 0;
 }
@@ -424,14 +424,14 @@
 
 .blah-type-square {
     font-family: 'Gotham Rounded', sans-serif;
-    background-color: blue;
-    color: rgb(244,245,240);
+    background-color:#96C648;
+    color: #fff;
     display:inline-block;
     text-align: center;
     font-size: 10pt;
     padding: 0px 0px 1px 0px;
-    border: solid 1px #999999;
-    border-radius: 6px;
+    border: solid 1px #96C648;
+    /*border-radius: 6px;*/
     width: 50px
 }
 
