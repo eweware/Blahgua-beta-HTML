@@ -734,7 +734,7 @@ color:rgb(244,245,240);
     display: inline-block;
     background-image: url('../img/black_demote.png');
 }
-.footer-summary-btn {
+/*.footer-summary-btn {
     width:36px;
     height:36px;
     background-size:cover;
@@ -755,7 +755,7 @@ color:rgb(244,245,240);
     background-size:cover;
     display: inline-block;
     background-image: url('../img/stats.png');
-}
+}*/
 .comments-btn {
     width:36px;
     height:36px;
