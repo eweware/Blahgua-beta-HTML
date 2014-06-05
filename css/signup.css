@@ -161,7 +161,7 @@
 }
 
 .toggle-active {
-    background-color: #5FC0A5;
+    background-color: #1FBBD1;
     color:rgb(244,245,240);
 }
 
@@ -174,8 +174,7 @@
 
 .action-btn {
     color: #fff;
-    background-color: #E54054;
-    border:none;
+    background-color: #3F2B2F;
     /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
@@ -184,6 +183,7 @@
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));
     border: 1px solid rgb(88,90,103);*/
     /*border-radius: 8px;*/
+    border: none;
     font-size:16px;
     font-family: 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
@@ -286,11 +286,11 @@
 }
 
 .error-msg-span {
-    border-radius: 8px;
+    /*border-radius: 8px;*/
     font-size:16px;
     font-family: 'Gotham Rounded', sans-serif;
     color:rgb(32,32,32);
-    background-color: #ffa602;
+    background-color: #96C648;
     padding: 4px 16px;
 
 }

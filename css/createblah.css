@@ -219,7 +219,7 @@
     background-color: rgb(254,254,254);
     color: rgb(32,32,32);
     border:1px solid #999999;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     outline: none;
     transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
@@ -241,7 +241,7 @@
 .inputheadline
 {   width:512px;
     overflow-y:hidden;
-    border-radius:5px;
+    /*border-radius:5px;*/
     background:lightblue;
     border:2px solid grey;
 }
@@ -255,7 +255,7 @@
     background-color: rgb(254,254,254);
     color: rgb(32,32,32);
     border:1px solid #999999;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     outline: none;
     transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
@@ -385,13 +385,13 @@
 }
 
 .create-err-msg {
-    padding: 4px 8px;
+    padding: 5px 8px;
     background-color: #96C648;
     color:rgb(32,32,32);
     font-size: 14px;
-    border-radius: 4px;
+    /*border-radius: 4px;*/
     font-family: 'Gotham Rounded', sans-serif;
-    margin-right: 16px;
+    margin-right: 0px;
 }
 
 .image-preview-row {
