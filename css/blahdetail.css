@@ -136,7 +136,7 @@
     word-wrap: break-word;
 }
 
-/*.BlahButton span {
+.BlahButton span {
 
 }
 .BlahButton {
@@ -150,41 +150,38 @@
 }
 
 .BlahButton:hover {
-    background-color: #54d68a;
+    /*background-color: #54d68a;*/
     color: #fff;
 
 }
 
 .BlahBtnSelected {
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    background-color: #1FBBD1;
+    /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
     z-index:1;
 
 }
 .BlahBtnSelected:hover{
-    background-color: #E54054;
+    /*background-color: #E54054;*/
     color: #fff;
 
-}*/
-.BlahBtnSelected.footer-summary-btn {
-    background-image: url('../img/summary_checked.png');
 }
-.BlahButton.footer-summary-btn {
+.BlahBtnSelected.footer-summary-btn:active {
     background-image: url('../img/summary.png');
 }
-.BlahBtnSelected.footer-summary-btn:hover {
+.BlahBtnSelected.footer-summary-btn {
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
     z-index:1;
     background-image: url('../img/summary_checked.png');
-}
 
-.BlahButton.footer-summary-btn:hover {
-    background-image: url('../img/summary_blue.png');
+}
+.BlahBtnSelected.footer-summary-btn:hover {
+    background-image: url('../img/summary.png');
 }
 
 .BlahBtnSelected.footer-comments-btn {
@@ -210,11 +207,9 @@
     margin-right: 5%;
 
 }
-
 .BlahBtnSelected.footer-stats-btn:hover {
     background-image: url('../img/stats.png');
 }
-
 #SelfProfileBtn.BlahButton.Button-left {
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
