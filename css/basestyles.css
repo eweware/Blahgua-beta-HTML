@@ -734,6 +734,7 @@ color:rgb(244,245,240);
     display: inline-block;
     background-image: url('../img/black_demote.png');
 }
+
 .footer-summary-btn {
     width:36px;
     height:36px;
@@ -742,6 +743,12 @@ color:rgb(244,245,240);
     background-image: url('../img/summary.png');
 }
 
+.footer-summary-btn:hover {
+
+    background-image: url('../img/summary_blue.png');
+}
+
+
 .footer-comments-btn {
     width:36px;
     height:36px;
@@ -749,6 +756,12 @@ color:rgb(244,245,240);
     display: inline-block;
     background-image: url('../img/comments.png');
 }
+
+.footer-comments-btn:hover {
+
+    background-image: url('../img/comments_blue.png');
+}
+
 .footer-stats-btn {
     width:36px;
     height:36px;
@@ -756,6 +769,12 @@ color:rgb(244,245,240);
     display: inline-block;
     background-image: url('../img/stats.png');
 }
+
+.footer-stats-btn:hover {
+
+    background-image: url('../img/stats_blue.png');
+}
+
 .comments-btn {
     width:36px;
     height:36px;

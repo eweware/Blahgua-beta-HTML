@@ -168,9 +168,7 @@
     color: #fff;
 
 }
-.BlahBtnSelected.footer-summary-btn:active {
-    background-image: url('../img/summary.png');
-}
+
 .BlahBtnSelected.footer-summary-btn {
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
@@ -181,7 +179,7 @@
 
 }
 .BlahBtnSelected.footer-summary-btn:hover {
-    background-image: url('../img/summary.png');
+    background-image: url('../img/summary_checked.png');
 }
 
 .BlahBtnSelected.footer-comments-btn {
@@ -194,7 +192,7 @@
 
 }
 .BlahBtnSelected.footer-comments-btn:hover {
-    background-image: url('../img/comments.png');
+    background-image: url('../img/comments_checked.png');
 }
 
 .BlahBtnSelected.footer-stats-btn {
@@ -208,7 +206,7 @@
 
 }
 .BlahBtnSelected.footer-stats-btn:hover {
-    background-image: url('../img/stats.png');
+    background-image: url('../img/stats_checked.png');
 }
 #SelfProfileBtn.BlahButton.Button-left {
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;

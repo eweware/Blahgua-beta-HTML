@@ -178,6 +178,8 @@ define('BlahDetailPage',
                     require(["BlahBodyDetailPage"], function(BodyDetails) {
                         $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahBodyDiv", function() {
                             $("#BlahDetailSummaryBtn").addClass("BlahBtnSelected");
+                            $("#BlahDetailCommentsBtn").removeClass("BlahBtnSelected");
+                            $("#BlahDetailStatsBtn").removeClass("BlahBtnSelected");
                             BodyDetails.InitializePage();
                         });
                     })
@@ -190,7 +192,9 @@ define('BlahDetailPage',
                     G.BlahFullItem.curPage = "Comments";
                     require(["BlahCommentDetailPage"], function(CommentDetails){
                         $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahCommentDiv", function() {
+                            $("#BlahDetailSummaryBtn").removeClass("BlahBtnSelected");
                             $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
+                            $("#BlahDetailStatsBtn").removeClass("BlahBtnSelected");
                             CommentDetails.InitializePage();
                         });
                     });
@@ -203,6 +207,8 @@ define('BlahDetailPage',
                     G.BlahFullItem.curPage = "Stats";
                     require(["BlahStatsDetailPage"], function(StatsDetails){
                         $("#BlahPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahStatsDiv", function() {
+                            $("#BlahDetailSummaryBtn").removeClass("BlahBtnSelected");
+                            $("#BlahDetailCommentsBtn").removeClass("BlahBtnSelected");
                             $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                             StatsDetails.InitializePage();
                         });

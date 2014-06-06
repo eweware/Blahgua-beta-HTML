@@ -95,6 +95,8 @@ define('SelfPage',
                     require(["SelfPageDetails"], function(DetailsPage){
                         $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageDetailsDiv", function() {
                             $("#SelfProfileBtn").addClass("BlahBtnSelected");
+                            $("#SelfHistoryBtn").removeClass("BlahBtnSelected");
+                            $("#SelfStatsBtn").removeClass("BlahBtnSelected");
                             DetailsPage.InitializePage();
                         });
                     });
@@ -107,7 +109,9 @@ define('SelfPage',
                     G.BlahFullItem.curPage = "History";
                     require(["SelfPageHistory"], function(HistoryPage){
                         $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageHistoryDiv", function() {
+                            $("#SelfProfileBtn").removeClass("BlahBtnSelected");
                             $("#SelfHistoryBtn").addClass("BlahBtnSelected");
+                            $("#SelfStatsBtn").removeClass("BlahBtnSelected");
                             HistoryPage.InitializePage();
                         });
                     });
@@ -120,6 +124,8 @@ define('SelfPage',
                     G.BlahFullItem.curPage = "Stats";
                     require(["SelfPageStats"], function(StatsPage){
                         $("#SelfPageDiv").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #SelfPageStatsDiv", function() {
+                            $("#SelfProfileBtn").removeClass("BlahBtnSelected");
+                            $("#SelfHistoryBtn").removeClass("BlahBtnSelected");
                             $("#SelfStatsBtn").addClass("BlahBtnSelected");
                             StatsPage.InitializePage();
                         });

@@ -1,3 +1,4 @@
+
 /**
  * Created with IntelliJ IDEA.
  * User: davev_000
@@ -44,23 +45,26 @@ define('BlahBodyDetailPage',
             });
 			}
 
-            // add share this button
-            var shareURL;
-            shareURL = G.GetItemImage(G.CurrentBlah, "D");
-            if (shareURL == "") {
-                shareURL = BlahguaConfig.fragmentURL + "images/Blahgua+logo.PNG";
-            }
-            stWidget.addEntry({
-                "service":"sharethis",
-                "element":document.getElementById('ShareBlah'),
-                "url": BlahguaConfig.shareURL + "?blahId=" + G.CurrentBlah._id,
-                "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A post from blahgua")),
-                "type":"large",
-                "text": "Share this post" ,
-                "image":shareURL,
-                "onhover": false,
+            // add share this button if we didn't already do it
 
-                "summary":G.GetSafeProperty(G.CurrentBlah, "F","") });
+            if (("#ShareBlah").html() == "")
+            {
+                var shareURL;
+                shareURL = G.GetItemImage(G.CurrentBlah, "D");
+                if (shareURL == "") {
+                    shareURL = BlahguaConfig.fragmentURL + "images/Blahgua+logo.PNG";
+                }
+                stWidget.addEntry({
+                    "service":"sharethis",
+                    "element":document.getElementById('ShareBlah'),
+                    "url": BlahguaConfig.shareURL + "?blahId=" + G.CurrentBlah._id,
+                    "title":G.UnCodifyText(G.GetSafeProperty(G.CurrentBlah, "T","A post from blahgua")),
+                    "type":"large",
+                    "text": "Share this post" ,
+                    "image":shareURL,
+                    "onhover": false,
+                    "summary":G.GetSafeProperty(G.CurrentBlah, "F","") });
+            }
 
 
             $("#SuggestSignInDiv").click(function(theEvent) {
