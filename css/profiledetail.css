@@ -419,16 +419,13 @@
 }
 
 .blah-type-square {
-    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    background-color:#96C648;
-    color: #fff;
+
     display:inline-block;
-    text-align: center;
-    font-size: 10pt;
     padding: 0px 0px 1px 0px;
-    border: solid 1px #96C648;
     /*border-radius: 6px;*/
-    width: 50px
+    width: 16px;
+    height: 16px;
+    background-size: cover;
 }
 
 .user-blah-row table {
@@ -473,3 +470,32 @@
 #DemoArea tr td:nth-child(3) {
     text-align: center;
 }
+
+.says-blahtype {
+    background-image: url('../img/say-icon.png')
+}
+
+.asks-blahtype {
+    background-image: url('../img/ask-icon.png')
+}
+
+
+.leaks-blahtype {
+    background-image: url('../img/leak-icon.png')
+}
+
+
+.polls-blahtype {
+    background-image: url('../img/poll-icon.png')
+}
+
+
+.predicts-blahtype {
+    background-image: url('../img/predict-icon.png')
+}
+
+
+.unknown-blahtype {
+    background-image: url('../img/say-icon.png')
+}
+

@@ -389,11 +389,10 @@ define('SelfPageHistory',
             newHTML += "</tr>";
 
 
-            var blahType = exports.GetBlahTypeNameFromId(theBlah.Y);
-            var bgColor = exports.GetBlahTypeColorFromId(theBlah.Y);
+            var blahTypeIcon = exports.GetBlahTypeClassFromId(theBlah.Y);
             newHTML += "<tr>";
             newHTML += "<td colspan='2' class='user-blah-detail'>";
-            newHTML += "<div class='blah-type-square' style='background-color:" + bgColor + "'>" + blahType + "</div>";
+            newHTML += "<div class='blah-type-square " + blahTypeIcon + "'></div>";
 
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_promote.png">' + promotes + "</span>";
             newHTML += '<span><img class="comment-vote" alt="" src="' + BlahguaConfig.fragmentURL + 'img/black_demote.png">' + demotes + "</span>";

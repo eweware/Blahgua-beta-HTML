@@ -1001,6 +1001,31 @@ define('blahgua_base',
         return theColor;
     };
 
+        var GetBlahTypeClassFromId = function(theId) {
+            var theClass = "unknown-blahtype";   // default for new types
+            switch (theId) {
+                case K.BlahType.says:
+                    theClass = "says-blahtype";
+                    break;
+                case K.BlahType.leaks:
+                    theClass = "leaks-blahtype";
+                    break;
+                case K.BlahType.polls:
+                    theClass = "polls-blahtype";
+                    break;
+                case K.BlahType.predicts:
+                    theClass = "predicts-blahtype";
+                    break;
+                case K.BlahType.asks:
+                    theClass = "asks-blahtype";
+                    break;
+
+                default:
+                    break;
+            }
+            return theClass;
+        };
+
 
 
 
@@ -2457,6 +2482,7 @@ define('blahgua_base',
         Exports.GetBlahTypeId = GetBlahTypeId;
         Exports.GetBlahTypeNameFromId = GetBlahTypeNameFromId;
         Exports.GetBlahTypeColorFromId = GetBlahTypeColorFromId;
+        Exports.GetBlahTypeClassFromId = GetBlahTypeClassFromId;
         Exports.GetBlahTypeStr = GetBlahTypeStr;
         Exports.LogoutUser = LogoutUser;
         Exports.ForgetUser = ForgetUser;

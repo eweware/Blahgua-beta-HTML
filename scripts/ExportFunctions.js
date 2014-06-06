@@ -27,12 +27,14 @@ define('ExportFunctions',
         var GetBlahTypeColorFromName = null;
         var CurrentCommentText = "";
         var SetCurrentChannelById = null;
+        var GetBlahTypeClassFromId = null;
 
         return {
             ForgetUser: ForgetUser,
             LogoutUser: LogoutUser,
             GetBlahTypeNameFromId: GetBlahTypeNameFromId,
             GetBlahTypeColorFromId: GetBlahTypeColorFromName,
+            GetBlahTypeClassFromId: GetBlahTypeClassFromId,
             GetBlahTypeId: GetBlahTypeId,
             ClosePage: ClosePage,
             RefreshPageForNewUser: RefreshPageForNewUser ,
