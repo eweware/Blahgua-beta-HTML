@@ -562,10 +562,12 @@
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     color: #1FBBD1;
     background-color: transparent;
+    cursor: pointer;
 }
 
 .reply-btn.disabled {
     color: #bcbcbc;
+    cursor: none;
 }
 
 .nested-row {

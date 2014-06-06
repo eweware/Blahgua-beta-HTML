@@ -173,7 +173,7 @@
 
 
 .action-btn {
-    color: #fff;
+    color: rgb(244,245,240);
     background-color: #3F2B2F;
     /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
@@ -191,7 +191,6 @@
 }
 
 .action-btn:hover {
-    color:#fff;
     background-color: #1FBBD1;
    /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));

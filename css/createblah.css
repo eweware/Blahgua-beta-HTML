@@ -137,9 +137,9 @@
     text-align: left;
     position: absolute;
     left: 120px;
-    background-color: white;
+    background-color: #3c3c3c;
     padding: 0px;
-    border: 1px solid #999999;
+
 }
 
 .badge-area.short {
@@ -151,10 +151,11 @@
 .badge-item {
     font-family: 'Gotham Rounded', sans-serif;
     padding: 4px 8px 4px 8px;
+    color: #fff;
 }
 
 .badge-item:hover {
-    background-color: rgb(125, 181, 227);
+    background-color: #5FC0A5;
 }
 
 .badge-item i {
@@ -165,10 +166,11 @@
 .anonymous-item {
     font-family: 'Gotham Rounded', sans-serif;
     padding: 4px 8px 4px 8px;
+    color: #fff;
 }
 
 .anonymous-item:hover {
-    background-color: rgb(125, 181, 227);
+    background-color: #5FC0A5;
 }
 
 .anonymous-item i {
