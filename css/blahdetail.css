@@ -436,7 +436,7 @@
 
 .add-comment-btn {
     background-color: #3F2B2F;
-    color: #fff;
+    color: rgb(244,245,240);
     /*border-radius: 8px;*/
     float: right;
     margin-left: 8px;
@@ -445,7 +445,6 @@
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     padding: 8px 16px;
     border:0;
-    cursor: pointer;
 }
 
 #CharCountDiv {
@@ -470,15 +469,14 @@
 
 .add-comment-btn:hover {
     background-color: #1FBBD1;
-    color: #fff;
+
 }
 
 
 .add-comment-btn:disabled {
-    color: #fff;
-    background-color: #7fb596;
-    background-image: none;
-    border: solid 1px transparent;
+    color: #f8f8f8;
+    background-color: #bcbcbc;
+
 }
 
 
@@ -529,7 +527,7 @@
 .comment-user-name {
     font-size: 14px;
     font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
-    color:#1FBBD1;
+    color:#5FC0A5;
     white-space: nowrap;
     cursor: pointer;
 }
@@ -562,12 +560,12 @@
     margin: 0px 8px;
     border: none;
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    color: #5FC0A5;
+    color: #1FBBD1;
     background-color: transparent;
 }
 
 .reply-btn.disabled {
-    color: gray;
+    color: #bcbcbc;
 }
 
 .nested-row {
@@ -780,7 +778,7 @@
 
 .more-comments-row a {
     font-family: 'Gotham Rounded', sans-serif;
-    color:rgb(0,120,248);
+    color:#1FBBD1);
     text-decoration: underline;
     cursor: pointer;
 

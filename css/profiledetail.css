@@ -98,7 +98,7 @@
 
 .default-button {
     background-color: #3F2B2F;
-    color: #fff;
+    color: rgb(244,245,240);
     /*border-radius: 8px;*/
     font-size:16px;
     font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
@@ -109,21 +109,18 @@
 
 .default-button:hover {
     background-color: #1FBBD1;
-    color: #fff;
+
 }
 
 .default-button:disabled {
-    color: #eee;
-    background-color: #3F2B2F;
-    background-image: none;
-    border: 0;
+    color: #f8f8f8;
+    background-color: #bcbcbc;
+
 }
 
 .small-button:disabled {
-    color: #CCCCCC;
-    background-color: #999999;
-    background-image: none;
-    border: solid 1px #999999;
+    color: #f8f8f8;
+    background-color: #bcbcbc;
 }
 
 

@@ -242,7 +242,7 @@ define('blahgua_base',
         ga('send', 'event', 'crash', 'crash', "GlobalReset", 1);
         clearInterval(G.BlahsMovingTimer);
         clearInterval(G.ViewerUpdateTimer);
-        if (confirm("An error occurred and Blahgua will reload.  Do you want to clear cookies as well?")) {
+        if (confirm("An error occurred and Heard will reload.  Do you want to clear cookies as well?")) {
             $.removeCookie("loginkey");
         }
 
@@ -749,7 +749,7 @@ define('blahgua_base',
                 "<li id='ShowHistoryItem'>History</li>" +
                 "<li id='ShowStatsItem'>Stats</li>" +
                 "<li class='divider'></li>" +
-                "<li id='ShowAboutItem'>About blahgua</li>" +
+                "<li id='ShowAboutItem'>About Heard</li>" +
                 "<li class='divider'></li>" +
                 "<li id='LogOutItem'>Sign out</li>" +
                 "</ul></div></div>";
@@ -786,7 +786,7 @@ define('blahgua_base',
             });
             $("#ShowAboutItem").click(function (theEvent) {
                 DismissAll();
-                window.open("http://www.blahgua.com/about.html");
+                window.open("http://www.goheard.com");
             });
             $("#LogOutItem").click(function (theEvent) {
                 DismissAll();

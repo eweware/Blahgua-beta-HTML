@@ -109,7 +109,7 @@ define('badges',
         newHTML += "<div style='margin-top:1em'>Email Address: ";
         newHTML += "<input id='ba_e' type='text' size='30'/>";
         newHTML += "<p style='margin:1em 2em'>";
-        newHTML += "<b>Privacy Statement:</b> Only badges (not your email address) will be sent to blahgua.</p>";
+        newHTML += "<b>Privacy Statement:</b> Only badges (not your email address) will be sent to Heard.</p>";
         newHTML += "<div style='margin-top: 1em'>";
         newHTML += "<input type='hidden' id='ba_end' name='end' value='http://www.badge-authority.net/v1'/>";
         newHTML += "<input type='hidden' id='ba_tk' name='tk' value='blahgua.comt1UmDzCJeudWBUipW-yia4BVfmc'/>";
