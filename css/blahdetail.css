@@ -201,7 +201,7 @@
     position:relative;
     z-index:1;
     background-image: url('../img/stats_checked.png');
-    margin-right: 5%;
+
 
 }
 .BlahBtnSelected.footer-stats-btn:hover {

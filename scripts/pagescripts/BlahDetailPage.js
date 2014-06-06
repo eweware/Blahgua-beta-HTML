@@ -163,7 +163,8 @@ define('BlahDetailPage',
         };
 
         var SetBlahDetailPage = function(whichPage) {
-            $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
+            if (whichPage == G.BlahFullItem.curPage)
+                return;
             ga('send', 'pageview', {
                 'page': '/blah/' + whichPage,
                 'title': G.CurrentBlah._id

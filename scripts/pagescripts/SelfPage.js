@@ -80,7 +80,8 @@ define('SelfPage',
 
 
         var SetSelfDetailPage = function(whichPage) {
-            $(".BlahPageFooter .BlahButton").removeClass("BlahBtnSelected");
+            if (whichPage == G.BlahFullItem.curPage)
+                return;
             var basePage;
             ga('send', 'pageview', {
                 'page': '/self/' + whichPage,
