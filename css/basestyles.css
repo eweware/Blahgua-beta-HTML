@@ -32,15 +32,14 @@ input:not([type='checkbox']) {
     transition: all 0.15s ease-in-out;
     -webkit-transition: all 0.15s ease-in-out;
     -moz-transition: all 0.15s ease-in-out;
-    width: 97%;
-    margin-left:0;
+
 }
 
 input:not([type='checkbox']):focus {
     border: solid 1px rgb(125, 181, 227);
-    /*box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
-    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
-    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);*/
+    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(31,187, 209,.6);
+    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(31,187, 209,.6);
+    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(31,187, 209,.6);
     background-color: rgb(255,255,255);
 
 }
@@ -708,7 +707,7 @@ color:rgb(244,245,240);
 }
 
 .promote-btn.checked {
-    background-image: url('../img/blue_promote.png');
+    background-image: url('../img/green_promote.png');
 }
 
 .demote-btn {
