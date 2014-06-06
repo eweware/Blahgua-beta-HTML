@@ -321,13 +321,14 @@
     width:100%;
 }
 
-.FullBlahTableFooter td {
-    width:0;
-}
 
 .footer-button {
-    width:35%;
     text-align: center;
+}
+
+.footer-button.right {
+    float: right;
+    margin: 12px 8px 0px 8px;
 }
 
 .blah-body-divider {
