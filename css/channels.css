@@ -116,7 +116,7 @@
     background-image: linear-gradient(rgb(255,150,110),rgb(248,120,88));*/
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 18px;
     border-style: none;
     height: 48px;
@@ -180,7 +180,7 @@
 }
 
 .channel-description {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size:14px;
     width:100%;
     line-height:18px;
@@ -207,7 +207,7 @@
 .channel-menu-title {
     background-color: rgb(244,245,240);
     color: rgb(32,32,32);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 20px;
     padding: 2px 10px;
     text-align:left;
@@ -217,7 +217,7 @@
 .instant-menu {
     position: absolute;
     background-color: #3F2B2F;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 20px;
     right: -140px;
     top: 0px;
@@ -249,8 +249,7 @@
 
 .instant-menu li {
     padding:4px 10px;
-    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
-    font-weight:"book";
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     color: #fff;
     cursor: pointer;
 

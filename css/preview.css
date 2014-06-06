@@ -11,10 +11,9 @@
 
 .BlahPreviewHeadline {
     font-size:24px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
     width:100%;
     text-align:center;
-    font-weight:bold;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
     word-wrap: break-word;
@@ -73,7 +72,7 @@
     padding-left:12px;
     font-size:24px;
     color:rgb(255,255,255);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
 }
 
 .PreviewViewerCount {
@@ -82,7 +81,7 @@
     padding-right:12px;
     font-size:24px;
     color:rgb(255,255,255);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding-left:4px;
 }
 
@@ -93,7 +92,7 @@
 
 .BlahPreviewBody {
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     width:100%;
     padding:16px;
 

@@ -2,7 +2,7 @@
 
 .BlahTextDiv {
 
-    font-family: 'Gotham Rounded',"HelveticaNeue-CondensedBold", "Helvetica Neue", sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded',"HelveticaNeue-CondensedBold", "Helvetica Neue", sans-serif;
     overflow:hidden;
     padding-left: 8px;
     padding-right: 8px;
@@ -261,7 +261,7 @@
 
 
 .no-blahs-in-channel-warning {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 20px;
     background-color: orange;
     border-radius: 8px;
@@ -272,7 +272,7 @@
 }
 
 .no-blahs-in-channel-warning a {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 18px;
     background-color: rgb(255,255,255);
     border-radius: 8px;

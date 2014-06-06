@@ -65,7 +65,7 @@
 }
 
 .blah-headline-row {
-    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     /*border-top-left-radius: 8px;*/
     /*border-top-right-radius: 8px;*/
     background-color: #5FC0A5;
@@ -93,8 +93,7 @@
 .fullBlahgerName {
     font-size:30px;
     line-height: 40px;
-    font-weight: bold;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     color:rgb(244,245,240);
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -105,7 +104,7 @@
 .fullBlahSpeechAct {
     font-size:20px;
     line-height: 28px;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     color:#fff;
 }
 
@@ -128,7 +127,7 @@
 
 .BlahFullHeadline {
     font-size: 24px;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     width: 100%;
     text-align: left;
     margin: 16px 16px 16px 16px;
@@ -140,7 +139,7 @@
 
 }
 .BlahButton {
-    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     width:100%;
     height:40px;
     border:none;
@@ -156,7 +155,7 @@
 }
 
 .BlahBtnSelected {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
@@ -170,7 +169,7 @@
 }
 
 .BlahBtnSelected.footer-summary-btn {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
@@ -183,7 +182,7 @@
 }
 
 .BlahBtnSelected.footer-comments-btn {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
@@ -196,7 +195,7 @@
 }
 
 .BlahBtnSelected.footer-stats-btn {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     color: #fff;
     position:relative;
@@ -209,7 +208,7 @@
     background-image: url('../img/stats_checked.png');
 }
 #SelfProfileBtn.BlahButton.Button-left {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     width: 36px;
     height: 36px;
@@ -225,7 +224,7 @@
     background-image: url('../img/profile-1.png');
     }
 #SelfHistoryBtn.BlahButton {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     width: 36px;
     height: 36px;
@@ -240,7 +239,7 @@
     background-image: url('../img/summary.png');
     }
 #SelfStatsBtn.BlahButton.Button-right {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     /*background-color: #1FBBD1;*/
     width: 36px;
     height: 36px;
@@ -287,7 +286,7 @@
     padding-left:4px;
     font-size:12px;
     line-height: 18px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     text-align: left;
     float:left;
 }
@@ -295,7 +294,7 @@
 .FullBlahDateStr {
     color:  rgb(32,32,32);
     font-size:12px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
     padding-right:4px;
     text-align: right;
@@ -341,7 +340,7 @@
 .BlahFullBody {
     font-size:14px;
     color: rgb(32,32,32);
-    font-family: 'Gotham Rounded','HelveticaNeue-Light','HelveticaNeue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-Light','HelveticaNeue', sans-serif;
     width:100%;
     word-wrap: break-word;
     padding-left:16px;
@@ -409,7 +408,7 @@
     color: rgb(32,32,32);
     background-color: rgb(254,254,254);
     font-size: 14px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 4px;
     border:1px solid #999999;
     /*border-radius: 6px;*/
@@ -440,7 +439,7 @@
     margin-left: 8px;
     margin-right: 6px;
     font-size:16px;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     padding: 8px 16px;
     border:0;
 }
@@ -448,7 +447,7 @@
 #CharCountDiv {
     float:right;
     margin-top:8px;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     font-size: 14px;
 }
 
@@ -498,7 +497,7 @@
     color: rgb(32,32,32);
     background-color: rgb(244,245,240);
     font-size: 16px;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     display: block;
     margin-left: 16px;
     margin-right: 16px;
@@ -524,7 +523,7 @@
 
 .comment-user-name {
     font-size: 14px;
-    font-family: 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     color:#5FC0A5;
     white-space: nowrap;
     cursor: pointer;
@@ -533,7 +532,7 @@
 
 .comment-date {
     font-size: 12px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
     color: rgb(124,124,124);
     font-size: 12px;
@@ -557,7 +556,7 @@
     float: right;
     margin: 0px 8px;
     border: none;
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     color: #1FBBD1;
     background-color: transparent;
     cursor: pointer;
@@ -588,7 +587,7 @@
 }
 
 .image-preview.comment-preview {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     display: inline-block;
     vertical-align: middle;
     width: 64px;
@@ -603,7 +602,7 @@
     text-align: right;
     color: #202020;
     padding-right: 16px;
-    font-family: 'Gotham Rounded' sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded' sans-serif;
     font-size: 14px;
 }
 
@@ -618,7 +617,7 @@
 .comment-text {
     color:  rgb(32,32,32);
     font-size: 12px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     word-break:break-all;
     word-break: break-word;
     word-wrap: break-word ;
@@ -639,14 +638,14 @@
 .comment-user-description {
     display: none;
     font-size: 11px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
     color: rgb(124,124,124);
 }
 
 .comment-badges {
     font-size: 11px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
     color: rgb(124,124,124);
 }
@@ -654,7 +653,7 @@
 .comment-vote-wrapper {
     color:rgb(124,124,124);
     font-size: 12px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
 }
 
 .comment-badge-image {
@@ -725,7 +724,7 @@
 .inline-button {
     background: rgb(0, 179, 18);
     color: rgb(255,255,255);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 18px;
     border-style: none;
     /*border-radius: 8px;*/
@@ -751,7 +750,7 @@
 
 
 .conversion-div {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 24px;
     text-align: left;
     margin: 8px;
@@ -777,7 +776,7 @@
 }
 
 .more-comments-row a {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color:#1FBBD1);
     text-decoration: underline;
     cursor: pointer;
@@ -786,15 +785,14 @@
 
 .top-comments-header {
     text-align: left;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     border-bottom: 1px rgb(124,124,124) solid;
  }
 
 .top-comments-header div {
     padding:8px 0px 4px 8px;
-    font-weight: bold;
     color: rgb(32,32,32);
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
 }
 
 .ExtraInfoArea {

@@ -45,14 +45,14 @@
     text-align: center;
     background-color: #000000;
     font-size: 18pt;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding-top: 4px;
     padding-bottom: 4px;
     color: #fff;
 }
 
 .badgeholder {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     border-color: #999999;
     border-top-style: solid;
     border-top-width: 1px;
@@ -64,7 +64,7 @@
 
 .badgename {
     font-size: 14px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
 }
 
 .badgenamespan {
@@ -121,7 +121,7 @@
 }
 
 .badge-name-span {
-    font-family: 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     color:#202020;
     font-size:12pt;
 }

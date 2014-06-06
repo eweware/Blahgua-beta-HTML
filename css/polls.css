@@ -15,21 +15,20 @@
     text-align: center;
     margin-top: 8px;
     font-size: 14pt;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color: #202020;
 }
 
 .poll-prompt {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
     font-size:18pt;
     color:rgb(32,32,32);
-    font-weight:bold;
     text-align: center;
 }
 
 .poll-result-row .label {
     text-decoration: underline;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size:14px;
     margin: auto 0;
     color: #202020;
@@ -53,7 +52,7 @@
 
 .poll-title {
     float: left;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 11pt;
     color: rgb(32,32,32);
     padding-left: 8px;
@@ -81,7 +80,7 @@
 .poll-description {
     text-align: left;
     width: 80%;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 11pt;
     font-style: italic;
     color: #999999;
@@ -92,7 +91,7 @@
 }
 
 .poll-vote-text {
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 12px;
     margin-right: 0px;
     height: 30px;
@@ -143,7 +142,7 @@ poll-result-row .description {
     background-repeat:no-repeat;
     padding-left: 35px;
     line-height: 25px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     margin-top: 10px;
 }
 

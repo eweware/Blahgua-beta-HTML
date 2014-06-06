@@ -12,7 +12,7 @@
 .sign-in {
     color:  #3F2B2F;
     text-align: center;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding-left: 8px;
     padding-top: 8px;
     /*background-color: #fff;*/
@@ -44,7 +44,7 @@
 
 .recovery-instructions {
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color:rgb(244,245,240);
 }
 .toggle-container {
@@ -80,9 +80,8 @@
 
 .label-group label {
     color:rgb(244,245,240);
-    font-weight: bold;
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
     text-align: right;
 }
 
@@ -97,7 +96,7 @@
 .checkbox-group label {
     color:rgb(244,245,240);
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     text-align: left;
 }
 
@@ -123,7 +122,7 @@
     border-width: 0px;
     border-radius: 0px;
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     height:36px;
     padding-left:8px;
     padding-right:8px;
@@ -185,7 +184,7 @@
     /*border-radius: 8px;*/
     border: none;
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
     width: 200px;
 }
@@ -213,7 +212,7 @@
     border-width: 0px;
     /*border-radius: 0px;*/
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 0px 0px;
 }
 
@@ -239,7 +238,7 @@
     color: rgb(244,245,240);
     /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
     width: 200px;
 }
@@ -282,7 +281,7 @@
 .error-msg-span {
     /*border-radius: 8px;*/
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color:rgb(32,32,32);
     background-color: #96C648;
     padding: 4px 16px;
@@ -306,7 +305,7 @@
     border-width: 0px;
     border-radius: 0px;
     font-size:16px;
-    font-family: 'Gotham Rounded', sans-serif;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 0px 0px;
     line-height: 2em;
 }
