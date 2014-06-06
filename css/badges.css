@@ -10,7 +10,7 @@
     max-width: 512px;
     border-style: solid;
     border-width: 4px;
-    border-color: #1FBBD1;
+    border-color: #000000;
     z-index: 30;
     overflow-x: hidden;
     overflow-y: hidden;
@@ -43,7 +43,7 @@
 .BadgeTitleBar {
     width: 100%;
     text-align: center;
-    background-color: #1FBBD1;
+    background-color: #000000;
     font-size: 18pt;
     font-family: 'Gotham Rounded', sans-serif;
     padding-top: 4px;

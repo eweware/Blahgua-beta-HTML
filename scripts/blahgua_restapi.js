@@ -89,7 +89,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
                                 console.log("Error:  User was supposed to be signed in but server said they were signed out.")
                                 location.reload();
                             }}, function(theErr) {
-                                alert("Blahgua is down.  Try to refresh the page or wait a while.");
+                                alert("Heard is down.  Try refreshing the page.");
                         });
                     } else {
                         // system is consistent, thinking no one is signed in.

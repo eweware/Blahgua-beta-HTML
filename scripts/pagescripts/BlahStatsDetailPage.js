@@ -99,7 +99,7 @@ define('BlahStatsDetailPage',
 
             $("#BlahStandingDiv").highcharts({
                 title: {
-                    text:"blahgua Score",
+                    text:"Heard Score",
                     align:"left",
                     style:{fontFamily:"Arimo"}
                 },
