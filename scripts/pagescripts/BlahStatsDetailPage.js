@@ -39,7 +39,7 @@ define('BlahStatsDetailPage',
                 $("#FullBlahStatsContainer").css({ 'overflow-x': 'visible' , 'overflow-y': 'visible'});
             } else {
                 var curTop = document.getElementById("FullBlahStatsContainer").getBoundingClientRect().top;
-                var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+                var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
                 var maxSize = curBottom - curTop + "px";
                 $("#FullBlahStatsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
             }

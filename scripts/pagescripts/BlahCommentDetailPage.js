@@ -141,7 +141,7 @@ define('BlahCommentDetailPage',
                 $("#FullBlahCommentsContainer").css({ 'overflow-x': 'visible' , 'overflow-y': 'visible'});
             } else {
                 var curTop = document.getElementById("FullBlahCommentsContainer").getBoundingClientRect().top;
-                var curBottom = document.getElementById("BlahPageFooter").getBoundingClientRect().top;
+                var curBottom = document.getElementById("FullBlahBlahTableFooter").getBoundingClientRect().top;
                 var maxSize = curBottom - curTop + "px";
                 $("#FullBlahCommentsContainer").css({ 'max-height': maxSize , 'min-height': maxSize});
             }

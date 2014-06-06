@@ -47,7 +47,7 @@ define('BlahBodyDetailPage',
 
             // add share this button if we didn't already do it
 
-            if (("#ShareBlah").html() == "")
+            if ($("#ShareBlah").html() == "")
             {
                 var shareURL;
                 shareURL = G.GetItemImage(G.CurrentBlah, "D");
