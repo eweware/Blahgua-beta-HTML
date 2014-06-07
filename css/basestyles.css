@@ -824,6 +824,19 @@ color:rgb(244,245,240);
 }
 
 
+.footer-history-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/pen_white.png');
+}
+
+.footer-history-btn:hover {
+
+    background-image: url('../img/pen_blue.png');
+}
+
 .footer-comments-btn {
     width:36px;
     height:36px;
@@ -836,6 +849,23 @@ color:rgb(244,245,240);
 
     background-image: url('../img/comments_blue.png');
 }
+
+.footer-selfprofile-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/fingerprint_white.png');
+}
+
+.footer-selfprofile-btn:hover {
+
+    background-image: url('../img/fingerprint_blue.png');
+}
+
+
+
+
 
 .footer-stats-btn {
     width:36px;

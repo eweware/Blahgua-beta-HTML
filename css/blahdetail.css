@@ -193,6 +193,35 @@
 .BlahBtnSelected.footer-comments-btn:hover {
     background-image: url('../img/comments_checked.png');
 }
+.BlahBtnSelected.footer-history-btn {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    /*background-color: #1FBBD1;*/
+    color: #fff;
+    position:relative;
+    z-index:1;
+    background-image: url('../img/pen_green.png');
+
+}
+.BlahBtnSelected.footer-history-btn:hover {
+    background-image: url('../img/pen_green.png');
+}
+
+.BlahBtnSelected.footer-selfprofile-btn {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    /*background-color: #1FBBD1;*/
+    color: #fff;
+    position:relative;
+    z-index:1;
+    background-image: url('../img/fingerprint_green.png');
+
+}
+.BlahBtnSelected.footer-selfprofile-btn:hover {
+    background-image: url('../img/fingerprint_green.png');
+}
+
+
+
+
 
 .BlahBtnSelected.footer-stats-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
