@@ -37,7 +37,7 @@ define('BlahDetailPage',
                 $("#BlahPageDiv").css({"bottom":"0px"});
             } else {
                 $("#BlahPageFooter").css({"height":"60px"});
-                $("#BlahPageDiv").css({"bottom":"60px"});
+                $("#BlahPageDiv").css({"bottom":"70px"});
             }
             G.BlahFullItem.curPage = "";    // ensure that we have the initial page blank
             UpdateBlahPage();
