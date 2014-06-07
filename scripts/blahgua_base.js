@@ -1117,7 +1117,6 @@ define('blahgua_base',
 
         var arrowDiv = document.createElement("div");
         arrowDiv.className = "designator-arrow";
-        arrowDiv.style.borderBottomColor = GetBlahTypeColorFromId(theBlah.Y);
         newDiv.appendChild(arrowDiv);
 
         return newDiv;
@@ -1170,6 +1169,9 @@ define('blahgua_base',
         if (G.CurrentUser && (theBlah.A == G.CurrentUser._id)) {
             // TO DO:  Indicator of user's own blah
             //$(newEl).addClass("users-own-blah");
+            var usersOwnPostDiv = document.createElement("div");
+            usersOwnPostDiv.className = "users-own-blah";
+            newEl.appendChild(usersOwnPostDiv);
         }
 
         var holderDiv = document.createElement("div");
