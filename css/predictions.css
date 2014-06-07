@@ -92,7 +92,7 @@
 }
 
 [data-predict-vote=y] predict-indicator-span {
-    background-color: rgb(122, 208, 0);
+    background-color: #94D500);
 }
 
 [data-predict-vote=n] predict-indicator-span {
@@ -100,7 +100,7 @@
 }
 
 [data-predict-vote=u] predict-indicator-span {
-    background-color: rgb(0,191,213);
+    background-color: #00BFD5;
 }
 
 .predict-input {
