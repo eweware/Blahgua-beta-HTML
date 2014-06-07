@@ -22,7 +22,7 @@
 .poll-prompt {
     font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
     font-size:18pt;
-    color:rgb(32,32,32);
+    color:rgb(63,42,46);
     text-align: center;
 }
 
@@ -54,7 +54,7 @@
     float: left;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 11pt;
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     padding-left: 8px;
     padding-right: 8px;
 }
@@ -69,7 +69,7 @@
 
 .poll-chart-div {
     text-align: center;
-    background-color: #0058F8;
+    background-color: #00BFD5;
     height: 16px;
     display: inline-block;
     position: relative;
@@ -92,10 +92,10 @@
 
 .poll-vote-text {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 0px;
     height: 30px;
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     margin-left: 6px;
 }
 

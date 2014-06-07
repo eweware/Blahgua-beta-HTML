@@ -7,7 +7,7 @@
     height:48px;
     z-index:10;
     background-color:#3F2B2F;
-    color:#5FC0A5;
+    color:#3fd4ad;
     font-family: 'Merriweather', sans-serif;
     font-size:26px;
     font-weight:300;
@@ -48,7 +48,7 @@
     border-right-color:rgba(131,135,154,.4);
     border-right-width:1px;
     border-right-style:solid;*/
-    background-color: #5FC0A5;
+    background-color: #3fd4ad;
     color: #fff;
     font-weight:bold;
     text-align:center;
@@ -63,7 +63,7 @@
 }
 
 .ChannelOptions:hover {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
     /*background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -ms-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(131,135,154)),color-stop(100%,rgb(105,108,123)));
@@ -88,7 +88,7 @@
 }
 
 .sign-in-button {
-    color:  #5FC0A5;
+    color:  #3fd4ad;
     font-family: 'Merriweather', sans-serif;
     font-size: 18px;
     font-weight: 300;
@@ -108,12 +108,12 @@
 .sign-in-comment-button
 {
     background-color: #3F2B2F;
-    /*background-image: -moz-linear-gradient(rgb(255,150,110),rgb(248,120,88));
-    background-image: -ms-linear-gradient(rgb(255,150,110),rgb(248,120,88));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,150,110)),color-stop(100%,rgb(248,120,88)));
-    background-image: -webkit-linear-gradient(rgb(255,150,110),rgb(248,120,88));
-    background-image: -o-linear-gradient(rgb(255,150,110),rgb(248,120,88));
-    background-image: linear-gradient(rgb(255,150,110),rgb(248,120,88));*/
+    /*background-image: -moz-linear-gradient(rgb(255,150,110),rgb(231,61,80));
+    background-image: -ms-linear-gradient(rgb(255,150,110),rgb(231,61,80));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(255,150,110)),color-stop(100%,rgb(231,61,80)));
+    background-image: -webkit-linear-gradient(rgb(255,150,110),rgb(231,61,80));
+    background-image: -o-linear-gradient(rgb(255,150,110),rgb(231,61,80));
+    background-image: linear-gradient(rgb(255,150,110),rgb(231,61,80));*/
     border: 1px solid rgb(88,90,103);
     color: rgb(244,245,240);
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
@@ -126,13 +126,13 @@
 }
 
 .sign-in-comment-button:hover {
-    background-color: #1FBBD1;
-    /*background-image: -moz-linear-gradient(rgb(248,120,88),rgb(211,102,75));
-    background-image: -ms-linear-gradient(rgb(248,120,88),rgb(211,102,75));
-    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(248,120,88)),color-stop(100%,rgb(211,102,75)));
-    background-image: -webkit-linear-gradient(rgb(248,120,88),rgb(211,102,75));
-    background-image: -o-linear-gradient(rgb(248,120,88),rgb(211,102,75));
-    background-image: linear-gradient(rgb(248,120,88),rgb(211,102,75));*/
+    background-color: #00BFD5;
+    /*background-image: -moz-linear-gradient(rgb(231,61,80),rgb(211,102,75));
+    background-image: -ms-linear-gradient(rgb(231,61,80),rgb(211,102,75));
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(231,61,80)),color-stop(100%,rgb(211,102,75)));
+    background-image: -webkit-linear-gradient(rgb(231,61,80),rgb(211,102,75));
+    background-image: -o-linear-gradient(rgb(231,61,80),rgb(211,102,75));
+    background-image: linear-gradient(rgb(231,61,80),rgb(211,102,75));*/
     color:  rgb(244,245,240);
 }
 
@@ -197,7 +197,7 @@
 .signin-message {
     font-size:18px;
     background-color: orange;
-    color:rgb(32,32,32);
+    color:rgb(63,42,46);
     margin: 4px;
     padding: 8px;
     width:80%;
@@ -206,7 +206,7 @@
 
 .channel-menu-title {
     background-color: rgb(244,245,240);
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-size: 20px;
     padding: 2px 10px;
@@ -244,7 +244,7 @@
     padding-top: 5px;
     font-size: 16px;
     margin-bottom: 10px;
-    color: #1FBBD1;
+    color: #00BFD5;
 }
 
 .instant-menu li {
@@ -256,7 +256,7 @@
 }
 
 .instant-menu li:hover {
-    background-color: #5FC0A5;
+    background-color: #3fd4ad;
 }
 
 .instant-menu li.divider {
@@ -269,14 +269,14 @@
     cursor: default;
 }
 .instant-menu li#LogOutItem:hover {
-    background-color: #E54054;
+    background-color: #e73d50;
 }
 .instant-menu li.divider:hover {
     background-color: transparent;
 }
 
 #ChannelList>tbody>tr:hover {
-    background-color: #5FC0A5;
+    background-color: #3fd4ad;
 }
 
 #ChannelList tbody td {

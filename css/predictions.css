@@ -66,12 +66,12 @@
 }
 
 .predict-indicator-span {
-    background-color: rgb(248,120,88);
+    background-color: rgb(231,61,80);
     height:18px;
     width:0;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
-    font-size: 12px;
+    font-size: 13px;
     display:inline-block;
 }
 
@@ -92,15 +92,15 @@
 }
 
 [data-predict-vote=y] predict-indicator-span {
-    background-color: rgb(122, 208, 0);
+    background-color: #94D500);
 }
 
 [data-predict-vote=n] predict-indicator-span {
-    background-color: rgb(248,120,88);
+    background-color: rgb(231,61,80);
 }
 
 [data-predict-vote=u] predict-indicator-span {
-    background-color: rgb(125,181,227);
+    background-color: #00BFD5;
 }
 
 .predict-input {
