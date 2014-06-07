@@ -1167,8 +1167,10 @@ define('blahgua_base',
                 break;
         }
 
-        if (G.CurrentUser && (theBlah.A == G.CurrentUser._id))
-            $(newEl).addClass("users-own-blah");
+        if (G.CurrentUser && (theBlah.A == G.CurrentUser._id)) {
+            // TO DO:  Indicator of user's own blah
+            //$(newEl).addClass("users-own-blah");
+        }
 
         var holderDiv = document.createElement("div");
         $(holderDiv).addClass("blahdiv-lowerleft-box");
@@ -1684,20 +1686,23 @@ define('blahgua_base',
         var theBlah = GetNextMatchingBlah(2);
         var newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
+        newBlahEl.style.top = "0px";
         newRowEl.appendChild(newBlahEl);
 
         curLeft += G.MediumTileWidth + K.InterBlahGutter;
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
-        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
+        newBlahEl.style.top = "0px";
         newRowEl.appendChild(newBlahEl);
+        newRowEl.setAttribute("rowType", "MSS");
+
 
         theBlah = GetNextMatchingBlah(3);
         newBlahEl = CreateElementForBlah(theBlah);
         newBlahEl.style.left = curLeft + "px";
+        newBlahEl.style.top = (G.SmallTileHeight + K.InterBlahGutter) + "px";
         newRowEl.appendChild(newBlahEl);
-        newRowEl.setAttribute("rowType", "MSS");
     };
 
     var ResizeMSSRow = function(theRow) {
