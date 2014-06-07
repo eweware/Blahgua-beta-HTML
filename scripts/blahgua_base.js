@@ -922,6 +922,7 @@ define('blahgua_base',
             blahPageBase = "BlahDetailPageShort.html"
 
         $("#BlahPreviewExtra").empty();
+
         require(["BlahDetailPage"], function(BlahDetailPage) {
             $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + blahPageBase + " #FullBlahDiv", function() {
                 ga('send', 'pageview', {
