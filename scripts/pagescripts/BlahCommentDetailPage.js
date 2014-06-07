@@ -226,7 +226,7 @@ define('BlahCommentDetailPage',
                 document.getElementById("AddCommentBtn").disabled = tooManyOrFew;
             var color = "rgb(124,124,124)";
             if (tooManyOrFew)
-                color = "rgb(248,120,88)";
+                color = "rgb(231,61,80)";
             $("#CharCountDiv").text(1500 - charCount).css({"color": color});
             exports.CurrentCommentText = textField.value;
             return tooManyOrFew;

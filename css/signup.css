@@ -46,7 +46,7 @@
     font-size:16px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color:#fff;
-    background-color: #E54054;
+    background-color: #e73d50;
     padding: 5px;
 }
 .toggle-container {
@@ -55,7 +55,7 @@
     padding-top: 8px;
     margin:0px;
     height: 250px;
-    /*background-color:#5FC0A5*/
+    /*background-color:#3fd4ad*/
 }
 
 .toggle-content table {
@@ -162,12 +162,12 @@
 }
 
 .toggle-active {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
     color:rgb(244,245,240);
 }
 
@@ -192,7 +192,7 @@
 }
 
 .action-btn:hover {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
    /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -246,7 +246,7 @@
 }
 
 .action-default:hover {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
    /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -265,7 +265,7 @@
 
 .inline-button.login-btn {
     background: rgb(244,245,240);
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
 }
 
 .inline-button.login-btn:hover {
@@ -284,7 +284,7 @@
     /*border-radius: 8px;*/
     font-size:16px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    color:rgb(32,32,32);
+    color:rgb(63,42,46);
     background-color: #96C648;
     padding: 4px 16px;
 
@@ -302,7 +302,7 @@
 
 .about-link {
     color: rgb(244,245,240);
-    /*background-color: #5FC0A5;*/
+    /*background-color: #3fd4ad;*/
     border-style:none;
     border-width: 0px;
     border-radius: 0px;

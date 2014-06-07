@@ -33,7 +33,7 @@
 }
 
 .BadgeDialog {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
     /*border-radius: 8px;*/
     margin: 8px;
     padding: 8px;
@@ -128,5 +128,5 @@
 
 .ie-apology {
     font-style: italic;
-    color: rgb(248,120,88);
+    color: rgb(231,61,80);
 }

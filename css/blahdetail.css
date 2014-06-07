@@ -45,7 +45,7 @@
     background-size:cover;
     /*border-style: solid;*/
     /*border-width: 1px;*/
-    /*border-color:rgb(32,32,32);*/
+    /*border-color:rgb(63,42,46);*/
     margin: 2px;
     margin-right: 16px;
     margin-left: 5px;
@@ -57,7 +57,7 @@
     border:0px;
     top:0px;
     width:100%;
-    background-color: #5FC0A5;
+    background-color: #3fd4ad;
 }
 
 .show-blah-bkgnd {
@@ -68,7 +68,7 @@
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
     /*border-top-left-radius: 8px;*/
     /*border-top-right-radius: 8px;*/
-    background-color: #5FC0A5;
+    background-color: #3fd4ad;
 }
 
 .blah-page {
@@ -113,7 +113,7 @@
     height:32px;
     border:none;
     background-color: rgb(255,255,255);
-    color:rgb(248,120,88);
+    color:rgb(231,61,80);
     font-size:18px;
     /*border-radius: 6px;*/
     margin:8px;
@@ -156,21 +156,21 @@
 
 .BlahBtnSelected {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
 
 }
 .BlahBtnSelected:hover{
-    /*background-color: #E54054;*/
+    /*background-color: #e73d50;*/
     color: #fff;
 
 }
 
 .BlahBtnSelected.footer-summary-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
@@ -183,7 +183,7 @@
 
 .BlahBtnSelected.footer-comments-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
@@ -195,7 +195,7 @@
 }
 .BlahBtnSelected.footer-history-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
@@ -208,7 +208,7 @@
 
 .BlahBtnSelected.footer-selfprofile-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
@@ -225,7 +225,7 @@
 
 .BlahBtnSelected.footer-stats-btn {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     color: #fff;
     position:relative;
     z-index:1;
@@ -238,7 +238,7 @@
 }
 #SelfProfileBtn.BlahButton.Button-left {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     width: 36px;
     height: 36px;
     margin-top: 15px;
@@ -254,7 +254,7 @@
     }
 #SelfHistoryBtn.BlahButton {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     width: 36px;
     height: 36px;
     margin-top: 15px;
@@ -269,7 +269,7 @@
     }
 #SelfStatsBtn.BlahButton.Button-right {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    /*background-color: #1FBBD1;*/
+    /*background-color: #00BFD5;*/
     width: 36px;
     height: 36px;
     margin-top: 15px;
@@ -311,9 +311,9 @@
 
 
 .FullBlahProfileString {
-    color:  rgb(32,32,32);
+    color:  rgb(63,42,46);
     padding-left:4px;
-    font-size:12px;
+    font-size:13px;
     line-height: 18px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     text-align: left;
@@ -321,8 +321,8 @@
 }
 
 .FullBlahDateStr {
-    color:  rgb(32,32,32);
-    font-size:12px;
+    color:  rgb(63,42,46);
+    font-size:13px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     font-style: italic;
     padding-right:4px;
@@ -370,7 +370,7 @@
 
 .BlahFullBody {
     font-size:14px;
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-Light','HelveticaNeue', sans-serif;
     width:100%;
     word-wrap: break-word;
@@ -436,7 +436,7 @@
 }
 
 .comment-text-area {
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     background-color: rgb(254,254,254);
     font-size: 14px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
@@ -455,10 +455,10 @@
 }
 
 .comment-text-area:focus {
-    border: solid 1px rgb(125, 181, 227);
-    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
-    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
-    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,181,227,.6);
+    border: solid 1px rgb(0,191,213);
+    box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(0,191,213,.6);
+    -webkit-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(0,191,213,.6);
+    -moz-box-shadow: 0 1px 3px rgba(153,153,153,.05), 0 0 8px rgba(125,191,213,.6);
     background-color: rgb(255,255,255);
 }
 
@@ -496,7 +496,7 @@
 
 
 .add-comment-btn:hover {
-    background-color: #1FBBD1;
+    background-color: #00BFD5;
 
 }
 
@@ -525,7 +525,7 @@
     padding: 16px;
     /*border-radius: 8px;*/
     border-style: none;
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     background-color: rgb(244,245,240);
     font-size: 16px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
@@ -554,20 +554,19 @@
 
 .comment-user-name {
     font-size: 14px;
-    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
-    color:#5FC0A5;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
+    color:#3fd4ad;
     white-space: nowrap;
     cursor: pointer;
 }
 
 
 .comment-date {
-    font-size: 12px;
-    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    font-size: 13px;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
     font-style: italic;
-    font-weight: bold;
     color: rgb(124,124,124);
-    font-size: 12px;
+    font-size: 13px;
     white-space: nowrap;
     overflow: hidden;
     margin-left: 8px;
@@ -589,7 +588,7 @@
     margin: 0px 8px;
     border: none;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
-    color: #1FBBD1;
+    color: #00BFD5;
     background-color: transparent;
     cursor: pointer;
 }
@@ -647,10 +646,10 @@
 }
 
 .comment-text {
-    color:  rgb(32,32,32);
-    font-size: 12px;
+    color:  rgb(63,42,46);
+    font-size: 13px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    word-break:break-all;
+    word-break: break-all;
     word-break: break-word;
     word-wrap: break-word ;
     overflow-wrap: break-word;
@@ -684,7 +683,7 @@
 
 .comment-vote-wrapper {
     color:rgb(124,124,124);
-    font-size: 12px;
+    font-size: 13px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
 }
 
@@ -706,7 +705,7 @@
 
 .no-vote {
     font-style: italic;
-    font-size:12px;
+    font-size:13px;
 }
 
 .comment-vote {
@@ -767,12 +766,12 @@
 
 .inline-button:hover {
     background: rgb(0, 220, 22);
-    color:  rgb(32,32,32);
+    color:  rgb(63,42,46);
 }
 
 .inline-button.blah-closer {
-    background: rgb(125,181,227);
-    color: rgb(32,32,32);
+    background: rgb(0,191,213);
+    color: rgb(63,42,46);
 }
 
 .inline-button.blah-closer:hover {
@@ -787,7 +786,7 @@
     text-align: left;
     margin: 8px;
     background-color: rgb(250,250,247);
-    border: 0px solid rgb(32,32,32);
+    border: 0px solid rgb(63,42,46);
     padding-left: 8px;
     /*border-radius: 8px;*/
 }
@@ -809,7 +808,7 @@
 
 .more-comments-row a {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    color:#1FBBD1);
+    color:#00BFD5);
     text-decoration: underline;
     cursor: pointer;
 
@@ -823,7 +822,7 @@
 
 .top-comments-header div {
     padding:8px 0px 4px 8px;
-    color: rgb(32,32,32);
+    color: rgb(63,42,46);
     font-family: 'Gotham Rounded Medium', 'Gotham Rounded', sans-serif;
 }
 
