@@ -96,10 +96,10 @@ define('SignUpPage',
                     break;
                 case 401:
                     // incorrect password
-                    ShowErrorMessage("Cannot login. Check password.");
+                    ShowErrorMessage("Invalid password.");
                     break;
                 default:
-                    ShowErrorMessage("Login Failed. Check username and password.");
+                    ShowErrorMessage("Check username and password.");
             }
         };
 
