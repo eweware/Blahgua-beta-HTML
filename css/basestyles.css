@@ -110,7 +110,7 @@ li.divider:hover {
     display: block;
     width: 100%;
     text-align: center;
-    background-color: #000;
+    background-color: rgb(244,245,240);
     padding: 0px;
 }
 
