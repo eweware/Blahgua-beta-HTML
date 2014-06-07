@@ -71,8 +71,8 @@ define('SelfPageStats',
                     },
                     series: [{
                         type: 'bar',
-                        data: [{color: '#7db5e3', y: Math.floor(userStrength * 100)},
-                            {color: '#f8b800', y: Math.floor(userContro * 100)}]
+                        data: [{color: '#00BFD5', y: Math.floor(userStrength * 100)},
+                            {color: '#E73D50', y: Math.floor(userContro * 100)}]
                     }]
                 });
 
@@ -149,7 +149,7 @@ define('SelfPageStats',
                     title: {
                         text:"User Sentiment",
                         align:"left",
-                        style:{fontFamily:"Arimo"}
+                        style:{fontFamily:"Gotham Rounded Medium"}
                     },
                     plotOptions: {
                         series: {

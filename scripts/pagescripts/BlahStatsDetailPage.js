@@ -101,7 +101,7 @@ define('BlahStatsDetailPage',
                 title: {
                     text:"Heard Score",
                     align:"left",
-                    style:{fontFamily:"Arimo"}
+                    style:{fontFamily:"Gotham Rounded Medium"}
                 },
                 legend: {
                     enabled:false
@@ -144,7 +144,7 @@ define('BlahStatsDetailPage',
                 series: [{
                     type: 'bar',
                     pointWidth: 36,
-                    data: [{color: '#f87858', y: Math.floor(curStr * 100)}]
+                    data: [{color: '#00BFD5', y: Math.floor(curStr * 100)}]
                 }]
             });
             G.AppendChartMask("#BlahStandingDiv", "");
@@ -154,7 +154,7 @@ define('BlahStatsDetailPage',
                 title: {
                     text:"Promotes & Demotes",
                     align:"left",
-                    style:{fontFamily:"Arimo"}
+                    style:{fontFamily:"Gotham Rounded Medium"}
                 },
                 chart:{
                     backgroundColor: 'transparent'
@@ -188,8 +188,8 @@ define('BlahStatsDetailPage',
 
                 series: [{
                     type: 'bar',
-                    data: [{color: '#7ad000', y: uv},
-                        {color: '#f87858', y: dv}]
+                    data: [{color: '#94D500', y: uv},
+                        {color: '#E73D50', y: dv}]
 
                 }]
             });

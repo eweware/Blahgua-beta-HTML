@@ -161,9 +161,9 @@ define('stats',
                 title: {
                     text:chartTitle,
                     align:"left",
-                    style:{fontFamily:"Arimo"}
+                    style:{fontFamily:"Gotham Rounded Medium"}
                 },
-                colors: ["#7db5e3"],
+                colors: ["#00BFD5"],
                 chart: {
                     backgroundColor: 'transparent'
                 },
@@ -256,11 +256,11 @@ define('stats',
                     type: "column",
                     backgroundColor: 'transparent'
                 },
-                colors: ['#f87858', '#7ad000'],
+                colors: ['#E73D50', '#94D500'],
                 title: {
                     text:demoString,
                     align:"left",
-                    style:{fontFamily:"Arimo"}
+                    style:{fontFamily:"Gotham Rounded Medium"}
                 },
                 xAxis: {
                     categories:demoCat,
