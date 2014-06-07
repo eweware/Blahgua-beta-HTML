@@ -625,12 +625,12 @@ define('blahgua_base',
         }
 
 
-        var totalGutter = K.EdgeGutter * 2 + K.InterBlahGutter * 3;
+        var totalGutter = K.EdgeGutter * 2 + K.InterBlahGutter * 2;
 
         G.SmallTileWidth = Math.floor((desiredWidth - totalGutter) / 3);
 
         G.MediumTileWidth = (G.SmallTileWidth * 2) + K.InterBlahGutter;
-        G.LargeTileWidth = (G.MediumTileWidth * 1.5) + K.InterBlahGutter;
+        G.LargeTileWidth = (G.SmallTileWidth * 3) + (K.InterBlahGutter * 2);
         //LargeTileWidth = (SmallTileWidth * 3) + (K.InterBlahGutter * 2);
 
         G.SmallTileHeight = G.SmallTileWidth;

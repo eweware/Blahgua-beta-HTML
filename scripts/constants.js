@@ -23,8 +23,8 @@ define('constants',
         var MaxTitleLength = 64;
         var kBannerHighlightColor = "#FFFFFF";
         var kBannerColor = "rgb(245,244,0)"; //#FF00FF";
-        var kEdgeGutter = 12;
-        var kInterBlahGutter = 0;
+        var kEdgeGutter = 6;
+        var kInterBlahGutter = 6;
         var kNewlineToken = "[_r;";
         var kBlahRollPixelStep = 1;
         var kBlahRollScrollInterval = 46;
