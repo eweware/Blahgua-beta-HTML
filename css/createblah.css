@@ -154,7 +154,7 @@
 }
 
 .badge-item:hover {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
 }
 
 .badge-item i {
@@ -169,7 +169,7 @@
 }
 
 .anonymous-item:hover {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
 }
 
 .anonymous-item i {
@@ -315,7 +315,7 @@
 
 .create-page-button {
     position:relative;
-    background-color: #3FD4AD;
+    background-color: #60BFA4;
     /*background-image: -moz-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -ms-linear-gradient(rgb(105,108,123),rgb(84,86,98));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(105,108,123)),color-stop(100%,rgb(84,86,98)));
@@ -324,6 +324,7 @@
     background-image: linear-gradient(rgb(105,108,123),rgb(84,86,98));*/
     color: rgb(244,245,240);
     /*border-radius: 8px;*/
+    border: none;
     font-size:16px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     padding: 8px 16px;
@@ -346,7 +347,7 @@
 
 .create-page-button:hover
 {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));

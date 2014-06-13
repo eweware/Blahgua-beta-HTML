@@ -7,7 +7,7 @@
     height:48px;
     z-index:10;
     background-color:#3F2B2F;
-    color:#3fd4ad;
+    color:#60BFA4;
     font-family: 'Merriweather', sans-serif;
     font-size:26px;
     font-weight:300;
@@ -48,7 +48,7 @@
     border-right-color:rgba(131,135,154,.4);
     border-right-width:1px;
     border-right-style:solid;*/
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
     color: #fff;
     font-weight:bold;
     text-align:center;
@@ -63,7 +63,7 @@
 }
 
 .ChannelOptions:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -ms-linear-gradient(rgb(131,135,154),rgb(105,108,123));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(131,135,154)),color-stop(100%,rgb(105,108,123)));
@@ -88,7 +88,7 @@
 }
 
 .sign-in-button {
-    color:  #3fd4ad;
+    color:  #60BFA4;
     font-family: 'Merriweather', sans-serif;
     font-size: 18px;
     font-weight: 300;
@@ -126,7 +126,7 @@
 }
 
 .sign-in-comment-button:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(rgb(231,61,80),rgb(211,102,75));
     background-image: -ms-linear-gradient(rgb(231,61,80),rgb(211,102,75));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(231,61,80)),color-stop(100%,rgb(211,102,75)));
@@ -244,7 +244,7 @@
     padding-top: 5px;
     font-size: 16px;
     margin-bottom: 10px;
-    color: #00BFD5;
+    color: #1FBBD1;
 }
 
 .instant-menu li {
@@ -256,7 +256,7 @@
 }
 
 .instant-menu li:hover {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
 }
 
 .instant-menu li.divider {
@@ -269,14 +269,14 @@
     cursor: default;
 }
 .instant-menu li#LogOutItem:hover {
-    background-color: #e73d50;
+    background-color: #e54054;
 }
 .instant-menu li.divider:hover {
     background-color: transparent;
 }
 
 #ChannelList>tbody>tr:hover {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
 }
 
 #ChannelList tbody td {

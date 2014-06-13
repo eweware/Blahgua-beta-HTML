@@ -92,7 +92,7 @@
 }
 
 .small-button:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
 
 }
 
@@ -108,7 +108,7 @@
 }
 
 .default-button:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
 
 }
 
@@ -239,7 +239,7 @@
 
 .accordion h2 {
     color: #fff;
-    background-color:#00BFD5;
+    background-color:#1FBBD1;
     font-family: 'Gotham Rounded medium', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
     margin-top: 2px;
     margin-left: 12px;
@@ -353,7 +353,7 @@
 .blah-comment-link {
     font-size:10pt;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    color: #00BFD5;
+    color: #1FBBD1;
 }
 .blah-comment-link:hover {
     text-decoration: underline;

@@ -46,7 +46,7 @@
     font-size:16px;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
     color:#fff;
-    background-color: #e73d50;
+    background-color: #e54054;
     padding: 5px;
 }
 .toggle-container {
@@ -55,7 +55,7 @@
     padding-top: 8px;
     margin:0px;
     height: 250px;
-    /*background-color:#3fd4ad*/
+    /*background-color:#60BFA4*/
 }
 
 .toggle-content table {
@@ -162,12 +162,12 @@
 }
 
 .toggle-active {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     color:rgb(244,245,240);
 }
 
 .toggle-active:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     color:rgb(244,245,240);
 }
 
@@ -192,7 +192,7 @@
 }
 
 .action-btn:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
    /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -246,7 +246,7 @@
 }
 
 .action-default:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
    /* background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -302,7 +302,7 @@
 
 .about-link {
     color: rgb(244,245,240);
-    /*background-color: #3fd4ad;*/
+    /*background-color: #60BFA4;*/
     border-style:none;
     border-width: 0px;
     border-radius: 0px;

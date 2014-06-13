@@ -148,7 +148,7 @@ li.divider:hover {
     right:0;
     bottom:0;
     z-index:0;
-    background-color:#00BFD5;
+    background-color:#1FBBD1;
     background-image: url(../img/texture-01.png);
     /*background-image: -moz-linear-gradient(rgb(231,234,238),rgb(201,204,208));
     background-image: -ms-linear-gradient(rgb(231,234,238),rgb(201,204,208));
@@ -298,14 +298,14 @@ li.divider:hover {
     color: rgb(244,245,240);
     text-align: center;
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
     /*border-radius: 16px;*/
 
 }
 
 
 .splash-footer {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
     color: rgb(244,245,240);
     text-align: left;
     padding: 16px;
@@ -354,7 +354,7 @@ li.divider:hover {
 }
 
 .splash-body {
-    background-color: #3fd4ad;
+    background-color: #60BFA4;
     color: rgb(244,245,240);
     margin: 0px 16px 16px 16px;
     text-align: left;
@@ -526,7 +526,7 @@ a {
 }
 
 .SuggestSignIn:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -679,8 +679,8 @@ color:rgb(244,245,240);
 
 .dialog-box {
     margin: 60px auto;
-    background-color: #e73d50;
-    border: 1px solid #e73d50;
+    background-color: #e54054;
+    border: 1px solid #e54054;
     /*border-radius: 8px;*/
     max-width: 500px;
     font-size:20px;
@@ -707,7 +707,7 @@ color:rgb(244,245,240);
 
 .dialog-btn-container {
     text-align: right;
-    background-color: #e73d50;
+    background-color: #e54054;
  /*   border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;*/
 }
@@ -736,7 +736,7 @@ color:rgb(244,245,240);
     color: rgb(244,245,240);
 }
 .dialog-button:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(#888888,#777777);
     background-image: -ms-linear-gradient(#888888,#777777);
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,#888888),color-stop(100%,#777777));
@@ -759,7 +759,7 @@ color:rgb(244,245,240);
 
 }
 .dialog-yes:hover {
-    background-color: #00BFD5;
+    background-color: #1FBBD1;
     /*background-image: -moz-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -ms-linear-gradient(rgb(84,86,98),rgb(63,65,74));
     background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0%,rgb(84,86,98)),color-stop(100%,rgb(63,65,74)));
@@ -1017,7 +1017,7 @@ input:not([type='checkbox']) #CommentImage {
     left:50%;
     margin-left: -200px;
     box-shadow: 0 1px 5px #000;
-    background: #e73d50;
+    background: #e54054;
     padding: 5px;
 }
 
@@ -1040,7 +1040,7 @@ input:not([type='checkbox']) #CommentImage {
 }
 
 .notification-popup-body {
-    background: #e73d50;
+    background: #e54054;
     width: 90%;
     margin-top: 10px;
     margin-bottom: 10px;
