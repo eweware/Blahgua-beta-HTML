@@ -193,11 +193,11 @@ define('CreateBlahPage',
 			{
 			  case "says":  $("#BlahHeadline").attr("placeholder","Headline: Says are general posts with no requirements.");
 			   break;
-			   case "leaks":$("#BlahHeadline").attr("placeholder","Headline: Leaks are inside information and require a badge.");
+			   case "leaks":$("#BlahHeadline").attr("placeholder","Headline: Leaks require that a badge to be attached.");
 			   break;
-			   case "asks":  $("#BlahHeadline").attr("placeholder","Headline: Asks are for open-ended questions. End your headline with a '?'");
+			   case "asks":  $("#BlahHeadline").attr("placeholder","Headline: Asks are open-ended questions and must include a '?'");
 			   break;
-			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline: Predictions detail outcomes expected to occur by a specific date.");
+			   case "predicts":$("#BlahHeadline").attr("placeholder","Headline: Predictions detail outcomes that are expected to occur.");
 			   break;
 			   case "polls":$("#BlahHeadline").attr("placeholder","Headline: Polls allow users to vote on pre-defined responses.");
 			   break;
