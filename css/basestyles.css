@@ -778,8 +778,12 @@ color:rgb(244,245,240);
     background-image: url('../img/white_promote.png');
 }
 
+.promote-btn:hover {
+    background-image: url('../img/blue_promote.png');
+}
+
 .promote-btn.disabled {
-    background-image: url('../img/white_promote.png');
+    background-image: url('../img/grey_promote.png');
 }
 
 .promote-btn.checked {
@@ -794,8 +798,12 @@ color:rgb(244,245,240);
     background-image: url('../img/white_demote.png');
 }
 
+.demote-btn:hover {
+    background-image: url('../img/blue_demote.png');
+}
+
 .demote-btn.disabled {
-    background-image: url('../img/white_demote.png');
+    background-image: url('../img/grey_demote.png');
 }
 
 .demote-btn.checked {
