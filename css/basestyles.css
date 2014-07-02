@@ -997,13 +997,14 @@ color:rgb(244,245,240);
 
 .new-blah {
     position: absolute;
-    width: 24px;
-    height: 24px;
-    bottom: 0px;
+    width: 20px;
+    height: 20px;
+    left: 5px;
+    bottom: 5px;
+    background-position: center;
     background-size: cover;
     background-image:url("../img/newblah.png");
 }
-
 
 .hidden-upload input[type=file] {
     height:68px;
