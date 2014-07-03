@@ -1108,12 +1108,7 @@ define('blahgua_base',
 
         }
 
-        var now = (new Date()).getTime();
-        if ((now - theBlah.c) < ONE_DAY) {
-            var newBlahDiv = document.createElement("div");
-            newBlahDiv.className = "new-blah";
-            newDiv.appendChild(newBlahDiv);
-        }
+
 
         var arrowDiv = document.createElement("div");
         arrowDiv.className = "designator-arrow";
@@ -1178,20 +1173,29 @@ define('blahgua_base',
         $(holderDiv).addClass("blahdiv-lowerleft-box");
         $(newEl).append(holderDiv);
 
-        if (theBlah.hasOwnProperty("RR")) {
-            // Add update icon
-            var updatedDiv = document.createElement("div");
-            $(updatedDiv).html('<i class="fa fa-bolt"></i>');
-            $(updatedDiv).addClass("updated-bolt-div");
-            $(holderDiv).append(updatedDiv);
-        }
-
         if (theBlah.hasOwnProperty("B") && (theBlah.B.length > 0)) {
             // add a badge
             var badgeDiv = document.createElement("div");
             $(badgeDiv).addClass("badge-div");
             $(holderDiv).append(badgeDiv);
         }
+
+        var now = (new Date()).getTime();
+        if ((now - theBlah.c) < ONE_DAY) {
+            var newBlahDiv = document.createElement("div");
+            newBlahDiv.className = "new-blah";
+            $(holderDiv).append(newBlahDiv);
+        }
+
+        if (theBlah.hasOwnProperty("RR")) {
+            // Add update icon
+            var updatedDiv = document.createElement("div");
+            $(updatedDiv).addClass("updated-bolt-div");
+            $(holderDiv).append(updatedDiv);
+        }
+
+
+
 
         console.log(theBlah);
 

@@ -217,12 +217,14 @@ li.divider:hover {
 }
 
 .updated-bolt-div {
-    display: inline-block;
-    height: 20px;
+    /* position: absolute; */
     width: 20px;
-    margin-right: 5px;
-    background-color: #aa53b8;
-    text-align: center;
+    height: 20px;
+    margin-left: 5px;
+    background-position: center;
+    background-size: cover;
+    background-image: url("../img/24hr_recent.png");
+    display: inline-block;
 }
 
 .ChannelLoadingDiv {
@@ -996,14 +998,13 @@ color:rgb(244,245,240);
 
 
 .new-blah {
-    position: absolute;
     width: 20px;
     height: 20px;
-    left: 5px;
-    bottom: 5px;
+    margin-left: 5px;
     background-position: center;
     background-size: cover;
-    background-image:url("../img/newblah.png");
+    background-image: url("../img/newblah.png");
+    display: inline-block;
 }
 
 .hidden-upload input[type=file] {
