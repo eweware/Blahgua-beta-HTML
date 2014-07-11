@@ -464,7 +464,7 @@ define('CreateBlahPage',
                         "<div id='NotificationPopupWindow'>"+
                             "<div class='notification-popup-header'>Success!</div>"+
                             "<div class='notification-popup-body'>" +
-                                "<div class='notification-body-text'>Your Blah has been posted!</div>" +
+                                "<div class='notification-body-text'>Your post has been created.</div>" +
                             "</div>" +
                         "</div>" +
                     "</div>");
