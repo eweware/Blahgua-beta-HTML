@@ -1232,12 +1232,12 @@ define('blahgua_base',
         }
         else {
             var newDiv = document.createElement("div");
-            var newHTML = "<b>" + G.CurrentChannel.N + "</b> currently has no blahs in it.</br> ";
+            var newHTML = "<b>" + G.CurrentChannel.N + "</b> will resume in 15 minutes.</br> ";
 
             if (G.IsUserLoggedIn) {
-                newHTML += "Perhaps you can add the first!<br/>";
+                newHTML += "Please check back then.<br/>";
             } else {
-                newHTML += "Sign in, and then you can create the first!<br/>";
+                newHTML += "Please check back then.<br/>";
             }
 
             newDiv.innerHTML = newHTML;
