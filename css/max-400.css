@@ -27,8 +27,74 @@
     .new-blah {
         width: 16px;
         height: 16px;
+        margin-left: 2px;
     }
 
+    .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+    .BlahTypeSays .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .BlahTypeAsks .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .BlahTypeLeaks .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .BlahTypePolls .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+    .BlahTypePredicts .designator-arrow {
+        width: 16px;
+        height: 16px;
+        bottom: 2px;
+        right: 2px;
+    }
+
+
+    .updated-bolt-div {
+        width: 16px;
+        height: 16px;
+        margin-left: 2px;
+    }
+
+    .users-own-blah {
+        width: 16px;
+        height: 16px;
+        right: 21px;
+        bottom: 2px;
+    }
+
+    .badge-div {
+        width: 16px;
+        height: 16px;
+    }
+
+    .blahdiv-lowerleft-box {
+        position:absolute;
+        height: 16px;
+        bottom:2px;
+        left:2px;
 
     .dialog-prompt-container {
         font-size: 16px;
@@ -289,12 +355,9 @@
 
     }
 
-    .ChannelBanner
-    {
-        height: 38px;
-        font-size: 18px;
-        line-height: 2.0em;
-
+    .ChannelBanner {
+        font-size: 20px;
+        line-height: 2.5em;
     }
 
     .ChannelNameText {
