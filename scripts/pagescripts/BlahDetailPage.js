@@ -131,7 +131,7 @@ define('BlahDetailPage',
                     document.getElementById("FullBlahNickName").innerHTML = "someone";
                     var newImage = G.GetGenericUserImage();
                     $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                    $("#FullBlahProfileString").text("An anonymous person.");
+                    $("#FullBlahProfileString").text("an unidentified person.");
                 }
                 LoadOpenPage();
             }, function (theErr) {

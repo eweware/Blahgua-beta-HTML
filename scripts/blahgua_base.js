@@ -386,11 +386,11 @@ define('blahgua_base',
                 $(".notification-popup-header").html(newInfo.message);
 
                 var bodytext = "<div class='notification-body-text'>";
-                if (newInfo.newComments     > -1) bodytext += newInfo.newComments   + " new comments<br/>";
-                if (newInfo.newUpVotes      > -1) bodytext += newInfo.newUpVotes    + " new upvotes<br/>";
-                if (newInfo.newDownVotes    > -1) bodytext += newInfo.newDownVotes  + " new downvotes<br/>";
-                if (newInfo.newMessages     > -1) bodytext += newInfo.newMessages   + " new messages<br/>";
-                if (newInfo.newOpens        > -1) bodytext += newInfo.newOpens      + " new opens<br/>";
+                if (newInfo.newComments     > 0) bodytext += newInfo.newComments   + " new comments<br/>";
+                if (newInfo.newUpVotes      > 0) bodytext += newInfo.newUpVotes    + " new upvotes<br/>";
+                if (newInfo.newDownVotes    > 0) bodytext += newInfo.newDownVotes  + " new downvotes<br/>";
+                if (newInfo.newMessages     > 0) bodytext += newInfo.newMessages   + " new messages<br/>";
+                if (newInfo.newOpens        > 0) bodytext += newInfo.newOpens      + " new opens<br/>";
                 bodytext += "</div>";
 
                 $(".notification-popup-body").html(bodytext);
