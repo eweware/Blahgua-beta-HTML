@@ -361,12 +361,20 @@ define('blahgua_base',
 
         var JoinUserToNextChannel = function(theList) {
             var curChannel = theList.pop();
-            Blahgua.JoinUserToChannel(curChannel._id, function() {
+            if (G.GetSafeProperty(curChannel, "R", 0) > 0) {
+                Blahgua.JoinUserToChannel(curChannel._id, function() {
+                    if (theList.length > 0)
+                        JoinUserToNextChannel(theList);
+                    else
+                        GetUserChannels();
+                });
+            } else {
                 if (theList.length > 0)
                     JoinUserToNextChannel(theList);
                 else
                     GetUserChannels();
-            });
+            }
+
         };
 
         JoinUserToNextChannel(ChannelList);
