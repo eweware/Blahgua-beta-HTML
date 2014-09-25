@@ -251,7 +251,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("users/profile/schema", paramStr, OnSuccess, OnFailure);
     };
 
-    var AddBlahComment = function (commentText, blahId, imageId, parentId, badges, anon, OnSuccess, OnFailure) {
+    var AddBlahComment = function (commentText, blahId, imageId, parentId, badges, anon, isMature, OnSuccess, OnFailure) {
         /// <summary>Adds the specified comment to the current session blah</summary>
         /// <param name="commentText">the text to add</param>
         /// <param name="commentVote">The comment vote (should be 0)</param>
@@ -266,6 +266,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
             param["CID"] = parentId;
         if (anon != null)
             param["XX"] = anon;
+        if (isMature != null)
+            param["XXX"] = isMature;
         if (imageId && imageId != "")
             param["M"] = [imageId];
 
@@ -472,6 +474,17 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         params["E"] = email;
         var method = "users/account";
         CallPostMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
+    };
+
+    var setUserWantsMature = function (wantsMature, OnSuccess, OnFailure) {
+        /// <summary>sets the recovery email for the user</summary>
+        /// <param name="OnSuccess">method to call when the function returns successfully</param>
+        /// <param name="OnFailure">method to call on the event of a failure</param>
+        /// <returns>user object</returns>
+        var params = new Object();
+        params["XXX"] = wantsMature;
+        var method = "users/update/mature";
+        CallPutMethod(method, JSON.stringify(params), OnSuccess, OnFailure);
     };
 
     var getRecoveryInfo = function (OnSuccess, OnFailure) {
@@ -835,6 +848,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         updatePassword: updatePassword,
         DeleteUserImage: DeleteUserImage,
         UpdateBlahCounts: UpdateBlahCounts,
-        RefreshSession:RefreshSession
+        RefreshSession:RefreshSession,
+        setUserWantsMature: setUserWantsMature
     }
 });

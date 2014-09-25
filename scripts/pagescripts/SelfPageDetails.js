@@ -76,6 +76,10 @@ define('SelfPageDetails',
                 $("#uploadimage i").hide();
             }
 
+            var wantsMature = G.GetSafeProperty(G.CurrentUser, "XXX", false);
+            $("#WantsMatureCheckBox").prop('checked', wantsMature).attr("initial-value", wantsMature.changed);
+
+
 
             // recovery info
             blahgua_rest.getRecoveryInfo(function(theData) {
@@ -158,10 +162,11 @@ define('SelfPageDetails',
             $('#AccountArea input[data-validate]').change(MaybeEnableProfileSaveBtn);
             $('#AccountArea input:text').keyup(MaybeEnableProfileSaveBtn);
             $('#AccountArea input:password').keyup(MaybeEnableProfileSaveBtn);
+            $('#AccountArea input:checkbox').change(MaybeEnableProfileSaveBtn);
 
             $("#SaveDemographicsBtn").attr("disabled", "disabled");
             $('#DemoArea input').keyup(MaybeEnableDemoSaveBtn);
-            $('#DemoArea select').change(MaybeEnableDemoSaveBtn);
+            $('#DemoArea select').change(MaybeEnableDemoSaveBtn);$('#AccountArea input:checkbox')
             $('#DemoArea input:checkbox').click(MaybeEnableDemoSaveBtn);
 
 
@@ -355,6 +360,14 @@ define('SelfPageDetails',
                         email = null;
                     blahgua_rest.setRecoveryInfo(email, function (data) {
                         $("#RecoveryEmail").attr("initial-value", email);
+                    });
+                }
+
+                var wantsMature = $("#WantsMatureCheckBox").prop('checked');
+                if (wantsMature != $("#WantsMatureCheckBox").attr("initial-value")) {
+                    blahgua_rest.setUserWantsMature(wantsMature, function (data) {
+                        $("#WantsMatureCheckBox").attr("initial-value", wantsMature);
+                        G.CurrentUser.setProperty("XXX", wantsMature);
                     });
                 }
             }

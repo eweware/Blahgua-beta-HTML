@@ -177,6 +177,39 @@
 }
 
 
+.badge-header-item {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    font-style: italic;
+    text-decoration: underline;
+    padding: 8px 8px 4px 8px;
+    color: #D0D0D0;
+}
+
+.nobadge-header-item {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    font-style: italic;
+    padding: 8px 8px 4px 8px;
+    color: #D0D0D0;
+
+}
+
+
+.mature-item {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    padding: 4px 8px 4px 8px;
+    color: #fff;
+
+}
+
+.mature-item:hover {
+    background-color: #60BFA4;
+}
+
+.mature-item i {
+    margin-right:8px;
+}
+
+
 .create-content-div {
     top: 244px;
     padding: 12px 12px;
@@ -331,6 +364,10 @@
     width:150px;
 }
 
+.create-page-button.mature {
+    background-color: #e54054;
+}
+
 .createblahadditional{
     text-align: center;
 }
@@ -363,6 +400,11 @@
 {
     color: #f8f8f8;
     background-color: #bcbcbc;
+}
+
+.create-page-button.mature[disabled] {
+    color: #f8f8f8;
+    background-color: rgb(255, 174, 172);
 }
 
 .create-validation-row {

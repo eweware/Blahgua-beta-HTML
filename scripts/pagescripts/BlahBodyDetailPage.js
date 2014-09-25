@@ -20,29 +20,39 @@ define('BlahBodyDetailPage',
             }
             if (G.IsUserLoggedIn) 
 			{
-            // bind methods
-            $("#PromoteBlahImage").click(function(theEvent) {
-                theEvent.stopImmediatePropagation();
-                SetBlahVote(1);
-            });
-            $("#DemoteBlahImage").click(function(theEvent) {
-                theEvent.stopImmediatePropagation();
-                SetBlahVote(-1);
-            });
+                // bind methods
+                $("#PromoteBlahImage").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    SetBlahVote(1);
+                });
+                $("#DemoteBlahImage").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    SetBlahVote(-1);
+                });
+                $("#ReportBlah").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    ReportBlah();
+                });
 			}
 			else
 			{
-			$("#PromoteBlahImage").click(function(theEvent) {
-               G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
-                   theEvent.stopImmediatePropagation();
-                exports.SuggestUserSignIn("Sign in to participate.")});
-            });
-            $("#DemoteBlahImage").click(function(theEvent) {
-			G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
-                theEvent.stopImmediatePropagation();
-               exports.SuggestUserSignIn("Sign in to participate.")});
-			
-            });
+                $("#PromoteBlahImage").click(function(theEvent) {
+                   G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                       theEvent.stopImmediatePropagation();
+                    exports.SuggestUserSignIn("Sign in to participate.")});
+                });
+                $("#DemoteBlahImage").click(function(theEvent) {
+                G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                    theEvent.stopImmediatePropagation();
+                   exports.SuggestUserSignIn("Sign in to participate.")});
+
+                });
+                $("#ReportBlah").click(function(theEvent) {
+                    G.PromptUser("Sign in to participate."," Sign in","Cancel",function(){
+                        theEvent.stopImmediatePropagation();
+                        exports.SuggestUserSignIn("Sign in to participate.")});
+
+                });
 			}
 
             // add share this button if we didn't already do it
@@ -184,6 +194,7 @@ define('BlahBodyDetailPage',
             // handle the top comments
             if (G.GetSafeProperty(G.CurrentBlah, "C", 0) == 0)
                 $(".top-comments-header").hide();
+
             comments.UpdateTopComments();
 
             if (G.IsUserLoggedIn) {
@@ -281,6 +292,18 @@ define('BlahBodyDetailPage',
                         RefreshBadgePreview();
                     });
 
+                    $(".mature-item").click(function(theEvent) {
+                        theEvent.stopImmediatePropagation();
+                        var $icon = $(this).find("i");
+                        if ($icon.hasClass("icon-check-empty")) {
+                            $icon.addClass("icon-check").removeClass("icon-check-empty");
+                        } else {
+                            $icon.addClass("icon-check-empty").removeClass("icon-check");
+                        }
+                        RefreshBadgePreview();
+                    });
+
+
                 });
 
                 RefreshForCommentText();
@@ -292,12 +315,17 @@ define('BlahBodyDetailPage',
         var UpdateBadgeArea = function() {
             if (G.IsUserLoggedIn) {
                 CreateAndAppendAnonPostHTML();
+                CreateAndAppendMaturePostHTML();
                 if (G.CurrentUser.hasOwnProperty("B")) {
                     // add badges
+                    AppendBadgeHeader();
                     $("#BadgesArea").empty();
+
                     $.each(G.CurrentUser.B, function(index, curBadge) {
                         CreateAndAppendBadgeHTML(curBadge);
                     });
+                }else {
+                    AppendNoBadgeHeader();
                 }
                 RefreshBadgePreview();
             }
@@ -327,6 +355,7 @@ define('BlahBodyDetailPage',
             return newHTML;
         };
 
+
         var CreateAndAppendAnonPostHTML = function() {
             var newHTML = "";
             newHTML += "<div class='anonymous-item'>";
@@ -337,8 +366,49 @@ define('BlahBodyDetailPage',
             $("#ShowBadgeArea").append(newHTML);
         };
 
+        var CreateAndAppendMaturePostHTML = function() {
+            var newHTML = "";
+            newHTML += "<div class='mature-item'>";
+            newHTML += "<i class='icon-check-empty'></i>";
+            newHTML += "<span>Mature Content</span>";
+            newHTML += "</div>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+
+        var AppendBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='badge-header-item'>";
+            newHTML += "<span>Apply Badges</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+        var AppendNoBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='nobadge-header-item'>";
+            newHTML += "<span>You have no badges.  Go to your profile to add some!</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
         var RefreshBadgePreview = function() {
-            // TODO:  refresh badge area for a comment
+            if ($("#ShowBadgeArea .mature-item i").hasClass("icon-check")) {
+                // draw mature
+                $("#AddCommentBtn").addClass("mature");
+            } else {
+                // draw normal
+                $("#AddCommentBtn").removeClass("mature");
+            }
+        };
+
+        var ReportBlah = function() {
+            // TO DO - report the blah
+
         };
 
         var RefreshForCommentText = function() {

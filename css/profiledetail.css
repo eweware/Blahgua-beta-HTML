@@ -335,6 +335,14 @@
     vertical-align: top;
 }
 
+
+.demographic-detail.note {
+    width: 300px;
+    text-align: left;
+    font-style: italic;
+    color: #555555;
+    font-size: 9pt;
+}
 .user-comment-row .title-text {
     width: 100%;
 	color:black;
@@ -459,6 +467,11 @@
     padding: 2px;
     opacity:.5;
     display:none;
+}
+
+.mature-checkbox {
+    width: 32px;
+    height: 32px;
 }
 
 .image-delete-btn:hover {

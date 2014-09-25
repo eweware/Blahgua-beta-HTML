@@ -118,6 +118,18 @@ define('BlahCommentDetailPage',
                      RefreshBadgePreview();
                  });
 
+                 $(".mature-item").click(function(theEvent) {
+                     theEvent.stopImmediatePropagation();
+                     var $icon = $(this).find("i");
+                     if ($icon.hasClass("icon-check-empty")) {
+                         $icon.addClass("icon-check").removeClass("icon-check-empty");
+                     } else {
+                         $icon.addClass("icon-check-empty").removeClass("icon-check");
+                     }
+                     RefreshBadgePreview();
+                 });
+
+
              });
 
              UpdateBadgeArea();
@@ -166,12 +178,16 @@ define('BlahCommentDetailPage',
         var UpdateBadgeArea = function() {
             if (G.IsUserLoggedIn) {
                 CreateAndAppendAnonPostHTML();
+                CreateAndAppendMaturePostHTML();
                 if (G.CurrentUser.hasOwnProperty("B")) {
                     // add badges
+                    AppendBadgeHeader();
                     $("#BadgesArea").empty();
                     $.each(G.CurrentUser.B, function(index, curBadge) {
                         CreateAndAppendBadgeHTML(curBadge);
                     });
+                } else {
+                    AppendNoBadgeHeader();
                 }
                 RefreshBadgePreview();
             }
@@ -188,6 +204,24 @@ define('BlahCommentDetailPage',
 
                 $("#ShowBadgeArea").append(newHTML);
             });
+        };
+
+        var AppendBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='badge-header-item'>";
+            newHTML += "<span>Apply Badges</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+        var AppendNoBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='nobadge-header-item'>";
+            newHTML += "<span>You have no badges.  Go to your profile to add some!</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
         };
 
 
@@ -211,8 +245,26 @@ define('BlahCommentDetailPage',
             $("#ShowBadgeArea").append(newHTML);
         };
 
+        var CreateAndAppendMaturePostHTML = function() {
+            var newHTML = "";
+            newHTML += "<div class='mature-item'>";
+            newHTML += "<i class='icon-check-empty'></i>";
+            newHTML += "<span>Mature Content</span>";
+            newHTML += "</div>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+
         var RefreshBadgePreview = function() {
-            // TODO:  refresh badge area for a comment
+            if ($("#ShowBadgeArea .mature-item i").hasClass("icon-check")) {
+                // draw mature
+                $("#AddCommentBtn").addClass("mature");
+            } else {
+                // draw normal
+                $("#AddCommentBtn").removeClass("mature");
+            }
         };
 
 

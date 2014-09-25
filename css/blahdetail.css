@@ -475,6 +475,10 @@
     border:0;
 }
 
+.add-comment-btn.mature {
+    background-color: #e54054;
+}
+
 #CharCountDiv {
     float:right;
     margin-top:8px;
@@ -505,6 +509,11 @@
     color: #f8f8f8;
     background-color: #bcbcbc;
 
+}
+
+.add-comment-btn.mature[disabled] {
+    color: #f8f8f8;
+    background-color: rgb(255, 174, 172);
 }
 
 
@@ -538,6 +547,15 @@
     width:100%;
     margin-bottom:8px;
     margin-top: 8px;
+}
+
+.redacted-comment-holder {
+    background: red;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    padding: 16px;
 }
 
 .comment-table-row {

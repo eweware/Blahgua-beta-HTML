@@ -800,6 +800,14 @@ color:rgb(244,245,240);
     background-image: url('../img/white_demote.png');
 }
 
+.report-btn {
+    width:36px;
+    height:36px;
+    background-size:cover;
+    display: inline-block;
+    background-image: url('../img/black_report.png');
+}
+
 .demote-btn:hover {
     background-image: url('../img/blue_demote.png');
 }

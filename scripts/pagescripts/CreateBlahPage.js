@@ -97,6 +97,17 @@ define('CreateBlahPage',
                     RefreshBadgePreview();
                 });
 
+                $(".mature-item").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    var $icon = $(this).find("i");
+                    if ($icon.hasClass("icon-check-empty")) {
+                        $icon.addClass("icon-check").removeClass("icon-check-empty");
+                    } else {
+                        $icon.addClass("icon-check-empty").removeClass("icon-check");
+                    }
+                    RefreshBadgePreview();
+                });
+
 
 
             });
@@ -324,12 +335,17 @@ define('CreateBlahPage',
 
         var UpdateBadgeArea = function() {
             CreateAndAppendAnonPostHTML();
+            CreateAndAppendMaturePostHTML();
             if (G.CurrentUser.hasOwnProperty("B")) {
                 // add badges
+                // insert header
+                AppendBadgeHeader();
                 $("#BadgesArea").empty();
                 $.each(G.CurrentUser.B, function(index, curBadge) {
                     CreateAndAppendBadgeHTML(curBadge);
                 });
+            } else {
+                AppendNoBadgeHeader();
             }
 
             UpdateLayout();
@@ -358,6 +374,14 @@ define('CreateBlahPage',
                 $("#FullBlahProfileString").text(userDescStr);
             }
 
+            if ($("#ShowBadgeArea .mature-item i").hasClass("icon-check")) {
+                // draw mature
+                $("#PublishBlahBtn").addClass("mature");
+            } else {
+                // draw normal
+                $("#PublishBlahBtn").removeClass("mature");
+            }
+
             UpdateLayout();
             ResizeCreatePage();
             CheckPublishBtnDisable();
@@ -383,6 +407,17 @@ define('CreateBlahPage',
                 $("#ShowBadgeArea").append(newHTML);
         };
 
+        var CreateAndAppendMaturePostHTML = function() {
+            var newHTML = "";
+            newHTML += "<div class='mature-item'>";
+            newHTML += "<i class='icon-check-empty'></i>";
+            newHTML += "<span>Mature Content</span>";
+            newHTML += "</div>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
 
         var CreateAndAppendBadgeHTML = function(theBadge) {
             blahgua_rest.getBadgeById(theBadge, function(fullBadge) {
@@ -395,6 +430,25 @@ define('CreateBlahPage',
                 $("#ShowBadgeArea").append(newHTML);
             });
         };
+
+        var AppendBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='badge-header-item'>";
+            newHTML += "<span>Apply Badges</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
+        var AppendNoBadgeHeader = function() {
+            var newHTML = "";
+            newHTML += "<div class='nobadge-header-item'>";
+            newHTML += "<span>You have no badges.  Go to your profile to add some!</span>";
+            newHTML += "</div>";
+
+            $("#ShowBadgeArea").append(newHTML);
+        };
+
 
 
 
@@ -437,6 +491,12 @@ define('CreateBlahPage',
                     //options["XX"] = false;
                 } else {
                     options["XX"] = true;
+                }
+
+                if ($("#ShowBadgeArea .mature-item").find("i").hasClass("icon-check")) {
+                    options["XXX"] = true;
+                } else {
+                    //options["XXX"] = false;
                 }
 
                 if ($("#objectId").val() != "") {

@@ -340,22 +340,26 @@ define('comments',
             var badges = $("#ShowBadgeArea .badge-item");
             if (badges.length > 0) {
                 var badgeArray = [];
-                badges.each(function(index, item) {
-                    var theID =  $(item).attr("data-badge-id");
+                badges.each(function (index, item) {
+                    var theID = $(item).attr("data-badge-id");
                     var isChecked = $(item).find("i").hasClass("icon-check");
                     if (isChecked)
                         badgeArray.push(theID);
                 });
                 if (badgeArray.length > 0)
-                   badgeList = badgeArray;
+                    badgeList = badgeArray;
             }
 
             if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
                 postAnon = false;
             }
 
+            if ($("#ShowBadgeArea .mature-item").find("i").hasClass("icon-check")) {
+                isMature = true;
+            } else
+                isMature = null;
 
-            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, parentComment, badgeList, postAnon, function (newComment) {
+            blahgua_rest.AddBlahComment(G.CodifyText(commentText), G.CurrentBlah._id, imageId, parentComment, badgeList, postAnon, isMature,  function (newComment) {
                 $("#CommentTable").detach().appendTo("#CreateCommentArea");
                 ga('send', 'event', 'createcomment', 'comment', "default", 1);
                 $("#CommentTextArea").val("").attr("placeholder","Enter comment text here");
@@ -392,11 +396,27 @@ define('comments',
             var newEl = document.createElement("tr");
             newEl.className = "comment-table-row";
             var newHTML = "<td>";
-            newHTML += createCommentHTML(index, theComment, 0);
+            if (!G.GetSafeProperty(theComment, "XXX", false) || G.GetSafeProperty(G.CurrentUser, "XXX", false))
+                newHTML += createCommentHTML(index, theComment, 0);
+            else
+                newHTML += createRedactedCommentHTML();
             newHTML += "</td>";
             newEl.innerHTML = newHTML;
 
             return newEl;
+
+        };
+
+        var createRedactedCommentHTML = function() {
+            var newHTML = "";
+            newHTML += '<table class="comment-item-table">';
+            newHTML += '<tr>';
+            newHTML += '<td style="vertical-align:top;"><div class="redacted-comment-holder">';
+            newHTML += 'this comment has been flagged for mature content';
+
+            newHTML += '</div></td>';
+            newHTML += '</table>';
+            return newHTML;
 
         };
 
