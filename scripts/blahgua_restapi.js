@@ -762,6 +762,20 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var ReportPost = function (BlahId, reportType, OnSuccess, OnFailure) {
+        var paramStr = new Object();
+        var methodName = "blahs/" + BlahId + "/report";
+        paramStr["type"] = reportType;
+        CallPostMethod(methodName,  JSON.stringify(paramStr), OnSuccess, OnFailure);
+    };
+
+    var ReportComment = function (CommentId, reportType, OnSuccess, OnFailure) {
+        var paramStr = new Object();
+        var methodName = "comments/" + CommentId + "/report";
+        paramStr["type"] = reportType;
+        CallPostMethod(methodName, JSON.stringify(paramStr), OnSuccess, OnFailure);
+    };
+
 
     var GetBlahWithStats = function (BlahID, StartDate, EndDate, OnSuccess, OnFailure) {
 
@@ -849,6 +863,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         DeleteUserImage: DeleteUserImage,
         UpdateBlahCounts: UpdateBlahCounts,
         RefreshSession:RefreshSession,
+        ReportPost: ReportPost,
+        ReportComment: ReportComment,
         setUserWantsMature: setUserWantsMature
     }
 });

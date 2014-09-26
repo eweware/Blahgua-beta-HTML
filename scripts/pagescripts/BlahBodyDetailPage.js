@@ -31,7 +31,34 @@ define('BlahBodyDetailPage',
                 });
                 $("#ReportBlah").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
-                    ReportBlah();
+                    $("#ShowReportBlahAreaHolder").show();
+                    var oldLoc = $("#ReportBlah").offset();
+                    oldLoc.left -= $("#ShowReportBlahArea").width() / 2;
+                    oldLoc.top -= $("#ShowReportBlahArea").height();
+                    $("#ShowReportBlahArea").offset(oldLoc);
+                });
+
+                $("#ShowReportBlahAreaHolder").click(function(theEvent) {
+                    if (theEvent.target.id == "ShowReportBlahAreaHolder")
+                        $(theEvent.target).hide();
+                });
+
+                $("#ReportMatureBtn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    ReportMaturePost();
+                    $("#ShowReportBlahAreaHolder").hide();
+                });
+
+                $("#ReportSpamBtn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    ReportSpamPost();
+                    $("#ShowReportBlahAreaHolder").hide();
+                });
+
+                $("#ReportInfringingBtn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    ReportInfringingPost();
+                    $("#ShowReportBlahAreaHolder").hide();
                 });
 			}
 			else
@@ -406,10 +433,22 @@ define('BlahBodyDetailPage',
             }
         };
 
-        var ReportBlah = function() {
-            // TO DO - report the blah
-
+        var ReportMaturePost = function() {
+            blahgua_rest.ReportPost(G.CurrentBlahId, 1, function() { alert("Post has been reported."); } );
         };
+
+        var ReportSpamPost = function() {
+            blahgua_rest.ReportPost(G.CurrentBlahId, 2,  function() { alert("Post has been reported."); } ););
+        };
+
+        var ReportInfringingPost = function() {
+            var bodyText = "I am the rights owner to content that is used without permission in post id#" + G.CurrentBlahId + " and I am requesting it be removed.";
+            var link = "mailto:admin@goheard.com"
+                    + "?subject=" + encodeURIComponent("Infringing Content report")
+                    + "&body=" + encodeURIComponent(bodyText);
+            window.location.href = link;
+        };
+
 
         var RefreshForCommentText = function() {
             var textField =  document.getElementById("CommentTextArea");

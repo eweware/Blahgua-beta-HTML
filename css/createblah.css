@@ -146,6 +146,27 @@
     bottom:50px;
 }
 
+.report-area {
+    text-align: left;
+    position: absolute;
+    background-color: yellow;
+    padding: 8px;
+    color: black;
+    border: 1px solid black;
+}
+
+.report-item {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    padding: 4px 8px 4px 8px;
+    color: black;
+    font-size: 12pt;
+}
+
+.report-item:hover {
+    color: red;
+    blackground-color: black;
+}
+
 
 .badge-item {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
