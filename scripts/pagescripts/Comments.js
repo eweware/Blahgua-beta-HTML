@@ -251,6 +251,49 @@ define('comments',
                 SetCommentVote(theEvent, -1, theIndex);
             });
 
+            $(".report-comment-btn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                $("#ShowReportBlahArea").hide();
+                $("#ShowReportCommentArea").show();
+                $("#ShowReportBlahAreaHolder").show();
+                var oldLoc = $(theEvent.target).offset();
+                oldLoc.left -= $("#ShowReportCommentArea").width();
+                oldLoc.top -= $("#ShowReportCommentArea").height();
+                $("#ShowReportCommentArea").offset(oldLoc);
+                var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
+                var theID = G.CurrentComments[theIndex]._id;
+                $("#ShowReportCommentArea").attr("data-comment-id", theID);
+            });
+
+
+            $("#ReportMatureCommentBtn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                ReportMatureComment($("#ShowReportCommentArea").attr("data-comment-id"));
+                $("#ShowReportBlahAreaHolder").hide();
+            });
+
+            $("#ReportSpamCommentBtn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                ReportSpamComment($("#ShowReportCommentArea").attr("data-comment-id"));
+                $("#ShowReportBlahAreaHolder").hide();
+            });
+
+            $("#ReportInfringingCommentBtn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                ReportInfringingComment($("#ShowReportCommentArea").attr("data-comment-id"));
+                $("#ShowReportBlahAreaHolder").hide();
+            });
+
+
+
+            $(".report-comment-btn").click(function(theEvent) {
+                if (G.IsUserLoggedIn) {
+
+                    ReportMatureComment(theID);
+                }
+
+            });
+
             $(".reply-btn").click(function(theEvent) {
                 if (G.IsUserLoggedIn) {
                     var targetDiv =  $(theEvent.target).next();
@@ -407,6 +450,22 @@ define('comments',
 
         };
 
+        var ReportMatureComment = function(commentId) {
+            blahgua_rest.ReportComment(commentId, 1, function() { alert("Comment has been reported."); } );
+        };
+
+        var ReportSpamComment = function(commentId) {
+            blahgua_rest.ReportComment(commentId, 2,  function() { alert("Comment has been reported."); } );
+        };
+
+        var ReportInfringingComment = function(commentId) {
+            var bodyText = "I am the rights owner to content that is used without permission in comment " + commentId + " and I am requesting it be removed.";
+            var link = "mailto:admin@goheard.com"
+                + "?subject=" + encodeURIComponent("Infringing Content report")
+                + "&body=" + encodeURIComponent(bodyText);
+            window.location.href = link;
+        };
+
         var createRedactedCommentHTML = function() {
             var newHTML = "";
             newHTML += '<table class="comment-item-table">';
@@ -560,6 +619,8 @@ define('comments',
             // reply area (blank for now)
             newHTML += '<tr><td class="comment-reply-row" colspan="3">';
             if (true) {//G.IsUserLoggedIn) {
+                if (G.IsUserLoggedIn)
+                 newHTML += '<button class="report-comment-btn">report</button>';
                 newHTML += '<button class="reply-btn">reply</button>';
                 newHTML += '<div class="embedded-comment-div"></div>';
             }

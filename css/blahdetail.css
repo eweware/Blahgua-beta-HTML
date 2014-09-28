@@ -611,6 +611,17 @@
     cursor: pointer;
 }
 
+.report-comment-btn {
+    margin: 0px 8px;
+    border: none;
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    color:  rgb(63,42,46);
+    background-color: transparent;
+    cursor: pointer;
+    float: right;
+    font-style: italic;
+}
+
 .reply-btn.disabled {
     color: #bcbcbc;
     cursor: none;

@@ -29,9 +29,12 @@ define('BlahBodyDetailPage',
                     theEvent.stopImmediatePropagation();
                     SetBlahVote(-1);
                 });
+
                 $("#ReportBlah").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
+                    $("#ShowReportCommentArea").hide();
                     $("#ShowReportBlahAreaHolder").show();
+                    $("#ShowReportBlahArea").show();
                     var oldLoc = $("#ReportBlah").offset();
                     oldLoc.left -= $("#ShowReportBlahArea").width() / 2;
                     oldLoc.top -= $("#ShowReportBlahArea").height();
@@ -438,16 +441,17 @@ define('BlahBodyDetailPage',
         };
 
         var ReportSpamPost = function() {
-            blahgua_rest.ReportPost(G.CurrentBlahId, 2,  function() { alert("Post has been reported."); } ););
+            blahgua_rest.ReportPost(G.CurrentBlahId, 2,  function() { alert("Post has been reported."); } );
         };
 
         var ReportInfringingPost = function() {
-            var bodyText = "I am the rights owner to content that is used without permission in post id#" + G.CurrentBlahId + " and I am requesting it be removed.";
+            var bodyText = "I am the rights owner to content that is used without permission in post " + G.CurrentBlahId + " and I am requesting it be removed.";
             var link = "mailto:admin@goheard.com"
                     + "?subject=" + encodeURIComponent("Infringing Content report")
                     + "&body=" + encodeURIComponent(bodyText);
             window.location.href = link;
         };
+
 
 
         var RefreshForCommentText = function() {
