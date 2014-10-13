@@ -391,14 +391,56 @@ define('blahgua_base',
                 $("body").append("<div class='notification-click-window'><div id='NotificationPopupWindow'></div></div>");
                 $("#NotificationPopupWindow").html( "<div class='notification-popup-header'></div>"+
                                                     "<div class='notification-popup-body'></div>");
-                $(".notification-popup-header").html(newInfo.message);
+                var msg = G.GetSafeProperty(newInfo, "message", "What's new for you");
+                $(".notification-popup-header").html(msg);
 
                 var bodytext = "<div class='notification-body-text'>";
-                if (newInfo.newComments     > 0) bodytext += newInfo.newComments   + " new comments<br/>";
-                if (newInfo.newUpVotes      > 0) bodytext += newInfo.newUpVotes    + " new upvotes<br/>";
-                if (newInfo.newDownVotes    > 0) bodytext += newInfo.newDownVotes  + " new downvotes<br/>";
-                if (newInfo.newMessages     > 0) bodytext += newInfo.newMessages   + " new messages<br/>";
-                if (newInfo.newOpens        > 0) bodytext += newInfo.newOpens      + " new opens<br/>";
+                if ((newInfo.newViews > 0) || (newInfo.newOpens > 0) || (newInfo.newComments > 0) ||
+                    (newInfo.newUpVotes > 0) || (newInfo.newDownVotes > 0) || (newInfo.newCommentUpVotes > 0) ||
+                    (newInfo.newCommentDownViews > 0) || (newInfo.newMessages > 0)) {
+                    // user had SOME activity
+                    var lastUpdate = G.GetSafeProperty(newInfo, "lastUpdate", "");
+                    if (lastUpdate == "") {
+                        lastUpdate = "your last login"
+                    } else {
+                        var updateDate = new Date(lastUpdate);
+                        lastUpdate = updateDate.toDateString();
+                    }
+
+                    bodytext += "Since " + lastUpdate + " here is what has happened:<br/><br/>";
+
+                    if ((newInfo.newViews > 0) || (newInfo.newOpens > 0) || (newInfo.newComments > 0) ||
+                        (newInfo.newUpVotes > 0) || (newInfo.newDownVotes > 0)) {
+                        if (newInfo.newViews > 0) {
+                            bodytext += "Your posts have been seen " + newInfo.newViews + " time";
+                            if (newInfo.newViews > 1) bodytext += "s";
+                            bodytext += ".  <br/>";
+                        }
+                        if (newInfo.newOpens < 0) {
+                            bodytext += "Your posts have been opened " + newInfo.newViews + " time";
+                            if (newInfo.newOpens > 1) bodytext += "s";
+                            bodytext += ".  <br/>";
+                            }
+                        }
+                    if ((newInfo.newComments > 0) || (newInfo.newUpVotes > 0) || (newInfo.newDownVotes > 0)) {
+                        bodytext += "Your posts have received ";
+                        bodytext += newInfo.newComments   + " new comments, ";
+                        bodytext += newInfo.newUpVotes    + " new up votes, and ";
+                        bodytext += newInfo.newDownVotes  + " new down votes.<br/><br/>";
+
+                    }
+
+                    if ( (newInfo.newCommentUpVotes > 0) || (newInfo.newCommentDownVotes > 0)) {
+                        bodytext += "Your comments have received ";
+                        bodytext += newInfo.newCommentUpVotes    + " new up votes, and ";
+                        bodytext += newInfo.newCommentDownVotes  + " new down votes.<br/><br/>";
+                    }
+
+                    bodytext += "<br/>";
+                }
+
+                if (newInfo.newMessages > 0)
+                    bodytext += "You have " + newInfo.newMessages   + " new messages.  View them in your profile page.  <br/>";
                 bodytext += "</div>";
 
                 $(".notification-popup-body").html(bodytext);
@@ -409,7 +451,7 @@ define('blahgua_base',
 
                 setTimeout(function(){
                     $(".notification-click-window").fadeOut();
-                },4000);
+                },8000);
             });
 
         } else {
