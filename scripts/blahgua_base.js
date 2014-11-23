@@ -1125,7 +1125,7 @@ define('blahgua_base',
         if (imagePath != "") {
             newDiv.style.backgroundImage = "url('" + imagePath + "')";
 
-            if (theBlah.T == "") {
+            if ((theBlah.T == null) || (theBlah.T == "")) {
                $(textDiv).remove();
                 newDiv.blahTextDiv = null;
             } else {
