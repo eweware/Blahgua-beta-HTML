@@ -153,7 +153,7 @@
     top:56px;
     width:auto;
     height:auto;
-    background-color: #3c3c3c;
+    background-color: #3F2B2F;
     font-weight: bold;
     color: #fff;
     box-shadow:rgba(0,0,0,.2) 0px 2px 8px;
@@ -178,6 +178,14 @@
     font-size: 20px;
     font-weight: 300;
 }
+
+.manage-channel-title {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+
+}
+
 
 .channel-description {
     font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
@@ -275,11 +283,25 @@
     background-color: transparent;
 }
 
-#ChannelList>tbody>tr:hover {
+#ChannelList tr:hover {
     background-color: #60BFA4;
 }
 
-#ChannelList tbody td {
+#ChannelManagerRow {
+    color: #60BFA4;
+}
+#ChannelManagerRow:hover {
+    background-color: #60BFA4;
+    color: #FFFFFF;
+}
+
+#ChannelList hr {
+    background: #60BFA4;
+    border: 0;
+    height: 1px;
+}
+
+.ChannelDropMenu  td {
     padding:4px 10px;
     cursor: pointer;
 }

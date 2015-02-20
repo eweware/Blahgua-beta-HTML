@@ -18,6 +18,7 @@ define('CreateBlahPage',
         var userNameStr;
         var userImageStr;
         var userDescStr = "An anonymous person.";
+        var imageUploadURL = "";
 
         var  InitializePage = function(theTitle, theBody) {
 
@@ -46,6 +47,13 @@ define('CreateBlahPage',
             if (!G.IsUploadCapable) {
                 $("#ImagePreviewDiv").hide();
                 $(".hidden-upload").hide();
+            }
+            else {
+                // set the upload URL
+                blahgua_rest.GetUploadURL(function(theURL) {
+                   $("#ImageForm").action = theURL;
+                    imageUploadURL = theURL;
+                });
             }
             $("#BlahTypeList").change(UpdateBlahInfoArea);
             $("#BlahImage").change(UploadBlahImage);
@@ -588,7 +596,7 @@ define('CreateBlahPage',
                 var formData = new FormData($("#ImageForm")[0]);
                 ga('send', 'event', 'uploadimage', 'blah', 1, 1);
                 $.ajax({
-                    url: BlahguaConfig.apiURL +  "images/upload",
+                    url: imageUploadURL,
 
                     type: 'POST',
                     //Ajax events
@@ -596,11 +604,14 @@ define('CreateBlahPage',
                         $("#ImagePreviewDiv").removeAttr("disabled");
                         $("#objectId").val(data);
                         // to do - update the image...
-                        var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
+                        var imagePathName =  data + "=s128-c";
                         var theUrl = 'url("' + imagePathName + '")';
                         $(".image-preview").removeClass("no-image").css({"background-image":theUrl});
                         $(".image-preview span").text("");
                         $(".image-preview i").show();
+                        blahgua_rest.GetUploadURL(function(theUrl) {
+                            imageUploadURL = theUrl;
+                        });
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {

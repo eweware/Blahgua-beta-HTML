@@ -27,6 +27,11 @@ define('SelfPageDetails',
 
             if (!G.IsUploadCapable) {
                 $(".hidden-upload").hide();
+            } else {
+                blahgua_rest.GetUploadURL(function(theURL) {
+                    $("#ImageForm").action = theURL;
+                    imageUploadURL = theURL;
+                });
             }
 
             $(".image-delete-btn").click(function(theEvent) {
@@ -472,14 +477,20 @@ define('SelfPageDetails',
                 var formData = new FormData($("#ImageForm")[0]);
                 ga('send', 'event', 'uploadimage', 'user', 1, 1);
                 $.ajax({
-                    url: BlahguaConfig.apiURL + "images/upload",
+                    url: imageUploadURL,
 
                     type: 'POST',
 
                     //Ajax events
                     success: completeHandler = function(data) {
                         $("#uploadimage").removeAttr("disabled");
-                        DoUploadComplete();
+                        blahgua_rest.SetUserImage(data, function () {
+                            DoUploadComplete();
+                        });
+
+                        blahgua_rest.GetUploadURL(function(theUrl) {
+                            imageUploadURL = theUrl;
+                        });
 
                     },
                     error: errorHandler = function(theErr) {

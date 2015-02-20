@@ -2208,9 +2208,12 @@ define('blahgua_base',
             newHTML += createChannelHTML(index, element);
         });
 
+        newHTML += createManageChannelHTML();
+
         $("#ChannelList").html(newHTML);
         $("#ChannelList img").error(imgError);
         $("tr[data-channelId]").click(DoJumpToChannel);
+        $("#ManageChannels").click(DoManageChannels);
         refreshSignInBtn();
     };
 
@@ -2230,12 +2233,25 @@ define('blahgua_base',
         return newHTML;
     };
 
-
+    var createManageChannelHTML = function() {
+        var newHTML = "";
+        newHTML += "<tr style='pointer-events:none'><td><hr /></td></tr>";
+        newHTML += "<tr id='ChannelManagerRow'><td>";
+        newHTML += " <span id='ManageChannels' class='manage-channel-title'>Manage Channels...</span>";
+        newHTML += "</td>";
+        newHTML += "</tr>";
+        return newHTML;
+    };
 
     var DoJumpToChannel = function(theEvent) {
         var channelID = $(this).attr("data-channelId");
         HideChannelList();
         SetCurrentChannel(channelID);
+    };
+
+    var DoManageChannels = function(theEvent) {
+        HideChannelList();
+        ShowMangeChannelsUI();
     };
 
     var loadingHTML = '<div class="ChannelLoadingDiv"><img src="https://s3-us-west-2.amazonaws.com/beta.blahgua.com/img/green-spinner.gif" alt="Loading"><span>Loading...</span></div>';
@@ -2360,6 +2376,28 @@ define('blahgua_base',
                             'title': 'signup'
                         });
                         SignUpPage.RefreshSignupContent();
+                    });
+            }
+        );
+    };
+
+    var ShowMangeChannelsUI = function() {
+
+        // empty whatever is in there now
+        StopAnimation();
+        $("#LightBox").show();
+        $("#BlahFullItem").empty();
+        var basePage = "ManageChannelsPage.html";
+        //if (G.IsShort)
+        //    basePage = "SignUpPageShort.html";
+        require(['ManageChannelsPage'], function(ManageChannelsPage) {
+                $("#BlahFullItem").load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #ManageChannelsDiv",
+                    function () {
+                        ga('send', 'pageview', {
+                            'page': '/managechannels',
+                            'title': 'managechannels'
+                        });
+                        ManageChannelsPage.RefreshContent();
                     });
             }
         );

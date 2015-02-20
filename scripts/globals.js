@@ -205,12 +205,31 @@ define('globals',
         /**
          * @return {string}
          */
-        var GetItemImage = function(theItem, size) {
+        var GetItemImage = function(theItem, size, property) {
+            if (property == undefined)
+                property = "M";
             var imagePathName = "";
-            if (theItem.hasOwnProperty("M")) {
+            if (theItem.hasOwnProperty(property)) {
                 // fetch the correct image size
-                var imageName = theItem.M[0];
-                imagePathName = BlahguaConfig.imageURL + imageName + "-" + size + ".jpg";
+                var imageName = theItem[property][0];
+                if (imageName.indexOf("http") != -1) {
+                    imagePathName = imageName;
+                    switch (size) {
+                        case "A":
+                            imagePathName += "=s" + SmallTileHeight + "-c";
+                            break;
+                        case "B":
+                            imagePathName += "=s" + MediumTileHeight + "-c";
+                            break;
+                        case "C":
+                            imagePathName += "=s" + LargeTileHeight + "-c";
+                            break;
+                        case "D":
+                            break;
+                    }
+                }
+                else
+                    imagePathName = BlahguaConfig.imageURL + imageName + "-" + size + ".jpg";
             }
 
             return imagePathName;
@@ -226,12 +245,8 @@ define('globals',
         };
 
         var GetCommentUserImage = function(theItem, size) {
-            var imagePathName = "";
-            if (theItem.hasOwnProperty("_m")) {
-                // fetch the correct image size
-                var imageName = theItem._m[0];
-                imagePathName = BlahguaConfig.imageURL + imageName + "-" + size + ".jpg";
-            }
+            var imagePathName = GetItemImage(theItem, size, "_m");
+
             if (imagePathName == "")
                 imagePathName = BlahguaConfig.fragmentURL + "images/unknown-user.png";
 

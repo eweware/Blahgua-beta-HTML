@@ -400,6 +400,18 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallPutMethod(methodName, JSON.stringify(param), OnSuccess, OnFailure);
     };
 
+    var GetUploadURL = function(OnSuccess) {
+        $.ajax({
+            type: "GET",
+            url: "http://heard-test-001.appspot.com/api/image",
+            timeout: 3000,
+            success: function (result, didIt, status) {
+                if (OnSuccess != null) {
+                    OnSuccess(result, didIt, status);
+                }
+            }
+        });
+    };
 
 
     var RemoveUserFromChannel = function (ChannelID, OnSuccess, OnFailure) {
@@ -572,6 +584,16 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         var method = "blahs/" + blahID + "/pollVote/" + optionIndex;
         CallPutMethod(method, paramStr, OnSuccess, OnFailure);
     };
+
+
+    var SetUserImage = function (imageUrl, OnSuccess) {
+        /// <returns>nothing</returns>
+        var params = new Object();
+        params["url"] = imageUrl;
+        var method = "users/image";
+
+        CallPostMethod(method, JSON.stringify(params), OnSuccess, OnSuccess);
+    }
 
     var GetUserPollVote = function (blahID, OnSuccess, OnFailure) {
         /// <summary>Returns the users vote on a poll, if any</summary>
@@ -805,6 +827,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
     return {
         currentChannel: currentChannel,
+        SetUserImage : SetUserImage,
+        GetUploadURL: GetUploadURL,
         GetUserStats:  GetUserStats ,
         GetChannelTypes:  GetChannelTypes ,
         GetChannelsForType:  GetChannelsForType ,

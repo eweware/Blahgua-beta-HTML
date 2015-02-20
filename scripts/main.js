@@ -24,6 +24,7 @@ requirejs.config({
         "SelfPageDetails": "pagescripts/SelfPageDetails",
         "SelfPageStats": "pagescripts/SelfPageStats",
         "SelfPageHistory": "pagescripts/SelfPageHistory",
+        "ManageChannelsPage": "pagescripts/ManageChannelsPage",
         "comments": "pagescripts/Comments",
         "spin": "spin.min",
         "stats": "stats",

@@ -22,6 +22,7 @@ define('comments',
         var commentFilter = "";
         var kMaxImgWidth = 90;
         var drawThreaded = false;
+        var imageUploadURL = "";
 
         var SetCommentFilter = function(newFilter) {
             if (newFilter != commentFilter) {
@@ -249,6 +250,10 @@ define('comments',
             $(".down-vote[data-votable]").click(function(theEvent) {
                 var theIndex = Number($(theEvent.target).parents(".comment-item-table").attr("data-comment-index"));
                 SetCommentVote(theEvent, -1, theIndex);
+            });
+
+            blahgua_rest.GetUploadURL(function(theUrl) {
+                imageUploadURL = theUrl;
             });
 
             $(".report-comment-btn").click(function(theEvent) {
@@ -680,7 +685,7 @@ define('comments',
                 var formData = new FormData($("#ImageForm")[0]);
                 ga('send', 'event', 'uploadimage', 'comment', 1, 1);
                 $.ajax({
-                    url: BlahguaConfig.apiURL +  "images/upload",
+                    url: imageUploadURL,
                     type: 'POST',
 
                     //Ajax events
@@ -688,11 +693,14 @@ define('comments',
                         $("#ImagePreviewDiv").removeAttr("disabled");
                         $("#objectId").val(data);
                         // to do - update the image...
-                        var imagePathName = BlahguaConfig.imageURL + data + "-A" + ".jpg";
+                        var imagePathName = data + "=s128-c";
                         var theUrl = 'url("' + imagePathName + '")';
                         $(".image-preview").removeClass("no-image").css({"background-image": theUrl});
                         $(".image-preview span").text("");
                         $(".image-preview i").show();
+                        blahgua_rest.GetUploadURL(function(theUrl) {
+                            imageUploadURL = theUrl;
+                        });
                     },
                     error: errorHandler = function(theErr) {
                         if (theErr.status = "409")
