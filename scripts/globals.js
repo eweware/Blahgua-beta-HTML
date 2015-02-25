@@ -205,6 +205,10 @@ define('globals',
         /**
          * @return {string}
          */
+        this.SmallTileWidth = SmallTileWidth;
+        this.MediumTileWidth = MediumTileWidth;
+        this.LargeTileWidth = LargeTileWidth;
+
         var GetItemImage = function(theItem, size, property) {
             if (property == undefined)
                 property = "M";
@@ -216,15 +220,16 @@ define('globals',
                     imagePathName = imageName;
                     switch (size) {
                         case "A":
-                            imagePathName += "=s" + SmallTileHeight + "-c";
+                            imagePathName += "=s" + this.SmallTileWidth + "-c";
                             break;
                         case "B":
-                            imagePathName += "=s" + MediumTileHeight + "-c";
+                            imagePathName += "=s" + this.MediumTileWidth + "-c";
                             break;
                         case "C":
-                            imagePathName += "=s" + LargeTileHeight + "-c";
+                            imagePathName += "=s" + this.LargeTileWidth + "-c";
                             break;
                         case "D":
+                            imagePathName += "=s2048";
                             break;
                     }
                 }

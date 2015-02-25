@@ -1114,9 +1114,13 @@ define('blahgua_base',
                 blahImageSize = "B";
                 $(textDiv).addClass("MediumBlahFormat");
                 break;
-            default:
+            case 3:
                 blahImageSize = "A";
                 $(textDiv).addClass("SmallBlahFormat");
+                break;
+            case 4:
+                blahImageSize = "B";
+                $(textDiv).addClass("MediumBlahFormat");
                 break;
         }
 
@@ -1282,12 +1286,12 @@ define('blahgua_base',
         }
         else {
             var newDiv = document.createElement("div");
-            var newHTML = "<b>" + G.CurrentChannel.N + "</b> will resume in 15 minutes.</br> ";
+            var newHTML = "<b>" + G.CurrentChannel.N + "</b> has no posts.  </br> ";
 
             if (G.IsUserLoggedIn) {
-                newHTML += "Please check back then.<br/>";
+                newHTML += "Maybe you can add the first!<br/>";
             } else {
-                newHTML += "Please check back then.<br/>";
+                newHTML += "Sign up and create the first!<br/>";
             }
 
             newDiv.innerHTML = newHTML;
