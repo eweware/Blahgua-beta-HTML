@@ -28,8 +28,10 @@ define('ExportFunctions',
         var CurrentCommentText = "";
         var SetCurrentChannelById = null;
         var GetBlahTypeClassFromId = null;
+        var ShowMangeChannelsUI = null;
 
         return {
+            ShowMangeChannelsUI: ShowMangeChannelsUI,
             ForgetUser: ForgetUser,
             LogoutUser: LogoutUser,
             GetBlahTypeNameFromId: GetBlahTypeNameFromId,

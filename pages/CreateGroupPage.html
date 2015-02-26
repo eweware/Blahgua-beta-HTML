@@ -18,7 +18,66 @@
     </table>
 
     <div id="ChannelCreateDiv" class="channel-create-div">
-        Hi there, here is the channel create UI
+        <div class="create-form-div">
+            <label>Name of Channel:</label><br/>
+            <input type="text" id="ChannelNameField"><br/>
+            <label>Channel Description:</label><br/>
+            <textarea id="ChannelDescriptionField" /><br/>
+            <label>Admins (enter account names of additional admins):</label><br/>
+            <input type="text" id="ChannelAdminsField"><br/>
+            <label>Content Half-life (in days):</label>
+            <input type="text" id="ChannelHalflifeField"><br/>
+
+            <input type="checkbox" id="ChannelJoinNeedsBadges">
+            <label>Badges needed to Join:</label><br/>
+            <div id="join-badge-div">
+                <select size="3" id="join-badge-area"></select><br/>
+                <input type="text" id="ChannelJoinBadgeList">
+                <button id="AddJoinBadgeBtn">add</button>
+                <button id="DeleteJoinBadgeBtn">remove</button>
+            </div>
+
+            <input type="checkbox" id="ChannelPostNeedsBadges">
+            <label>Badges needed to Post:</label><br/>
+            <div id="post-badge-div">
+                <select size="3" id="post-badge-area"></select><br/>
+                <input type="text" id="ChannelPostBadgeList">
+                <button id="AddPostBadgeBtn">add</button>
+                <button id="DeletePostBadgeBtn">remove</button>
+            </div>
+
+            <input type="checkbox" id="ChannelCommentNeedsBadges">
+            <label>Badges needed to Comment:</label><br/>
+            <div id="comment-badge-div">
+                <select size="3" id="comment-badge-area"></select><br/>
+                <input type="text" id="ChannelCommentBadgeList">
+                <button id="AddCommentBadgeBtn">add</button>
+                <button id="DeleteCommentBadgeBtn">remove</button>
+            </div>
+
+            <input type="checkbox" id="ChannelNeedsModeration">
+            <label>Posts should be moderated:</label><br/>
+            <div id="moderation-div">
+                <input type="checkbox" id="ChannelModerateNeedsBadges">
+                <label>Badges needed to Moderate:</label><br/>
+
+                <div id="moderate-badge-div">
+                    <select size="3" id="moderate-badge-area"></select><br/>
+                    <input type="text" id="ChannelModerateBadgeList">
+                    <button id="AddModerateBadgeBtn">add</button>
+                    <button id="DeleteModerateBadgeBtn">remove</button>
+                </div>
+                <label>Comment Moderation Style:</label>
+                <select id="ChannelCommentModStyle">
+                    <option title="No Moderation" value="none" default>No Moderation</option>
+                    <option title="Author Moderates" value="author">Author Moderates</option>
+                    <option title="Admins Moderate" value="admin">Admins Moderate</option>
+                </select>
+            </div>
+        </div>
+
+
+
     </div>
 
     <table id="admin-area" class="BlahPageFooter">

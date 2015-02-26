@@ -2386,7 +2386,7 @@ define('blahgua_base',
         );
     };
 
-    var ShowMangeChannelsUI = function() {
+    var ShowMangeChannelsUI = function(whichChannel) {
 
         // empty whatever is in there now
         StopAnimation();
@@ -2402,7 +2402,7 @@ define('blahgua_base',
                             'page': '/managechannels',
                             'title': 'managechannels'
                         });
-                        ManageChannelsPage.RefreshContent();
+                        ManageChannelsPage.RefreshContent(whichChannel);
                     });
             }
         );
@@ -2584,6 +2584,7 @@ define('blahgua_base',
         Exports.GetBlahTypeStr = GetBlahTypeStr;
         Exports.GetChannelNameFromID = GetChannelNameFromID;
         Exports.CloseBlah = CloseBlah;
+        Exports.ShowMangeChannelsUI = ShowMangeChannelsUI;
         Exports.GetBlahTypeId = GetBlahTypeId;
         Exports.GetBlahTypeNameFromId = GetBlahTypeNameFromId;
         Exports.GetBlahTypeColorFromId = GetBlahTypeColorFromId;

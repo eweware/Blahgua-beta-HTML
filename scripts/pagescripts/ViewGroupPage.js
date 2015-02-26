@@ -6,12 +6,13 @@ define('ViewGroupPage',
     ["globals", "ExportFunctions", "blahgua_restapi"],
     function (G, exports, blahgua_rest) {
 
-
+        var newChannel = null;
 
         var InitializePage = function(theGroup) {
+            this.newChannel = theGroup;
             $(G.BlahFullItem).disableSelection();
             $(".blah-closer").click(function(theEvent) {
-                exports.CloseBlah();
+                exports.ShowMangeChannelsUI(newChannel);
             });
 
             $("#BlahFullItem").show();

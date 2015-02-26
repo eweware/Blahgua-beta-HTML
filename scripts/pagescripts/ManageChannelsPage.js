@@ -6,9 +6,12 @@ define('ManageChannelsPage',
     ["globals", "ExportFunctions", "blahgua_restapi"],
     function (G, exports, blahgua_rest) {
 
+        var AllChannelList = null;
+        var UserChannelList = null;
 
+        var isAdmin = false;
 
-        var RefreshContent = function(message) {
+        var RefreshContent = function(theChannel) {
             $(G.BlahFullItem).disableSelection();
             $(".blah-closer").click(function(theEvent) {
                 exports.CloseBlah();
@@ -29,8 +32,10 @@ define('ManageChannelsPage',
                 }
             });
 
+            isAdmin = G.GetSafeProperty(G.CurrentUser, "ad", false);
+
             UpdateUserChannelList();
-            UpdateAllChannelList();
+
 
         };
 
@@ -56,12 +61,14 @@ define('ManageChannelsPage',
                 });
                 return;
             }
+            this.AllChannelList = channelList;
             $("#ManageAllChannelsHeader span").text("All Channels (" + channelList.length + ")" );
             var newHTML = "";
             var newEl = null;
             var channelTypeListDiv = $("#AllChannelsList");
             var channelListDiv = null;
             var subCount = 0;
+            var isLockedType = false;
             $.each(blahgua_rest.ChannelTypes, function (typeIndex, channelType) {
                 newEl = createChannelType(channelType);
                 channelTypeListDiv[0].appendChild(newEl);
@@ -78,18 +85,37 @@ define('ManageChannelsPage',
                     newHTML = createEmptyResultHTML();
                     channelListDiv.append(newHTML);
                 }
-                newHTML = createAddChannelHTML(channelType);
-                channelListDiv.append(newHTML);
-                $(newEl).find("button").click(function(theEvent) {
-                    theEvent.stopImmediatePropagation();
-                    var theID = $(this).attr("data-channel-type");
-                    CreateNewGroup(theID);
-                });
+                isLockedType = G.GetSafeProperty(channelType, "ad", false);
+                if (isAdmin || (!isLockedType)) {
+                    newHTML = createAddChannelHTML(channelType);
+                    channelListDiv.append(newHTML);
+                    $(newEl).find(".channel-control").click(function (theEvent) {
+                        theEvent.stopImmediatePropagation();
+                        var theID = $(this).attr("data-channel-type");
+                        CreateNewGroup(theID);
+                    });
+                }
 
                 $(newEl).find(".user-blah-row").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();
                     var theID = $(this).attr("data-channel-id");
                     OpenExistingGroup(theID);
+                });
+
+                $(newEl).find(".join-channel-btn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    var theId = $(this).parents(".user-blah-row").attr("data-channel-id");
+                    blahgua_rest.JoinUserToChannel(theId, function(newChannel) {
+                        window.alert("Hey, someone joined a channel!");
+                    });
+                });
+
+                $(newEl).find(".leave-channel-btn").click(function(theEvent) {
+                    theEvent.stopImmediatePropagation();
+                    var theId = $(this).parents(".user-blah-row").attr("data-channel-id");
+                    blahgua_rest.RemoveUserFromChannel(theId, function(newChannel) {
+                        window.alert("Hey, someone left a channel!");
+                    });
                 });
             });
 
@@ -97,6 +123,7 @@ define('ManageChannelsPage',
 
 
         var UpdateUserChannelsFromData = function (channelList) {
+            UserChannelList = channelList;
             $("#ManageUserChannelsHeader span").text("Your Channels (" + channelList.length + ")" );
             var newHTML = "";
             var channelListDiv = $("#UserChannelList");
@@ -104,6 +131,13 @@ define('ManageChannelsPage',
                 newHTML = createUserChannelHTML(index, element);
                 channelListDiv.append(newHTML);
             });
+            channelListDiv.find(".user-blah-row").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                var theID = $(this).attr("data-channel-id");
+                OpenExistingGroup(theID);
+            });
+
+            UpdateAllChannelList();
         };
 
         var createAddChannelHTML = function(channelType) {
@@ -168,11 +202,27 @@ define('ManageChannelsPage',
             newHTML += "</div>";
             newHTML += "</td>";
 
+            if (UserChannelList.length > 1) {
+                // insert leave channel UI
+                newHTML += "<td>"
+                newHTML += "<button>Leave</button>";
+                newHTML += "</td>"
+            }
+
             newHTML += "</tr>";
             newHTML += "</tbody></table></td></tr>";
             return newHTML;
         };
 
+        var UserIsOnChannel = function(channelId) {
+          var isOn = false;
+
+            for (var i = 0; i < UserChannelList.length; i++) {
+                if (UserChannelList[i]._id == channelId)
+                return true;
+            }
+            return isOn;
+        };
 
         var createGlobalChannelHTML = function(theIndex, theChannel) {
             var newHTML = "";
@@ -191,18 +241,34 @@ define('ManageChannelsPage',
             newHTML += "<div class='channel-title-text'>";
             newHTML += "<a href='javascript:void(null)'>";
             newHTML += channelName;
-            newHTML += "</a></div></td></tr>";
+            newHTML += "</a></div></td>";
+            // join/leave button
+            var isOnChannel = UserIsOnChannel(theChannel._id);
+            newHTML += "<td rowspan='2'>";
+            newHTML += "<button class='join-channel-btn'";
+            if (isOnChannel)
+                newHTML += " style='display:none;'";
+            newHTML += ">Join</button>";
+            newHTML += "<button class='leave-channel-btn'";
+            if (!isOnChannel)
+                newHTML += " style='display:none;'";
+            else if (UserChannelList.length == 1)
+                newHTML += " disabled='true'";
+            newHTML += ">Leave</button>";
+            newHTML += "</td>";
+
+            newHTML += "</tr>";
             newHTML += "<tr><td class='channel-text-column'><div class='channel-description-text'>";
             newHTML += channelDescription;
             newHTML += "</div>";
             newHTML += "</td>";
-
             newHTML += "</tr>";
             newHTML += "</tbody></table></td></tr>";
             return newHTML;
         };
 
-        var CreateNewGroup = function(groupType) {
+
+        var CreateNewGroup = function(groupTypeId) {
             $("#LightBox").show();
             var basePage = "CreateGroupPage.html";
             if (G.IsShort)
@@ -211,21 +277,30 @@ define('ManageChannelsPage',
             $("#BlahPreviewExtra").empty();
 
             require(["CreateGroupPage"], function(CreateGroupPage) {
-                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahDiv", function() {
+                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #CreateChannelDiv", function() {
                     ga('send', 'pageview', {
                         'page': '/creategroup',
-                        'title': groupType._id
+                        'title': groupTypeId
                     });
 
                     $(G.BlahFullItem).disableSelection();
                     $(G.BlahFullItem).fadeIn("fast", function() {
-                        CreateGroupPage.InitializePage(groupType);
+                        CreateGroupPage.InitializePage(groupTypeId);
                     });
                 });
             });
         };
 
-        var OpenExistingGroup = function(theGroup) {
+        var GetGroupFromId = function(theGroupId) {
+            for (var i = 0; i < this.AllChannelList.length; i++) {
+                if (this.AllChannelList[i]._id == theGroupId)
+                    return this.AllChannelList[i];
+            }
+          return null;
+        };
+
+        var OpenExistingGroup = function(theGroupId) {
+            var theGroup = GetGroupFromId(theGroupId);
             $("#LightBox").show();
             var basePage = "ViewGroupPage.html";
             if (G.IsShort)
@@ -234,10 +309,10 @@ define('ManageChannelsPage',
             $("#BlahPreviewExtra").empty();
 
             require(["ViewGroupPage"], function(ViewGroupPage) {
-                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #FullBlahDiv", function() {
+                $(BlahFullItem).load(BlahguaConfig.fragmentURL + "pages/" + basePage + " #ViewChannelDiv", function() {
                     ga('send', 'pageview', {
                         'page': '/groupinfo',
-                        'title': theGroup._id
+                        'title': theGroupId
                     });
 
                     $(G.BlahFullItem).disableSelection();

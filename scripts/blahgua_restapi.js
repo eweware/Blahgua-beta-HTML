@@ -419,7 +419,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         /// <param name="GroupID">the id of the group to leave</param>
         /// <param name="OnSuccess">Success callback</param>
         /// <param name="OnFailure">Failure callback</param>
-        var paramStr = "{'g':'" + ChannelID + "'}";
+        var paramStr = '{"G":"' + ChannelID + '"}';
         var methodName = "userGroups";
         CallDeleteMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
@@ -641,6 +641,21 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallPostMethod("blahs", JSON.stringify(param), OnSuccess, OnFailure);
     };
 
+    var CreateChannel = function (channelName, channelDesc, channelType, infoObj, OnSuccess, OnFailure) {
+        var param = new Object();
+        param["N"] = channelName;
+        param["D"] = channelDesc;
+        param["Y"] = channelType;
+        if (infoObj != null) {
+            for (propName in infoObj) {
+                param[propName] = infoObj[propName];
+            }
+        }
+
+        CallPostMethod("groups", JSON.stringify(param), OnSuccess, OnFailure);
+    };
+
+
 
     var GetChannelTypes = function(OnSuccess, OnFailure) {
         CallGetMethod("groupTypes", "{}", OnSuccess, OnFailure);
@@ -840,6 +855,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetUserProfile:  GetUserProfile ,
         GetProfileSchema:  GetProfileSchema ,
         AddBlahComment:  AddBlahComment ,
+        CreateChannel:  CreateChannel ,
         SetUserPredictionVote:  SetUserPredictionVote ,
         SetUserExpiredPredictionVote: SetUserExpiredPredictionVote ,
         GetUserPredictionVote:  GetUserPredictionVote ,
