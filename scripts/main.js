@@ -25,6 +25,8 @@ requirejs.config({
         "SelfPageStats": "pagescripts/SelfPageStats",
         "SelfPageHistory": "pagescripts/SelfPageHistory",
         "ManageChannelsPage": "pagescripts/ManageChannelsPage",
+        "CreateGroupPage": "pagescripts/CreateGroupPage",
+        "ViewGroupPage": "pagescripts/ViewGroupPage",
         "comments": "pagescripts/Comments",
         "spin": "spin.min",
         "stats": "stats",

@@ -2211,8 +2211,9 @@ define('blahgua_base',
         $.each(G.ChannelList, function(index, element) {
             newHTML += createChannelHTML(index, element);
         });
-
-        newHTML += createManageChannelHTML();
+        
+        if (G.CurrentUser != null)
+            newHTML += createManageChannelHTML();
 
         $("#ChannelList").html(newHTML);
         $("#ChannelList img").error(imgError);

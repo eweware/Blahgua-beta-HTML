@@ -1,12 +1,100 @@
 
 .manage-channels-page {
-    background:#3F2B2F;
     width:100%;
     height:100%
 }
 
-.manage-channel-style {
-    color: red;
-    font-family: 'Gotham Rounded Book', 'Gotham Rounded', 'HelveticaNeue-CondensedBold', 'Helvetica Neue',sans-serif;
-    font-size: x-large;
+.channel-admin-area {
+    background: #FFFFFF;
+
 }
+
+.channel-header {
+    color: #1FBBD1;
+    font-family: 'Gotham Rounded Medium', 'Gotham Rounded','HelveticaNeue-CondensedBold', 'Helvetica Neue', sans-serif;
+    font-size: large;
+    margin-left: 8px;
+
+}
+
+.channel-details-div {
+    width:100%;
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
+    background-color: rgb(245, 244, 240);
+    z-index: 2;
+    padding-top: 4px;
+}
+
+.channel-title-text {
+    font-size:large;
+    margin-left: 8px;
+}
+
+.channel-description-text {
+    font-size:small;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.channel-text-column {
+    width: 100%;
+
+}
+
+.channeltype-text {
+     font-size:large;
+     margin-left: 8px;
+ }
+
+.channeltype-text-column {
+    width: 100%;
+
+}
+
+.empty-channeltype-title-text {
+    font-size:small;
+    margin-left: 8px;
+    font-style: italic;
+}
+
+.empty-channeltype-text-column {
+    width: 100%;
+
+}
+
+.empty-channel-type-row {
+
+}
+
+.channel-type-row {
+
+}
+
+.channel-control {
+    margin-bottom: 8px;
+}
+
+.channel-type-row-table {
+    width: 100%;
+    border-bottom: solid 2px black;
+    margin-bottom: 4px;
+}
+
+.channel-create-div {
+    width:100%;
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-shadow: 0px 5px 4px rgba(0,0,0,0.2);
+    background-color: rgb(245, 244, 240);
+    z-index: 2;
+    padding-top: 4px;
+}
+

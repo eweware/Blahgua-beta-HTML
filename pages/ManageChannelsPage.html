@@ -1,11 +1,94 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div id="ManageChannelsDiv" class="manage-channels-page">
+<div id="ManageChannelsDiv" class="manage-channels-page UserChannelDiv">
+    <table class="BlahFullHeader" id="FullBlahHeader">
+        <tr class="blah-headline-row">
+            <td>
+                <div id="ChannelPlaceholderImage" class="author-image"></div>
+            </td>
+            <td style="width:100%">
+                <span class="fullBlahgerName">Manage Channels</span>
+            </td>
+            <td>
+                <div class="back-button blah-closer"></div>
+            </td>
+        </tr>
 
-    <div class="manage-channel-style">
-    Hi there!  Welcome to manage your channels!
+    </table>
+
+    <div id="ChannelDetailsDiv" class="channel-details-div">
+
+        <div class="accordion">
+            <h2 id="ManageUserChannelsHeader"><div class="collapser"></div><span>Your Channels</span></h2>
+            <div class="accordion-body">
+                <div class="instruction-text">
+                    These are the channels you are currently subscribed to.
+                </div>
+                <div class="accordion-content">
+                    <table  style="width:100%">
+                        <tbody id="UserChannelList">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="accordion">
+            <h2 id="ManageAllChannelsHeader"><div class="collapser"></div><span>All Channels</span></h2>
+            <div class="accordion-body">
+                <div class="instruction-text">
+                    Find more channels here and add them to your profile.
+                </div>
+                <div class="accordion-content">
+                    <table  style="width:100%">
+                        <thead style="border-bottom: solid 2px #999999">
+                        <tr>
+                            <td colspan="2" style="padding-bottom: 4px; width:100%" >
+                                <table  style="width:100%">
+                                    <tr class="channel-sort-area">
+                                        <td>
+                                            <input text="text" id="FilterBox" placeholder="Search">
+
+                                            <select id="SortBySelect">
+                                                <option value="bytype" selected>by type</option>
+                                                <option value="byposts" >by posts</option>
+                                                <option value="bymembers" >by members</option>
+                                                <option value="bydate" >by creation date</option>
+                                            </select>
+
+                                            <select id="SortOrderSelect">
+                                                <option value="desc" selected>descending</option>
+                                                <option value="asc">ascending</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        </thead>
+
+                        <tbody id="AllChannelsList">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     </div>
+    <table id="admin-area" class="BlahPageFooter">
+        <tr>
+            <td>
+                <button id="Create Channel" class="action-button default-button"></button>
+            </td>
+        </tr>
+
+    </table>
+
+</div>
+
 </div>
 </body>
 </html>

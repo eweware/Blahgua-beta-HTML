@@ -253,7 +253,7 @@ define('comments',
             });
 
             blahgua_rest.GetUploadURL(function(theUrl) {
-                imageUploadURL = theUrl;
+                this.imageUploadURL = theUrl;
             });
 
             $(".report-comment-btn").click(function(theEvent) {
@@ -685,7 +685,7 @@ define('comments',
                 var formData = new FormData($("#ImageForm")[0]);
                 ga('send', 'event', 'uploadimage', 'comment', 1, 1);
                 $.ajax({
-                    url: imageUploadURL,
+                    url: this.imageUploadURL,
                     type: 'POST',
 
                     //Ajax events
@@ -699,7 +699,7 @@ define('comments',
                         $(".image-preview span").text("");
                         $(".image-preview i").show();
                         blahgua_rest.GetUploadURL(function(theUrl) {
-                            imageUploadURL = theUrl;
+                            this.imageUploadURL = theUrl;
                         });
                     },
                     error: errorHandler = function(theErr) {
