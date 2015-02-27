@@ -799,6 +799,19 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var GetChannelById = function(ChannelId, OnSuccess, OnFailure) {
+        var paramStr = '{}';
+        var methodName = "groups/" + ChannelId;
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+    var GetChannelPermissionById = function(ChannelId, OnSuccess, OnFailure) {
+        var paramStr = '{}';
+        var methodName = "groups/" + ChannelId + "/permission";
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+
     var ReportPost = function (BlahId, reportType, OnSuccess, OnFailure) {
         var paramStr = new Object();
         var methodName = "blahs/" + BlahId + "/report";
@@ -842,6 +855,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
     return {
         currentChannel: currentChannel,
+        GetChannelPermissionById: GetChannelPermissionById,
+        GetChannelById: GetChannelById,
         SetUserImage : SetUserImage,
         GetUploadURL: GetUploadURL,
         GetUserStats:  GetUserStats ,

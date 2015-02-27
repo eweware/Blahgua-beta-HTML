@@ -114,7 +114,10 @@
      margin-right: 8px;
  }
 
-
+.channel-create-div select {
+    margin-left: 8px;
+    min-width: 200px;
+}
 
 #ChannelNameField {
     width: 100%;

@@ -2275,7 +2275,22 @@ define('blahgua_base',
             'page': '/channel/' + G.CurrentChannel.N,
             'title': G.CurrentChannel.N
         });
+
+        Blahgua.GetChannelPermissionById(G.CurrentChannel._id, UpdateForChannelPermissions);
     };
+
+    var UpdateForChannelPermissions = function(permRecord) {
+        var canPost = G.GetSafeProperty(permRecord, "post", false);
+        var canComment = G.GetSafeProperty(permRecord, "comment", false);
+
+        if (canPost)
+            $("div .ChannelOptions").show();
+        else
+            $("div .ChannelOptions").hide();
+
+        G.UserCanComment = canComment;
+    };
+
 
     var InboxCount = 0;
     var MaxInboxCount = 10;

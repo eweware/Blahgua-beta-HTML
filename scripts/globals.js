@@ -48,6 +48,7 @@ define('globals',
             };
         })(jQuery);
 
+        var UserCanComment = true;
         var BlahsMovingTimer = null;
         var BlahPreviewTimeout = null;
         var ViewerUpdateTimer = null;
@@ -611,6 +612,7 @@ define('globals',
 
 
         return {
+            UserCanComment: UserCanComment,
             Initialize :   Initialize,
             DataZeroOrEmpty: DataZeroOrEmpty,
             AppendText: AppendText,

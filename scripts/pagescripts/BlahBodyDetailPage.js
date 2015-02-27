@@ -228,7 +228,10 @@ define('BlahBodyDetailPage',
             comments.UpdateTopComments();
 
             if (G.IsUserLoggedIn) {
-                $("#CreateCommentArea").show();
+                if (G.UserCanComment)
+                    $("#CreateCommentArea").show();
+                else
+                    $("#CreateCommentArea").hide();
                 if (G.IsMobile) {
                     //$("#CharCountDiv").text("(3-4000 chars)");
                 } else  {

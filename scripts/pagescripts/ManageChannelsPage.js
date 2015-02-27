@@ -47,7 +47,7 @@ define('ManageChannelsPage',
         };
 
         var UpdateAllChannelList = function() {
-            var channeList = $("#UserChannelList");
+            var channeList = $("#AllChannelsList");
             channeList.empty();
 
             blahgua_rest.GetAllChannels(UpdateAllChannelsFromData);
@@ -118,7 +118,6 @@ define('ManageChannelsPage',
                     });
                 });
             });
-
         };
 
 
@@ -135,6 +134,14 @@ define('ManageChannelsPage',
                 theEvent.stopImmediatePropagation();
                 var theID = $(this).attr("data-channel-id");
                 OpenExistingGroup(theID);
+            });
+
+            channelListDiv.find(".leave-channel-btn").click(function(theEvent) {
+                theEvent.stopImmediatePropagation();
+                var theId = $(this).parents(".user-blah-row").attr("data-channel-id");
+                blahgua_rest.RemoveUserFromChannel(theId, function(newChannel) {
+                    window.alert("Hey, someone left a channel!");
+                });
             });
 
             UpdateAllChannelList();
@@ -190,7 +197,7 @@ define('ManageChannelsPage',
             var channelImageURL = "https://s3-us-west-2.amazonaws.com/app.goheard.com/images/silhouette.jpg";
 
             newHTML += "<td rowspan='2'>";
-            newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + channelImageURL + "\")'>";
+            newHTML += "<div class='blah-preview-image' style='background-image: url(\"" + channelImageURL + "\")'/>";
             newHTML += "</td>";
             newHTML += "<td class='channel-text-column'>";
             newHTML += "<div class='channel-title-text'>";
@@ -205,7 +212,7 @@ define('ManageChannelsPage',
             if (UserChannelList.length > 1) {
                 // insert leave channel UI
                 newHTML += "<td>"
-                newHTML += "<button>Leave</button>";
+                newHTML += "<button class='leave-channel-btn'>Leave</button>";
                 newHTML += "</td>"
             }
 

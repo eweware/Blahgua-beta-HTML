@@ -67,7 +67,10 @@ define('BlahCommentDetailPage',
             });
 
              $("#SignInToCommentArea").hide();
-             $("#CreateCommentArea").show();
+             if (G.UserCanComment)
+                 $("#CreateCommentArea").show();
+             else
+                 $("#CreateCommentArea").hide();
              if (!G.IsMobile) {
                  $("#CommentTextArea").focus();
                  document.getElementById("AddCommentBtn").disabled = true;
