@@ -18,8 +18,31 @@
     </table>
 
     <div id="ChannelCreateDiv" class="channel-create-div">
-        Hi there, here is the channel viewing UI
+        <p>Hi there, here is the channel viewing UI</p>
+
+        <div id="AdminPanel">
+            <p>Import Content Tool</p>
+            <table>
+                <thead>
+                <tr>
+                    <td>RSS URL</td>
+                    <td><input id="RSSURLfield" type="url"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="LoadRSSBtn">Parse</button></td>
+                </tr>
+
+                </thead>
+                <tbody id="RSSBody"></tbody>
+            </table>
+            <Button id="ImportDataBtn">Import</Button>
+
+        </div>
+
     </div>
+
+
 
     <table id="admin-area" class="BlahPageFooter">
         <tr>
