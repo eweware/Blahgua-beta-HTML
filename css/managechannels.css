@@ -128,6 +128,11 @@
     height: 45px;
 }
 
+
+#RSSURLfield {
+    width: 100%;
+}
+
 #RSSBody table {
     table-layout:fixed;
     margin: 4px;
@@ -159,4 +164,11 @@ td.title-data input[type='text'] {
     padding: 0px;
 }
 
-
+.rss-preview-header {
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 16pt;
+    padding: 8px 4px;
+    background: wheat;
+}

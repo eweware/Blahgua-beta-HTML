@@ -44,7 +44,7 @@ define('ViewGroupPage',
                 dataType: 'json',
                 success: function(data) {
                     //console.log(data.responseData.feed);
-                    $("#RSSBody").html('<tr><td colspan="2">'+ data.responseData.feed.title +'</td></tr>');
+                    $("#RSSBody").html('<tr><td colspan="2" class="rss-preview-header">'+ data.responseData.feed.title +'</td></tr>');
 
                     $.each(data.responseData.feed.entries, function(key, value){
                         var thehtml = '<tr><td colspan="2">';
@@ -60,7 +60,7 @@ define('ViewGroupPage',
                                 url: 'http://api.embed.ly/1/extract?key=400ca94d281f4b77b94b351c345d6ba8&maxwidth=500&url=' + encodeURIComponent(curHRef),
                                 dataType: 'json',
                                 success: function(theObject) {
-                                    var itemHTML = '<tr><td rowSpan="2" >';
+                                    var itemHTML = '<tr><td rowSpan="2">';
                                     itemHTML += '<img width="128" height="128" src="' +  theObject.images[0].url + '"/>';
                                     itemHTML += '</td>'
                                     itemHTML += '<td class="title-data"><input type="text" value="' + theObject.title + '"></td></tr>';
@@ -72,6 +72,10 @@ define('ViewGroupPage',
 
                             });
                         }
+                    });
+
+                    $(".rss-preview-header").click(function(theEvent) {
+                        $(this).closest("table").find("table").toggle();
                     });
                 }
             });
