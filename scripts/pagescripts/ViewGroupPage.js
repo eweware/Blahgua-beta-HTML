@@ -47,19 +47,27 @@ define('ViewGroupPage',
                     $("#RSSBody").html('<tr><td colspan="2">'+ data.responseData.feed.title +'</td></tr>');
 
                     $.each(data.responseData.feed.entries, function(key, value){
-                        var thehtml = '<tr><td colspan="2"><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr>';
+                        var thehtml = '<tr><td colspan="2">';
+                        thehtml += '<table><tbody><tr><td><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr></tbody></table>';
                         $("#RSSBody").append(thehtml);
                     });
-                    var theItems = $("#RSSBody a");
+                    var theItems = $("#RSSBody tbody");
 
                     $.each(theItems, function (theKey, theVal) {
-                        var curHRef = theVal.href;
+                        var curHRef = $(theVal).find("a").attr("href");
                         if (curHRef != "") {
                             $.ajax({
                                 url: 'http://api.embed.ly/1/extract?key=400ca94d281f4b77b94b351c345d6ba8&maxwidth=500&url=' + encodeURIComponent(curHRef),
                                 dataType: 'json',
                                 success: function(theObject) {
-                                    $(theVal).title="done";
+                                    var itemHTML = '<tr><td rowSpan="2" >';
+                                    itemHTML += '<img width="128" height="128" src="' +  theObject.images[0].url + '"/>';
+                                    itemHTML += '</td>'
+                                    itemHTML += '<td class="title-data"><input type="text" value="' + theObject.title + '"></td></tr>';
+                                    itemHTML += '<tr><td><textarea rows="3">' + theObject.description + '</textarea></td></tr>';
+                                    itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>'
+
+                                    $(theVal).html(itemHTML);
                                 }
 
                             });
