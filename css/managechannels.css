@@ -172,3 +172,11 @@ td.title-data input[type='text'] {
     padding: 8px 4px;
     background: wheat;
 }
+
+#ImportersList {
+    width: 100%;
+}
+
+#ImporterDetailTable {
+    width: 100%;
+}

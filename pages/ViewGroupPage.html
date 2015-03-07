@@ -19,20 +19,113 @@
 
     <div id="ChannelCreateDiv" class="channel-create-div">
         <div id="AdminPanel">
-            <p>Configure Channel Feeds</p>
-            <table>
-                <thead>
-                <tr>
-                    <td>RSS URL:</td>
-                    <td><input id="RSSURLfield" type="url"></td>
-                    <td><button id="LoadRSSBtn">Parse</button></td>
-                </tr>
+            <h2>Channel Admin Tools</h2>
+            <div class="accordion">
+                <h2 id="ManageImportersHeader"><div class="collapser"></div><span>Channel Feed Sources</span></h2>
+                <div class="accordion-body">
+                    <div class="instruction-text">
+                        These are the feeds you have identified for this channel.
+                    </div>
+                    <div class="accordion-content">
+                        <table id="ImportersList">
+                            <tbody>
 
+                            </tbody>
+                        </table>
+                        <button id="CreateImporterBtn">Create Importer</button>
+                        <table id="ImporterDetailTable">
+                            <tbody>
+                            <tr>
+                                <td>RSS URL:</td>
+                                <td><input id="RSSURL" type="url"></td>
+                                <td><button id="LoadRSSBtn">Parse</button></td>
+                            </tr>
+                            <tr>
+                                <td>Auto Import:</td>
+                                <td colspan="2"><input id="RSSAutoImport" type="url"></td>
+                            </tr>
+                            <tr>
+                                <td>Auto-Import Schedule (minutes):</td>
+                                <td colspan="2"><input id="RSSAutoImportSchedule" type="number"></td>
+                            </tr>
+                            <tr>
+                                <td>Import as User</td>
+                                <td colspan="2"><input id="RSSImportAsUser" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>username:</td>
+                                <td colspan="2"><input id="RSSImportUsername" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>password:</td>
+                                <td colspan="2"><input id="RSSImportPassword" type="url"></td>
+                            </tr>
+                            <tr><td>-</td></tr>
+                            <tr>
+                                <td>URL field</td>
+                                <td colspan="2"><input id="RSSURLfield" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>Summarize Page?>td>
+                                <td colspan="2"><input id="RSSSummarizePage" type="checkbox"></td>
+                            </tr>
+                            <tr>
+                                <td>title field</td>>
+                                <td colspan="2"><input id="RSSTitleField" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>image field</td>
+                                <td colspan="2"><input id="RSSImageField" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>body field</td>
+                                <td colspan="2"><input id="RSSBodyField" type="text"></td>
+                            </tr>
+                            <tr>
+                                <td>Append URL to Body</td>
+                                <td colspan="2"><input id="RSSAppendURL" type="checkbox"></td>
+                            </tr>
 
-                </thead>
-                <tbody id="RSSBody"></tbody>
-            </table>
-            <Button id="ImportDataBtn">Import</Button>
+                            </tbody>
+                            <tbody id="RSSBody"></tbody>
+                        </table>
+                        <Button id="ImportDataBtn">Import Now</Button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <h2 id="ManageNewMembersHeader"><div class="collapser"></div><span>Manage New Members</span></h2>
+                <div class="accordion-body">
+                    <div class="instruction-text">
+                        These are the members who have applied to join your channel
+                    </div>
+                    <div class="accordion-content">
+                        <table  style="width:100%">
+                            <tbody id="NewMembersList">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion">
+                <h2 id="ModeratePostsHeader"><div class="collapser"></div><span>Moderate Posts</span></h2>
+                <div class="accordion-body">
+                    <div class="instruction-text">
+                        These are the posts that are awaiting moderation
+                    </div>
+                    <div class="accordion-content">
+                        <table  style="width:100%">
+                            <tbody id="ModeratePostList">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
 
         </div>
 

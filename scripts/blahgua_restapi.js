@@ -709,7 +709,6 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         OnSuccess(userCount);
     };
 
-
     var GetUserBlahs = function (OnSuccess, OnFailure) {
         /// <summary>Returns the groups of the current user</summary>
         /// <param name="OnSuccess">Success callback</param>
@@ -852,8 +851,31 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         });
     };
 
+    var GetChannelImporters = function(ChannelID, OnSuccess, OnFailure) {
+        var methodName = "groups/" + ChannelID + "/importers";
+        var paramStr = "{}";
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+
+    };
+
+    var AddChannelImporter = function(ChannelID, ImporterInfo, OnSuccess, OnFailure) {
+
+    };
+
+    var UpdateChannelImporter = function (ImporterInfo, OnSuccess, OnFailure) {
+
+    };
+
+    var DeleteChannelImporter = function (ImporterId, OnSuccess, OnFailure) {
+
+    };
+
 
     return {
+        GetChannelImporters: GetChannelImporters,
+        AddChannelImporter: AddChannelImporter,
+        UpdateChannelImporter: UpdateChannelImporter,
+        DeleteChannelImporter: DeleteChannelImporter,
         currentChannel: currentChannel,
         GetChannelPermissionById: GetChannelPermissionById,
         GetChannelById: GetChannelById,

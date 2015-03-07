@@ -8,9 +8,11 @@ define('ViewGroupPage',
 
         var newChannel = null;
         var perms = null;
+        var channelImporters = null;
+        var curImporter = null;
 
         var InitializePage = function(theGroup) {
-            this.newChannel = theGroup;
+            newChannel = theGroup;
             $(G.BlahFullItem).disableSelection();
             $(".blah-closer").click(function(theEvent) {
                 exports.ShowMangeChannelsUI(newChannel);
@@ -20,11 +22,82 @@ define('ViewGroupPage',
 
             $(".fullBlahgerName").text(theGroup.N);
 
+            $("#CreateImporterBtn").click(function(theEvent) {
+               // create a new importer
+                ClearImporterArea();
+                curImporter = new Object();
+                curImporter.channel = newChannel._id;
+                curImporter.feedtype = 0;
+                curImporter.autoimport = false;
+                curImporter.importfrequency = 0;
+                curImporter.importusername = "";
+                curImporter.importpassword = "";
+                curImporter.importasuser = false;
+
+                curImporter.RSSUrl = "<rss url>";
+                curImporter.summarizepage = true;
+                curImporter.appendurl = true;
+                curImporter.urlfield = "url";
+                curImporter.titlefield = "title";
+                curImporter.bodyfield = "description";
+                curImporter.imagefield = "images[0].url";
+
+                PopulateActivityFeedArea();
+            });
+
+            $('.accordion h2').click(function(theEvent) {
+                var parent = $(this).parent('.accordion');
+                if (parent.hasClass("active")) {
+                    // close it
+                    parent.removeClass("active");
+                } else {
+                    // open it and close others
+                    $(".active").removeClass("active");
+                    parent.addClass("active");
+                    this.scrollIntoView(true);
+                }
+            });
+
+
             blahgua_rest.GetChannelPermissionById(theGroup._id, function(thePerms)
             {
                 perms = thePerms;
                 if (perms.admin) {
                     $("#AdminPanel").show();
+
+                    // load in the channel Importers
+                    blahgua_rest.GetChannelImporters(theGroup._id, function(theImporters)
+                    {
+                        channelImporters = theImporters;
+                        $("#ImportersList tbody").html(""); // clear
+
+                        if ((channelImporters != null) && (channelImporters.length > 0)) {
+                            $.each(channelImporters, function (key, value) {
+                                // do something with them,...
+                                var theHTML = "<tr><td>";
+                                theHTML += "<span data-item='" + key + "'>" + value.urlfield + "</span>";
+                                theHTML += "</td></tr>";
+                                $("#ImportersList tbody").append(theHTML);
+                            });
+
+                            $("#ImportersList span").click(function (theEvent) {
+                                var theItemIndex = $(this).attr("data-item");
+                                curImporter = channelImporters[theItemIndex];
+
+                                PopulateActivityFeedArea();
+                            });
+                        } else {
+                            var theHTML = "<tr><td><span>No Importers Defined</span></td></tr>";
+                            $("#ImportersList tbody").append(theHTML);
+                        }
+                    });
+
+                    // moderation
+
+                    // search
+
+                    // application for membership
+
                 }
                 else
                     $("#AdminPanel").hide();
@@ -36,6 +109,30 @@ define('ViewGroupPage',
 
         };
 
+        var PopulateActivityFeedArea = function() {
+
+            // general items
+            $("#RSSAutoImport").val(curImporter.autoimport);
+            $("#RSSAutoImportSchedule").val(curImporter.importfrequency);
+            $("#RSSImportAsUser").val(curImporter.importasuser);
+            $("#RSSImportUsername").val(curImporter.importusername);
+            $("#RSSImportPassword").val(curImporter.importpassword);
+
+            // rss items
+            $("#RSSURL").val(curImporter.RSSUrl);
+            $("#RSSURLfield").val(curImporter.urlfield);
+            $("#RSSSummarizePage").attr("checked", G.GetSafeProperty(curImporter, "summarizepage", true));
+            $("#RSSTitleField").val(curImporter.titlefield);
+            $("#RSSImageField").val(curImporter.imagefield);
+            $("#RSSBodyField").val(curImporter.bodyfield);
+
+            $("#RSSAppendURL").attr("checked", G.GetSafeProperty(curImporter, "appendurl", true));
+
+        };
+
+        var ClearImporterArea = function() {
+            $("#RssURLfield").val("");
+        };
 
         var HandleRSSLoad = function (theEvent) {
             var theURL = $("#RSSURLfield").val();
