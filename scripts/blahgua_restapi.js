@@ -413,6 +413,25 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         });
     };
 
+    var GetImageURL = function(theURL, OnSuccess) {
+        var paramString = "imageurl=" + encodeURI(theURL);
+        $.ajax({
+            type: "POST",
+            url: "http://heard-test-001.appspot.com/api/image/url",
+            data: paramString,
+            timeout: 12000,
+            success: function (result, didIt, status) {
+                if (OnSuccess != null) {
+                    OnSuccess(result, didIt, status);
+                }
+            },
+            error: function (theErr) {
+                if (OnSuccess != null) {
+                    OnSuccess("");
+                }
+            }
+        });
+    };
 
     var RemoveUserFromChannel = function (ChannelID, OnSuccess, OnFailure) {
         /// <summary>Leaves the specified group</summary>
@@ -872,6 +891,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
 
     return {
+        GetImageURL: GetImageURL,
         GetChannelImporters: GetChannelImporters,
         AddChannelImporter: AddChannelImporter,
         UpdateChannelImporter: UpdateChannelImporter,

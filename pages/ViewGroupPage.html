@@ -66,11 +66,11 @@
                                 <td colspan="2"><input id="RSSURLfield" type="text"></td>
                             </tr>
                             <tr>
-                                <td>Summarize Page?>td>
+                                <td>Summarize Page?</td>
                                 <td colspan="2"><input id="RSSSummarizePage" type="checkbox"></td>
                             </tr>
                             <tr>
-                                <td>title field</td>>
+                                <td>title field</td>
                                 <td colspan="2"><input id="RSSTitleField" type="text"></td>
                             </tr>
                             <tr>
@@ -85,11 +85,24 @@
                                 <td>Append URL to Body</td>
                                 <td colspan="2"><input id="RSSAppendURL" type="checkbox"></td>
                             </tr>
-
+                            <tr>
+                                <td colspan="3">
+                                    <table>
+                                        <tbody id="RSSBody"></tbody>
+                                    </table>
+                                </td>
+                            </tr>
                             </tbody>
-                            <tbody id="RSSBody"></tbody>
+
                         </table>
-                        <Button id="ImportDataBtn">Import Now</Button>
+                        <table ><tbody>
+                        <tr>
+                            <td><Button id="SaveImporterBtn">Save</Button></td>
+                            <td><Button id="DeleteImporterBtn">Delete</Button></td>
+                            <td><Button id="ImportDataBtn">Import Now</Button></td>
+                        </tr>
+                        </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

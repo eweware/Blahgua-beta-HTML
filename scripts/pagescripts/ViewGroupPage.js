@@ -3,13 +3,14 @@
  */
 
 define('ViewGroupPage',
-    ["globals", "ExportFunctions", "blahgua_restapi"],
-    function (G, exports, blahgua_rest) {
+    ["globals", "constants", "ExportFunctions", "blahgua_restapi"],
+    function (G, K, exports, blahgua_rest) {
 
         var newChannel = null;
         var perms = null;
         var channelImporters = null;
         var curImporter = null;
+        var importItems = null;
 
         var InitializePage = function(theGroup) {
             newChannel = theGroup;
@@ -101,11 +102,25 @@ define('ViewGroupPage',
                 }
                 else
                     $("#AdminPanel").hide();
-            })
+            });
+
+            $("#ImporterDetailTable").hide();
 
             $("#LoadRSSBtn").click(HandleRSSLoad);
 
+            $("#SaveImporterBtn").click(HandleSaveImporter);
+
+            $("#DeleteImporterBtn").click(HandleDeleteImporter);
+
             $("#ImportDataBtn").click(HandleRSSImport);
+
+        };
+
+        var HandleSaveImporter = function(theEvent) {
+
+        };
+
+        var HandleDeleteImporter = function(theEvent) {
 
         };
 
@@ -128,6 +143,8 @@ define('ViewGroupPage',
 
             $("#RSSAppendURL").attr("checked", G.GetSafeProperty(curImporter, "appendurl", true));
 
+            $("#ImporterDetailTable").show();
+
         };
 
         var ClearImporterArea = function() {
@@ -135,7 +152,7 @@ define('ViewGroupPage',
         };
 
         var HandleRSSLoad = function (theEvent) {
-            var theURL = $("#RSSURLfield").val();
+            var theURL = $("#RSSURL").val();
             $.ajax({
                 url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(theURL),
                 dataType: 'json',
@@ -179,8 +196,125 @@ define('ViewGroupPage',
         };
 
         var HandleRSSImport = function (theEvent) {
+            importItems = $("#RSSBody tbody").toArray();
+            ImportRSSItems();
+
+        };
+
+        var ImportRSSItems = function() {
+            var curItem = importItems.pop();
+            $(curItem).fadeTo(400, 0.5);
+            var title = $(curItem).find("input").val();
+            var imageURL = $(curItem).find("img").attr("src");
+            var body = $(curItem).find("textarea").val();
+            var docURL = $(curItem).find("a").attr("href");
+
+            if (imageURL != null) {
+                var theImage = new Image();
+                theImage.src = theImage.src = imageURL;
+                var imageWidth = theImage.width;
+                var imageHeight = theImage.height;
+
+                if ((imageWidth + imageHeight) > 512) {
+                    blahgua_rest.GetImageURL(imageURL, function(newURL) {
+                        CreateImportBlah(title, body, newURL, docURL);
+                    });
+                }
+                else {
+                    // image too small...
+                    CreateImportBlah(title, body, "", docURL);
+                }
+
+            } else {
+                CreateImportBlah(title, body, "", docURL);
+            }
+        };
+
+        var truncate = function (str, limit) {
+            var bits, i;
+
+            bits = str.split('');
+            if (bits.length > limit) {
+                for (i = bits.length - 1; i > -1; --i) {
+                    if (i > limit) {
+                        bits.length = i;
+                    }
+                    else if (' ' === bits[i]) {
+                        bits.length = i;
+                        break;
+                    }
+                }
+                bits.push('...');
+            }
+            return bits.join('');
+        };
+
+        var CreateImportBlah = function (title, body, imageURL, appendedURL) {
+            var blahType = K.BlahType.says;
+
+            var blahHeadline = title;
+            if (blahHeadline.length > 64) {
+                blahHeadline = truncate(title, 63);
+            }
+
+            var blahBody = body;
+
+            if (appendedURL != "") {
+                blahBody += "\n" + appendedURL;
+            }
+            blahBody = G.CodifyText(blahBody);
+            var blahGroup = newChannel._id;
+            var options = new Object();
+
+            /* todo:  handle badges and public/private
+            var badges = $("#ShowBadgeArea .badge-item");
+            if (badges.length > 0) {
+                var badgeArray = [];
+                badges.each(function(index, item) {
+                    var theID =  $(item).attr("data-badge-id");
+                    var isChecked = $(item).find("i").hasClass("icon-check");
+                    if (isChecked)
+                        badgeArray.push(theID);
+                });
+                if (badgeArray.length > 0)
+                    options["B"] = badgeArray;
+            }
 
 
+            if ($("#ShowBadgeArea .anonymous-item").find("i").hasClass("icon-check")) {
+                //options["XX"] = false;
+            } else {
+                options["XX"] = true;
+            }
+
+            if ($("#ShowBadgeArea .mature-item").find("i").hasClass("icon-check")) {
+                options["XXX"] = true;
+            } else {
+                //options["XXX"] = false;
+            }
+             */
+
+            options["XX"] = false;
+
+            if (imageURL != "") {
+                options["M"] = [imageURL];
+            }
+            blahgua_rest.CreateUserBlah(blahHeadline, blahType, blahGroup, blahBody, options, OnCreateBlahOK, HandleCreateBlahFailure);
+        };
+
+        var OnCreateBlahOK = function(theBlah) {
+            if (importItems.length > 0)
+                ImportRSSItems(importItems);
+            else
+                importItems = null;
+        };
+
+
+        var HandleCreateBlahFailure = function(theError) {
+            if (importItems.length > 0)
+                ImportRSSItems(importItems);
+            else
+                importItems = null;
         };
 
 
