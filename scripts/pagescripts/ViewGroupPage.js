@@ -27,6 +27,7 @@ define('ViewGroupPage',
                // create a new importer
                 ClearImporterArea();
                 curImporter = new Object();
+                curImporter.feedname = "untitled feed";
                 curImporter.channel = newChannel._id;
                 curImporter.feedtype = 0;
                 curImporter.autoimport = false;
@@ -35,7 +36,7 @@ define('ViewGroupPage',
                 curImporter.importpassword = "";
                 curImporter.importasuser = false;
 
-                curImporter.RSSUrl = "<rss url>";
+                curImporter.RSSurl = "<rss url>";
                 curImporter.summarizepage = true;
                 curImporter.appendurl = true;
                 curImporter.urlfield = "url";
@@ -44,6 +45,7 @@ define('ViewGroupPage',
                 curImporter.imagefield = "images[0].url";
 
                 PopulateActivityFeedArea();
+                AppendNewImporterToList(curImporter);
             });
 
             $('.accordion h2').click(function(theEvent) {
@@ -74,10 +76,7 @@ define('ViewGroupPage',
 
                         if ((channelImporters != null) && (channelImporters.length > 0)) {
                             $.each(channelImporters, function (key, value) {
-                                // do something with them,...
-                                var theHTML = "<tr><td>";
-                                theHTML += "<span data-item='" + key + "'>" + value.urlfield + "</span>";
-                                theHTML += "</td></tr>";
+                                var theHTML = CreateImporterHeaderHTML(value);
                                 $("#ImportersList tbody").append(theHTML);
                             });
 
@@ -117,6 +116,29 @@ define('ViewGroupPage',
         };
 
         var HandleSaveImporter = function(theEvent) {
+            SaveFeedDataToRecord();
+            RefreshImporterName();
+            if (curImporter.hasOwnProperty("_id")) {
+                // existing importer - update it
+                blahgua_rest.UpdateChannelImporter(curImporter,
+                    function(newChan) {
+                        console.log("Saved OK!");
+
+                    },
+                    function (theErr) {
+                        console.log("sad face - not saved");
+                    });
+            } else {
+                // new importer - create it
+                blahgua_rest.AddChannelImporter(newChannel._id, curImporter,
+                    function(newChan) {
+                        console.log("Saved OK!");
+
+                    },
+                    function (theErr) {
+                        console.log("sad face - not saved");
+                    });
+            }
 
         };
 
@@ -124,9 +146,60 @@ define('ViewGroupPage',
 
         };
 
+        var RefreshImporterName = function() {
+            var theIndex = channelImporters.indexOf(curImporter);
+            $("#ImportersList span[data-item='" + theIndex + "']").text(curImporter.feedname);
+        };
+
+        var AppendNewImporterToList = function(newImporter) {
+            channelImporters.push(newImporter);
+            var theIndex = channelImporters.indexOf(newImporter);
+            var theHTML = CreateImporterHeaderHTML(newImporter);
+            $("#ImportersList tbody").append(theHTML);
+
+            $("#ImportersList span[data-item='" + theIndex + "']").click(function (theEvent) {
+                var theItemIndex = $(this).attr("data-item");
+                curImporter = channelImporters[theItemIndex];
+
+                PopulateActivityFeedArea();
+            });
+        };
+
+        var CreateImporterHeaderHTML = function (theImporter) {
+            var theIndex = channelImporters.indexOf(theImporter);
+            var theHTML = "<tr><td>";
+            theHTML += "<span data-item='" + theIndex + "'>" + theImporter.feedname + "</span>";
+            theHTML += "</td></tr>";
+
+            return theHTML;
+        };
+
+        var SaveFeedDataToRecord = function () {
+            curImporter.feedname = $("#RSSFeedName").val();
+            curImporter.autoimport = $("#RSSAutoImport").val();
+            curImporter.importfrequency = $("#RSSAutoImportSchedule").val();
+            curImporter.importasuser = $("#RSSImportAsUser").val();
+            curImporter.importusername = $("#RSSImportUsername").val();
+            curImporter.importpassword = $("#RSSImportPassword").val();
+
+            // rss items
+            curImporter.RSSurl = $("#RSSURL").val();
+            curImporter.urlfield = $("#RSSURLfield").val();
+            curImporter.summarizepage = $("#RSSSummarizePage").attr("checked");
+            curImporter.titlefield = $("#RSSTitleField").val();
+            curImporter.imagefield = $("#RSSImageField").val();
+            curImporter.bodyfield = $("#RSSBodyField").val();
+
+            $("#RSSAppendURL").attr("checked", G.GetSafeProperty(curImporter, "appendurl", true));
+
+
+        };
+
+
         var PopulateActivityFeedArea = function() {
 
             // general items
+            $("#RSSFeedName").val(curImporter.feedname);
             $("#RSSAutoImport").val(curImporter.autoimport);
             $("#RSSAutoImportSchedule").val(curImporter.importfrequency);
             $("#RSSImportAsUser").val(curImporter.importasuser);
@@ -134,7 +207,7 @@ define('ViewGroupPage',
             $("#RSSImportPassword").val(curImporter.importpassword);
 
             // rss items
-            $("#RSSURL").val(curImporter.RSSUrl);
+            $("#RSSURL").val(curImporter.RSSurl);
             $("#RSSURLfield").val(curImporter.urlfield);
             $("#RSSSummarizePage").attr("checked", G.GetSafeProperty(curImporter, "summarizepage", true));
             $("#RSSTitleField").val(curImporter.titlefield);
@@ -244,7 +317,7 @@ define('ViewGroupPage',
                         break;
                     }
                 }
-                bits.push('...');
+                bits.push('…');
             }
             return bits.join('');
         };
@@ -260,7 +333,7 @@ define('ViewGroupPage',
             var blahBody = body;
 
             if (appendedURL != "") {
-                blahBody += "\n" + appendedURL;
+                blahBody += "\n\n" + appendedURL;
             }
             blahBody = G.CodifyText(blahBody);
             var blahGroup = newChannel._id;

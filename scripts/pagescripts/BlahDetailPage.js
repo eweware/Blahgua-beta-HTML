@@ -97,14 +97,6 @@ define('BlahDetailPage',
             // update the badges & date
 
             blahgua_rest.getUserDescriptorString(G.CurrentBlah.A, function(theString) {
-                var imageName = G.GetSafeProperty(theString, "m", "");
-                if (imageName != "") {
-                    var  newImage = BlahguaConfig.imageURL + imageName + "-A.jpg";
-                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
-                }
-
-
                 var nickNameStr = "someone";
                 if (G.IsUserLoggedIn) {
                     isOwnBlah = (G.CurrentBlah.A == G.CurrentUser._id);
@@ -118,13 +110,11 @@ define('BlahDetailPage',
                 if (!G.GetSafeProperty(G.CurrentBlah, "XX", false)) {
                     document.getElementById("FullBlahNickName").innerHTML = nickNameStr;
                     // get the author image
-                    var userImage = G.GetSafeProperty(theString, "m", "");
-                    if (userImage != "") {
-                        newImage = BlahguaConfig.imageURL + userImage + "-A.jpg";
-                    } else {
-                        newImage = G.GetGenericUserImage();
-                    }
-                    $("#BlahAuthorImage").css({"background-image": "url('" + newImage + "')"});
+                    var imageName = G.GetItemImage(theString, "A", "m");
+                    if (imageName == "")
+                        imageName = G.GetGenericUserImage();
+
+                    $("#BlahAuthorImage").css({"background-image": "url('" + imageName + "')"});
                     $("#FullBlahProfileString").text(theString.d);
                 } else {
                     // anonymous

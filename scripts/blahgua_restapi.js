@@ -878,10 +878,15 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
     };
 
     var AddChannelImporter = function(ChannelID, ImporterInfo, OnSuccess, OnFailure) {
-
+        var methodName = "groups/" + ChannelID + "/importers";
+        var paramStr = JSON.stringify(ImporterInfo);
+        CallPostMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
     var UpdateChannelImporter = function (ImporterInfo, OnSuccess, OnFailure) {
+        var methodName = "groups/importers/" + ImporterInfo._id;
+        var paramStr = JSON.stringify(ImporterInfo);
+        CallPutMethod(methodName, paramStr, OnSuccess, OnFailure);
 
     };
 

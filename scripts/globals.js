@@ -216,7 +216,12 @@ define('globals',
             var imagePathName = "";
             if (theItem.hasOwnProperty(property)) {
                 // fetch the correct image size
-                var imageName = theItem[property][0];
+                var imageName;
+                if (theItem[property].constructor === Array)
+                    imageName = theItem[property][0];
+                else
+                    imageName = theItem[property];
+
                 if (imageName.indexOf("http") != -1) {
                     imagePathName = imageName;
                     switch (size) {
