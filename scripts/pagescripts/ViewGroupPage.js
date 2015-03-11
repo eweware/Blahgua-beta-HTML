@@ -176,22 +176,20 @@ define('ViewGroupPage',
 
         var SaveFeedDataToRecord = function () {
             curImporter.feedname = $("#RSSFeedName").val();
-            curImporter.autoimport = $("#RSSAutoImport").val();
+            curImporter.autoimport = $("#RSSAutoImport").prop("checked");
             curImporter.importfrequency = $("#RSSAutoImportSchedule").val();
-            curImporter.importasuser = $("#RSSImportAsUser").val();
+            curImporter.importasuser = $("#RSSImportAsUser").prop("checked");
             curImporter.importusername = $("#RSSImportUsername").val();
             curImporter.importpassword = $("#RSSImportPassword").val();
 
             // rss items
             curImporter.RSSurl = $("#RSSURL").val();
             curImporter.urlfield = $("#RSSURLfield").val();
-            curImporter.summarizepage = $("#RSSSummarizePage").attr("checked");
+            curImporter.summarizepage = $("#RSSSummarizePage").prop("checked");
             curImporter.titlefield = $("#RSSTitleField").val();
             curImporter.imagefield = $("#RSSImageField").val();
             curImporter.bodyfield = $("#RSSBodyField").val();
-
-            $("#RSSAppendURL").attr("checked", G.GetSafeProperty(curImporter, "appendurl", true));
-
+            curImporter.appendurl = $('#RSSAppendURL').prop('checked');
 
         };
 
@@ -389,7 +387,7 @@ define('ViewGroupPage',
             if (curImporter._id != "") {
                 var updateRec = new Object();
                 updateRec._id = curImporter._id;
-                updateRec.lastimport = new Date();
+                updateRec.lastimport = new Date().toUTCString();
                 blahgua_rest.UpdateChannelImporter(updateRec);
             }
 
