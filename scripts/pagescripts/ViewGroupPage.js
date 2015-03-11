@@ -379,15 +379,28 @@ define('ViewGroupPage',
             if (importItems.length > 0)
                 ImportRSSItems(importItems);
             else
-                importItems = null;
+                FinishRSSImport();
         };
+
+        var FinishRSSImport = function() {
+            importItems = null;
+            $("#RSSBody tbody").fadeIn();
+            // update the import time
+            if (curImporter._id != "") {
+                var updateRec = new Object();
+                updateRec._id = curImporter._id;
+                updateRec.lastimport = new Date();
+                blahgua_rest.UpdateChannelImporter(updateRec);
+            }
+
+        }
 
 
         var HandleCreateBlahFailure = function(theError) {
             if (importItems.length > 0)
                 ImportRSSItems(importItems);
             else
-                importItems = null;
+                FinishRSSImport();
         };
 
 
