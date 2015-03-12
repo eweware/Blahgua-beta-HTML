@@ -2215,13 +2215,13 @@ define('blahgua_base',
         if ((G.CurrentUser != null) &&
             G.GetSafeProperty(G.CurrentUser, "ad", false)) {
             newHTML += createManageChannelHTML();
-            $("#ManageChannels").click(DoManageChannels);
         }
 
-
         $("#ChannelList").html(newHTML);
+
         $("#ChannelList img").error(imgError);
         $("tr[data-channelId]").click(DoJumpToChannel);
+        $("#ManageChannels").click(DoManageChannels);
 
         refreshSignInBtn();
     };
