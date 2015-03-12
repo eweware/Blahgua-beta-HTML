@@ -1160,13 +1160,17 @@ define('blahgua_base',
                     break;
             }
 
+
         }
 
+        if (G.GetSafeProperty(G.CurrentChannel, "SSA", true)) {
+            var arrowDiv = document.createElement("div");
+            arrowDiv.className = "designator-arrow";
+            newDiv.appendChild(arrowDiv);
+        } 
 
 
-        var arrowDiv = document.createElement("div");
-        arrowDiv.className = "designator-arrow";
-        newDiv.appendChild(arrowDiv);
+
 
         return newDiv;
 

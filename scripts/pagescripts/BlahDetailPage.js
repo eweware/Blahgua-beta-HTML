@@ -77,6 +77,10 @@ define('BlahDetailPage',
         };
 
         var LoadOpenPage = function() {
+            if (!G.GetSafeProperty(G.CurrentChannel, "SAD", true)) {
+                $("#FullBlahProfileString").hide();
+            }
+
 
             if (G.IsShort) {
                 $("#BlahPageDiv").css({ 'top': "0px", 'position':'static'});
