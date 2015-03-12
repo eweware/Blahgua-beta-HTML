@@ -227,7 +227,7 @@ define('ViewGroupPage',
         var HandleRSSLoad = function (theEvent) {
             var theURL = $("#RSSURL").val();
             $.ajax({
-                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(theURL),
+                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=?&q=' + encodeURIComponent(theURL),
                 dataType: 'json',
                 success: function(data) {
                     //console.log(data.responseData.feed);
