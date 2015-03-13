@@ -242,8 +242,9 @@ define('ViewGroupPage',
                         var curHRef = $(theVal).find("a").attr("href");
                         if (curHRef != "") {
                             $.ajax({
-                                url: 'http://api.embed.ly/1/extract?key=400ca94d281f4b77b94b351c345d6ba8&maxwidth=500&url=' + encodeURIComponent(curHRef),
+                                url: 'http://api.embed.ly/1/extract?key=16357551b6a84e6c88debee64dcd8bf3&maxwidth=500&url=' + encodeURIComponent(curHRef),
                                 dataType: 'json',
+                                timeout: 3000,
                                 success: function(theObject) {
                                     var itemHTML = '<tr><td rowSpan="2">';
                                     itemHTML += '<img width="128" height="128" src="' +  theObject.images[0].url + '"/>';
@@ -253,6 +254,10 @@ define('ViewGroupPage',
                                     itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>'
 
                                     $(theVal).html(itemHTML);
+                                },
+                                error: function (theErr) {
+
+                                    $(theVal).html("");
                                 }
 
                             });
@@ -276,29 +281,34 @@ define('ViewGroupPage',
             var curItem = importItems.pop();
             $(curItem).fadeTo(400, 0.5);
             var title = $(curItem).find("input").val();
-            var imageURL = $(curItem).find("img").attr("src");
-            var body = $(curItem).find("textarea").val();
-            var docURL = $(curItem).find("a").attr("href");
+            if (title === undefined) {
+                HandleCreateBlahFailure("missing");
+            } else {
+                var imageURL = $(curItem).find("img").attr("src");
+                var body = $(curItem).find("textarea").val();
+                var docURL = $(curItem).find("a").attr("href");
 
-            if (imageURL != null) {
-                var theImage = new Image();
-                theImage.src = theImage.src = imageURL;
-                var imageWidth = theImage.width;
-                var imageHeight = theImage.height;
+                if (imageURL != null) {
+                    var theImage = new Image();
+                    theImage.src = theImage.src = imageURL;
+                    var imageWidth = theImage.width;
+                    var imageHeight = theImage.height;
 
-                if ((imageWidth + imageHeight) > 512) {
-                    blahgua_rest.GetImageURL(imageURL, function(newURL) {
-                        CreateImportBlah(title, body, newURL, docURL);
-                    });
-                }
-                else {
-                    // image too small...
+                    if ((imageWidth + imageHeight) > 512) {
+                        blahgua_rest.GetImageURL(imageURL, function(newURL) {
+                            CreateImportBlah(title, body, newURL, docURL);
+                        });
+                    }
+                    else {
+                        // image too small...
+                        CreateImportBlah(title, body, "", docURL);
+                    }
+
+                } else {
                     CreateImportBlah(title, body, "", docURL);
                 }
-
-            } else {
-                CreateImportBlah(title, body, "", docURL);
             }
+
         };
 
         var truncate = function (str, limit) {
