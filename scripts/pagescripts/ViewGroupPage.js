@@ -242,17 +242,28 @@ define('ViewGroupPage',
                         var curHRef = $(theVal).find("a").attr("href");
                         if (curHRef != "") {
                             $.ajax({
-                                url: 'http://api.embed.ly/1/extract?key=400ca94d281f4b77b94b351c345d6ba8&maxwidth=500&url=' + encodeURIComponent(curHRef),
+                                url: 'http://api.embed.ly/1/extract?key=16357551b6a84e6c88debee64dcd8bf3&maxwidth=500&url=' + encodeURIComponent(curHRef),
                                 dataType: 'json',
                                 success: function(theObject) {
                                     var itemHTML = '<tr><td rowSpan="2">';
-                                    itemHTML += '<img width="128" height="128" src="' +  theObject.images[0].url + '"/>';
+                                    var imageURL = null;
+                                    if (theObject.hasOwnProperty("images")) {
+                                        imageURL = theObject.images[0];
+                                        itemHTML += '<img width="128" height="128" src="' + theObject.images[0].url + '"/>';
+                                    }
+                                    else
+                                        itemHTML += '<img width="128" height="128"/>';
                                     itemHTML += '</td>'
                                     itemHTML += '<td class="title-data"><input type="text" value="' + theObject.title + '"></td></tr>';
                                     itemHTML += '<tr><td><textarea rows="3">' + theObject.description + '</textarea></td></tr>';
-                                    itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>'
+                                    itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>';
+                                    itemHTML += '<tr><td><input name="importimage" type="checkbox" checked><label>Import Image</label></td>';
+                                    itemHTML += '<td><input name="importblah" type="checkbox" checked><label>Import Blah</label></td></tr>';
 
                                     $(theVal).html(itemHTML);
+                                },
+                                error: function(theErr) {
+                                    $(theVal).html("");
                                 }
 
                             });
@@ -279,26 +290,33 @@ define('ViewGroupPage',
             var imageURL = $(curItem).find("img").attr("src");
             var body = $(curItem).find("textarea").val();
             var docURL = $(curItem).find("a").attr("href");
+            var useBlah = $(curItem).find("input[name='importblah']").is(':checked');
+            var useImage = $(curItem).find("input[name='importimage']").is(':checked');
 
-            if (imageURL != null) {
-                var theImage = new Image();
-                theImage.src = theImage.src = imageURL;
-                var imageWidth = theImage.width;
-                var imageHeight = theImage.height;
+            if (useBlah) {
+                if (useImage && (imageURL != null) && (imageURL != "")) {
+                    var theImage = new Image();
+                    theImage.src = theImage.src = imageURL;
+                    var imageWidth = theImage.width;
+                    var imageHeight = theImage.height;
 
-                if ((imageWidth + imageHeight) > 512) {
-                    blahgua_rest.GetImageURL(imageURL, function(newURL) {
-                        CreateImportBlah(title, body, newURL, docURL);
-                    });
-                }
-                else {
-                    // image too small...
+                    if ((imageWidth + imageHeight) > 512) {
+                        blahgua_rest.GetImageURL(imageURL, function(newURL) {
+                            CreateImportBlah(title, body, newURL, docURL);
+                        });
+                    }
+                    else {
+                        // image too small...
+                        CreateImportBlah(title, body, "", docURL);
+                    }
+
+                } else {
                     CreateImportBlah(title, body, "", docURL);
                 }
-
             } else {
-                CreateImportBlah(title, body, "", docURL);
+                OnCreateBlahOK(null);
             }
+
         };
 
         var truncate = function (str, limit) {
