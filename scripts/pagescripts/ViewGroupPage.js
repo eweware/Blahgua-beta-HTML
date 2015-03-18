@@ -232,14 +232,30 @@ define('ViewGroupPage',
                     $("#RSSBody").html('<tr><td colspan="2" class="rss-preview-header">'+ data.responseData.feed.title +'</td></tr>');
 
                     $.each(data.responseData.feed.entries, function(key, value){
+                        var imageVal = null;
+                        if (value.hasOwnProperty("mediaGroups")) {
+                            var imageVal = value.mediaGroups[0].contents[0].url;
+                            var extraVal = imageVal.indexOf("?");
+                            if (extraVal != -1)
+                                imageVal = imageVal.substring(0,extraVal);
+                            $("#RSSBody").attr("data-img-val", imageVal);
+                        }
                         var thehtml = '<tr><td colspan="2">';
-                        thehtml += '<table><tbody><tr><td><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr></tbody></table>';
+                        thehtml += '<table><tbody';
+                        if (imageVal != null)
+                            thehtml += ' data-img-val="' + imageVal + '"';
+                        thehtml += '><tr><td><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr></tbody></table>';
                         $("#RSSBody").append(thehtml);
+
+
+
                     });
                     var theItems = $("#RSSBody tbody");
 
                     $.each(theItems, function (theKey, theVal) {
                         var curHRef = $(theVal).find("a").attr("href");
+                        var useFeedImage = $("#RSSUseFeedImage").is(":checked");
+                        var appendURL = $("#RSSAppendURL").is(":checked");
                         if (curHRef != "") {
                             $.ajax({
                                 url: 'http://api.embed.ly/1/extract?key=16357551b6a84e6c88debee64dcd8bf3&maxwidth=500&url=' + encodeURIComponent(curHRef),
@@ -247,16 +263,34 @@ define('ViewGroupPage',
                                 success: function(theObject) {
                                     var itemHTML = '<tr><td rowSpan="2">';
                                     var imageURL = null;
-                                    if (theObject.hasOwnProperty("images")) {
-                                        imageURL = theObject.images[0];
-                                        itemHTML += '<img width="128" height="128" src="' + theObject.images[0].url + '"/>';
+                                    if (useFeedImage) {
+                                        imageURL = $(theVal).attr("data-img-val");
+                                    } else {
+                                        if (theObject.hasOwnProperty("images")) {
+                                            var imageObj = theObject.images[0];
+                                            if (imageObj != null) {
+                                                imageURL = imageObj.url;
+                                                var extraVal = imageURL.indexOf("?");
+                                                if (extraVal != -1)
+                                                    imageURL = imageURL.substring(0,extraVal);
+                                            }
+                                        }
+
+                                    }
+                                    if ((imageURL != null) && (imageURL != "")) {
+                                        itemHTML += '<img width="128" height="128" src="' + imageURL + '"/>';
                                     }
                                     else
                                         itemHTML += '<img width="128" height="128"/>';
                                     itemHTML += '</td>'
                                     itemHTML += '<td class="title-data"><input type="text" value="' + theObject.title + '"></td></tr>';
                                     itemHTML += '<tr><td><textarea rows="3">' + theObject.description + '</textarea></td></tr>';
-                                    itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>';
+
+                                    var urlToAppend = "";
+                                    if (appendURL)
+                                        urlToAppend = theObject.url;
+
+                                    itemHTML += '<tr><td colspan="2"><a href="' + urlToAppend + '" target="_blank">'+urlToAppend+'</a></td></tr>';
                                     itemHTML += '<tr><td><input name="importimage" type="checkbox" checked><label>Import Image</label></td>';
                                     itemHTML += '<td><input name="importblah" type="checkbox" checked><label>Import Blah</label></td></tr>';
 
@@ -277,9 +311,43 @@ define('ViewGroupPage',
             });
         };
 
+        var savedUserName = "";
+        var savedPassword = "";
+
         var HandleRSSImport = function (theEvent) {
+            // try to remember the username...  good luck
             importItems = $("#RSSBody tbody").toArray();
-            ImportRSSItems();
+
+            var impersonate = $("#RSSImportAsUser").is(":checked");
+            if (impersonate) {
+                var savedID = $.cookie("loginkey");
+
+                if (savedID) {
+                    savedID = JSON.parse(G.Cryptify("Sheep", savedID));
+                    savedUserName = savedID.userId;
+                    savedPassword = savedID.pwd;
+                }
+
+                if ((savedUserName == null) || (savedUserName == "")) {
+                    savedUserName = prompt("Please enter your username (to sign back in):");
+                }
+
+                if ((savedPassword == null) || (savedPassword == "")) {
+                    savedPassword = prompt("Please enter your password:");
+                }
+
+                var username = $("#RSSImportUsername").val();
+                var pwd = $("#RSSImportPassword").val();
+                blahgua_rest.loginUser(username, pwd, ImportRSSItems, function(theErr) {
+                    if (theErr.status == 202)
+                        ImportRSSItems();
+                    else
+                        alert("Could not impersonate user " + username);
+                });
+            } else
+                ImportRSSItems();
+
+
 
         };
 
@@ -409,8 +477,18 @@ define('ViewGroupPage',
                 blahgua_rest.UpdateChannelImporter(updateRec);
             }
 
-        }
+            var impersonate = $("#RSSImportAsUser").is(":checked");
+            if (impersonate) {
+                // log user back in
+                blahgua_rest.loginUser(savedUserName, savedPassword, CompleteImport, CompleteImport);
+            } else
+                alert("Import Complete");
 
+        };
+
+        var CompleteImport = function() {
+            alert("Import Complete");
+        };
 
         var HandleCreateBlahFailure = function(theError) {
             if (importItems.length > 0)
