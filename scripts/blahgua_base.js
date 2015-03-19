@@ -1251,11 +1251,7 @@ define('blahgua_base',
             $(updatedDiv).addClass("updated-bolt-div");
             $(holderDiv).append(updatedDiv);
         }
-
-
-
-
-        console.log(theBlah);
+        
 
         return newEl;
     };
@@ -2216,13 +2212,17 @@ define('blahgua_base',
             newHTML += createChannelHTML(index, element);
         });
         
-        if (G.CurrentUser != null)
+        if ((G.CurrentUser != null) &&
+            G.GetSafeProperty(G.CurrentUser, "ad", false)) {
             newHTML += createManageChannelHTML();
+        }
 
         $("#ChannelList").html(newHTML);
+
         $("#ChannelList img").error(imgError);
         $("tr[data-channelId]").click(DoJumpToChannel);
         $("#ManageChannels").click(DoManageChannels);
+
         refreshSignInBtn();
     };
 

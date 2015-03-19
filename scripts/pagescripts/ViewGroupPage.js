@@ -232,14 +232,30 @@ define('ViewGroupPage',
                     $("#RSSBody").html('<tr><td colspan="2" class="rss-preview-header">'+ data.responseData.feed.title +'</td></tr>');
 
                     $.each(data.responseData.feed.entries, function(key, value){
+                        var imageVal = null;
+                        if (value.hasOwnProperty("mediaGroups")) {
+                            var imageVal = value.mediaGroups[0].contents[0].url;
+                            var extraVal = imageVal.indexOf("?");
+                            if (extraVal != -1)
+                                imageVal = imageVal.substring(0,extraVal);
+                            $("#RSSBody").attr("data-img-val", imageVal);
+                        }
                         var thehtml = '<tr><td colspan="2">';
-                        thehtml += '<table><tbody><tr><td><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr></tbody></table>';
+                        thehtml += '<table><tbody';
+                        if (imageVal != null)
+                            thehtml += ' data-img-val="' + imageVal + '"';
+                        thehtml += '><tr><td><a href="'+value.link+'" target="_blank">'+value.title+'</a></td></tr></tbody></table>';
                         $("#RSSBody").append(thehtml);
+
+
+
                     });
                     var theItems = $("#RSSBody tbody");
 
                     $.each(theItems, function (theKey, theVal) {
                         var curHRef = $(theVal).find("a").attr("href");
+                        var useFeedImage = $("#RSSUseFeedImage").is(":checked");
+                        var appendURL = $("#RSSAppendURL").is(":checked");
                         if (curHRef != "") {
                             $.ajax({
                                 url: 'http://api.embed.ly/1/extract?key=16357551b6a84e6c88debee64dcd8bf3&maxwidth=500&url=' + encodeURIComponent(curHRef),
@@ -247,16 +263,41 @@ define('ViewGroupPage',
                                 timeout: 3000,
                                 success: function(theObject) {
                                     var itemHTML = '<tr><td rowSpan="2">';
-                                    itemHTML += '<img width="128" height="128" src="' +  theObject.images[0].url + '"/>';
+                                    var imageURL = null;
+                                    if (useFeedImage) {
+                                        imageURL = $(theVal).attr("data-img-val");
+                                    } else {
+                                        if (theObject.hasOwnProperty("images")) {
+                                            var imageObj = theObject.images[0];
+                                            if (imageObj != null) {
+                                                imageURL = imageObj.url;
+                                                var extraVal = imageURL.indexOf("?");
+                                                if (extraVal != -1)
+                                                    imageURL = imageURL.substring(0,extraVal);
+                                            }
+                                        }
+
+                                    }
+                                    if ((imageURL != null) && (imageURL != "")) {
+                                        itemHTML += '<img width="128" height="128" src="' + imageURL + '"/>';
+                                    }
+                                    else
+                                        itemHTML += '<img width="128" height="128"/>';
                                     itemHTML += '</td>'
                                     itemHTML += '<td class="title-data"><input type="text" value="' + theObject.title + '"></td></tr>';
                                     itemHTML += '<tr><td><textarea rows="3">' + theObject.description + '</textarea></td></tr>';
-                                    itemHTML += '<tr><td colspan="2"><a href="' + theObject.url + '" target="_blank">'+theObject.url+'</a></td></tr>'
+
+                                    var urlToAppend = "";
+                                    if (appendURL)
+                                        urlToAppend = theObject.url;
+
+                                    itemHTML += '<tr><td colspan="2"><a href="' + urlToAppend + '" target="_blank">'+urlToAppend+'</a></td></tr>';
+                                    itemHTML += '<tr><td><input name="importimage" type="checkbox" checked><label>Import Image</label></td>';
+                                    itemHTML += '<td><input name="importblah" type="checkbox" checked><label>Import Blah</label></td></tr>';
 
                                     $(theVal).html(itemHTML);
                                 },
                                 error: function (theErr) {
-
                                     $(theVal).html("");
                                 }
 
@@ -271,9 +312,43 @@ define('ViewGroupPage',
             });
         };
 
+        var savedUserName = "";
+        var savedPassword = "";
+
         var HandleRSSImport = function (theEvent) {
+            // try to remember the username...  good luck
             importItems = $("#RSSBody tbody").toArray();
-            ImportRSSItems();
+
+            var impersonate = $("#RSSImportAsUser").is(":checked");
+            if (impersonate) {
+                var savedID = $.cookie("loginkey");
+
+                if (savedID) {
+                    savedID = JSON.parse(G.Cryptify("Sheep", savedID));
+                    savedUserName = savedID.userId;
+                    savedPassword = savedID.pwd;
+                }
+
+                if ((savedUserName == null) || (savedUserName == "")) {
+                    savedUserName = prompt("Please enter your username (to sign back in):");
+                }
+
+                if ((savedPassword == null) || (savedPassword == "")) {
+                    savedPassword = prompt("Please enter your password:");
+                }
+
+                var username = $("#RSSImportUsername").val();
+                var pwd = $("#RSSImportPassword").val();
+                blahgua_rest.loginUser(username, pwd, ImportRSSItems, function(theErr) {
+                    if (theErr.status == 202)
+                        ImportRSSItems();
+                    else
+                        alert("Could not impersonate user " + username);
+                });
+            } else
+                ImportRSSItems();
+
+
 
         };
 
@@ -281,14 +356,15 @@ define('ViewGroupPage',
             var curItem = importItems.pop();
             $(curItem).fadeTo(400, 0.5);
             var title = $(curItem).find("input").val();
-            if (title === undefined) {
-                HandleCreateBlahFailure("missing");
-            } else {
-                var imageURL = $(curItem).find("img").attr("src");
-                var body = $(curItem).find("textarea").val();
-                var docURL = $(curItem).find("a").attr("href");
 
-                if (imageURL != null) {
+            var imageURL = $(curItem).find("img").attr("src");
+            var body = $(curItem).find("textarea").val();
+            var docURL = $(curItem).find("a").attr("href");
+            var useBlah = $(curItem).find("input[name='importblah']").is(':checked');
+            var useImage = $(curItem).find("input[name='importimage']").is(':checked');
+
+            if (useBlah) {
+                if (useImage && (imageURL != null) && (imageURL != "")) {
                     var theImage = new Image();
                     theImage.src = theImage.src = imageURL;
                     var imageWidth = theImage.width;
@@ -307,8 +383,9 @@ define('ViewGroupPage',
                 } else {
                     CreateImportBlah(title, body, "", docURL);
                 }
+            } else {
+                OnCreateBlahOK(null);
             }
-
         };
 
         var truncate = function (str, limit) {
@@ -401,8 +478,18 @@ define('ViewGroupPage',
                 blahgua_rest.UpdateChannelImporter(updateRec);
             }
 
-        }
+            var impersonate = $("#RSSImportAsUser").is(":checked");
+            if (impersonate) {
+                // log user back in
+                blahgua_rest.loginUser(savedUserName, savedPassword, CompleteImport, CompleteImport);
+            } else
+                alert("Import Complete");
 
+        };
+
+        var CompleteImport = function() {
+            alert("Import Complete");
+        };
 
         var HandleCreateBlahFailure = function(theError) {
             if (importItems.length > 0)
