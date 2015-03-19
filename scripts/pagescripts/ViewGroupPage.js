@@ -183,6 +183,7 @@ define('ViewGroupPage',
             curImporter.importpassword = $("#RSSImportPassword").val();
 
             // rss items
+            curImporter.usefeedimage = $('#RSSUseFeedImage').is(":checked");
             curImporter.RSSurl = $("#RSSURL").val();
             curImporter.urlfield = $("#RSSURLfield").val();
             curImporter.summarizepage = $("#RSSSummarizePage").prop("checked");
@@ -205,6 +206,7 @@ define('ViewGroupPage',
             $("#RSSImportPassword").val(curImporter.importpassword);
 
             // rss items
+            $("#RSSUseFeedImage").attr("checked", G.GetSafeProperty(curImporter, "usefeedimage", false));
             $("#RSSURL").val(curImporter.RSSurl);
             $("#RSSURLfield").val(curImporter.urlfield);
             $("#RSSSummarizePage").attr("checked", G.GetSafeProperty(curImporter, "summarizepage", true));
@@ -225,7 +227,7 @@ define('ViewGroupPage',
         var HandleRSSLoad = function (theEvent) {
             var theURL = $("#RSSURL").val();
             $.ajax({
-                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=100&callback=?&q=' + encodeURIComponent(theURL),
+                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=2.0&num=100&q=' + encodeURIComponent(theURL),
                 dataType: 'json',
                 success: function(data) {
                     //console.log(data.responseData.feed);
@@ -411,8 +413,8 @@ define('ViewGroupPage',
             var blahType = K.BlahType.says;
 
             var blahHeadline = title;
-            if (blahHeadline.length > 64) {
-                blahHeadline = truncate(title, 63);
+            if (blahHeadline.length > 250) {
+                blahHeadline = truncate(title, 250);
             }
 
             var blahBody = body;

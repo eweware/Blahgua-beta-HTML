@@ -20,7 +20,7 @@ define('constants',
             "asks":null
             };
 
-        var MaxTitleLength = 64;
+        var MaxTitleLength = 250;
         var kBannerHighlightColor = "#FFFFFF";
         var kBannerColor = "rgb(245,244,0)"; //#FF00FF";
         var kEdgeGutter = 6;
