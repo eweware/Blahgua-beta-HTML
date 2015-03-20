@@ -252,9 +252,6 @@ define('comments',
                 SetCommentVote(theEvent, -1, theIndex);
             });
 
-            blahgua_rest.GetUploadURL(function(theUrl) {
-                this.imageUploadURL = theUrl;
-            });
 
             $(".report-comment-btn").click(function(theEvent) {
                 theEvent.stopImmediatePropagation();
@@ -671,6 +668,13 @@ define('comments',
         };
 
         var UploadCommentImage  = function() {
+            if ((imageUploadURL === undefined) || (imageUploadURL == "")) {
+                blahgua_rest.GetUploadURL(function(theURL) {
+                    imageUploadURL = theURL;
+                    UploadCommentImage();
+                });
+                return;
+            }
             $("#objectId").val("");
             if ($("#CommentImage").val() == "" ) {
                 // clear the image
@@ -685,7 +689,7 @@ define('comments',
                 var formData = new FormData($("#ImageForm")[0]);
                 ga('send', 'event', 'uploadimage', 'comment', 1, 1);
                 $.ajax({
-                    url: this.imageUploadURL,
+                    url: imageUploadURL,
                     type: 'POST',
 
                     //Ajax events
@@ -698,9 +702,6 @@ define('comments',
                         $(".image-preview").removeClass("no-image").css({"background-image": theUrl});
                         $(".image-preview span").text("");
                         $(".image-preview i").show();
-                        blahgua_rest.GetUploadURL(function(theUrl) {
-                            this.imageUploadURL = theUrl;
-                        });
                     },
                     error: errorHandler = function(theErr) {
                         if (theErr.status = "409")

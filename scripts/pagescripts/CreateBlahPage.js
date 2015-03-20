@@ -585,6 +585,13 @@ define('CreateBlahPage',
         };
 
         var UploadBlahImage  = function() {
+            if ((imageUploadURL === undefined) || (imageUploadURL == "")) {
+                blahgua_rest.GetUploadURL(function(theURL) {
+                    imageUploadURL = theURL;
+                    UploadBlahImage();
+                });
+                return;
+            }
             if ($("#BlahImage").val() == "" ) {
                 // clear the image
                 $(".image-preview").addClass("no-image").css({"background-image":"none"}).text("no image");
@@ -609,9 +616,6 @@ define('CreateBlahPage',
                         $(".image-preview").removeClass("no-image").css({"background-image":theUrl});
                         $(".image-preview span").text("");
                         $(".image-preview i").show();
-                        blahgua_rest.GetUploadURL(function(theUrl) {
-                            imageUploadURL = theUrl;
-                        });
                         CheckPublishBtnDisable();
                     },
                     error: errorHandler = function(theErr) {
