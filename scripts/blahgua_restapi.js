@@ -807,6 +807,20 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var GetBlahTopComments = function (blahId, OnSuccess, OnFailure) {
+        /// <summary>Returns the comments of the current blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>a list of the comments, if any</returns>
+        var paramStr = new Object();
+        paramStr["blahId"] = blahId;
+        //paramStr["userId"] = CurrentUser._id;
+
+        var methodName = "comments/hot";
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
+
     var GetBlah = function (BlahID, OnSuccess, OnFailure) {
         /// <summary>Returns the current session blah</summary>
         /// <param name="OnSuccess">Success callback</param>
@@ -954,6 +968,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         DeleteBlah: DeleteBlah,
         GetSpecificInbox: GetSpecificInbox,
         GetBlahComments:  GetBlahComments ,
+        GetBlahTopComments:  GetBlahTopComments ,
         GetBlah:  GetBlah ,
         GetBlahAuthor:  GetBlahAuthor ,
         GetBlahWithStats: GetBlahWithStats,

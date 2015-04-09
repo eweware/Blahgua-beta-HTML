@@ -67,7 +67,7 @@ define('comments',
             $("#BlahCommentTable").empty();
             if (G.CurrentBlah.hasOwnProperty("C") && G.CurrentBlah.C > 0) {
                 // blah has comments
-                blahgua_rest.GetBlahComments(G.CurrentBlah._id, DrawTopComments, exports.OnFailure);
+                blahgua_rest.GetBlahTopComments(G.CurrentBlah._id, DrawTopComments, exports.OnFailure);
             } else {
                 // no comments GetBlahTypeStr()
                 G.CurrentComments = null;
@@ -93,10 +93,9 @@ define('comments',
             drawThreaded = false;
             G.CurrentComments = theComments;
             //G.CurrentBlah["C"] = G.CurrentComments.length;
-            SortComments("newest");
+            //SortComments("newest");
             var more = false;
             if (G.CurrentBlah["C"] > 5){
-                G.CurrentComments = G.CurrentComments.slice(0,5);
                 more = true;
             }
 
