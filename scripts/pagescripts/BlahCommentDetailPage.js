@@ -27,6 +27,17 @@ define('BlahCommentDetailPage',
             comments.SetCommentFilter($("#FilterBox").val());
         });
 
+        if ((G.CurrentUser != null) &&
+            G.GetSafeProperty(G.CurrentUser, "ad", false)) {
+
+            $("#AdminFlagCommentSpammerBtn").click(function(theEvent) {
+                var spammerId = G.CurrentBlah.A;
+                blahgua_rest.FlagSpammer(spammerId, true);
+            });
+        } else {
+            $("#AdminFlagCommentSpammerBtn").remove();
+        }
+
          if (G.IsUserLoggedIn)  {
              var $commentTextArea = $("#CommentTextArea");
 

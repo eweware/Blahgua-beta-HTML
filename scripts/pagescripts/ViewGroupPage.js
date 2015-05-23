@@ -113,6 +113,10 @@ define('ViewGroupPage',
 
             $("#ImportDataBtn").click(HandleRSSImport);
 
+            $("#DeleteBtn").click(HandleDeleteChannel);
+
+
+
         };
 
         var HandleSaveImporter = function(theEvent) {
@@ -143,6 +147,17 @@ define('ViewGroupPage',
         };
 
         var HandleDeleteImporter = function(theEvent) {
+
+        };
+
+        var HandleDeleteChannel = function(theEvent) {
+            if (window.confirm("Are you sure you want to delete channel '" + newChannel.N + "'?")) {
+                blahgua_rest.DeleteChannel(newChannel._id, function (theResult) {
+                    window.alert("Channel deleted.");
+                }, function (theErr) {
+                    window.alert("Channel delete failed.");
+                })
+            }
 
         };
 

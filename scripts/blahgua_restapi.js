@@ -674,6 +674,19 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallPostMethod("groups", JSON.stringify(param), OnSuccess, OnFailure);
     };
 
+    var DeleteChannel = function (channelId, OnSuccess, OnFailure) {
+
+        CallDeleteMethod("groups/" + channelId, null, OnSuccess, OnFailure);
+    };
+
+    var FlagSpammer = function (spammerId, isSpammer, OnSuccess, OnFailure) {
+        var param = new Object();
+        param["SS"] = isSpammer;
+        param["userid"] = spammerId;
+
+        CallPostMethod("users/flag/spammer", JSON.stringify(param), OnSuccess, OnFailure);
+    };
+
 
 
     var GetChannelTypes = function(OnSuccess, OnFailure) {
@@ -910,6 +923,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
 
 
     return {
+        FlagSpammer: FlagSpammer,
+        DeleteChannel: DeleteChannel,
         GetImageURL: GetImageURL,
         GetChannelImporters: GetChannelImporters,
         AddChannelImporter: AddChannelImporter,
