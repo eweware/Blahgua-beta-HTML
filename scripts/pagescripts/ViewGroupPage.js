@@ -7,13 +7,15 @@ define('ViewGroupPage',
     function (G, K, exports, blahgua_rest) {
 
         var newChannel = null;
+        var channelId = "";
         var perms = null;
         var channelImporters = null;
         var curImporter = null;
         var importItems = null;
 
-        var InitializePage = function(theGroup) {
+        var InitializePage = function(theGroup, groupId) {
             newChannel = theGroup;
+            channelId = groupId;
             $(G.BlahFullItem).disableSelection();
             $(".blah-closer").click(function(theEvent) {
                 exports.ShowMangeChannelsUI(newChannel);
@@ -21,7 +23,10 @@ define('ViewGroupPage',
 
             $("#BlahFullItem").show();
 
-            $(".fullBlahgerName").text(theGroup.N);
+            if (newChannel != null)
+                $(".fullBlahgerName").text(theGroup.N);
+            else
+                $(".fullBlahgerName").text("deleted group");
 
             $("#CreateImporterBtn").click(function(theEvent) {
                // create a new importer
@@ -62,14 +67,14 @@ define('ViewGroupPage',
             });
 
 
-            blahgua_rest.GetChannelPermissionById(theGroup._id, function(thePerms)
+            blahgua_rest.GetChannelPermissionById(channelId, function(thePerms)
             {
                 perms = thePerms;
                 if (perms.admin) {
                     $("#AdminPanel").show();
 
                     // load in the channel Importers
-                    blahgua_rest.GetChannelImporters(theGroup._id, function(theImporters)
+                    blahgua_rest.GetChannelImporters(channelId, function(theImporters)
                     {
                         channelImporters = theImporters;
                         $("#ImportersList tbody").html(""); // clear
@@ -113,7 +118,24 @@ define('ViewGroupPage',
 
             $("#ImportDataBtn").click(HandleRSSImport);
 
+            $("#DeleteBtn").click(HandleDeleteChannel);
+
+            $("#ForcePublicBtn").click(HandleForcePublic);
+
         };
+
+        var HandleDeleteChannel = function(theEvent) {
+            if (window.confirm("Are you sure you want to delete this channel?")) {
+                blahgua_rest.DeleteChannel(channelId);
+            }
+        };
+
+        var HandleForcePublic = function(theEvent) {
+          if (window.confirm("Are you sure you want to make this channel public for all users?")) {
+              blahgua_rest.AddChannelToAllUsers(channelId);
+          }
+        };
+
 
         var HandleSaveImporter = function(theEvent) {
             SaveFeedDataToRecord();

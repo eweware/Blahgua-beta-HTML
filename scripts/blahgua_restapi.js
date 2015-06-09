@@ -680,6 +680,18 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod("groupTypes", "{}", OnSuccess, OnFailure);
     };
 
+    var DeleteChannel = function(channelId, OnSuccess, OnFailure) {
+        var method = "groups/" + channelId;
+        CallDeleteMethod(method, null, OnSuccess, OnFailure);
+    };
+
+    var AddChannelToAllUsers = function(channelId, OnSuccess, OnFailure) {
+        var param = new Object();
+        param["G"] = channelId;
+        CallPostMethod("userGroups/all", JSON.stringify(param), OnSuccess, OnFailure);
+    };
+
+
 
     var GetViewersOfUser = function (OnSuccess, OnFailure) {
         /// <summary>Returns the current user</summary>
@@ -901,6 +913,8 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         AddChannelImporter: AddChannelImporter,
         UpdateChannelImporter: UpdateChannelImporter,
         DeleteChannelImporter: DeleteChannelImporter,
+        DeleteChannel: DeleteChannel,
+        AddChannelToAllUsers: AddChannelToAllUsers,
         currentChannel: currentChannel,
         GetChannelPermissionById: GetChannelPermissionById,
         GetChannelById: GetChannelById,

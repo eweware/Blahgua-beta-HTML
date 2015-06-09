@@ -324,7 +324,7 @@ define('ManageChannelsPage',
 
                     $(G.BlahFullItem).disableSelection();
                     $(G.BlahFullItem).fadeIn("fast", function() {
-                        ViewGroupPage.InitializePage(theGroup);
+                        ViewGroupPage.InitializePage(theGroup, theGroupId);
                     });
                 });
             });
