@@ -234,7 +234,7 @@ define('globals',
                             imagePathName += "=s" + this.MediumTileWidth + "-c";
                             break;
                         case "C":
-                            imagePathName += "=s" + this.LargeTileWidth + "-c";
+                            imagePathName += "=s"  + this.LargeTileWidth + "-c";
                             break;
                         case "D":
                             imagePathName += "=s2048";

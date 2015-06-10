@@ -18,8 +18,24 @@ define('BlahBodyDetailPage',
                 console.log("Error:  No Post!");
                 return;
             }
+
+            if ((G.CurrentUser != null) &&
+                G.GetSafeProperty(G.CurrentUser, "ad", false)) {
+                $("#AdminFlagPostSpammerBtn").click(function(theEvent) {
+                    var spammerId = G.CurrentBlah.A;
+                    blahgua_rest.FlagSpammer(spammerId, true);
+                });
+                $("#AdminFlagCommentSpammerBtn").click(function(theEvent) {
+
+                });
+            } else {
+                $("#AdminFlagPostSpammerBtn").remove();
+                $("#AdminFlagCommentSpammerBtn").remove();
+            }
+
             if (G.IsUserLoggedIn) 
 			{
+
                 // bind methods
                 $("#PromoteBlahImage").click(function(theEvent) {
                     theEvent.stopImmediatePropagation();

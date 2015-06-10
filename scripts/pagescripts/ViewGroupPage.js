@@ -168,6 +168,17 @@ define('ViewGroupPage',
 
         };
 
+        var HandleDeleteChannel = function(theEvent) {
+            if (window.confirm("Are you sure you want to delete channel '" + newChannel.N + "'?")) {
+                blahgua_rest.DeleteChannel(newChannel._id, function (theResult) {
+                    window.alert("Channel deleted.");
+                }, function (theErr) {
+                    window.alert("Channel delete failed.");
+                })
+            }
+
+        };
+
         var RefreshImporterName = function() {
             var theIndex = channelImporters.indexOf(curImporter);
             $("#ImportersList span[data-item='" + theIndex + "']").text(curImporter.feedname);
