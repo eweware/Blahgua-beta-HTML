@@ -12,6 +12,11 @@ define('SelfPageDetails',
     function (G, exports, blahgua_rest) {
 
         var  InitializePage = function() {
+            var fileref = document.createElement('script');
+            fileref.setAttribute("type","text/javascript");
+            fileref.setAttribute("data-app-id", "XbImAP6EcVNS3uqZP1PSGQ");
+            fileref.setAttribute("src", "https://c64.assets-yammer.com/assets/platform_js_sdk.js");
+            document.getElementsByTagName("head")[0].appendChild(fileref);
 
             $("#SaveAccountInfoBtn").click(UpdateUserAccountInfo);
             $("#SaveDemographicsBtn").click(UpdateUserDemographics);
@@ -188,6 +193,8 @@ define('SelfPageDetails',
                     this.scrollIntoView(true);
                 }
             });
+            
+
         };
 
         var MaybeEnableProfileSaveBtn = function() {
