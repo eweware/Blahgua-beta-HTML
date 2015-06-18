@@ -23,7 +23,8 @@ define('BlahBodyDetailPage',
                 G.GetSafeProperty(G.CurrentUser, "ad", false)) {
                 $("#AdminFlagPostSpammerBtn").click(function(theEvent) {
                     var spammerId = G.CurrentBlah.A;
-                    blahgua_rest.FlagSpammer(spammerId, true);
+                    blahgua_rest.FlagSpammer(spammerId, true, function() { alert("Author has been reported."); } );
+                    $("#ShowReportBlahAreaHolder").hide();
                 });
                 $("#AdminFlagCommentSpammerBtn").click(function(theEvent) {
 
