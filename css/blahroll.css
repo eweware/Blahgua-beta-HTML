@@ -289,3 +289,16 @@
     margin-top: 16px;
     margin-left: 100px;
 }
+
+.channel-presence-count {
+    font-family: 'Gotham Rounded Book', 'Gotham Rounded', sans-serif;
+    font-size: 12px;
+    background-color: #3F2B2F;
+    display: block;
+    padding: 8px 24px;
+    position: fixed;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    color: white;
+}
