@@ -856,6 +856,16 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
     };
 
+    var GetComment = function (CommentId, OnSuccess, OnFailure) {
+        /// <summary>Returns the current session blah</summary>
+        /// <param name="OnSuccess">Success callback</param>
+        /// <param name="OnFailure">Failure callback</param>
+        /// <returns>the blah object</returns>
+        var paramStr = '{}';
+        var methodName = "comments/" + CommentId;
+        CallGetMethod(methodName, paramStr, OnSuccess, OnFailure);
+    };
+
     var GetChannelById = function(ChannelId, OnSuccess, OnFailure) {
         var paramStr = '{}';
         var methodName = "groups/" + ChannelId;
@@ -999,6 +1009,7 @@ define('blahgua_restapi', ['globals','ExportFunctions', 'spin'], function (G, ex
         GetBlahComments:  GetBlahComments ,
         GetBlahTopComments:  GetBlahTopComments ,
         GetBlah:  GetBlah ,
+        GetComment: GetComment,
         GetBlahAuthor:  GetBlahAuthor ,
         GetBlahWithStats: GetBlahWithStats,
         GetUserDescriptors: GetUserDescriptors,

@@ -902,7 +902,7 @@ define('blahgua_base',
 
 
         var CloseBlah = function() {
-
+            RemoveBlahViewer();
             if ($(G.BlahFullItem).find("#CreateBlahPage").length) {
                 StartAnimation();
                 $(G.BlahFullItem).slideUp("fast", function() {
@@ -2516,17 +2516,60 @@ define('blahgua_base',
             }
         };
 
-        var HandleChannelPresence = function(theMsg, thEnv, theChan) {
+        var UpdateBlahViewer = function (msgCallback) {
+            var newChanStr = "blah" + G.CurrentBlah._id;
+            pubnub.subscribe({
+                channel : newChanStr,
+                callback : msgCallback,
+                error:  function(e) {HandleChannelError(e)},
+                presence: HandleBlahChannelPresence,
+                connect: function(){console.log("Connected")},
+                disconnect: function(){console.log("Disconnected")},
+                reconnect: function(){console.log("Reconnected")}
+            });
+
+            Exports.CurrentBlahPushChannel = newChanStr;
+        };
+
+        var RemoveBlahViewer = function () {
+            if (G.CurrentChannel != null) {
+                pubnub.unsubscribe({
+                    channel: "blah" + String(G.CurrentBlah.id)
+                });
+                Exports.CurrentBlahPushChannel = null;
+            }
+        };
+
+
+        var HandleBlahChannelPresence = function(theMsg, thEnv, theChan) {
             var numFolks = G.GetSafeProperty(theMsg,"occupancy",1 );
-            UpdateChannelCount(numFolks);
-        }
+            UpdateBlahChannelCount(numFolks);
+        };
+
+
+        var UpdateBlahChannelCount = function(theCount) {
+            var theString = " people";
+            if (theCount == 1)
+                theString = " person";
+            $(".channel-presence-count").text(theCount + theString + " reading this post").slideDown(200).delay(2000).slideUp(500);
+        };
+
+        var HandleChannelPresence = function(theMsg, thEnv, theChan) {
+            if ((Exports.CurrentBlahPushChannel == null) &&
+                (CurrentPushChannel == theChan)) {
+                var numFolks = G.GetSafeProperty(theMsg, "occupancy", 1);
+                UpdateChannelCount(numFolks);
+            }
+        };
+
+
 
         var UpdateChannelCount = function(theCount) {
             var theString = " people";
             if (theCount == 1)
                 theString = " person";
             $(".channel-presence-count").text(theCount + theString + " in channel").slideDown(200).delay(2000).slideUp(500);
-        }
+        };
 
         var UpdateChannelMessage = function(theMsg, env, channel) {
             if (channel == CurrentPushChannel) {
@@ -2537,6 +2580,7 @@ define('blahgua_base',
 
                 switch (action) {
                     case "openblah":
+                    case "blahactivity":
                         var curBlahId = G.GetSafeProperty(msgObj, "blahid", 0);
 
                         HighlightBlahActivity(curBlahId);
@@ -2561,6 +2605,10 @@ define('blahgua_base',
             PublishMessage("heard" + G.CurrentChannel._id, theMsg, null);
         };
 
+        var PublishBlahMessage = function(theMsg) {
+            PublishMessage("blah" + G.CurrentBlah._id, theMsg, null);
+        };
+
         var PublishOpenBlah = function(blahId) {
             var msg = new Object();
             var userId = 0;
@@ -2571,7 +2619,32 @@ define('blahgua_base',
             msg["blahid"] = blahId;
             msg["userid"] = userId;
             PublishChannelMessage(JSON.stringify(msg));
-        }
+        };
+
+        var PublishBlahActivity = function(blahId) {
+            var msg = new Object();
+            var userId = 0;
+            if (G.CurrentUser != null)
+                userId = G.CurrentUser._id;
+
+            msg["action"] = "blahactivity";
+            msg["blahid"] = blahId;
+            msg["userid"] = userId;
+            PublishChannelMessage(JSON.stringify(msg));
+        };
+
+        var PublishNewComment = function(commentId) {
+            PublishBlahActivity(G.CurrentBlah._id);
+            var msg = new Object();
+            var userId = 0;
+            if (G.CurrentUser != null)
+                userId = G.CurrentUser._id;
+
+            msg["action"] = "comment";
+            msg["commentid"] = commentId;
+            msg["userid"] = userId;
+            PublishBlahMessage(JSON.stringify(msg));
+        };
 
         var OnChannelViewersOK = function(numViewers) {
             $("#ChannelViewersCountText").html(G.GetSafeProperty(numViewers, "V", 0));
@@ -2705,11 +2778,15 @@ define('blahgua_base',
         Exports.SuggestUserSignIn = SuggestUserSignIn;
         Exports.OpenLoadedBlah = OpenLoadedBlah;
         Exports.SetCurrentChannelById = SetCurrentChannelbyID;
+        Exports.UpdateBlahViewer = UpdateBlahViewer;
+        Exports.PublishChannelMessage = PublishChannelMessage;
+        Exports.PublishBlahActivity = PublishBlahActivity;
+        Exports.PublishNewComment = PublishNewComment;
+
 
 
         return {
             InitializeBlahgua: InitializeBlahgua
-
         }
     });
 

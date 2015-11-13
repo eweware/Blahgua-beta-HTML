@@ -29,6 +29,11 @@ define('ExportFunctions',
         var SetCurrentChannelById = null;
         var GetBlahTypeClassFromId = null;
         var ShowMangeChannelsUI = null;
+        var UpdateBlahViewer = null;
+        var PublishChannelMessage = null;
+        var PublishBlahActivity = null;
+        var PublishNewComment = null;
+        var CurrentBlahPushChannel = null;
 
         return {
             ShowMangeChannelsUI: ShowMangeChannelsUI,
@@ -49,7 +54,12 @@ define('ExportFunctions',
             GetChannelNameFromID: GetChannelNameFromID ,
             OpenLoadedBlah: OpenLoadedBlah ,
             CurrentCommentText: CurrentCommentText,
-            SetCurrentChannelById: SetCurrentChannelById
+            SetCurrentChannelById: SetCurrentChannelById,
+            UpdateBlahViewer: UpdateBlahViewer,
+            PublishChannelMessage: PublishChannelMessage,
+            PublishBlahActivity: PublishBlahActivity,
+            PublishNewComment: PublishNewComment,
+            CurrentBlahPushChannel: CurrentBlahPushChannel
         }
     }
 );

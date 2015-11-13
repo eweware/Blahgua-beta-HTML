@@ -77,6 +77,11 @@ define('comments',
             }
         };
 
+        var InsertNewCommentById = function(commentId) {
+            blahgua_rest.GetComment(commentId, InsertNewComment, exports.OnFailure);
+
+        };
+
 
         var InsertNewComment = function(theComment) {
             // add the comment
@@ -412,7 +417,7 @@ define('comments',
                 } else {
                     G.CurrentBlah["C"] = 1;
                 }
-
+                exports.PublishNewComment(newComment._id);
                 OnSuccess(newComment);
 
             }, OnFailure);
@@ -431,6 +436,7 @@ define('comments',
                 G.CurrentComments[commentIndex]["uv"] = vote;
                 var newEl = createCommentElement(commentIndex, G.CurrentComments[commentIndex]);
                 targetDiv.innerHTML = newEl.innerHTML;
+                exports.PublishBlahActivity(G.CurrentBlah._id);
             }, exports.OnFailure);
         };
 
@@ -729,7 +735,8 @@ define('comments',
             DoAddComment: DoAddComment,
             SetCommentSort: SetCommentSort,
             UploadCommentImage: UploadCommentImage,
-            SetCommentFilter: SetCommentFilter
+            SetCommentFilter: SetCommentFilter,
+            InsertNewCommentById: InsertNewCommentById
         }
     }
 );

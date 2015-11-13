@@ -10,6 +10,7 @@ define('BlahDetailPage',
     ["globals", "ExportFunctions", "blahgua_restapi"],
     function (G, exports, blahgua_rest) {
 
+        var CurrentPageScriptObj = null;
 
         var InitializePage = function(whichPage) {
             // bind events
@@ -40,7 +41,41 @@ define('BlahDetailPage',
                 $("#BlahPageDiv").css({"bottom":"70px"});
             }
             G.BlahFullItem.curPage = "";    // ensure that we have the initial page blank
+            exports.UpdateBlahViewer(UpdateBlahChannelMessage);
             UpdateBlahPage();
+        };
+
+        var UpdateBlahChannelMessage = function(theMsg, env, channel) {
+            if (channel == exports.CurrentBlahPushChannel) {
+
+                var msgObj = JSON.parse(theMsg);
+                var action = G.GetSafeProperty(msgObj, "action", "none");
+
+
+                switch (action) {
+                    case "comment":
+                        var commentId = G.GetSafeProperty(msgObj, "commentid", 0);
+                        var userId = G.GetSafeProperty(msgObj, "userid", 0);
+                        if (userId != G.GetSafeProperty(G.CurrentUser, "_id", 0)) {
+                            UpdateForNewComment(commentId);
+                        }
+
+                        break;
+
+                }
+            }
+        };
+
+        var UpdateForNewComment = function(commentid) {
+            console.log("New comment - " + commentid);
+            switch (G.BlahFullItem.curPage) {
+                case "Overview":
+                case "Comments":
+                    if (CurrentPageScriptObj != null) {
+                        CurrentPageScriptObj.HandleNewComment(commentid);
+                    }
+                    break;
+            }
         }
 
         var UpdateBlahPage = function() {
@@ -177,6 +212,7 @@ define('BlahDetailPage',
                             $("#BlahDetailCommentsBtn").removeClass("BlahBtnSelected");
                             $("#BlahDetailStatsBtn").removeClass("BlahBtnSelected");
                             BodyDetails.InitializePage();
+                            CurrentPageScriptObj = BodyDetails;
                         });
                     })
                     break;
@@ -192,6 +228,7 @@ define('BlahDetailPage',
                             $("#BlahDetailCommentsBtn").addClass("BlahBtnSelected");
                             $("#BlahDetailStatsBtn").removeClass("BlahBtnSelected");
                             CommentDetails.InitializePage();
+                            CurrentPageScriptObj = CommentDetails;
                         });
                     });
                     break;
@@ -207,6 +244,7 @@ define('BlahDetailPage',
                             $("#BlahDetailCommentsBtn").removeClass("BlahBtnSelected");
                             $("#BlahDetailStatsBtn").addClass("BlahBtnSelected");
                             StatsDetails.InitializePage();
+                            CurrentPageScriptObj = StatsDetails;
                         });
                     });
                     break;

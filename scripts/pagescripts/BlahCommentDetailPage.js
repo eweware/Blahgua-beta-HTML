@@ -189,6 +189,10 @@ define('BlahCommentDetailPage',
 
         };
 
+        var HandleNewComment = function(commentId) {
+            comments.InsertNewCommentById(commentId);
+        };
+
         var UpdateBadgeArea = function() {
             if (G.IsUserLoggedIn) {
                 CreateAndAppendAnonPostHTML();
