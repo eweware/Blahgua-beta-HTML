@@ -45,10 +45,9 @@ define('BlahDetailPage',
             UpdateBlahPage();
         };
 
-        var UpdateBlahChannelMessage = function(theMsg, env, channel) {
+        var UpdateBlahChannelMessage = function(msgObj, env, channel) {
             if (channel == exports.CurrentBlahPushChannel) {
 
-                var msgObj = JSON.parse(theMsg);
                 var action = G.GetSafeProperty(msgObj, "action", "none");
 
 

@@ -46,7 +46,7 @@ define('blahgua_base',
 
             var opts = {
                 lines: 12, // The number of lines to draw
-                length: 4, // The length of each line
+                length: 4, // The lenƒgth of each line
                 width: 2, // The line thickness
                 radius: 2, // The radius of the inner circle
                 color: '#808080', // #rbg or #rrggbb
@@ -2571,10 +2571,10 @@ define('blahgua_base',
             $(".channel-presence-count").text(theCount + theString + " in channel").slideDown(200).delay(2000).slideUp(500);
         };
 
-        var UpdateChannelMessage = function(theMsg, env, channel) {
+        var UpdateChannelMessage = function(msgObj, env, channel) {
             if (channel == CurrentPushChannel) {
 
-                var msgObj = JSON.parse(theMsg);
+
                 var action = G.GetSafeProperty(msgObj, "action", "none");
 
 
@@ -2618,7 +2618,7 @@ define('blahgua_base',
             msg["action"] = "openblah";
             msg["blahid"] = blahId;
             msg["userid"] = userId;
-            PublishChannelMessage(JSON.stringify(msg));
+            PublishChannelMessage(msg);
         };
 
         var PublishBlahActivity = function(blahId) {
@@ -2630,7 +2630,7 @@ define('blahgua_base',
             msg["action"] = "blahactivity";
             msg["blahid"] = blahId;
             msg["userid"] = userId;
-            PublishChannelMessage(JSON.stringify(msg));
+            PublishChannelMessage(msg);
         };
 
         var PublishNewComment = function(commentId) {
@@ -2643,7 +2643,7 @@ define('blahgua_base',
             msg["action"] = "comment";
             msg["commentid"] = commentId;
             msg["userid"] = userId;
-            PublishBlahMessage(JSON.stringify(msg));
+            PublishBlahMessage(msg);
         };
 
         var OnChannelViewersOK = function(numViewers) {
